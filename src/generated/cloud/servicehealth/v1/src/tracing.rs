@@ -22,6 +22,8 @@ where
     T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> ServiceHealth<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,75 +43,171 @@ impl<T> super::stub::ServiceHealth for ServiceHealth<T>
 where
     T: super::stub::ServiceHealth + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_events(
         &self,
         req: crate::model::ListEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEventsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::list_events",
+                self.inner.list_events(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_events(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_event(
         &self,
         req: crate::model::GetEventRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Event>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::get_event",
+                self.inner.get_event(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_event(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_organization_events(
         &self,
         req: crate::model::ListOrganizationEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListOrganizationEventsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::list_organization_events",
+                self.inner.list_organization_events(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_organization_events(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_organization_event(
         &self,
         req: crate::model::GetOrganizationEventRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::OrganizationEvent>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::get_organization_event",
+                self.inner.get_organization_event(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_organization_event(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_organization_impacts(
         &self,
         req: crate::model::ListOrganizationImpactsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListOrganizationImpactsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::list_organization_impacts",
+                self.inner.list_organization_impacts(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_organization_impacts(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_organization_impact(
         &self,
         req: crate::model::GetOrganizationImpactRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::OrganizationImpact>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::get_organization_impact",
+                self.inner.get_organization_impact(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_organization_impact(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::list_locations",
+                self.inner.list_locations(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ServiceHealth::get_location",
+                self.inner.get_location(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "servicehealth";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "servicehealth";
+        info
+    });
 }

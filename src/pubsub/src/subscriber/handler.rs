@@ -16,7 +16,7 @@
 //!
 //! To acknowledge (ack) a message, you call [`Handler::ack()`].
 //!
-//! To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
+//! To reject (nack) a message, you call [`Handler::nack()`]. The
 //! message will be redelivered.
 //!
 //! # Example
@@ -29,7 +29,7 @@
 //!     Ok(_) => h.ack(),
 //!     Err(e) => {
 //!         println!("failed to process message: {e:?}");
-//!         drop(h);
+//!         h.nack();
 //!     }
 //!   }
 //! }
@@ -65,7 +65,7 @@ pub(super) enum Action {
 ///     Ok(_) => h.ack(),
 ///     Err(e) => {
 ///         println!("failed to process message: {e:?}");
-///         drop(h);
+///         h.nack();
 ///     }
 ///   }
 /// }
@@ -78,7 +78,7 @@ pub(super) enum Action {
 ///
 /// To acknowledge (ack) a message, you call [`Handler::ack()`].
 ///
-/// To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
+/// To reject (nack) a message, you call [`Handler::nack()`]. The
 /// service will redeliver the message.
 ///
 /// ## Exactly-once delivery
@@ -135,6 +135,28 @@ impl Handler {
         }
     }
 
+    /// Rejects the message associated with this handler.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_pubsub::model::Message;
+    /// # use google_cloud_pubsub::subscriber::handler::Handler;
+    /// fn on_message(m: Message, h: Handler) {
+    ///   println!("Received message: {m:?}");
+    ///   h.nack();
+    /// }
+    /// ```
+    ///
+    /// The message will be removed from this `Subscriber`'s lease management.
+    /// The service will redeliver this message, possibly to another client.
+    pub fn nack(self) {
+        match self {
+            Handler::AtLeastOnce(h) => h.nack(),
+            Handler::ExactlyOnce(h) => h.nack(),
+        }
+    }
+
     #[cfg(test)]
     pub(crate) fn ack_id(&self) -> &str {
         match self {
@@ -180,6 +202,27 @@ impl AtLeastOnce {
     pub fn ack(mut self) {
         if let Some(inner) = self.inner.take() {
             inner.ack();
+        }
+    }
+
+    /// Rejects the message associated with this handler.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// use google_cloud_pubsub::model::Message;
+    /// # use google_cloud_pubsub::subscriber::handler::AtLeastOnce;
+    /// fn on_message(m: Message, h: AtLeastOnce) {
+    ///   println!("Received message: {m:?}");
+    ///   h.nack();
+    /// }
+    /// ```
+    ///
+    /// The message will be removed from this `Subscriber`'s lease management.
+    /// The service will redeliver this message, possibly to another client.
+    pub fn nack(mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.nack();
         }
     }
 
@@ -232,6 +275,12 @@ impl ExactlyOnce {
     pub(crate) fn ack(mut self) {
         if let Some(inner) = self.inner.take() {
             inner.ack();
+        }
+    }
+
+    pub(crate) fn nack(mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.nack();
         }
     }
 
@@ -336,7 +385,7 @@ mod tests {
         let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
-        drop(h);
+        h.nack();
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, Action::Nack(test_id(1)));
 
@@ -364,7 +413,7 @@ mod tests {
         let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
-        drop(h);
+        h.nack();
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, Action::ExactlyOnceNack(test_id(1)));
 
@@ -390,7 +439,7 @@ mod tests {
         let h = AtLeastOnce::new(test_id(1), ack_tx);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
-        drop(h);
+        h.nack();
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, Action::Nack(test_id(1)));
 
@@ -487,6 +536,60 @@ mod tests {
 
     #[test]
     fn exactly_once_nack() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (_result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        h.nack();
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::ExactlyOnceNack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn handler_at_least_once_nack_on_drop() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::Nack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn handler_exactly_once_nack_on_drop() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (_result_tx, result_rx) = channel();
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx));
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::ExactlyOnceNack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn at_least_once_nack_on_drop() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = AtLeastOnce::new(test_id(1), ack_tx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::Nack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn exactly_once_nack_on_drop() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
         let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);

@@ -1088,6 +1088,7 @@ pub struct Backup {
     pub backup_type: crate::model::backup::Type,
 
     /// Volume full name of this backup belongs to.
+    /// Either source_volume or ontap_source should be provided.
     /// Format:
     /// `projects/{projects_id}/locations/{location}/volumes/{volume_id}`
     pub source_volume: std::string::String,
@@ -6599,6 +6600,472 @@ pub mod kms_config {
     }
 }
 
+/// Request message for `ExecuteOntapPost` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapPostRequest {
+    /// Required. The raw `JSON` body of the request.
+    /// The body should be in the format of the ONTAP resource.
+    /// For example:
+    ///
+    /// ```norust
+    /// {
+    ///   "body": {
+    ///     "field1": "value1",
+    ///     "field2": "value2",
+    ///   }
+    /// }
+    /// ```
+    pub body: std::option::Option<wkt::Struct>,
+
+    /// Required. The resource path of the ONTAP resource.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/storagePools/{storage_pool_id}/ontap/{ontap_resource_path}`.
+    /// For example:
+    /// `projects/123456789/locations/us-central1/storagePools/my-storage-pool/ontap/api/storage/volumes`.
+    pub ontap_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapPostRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapPostRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPostRequest;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPostRequest::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapPostRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPostRequest;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPostRequest::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapPostRequest::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ontap_path][crate::model::ExecuteOntapPostRequest::ontap_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPostRequest;
+    /// let x = ExecuteOntapPostRequest::new().set_ontap_path("example");
+    /// ```
+    pub fn set_ontap_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ontap_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapPostRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapPostRequest"
+    }
+}
+
+/// Response message for `ExecuteOntapPost` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapPostResponse {
+    /// The raw `JSON` body of the response.
+    pub body: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapPostResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapPostResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPostResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPostResponse::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapPostResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPostResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPostResponse::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapPostResponse::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapPostResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapPostResponse"
+    }
+}
+
+/// Request message for `ExecuteOntapGet` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapGetRequest {
+    /// Required. The resource path of the ONTAP resource.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/storagePools/{storage_pool_id}/ontap/{ontap_resource_path}`.
+    /// For example:
+    /// `projects/123456789/locations/us-central1/storagePools/my-storage-pool/ontap/api/storage/volumes`.
+    pub ontap_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapGetRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ontap_path][crate::model::ExecuteOntapGetRequest::ontap_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapGetRequest;
+    /// let x = ExecuteOntapGetRequest::new().set_ontap_path("example");
+    /// ```
+    pub fn set_ontap_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ontap_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapGetRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapGetRequest"
+    }
+}
+
+/// Response message for `ExecuteOntapGet` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapGetResponse {
+    /// The raw `JSON` body of the response.
+    pub body: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapGetResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapGetResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapGetResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapGetResponse::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapGetResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapGetResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapGetResponse::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapGetResponse::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapGetResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapGetResponse"
+    }
+}
+
+/// Request message for `ExecuteOntapDelete` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapDeleteRequest {
+    /// Required. The resource path of the ONTAP resource.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/storagePools/{storage_pool_id}/ontap/{ontap_resource_path}`.
+    /// For example:
+    /// `projects/123456789/locations/us-central1/storagePools/my-storage-pool/ontap/api/storage/volumes`.
+    pub ontap_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapDeleteRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ontap_path][crate::model::ExecuteOntapDeleteRequest::ontap_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapDeleteRequest;
+    /// let x = ExecuteOntapDeleteRequest::new().set_ontap_path("example");
+    /// ```
+    pub fn set_ontap_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ontap_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapDeleteRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapDeleteRequest"
+    }
+}
+
+/// Response message for `ExecuteOntapDelete` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapDeleteResponse {
+    /// The raw `JSON` body of the response.
+    pub body: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapDeleteResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapDeleteResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapDeleteResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapDeleteResponse::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapDeleteResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapDeleteResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapDeleteResponse::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapDeleteResponse::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapDeleteResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapDeleteResponse"
+    }
+}
+
+/// Request message for `ExecuteOntapPatch` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapPatchRequest {
+    /// Required. The raw `JSON` body of the request.
+    /// The body should be in the format of the ONTAP resource.
+    /// For example:
+    ///
+    /// ```norust
+    /// {
+    ///   "body": {
+    ///     "field1": "value1",
+    ///     "field2": "value2",
+    ///   }
+    /// }
+    /// ```
+    pub body: std::option::Option<wkt::Struct>,
+
+    /// Required. The resource path of the ONTAP resource.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/storagePools/{storage_pool_id}/ontap/{ontap_resource_path}`.
+    /// For example:
+    /// `projects/123456789/locations/us-central1/storagePools/my-storage-pool/ontap/api/storage/volumes`.
+    pub ontap_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapPatchRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapPatchRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPatchRequest;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPatchRequest::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapPatchRequest::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPatchRequest;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPatchRequest::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapPatchRequest::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ontap_path][crate::model::ExecuteOntapPatchRequest::ontap_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPatchRequest;
+    /// let x = ExecuteOntapPatchRequest::new().set_ontap_path("example");
+    /// ```
+    pub fn set_ontap_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ontap_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapPatchRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapPatchRequest"
+    }
+}
+
+/// Response message for `ExecuteOntapPatch` API.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteOntapPatchResponse {
+    /// The raw `JSON` body of the response.
+    pub body: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteOntapPatchResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [body][crate::model::ExecuteOntapPatchResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPatchResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPatchResponse::new().set_body(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_body<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [body][crate::model::ExecuteOntapPatchResponse::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ExecuteOntapPatchResponse;
+    /// use wkt::Struct;
+    /// let x = ExecuteOntapPatchResponse::new().set_or_clear_body(Some(Struct::default()/* use setters */));
+    /// let x = ExecuteOntapPatchResponse::new().set_or_clear_body(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.body = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteOntapPatchResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ExecuteOntapPatchResponse"
+    }
+}
+
 /// ListQuotaRulesRequest for listing quota rules.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -11505,10 +11972,14 @@ pub struct StoragePool {
 
     /// Optional. Type of the storage pool. This field is used to control whether
     /// the pool supports `FILE` based volumes only or `UNIFIED` (both `FILE` and
-    /// `BLOCK`) volumes or `UNIFIED_LARGE_CAPACITY` (both `FILE` and `BLOCK`)
-    /// volumes with large capacity. If not specified during creation, it defaults
-    /// to `FILE`.
+    /// `BLOCK`) volumes. If not specified during creation, it defaults to `FILE`.
     pub r#type: std::option::Option<crate::model::StoragePoolType>,
+
+    /// Optional. Mode of the storage pool. This field is used to control whether
+    /// the user can perform the ONTAP operations on the storage pool using the
+    /// GCNV ONTAP Mode APIs. If not specified during creation, it defaults to
+    /// `DEFAULT`.
+    pub mode: std::option::Option<crate::model::Mode>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11990,7 +12461,6 @@ impl StoragePool {
     /// use google_cloud_netapp_v1::model::StoragePoolType;
     /// let x0 = StoragePool::new().set_type(StoragePoolType::File);
     /// let x1 = StoragePool::new().set_type(StoragePoolType::Unified);
-    /// let x2 = StoragePool::new().set_type(StoragePoolType::UnifiedLargeCapacity);
     /// ```
     pub fn set_type<T>(mut self, v: T) -> Self
     where
@@ -12008,7 +12478,6 @@ impl StoragePool {
     /// use google_cloud_netapp_v1::model::StoragePoolType;
     /// let x0 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::File));
     /// let x1 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::Unified));
-    /// let x2 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::UnifiedLargeCapacity));
     /// let x_none = StoragePool::new().set_or_clear_type(None::<StoragePoolType>);
     /// ```
     pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
@@ -12016,6 +12485,41 @@ impl StoragePool {
         T: std::convert::Into<crate::model::StoragePoolType>,
     {
         self.r#type = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [mode][crate::model::StoragePool::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::Mode;
+    /// let x0 = StoragePool::new().set_mode(Mode::Default);
+    /// let x1 = StoragePool::new().set_mode(Mode::Ontap);
+    /// ```
+    pub fn set_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Mode>,
+    {
+        self.mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [mode][crate::model::StoragePool::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::Mode;
+    /// let x0 = StoragePool::new().set_or_clear_mode(Some(Mode::Default));
+    /// let x1 = StoragePool::new().set_or_clear_mode(Some(Mode::Ontap));
+    /// let x_none = StoragePool::new().set_or_clear_mode(None::<Mode>);
+    /// ```
+    pub fn set_or_clear_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Mode>,
+    {
+        self.mode = v.map(|x| x.into());
         self
     }
 }
@@ -12907,6 +13411,10 @@ pub struct Volume {
     /// Currently, only one block device is permitted per Volume.
     pub block_devices: std::vec::Vec<crate::model::BlockDevice>,
 
+    /// Output only. If this volume is a clone, this field contains details about
+    /// the clone.
+    pub clone_details: std::option::Option<crate::model::volume::CloneDetails>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13671,6 +14179,39 @@ impl Volume {
         self.block_devices = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [clone_details][crate::model::Volume::clone_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::volume::CloneDetails;
+    /// let x = Volume::new().set_clone_details(CloneDetails::default()/* use setters */);
+    /// ```
+    pub fn set_clone_details<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::volume::CloneDetails>,
+    {
+        self.clone_details = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [clone_details][crate::model::Volume::clone_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::volume::CloneDetails;
+    /// let x = Volume::new().set_or_clear_clone_details(Some(CloneDetails::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_clone_details(None::<CloneDetails>);
+    /// ```
+    pub fn set_or_clear_clone_details<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::volume::CloneDetails>,
+    {
+        self.clone_details = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Volume {
@@ -13683,6 +14224,81 @@ impl wkt::message::Message for Volume {
 pub mod volume {
     #[allow(unused_imports)]
     use super::*;
+
+    /// Details about a clone volume.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CloneDetails {
+        /// Output only. Specifies the full resource name of the source snapshot from
+        /// which this volume was cloned. Format:
+        /// projects/{project}/locations/{location}/volumes/{volume}/snapshots/{snapshot}
+        pub source_snapshot: std::string::String,
+
+        /// Output only. Full name of the source volume resource.
+        /// Format:
+        /// projects/{project}/locations/{location}/volumes/{volume}
+        pub source_volume: std::string::String,
+
+        /// Output only. Shared space in GiB. Determined at volume creation time
+        /// based on size of source snapshot.
+        pub shared_space_gib: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloneDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [source_snapshot][crate::model::volume::CloneDetails::source_snapshot].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
+        /// let x = CloneDetails::new().set_source_snapshot("example");
+        /// ```
+        pub fn set_source_snapshot<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source_snapshot = v.into();
+            self
+        }
+
+        /// Sets the value of [source_volume][crate::model::volume::CloneDetails::source_volume].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
+        /// let x = CloneDetails::new().set_source_volume("example");
+        /// ```
+        pub fn set_source_volume<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.source_volume = v.into();
+            self
+        }
+
+        /// Sets the value of [shared_space_gib][crate::model::volume::CloneDetails::shared_space_gib].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_netapp_v1::model::volume::CloneDetails;
+        /// let x = CloneDetails::new().set_shared_space_gib(42);
+        /// ```
+        pub fn set_shared_space_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.shared_space_gib = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloneDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.netapp.v1.Volume.CloneDetails"
+        }
+    }
 
     /// The volume states
     ///
@@ -15495,8 +16111,10 @@ pub mod restore_parameters {
         /// projects/{project}/locations/{location}/volumes/{volume}/snapshots/{snapshot}
         SourceSnapshot(std::string::String),
         /// Full name of the backup resource.
-        /// Format:
+        /// Format for standard backup:
         /// projects/{project}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}
+        /// Format for BackupDR backup:
+        /// projects/{project}/locations/{location}/backupVaults/{backup_vault}/dataSources/{data_source}/backups/{backup}
         SourceBackup(std::string::String),
     }
 }
@@ -17370,6 +17988,116 @@ impl wkt::message::Message for RestoreBackupFilesResponse {
     }
 }
 
+/// EstablishVolumePeeringRequest establishes cluster and svm peerings between
+/// the source and destination clusters.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EstablishVolumePeeringRequest {
+    /// Required. The volume resource name, in the format
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
+    pub name: std::string::String,
+
+    /// Required. Name of the user's local source cluster to be peered with the
+    /// destination cluster.
+    pub peer_cluster_name: std::string::String,
+
+    /// Required. Name of the user's local source vserver svm to be peered with the
+    /// destination vserver svm.
+    pub peer_svm_name: std::string::String,
+
+    /// Optional. List of IPv4 ip addresses to be used for peering.
+    pub peer_ip_addresses: std::vec::Vec<std::string::String>,
+
+    /// Required. Name of the user's local source volume to be peered with the
+    /// destination volume.
+    pub peer_volume_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EstablishVolumePeeringRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::EstablishVolumePeeringRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
+    /// let x = EstablishVolumePeeringRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_cluster_name][crate::model::EstablishVolumePeeringRequest::peer_cluster_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
+    /// let x = EstablishVolumePeeringRequest::new().set_peer_cluster_name("example");
+    /// ```
+    pub fn set_peer_cluster_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_cluster_name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_svm_name][crate::model::EstablishVolumePeeringRequest::peer_svm_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
+    /// let x = EstablishVolumePeeringRequest::new().set_peer_svm_name("example");
+    /// ```
+    pub fn set_peer_svm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_svm_name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_ip_addresses][crate::model::EstablishVolumePeeringRequest::peer_ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
+    /// let x = EstablishVolumePeeringRequest::new().set_peer_ip_addresses(["a", "b", "c"]);
+    /// ```
+    pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [peer_volume_name][crate::model::EstablishVolumePeeringRequest::peer_volume_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::EstablishVolumePeeringRequest;
+    /// let x = EstablishVolumePeeringRequest::new().set_peer_volume_name("example");
+    /// ```
+    pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_volume_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EstablishVolumePeeringRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.EstablishVolumePeeringRequest"
+    }
+}
+
 /// The service level of a storage pool and its volumes.
 ///
 /// # Working with unknown values
@@ -17929,8 +18657,6 @@ pub enum StoragePoolType {
     File,
     /// Storage pool type is unified.
     Unified,
-    /// Storage pool type is unified large capacity.
-    UnifiedLargeCapacity,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [StoragePoolType::value] or
@@ -17956,7 +18682,6 @@ impl StoragePoolType {
             Self::Unspecified => std::option::Option::Some(0),
             Self::File => std::option::Option::Some(1),
             Self::Unified => std::option::Option::Some(2),
-            Self::UnifiedLargeCapacity => std::option::Option::Some(3),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -17970,7 +18695,6 @@ impl StoragePoolType {
             Self::Unspecified => std::option::Option::Some("STORAGE_POOL_TYPE_UNSPECIFIED"),
             Self::File => std::option::Option::Some("FILE"),
             Self::Unified => std::option::Option::Some("UNIFIED"),
-            Self::UnifiedLargeCapacity => std::option::Option::Some("UNIFIED_LARGE_CAPACITY"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -17995,7 +18719,6 @@ impl std::convert::From<i32> for StoragePoolType {
             0 => Self::Unspecified,
             1 => Self::File,
             2 => Self::Unified,
-            3 => Self::UnifiedLargeCapacity,
             _ => Self::UnknownValue(storage_pool_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -18010,7 +18733,6 @@ impl std::convert::From<&str> for StoragePoolType {
             "STORAGE_POOL_TYPE_UNSPECIFIED" => Self::Unspecified,
             "FILE" => Self::File,
             "UNIFIED" => Self::Unified,
-            "UNIFIED_LARGE_CAPACITY" => Self::UnifiedLargeCapacity,
             _ => Self::UnknownValue(storage_pool_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -18027,7 +18749,6 @@ impl serde::ser::Serialize for StoragePoolType {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::File => serializer.serialize_i32(1),
             Self::Unified => serializer.serialize_i32(2),
-            Self::UnifiedLargeCapacity => serializer.serialize_i32(3),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -18456,6 +19177,139 @@ impl<'de> serde::de::Deserialize<'de> for OsType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<OsType>::new(
             ".google.cloud.netapp.v1.OsType",
+        ))
+    }
+}
+
+/// `Mode` of the storage pool or volume. This field is used to control whether
+/// the resource is managed by the GCNV APIs or the GCNV ONTAP Mode APIs.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum Mode {
+    /// The `Mode` is not specified.
+    Unspecified,
+    /// The resource is managed by the GCNV APIs.
+    Default,
+    /// The resource is managed by the GCNV ONTAP Mode APIs.
+    Ontap,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [Mode::value] or
+    /// [Mode::name].
+    UnknownValue(mode::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod mode {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl Mode {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Default => std::option::Option::Some(1),
+            Self::Ontap => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+            Self::Default => std::option::Option::Some("DEFAULT"),
+            Self::Ontap => std::option::Option::Some("ONTAP"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for Mode {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for Mode {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for Mode {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Default,
+            2 => Self::Ontap,
+            _ => Self::UnknownValue(mode::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for Mode {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "MODE_UNSPECIFIED" => Self::Unspecified,
+            "DEFAULT" => Self::Default,
+            "ONTAP" => Self::Ontap,
+            _ => Self::UnknownValue(mode::UnknownValue(wkt::internal::UnknownEnumValue::String(
+                value.to_string(),
+            ))),
+        }
+    }
+}
+
+impl serde::ser::Serialize for Mode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Default => serializer.serialize_i32(1),
+            Self::Ontap => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for Mode {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+            ".google.cloud.netapp.v1.Mode",
         ))
     }
 }

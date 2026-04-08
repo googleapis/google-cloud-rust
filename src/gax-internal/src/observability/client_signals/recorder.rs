@@ -12,14 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
+use crate::observability::attributes::GCP_CLIENT_REPO_GOOGLEAPIS;
+#[cfg(feature = "_internal-http-client")]
+use crate::observability::attributes::RPC_SYSTEM_HTTP;
 #[cfg(feature = "_internal-http-client")]
 use crate::observability::http_tracing::sanitize_url;
 use crate::options::InstrumentationClientInfo;
-#[cfg(feature = "_internal-http-client")]
 use google_cloud_gax::error::Error;
+use http::Method;
 use http::Uri;
-use reqwest::Method;
 use std::future::Future;
 use std::net::SocketAddr;
 use std::sync::{Arc, Mutex};
@@ -81,7 +82,7 @@ tokio::task_local! {
 /// ```
 ///
 /// [ReqwestClient]: crate::http::ReqwestClient
-/// [GrpcClient]: crate::grpc::GrpcClient
+/// [GrpcClient]: crate::grpc::Client
 #[derive(Clone, Debug)]
 pub struct RequestRecorder {
     inner: Arc<Mutex<ClientSnapshot>>,
@@ -168,6 +169,8 @@ impl RequestRecorder {
             http_method: Some(request.method().clone()),
             http_status_code: None,
             url: Some(sanitize_url(request.url()).to_string()),
+            http_response_body_size: None,
+            url_scheme: Some(request.url().scheme().to_string()),
         };
         guard.transport_snapshot = Some(snapshot);
     }
@@ -183,12 +186,48 @@ impl RequestRecorder {
         if let Some(s) = guard.transport_snapshot.as_mut() {
             s.network_peer_address = response.remote_addr();
             s.http_status_code = Some(response.status().as_u16());
+            s.http_response_body_size = response
+                .headers()
+                .get(http::header::CONTENT_LENGTH)
+                .and_then(|v| v.to_str().ok())
+                .and_then(|v| v.parse::<i64>().ok());
         }
     }
 
     /// Call when it was not possible to send an HTTP request.
     #[cfg(feature = "_internal-http-client")]
     pub fn on_http_error(&self, _err: &Error) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        guard.attempt_count += 1;
+    }
+
+    /// Call before issuing a gRPC request to capture its data.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_request(&self, path: &http::uri::PathAndQuery) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        let snapshot = TransportSnapshot {
+            start: Instant::now(),
+            network_peer_address: None,
+            rpc_system: Some("grpc"),
+            http_method: Some(Method::POST),
+            http_status_code: None,
+            url: Some(path.as_str().to_string()),
+            http_response_body_size: None,
+            url_scheme: None,
+        };
+        guard.transport_snapshot = Some(snapshot);
+    }
+
+    /// Call when receiving a gRPC response to capture its data.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_response(&self) {
+        let mut guard = self.inner.lock().expect("never poisoned");
+        guard.attempt_count += 1;
+    }
+
+    /// Call when it was not possible to send a gRPC request.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub fn on_grpc_error(&self, _err: &google_cloud_gax::error::Error) {
         let mut guard = self.inner.lock().expect("never poisoned");
         guard.attempt_count += 1;
     }
@@ -265,6 +304,11 @@ impl ClientSnapshot {
     /// authentication tokens.
     pub fn client_duration(&self) -> Duration {
         self.start.elapsed()
+    }
+
+    /// Returns the transport attempt duration.
+    pub fn transport_duration(&self) -> Option<std::time::Duration> {
+        self.transport_snapshot.as_ref().map(|s| s.start.elapsed())
     }
 
     /// Returns the default host (e.g. `storage.googleapis.com`).
@@ -380,7 +424,16 @@ impl ClientSnapshot {
     pub fn http_method(&self) -> Option<&str> {
         self.transport_snapshot
             .as_ref()
-            .and_then(|s| s.http_method.as_ref().map(|m| m.as_str()))
+            .and_then(|s| s.http_method.as_ref().map(|m: &http::Method| m.as_str()))
+    }
+
+    /// Returns the HTTP response body size (Content-Length) returned in the last request.
+    ///
+    /// Use with the "http.response.body_size" attribute.
+    pub fn http_response_body_size(&self) -> Option<i64> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.http_response_body_size)
     }
 
     /// Returns the "resend count" of the last request, if it was a retry.
@@ -426,6 +479,13 @@ impl ClientSnapshot {
             .and_then(|s| s.network_peer_address)
             .map(|a| a.port() as i64)
     }
+
+    /// Returns the URL scheme.
+    pub fn url_scheme(&self) -> Option<&str> {
+        self.transport_snapshot
+            .as_ref()
+            .and_then(|s| s.url_scheme.as_deref())
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -437,6 +497,8 @@ pub struct TransportSnapshot {
     http_method: Option<Method>,
     http_status_code: Option<u16>,
     url: Option<String>,
+    http_response_body_size: Option<i64>,
+    url_scheme: Option<String>,
 }
 
 #[cfg(test)]
@@ -678,5 +740,41 @@ mod tests {
         tokio::time::sleep(DURATION).await;
         let snap = recorder.client_snapshot();
         assert_eq!(snap.client_duration(), DURATION, "{snap:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn transport_duration() -> anyhow::Result<()> {
+        const DURATION: Duration = Duration::from_millis(123456);
+        let recorder = RequestRecorder::new(TEST_INFO);
+
+        let url = reqwest::Url::parse("https://example.com")?;
+        let request = reqwest::Request::new(reqwest::Method::GET, url);
+        recorder.on_http_request(&request);
+
+        tokio::time::sleep(DURATION).await;
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.transport_duration(), Some(DURATION), "{snap:?}");
+        Ok(())
+    }
+
+    #[test]
+    fn http_resend_count() {
+        let recorder = RequestRecorder::new(TEST_INFO);
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), None);
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            guard.attempt_count = 1;
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), None);
+
+        {
+            let mut guard = recorder.inner.lock().expect("never poisoned");
+            guard.attempt_count = 2;
+        }
+        let snap = recorder.client_snapshot();
+        assert_eq!(snap.http_resend_count(), Some(1));
     }
 }

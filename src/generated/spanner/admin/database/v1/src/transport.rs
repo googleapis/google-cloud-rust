@@ -34,7 +34,15 @@ impl std::fmt::Debug for DatabaseAdmin {
 
 impl DatabaseAdmin {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,12 +70,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/databases", var_parent,);
+                let path_template = "/v1/{parent}/databases";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -88,6 +98,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/ListDatabases")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -110,7 +129,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -122,10 +141,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/databases", var_parent,);
+                let path_template = "/v1/{parent}/databases";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -146,6 +167,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/CreateDatabase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -168,7 +198,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -182,10 +212,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -208,6 +240,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/GetDatabase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -230,7 +271,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_database_name = try_match(
                     Some(&req)
@@ -247,6 +288,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_database_name,);
+                let path_template = "/v1/{database.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -262,7 +304,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -288,6 +330,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/UpdateDatabase")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -310,7 +360,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
                     Some(&req).map(|m| &m.database).map(|s| s.as_str()),
@@ -324,10 +374,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/ddl", var_database,);
+                let path_template = "/v1/{database}/ddl";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -350,6 +402,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/UpdateDatabaseDdl",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -372,7 +435,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
                     Some(&req).map(|m| &m.database).map(|s| s.as_str()),
@@ -386,10 +449,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_database,);
+                let path_template = "/v1/{database}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -412,6 +477,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/DropDatabase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,7 +514,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
                     Some(&req).map(|m| &m.database).map(|s| s.as_str()),
@@ -454,10 +528,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/ddl", var_database,);
+                let path_template = "/v1/{database}/ddl";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -480,6 +556,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/GetDatabaseDdl")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -502,7 +587,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -516,10 +601,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -534,10 +621,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -554,10 +643,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -616,6 +707,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -638,7 +738,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -652,10 +752,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -670,10 +772,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -690,10 +794,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -752,6 +858,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -774,7 +889,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -788,10 +903,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -806,10 +923,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -826,10 +945,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -846,10 +967,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -927,6 +1050,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/TestIamPermissions",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -949,7 +1083,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -961,7 +1095,9 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backups", var_parent,);
+                let path_template = "/v1/{parent}/backups";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = builder.query(&[("backupId", &req.backup_id)]);
@@ -977,7 +1113,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -998,6 +1134,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/CreateBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1020,7 +1165,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1032,10 +1177,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backups:copy", var_parent,);
+                let path_template = "/v1/{parent}/backups:copy";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1056,6 +1203,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/CopyBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1078,7 +1234,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1092,10 +1248,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1118,6 +1276,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/GetBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1140,7 +1307,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_backup_name = try_match(
                     Some(&req)
@@ -1157,6 +1324,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_backup_name,);
+                let path_template = "/v1/{backup.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1172,7 +1340,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1198,6 +1366,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/UpdateBackup")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1220,7 +1396,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1234,10 +1410,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1260,6 +1438,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/DeleteBackup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1288,7 +1475,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1300,13 +1487,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backups", var_parent,);
+                let path_template = "/v1/{parent}/backups";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1327,6 +1516,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/ListBackups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1349,7 +1547,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1361,10 +1559,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/databases:restore", var_parent,);
+                let path_template = "/v1/{parent}/databases:restore";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1385,6 +1585,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/RestoreDatabase",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1407,7 +1618,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1419,13 +1630,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/databaseOperations", var_parent,);
+                let path_template = "/v1/{parent}/databaseOperations";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1446,6 +1659,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/ListDatabaseOperations",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,7 +1692,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1480,13 +1704,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backupOperations", var_parent,);
+                let path_template = "/v1/{parent}/backupOperations";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1507,6 +1733,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/ListBackupOperations",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1529,7 +1766,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1543,12 +1780,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/databaseRoles", var_parent,);
+                let path_template = "/v1/{parent}/databaseRoles";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1571,6 +1810,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/ListDatabaseRoles",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1593,7 +1843,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_database = try_match(
                     Some(&req).map(|m| &m.database).map(|s| s.as_str()),
@@ -1607,10 +1857,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:addSplitPoints", var_database,);
+                let path_template = "/v1/{database}:addSplitPoints";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_database,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1633,6 +1885,15 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.spanner.admin.database.v1.DatabaseAdmin/AddSplitPoints")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1655,7 +1916,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1669,11 +1930,13 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backupSchedules", var_parent,);
+                let path_template = "/v1/{parent}/backupSchedules";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("backupScheduleId", &req.backup_schedule_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1696,6 +1959,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/CreateBackupSchedule",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1718,7 +1992,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1734,10 +2008,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1762,6 +2038,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/GetBackupSchedule",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1784,7 +2071,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_backup_schedule_name = try_match(
                     Some(&req)
@@ -1803,6 +2090,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_backup_schedule_name,);
+                let path_template = "/v1/{backup_schedule.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1818,7 +2106,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1846,6 +2134,16 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/UpdateBackupSchedule",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1868,7 +2166,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1884,10 +2182,12 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1912,6 +2212,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/DeleteBackupSchedule",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1940,7 +2251,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1954,12 +2265,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}/backupSchedules", var_parent,);
+                let path_template = "/v1/{parent}/backupSchedules";
 
+                let resource_name = format!("//spanner.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1982,6 +2295,17 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.spanner.admin.database.v1.DatabaseAdmin/ListBackupSchedules",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2004,7 +2328,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2019,6 +2343,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2027,7 +2352,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2041,6 +2366,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2049,7 +2375,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2065,6 +2391,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2073,7 +2400,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2087,6 +2414,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2095,7 +2423,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2169,6 +2497,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2191,7 +2527,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2207,10 +2543,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2225,10 +2562,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2245,10 +2583,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2263,10 +2602,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2344,6 +2684,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2366,7 +2714,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2382,10 +2730,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2400,10 +2749,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2420,10 +2770,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2438,10 +2789,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2519,6 +2871,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2547,7 +2907,7 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2563,10 +2923,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2581,10 +2942,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2601,10 +2963,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2619,10 +2982,11 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2700,6 +3064,14 @@ impl super::stub::DatabaseAdmin for DatabaseAdmin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

@@ -61,6 +61,31 @@ impl std::fmt::Debug for super::AdvancedVoiceOptions {
             &self.low_latency_journey_synthesis,
         );
         debug_struct.field("relax_safety_filters", &self.relax_safety_filters);
+        debug_struct.field("safety_settings", &self.safety_settings);
+        debug_struct.field("enable_textnorm", &self.enable_textnorm);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::advanced_voice_options::SafetySetting {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SafetySetting");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("threshold", &self.threshold);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::advanced_voice_options::SafetySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SafetySettings");
+        debug_struct.field("settings", &self.settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -254,6 +279,7 @@ impl std::fmt::Debug for super::StreamingSynthesizeConfig {
         debug_struct.field("voice", &self.voice);
         debug_struct.field("streaming_audio_config", &self.streaming_audio_config);
         debug_struct.field("custom_pronunciations", &self.custom_pronunciations);
+        debug_struct.field("advanced_voice_options", &self.advanced_voice_options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

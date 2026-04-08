@@ -305,7 +305,7 @@ git ls-files -z -- \
 We use `typos` to detect typos. Install with:
 
 ```bash
-cargo install typos-cli
+cargo install --locked typos-cli@1.45.0
 ```
 
 ### Format Markdown files

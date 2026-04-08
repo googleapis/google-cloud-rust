@@ -565,12 +565,13 @@ pub(crate) struct Oauth2RefreshResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
+    use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
         get_token_type_from_headers,
     };
-    use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
     use http::StatusCode;

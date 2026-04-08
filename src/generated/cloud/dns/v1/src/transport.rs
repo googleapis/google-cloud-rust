@@ -34,7 +34,15 @@ impl std::fmt::Debug for Changes {
 
 impl Changes {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -64,13 +72,15 @@ impl super::stub::Changes for Changes {
                     "/dns/v1/projects/{}/managedZones/{}/changes",
                     var_project, var_managed_zone,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/changes";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -92,6 +102,14 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".changes/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -114,7 +132,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -132,13 +150,15 @@ impl super::stub::Changes for Changes {
                     "/dns/v1/projects/{}/managedZones/{}/changes/{}",
                     var_project, var_managed_zone, var_change_id,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/changes/{change_id}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -166,6 +186,14 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".changes/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -188,7 +216,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -202,6 +230,8 @@ impl super::stub::Changes for Changes {
                     "/dns/v1/projects/{}/managedZones/{}/changes",
                     var_project, var_managed_zone,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/changes";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -221,7 +251,7 @@ impl super::stub::Changes for Changes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("sortOrder", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -243,6 +273,14 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".changes/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -272,7 +310,15 @@ impl std::fmt::Debug for DnsKeys {
 
 impl DnsKeys {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -288,7 +334,7 @@ impl super::stub::DnsKeys for DnsKeys {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -306,6 +352,8 @@ impl super::stub::DnsKeys for DnsKeys {
                     "/dns/v1/projects/{}/managedZones/{}/dnsKeys/{}",
                     var_project, var_managed_zone, var_dns_key_id,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/dnsKeys/{dns_key_id}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -316,7 +364,7 @@ impl super::stub::DnsKeys for DnsKeys {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("digestType", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -344,6 +392,14 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".dnsKeys/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -366,7 +422,7 @@ impl super::stub::DnsKeys for DnsKeys {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -380,6 +436,8 @@ impl super::stub::DnsKeys for DnsKeys {
                     "/dns/v1/projects/{}/managedZones/{}/dnsKeys",
                     var_project, var_managed_zone,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/dnsKeys";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -395,7 +453,7 @@ impl super::stub::DnsKeys for DnsKeys {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -417,6 +475,14 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".dnsKeys/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -446,7 +512,15 @@ impl std::fmt::Debug for ManagedZoneOperations {
 
 impl ManagedZoneOperations {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -462,7 +536,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -480,13 +554,15 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                     "/dns/v1/projects/{}/managedZones/{}/operations/{}",
                     var_project, var_managed_zone, var_operation,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/operations/{operation}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -514,6 +590,14 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZoneOperations/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -536,7 +620,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -550,6 +634,8 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                     "/dns/v1/projects/{}/managedZones/{}/operations",
                     var_project, var_managed_zone,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -565,7 +651,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("sortBy", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -587,6 +673,14 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZoneOperations/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -616,7 +710,15 @@ impl std::fmt::Debug for ManagedZones {
 
 impl ManagedZones {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -632,20 +734,21 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
+                let path_template = "/dns/v1/projects/{project}/managedZones";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -661,6 +764,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -683,7 +794,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -697,13 +808,14 @@ impl super::stub::ManagedZones for ManagedZones {
                     "/dns/v1/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -725,6 +837,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/delete")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -753,7 +873,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -767,13 +887,14 @@ impl super::stub::ManagedZones for ManagedZones {
                     "/dns/v1/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -795,6 +916,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -817,17 +946,18 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                 )?;
                 let path = format!("/dns/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/dns/v1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -843,6 +973,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/getIamPolicy")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -865,13 +1003,14 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
+                let path_template = "/dns/v1/projects/{project}/managedZones";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -887,7 +1026,7 @@ impl super::stub::ManagedZones for ManagedZones {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -903,6 +1042,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -925,7 +1072,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -939,13 +1086,14 @@ impl super::stub::ManagedZones for ManagedZones {
                     "/dns/v1/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -967,6 +1115,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/patch")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -989,17 +1145,18 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                 )?;
                 let path = format!("/dns/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/dns/v1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1015,6 +1172,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/setIamPolicy")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1037,17 +1202,18 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[Segment::MultiWildcard],
                 )?;
                 let path = format!("/dns/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/dns/v1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1063,6 +1229,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/testIamPermissions")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1085,7 +1259,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1099,13 +1273,14 @@ impl super::stub::ManagedZones for ManagedZones {
                     "/dns/v1/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1127,6 +1302,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/update")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1149,7 +1332,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1167,13 +1350,15 @@ impl super::stub::ManagedZones for ManagedZones {
                     "/dns/v1/projects/{}/managedZones/{}/operations/{}",
                     var_project, var_managed_zone, var_operation,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/operations/{operation}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1201,6 +1386,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".managedZones/getOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1244,7 +1437,15 @@ impl std::fmt::Debug for Policies {
 
 impl Policies {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1260,20 +1461,21 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
+                let path_template = "/dns/v1/projects/{project}/policies";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1289,6 +1491,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1311,7 +1521,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1322,13 +1532,14 @@ impl super::stub::Policies for Policies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
+                let path_template = "/dns/v1/projects/{project}/policies/{policy}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1350,6 +1561,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/delete")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1378,7 +1597,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1389,13 +1608,14 @@ impl super::stub::Policies for Policies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
+                let path_template = "/dns/v1/projects/{project}/policies/{policy}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1417,6 +1637,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1439,13 +1667,14 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
+                let path_template = "/dns/v1/projects/{project}/policies";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1457,7 +1686,7 @@ impl super::stub::Policies for Policies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1473,6 +1702,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1495,7 +1732,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1506,13 +1743,14 @@ impl super::stub::Policies for Policies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
+                let path_template = "/dns/v1/projects/{project}/policies/{policy}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1534,6 +1772,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/patch")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1556,7 +1802,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1567,13 +1813,14 @@ impl super::stub::Policies for Policies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
+                let path_template = "/dns/v1/projects/{project}/policies/{policy}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1595,6 +1842,14 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".policies/update")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1624,7 +1879,15 @@ impl std::fmt::Debug for Projects {
 
 impl Projects {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1640,20 +1903,21 @@ impl super::stub::Projects for Projects {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}", var_project,);
+                let path_template = "/dns/v1/projects/{project}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1669,6 +1933,14 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".projects/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1698,7 +1970,15 @@ impl std::fmt::Debug for ResourceRecordSets {
 
 impl ResourceRecordSets {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1714,7 +1994,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1728,13 +2008,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     "/dns/v1/projects/{}/managedZones/{}/rrsets",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}/rrsets";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1756,6 +2037,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".resourceRecordSets/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1778,7 +2067,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1800,13 +2089,15 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
                     var_project, var_managed_zone, var_name, var_type,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/rrsets/{name}/{type}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1840,6 +2131,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".resourceRecordSets/delete")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1862,7 +2161,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1884,13 +2183,15 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
                     var_project, var_managed_zone, var_name, var_type,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/rrsets/{name}/{type}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1924,6 +2225,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".resourceRecordSets/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1946,7 +2255,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1960,6 +2269,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     "/dns/v1/projects/{}/managedZones/{}/rrsets",
                     var_project, var_managed_zone,
                 );
+                let path_template = "/dns/v1/projects/{project}/managedZones/{managed_zone}/rrsets";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1983,7 +2293,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("type", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2005,6 +2315,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".resourceRecordSets/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2027,7 +2345,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2049,13 +2367,15 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
                     var_project, var_managed_zone, var_name, var_type,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/managedZones/{managed_zone}/rrsets/{name}/{type}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2089,6 +2409,14 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".resourceRecordSets/patch")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2118,7 +2446,15 @@ impl std::fmt::Debug for ResponsePolicies {
 
 impl ResponsePolicies {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2134,20 +2470,21 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
+                let path_template = "/dns/v1/projects/{project}/responsePolicies";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2163,6 +2500,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2185,7 +2530,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2199,13 +2544,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     "/dns/v1/projects/{}/responsePolicies/{}",
                     var_project, var_response_policy,
                 );
+                let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2227,6 +2573,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/delete")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2255,7 +2609,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2269,13 +2623,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     "/dns/v1/projects/{}/responsePolicies/{}",
                     var_project, var_response_policy,
                 );
+                let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2297,6 +2652,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2319,13 +2682,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
+                let path_template = "/dns/v1/projects/{project}/responsePolicies";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2337,7 +2701,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2353,6 +2717,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2375,7 +2747,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2389,13 +2761,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     "/dns/v1/projects/{}/responsePolicies/{}",
                     var_project, var_response_policy,
                 );
+                let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2417,6 +2790,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/patch")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2439,7 +2820,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2453,13 +2834,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     "/dns/v1/projects/{}/responsePolicies/{}",
                     var_project, var_response_policy,
                 );
+                let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2481,6 +2863,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicies/update")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2510,7 +2900,15 @@ impl std::fmt::Debug for ResponsePolicyRules {
 
 impl ResponsePolicyRules {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2526,7 +2924,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2540,13 +2938,15 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     "/dns/v1/projects/{}/responsePolicies/{}/rules",
                     var_project, var_response_policy,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2568,6 +2968,14 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/create")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2590,62 +2998,55 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy = try_match(Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy_rule = try_match(Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
+                var_project,
+                var_response_policy,
+                var_response_policy_rule,
+            );
+            let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules/{response_policy_rule}";
+
+            let builder = self.inner.builder(Method::DELETE, path);
+            let builder = req.client_operation_id.iter().fold(builder, |builder, p| builder.query(&[("clientOperationId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::DELETE, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy_rule = try_match(
-                    Some(&req)
-                        .map(|m| &m.response_policy_rule)
-                        .map(|s| s.as_str()),
+                    "response_policy",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    var_project, var_response_policy, var_response_policy_rule,
-                );
-
-                let builder = self.inner.builder(Method::DELETE, path);
-                let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
-                    builder.query(&[("clientOperationId", p)])
-                });
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy_rule",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "response_policy_rule",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/delete")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2674,62 +3075,55 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy = try_match(Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy_rule = try_match(Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
+                var_project,
+                var_response_policy,
+                var_response_policy_rule,
+            );
+            let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules/{response_policy_rule}";
+
+            let builder = self.inner.builder(Method::GET, path);
+            let builder = req.client_operation_id.iter().fold(builder, |builder, p| builder.query(&[("clientOperationId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::GET, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy_rule = try_match(
-                    Some(&req)
-                        .map(|m| &m.response_policy_rule)
-                        .map(|s| s.as_str()),
+                    "response_policy",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    var_project, var_response_policy, var_response_policy_rule,
-                );
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
-                    builder.query(&[("clientOperationId", p)])
-                });
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy_rule",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "response_policy_rule",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/get")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2752,7 +3146,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2766,6 +3160,8 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     "/dns/v1/projects/{}/responsePolicies/{}/rules",
                     var_project, var_response_policy,
                 );
+                let path_template =
+                    "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2777,7 +3173,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2799,6 +3195,14 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/list")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2821,62 +3225,55 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy = try_match(Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy_rule = try_match(Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
+                var_project,
+                var_response_policy,
+                var_response_policy_rule,
+            );
+            let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules/{response_policy_rule}";
+
+            let builder = self.inner.builder(Method::PATCH, path);
+            let builder = req.client_operation_id.iter().fold(builder, |builder, p| builder.query(&[("clientOperationId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy_rule = try_match(
-                    Some(&req)
-                        .map(|m| &m.response_policy_rule)
-                        .map(|s| s.as_str()),
+                    "response_policy",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    var_project, var_response_policy, var_response_policy_rule,
-                );
-
-                let builder = self.inner.builder(Method::PATCH, path);
-                let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
-                    builder.query(&[("clientOperationId", p)])
-                });
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy_rule",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "response_policy_rule",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/patch")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2899,62 +3296,55 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_project = try_match(
+        let (builder, method, _path_template) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy = try_match(Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_response_policy_rule = try_match(Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
+                var_project,
+                var_response_policy,
+                var_response_policy_rule,
+            );
+            let path_template = "/dns/v1/projects/{project}/responsePolicies/{response_policy}/rules/{response_policy_rule}";
+
+            let builder = self.inner.builder(Method::PUT, path);
+            let builder = req.client_operation_id.iter().fold(builder, |builder, p| builder.query(&[("clientOperationId", p)]));
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, Method::PUT, path_template)))
+        })
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy = try_match(
+                    "project",
+                    "*");
+                let builder = builder.maybe_add(
                     Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let var_response_policy_rule = try_match(
-                    Some(&req)
-                        .map(|m| &m.response_policy_rule)
-                        .map(|s| s.as_str()),
+                    "response_policy",
+                    "*");
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.response_policy_rule).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
-                )?;
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    var_project, var_response_policy, var_response_policy_rule,
-                );
-
-                let builder = self.inner.builder(Method::PUT, path);
-                let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
-                    builder.query(&[("clientOperationId", p)])
-                });
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
-            })
-            .ok_or_else(|| {
-                let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "project",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy",
-                        "*",
-                    );
-                    let builder = builder.maybe_add(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
-                        "response_policy_rule",
-                        "*",
-                    );
-                    paths.push(builder.build());
-                }
-                google_cloud_gax::error::Error::binding(BindingError { paths })
-            })??;
+                    "response_policy_rule",
+                    "*");
+                paths.push(builder.build());
+            }
+            google_cloud_gax::error::Error::binding(BindingError { paths })
+        })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(".responsePolicyRules/update")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

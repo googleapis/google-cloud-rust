@@ -22,6 +22,8 @@ where
     T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> AdvisoryNotificationsService<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,39 +43,95 @@ impl<T> super::stub::AdvisoryNotificationsService for AdvisoryNotificationsServi
 where
     T: super::stub::AdvisoryNotificationsService + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_notifications(
         &self,
         req: crate::model::ListNotificationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListNotificationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::AdvisoryNotificationsService::list_notifications",
+                self.inner.list_notifications(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_notifications(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_notification(
         &self,
         req: crate::model::GetNotificationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Notification>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::AdvisoryNotificationsService::get_notification",
+                self.inner.get_notification(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_notification(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_settings(
         &self,
         req: crate::model::GetSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::AdvisoryNotificationsService::get_settings",
+                self.inner.get_settings(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_settings(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_settings(
         &self,
         req: crate::model::UpdateSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::AdvisoryNotificationsService::update_settings",
+                self.inner.update_settings(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_settings(req, options).await
     }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "advisorynotifications";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "advisorynotifications";
+        info
+    });
 }

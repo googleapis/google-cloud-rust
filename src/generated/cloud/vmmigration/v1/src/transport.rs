@@ -34,7 +34,15 @@ impl std::fmt::Debug for VmMigration {
 
 impl VmMigration {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,14 +70,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/sources", var_parent,);
+                let path_template = "/v1/{parent}/sources";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +100,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListSources")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +131,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -126,10 +145,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -152,6 +173,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetSource")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -174,7 +204,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -186,12 +216,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/sources", var_parent,);
+                let path_template = "/v1/{parent}/sources";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("sourceId", &req.source_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -212,6 +244,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateSource")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -234,7 +275,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_source_name = try_match(
                     Some(&req)
@@ -251,6 +292,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_source_name,);
+                let path_template = "/v1/{source.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -267,7 +309,7 @@ impl super::stub::VmMigration for VmMigration {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -293,6 +335,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/UpdateSource")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -315,7 +365,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -329,11 +379,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -356,6 +408,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/DeleteSource")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -378,7 +439,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_source = try_match(
                     Some(&req).map(|m| &m.source).map(|s| s.as_str()),
@@ -392,11 +453,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:fetchInventory", var_source,);
+                let path_template = "/v1/{source}:fetchInventory";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_source,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("forceRefresh", &req.force_refresh)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -419,6 +482,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/FetchInventory")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -441,7 +513,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_source = try_match(
                     Some(&req).map(|m| &m.source).map(|s| s.as_str()),
@@ -455,14 +527,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:fetchStorageInventory", var_source,);
+                let path_template = "/v1/{source}:fetchStorageInventory";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_source,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("type", &req.r#type)]);
                 let builder = builder.query(&[("forceRefresh", &req.force_refresh)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -485,6 +559,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/FetchStorageInventory")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -507,7 +590,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -521,7 +604,9 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/utilizationReports", var_parent,);
+                let path_template = "/v1/{parent}/utilizationReports";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -529,7 +614,7 @@ impl super::stub::VmMigration for VmMigration {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -552,6 +637,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/ListUtilizationReports",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -574,7 +670,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -590,11 +686,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -619,6 +717,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetUtilizationReport")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -641,7 +748,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -655,12 +762,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/utilizationReports", var_parent,);
+                let path_template = "/v1/{parent}/utilizationReports";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("utilizationReportId", &req.utilization_report_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -683,6 +792,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/CreateUtilizationReport",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -705,7 +825,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -721,11 +841,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -750,6 +872,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/DeleteUtilizationReport",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -772,7 +905,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -786,14 +919,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/datacenterConnectors", var_parent,);
+                let path_template = "/v1/{parent}/datacenterConnectors";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -816,6 +951,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/ListDatacenterConnectors",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -838,7 +984,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -854,10 +1000,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -882,6 +1030,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/GetDatacenterConnector",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -904,7 +1063,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -918,13 +1077,15 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/datacenterConnectors", var_parent,);
+                let path_template = "/v1/{parent}/datacenterConnectors";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("datacenterConnectorId", &req.datacenter_connector_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -947,6 +1108,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/CreateDatacenterConnector",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -969,7 +1141,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -985,11 +1157,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1014,6 +1188,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/DeleteDatacenterConnector",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1036,7 +1221,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_datacenter_connector = try_match(
                     Some(&req)
@@ -1054,10 +1239,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:upgradeAppliance", var_datacenter_connector,);
+                let path_template = "/v1/{datacenter_connector}:upgradeAppliance";
 
+                let resource_name =
+                    format!("//vmmigration.googleapis.com/{}", var_datacenter_connector,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1084,6 +1272,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/UpgradeAppliance")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1106,7 +1303,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1120,12 +1317,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/migratingVms", var_parent,);
+                let path_template = "/v1/{parent}/migratingVms";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("migratingVmId", &req.migrating_vm_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1148,6 +1347,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateMigratingVm")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1170,7 +1378,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1184,7 +1392,9 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/migratingVms", var_parent,);
+                let path_template = "/v1/{parent}/migratingVms";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -1192,7 +1402,7 @@ impl super::stub::VmMigration for VmMigration {
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1215,6 +1425,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListMigratingVms")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1237,7 +1456,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1253,11 +1472,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1282,6 +1503,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetMigratingVm")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1304,7 +1534,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_migrating_vm_name = try_match(
                     Some(&req)
@@ -1323,6 +1553,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_migrating_vm_name,);
+                let path_template = "/v1/{migrating_vm.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1339,7 +1570,7 @@ impl super::stub::VmMigration for VmMigration {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1367,6 +1598,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/UpdateMigratingVm")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1389,7 +1628,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1405,10 +1644,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1433,6 +1674,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/DeleteMigratingVm")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1455,7 +1705,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
                     Some(&req).map(|m| &m.migrating_vm).map(|s| s.as_str()),
@@ -1471,10 +1721,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:startMigration", var_migrating_vm,);
+                let path_template = "/v1/{migrating_vm}:startMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1499,6 +1751,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/StartMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1521,7 +1782,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
                     Some(&req).map(|m| &m.migrating_vm).map(|s| s.as_str()),
@@ -1537,10 +1798,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:resumeMigration", var_migrating_vm,);
+                let path_template = "/v1/{migrating_vm}:resumeMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1565,6 +1828,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ResumeMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1587,7 +1859,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
                     Some(&req).map(|m| &m.migrating_vm).map(|s| s.as_str()),
@@ -1603,10 +1875,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:pauseMigration", var_migrating_vm,);
+                let path_template = "/v1/{migrating_vm}:pauseMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1631,6 +1905,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/PauseMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1653,7 +1936,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
                     Some(&req).map(|m| &m.migrating_vm).map(|s| s.as_str()),
@@ -1669,10 +1952,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:finalizeMigration", var_migrating_vm,);
+                let path_template = "/v1/{migrating_vm}:finalizeMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1697,6 +1982,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/FinalizeMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1719,7 +2013,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_migrating_vm = try_match(
                     Some(&req).map(|m| &m.migrating_vm).map(|s| s.as_str()),
@@ -1735,10 +2029,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:extendMigration", var_migrating_vm,);
+                let path_template = "/v1/{migrating_vm}:extendMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_migrating_vm,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1763,6 +2059,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ExtendMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1785,7 +2090,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1801,12 +2106,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/cloneJobs", var_parent,);
+                let path_template = "/v1/{parent}/cloneJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("cloneJobId", &req.clone_job_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1831,6 +2138,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateCloneJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1853,7 +2169,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1871,10 +2187,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1901,6 +2219,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CancelCloneJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1923,7 +2250,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1939,14 +2266,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/cloneJobs", var_parent,);
+                let path_template = "/v1/{parent}/cloneJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1971,6 +2300,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListCloneJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1993,7 +2331,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2011,10 +2349,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2041,6 +2381,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetCloneJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2063,7 +2412,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2079,12 +2428,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/cutoverJobs", var_parent,);
+                let path_template = "/v1/{parent}/cutoverJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("cutoverJobId", &req.cutover_job_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2109,6 +2460,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateCutoverJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2131,7 +2491,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2149,10 +2509,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2179,6 +2541,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CancelCutoverJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2201,7 +2572,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2217,14 +2588,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/cutoverJobs", var_parent,);
+                let path_template = "/v1/{parent}/cutoverJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2249,6 +2622,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListCutoverJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2271,7 +2653,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2289,10 +2671,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2319,6 +2703,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetCutoverJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2341,7 +2734,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2353,14 +2746,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/groups", var_parent,);
+                let path_template = "/v1/{parent}/groups";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2381,6 +2776,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListGroups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2403,7 +2807,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2417,10 +2821,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2443,6 +2849,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2465,7 +2880,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2477,12 +2892,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/groups", var_parent,);
+                let path_template = "/v1/{parent}/groups";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("groupId", &req.group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2503,6 +2920,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2525,7 +2951,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_group_name = try_match(
                     Some(&req)
@@ -2542,6 +2968,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_group_name,);
+                let path_template = "/v1/{group.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2558,7 +2985,7 @@ impl super::stub::VmMigration for VmMigration {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2584,6 +3011,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/UpdateGroup")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2606,7 +3041,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2620,11 +3055,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2647,6 +3084,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/DeleteGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2669,7 +3115,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
                     Some(&req).map(|m| &m.group).map(|s| s.as_str()),
@@ -2683,10 +3129,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:addGroupMigration", var_group,);
+                let path_template = "/v1/{group}:addGroupMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2709,6 +3157,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/AddGroupMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2731,7 +3188,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_group = try_match(
                     Some(&req).map(|m| &m.group).map(|s| s.as_str()),
@@ -2745,10 +3202,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:removeGroupMigration", var_group,);
+                let path_template = "/v1/{group}:removeGroupMigration";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2771,6 +3230,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/RemoveGroupMigration")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2793,7 +3261,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2805,14 +3273,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/targetProjects", var_parent,);
+                let path_template = "/v1/{parent}/targetProjects";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2833,6 +3303,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListTargetProjects")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2855,7 +3334,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2869,10 +3348,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2895,6 +3376,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetTargetProject")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2917,7 +3407,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2929,12 +3419,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/targetProjects", var_parent,);
+                let path_template = "/v1/{parent}/targetProjects";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("targetProjectId", &req.target_project_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2955,6 +3447,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateTargetProject")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2977,7 +3478,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_target_project_name = try_match(
                     Some(&req)
@@ -2994,6 +3495,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_target_project_name,);
+                let path_template = "/v1/{target_project.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3010,7 +3512,7 @@ impl super::stub::VmMigration for VmMigration {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3036,6 +3538,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/UpdateTargetProject")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3058,7 +3568,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3072,11 +3582,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3099,6 +3611,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/DeleteTargetProject")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3121,7 +3642,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3137,14 +3658,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/replicationCycles", var_parent,);
+                let path_template = "/v1/{parent}/replicationCycles";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3169,6 +3692,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListReplicationCycles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3191,7 +3723,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3209,10 +3741,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3239,6 +3773,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetReplicationCycle")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3261,7 +3804,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3273,14 +3816,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/imageImports", var_parent,);
+                let path_template = "/v1/{parent}/imageImports";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3301,6 +3846,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListImageImports")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3323,7 +3877,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3337,10 +3891,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3363,6 +3919,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetImageImport")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3385,7 +3950,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3397,12 +3962,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/imageImports", var_parent,);
+                let path_template = "/v1/{parent}/imageImports";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("imageImportId", &req.image_import_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3423,6 +3990,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CreateImageImport")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3445,7 +4021,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3459,11 +4035,13 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3486,6 +4064,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/DeleteImageImport")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3508,7 +4095,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3522,14 +4109,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/imageImportJobs", var_parent,);
+                let path_template = "/v1/{parent}/imageImportJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3552,6 +4141,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListImageImportJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3574,7 +4172,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3590,10 +4188,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3618,6 +4218,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetImageImportJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3640,7 +4249,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3656,10 +4265,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3684,6 +4295,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/CancelImageImportJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3706,7 +4326,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3720,12 +4340,14 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/diskMigrationJobs", var_parent,);
+                let path_template = "/v1/{parent}/diskMigrationJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("diskMigrationJobId", &req.disk_migration_job_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3748,6 +4370,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/CreateDiskMigrationJob",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3770,7 +4403,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3784,14 +4417,16 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/diskMigrationJobs", var_parent,);
+                let path_template = "/v1/{parent}/diskMigrationJobs";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3814,6 +4449,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/ListDiskMigrationJobs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3836,7 +4480,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3852,10 +4496,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3880,6 +4526,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/GetDiskMigrationJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3902,7 +4557,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_disk_migration_job_name = try_match(
                     Some(&req)
@@ -3921,6 +4576,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_disk_migration_job_name,);
+                let path_template = "/v1/{disk_migration_job.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3937,7 +4593,7 @@ impl super::stub::VmMigration for VmMigration {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3965,6 +4621,16 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/UpdateDiskMigrationJob",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3987,7 +4653,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4003,10 +4669,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4031,6 +4699,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/DeleteDiskMigrationJob",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4053,7 +4732,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4069,10 +4748,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:run", var_name,);
+                let path_template = "/v1/{name}:run";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4097,6 +4778,15 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.vmmigration.v1.VmMigration/RunDiskMigrationJob")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4119,7 +4809,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4135,10 +4825,12 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
+                let resource_name = format!("//vmmigration.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4163,6 +4855,17 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.vmmigration.v1.VmMigration/CancelDiskMigrationJob",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4185,20 +4888,21 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4214,6 +4918,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4236,7 +4948,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4248,10 +4960,11 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4272,6 +4985,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4294,7 +5015,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4306,6 +5027,7 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4314,7 +5036,7 @@ impl super::stub::VmMigration for VmMigration {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4335,6 +5057,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4357,7 +5087,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4371,10 +5101,11 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4397,6 +5128,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4419,7 +5158,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4433,10 +5172,11 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4459,6 +5199,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4487,7 +5235,7 @@ impl super::stub::VmMigration for VmMigration {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4501,10 +5249,11 @@ impl super::stub::VmMigration for VmMigration {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4527,6 +5276,14 @@ impl super::stub::VmMigration for VmMigration {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

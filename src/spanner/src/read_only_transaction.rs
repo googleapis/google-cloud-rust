@@ -1153,6 +1153,103 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
+    async fn execute_multi_read() -> anyhow::Result<()> {
+        use super::super::result_set::tests::string_val;
+        use crate::client::{KeySet, ReadRequest};
+        use crate::value::Value;
+        use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+
+        let mut mock = create_session_mock();
+
+        // No explicit begin_transaction should be called.
+        mock.expect_begin_transaction().never();
+
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+
+                // First call: Should have Selector::Begin
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Begin(_) => {}
+                    _ => panic!("Expected Selector::Begin"),
+                }
+                let mut rs = setup_select1();
+                rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+                    id: vec![4, 5, 6],
+                    read_timestamp: Some(prost_types::Timestamp {
+                        seconds: 987654321,
+                        nanos: 0,
+                    }),
+                    ..Default::default()
+                });
+                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                    tokio_stream::iter(vec![Ok(rs)]),
+                )))
+            });
+
+        mock.expect_streaming_read()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |req| {
+                let req = req.into_inner();
+                // Second call: Should have Selector::Id using the ID returned in the first call
+                match req.transaction.unwrap().selector.unwrap() {
+                    mock_v1::transaction_selector::Selector::Id(id) => {
+                        assert_eq!(id, vec![4, 5, 6]);
+                    }
+                    _ => panic!("Expected Selector::Id"),
+                }
+                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                    tokio_stream::iter(vec![Ok(setup_select1())]),
+                )))
+            });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let tx = db_client
+            .read_only_transaction()
+            .with_explicit_begin_transaction(false)
+            .build()
+            .await?;
+
+        // The read timestamp is not available until the first query is executed.
+        assert!(tx.read_timestamp().is_none());
+
+        for i in 0..2 {
+            let read = ReadRequest::builder("Users", vec!["Id", "Name"])
+                .with_keys(KeySet::all())
+                .build();
+            let mut rs = tx.execute_read(read).await?;
+
+            let row = rs.next().await.expect("Expected a row")?;
+            assert_eq!(row.raw_values(), [Value(string_val("1"))]);
+
+            let result = rs.next().await;
+            assert!(result.is_none(), "Expected None, got {result:?}");
+
+            if i == 0 {
+                // Read timestamp becomes available.
+                assert_eq!(
+                    tx.read_timestamp()
+                        .expect("Expected read timestamp")
+                        .seconds(),
+                    987654321
+                );
+            }
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn inline_begin_failure_retry_success() -> anyhow::Result<()> {
         use crate::value::Value;
         use gaxi::grpc::tonic::Status;

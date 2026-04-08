@@ -60,6 +60,7 @@ default-members = [
 ]
 
 members = [
+  "demos/cloud-run-o11y",
   "guide/samples",
   "src/auth",
   "src/bigquery",
@@ -120,6 +121,7 @@ members = [
   "src/generated/cloud/billing/v1",
   "src/generated/cloud/binaryauthorization/v1",
   "src/generated/cloud/certificatemanager/v1",
+  "src/generated/cloud/ces/v1",
   "src/generated/cloud/chronicle/v1",
   "src/generated/cloud/cloudcontrolspartner/v1",
   "src/generated/cloud/clouddms/v1",
@@ -286,6 +288,7 @@ members = [
   "src/generated/type",
   "src/lro",
   "src/pubsub",
+  "src/pubsub/benchmarks/throughput",
   "src/pubsub/examples",
   "src/spanner",
   "src/spanner/grpc-mock",
@@ -367,15 +370,18 @@ crates_io_api         = { default-features = false, version = "0.12" }
 clap                  = { default-features = false, version = "4" }
 crc32c                = { default-features = false, version = "0.6.8" }
 futures               = { default-features = false, version = "0.3" }
+h2                    = { default-features = false, version = "0.4.13" }
 hex                   = { default-features = false, version = "0.4.3" }
 http                  = { default-features = false, version = "1.1", features = ["std"] }
 http-body             = { default-features = false, version = "1" }
 humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
+markdown              = { default-features = false, version = "1.0" }
 opentelemetry         = { default-features = false, version = "0.31" }
 opentelemetry-proto   = { default-features = false, version = "0.31" }
 opentelemetry_sdk     = { default-features = false, version = "0.31" }
+opentelemetry-http    = { default-features = false, version = "0.31" }
 opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
@@ -385,14 +391,14 @@ p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.41.0", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.37" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
-semver                = { default-features = false, version = "1.0.26" }
+semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.47.0" }
+tokio                 = { default-features = false, version = "1.48.0" }
 tokio-metrics         = { default-features = false, version = "0.4.9" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
@@ -460,8 +466,8 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.8.0", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.9.0", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.11", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+google-cloud-gax         = { default-features = false, version = "1.9.1", path = "src/gax" }
+gaxi                     = { default-features = false, version = "0.7.12", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.4.0", path = "src/generated/api/types" }

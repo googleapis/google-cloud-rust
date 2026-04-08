@@ -181,6 +181,17 @@ pub struct Instance {
     #[deprecated]
     pub allow_fewer_zones_deployment: bool,
 
+    /// Optional. Immutable. The Server CA mode for the instance.
+    pub server_ca_mode: std::option::Option<crate::model::instance::ServerCaMode>,
+
+    /// Optional. Immutable. The customer-managed CA pool for the instance. Only
+    /// applicable if the Server CA mode is CUSTOMER_MANAGED_CAS_CA. Format:
+    /// "projects/{project}/locations/{region}/caPools/{ca_pool}".
+    pub server_ca_pool: std::option::Option<std::string::String>,
+
+    /// Optional. Input only. Rotate the server certificates.
+    pub rotate_server_certificate: std::option::Option<bool>,
+
     /// The source to import from.
     pub import_sources: std::option::Option<crate::model::instance::ImportSources>,
 
@@ -1199,6 +1210,105 @@ impl Instance {
     #[deprecated]
     pub fn set_allow_fewer_zones_deployment<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_fewer_zones_deployment = v.into();
+        self
+    }
+
+    /// Sets the value of [server_ca_mode][crate::model::Instance::server_ca_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::ServerCaMode;
+    /// let x0 = Instance::new().set_server_ca_mode(ServerCaMode::GoogleManagedPerInstanceCa);
+    /// let x1 = Instance::new().set_server_ca_mode(ServerCaMode::GoogleManagedSharedCa);
+    /// let x2 = Instance::new().set_server_ca_mode(ServerCaMode::CustomerManagedCasCa);
+    /// ```
+    pub fn set_server_ca_mode<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ServerCaMode>,
+    {
+        self.server_ca_mode = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [server_ca_mode][crate::model::Instance::server_ca_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::ServerCaMode;
+    /// let x0 = Instance::new().set_or_clear_server_ca_mode(Some(ServerCaMode::GoogleManagedPerInstanceCa));
+    /// let x1 = Instance::new().set_or_clear_server_ca_mode(Some(ServerCaMode::GoogleManagedSharedCa));
+    /// let x2 = Instance::new().set_or_clear_server_ca_mode(Some(ServerCaMode::CustomerManagedCasCa));
+    /// let x_none = Instance::new().set_or_clear_server_ca_mode(None::<ServerCaMode>);
+    /// ```
+    pub fn set_or_clear_server_ca_mode<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::instance::ServerCaMode>,
+    {
+        self.server_ca_mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [server_ca_pool][crate::model::Instance::server_ca_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_server_ca_pool("example");
+    /// ```
+    pub fn set_server_ca_pool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.server_ca_pool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [server_ca_pool][crate::model::Instance::server_ca_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_server_ca_pool(Some("example"));
+    /// let x = Instance::new().set_or_clear_server_ca_pool(None::<String>);
+    /// ```
+    pub fn set_or_clear_server_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.server_ca_pool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [rotate_server_certificate][crate::model::Instance::rotate_server_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_rotate_server_certificate(true);
+    /// ```
+    pub fn set_rotate_server_certificate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.rotate_server_certificate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rotate_server_certificate][crate::model::Instance::rotate_server_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_rotate_server_certificate(Some(false));
+    /// let x = Instance::new().set_or_clear_rotate_server_certificate(None::<bool>);
+    /// ```
+    pub fn set_or_clear_rotate_server_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.rotate_server_certificate = v.map(|x| x.into());
         self
     }
 
@@ -2549,6 +2659,152 @@ pub mod instance {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
                 ".google.cloud.memorystore.v1.Instance.Mode",
+            ))
+        }
+    }
+
+    /// The Server CA mode for the instance.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ServerCaMode {
+        /// Server CA mode not specified.
+        Unspecified,
+        /// Each instance has its own Google-managed CA.
+        GoogleManagedPerInstanceCa,
+        /// The instance uses a Google-managed shared CA for the instance's region.
+        GoogleManagedSharedCa,
+        /// The instance uses a customer-managed CA from CAS.
+        CustomerManagedCasCa,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ServerCaMode::value] or
+        /// [ServerCaMode::name].
+        UnknownValue(server_ca_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod server_ca_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ServerCaMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::GoogleManagedPerInstanceCa => std::option::Option::Some(1),
+                Self::GoogleManagedSharedCa => std::option::Option::Some(2),
+                Self::CustomerManagedCasCa => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SERVER_CA_MODE_UNSPECIFIED"),
+                Self::GoogleManagedPerInstanceCa => {
+                    std::option::Option::Some("GOOGLE_MANAGED_PER_INSTANCE_CA")
+                }
+                Self::GoogleManagedSharedCa => {
+                    std::option::Option::Some("GOOGLE_MANAGED_SHARED_CA")
+                }
+                Self::CustomerManagedCasCa => std::option::Option::Some("CUSTOMER_MANAGED_CAS_CA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ServerCaMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ServerCaMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ServerCaMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::GoogleManagedPerInstanceCa,
+                2 => Self::GoogleManagedSharedCa,
+                3 => Self::CustomerManagedCasCa,
+                _ => Self::UnknownValue(server_ca_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ServerCaMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SERVER_CA_MODE_UNSPECIFIED" => Self::Unspecified,
+                "GOOGLE_MANAGED_PER_INSTANCE_CA" => Self::GoogleManagedPerInstanceCa,
+                "GOOGLE_MANAGED_SHARED_CA" => Self::GoogleManagedSharedCa,
+                "CUSTOMER_MANAGED_CAS_CA" => Self::CustomerManagedCasCa,
+                "SERVER_CA_MODE_GOOGLE_MANAGED_PER_INSTANCE_CA" => Self::GoogleManagedPerInstanceCa,
+                "SERVER_CA_MODE_GOOGLE_MANAGED_SHARED_CA" => Self::GoogleManagedSharedCa,
+                "SERVER_CA_MODE_CUSTOMER_MANAGED_CAS_CA" => Self::CustomerManagedCasCa,
+                _ => Self::UnknownValue(server_ca_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ServerCaMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::GoogleManagedPerInstanceCa => serializer.serialize_i32(1),
+                Self::GoogleManagedSharedCa => serializer.serialize_i32(2),
+                Self::CustomerManagedCasCa => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ServerCaMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServerCaMode>::new(
+                ".google.cloud.memorystore.v1.Instance.ServerCaMode",
             ))
         }
     }
@@ -7794,6 +8050,249 @@ pub mod certificate_authority {
         ManagedServerCa(
             std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
         ),
+    }
+}
+
+/// Shared regional certificate authority for an instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SharedRegionalCertificateAuthority {
+    /// Identifier. Unique name of the resource in this scope including project and
+    /// location using the form:
+    /// `projects/{project}/locations/{location}/sharedRegionalCertificateAuthority`
+    pub name: std::string::String,
+
+    /// Server ca information.
+    pub server_ca:
+        std::option::Option<crate::model::shared_regional_certificate_authority::ServerCa>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SharedRegionalCertificateAuthority {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SharedRegionalCertificateAuthority::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SharedRegionalCertificateAuthority;
+    /// let x = SharedRegionalCertificateAuthority::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [server_ca][crate::model::SharedRegionalCertificateAuthority::server_ca].
+    ///
+    /// Note that all the setters affecting `server_ca` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SharedRegionalCertificateAuthority;
+    /// use google_cloud_memorystore_v1::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority;
+    /// let x = SharedRegionalCertificateAuthority::new().set_server_ca(Some(
+    ///     google_cloud_memorystore_v1::model::shared_regional_certificate_authority::ServerCa::ManagedServerCa(RegionalManagedCertificateAuthority::default().into())));
+    /// ```
+    pub fn set_server_ca<
+        T: std::convert::Into<
+                std::option::Option<crate::model::shared_regional_certificate_authority::ServerCa>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.server_ca = v.into();
+        self
+    }
+
+    /// The value of [server_ca][crate::model::SharedRegionalCertificateAuthority::server_ca]
+    /// if it holds a `ManagedServerCa`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn managed_server_ca(&self) -> std::option::Option<&std::boxed::Box<crate::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority>>{
+        #[allow(unreachable_patterns)]
+        self.server_ca.as_ref().and_then(|v| match v {
+            crate::model::shared_regional_certificate_authority::ServerCa::ManagedServerCa(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [server_ca][crate::model::SharedRegionalCertificateAuthority::server_ca]
+    /// to hold a `ManagedServerCa`.
+    ///
+    /// Note that all the setters affecting `server_ca` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::SharedRegionalCertificateAuthority;
+    /// use google_cloud_memorystore_v1::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority;
+    /// let x = SharedRegionalCertificateAuthority::new().set_managed_server_ca(RegionalManagedCertificateAuthority::default()/* use setters */);
+    /// assert!(x.managed_server_ca().is_some());
+    /// ```
+    pub fn set_managed_server_ca<T: std::convert::Into<std::boxed::Box<crate::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority>>>(mut self, v: T) -> Self{
+        self.server_ca = std::option::Option::Some(
+            crate::model::shared_regional_certificate_authority::ServerCa::ManagedServerCa(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SharedRegionalCertificateAuthority {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.SharedRegionalCertificateAuthority"
+    }
+}
+
+/// Defines additional types related to [SharedRegionalCertificateAuthority].
+pub mod shared_regional_certificate_authority {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// CA certificate chains for memorystore managed server authentication.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RegionalManagedCertificateAuthority {
+
+        /// The PEM encoded CA certificate chains for memorystore managed
+        /// server authentication
+        pub ca_certs: std::vec::Vec<crate::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RegionalManagedCertificateAuthority {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ca_certs][crate::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority::ca_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority;
+        /// use google_cloud_memorystore_v1::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain;
+        /// let x = RegionalManagedCertificateAuthority::new()
+        ///     .set_ca_certs([
+        ///         RegionalCertChain::default()/* use setters */,
+        ///         RegionalCertChain::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain>
+        {
+            use std::iter::Iterator;
+            self.ca_certs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RegionalManagedCertificateAuthority {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.memorystore.v1.SharedRegionalCertificateAuthority.RegionalManagedCertificateAuthority"
+        }
+    }
+
+    /// Defines additional types related to [RegionalManagedCertificateAuthority].
+    pub mod regional_managed_certificate_authority {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The certificates that form the CA chain, from leaf to root order.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RegionalCertChain {
+            /// The certificates that form the CA chain, from leaf to root order.
+            pub certificates: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RegionalCertChain {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [certificates][crate::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain::certificates].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain;
+            /// let x = RegionalCertChain::new().set_certificates(["a", "b", "c"]);
+            /// ```
+            pub fn set_certificates<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.certificates = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RegionalCertChain {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.memorystore.v1.SharedRegionalCertificateAuthority.RegionalManagedCertificateAuthority.RegionalCertChain"
+            }
+        }
+    }
+
+    /// Server ca information.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ServerCa {
+        /// CA certificate chains for memorystore managed server authentication.
+        ManagedServerCa(std::boxed::Box<crate::model::shared_regional_certificate_authority::RegionalManagedCertificateAuthority>),
+    }
+}
+
+/// Request for
+/// [GetSharedRegionalCertificateAuthority][google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority].
+///
+/// [google.cloud.memorystore.v1.Memorystore.GetSharedRegionalCertificateAuthority]: crate::client::Memorystore::get_shared_regional_certificate_authority
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSharedRegionalCertificateAuthorityRequest {
+    /// Required. Regional certificate authority resource name using the form:
+    /// `projects/{project}/locations/{location}/sharedRegionalCertificateAuthority`
+    /// where `location_id` refers to a Google Cloud region.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSharedRegionalCertificateAuthorityRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSharedRegionalCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetSharedRegionalCertificateAuthorityRequest;
+    /// let x = GetSharedRegionalCertificateAuthorityRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSharedRegionalCertificateAuthorityRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.memorystore.v1.GetSharedRegionalCertificateAuthorityRequest"
     }
 }
 

@@ -59,3 +59,6 @@ spanner-grpc-mock           = { path = "grpc-mock" }
 static_assertions.workspace = true
 tokio                       = { workspace = true, features = ["test-util"] }
 tokio-stream.workspace      = true
+
+[lints]
+workspace = true

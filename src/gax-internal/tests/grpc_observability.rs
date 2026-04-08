@@ -14,15 +14,21 @@
 
 #[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_tracing))]
 mod tests {
-    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
+    use google_cloud_auth::credentials::Credentials;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
     use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_gax_internal::grpc;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
-    use google_cloud_test_utils::test_layer::TestLayer;
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
     use grpc_server::{google, start_echo_server};
+    use pretty_assertions::assert_eq;
+    use std::collections::BTreeMap;
+    use std::sync::Arc;
     use std::sync::LazyLock;
+    use tokio_stream::StreamExt;
 
     fn test_credentials() -> Credentials {
         Anonymous::new().build()
@@ -37,11 +43,22 @@ mod tests {
         info
     });
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_basic_span() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+    #[track_caller]
+    fn grpc_request_attributes(guard: &TestLayerGuard) -> BTreeMap<String, AttributeValue> {
+        let captured = TestLayer::capture(guard);
+        let grpc_spans = captured
+            .iter()
+            .filter(|s| s.name == "grpc.request")
+            .collect::<Vec<_>>();
+        let span = match grpc_spans[..] {
+            [span] => span,
+            _ => panic!("should capture one `grpc.request` span, captured: {captured:?}"),
+        };
+        BTreeMap::from_iter(span.attributes.clone())
+    }
 
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn basic_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -76,58 +93,39 @@ mod tests {
             )
             .await?;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         // Parse the endpoint to get expected values
         let uri: http::Uri = endpoint.parse().unwrap();
         let expected_host = uri.host().unwrap().to_string();
         let expected_port = uri.port_u16().unwrap();
 
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Echo".into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
-            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
-            (otel_attr::URL_DOMAIN, expected_host.into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
-            (GCP_CLIENT_SERVICE, "test-service".into()),
-            (GCP_CLIENT_VERSION, "1.0.0".into()),
-            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
-            (GCP_CLIENT_ARTIFACT, "test-artifact".into()),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Echo".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Echo".into()),
+            ("server.address", expected_host.clone().into()),
+            ("server.port", (expected_port as i64).into()),
+            ("url.domain", expected_host.into()),
+            ("otel.status_code", "UNSET".into()),
+            ("rpc.response.status_code", "OK".into()),
+            ("gcp.client.repo", "googleapis/google-cloud-rust".into()),
+            ("gcp.client.service", "test-service".into()),
+            ("gcp.client.version", "1.0.0".into()),
+            ("gcp.client.artifact", "test-artifact".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_custom_endpoint() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-
+    async fn custom_endpoint() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -166,17 +164,7 @@ mod tests {
             )
             .await?;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         // Verify parsing of the custom endpoint
         // The endpoint string from start_echo_server is like "http://127.0.0.1:12345"
@@ -184,45 +172,34 @@ mod tests {
         let expected_host = uri.host().unwrap().to_string();
         let expected_port = uri.port_u16().unwrap();
 
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Echo".into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
-            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
-            (otel_attr::URL_DOMAIN, "unused.default.com".into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Echo".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Echo".into()),
+            ("server.address", expected_host.clone().into()),
+            ("server.port", (expected_port as i64).into()),
+            ("url.domain", "unused.default.com".into()),
+            ("otel.status_code", "UNSET".into()),
+            ("rpc.response.status_code", "OK".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_regional_endpoint() -> anyhow::Result<()> {
-        use google_cloud_gax::retry_policy::RetryPolicyExt;
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-        use std::sync::Arc;
-
+    async fn regional_endpoint() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
 
         let mut config = google_cloud_gax_internal::options::ClientConfig::default();
         config.tracing = true;
         config.cred = Some(test_credentials());
-        config.endpoint = Some("https://foo.bar.rep.googleapis.com".to_string());
+        config.endpoint = Some("http://foo.bar.rep.googleapis.com".to_string());
         // Disable retries to avoid multiple spans on connection failure
         config.retry_policy = Some(Arc::new(Aip194Strict.with_attempt_limit(1)));
 
@@ -245,52 +222,30 @@ mod tests {
             )
             .await;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
+        let attrs = grpc_request_attributes(&guard);
 
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
-
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Echo".into(),
-            ),
-            (
-                otel_trace::SERVER_ADDRESS,
-                "foo.bar.rep.googleapis.com".into(),
-            ),
-            (otel_trace::SERVER_PORT, 443_i64.into()),
-            (otel_attr::URL_DOMAIN, "foo.googleapis.com".into()), // Expect default domain
-            (OTEL_STATUS_CODE, "ERROR".into()),
-            (otel_trace::ERROR_TYPE, "CLIENT_CONNECTION_ERROR".into()),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Echo".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Echo".into()),
+            ("server.address", "foo.bar.rep.googleapis.com".into()),
+            ("server.port", 80_i64.into()),
+            ("url.domain", "foo.googleapis.com".into()), // Expect default domain
+            ("otel.status_code", "ERROR".into()),
+            ("error.type", "CLIENT_CONNECTION_ERROR".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_error_status() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-
+    async fn error_status() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -325,54 +280,42 @@ mod tests {
             )
             .await;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(grpc_spans.len(), 1);
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         // Parse the endpoint to get expected values
         let uri: http::Uri = endpoint.parse().unwrap();
         let expected_host = uri.host().unwrap().to_string();
         let expected_port = uri.port_u16().unwrap();
 
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
             (
-                OTEL_NAME,
+                "otel.name",
                 "google.test.v1.EchoService/NonExistentMethod".into(),
             ),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
             (
-                otel_trace::RPC_METHOD,
+                "rpc.method",
                 "google.test.v1.EchoService/NonExistentMethod".into(),
             ),
-            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
-            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
-            (otel_attr::URL_DOMAIN, expected_host.into()),
-            (OTEL_STATUS_CODE, "ERROR".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 12_i64.into()), // UNIMPLEMENTED = 12
-            (otel_trace::ERROR_TYPE, "UNIMPLEMENTED".into()),
+            ("server.address", expected_host.clone().into()),
+            ("server.port", (expected_port as i64).into()),
+            ("url.domain", expected_host.into()),
+            ("otel.status_code", "ERROR".into()),
+            ("rpc.response.status_code", "UNIMPLEMENTED".into()), // UNIMPLEMENTED = 12
+            ("error.type", "UNIMPLEMENTED".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_streaming_span() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-        use tokio_stream::StreamExt;
-
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -424,55 +367,35 @@ mod tests {
         let next = response_stream.next().await;
         assert!(next.is_none(), "{next:?}");
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         // Parse the endpoint to get expected values
         let uri: http::Uri = endpoint.parse().unwrap();
         let expected_host = uri.host().unwrap().to_string();
         let expected_port = uri.port_u16().unwrap();
 
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Chat".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Chat".into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
-            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
-            (otel_attr::URL_DOMAIN, expected_host.into()),
-            (OTEL_STATUS_CODE, "UNSET".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 0_i64.into()),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Chat".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Chat".into()),
+            ("server.address", expected_host.clone().into()),
+            ("server.port", (expected_port as i64).into()),
+            ("url.domain", expected_host.into()),
+            ("otel.status_code", "UNSET".into()),
+            ("rpc.response.status_code", "OK".into()), // OK = 0
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_streaming_error() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
-        use tokio_stream::StreamExt;
-
+    async fn streaming_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -524,54 +447,35 @@ mod tests {
         // Close the stream
         drop(tx);
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         let uri: http::Uri = endpoint.parse().unwrap();
         let expected_host = uri.host().unwrap().to_string();
         let expected_port = uri.port_u16().unwrap();
 
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Chat".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Chat".into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, expected_host.clone().into()),
-            (otel_trace::SERVER_PORT, (expected_port as i64).into()),
-            (otel_attr::URL_DOMAIN, expected_host.into()),
-            (OTEL_STATUS_CODE, "ERROR".into()),
-            (otel_attr::RPC_GRPC_STATUS_CODE, 3_i64.into()), // INVALID_ARGUMENT = 3
-            (otel_trace::ERROR_TYPE, "INVALID_ARGUMENT".into()),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Chat".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Chat".into()),
+            ("server.address", expected_host.clone().into()),
+            ("server.port", (expected_port as i64).into()),
+            ("url.domain", expected_host.into()),
+            ("otel.status_code", "ERROR".into()),
+            ("rpc.response.status_code", "INVALID_ARGUMENT".into()), // INVALID_ARGUMENT = 3
+            ("error.type", "INVALID_ARGUMENT".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_cancellation() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes;
-        use google_cloud_gax_internal::observability::attributes::keys::*;
-        use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+    async fn cancellation() -> anyhow::Result<()> {
         use std::time::Duration;
 
         let guard = TestLayer::initialize();
@@ -614,51 +518,30 @@ mod tests {
         // Wait a bit for the span to be processed (though drop should happen immediately)
         tokio::time::sleep(Duration::from_millis(10)).await;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(
-            grpc_spans.len(),
-            1,
-            "Should capture one grpc.request span. Captured: {:?}",
-            spans
-        );
+        let attrs = grpc_request_attributes(&guard);
 
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
-
-        let expected_attributes: std::collections::HashMap<
-            String,
-            google_cloud_test_utils::test_layer::AttributeValue,
-        > = [
-            (OTEL_NAME, "google.test.v1.EchoService/Echo".into()),
-            (otel_trace::RPC_SYSTEM, "grpc".into()),
-            (OTEL_KIND, "Client".into()),
-            (
-                otel_trace::RPC_METHOD,
-                "google.test.v1.EchoService/Echo".into(),
-            ),
-            (otel_trace::SERVER_ADDRESS, "192.0.2.1".into()),
-            (otel_trace::SERVER_PORT, 1234_i64.into()),
-            (otel_attr::URL_DOMAIN, "192.0.2.1".into()),
-            (OTEL_STATUS_CODE, "ERROR".into()),
-            (
-                otel_trace::ERROR_TYPE,
-                attributes::error_type_values::CLIENT_CANCELLED.into(),
-            ),
+        let expected_attributes: BTreeMap<String, AttributeValue> = [
+            ("otel.name", "google.test.v1.EchoService/Echo".into()),
+            ("rpc.system.name", "grpc".into()),
+            ("otel.kind", "Client".into()),
+            ("rpc.method", "google.test.v1.EchoService/Echo".into()),
+            ("server.address", "192.0.2.1".into()),
+            ("server.port", 1234_i64.into()),
+            ("url.domain", "192.0.2.1".into()),
+            ("otel.status_code", "ERROR".into()),
+            ("error.type", "CLIENT_CANCELLED".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(attrs, expected_attributes);
 
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_grpc_resource_name_in_span() -> anyhow::Result<()> {
-        use google_cloud_gax_internal::observability::attributes::keys::GCP_RESOURCE_NAME;
-
+    async fn resource_name_in_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
         let guard = TestLayer::initialize();
 
@@ -692,20 +575,14 @@ mod tests {
             )
             .await?;
 
-        let spans = TestLayer::capture(&guard);
-        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
-        assert_eq!(grpc_spans.len(), 1);
-
-        let span = &grpc_spans[0];
-        let attrs = &span.attributes;
+        let attrs = grpc_request_attributes(&guard);
 
         assert_eq!(
-            attrs
-                .get(GCP_RESOURCE_NAME)
-                .expect("resource name not found"),
-            &google_cloud_test_utils::test_layer::AttributeValue::String(
+            attrs.get("gcp.resource.destination.id"),
+            Some(&AttributeValue::String(
                 "projects/p/locations/l/resources/r".into()
-            )
+            )),
+            "{attrs:?}"
         );
 
         Ok(())

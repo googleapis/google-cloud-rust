@@ -58,9 +58,9 @@ steps:
       #!/usr/bin/env bash
       set -euv
       # Make three attempts to avoid download flakes.
-      cargo install typos-cli --version 1.32.0 --locked || \
-        cargo install typos-cli --version 1.32.0 --locked || \
-        cargo install typos-cli --version 1.32.0 --locked
+      cargo install typos-cli --version 1.45.0 --locked || \
+        cargo install typos-cli --version 1.45.0 --locked || \
+        cargo install typos-cli --version 1.45.0 --locked
       typos
   - name: 'rust:${_RUST_VERSION}-bookworm'
     id: 'Verify all files have a copyright boilerplate'

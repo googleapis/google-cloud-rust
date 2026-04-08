@@ -280,6 +280,9 @@ impl serde::ser::Serialize for super::BackendRule {
                 &self.overrides_by_request_protocol,
             )?;
         }
+        if !self.load_balancing_policy.is_empty() {
+            state.serialize_entry("loadBalancingPolicy", &self.load_balancing_policy)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -537,6 +540,9 @@ impl serde::ser::Serialize for super::PhpSettings {
         if self.common.is_some() {
             state.serialize_entry("common", &self.common)?;
         }
+        if !self.library_package.is_empty() {
+            state.serialize_entry("libraryPackage", &self.library_package)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -730,6 +736,9 @@ impl serde::ser::Serialize for super::MethodSettings {
         if !self.auto_populated_fields.is_empty() {
             state.serialize_entry("autoPopulatedFields", &self.auto_populated_fields)?;
         }
+        if self.batching.is_some() {
+            state.serialize_entry("batching", &self.batching)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -797,6 +806,171 @@ impl serde::ser::Serialize for super::SelectiveGapicGeneration {
                 "generateOmittedAsInternal",
                 &self.generate_omitted_as_internal,
             )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BatchingConfigProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.thresholds.is_some() {
+            state.serialize_entry("thresholds", &self.thresholds)?;
+        }
+        if self.batch_descriptor.is_some() {
+            state.serialize_entry("batchDescriptor", &self.batch_descriptor)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BatchingSettingsProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.element_count_threshold) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "elementCountThreshold",
+                &__With(&self.element_count_threshold),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.request_byte_threshold) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "requestByteThreshold",
+                &__With(&self.request_byte_threshold),
+            )?;
+        }
+        if self.delay_threshold.is_some() {
+            state.serialize_entry("delayThreshold", &self.delay_threshold)?;
+        }
+        if !wkt::internal::is_default(&self.element_count_limit) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("elementCountLimit", &__With(&self.element_count_limit))?;
+        }
+        if !wkt::internal::is_default(&self.request_byte_limit) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("requestByteLimit", &__With(&self.request_byte_limit))?;
+        }
+        if !wkt::internal::is_default(&self.flow_control_element_limit) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "flowControlElementLimit",
+                &__With(&self.flow_control_element_limit),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.flow_control_byte_limit) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "flowControlByteLimit",
+                &__With(&self.flow_control_byte_limit),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.flow_control_limit_exceeded_behavior) {
+            state.serialize_entry(
+                "flowControlLimitExceededBehavior",
+                &self.flow_control_limit_exceeded_behavior,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BatchingDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.batched_field.is_empty() {
+            state.serialize_entry("batchedField", &self.batched_field)?;
+        }
+        if !self.discriminator_fields.is_empty() {
+            state.serialize_entry("discriminatorFields", &self.discriminator_fields)?;
+        }
+        if !self.subresponse_field.is_empty() {
+            state.serialize_entry("subresponseField", &self.subresponse_field)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

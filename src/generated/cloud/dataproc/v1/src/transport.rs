@@ -34,7 +34,15 @@ impl std::fmt::Debug for AutoscalingPolicyService {
 
 impl AutoscalingPolicyService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,10 +70,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}/autoscalingPolicies", var_parent,);
+                let path_template = "/v1/{parent}/autoscalingPolicies";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -78,10 +88,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}/autoscalingPolicies", var_parent,);
+                let path_template = "/v1/{parent}/autoscalingPolicies";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -117,6 +129,17 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService/CreateAutoscalingPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -139,7 +162,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_policy_name = try_match(
                     Some(&req)
@@ -156,10 +179,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_policy_name,);
+                let path_template = "/v1/{policy.name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .or_else(|| {
                 let var_policy_name = try_match(
@@ -177,10 +201,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_policy_name,);
+                let path_template = "/v1/{policy.name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -226,6 +251,16 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService/UpdateAutoscalingPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -248,7 +283,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -262,10 +297,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -280,10 +317,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -323,6 +362,17 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService/GetAutoscalingPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -345,7 +395,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -357,12 +407,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}/autoscalingPolicies", var_parent,);
+                let path_template = "/v1/{parent}/autoscalingPolicies";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -375,12 +427,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}/autoscalingPolicies", var_parent,);
+                let path_template = "/v1/{parent}/autoscalingPolicies";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -416,6 +470,17 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService/ListAutoscalingPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -438,7 +503,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -452,10 +517,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -470,10 +537,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -513,6 +582,17 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.AutoscalingPolicyService/DeleteAutoscalingPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -541,7 +621,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -555,10 +635,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -573,10 +655,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -591,10 +675,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -609,10 +695,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -627,10 +715,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -645,10 +735,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -663,10 +755,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -791,6 +885,15 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -813,7 +916,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -827,10 +930,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -845,10 +950,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -863,10 +970,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -881,10 +990,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -899,10 +1010,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -917,10 +1030,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -935,10 +1050,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1063,6 +1180,15 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1085,7 +1211,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1099,10 +1225,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1117,10 +1245,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1135,10 +1265,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1153,10 +1285,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1171,10 +1305,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1189,10 +1325,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1207,10 +1345,12 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1335,6 +1475,15 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1357,7 +1506,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1370,6 +1519,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1378,7 +1528,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1392,6 +1542,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1400,7 +1551,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1438,6 +1589,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1460,7 +1619,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1474,10 +1633,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1492,10 +1652,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1535,6 +1696,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1557,7 +1726,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1571,10 +1740,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1589,10 +1759,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1632,6 +1803,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1660,7 +1839,7 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1674,10 +1853,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1692,10 +1872,11 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1735,6 +1916,14 @@ impl super::stub::AutoscalingPolicyService for AutoscalingPolicyService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1770,7 +1959,15 @@ impl std::fmt::Debug for BatchController {
 
 impl BatchController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1786,7 +1983,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1798,12 +1995,14 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}/batches", var_parent,);
+                let path_template = "/v1/{parent}/batches";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("batchId", &req.batch_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1824,6 +2023,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.BatchController/CreateBatch")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1846,7 +2054,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1860,10 +2068,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1886,6 +2096,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.BatchController/GetBatch")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1908,7 +2127,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1920,14 +2139,16 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}/batches", var_parent,);
+                let path_template = "/v1/{parent}/batches";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1948,6 +2169,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.BatchController/ListBatches")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1970,7 +2200,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1984,10 +2214,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2010,6 +2242,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.BatchController/DeleteBatch")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2038,7 +2279,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2052,10 +2293,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2070,10 +2313,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2088,10 +2333,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2106,10 +2353,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2124,10 +2373,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2142,10 +2393,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2160,10 +2413,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2288,6 +2543,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2310,7 +2574,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2324,10 +2588,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2342,10 +2608,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2360,10 +2628,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2378,10 +2648,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2396,10 +2668,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2414,10 +2688,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2432,10 +2708,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2560,6 +2838,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2582,7 +2869,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2596,10 +2883,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2614,10 +2903,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2632,10 +2923,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2650,10 +2943,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2668,10 +2963,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2686,10 +2983,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2704,10 +3003,12 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2832,6 +3133,15 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2854,7 +3164,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2867,6 +3177,7 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2875,7 +3186,7 @@ impl super::stub::BatchController for BatchController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2889,6 +3200,7 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2897,7 +3209,7 @@ impl super::stub::BatchController for BatchController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2935,6 +3247,14 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2957,7 +3277,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2971,10 +3291,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2989,10 +3310,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3032,6 +3354,14 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3054,7 +3384,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3068,10 +3398,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3086,10 +3417,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3129,6 +3461,14 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3157,7 +3497,7 @@ impl super::stub::BatchController for BatchController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3171,10 +3511,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3189,10 +3530,11 @@ impl super::stub::BatchController for BatchController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3232,6 +3574,14 @@ impl super::stub::BatchController for BatchController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3281,7 +3631,15 @@ impl std::fmt::Debug for ClusterController {
 
 impl ClusterController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3297,7 +3655,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3311,6 +3669,7 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters",
                     var_project_id, var_region,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/clusters";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -3319,7 +3678,7 @@ impl super::stub::ClusterController for ClusterController {
                     &req.action_on_failed_primary_workers,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3341,6 +3700,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/CreateCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3363,7 +3730,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3381,6 +3748,8 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3407,7 +3776,7 @@ impl super::stub::ClusterController for ClusterController {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3435,6 +3804,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/UpdateCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3457,7 +3834,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3475,10 +3852,12 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}:stop",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}:stop";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3506,6 +3885,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/StopCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3528,7 +3915,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3546,10 +3933,12 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}:start",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}:start";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3577,6 +3966,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/StartCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3599,7 +3996,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3617,12 +4014,14 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("clusterUuid", &req.cluster_uuid)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3650,6 +4049,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/DeleteCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3672,7 +4079,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3690,10 +4097,12 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3721,6 +4130,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/GetCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3743,7 +4160,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3757,13 +4174,14 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters",
                     var_project_id, var_region,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/clusters";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3785,6 +4203,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/ListClusters")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3807,7 +4233,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -3825,10 +4251,12 @@ impl super::stub::ClusterController for ClusterController {
                     "/v1/projects/{}/regions/{}/clusters/{}:diagnose",
                     var_project_id, var_region, var_cluster_name,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/clusters/{cluster_name}:diagnose";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3856,6 +4284,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.ClusterController/DiagnoseCluster")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3878,7 +4314,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3892,10 +4328,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3910,10 +4348,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3928,10 +4368,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3946,10 +4388,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3964,10 +4408,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3982,10 +4428,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4000,10 +4448,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4128,6 +4578,15 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4150,7 +4609,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4164,10 +4623,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4182,10 +4643,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4200,10 +4663,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4218,10 +4683,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4236,10 +4703,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4254,10 +4723,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4272,10 +4743,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4400,6 +4873,15 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4422,7 +4904,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4436,10 +4918,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4454,10 +4938,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4472,10 +4958,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4490,10 +4978,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4508,10 +4998,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4526,10 +5018,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4544,10 +5038,12 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4672,6 +5168,15 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4694,7 +5199,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4707,6 +5212,7 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4715,7 +5221,7 @@ impl super::stub::ClusterController for ClusterController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4729,6 +5235,7 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4737,7 +5244,7 @@ impl super::stub::ClusterController for ClusterController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4775,6 +5282,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4797,7 +5312,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4811,10 +5326,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4829,10 +5345,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4872,6 +5389,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4894,7 +5419,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4908,10 +5433,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4926,10 +5452,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4969,6 +5496,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4997,7 +5532,7 @@ impl super::stub::ClusterController for ClusterController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5011,10 +5546,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5029,10 +5565,11 @@ impl super::stub::ClusterController for ClusterController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5072,6 +5609,14 @@ impl super::stub::ClusterController for ClusterController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5121,7 +5666,15 @@ impl std::fmt::Debug for JobController {
 
 impl JobController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -5137,7 +5690,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5151,10 +5704,11 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs:submit",
                     var_project_id, var_region,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/jobs:submit";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5176,6 +5730,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/SubmitJob")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5198,7 +5760,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5212,10 +5774,12 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs:submitAsOperation",
                     var_project_id, var_region,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/jobs:submitAsOperation";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5237,6 +5801,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/SubmitJobAsOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5259,7 +5831,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5277,10 +5849,11 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs/{}",
                     var_project_id, var_region, var_job_id,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/jobs/{job_id}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5308,6 +5881,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/GetJob")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5330,7 +5911,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5344,6 +5925,7 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs",
                     var_project_id, var_region,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/jobs";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -5352,7 +5934,7 @@ impl super::stub::JobController for JobController {
                 let builder = builder.query(&[("jobStateMatcher", &req.job_state_matcher)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5374,6 +5956,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/ListJobs")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5396,7 +5986,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5414,6 +6004,7 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs/{}",
                     var_project_id, var_region, var_job_id,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/jobs/{job_id}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -5429,7 +6020,7 @@ impl super::stub::JobController for JobController {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5457,6 +6048,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/UpdateJob")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5479,7 +6078,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5497,10 +6096,12 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs/{}:cancel",
                     var_project_id, var_region, var_job_id,
                 );
+                let path_template =
+                    "/v1/projects/{project_id}/regions/{region}/jobs/{job_id}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5528,6 +6129,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/CancelJob")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5550,7 +6159,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_project_id = try_match(
                     Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
@@ -5568,10 +6177,11 @@ impl super::stub::JobController for JobController {
                     "/v1/projects/{}/regions/{}/jobs/{}",
                     var_project_id, var_region, var_job_id,
                 );
+                let path_template = "/v1/projects/{project_id}/regions/{region}/jobs/{job_id}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5599,6 +6209,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.JobController/DeleteJob")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5627,7 +6245,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5641,10 +6259,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5659,10 +6279,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5677,10 +6299,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5695,10 +6319,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5713,10 +6339,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5731,10 +6359,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5749,10 +6379,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5877,6 +6509,15 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5899,7 +6540,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5913,10 +6554,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5931,10 +6574,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5949,10 +6594,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5967,10 +6614,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5985,10 +6634,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6003,10 +6654,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6021,10 +6674,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6149,6 +6804,15 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6171,7 +6835,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -6185,10 +6849,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6203,10 +6869,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6221,10 +6889,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6239,10 +6909,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6257,10 +6929,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6275,10 +6949,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -6293,10 +6969,12 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6421,6 +7099,15 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6443,7 +7130,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6456,6 +7143,7 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -6464,7 +7152,7 @@ impl super::stub::JobController for JobController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6478,6 +7166,7 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -6486,7 +7175,7 @@ impl super::stub::JobController for JobController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6524,6 +7213,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6546,7 +7243,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6560,10 +7257,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6578,10 +7276,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6621,6 +7320,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6643,7 +7350,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6657,10 +7364,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6675,10 +7383,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6718,6 +7427,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6746,7 +7463,7 @@ impl super::stub::JobController for JobController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6760,10 +7477,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6778,10 +7496,11 @@ impl super::stub::JobController for JobController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6821,6 +7540,14 @@ impl super::stub::JobController for JobController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6870,7 +7597,15 @@ impl std::fmt::Debug for NodeGroupController {
 
 impl NodeGroupController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -6886,7 +7621,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6900,12 +7635,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}/nodeGroups", var_parent,);
+                let path_template = "/v1/{parent}/nodeGroups";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("nodeGroupId", &req.node_group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6928,6 +7665,15 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.NodeGroupController/CreateNodeGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6950,7 +7696,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6966,10 +7712,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:resize", var_name,);
+                let path_template = "/v1/{name}:resize";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6994,6 +7741,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.NodeGroupController/ResizeNodeGroup")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7016,7 +7771,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7032,10 +7787,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7060,6 +7817,15 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.NodeGroupController/GetNodeGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7082,7 +7848,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7096,10 +7862,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7114,10 +7882,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7132,10 +7902,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7150,10 +7922,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7168,10 +7942,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7186,10 +7962,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7204,10 +7982,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7332,6 +8112,15 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7354,7 +8143,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7368,10 +8157,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7386,10 +8177,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7404,10 +8197,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7422,10 +8217,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7440,10 +8237,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7458,10 +8257,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7476,10 +8277,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7604,6 +8407,15 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7626,7 +8438,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -7640,10 +8452,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7658,10 +8472,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7676,10 +8492,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7694,10 +8512,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7712,10 +8532,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7730,10 +8552,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -7748,10 +8572,12 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7876,6 +8702,15 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7898,7 +8733,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7911,6 +8746,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7919,7 +8755,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7933,6 +8769,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7941,7 +8778,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7979,6 +8816,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8001,7 +8846,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8015,10 +8860,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8033,10 +8879,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8076,6 +8923,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8098,7 +8953,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8112,10 +8967,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8130,10 +8986,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8173,6 +9030,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8201,7 +9066,7 @@ impl super::stub::NodeGroupController for NodeGroupController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8215,10 +9080,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8233,10 +9099,11 @@ impl super::stub::NodeGroupController for NodeGroupController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8276,6 +9143,14 @@ impl super::stub::NodeGroupController for NodeGroupController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8325,7 +9200,15 @@ impl std::fmt::Debug for SessionTemplateController {
 
 impl SessionTemplateController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -8341,7 +9224,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8353,10 +9236,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}/sessionTemplates", var_parent,);
+                let path_template = "/v1/{parent}/sessionTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8377,6 +9262,17 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.SessionTemplateController/CreateSessionTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8399,7 +9295,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_session_template_name = try_match(
                     Some(&req)
@@ -8416,10 +9312,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_session_template_name,);
+                let path_template = "/v1/{session_template.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8445,6 +9342,16 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.SessionTemplateController/UpdateSessionTemplate",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8467,7 +9374,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8481,10 +9388,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8507,6 +9416,17 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.SessionTemplateController/GetSessionTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8529,7 +9449,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8541,13 +9461,15 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}/sessionTemplates", var_parent,);
+                let path_template = "/v1/{parent}/sessionTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8568,6 +9490,17 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.SessionTemplateController/ListSessionTemplates",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8590,7 +9523,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8604,10 +9537,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8630,6 +9565,17 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.SessionTemplateController/DeleteSessionTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8658,7 +9604,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -8672,10 +9618,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8690,10 +9638,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8708,10 +9658,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8726,10 +9678,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8744,10 +9698,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8762,10 +9718,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8780,10 +9738,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8908,6 +9868,15 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8930,7 +9899,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -8944,10 +9913,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8962,10 +9933,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8980,10 +9953,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -8998,10 +9973,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9016,10 +9993,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9034,10 +10013,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9052,10 +10033,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9180,6 +10163,15 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9202,7 +10194,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -9216,10 +10208,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9234,10 +10228,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9252,10 +10248,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9270,10 +10268,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9288,10 +10288,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9306,10 +10308,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -9324,10 +10328,12 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9452,6 +10458,15 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9474,7 +10489,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9487,6 +10502,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9495,7 +10511,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9509,6 +10525,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9517,7 +10534,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9555,6 +10572,14 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9577,7 +10602,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9591,10 +10616,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9609,10 +10635,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9652,6 +10679,14 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9674,7 +10709,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9688,10 +10723,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9706,10 +10742,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9749,6 +10786,14 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9777,7 +10822,7 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9791,10 +10836,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9809,10 +10855,11 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9852,6 +10899,14 @@ impl super::stub::SessionTemplateController for SessionTemplateController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9887,7 +10942,15 @@ impl std::fmt::Debug for SessionController {
 
 impl SessionController {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -9903,7 +10966,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -9915,12 +10978,14 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
+                let path_template = "/v1/{parent}/sessions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("sessionId", &req.session_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9941,6 +11006,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.SessionController/CreateSession")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9963,7 +11037,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9977,10 +11051,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10003,6 +11079,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.SessionController/GetSession")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10025,7 +11110,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10037,13 +11122,15 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
+                let path_template = "/v1/{parent}/sessions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10064,6 +11151,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.SessionController/ListSessions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10086,7 +11182,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10100,10 +11196,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:terminate", var_name,);
+                let path_template = "/v1/{name}:terminate";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10126,6 +11224,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.SessionController/TerminateSession")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10148,7 +11255,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10162,11 +11269,13 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10189,6 +11298,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.SessionController/DeleteSession")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10211,7 +11329,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -10225,10 +11343,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10243,10 +11363,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10261,10 +11383,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10279,10 +11403,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10297,10 +11423,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10315,10 +11443,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10333,10 +11463,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10461,6 +11593,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10483,7 +11624,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -10497,10 +11638,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10515,10 +11658,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10533,10 +11678,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10551,10 +11698,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10569,10 +11718,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10587,10 +11738,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10605,10 +11758,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10733,6 +11888,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10755,7 +11919,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -10769,10 +11933,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10787,10 +11953,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10805,10 +11973,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10823,10 +11993,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10841,10 +12013,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10859,10 +12033,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -10877,10 +12053,12 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11005,6 +12183,15 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11027,7 +12214,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11040,6 +12227,7 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -11048,7 +12236,7 @@ impl super::stub::SessionController for SessionController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11062,6 +12250,7 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -11070,7 +12259,7 @@ impl super::stub::SessionController for SessionController {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11108,6 +12297,14 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11130,7 +12327,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11144,10 +12341,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11162,10 +12360,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11205,6 +12404,14 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11227,7 +12434,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11241,10 +12448,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11259,10 +12467,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11302,6 +12511,14 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11330,7 +12547,7 @@ impl super::stub::SessionController for SessionController {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11344,10 +12561,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11362,10 +12580,11 @@ impl super::stub::SessionController for SessionController {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11405,6 +12624,14 @@ impl super::stub::SessionController for SessionController {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11454,7 +12681,15 @@ impl std::fmt::Debug for WorkflowTemplateService {
 
 impl WorkflowTemplateService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -11470,7 +12705,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11482,10 +12717,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11498,10 +12735,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11537,6 +12776,17 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService/CreateWorkflowTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11559,7 +12809,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11573,11 +12823,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11592,11 +12844,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11636,6 +12890,17 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService/GetWorkflowTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11658,7 +12923,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11672,10 +12937,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:instantiate", var_name,);
+                let path_template = "/v1/{name}:instantiate";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11690,10 +12957,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:instantiate", var_name,);
+                let path_template = "/v1/{name}:instantiate";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11733,6 +13002,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.WorkflowTemplateService/InstantiateWorkflowTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11755,7 +13033,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11767,11 +13045,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates:instantiateInline", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates:instantiateInline";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11784,11 +13064,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates:instantiateInline", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates:instantiateInline";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11824,6 +13106,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dataproc.v1.WorkflowTemplateService/InstantiateInlineWorkflowTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11846,7 +13137,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_template_name = try_match(
                     Some(&req)
@@ -11863,10 +13154,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_template_name,);
+                let path_template = "/v1/{template.name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .or_else(|| {
                 let var_template_name = try_match(
@@ -11884,10 +13176,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_template_name,);
+                let path_template = "/v1/{template.name}";
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11933,6 +13226,16 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService/UpdateWorkflowTemplate",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11955,7 +13258,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11967,12 +13270,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11985,12 +13290,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}/workflowTemplates", var_parent,);
+                let path_template = "/v1/{parent}/workflowTemplates";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12026,6 +13333,17 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService/ListWorkflowTemplates",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12048,7 +13366,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12062,11 +13380,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12081,11 +13401,13 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("version", &req.version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12125,6 +13447,17 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dataproc.v1.WorkflowTemplateService/DeleteWorkflowTemplate",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12153,7 +13486,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -12167,10 +13500,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12185,10 +13520,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12203,10 +13540,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12221,10 +13560,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12239,10 +13580,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12257,10 +13600,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12275,10 +13620,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12403,6 +13750,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12425,7 +13781,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -12439,10 +13795,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12457,10 +13815,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12475,10 +13835,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12493,10 +13855,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12511,10 +13875,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12529,10 +13895,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12547,10 +13915,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12675,6 +14045,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12697,7 +14076,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -12711,10 +14090,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12729,10 +14110,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12747,10 +14130,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12765,10 +14150,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12783,10 +14170,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12801,10 +14190,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -12819,10 +14210,12 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//dataproc.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12947,6 +14340,15 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12969,7 +14371,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12982,6 +14384,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12990,7 +14393,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13004,6 +14407,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -13012,7 +14416,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13050,6 +14454,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13072,7 +14484,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13086,10 +14498,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13104,10 +14517,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13147,6 +14561,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13169,7 +14591,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13183,10 +14605,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13201,10 +14624,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13244,6 +14668,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13272,7 +14704,7 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13286,10 +14718,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13304,10 +14737,11 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13347,6 +14781,14 @@ impl super::stub::WorkflowTemplateService for WorkflowTemplateService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

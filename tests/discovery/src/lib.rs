@@ -224,11 +224,15 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
         let _ = client
             .delete()
             .set_project(project_id)
-            .set_image(name)
+            .set_image(name.clone())
             .poller()
             .until_done()
-            .await?
-            .to_result()?;
+            .await
+            .inspect_err(|e| eprintln!("error cleaning up image {name}: {e:?}"))
+            .map(|op| {
+                op.to_result()
+                    .inspect_err(|e| eprintln!("error cleaning up image {name}: {e:?}"))
+            });
     }
     Ok(())
 }

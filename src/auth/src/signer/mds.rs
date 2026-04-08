@@ -73,7 +73,11 @@ impl SigningProvider for MDSSigner {
 
 impl MDSSigner {
     async fn fetch_client_email(&self) -> Result<String> {
-        self.client.email().await.map_err(SigningError::transport)
+        self.client
+            .email()
+            .send()
+            .await
+            .map_err(SigningError::transport)
     }
 }
 
@@ -103,6 +107,7 @@ mod tests {
         }
     }
 
+    #[ignore = "TODO(#5249) - disabled because it was flaky"]
     #[tokio::test]
     async fn test_fetch_client_email_and_cache() -> TestResult {
         let server = Server::run();

@@ -2897,12 +2897,14 @@ pub mod field {
     /// The TTL (time-to-live) configuration for documents that have this `Field`
     /// set.
     ///
-    /// Storing a timestamp value into a TTL-enabled field will be treated as
-    /// the document's absolute expiration time. For Enterprise edition databases,
-    /// the timestamp value may also be stored in an array value in the
-    /// TTL-enabled field.
+    /// A timestamp stored in a TTL-enabled field will be used to determine the
+    /// expiration time of the document. The expiration time is the sum
+    /// of the timestamp value and the `expiration_offset`.
     ///
-    /// Timestamp values in the past indicate that the document is eligible for
+    /// For Enterprise edition databases, the timestamp value may alternatively be
+    /// stored in an array value in the TTL-enabled field.
+    ///
+    /// An expiration time in the past indicates that the document is eligible for
     /// immediate expiration. Using any other data type or leaving the field absent
     /// will disable expiration for the individual document.
     #[derive(Clone, Default, PartialEq)]
@@ -2910,6 +2912,16 @@ pub mod field {
     pub struct TtlConfig {
         /// Output only. The state of the TTL configuration.
         pub state: crate::model::field::ttl_config::State,
+
+        /// Optional. The offset, relative to the timestamp value from the
+        /// TTL-enabled field, used to determine the document's expiration time.
+        ///
+        /// `expiration_offset.seconds` must be between 0 and 2,147,483,647
+        /// inclusive. Values more precise than seconds are rejected.
+        ///
+        /// If unset, defaults to 0, in which case the expiration time is the same
+        /// as the timestamp value from the TTL-enabled field.
+        pub expiration_offset: std::option::Option<wkt::Duration>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -2934,6 +2946,39 @@ pub mod field {
             v: T,
         ) -> Self {
             self.state = v.into();
+            self
+        }
+
+        /// Sets the value of [expiration_offset][crate::model::field::TtlConfig::expiration_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::field::TtlConfig;
+        /// use wkt::Duration;
+        /// let x = TtlConfig::new().set_expiration_offset(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_expiration_offset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.expiration_offset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expiration_offset][crate::model::field::TtlConfig::expiration_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::field::TtlConfig;
+        /// use wkt::Duration;
+        /// let x = TtlConfig::new().set_or_clear_expiration_offset(Some(Duration::default()/* use setters */));
+        /// let x = TtlConfig::new().set_or_clear_expiration_offset(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_expiration_offset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.expiration_offset = v.map(|x| x.into());
             self
         }
     }
@@ -7993,6 +8038,10 @@ pub mod field_operation_metadata {
         /// Specifies how the TTL configuration is changing.
         pub change_type: crate::model::field_operation_metadata::ttl_config_delta::ChangeType,
 
+        /// The offset, relative to the timestamp value in the TTL-enabled field,
+        /// used determine the document's expiration time.
+        pub expiration_offset: std::option::Option<wkt::Duration>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8019,6 +8068,39 @@ pub mod field_operation_metadata {
             v: T,
         ) -> Self {
             self.change_type = v.into();
+            self
+        }
+
+        /// Sets the value of [expiration_offset][crate::model::field_operation_metadata::TtlConfigDelta::expiration_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::TtlConfigDelta;
+        /// use wkt::Duration;
+        /// let x = TtlConfigDelta::new().set_expiration_offset(Duration::default()/* use setters */);
+        /// ```
+        pub fn set_expiration_offset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.expiration_offset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expiration_offset][crate::model::field_operation_metadata::TtlConfigDelta::expiration_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::field_operation_metadata::TtlConfigDelta;
+        /// use wkt::Duration;
+        /// let x = TtlConfigDelta::new().set_or_clear_expiration_offset(Some(Duration::default()/* use setters */));
+        /// let x = TtlConfigDelta::new().set_or_clear_expiration_offset(None::<Duration>);
+        /// ```
+        pub fn set_or_clear_expiration_offset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.expiration_offset = v.map(|x| x.into());
             self
         }
     }

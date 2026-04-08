@@ -61,7 +61,15 @@ impl std::fmt::Debug for Agents {
 #[cfg(feature = "agents")]
 impl Agents {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -78,17 +86,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
+                let path_template = "/v2/{parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -101,10 +111,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
+                let path_template = "/v2/{parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -135,6 +147,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/GetAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -157,7 +178,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_agent_parent = try_match(
                     Some(&req)
@@ -167,7 +188,9 @@ impl super::stub::Agents for Agents {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent", var_agent_parent,);
+                let path_template = "/v2/{agent.parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_agent_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -182,7 +205,7 @@ impl super::stub::Agents for Agents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_agent_parent = try_match(
@@ -198,7 +221,9 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent", var_agent_parent,);
+                let path_template = "/v2/{agent.parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_agent_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -213,7 +238,7 @@ impl super::stub::Agents for Agents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -250,6 +275,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/SetAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -272,17 +306,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
+                let path_template = "/v2/{parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -295,10 +331,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
+                let path_template = "/v2/{parent}/agent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -329,6 +367,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/DeleteAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -357,19 +404,21 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent:search", var_parent,);
+                let path_template = "/v2/{parent}/agent:search";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -382,12 +431,14 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent:search", var_parent,);
+                let path_template = "/v2/{parent}/agent:search";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -418,6 +469,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/SearchAgents")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,17 +500,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent:train", var_parent,);
+                let path_template = "/v2/{parent}/agent:train";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -463,10 +525,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent:train", var_parent,);
+                let path_template = "/v2/{parent}/agent:train";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -497,6 +561,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/TrainAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -519,17 +592,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent:export", var_parent,);
+                let path_template = "/v2/{parent}/agent:export";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -542,10 +617,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent:export", var_parent,);
+                let path_template = "/v2/{parent}/agent:export";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -576,6 +653,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/ExportAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -598,17 +684,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent:import", var_parent,);
+                let path_template = "/v2/{parent}/agent:import";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -621,10 +709,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent:import", var_parent,);
+                let path_template = "/v2/{parent}/agent:import";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -655,6 +745,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/ImportAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -677,17 +776,19 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent:restore", var_parent,);
+                let path_template = "/v2/{parent}/agent:restore";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -700,10 +801,12 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent:restore", var_parent,);
+                let path_template = "/v2/{parent}/agent:restore";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -734,6 +837,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/RestoreAgent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -756,18 +868,20 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent/validationResult", var_parent,);
+                let path_template = "/v2/{parent}/agent/validationResult";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -780,11 +894,13 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/agent/validationResult", var_parent,);
+                let path_template = "/v2/{parent}/agent/validationResult";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -815,6 +931,15 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Agents/GetValidationResult")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -837,20 +962,21 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -866,6 +992,14 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -888,7 +1022,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -900,10 +1034,11 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -924,6 +1059,14 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -946,13 +1089,14 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -961,7 +1105,7 @@ impl super::stub::Agents for Agents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -974,6 +1118,7 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -982,7 +1127,7 @@ impl super::stub::Agents for Agents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1013,6 +1158,14 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1035,7 +1188,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1047,10 +1200,11 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1065,10 +1219,11 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1106,6 +1261,14 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1128,7 +1291,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1140,10 +1303,11 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1158,10 +1322,11 @@ impl super::stub::Agents for Agents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1199,6 +1364,14 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1251,7 +1424,15 @@ impl std::fmt::Debug for AnswerRecords {
 #[cfg(feature = "answer-records")]
 impl AnswerRecords {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1268,20 +1449,22 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/answerRecords", var_parent,);
+                let path_template = "/v2/{parent}/answerRecords";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1294,13 +1477,15 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}/answerRecords", var_parent,);
+                let path_template = "/v2/{parent}/answerRecords";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1331,6 +1516,15 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.AnswerRecords/ListAnswerRecords")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1353,7 +1547,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_answer_record_name = try_match(
                     Some(&req)
@@ -1368,6 +1562,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_answer_record_name,);
+                let path_template = "/v2/{answer_record.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1383,7 +1578,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_answer_record_name = try_match(
@@ -1401,6 +1596,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_answer_record_name,);
+                let path_template = "/v2/{answer_record.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1416,7 +1612,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1460,6 +1656,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.AnswerRecords/UpdateAnswerRecord")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1482,20 +1686,21 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1511,6 +1716,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1533,7 +1746,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1545,10 +1758,11 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1569,6 +1783,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1591,13 +1813,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1606,7 +1829,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1619,6 +1842,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1627,7 +1851,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1658,6 +1882,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1680,7 +1912,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1692,10 +1924,11 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1710,10 +1943,11 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1751,6 +1985,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1773,7 +2015,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1785,10 +2027,11 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1803,10 +2046,11 @@ impl super::stub::AnswerRecords for AnswerRecords {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1844,6 +2088,14 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1882,7 +2134,15 @@ impl std::fmt::Debug for Contexts {
 #[cfg(feature = "contexts")]
 impl Contexts {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1899,7 +2159,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1911,12 +2171,14 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1933,12 +2195,14 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1953,12 +2217,14 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1977,12 +2243,14 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2060,6 +2328,15 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/ListContexts")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2082,7 +2359,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2096,10 +2373,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2118,10 +2397,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2138,10 +2419,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2162,10 +2445,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2251,6 +2536,15 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/GetContext")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2273,7 +2567,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2285,10 +2579,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2305,10 +2601,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2323,10 +2621,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2345,10 +2645,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2426,6 +2728,15 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/CreateContext")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2448,7 +2759,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_context_name = try_match(
                     Some(&req)
@@ -2465,6 +2776,7 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_context_name,);
+                let path_template = "/v2/{context.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2480,7 +2792,7 @@ impl super::stub::Contexts for Contexts {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_context_name = try_match(
@@ -2502,6 +2814,7 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_context_name,);
+                let path_template = "/v2/{context.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2517,7 +2830,7 @@ impl super::stub::Contexts for Contexts {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_context_name = try_match(
@@ -2537,6 +2850,7 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_context_name,);
+                let path_template = "/v2/{context.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2552,7 +2866,7 @@ impl super::stub::Contexts for Contexts {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_context_name = try_match(
@@ -2576,6 +2890,7 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_context_name,);
+                let path_template = "/v2/{context.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2591,7 +2906,7 @@ impl super::stub::Contexts for Contexts {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2689,6 +3004,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/UpdateContext")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2711,7 +3034,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2725,10 +3048,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2747,10 +3072,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2767,10 +3094,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2791,10 +3120,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2880,6 +3211,15 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/DeleteContext")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2908,7 +3248,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2920,10 +3260,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2940,10 +3282,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2958,10 +3302,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2980,10 +3326,12 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
+                let path_template = "/v2/{parent}/contexts";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3061,6 +3409,15 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Contexts/DeleteAllContexts")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3089,20 +3446,21 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3118,6 +3476,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3140,7 +3506,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3152,10 +3518,11 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3176,6 +3543,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3198,13 +3573,14 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3213,7 +3589,7 @@ impl super::stub::Contexts for Contexts {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3226,6 +3602,7 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3234,7 +3611,7 @@ impl super::stub::Contexts for Contexts {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3265,6 +3642,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3287,7 +3672,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3299,10 +3684,11 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3317,10 +3703,11 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3358,6 +3745,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3380,7 +3775,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3392,10 +3787,11 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3410,10 +3806,11 @@ impl super::stub::Contexts for Contexts {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3451,6 +3848,14 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3489,7 +3894,15 @@ impl std::fmt::Debug for Conversations {
 #[cfg(feature = "conversations")]
 impl Conversations {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3506,18 +3919,20 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
+                let path_template = "/v2/{parent}/conversations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("conversationId", &req.conversation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3530,11 +3945,13 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
+                let path_template = "/v2/{parent}/conversations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("conversationId", &req.conversation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3565,6 +3982,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/CreateConversation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3587,20 +4013,22 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
+                let path_template = "/v2/{parent}/conversations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3613,13 +4041,15 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
+                let path_template = "/v2/{parent}/conversations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3650,6 +4080,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/ListConversations")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3672,7 +4111,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3684,10 +4123,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3702,10 +4143,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3743,6 +4186,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/GetConversation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3765,7 +4217,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3777,10 +4229,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}:complete", var_name,);
+                let path_template = "/v2/{name}:complete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3795,10 +4249,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}:complete", var_name,);
+                let path_template = "/v2/{name}:complete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3836,6 +4292,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/CompleteConversation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3858,7 +4323,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -3872,10 +4337,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}:ingestContextReferences", var_conversation,);
+                let path_template = "/v2/{conversation}:ingestContextReferences";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3898,6 +4365,17 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.Conversations/IngestContextReferences",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3920,7 +4398,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3932,13 +4410,15 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/messages", var_parent,);
+                let path_template = "/v2/{parent}/messages";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3953,13 +4433,15 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/messages", var_parent,);
+                let path_template = "/v2/{parent}/messages";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3997,6 +4479,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/ListMessages")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4019,7 +4510,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -4034,10 +4525,12 @@ impl super::stub::Conversations for Conversations {
                     "/v2/{}/suggestions:suggestConversationSummary",
                     var_conversation,
                 );
+                let path_template = "/v2/{conversation}/suggestions:suggestConversationSummary";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4055,10 +4548,12 @@ impl super::stub::Conversations for Conversations {
                     "/v2/{}/suggestions:suggestConversationSummary",
                     var_conversation,
                 );
+                let path_template = "/v2/{conversation}/suggestions:suggestConversationSummary";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4096,6 +4591,17 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.Conversations/SuggestConversationSummary",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4118,7 +4624,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_stateless_conversation_parent = try_match(
                     Some(&req)
@@ -4131,10 +4637,16 @@ impl super::stub::Conversations for Conversations {
                     "/v2/{}/suggestions:generateStatelessSummary",
                     var_stateless_conversation_parent,
                 );
+                let path_template =
+                    "/v2/{stateless_conversation.parent}/suggestions:generateStatelessSummary";
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/{}",
+                    var_stateless_conversation_parent,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_stateless_conversation_parent = try_match(
@@ -4153,10 +4665,16 @@ impl super::stub::Conversations for Conversations {
                     "/v2/{}/suggestions:generateStatelessSummary",
                     var_stateless_conversation_parent,
                 );
+                let path_template =
+                    "/v2/{stateless_conversation.parent}/suggestions:generateStatelessSummary";
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/{}",
+                    var_stateless_conversation_parent,
+                );
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4193,6 +4711,17 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.Conversations/GenerateStatelessSummary",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4215,7 +4744,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4227,10 +4756,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/statelessSuggestion:generate", var_parent,);
+                let path_template = "/v2/{parent}/statelessSuggestion:generate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4251,6 +4782,17 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.Conversations/GenerateStatelessSuggestion",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4273,17 +4815,19 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:searchKnowledge";
 
+                let resource_name = String::new();
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4296,10 +4840,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:searchKnowledge";
 
+                let resource_name = String::new();
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4312,10 +4858,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_conversation,);
+                let path_template = "/v2/{conversation}/suggestions:searchKnowledge";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4330,10 +4878,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_conversation,);
+                let path_template = "/v2/{conversation}/suggestions:searchKnowledge";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4396,6 +4946,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/SearchKnowledge")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4418,7 +4977,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -4430,10 +4989,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:generate", var_conversation,);
+                let path_template = "/v2/{conversation}/suggestions:generate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4448,10 +5009,12 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:generate", var_conversation,);
+                let path_template = "/v2/{conversation}/suggestions:generate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_conversation,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4489,6 +5052,15 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Conversations/GenerateSuggestions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4511,20 +5083,21 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4540,6 +5113,14 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4562,7 +5143,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4574,10 +5155,11 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4598,6 +5180,14 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4620,13 +5210,14 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4635,7 +5226,7 @@ impl super::stub::Conversations for Conversations {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4648,6 +5239,7 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -4656,7 +5248,7 @@ impl super::stub::Conversations for Conversations {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4687,6 +5279,14 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4709,7 +5309,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4721,10 +5321,11 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4739,10 +5340,11 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4780,6 +5382,14 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4802,7 +5412,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4814,10 +5424,11 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4832,10 +5443,11 @@ impl super::stub::Conversations for Conversations {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4873,6 +5485,14 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4911,7 +5531,15 @@ impl std::fmt::Debug for ConversationDatasets {
 #[cfg(feature = "conversation-datasets")]
 impl ConversationDatasets {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -4928,7 +5556,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4940,10 +5568,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationDatasets", var_parent,);
+                let path_template = "/v2/{parent}/conversationDatasets";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4964,6 +5593,16 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationDatasets/CreateConversationDataset",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4986,7 +5625,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4998,10 +5637,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5016,10 +5657,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5057,6 +5700,17 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationDatasets/GetConversationDataset",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5079,19 +5733,21 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversationDatasets", var_parent,);
+                let path_template = "/v2/{parent}/conversationDatasets";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5104,12 +5760,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationDatasets", var_parent,);
+                let path_template = "/v2/{parent}/conversationDatasets";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5140,6 +5798,17 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationDatasets/ListConversationDatasets",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5162,7 +5831,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5176,10 +5845,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5202,6 +5873,17 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationDatasets/DeleteConversationDataset",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5224,7 +5906,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5236,10 +5918,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}:importConversationData", var_name,);
+                let path_template = "/v2/{name}:importConversationData";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5254,10 +5938,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}:importConversationData", var_name,);
+                let path_template = "/v2/{name}:importConversationData";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5295,6 +5981,17 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationDatasets/ImportConversationData",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5317,20 +6014,21 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5346,6 +6044,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5368,7 +6074,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5380,10 +6086,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5404,6 +6111,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5426,13 +6141,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5441,7 +6157,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5454,6 +6170,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5462,7 +6179,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5493,6 +6210,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5515,7 +6240,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5527,10 +6252,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5545,10 +6271,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5586,6 +6313,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5608,7 +6343,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5620,10 +6355,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5638,10 +6374,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5679,6 +6416,14 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5731,7 +6476,15 @@ impl std::fmt::Debug for ConversationModels {
 #[cfg(feature = "conversation-models")]
 impl ConversationModels {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -5748,17 +6501,18 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversationModels", var_parent,);
+                let path_template = "/v2/{parent}/conversationModels";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5771,10 +6525,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationModels", var_parent,);
+                let path_template = "/v2/{parent}/conversationModels";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5805,6 +6560,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/CreateConversationModel",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5827,7 +6592,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5839,10 +6604,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5857,10 +6623,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5898,6 +6665,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/GetConversationModel",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5920,19 +6697,20 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversationModels", var_parent,);
+                let path_template = "/v2/{parent}/conversationModels";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5945,12 +6723,13 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationModels", var_parent,);
+                let path_template = "/v2/{parent}/conversationModels";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5981,6 +6760,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/ListConversationModels",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6003,7 +6792,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6015,10 +6804,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6033,10 +6823,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6074,6 +6865,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/DeleteConversationModel",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6096,7 +6897,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6108,10 +6909,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:deploy", var_name,);
+                let path_template = "/v2/{name}:deploy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6126,10 +6928,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:deploy", var_name,);
+                let path_template = "/v2/{name}:deploy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6167,6 +6970,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/DeployConversationModel",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6189,7 +7002,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6201,10 +7014,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:undeploy", var_name,);
+                let path_template = "/v2/{name}:undeploy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6219,10 +7033,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:undeploy", var_name,);
+                let path_template = "/v2/{name}:undeploy";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6260,6 +7075,16 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationModels/UndeployConversationModel",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6282,7 +7107,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6296,10 +7121,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6316,10 +7142,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6361,6 +7188,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.ConversationModels/GetConversationModelEvaluation")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6383,7 +7218,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6395,12 +7230,13 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
+                let path_template = "/v2/{parent}/evaluations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6415,12 +7251,13 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
+                let path_template = "/v2/{parent}/evaluations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6458,6 +7295,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.ConversationModels/ListConversationModelEvaluations")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6480,7 +7325,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6494,10 +7339,12 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
+                let path_template = "/v2/{parent}/evaluations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6520,6 +7367,15 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.ConversationModels/CreateConversationModelEvaluation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6542,20 +7398,21 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6571,6 +7428,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6593,7 +7458,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6605,10 +7470,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6629,6 +7495,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6651,13 +7525,14 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -6666,7 +7541,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6679,6 +7554,7 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -6687,7 +7563,7 @@ impl super::stub::ConversationModels for ConversationModels {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6718,6 +7594,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6740,7 +7624,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6752,10 +7636,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6770,10 +7655,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6811,6 +7697,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6833,7 +7727,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6845,10 +7739,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6863,10 +7758,11 @@ impl super::stub::ConversationModels for ConversationModels {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6904,6 +7800,14 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6956,7 +7860,15 @@ impl std::fmt::Debug for ConversationProfiles {
 #[cfg(feature = "conversation-profiles")]
 impl ConversationProfiles {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -6973,19 +7885,21 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
+                let path_template = "/v2/{parent}/conversationProfiles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6998,12 +7912,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
+                let path_template = "/v2/{parent}/conversationProfiles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7034,6 +7950,17 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationProfiles/ListConversationProfiles",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7056,7 +7983,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7068,10 +7995,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7086,10 +8015,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7127,6 +8058,17 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationProfiles/GetConversationProfile",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7149,17 +8091,19 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
+                let path_template = "/v2/{parent}/conversationProfiles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -7172,10 +8116,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
+                let path_template = "/v2/{parent}/conversationProfiles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7206,6 +8152,17 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationProfiles/CreateConversationProfile",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7228,7 +8185,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_conversation_profile_name = try_match(
                     Some(&req)
@@ -7243,6 +8200,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_conversation_profile_name,);
+                let path_template = "/v2/{conversation_profile.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7258,7 +8216,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_conversation_profile_name = try_match(
@@ -7276,6 +8234,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_conversation_profile_name,);
+                let path_template = "/v2/{conversation_profile.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -7291,7 +8250,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7335,6 +8294,16 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationProfiles/UpdateConversationProfile",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7357,7 +8326,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7369,10 +8338,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7387,10 +8358,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7428,6 +8401,17 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.ConversationProfiles/DeleteConversationProfile",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7456,7 +8440,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_conversation_profile = try_match(
                     Some(&req)
@@ -7473,10 +8457,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     "/v2/{}:setSuggestionFeatureConfig",
                     var_conversation_profile,
                 );
+                let path_template = "/v2/{conversation_profile}:setSuggestionFeatureConfig";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_conversation_profile = try_match(
@@ -7496,10 +8481,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     "/v2/{}:setSuggestionFeatureConfig",
                     var_conversation_profile,
                 );
+                let path_template = "/v2/{conversation_profile}:setSuggestionFeatureConfig";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7541,6 +8527,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.ConversationProfiles/SetSuggestionFeatureConfig")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7563,7 +8557,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_conversation_profile = try_match(
                     Some(&req)
@@ -7580,10 +8574,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     "/v2/{}:clearSuggestionFeatureConfig",
                     var_conversation_profile,
                 );
+                let path_template = "/v2/{conversation_profile}:clearSuggestionFeatureConfig";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_conversation_profile = try_match(
@@ -7603,10 +8598,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     "/v2/{}:clearSuggestionFeatureConfig",
                     var_conversation_profile,
                 );
+                let path_template = "/v2/{conversation_profile}:clearSuggestionFeatureConfig";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7648,6 +8644,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.ConversationProfiles/ClearSuggestionFeatureConfig")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7670,20 +8674,21 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7699,6 +8704,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7721,7 +8734,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7733,10 +8746,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7757,6 +8771,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7779,13 +8801,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7794,7 +8817,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7807,6 +8830,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -7815,7 +8839,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7846,6 +8870,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7868,7 +8900,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7880,10 +8912,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7898,10 +8931,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7939,6 +8973,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7961,7 +9003,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7973,10 +9015,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7991,10 +9034,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8032,6 +9076,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8084,7 +9136,15 @@ impl std::fmt::Debug for Documents {
 #[cfg(feature = "documents")]
 impl Documents {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -8101,7 +9161,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8113,13 +9173,15 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8134,13 +9196,15 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8153,13 +9217,15 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8212,6 +9278,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/ListDocuments")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8234,7 +9309,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8248,10 +9323,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8268,10 +9345,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8286,10 +9365,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8348,6 +9429,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/GetDocument")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8370,7 +9460,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8382,10 +9472,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8400,10 +9492,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8416,10 +9510,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
+                let path_template = "/v2/{parent}/documents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8472,6 +9568,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/CreateDocument")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8494,7 +9599,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8506,10 +9611,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents:import", var_parent,);
+                let path_template = "/v2/{parent}/documents:import";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8524,10 +9631,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/documents:import", var_parent,);
+                let path_template = "/v2/{parent}/documents:import";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8565,6 +9674,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/ImportDocuments")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8587,7 +9705,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8601,10 +9719,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8621,10 +9741,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8639,10 +9761,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8701,6 +9825,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/DeleteDocument")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8723,7 +9856,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_document_name = try_match(
                     Some(&req)
@@ -8740,6 +9873,7 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_document_name,);
+                let path_template = "/v2/{document.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -8755,7 +9889,7 @@ impl super::stub::Documents for Documents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_document_name = try_match(
@@ -8775,6 +9909,7 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_document_name,);
+                let path_template = "/v2/{document.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -8790,7 +9925,7 @@ impl super::stub::Documents for Documents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_document_name = try_match(
@@ -8808,6 +9943,7 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_document_name,);
+                let path_template = "/v2/{document.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -8823,7 +9959,7 @@ impl super::stub::Documents for Documents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8891,6 +10027,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/UpdateDocument")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8913,7 +10057,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8927,10 +10071,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
+                let path_template = "/v2/{name}:reload";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8947,10 +10093,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
+                let path_template = "/v2/{name}:reload";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8965,10 +10113,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
+                let path_template = "/v2/{name}:reload";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9027,6 +10177,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/ReloadDocument")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9049,7 +10208,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9063,10 +10222,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:export", var_name,);
+                let path_template = "/v2/{name}:export";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9083,10 +10244,12 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:export", var_name,);
+                let path_template = "/v2/{name}:export";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9128,6 +10291,15 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Documents/ExportDocument")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9150,20 +10322,21 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9179,6 +10352,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9201,7 +10382,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9213,10 +10394,11 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9237,6 +10419,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9259,13 +10449,14 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9274,7 +10465,7 @@ impl super::stub::Documents for Documents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9287,6 +10478,7 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9295,7 +10487,7 @@ impl super::stub::Documents for Documents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9326,6 +10518,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9348,7 +10548,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9360,10 +10560,11 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9378,10 +10579,11 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9419,6 +10621,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9441,7 +10651,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9453,10 +10663,11 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9471,10 +10682,11 @@ impl super::stub::Documents for Documents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9512,6 +10724,14 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9564,7 +10784,15 @@ impl std::fmt::Debug for EncryptionSpecService {
 #[cfg(feature = "encryption-spec-service")]
 impl EncryptionSpecService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -9581,7 +10809,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9594,10 +10822,12 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9619,6 +10849,17 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.EncryptionSpecService/GetEncryptionSpec",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9641,7 +10882,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_encryption_spec_name = try_match(
                     Some(&req)
@@ -9657,10 +10898,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}:initialize", var_encryption_spec_name,);
+                let path_template = "/v2/{encryption_spec.name}:initialize";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9685,6 +10927,16 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.EncryptionSpecService/InitializeEncryptionSpec",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9707,20 +10959,21 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9736,6 +10989,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9758,7 +11019,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9770,10 +11031,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9794,6 +11056,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9816,13 +11086,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9831,7 +11102,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9844,6 +11115,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -9852,7 +11124,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9883,6 +11155,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9905,7 +11185,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9917,10 +11197,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9935,10 +11216,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9976,6 +11258,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9998,7 +11288,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10010,10 +11300,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10028,10 +11319,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10069,6 +11361,14 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10121,7 +11421,15 @@ impl std::fmt::Debug for EntityTypes {
 #[cfg(feature = "entity-types")]
 impl EntityTypes {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -10138,7 +11446,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10149,13 +11457,15 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10169,13 +11479,15 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10211,6 +11523,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/ListEntityTypes")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10233,7 +11554,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10245,11 +11566,13 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10264,11 +11587,13 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10306,6 +11631,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/GetEntityType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10328,7 +11662,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10339,11 +11673,13 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10357,11 +11693,13 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10397,6 +11735,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/CreateEntityType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10419,7 +11766,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_entity_type_name = try_match(
                     Some(&req)
@@ -10434,6 +11781,7 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_entity_type_name,);
+                let path_template = "/v2/{entity_type.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -10450,7 +11798,7 @@ impl super::stub::EntityTypes for EntityTypes {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_entity_type_name = try_match(
@@ -10468,6 +11816,7 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_entity_type_name,);
+                let path_template = "/v2/{entity_type.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -10484,7 +11833,7 @@ impl super::stub::EntityTypes for EntityTypes {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10528,6 +11877,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/UpdateEntityType")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10550,7 +11907,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10562,10 +11919,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10580,10 +11939,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10621,6 +11982,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/DeleteEntityType")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10649,7 +12019,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10660,10 +12030,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10677,10 +12049,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10716,6 +12090,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/BatchUpdateEntityTypes")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10738,7 +12121,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10749,10 +12132,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10766,10 +12151,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10805,6 +12192,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/BatchDeleteEntityTypes")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10827,7 +12223,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10839,10 +12235,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchCreate", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchCreate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10857,10 +12255,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchCreate", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchCreate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10898,6 +12298,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/BatchCreateEntities")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10920,7 +12329,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10932,10 +12341,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10950,10 +12361,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10991,6 +12404,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/BatchUpdateEntities")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11013,7 +12435,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11025,10 +12447,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11043,10 +12467,12 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entities:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/entities:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11084,6 +12510,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.EntityTypes/BatchDeleteEntities")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11106,20 +12541,21 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11135,6 +12571,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11157,7 +12601,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11169,10 +12613,11 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11193,6 +12638,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11215,13 +12668,14 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -11230,7 +12684,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11243,6 +12697,7 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -11251,7 +12706,7 @@ impl super::stub::EntityTypes for EntityTypes {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11282,6 +12737,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11304,7 +12767,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11316,10 +12779,11 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11334,10 +12798,11 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11375,6 +12840,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11397,7 +12870,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11409,10 +12882,11 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11427,10 +12901,11 @@ impl super::stub::EntityTypes for EntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11468,6 +12943,14 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11520,7 +13003,15 @@ impl std::fmt::Debug for Environments {
 #[cfg(feature = "environments")]
 impl Environments {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -11537,7 +13028,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11548,12 +13039,14 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
+                let path_template = "/v2/{parent}/environments";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11567,12 +13060,14 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
+                let path_template = "/v2/{parent}/environments";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11608,6 +13103,15 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/ListEnvironments")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11630,7 +13134,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11642,10 +13146,12 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11660,10 +13166,12 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11701,6 +13209,15 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/GetEnvironment")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11723,7 +13240,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11734,11 +13251,13 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
+                let path_template = "/v2/{parent}/environments";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("environmentId", &req.environment_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11752,11 +13271,13 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
+                let path_template = "/v2/{parent}/environments";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("environmentId", &req.environment_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11792,6 +13313,15 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/CreateEnvironment")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11814,7 +13344,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_environment_name = try_match(
                     Some(&req)
@@ -11829,6 +13359,7 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_environment_name,);
+                let path_template = "/v2/{environment.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -11848,7 +13379,7 @@ impl super::stub::Environments for Environments {
                     )]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_environment_name = try_match(
@@ -11866,6 +13397,7 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_environment_name,);
+                let path_template = "/v2/{environment.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -11885,7 +13417,7 @@ impl super::stub::Environments for Environments {
                     )]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11929,6 +13461,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/UpdateEnvironment")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11951,7 +13491,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11963,10 +13503,12 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11981,10 +13523,12 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12022,6 +13566,15 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/DeleteEnvironment")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12050,7 +13603,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12062,12 +13615,14 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/history", var_parent,);
+                let path_template = "/v2/{parent}/history";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -12082,12 +13637,14 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/history", var_parent,);
+                let path_template = "/v2/{parent}/history";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12125,6 +13682,15 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Environments/GetEnvironmentHistory")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12147,20 +13713,21 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12176,6 +13743,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12198,7 +13773,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12210,10 +13785,11 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12234,6 +13810,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12256,13 +13840,14 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12271,7 +13856,7 @@ impl super::stub::Environments for Environments {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12284,6 +13869,7 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12292,7 +13878,7 @@ impl super::stub::Environments for Environments {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12323,6 +13909,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12345,7 +13939,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12357,10 +13951,11 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12375,10 +13970,11 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12416,6 +14012,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12438,7 +14042,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12450,10 +14054,11 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12468,10 +14073,11 @@ impl super::stub::Environments for Environments {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12509,6 +14115,14 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12547,7 +14161,15 @@ impl std::fmt::Debug for Fulfillments {
 #[cfg(feature = "fulfillments")]
 impl Fulfillments {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -12564,7 +14186,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12575,10 +14197,12 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12592,10 +14216,12 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12631,6 +14257,15 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Fulfillments/GetFulfillment")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12653,7 +14288,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_fulfillment_name = try_match(
                     Some(&req)
@@ -12667,6 +14302,7 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_fulfillment_name,);
+                let path_template = "/v2/{fulfillment.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -12682,7 +14318,7 @@ impl super::stub::Fulfillments for Fulfillments {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_fulfillment_name = try_match(
@@ -12699,6 +14335,7 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_fulfillment_name,);
+                let path_template = "/v2/{fulfillment.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -12714,7 +14351,7 @@ impl super::stub::Fulfillments for Fulfillments {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12756,6 +14393,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Fulfillments/UpdateFulfillment")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12778,20 +14423,21 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12807,6 +14453,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12829,7 +14483,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12841,10 +14495,11 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12865,6 +14520,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12887,13 +14550,14 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12902,7 +14566,7 @@ impl super::stub::Fulfillments for Fulfillments {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12915,6 +14579,7 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -12923,7 +14588,7 @@ impl super::stub::Fulfillments for Fulfillments {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12954,6 +14619,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12976,7 +14649,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12988,10 +14661,11 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13006,10 +14680,11 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13047,6 +14722,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13069,7 +14752,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13081,10 +14764,11 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13099,10 +14783,11 @@ impl super::stub::Fulfillments for Fulfillments {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13140,6 +14825,14 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13178,7 +14871,15 @@ impl std::fmt::Debug for Generators {
 #[cfg(feature = "generators")]
 impl Generators {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -13195,7 +14896,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -13207,11 +14908,13 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
+                let path_template = "/v2/{parent}/generators";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("generatorId", &req.generator_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -13219,11 +14922,13 @@ impl super::stub::Generators for Generators {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
+                let path_template = "/v2/{parent}/generators";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("generatorId", &req.generator_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13254,6 +14959,15 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Generators/CreateGenerator")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13276,7 +14990,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13290,10 +15004,12 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13316,6 +15032,15 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Generators/GetGenerator")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13338,7 +15063,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -13350,12 +15075,14 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
+                let path_template = "/v2/{parent}/generators";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -13363,12 +15090,14 @@ impl super::stub::Generators for Generators {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
+                let path_template = "/v2/{parent}/generators";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13399,6 +15128,15 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Generators/ListGenerators")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13421,7 +15159,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13435,10 +15173,12 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13461,6 +15201,15 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Generators/DeleteGenerator")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13489,7 +15238,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_generator_name = try_match(
                     Some(&req)
@@ -13506,6 +15255,7 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_generator_name,);
+                let path_template = "/v2/{generator.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -13521,7 +15271,7 @@ impl super::stub::Generators for Generators {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13547,6 +15297,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Generators/UpdateGenerator")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13569,20 +15327,21 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13598,6 +15357,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13620,7 +15387,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13632,10 +15399,11 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13656,6 +15424,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13678,13 +15454,14 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -13693,7 +15470,7 @@ impl super::stub::Generators for Generators {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13706,6 +15483,7 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -13714,7 +15492,7 @@ impl super::stub::Generators for Generators {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13745,6 +15523,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13767,7 +15553,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13779,10 +15565,11 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13797,10 +15584,11 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13838,6 +15626,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13860,7 +15656,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13872,10 +15668,11 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -13890,10 +15687,11 @@ impl super::stub::Generators for Generators {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13931,6 +15729,14 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13969,7 +15775,15 @@ impl std::fmt::Debug for GeneratorEvaluations {
 #[cfg(feature = "generator-evaluations")]
 impl GeneratorEvaluations {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -13986,7 +15800,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14000,10 +15814,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
+                let path_template = "/v2/{parent}/evaluations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14026,6 +15842,17 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.GeneratorEvaluations/CreateGeneratorEvaluation",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14048,7 +15875,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14064,10 +15891,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14092,6 +15921,17 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.GeneratorEvaluations/GetGeneratorEvaluation",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14114,7 +15954,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14128,12 +15968,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
+                let path_template = "/v2/{parent}/evaluations";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14156,6 +15998,17 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.GeneratorEvaluations/ListGeneratorEvaluations",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14178,7 +16031,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14194,10 +16047,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14222,6 +16077,17 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.GeneratorEvaluations/DeleteGeneratorEvaluation",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14250,20 +16116,21 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14279,6 +16146,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14301,7 +16176,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14313,10 +16188,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14337,6 +16213,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14359,13 +16243,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -14374,7 +16259,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -14387,6 +16272,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -14395,7 +16281,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14426,6 +16312,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14448,7 +16342,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14460,10 +16354,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -14478,10 +16373,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14519,6 +16415,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14541,7 +16445,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14553,10 +16457,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -14571,10 +16476,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14612,6 +16518,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14664,7 +16578,15 @@ impl std::fmt::Debug for Intents {
 #[cfg(feature = "intents")]
 impl Intents {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -14681,7 +16603,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14692,14 +16614,16 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14713,14 +16637,16 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14733,14 +16659,16 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14755,14 +16683,16 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14830,6 +16760,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/ListIntents")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14852,7 +16791,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14864,12 +16803,14 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -14884,12 +16825,14 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14927,6 +16870,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/GetIntent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14949,7 +16901,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14960,12 +16912,14 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14979,12 +16933,14 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
+                let path_template = "/v2/{parent}/intents";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15020,6 +16976,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/CreateIntent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15042,7 +17007,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_intent_name = try_match(
                     Some(&req)
@@ -15057,6 +17022,7 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_intent_name,);
+                let path_template = "/v2/{intent.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -15074,7 +17040,7 @@ impl super::stub::Intents for Intents {
                     let builder = builder.query(&[("intentView", &req.intent_view)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_intent_name = try_match(
@@ -15092,6 +17058,7 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_intent_name,);
+                let path_template = "/v2/{intent.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -15109,7 +17076,7 @@ impl super::stub::Intents for Intents {
                     let builder = builder.query(&[("intentView", &req.intent_view)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15153,6 +17120,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/UpdateIntent")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15175,7 +17150,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -15187,10 +17162,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -15205,10 +17182,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15246,6 +17225,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/DeleteIntent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15274,7 +17262,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15285,10 +17273,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/intents:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15302,10 +17292,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents:batchUpdate", var_parent,);
+                let path_template = "/v2/{parent}/intents:batchUpdate";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15341,6 +17333,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/BatchUpdateIntents")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15363,7 +17364,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15374,10 +17375,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/intents:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15391,10 +17394,12 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/intents:batchDelete", var_parent,);
+                let path_template = "/v2/{parent}/intents:batchDelete";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15430,6 +17435,15 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Intents/BatchDeleteIntents")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15452,20 +17466,21 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15481,6 +17496,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15503,7 +17526,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -15515,10 +17538,11 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15539,6 +17563,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15561,13 +17593,14 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -15576,7 +17609,7 @@ impl super::stub::Intents for Intents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -15589,6 +17622,7 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -15597,7 +17631,7 @@ impl super::stub::Intents for Intents {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15628,6 +17662,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15650,7 +17692,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -15662,10 +17704,11 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -15680,10 +17723,11 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15721,6 +17765,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15743,7 +17795,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -15755,10 +17807,11 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -15773,10 +17826,11 @@ impl super::stub::Intents for Intents {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15814,6 +17868,14 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15866,7 +17928,15 @@ impl std::fmt::Debug for KnowledgeBases {
 #[cfg(feature = "knowledge-bases")]
 impl KnowledgeBases {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -15883,20 +17953,22 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15909,13 +17981,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15927,13 +18001,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15978,6 +18054,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.KnowledgeBases/ListKnowledgeBases")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16000,7 +18085,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16012,10 +18097,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16030,10 +18117,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16046,10 +18135,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16102,6 +18193,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.KnowledgeBases/GetKnowledgeBase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16124,17 +18224,19 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16147,10 +18249,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16162,10 +18266,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
+                let path_template = "/v2/{parent}/knowledgeBases";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16210,6 +18316,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.KnowledgeBases/CreateKnowledgeBase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16232,7 +18347,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16244,11 +18359,13 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16263,11 +18380,13 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16280,11 +18399,13 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16337,6 +18458,15 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.KnowledgeBases/DeleteKnowledgeBase")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16365,7 +18495,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_knowledge_base_name = try_match(
                     Some(&req)
@@ -16380,6 +18510,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_knowledge_base_name,);
+                let path_template = "/v2/{knowledge_base.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -16395,7 +18526,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_knowledge_base_name = try_match(
@@ -16413,6 +18544,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_knowledge_base_name,);
+                let path_template = "/v2/{knowledge_base.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -16428,7 +18560,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_knowledge_base_name = try_match(
@@ -16444,6 +18576,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_knowledge_base_name,);
+                let path_template = "/v2/{knowledge_base.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -16459,7 +18592,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16521,6 +18654,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.KnowledgeBases/UpdateKnowledgeBase")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16543,20 +18684,21 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16572,6 +18714,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16594,7 +18744,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16606,10 +18756,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16630,6 +18781,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16652,13 +18811,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -16667,7 +18827,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16680,6 +18840,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -16688,7 +18849,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16719,6 +18880,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16741,7 +18910,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16753,10 +18922,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16771,10 +18941,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16812,6 +18983,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16834,7 +19013,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16846,10 +19025,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16864,10 +19044,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16905,6 +19086,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16943,7 +19132,15 @@ impl std::fmt::Debug for Participants {
 #[cfg(feature = "participants")]
 impl Participants {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -16960,7 +19157,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16972,10 +19169,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
+                let path_template = "/v2/{parent}/participants";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16990,10 +19189,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
+                let path_template = "/v2/{parent}/participants";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17031,6 +19232,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/CreateParticipant")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17053,7 +19263,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -17067,10 +19277,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -17087,10 +19299,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17132,6 +19346,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/GetParticipant")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17154,7 +19377,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17166,12 +19389,14 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
+                let path_template = "/v2/{parent}/participants";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17186,12 +19411,14 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
+                let path_template = "/v2/{parent}/participants";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17229,6 +19456,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/ListParticipants")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17251,7 +19487,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_participant_name = try_match(
                     Some(&req)
@@ -17268,6 +19504,7 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_participant_name,);
+                let path_template = "/v2/{participant.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -17283,7 +19520,7 @@ impl super::stub::Participants for Participants {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_participant_name = try_match(
@@ -17303,6 +19540,7 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_participant_name,);
+                let path_template = "/v2/{participant.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -17318,7 +19556,7 @@ impl super::stub::Participants for Participants {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17366,6 +19604,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/UpdateParticipant")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17388,7 +19634,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_participant = try_match(
                     Some(&req).map(|m| &m.participant).map(|s| s.as_str()),
@@ -17402,10 +19648,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}:analyzeContent", var_participant,);
+                let path_template = "/v2/{participant}:analyzeContent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_participant,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_participant = try_match(
@@ -17422,10 +19670,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}:analyzeContent", var_participant,);
+                let path_template = "/v2/{participant}:analyzeContent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_participant,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17467,6 +19717,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/AnalyzeContent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17489,7 +19748,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17503,10 +19762,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestArticles", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestArticles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17523,10 +19784,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestArticles", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestArticles";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17568,6 +19831,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/SuggestArticles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17590,7 +19862,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17604,10 +19876,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestFaqAnswers", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestFaqAnswers";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17624,10 +19898,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestFaqAnswers", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestFaqAnswers";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17669,6 +19945,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/SuggestFaqAnswers")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17691,7 +19976,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17705,10 +19990,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestSmartReplies", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestSmartReplies";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17725,10 +20012,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestSmartReplies", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestSmartReplies";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17770,6 +20059,15 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Participants/SuggestSmartReplies")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17792,7 +20090,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17806,10 +20104,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestKnowledgeAssist", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestKnowledgeAssist";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17826,10 +20126,12 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestKnowledgeAssist", var_parent,);
+                let path_template = "/v2/{parent}/suggestions:suggestKnowledgeAssist";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17871,6 +20173,17 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.Participants/SuggestKnowledgeAssist",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17893,20 +20206,21 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17922,6 +20236,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17944,7 +20266,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -17956,10 +20278,11 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17980,6 +20303,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18002,13 +20333,14 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18017,7 +20349,7 @@ impl super::stub::Participants for Participants {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18030,6 +20362,7 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18038,7 +20371,7 @@ impl super::stub::Participants for Participants {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18069,6 +20402,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18091,7 +20432,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18103,10 +20444,11 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18121,10 +20463,11 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18162,6 +20505,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18184,7 +20535,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18196,10 +20547,11 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18214,10 +20566,11 @@ impl super::stub::Participants for Participants {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18255,6 +20608,14 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18293,7 +20654,15 @@ impl std::fmt::Debug for Sessions {
 #[cfg(feature = "sessions")]
 impl Sessions {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -18310,7 +20679,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_session = try_match(
                     Some(&req).map(|m| &m.session).map(|s| s.as_str()),
@@ -18322,10 +20691,12 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
+                let path_template = "/v2/{session}:detectIntent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18342,10 +20713,12 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
+                let path_template = "/v2/{session}:detectIntent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18360,10 +20733,12 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
+                let path_template = "/v2/{session}:detectIntent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18382,10 +20757,12 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
+                let path_template = "/v2/{session}:detectIntent";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_session,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18463,6 +20840,15 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Sessions/DetectIntent")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18485,20 +20871,21 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18514,6 +20901,14 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18536,7 +20931,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18548,10 +20943,11 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18572,6 +20968,14 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18594,13 +20998,14 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18609,7 +21014,7 @@ impl super::stub::Sessions for Sessions {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18622,6 +21027,7 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -18630,7 +21036,7 @@ impl super::stub::Sessions for Sessions {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18661,6 +21067,14 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18683,7 +21097,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18695,10 +21109,11 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18713,10 +21128,11 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18754,6 +21170,14 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18776,7 +21200,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -18788,10 +21212,11 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -18806,10 +21231,11 @@ impl super::stub::Sessions for Sessions {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18847,6 +21273,14 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18885,7 +21319,15 @@ impl std::fmt::Debug for SessionEntityTypes {
 #[cfg(feature = "session-entity-types")]
 impl SessionEntityTypes {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -18902,7 +21344,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -18914,12 +21356,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18936,12 +21380,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18956,12 +21402,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18980,12 +21428,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19063,6 +21513,17 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.SessionEntityTypes/ListSessionEntityTypes",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19085,17 +21546,22 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19103,10 +21569,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19114,10 +21585,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19125,10 +21601,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19170,6 +21651,17 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.SessionEntityTypes/GetSessionEntityType",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19192,7 +21684,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -19204,10 +21696,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19224,10 +21718,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19242,10 +21738,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19264,10 +21762,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
+                let path_template = "/v2/{parent}/entityTypes";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19345,6 +21845,17 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.SessionEntityTypes/CreateSessionEntityType",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19367,20 +21878,21 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
         .or_else(|| {
             let var_session_entity_type_name = try_match(Some(&req).and_then(|m| m.session_entity_type.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+            let path_template = "/v2/{session_entity_type.name}";
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
         })
         .or_else(|| {
             let var_session_entity_type_name = try_match(Some(&req).and_then(|m| m.session_entity_type.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19388,13 +21900,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+            let path_template = "/v2/{session_entity_type.name}";
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
         })
         .or_else(|| {
             let var_session_entity_type_name = try_match(Some(&req).and_then(|m| m.session_entity_type.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19402,13 +21915,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+            let path_template = "/v2/{session_entity_type.name}";
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
         })
         .or_else(|| {
             let var_session_entity_type_name = try_match(Some(&req).and_then(|m| m.session_entity_type.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19416,13 +21930,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+            let path_template = "/v2/{session_entity_type.name}";
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19464,6 +21979,16 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.SessionEntityTypes/UpdateSessionEntityType",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19486,17 +22011,22 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19504,10 +22034,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19515,10 +22050,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19526,10 +22066,15 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_name,
             );
+            let path_template = "/v2/{name}";
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19571,6 +22116,17 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.dialogflow.v2.SessionEntityTypes/DeleteSessionEntityType",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19599,20 +22155,21 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19628,6 +22185,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19650,7 +22215,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19662,10 +22227,11 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19686,6 +22252,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19708,13 +22282,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -19723,7 +22298,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -19736,6 +22311,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -19744,7 +22320,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19775,6 +22351,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19797,7 +22381,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19809,10 +22393,11 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -19827,10 +22412,11 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19868,6 +22454,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19890,7 +22484,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19902,10 +22496,11 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -19920,10 +22515,11 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19961,6 +22557,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19999,7 +22603,15 @@ impl std::fmt::Debug for SipTrunks {
 #[cfg(feature = "sip-trunks")]
 impl SipTrunks {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -20016,7 +22628,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20028,10 +22640,12 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}/sipTrunks", var_parent,);
+                let path_template = "/v2/{parent}/sipTrunks";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20052,6 +22666,15 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.SipTrunks/CreateSipTrunk")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20074,7 +22697,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20088,10 +22711,12 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20114,6 +22739,15 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.SipTrunks/DeleteSipTrunk")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20142,7 +22776,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20154,12 +22788,14 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}/sipTrunks", var_parent,);
+                let path_template = "/v2/{parent}/sipTrunks";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20180,6 +22816,15 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.SipTrunks/ListSipTrunks")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20202,7 +22847,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20216,10 +22861,12 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20242,6 +22889,15 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.SipTrunks/GetSipTrunk")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20264,7 +22920,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_sip_trunk_name = try_match(
                     Some(&req)
@@ -20281,6 +22937,7 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_sip_trunk_name,);
+                let path_template = "/v2/{sip_trunk.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -20296,7 +22953,7 @@ impl super::stub::SipTrunks for SipTrunks {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20322,6 +22979,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.SipTrunks/UpdateSipTrunk")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20344,20 +23009,21 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20373,6 +23039,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20395,7 +23069,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20407,10 +23081,11 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20431,6 +23106,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20453,13 +23136,14 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -20468,7 +23152,7 @@ impl super::stub::SipTrunks for SipTrunks {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -20481,6 +23165,7 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -20489,7 +23174,7 @@ impl super::stub::SipTrunks for SipTrunks {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20520,6 +23205,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20542,7 +23235,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20554,10 +23247,11 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -20572,10 +23266,11 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20613,6 +23308,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20635,7 +23338,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20647,10 +23350,11 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -20665,10 +23369,11 @@ impl super::stub::SipTrunks for SipTrunks {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20706,6 +23411,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20742,7 +23455,15 @@ impl std::fmt::Debug for Tools {
 #[cfg(feature = "tools")]
 impl Tools {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -20759,7 +23480,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20771,11 +23492,13 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}/tools", var_parent,);
+                let path_template = "/v2/{parent}/tools";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("toolId", &req.tool_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20796,6 +23519,15 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Tools/CreateTool")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20818,7 +23550,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20832,10 +23564,12 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20858,6 +23592,15 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Tools/GetTool")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20880,7 +23623,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20892,12 +23635,14 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}/tools", var_parent,);
+                let path_template = "/v2/{parent}/tools";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20918,6 +23663,15 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Tools/ListTools")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20940,7 +23694,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20954,10 +23708,12 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20980,6 +23736,15 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Tools/DeleteTool")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21008,7 +23773,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_tool_name = try_match(
                     Some(&req)
@@ -21025,6 +23790,7 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_tool_name,);
+                let path_template = "/v2/{tool.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -21040,7 +23806,7 @@ impl super::stub::Tools for Tools {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21066,6 +23832,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Tools/UpdateTool")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21088,20 +23862,21 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21117,6 +23892,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21139,7 +23922,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21151,10 +23934,11 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21175,6 +23959,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21197,13 +23989,14 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -21212,7 +24005,7 @@ impl super::stub::Tools for Tools {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21225,6 +24018,7 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -21233,7 +24027,7 @@ impl super::stub::Tools for Tools {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21264,6 +24058,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21286,7 +24088,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21298,10 +24100,11 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21316,10 +24119,11 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21357,6 +24161,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21379,7 +24191,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21391,10 +24203,11 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21409,10 +24222,11 @@ impl super::stub::Tools for Tools {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21450,6 +24264,14 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21488,7 +24310,15 @@ impl std::fmt::Debug for Versions {
 #[cfg(feature = "versions")]
 impl Versions {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -21505,7 +24335,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21516,12 +24346,14 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
+                let path_template = "/v2/{parent}/versions";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -21535,12 +24367,14 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
+                let path_template = "/v2/{parent}/versions";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21576,6 +24410,15 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Versions/ListVersions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21598,7 +24441,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21610,10 +24453,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21628,10 +24473,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21669,6 +24516,15 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Versions/GetVersion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21691,7 +24547,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21702,10 +24558,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
+                let path_template = "/v2/{parent}/versions";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -21719,10 +24577,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
+                let path_template = "/v2/{parent}/versions";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21758,6 +24618,15 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Versions/CreateVersion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21780,7 +24649,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_version_name = try_match(
                     Some(&req)
@@ -21795,6 +24664,7 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_version_name,);
+                let path_template = "/v2/{version.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -21810,7 +24680,7 @@ impl super::stub::Versions for Versions {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
                 let var_version_name = try_match(
@@ -21828,6 +24698,7 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_version_name,);
+                let path_template = "/v2/{version.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -21843,7 +24714,7 @@ impl super::stub::Versions for Versions {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21887,6 +24758,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Versions/UpdateVersion")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21909,7 +24788,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21921,10 +24800,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21939,10 +24820,12 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//dialogflow.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21980,6 +24863,15 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.dialogflow.v2.Versions/DeleteVersion")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22008,20 +24900,21 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22037,6 +24930,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22059,7 +24960,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -22071,10 +24972,11 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22095,6 +24997,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22117,13 +25027,14 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -22132,7 +25043,7 @@ impl super::stub::Versions for Versions {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -22145,6 +25056,7 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}/operations", var_name,);
+                let path_template = "/v2/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -22153,7 +25065,7 @@ impl super::stub::Versions for Versions {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22184,6 +25096,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22206,7 +25126,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -22218,10 +25138,11 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -22236,10 +25157,11 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22277,6 +25199,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22299,7 +25229,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -22311,10 +25241,11 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -22329,10 +25260,11 @@ impl super::stub::Versions for Versions {
                     ],
                 )?;
                 let path = format!("/v2/{}:cancel", var_name,);
+                let path_template = "/v2/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22370,6 +25302,14 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

@@ -34,7 +34,15 @@ impl std::fmt::Debug for BareMetalSolution {
 
 impl BareMetalSolution {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,13 +70,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/instances", var_parent,);
+                let path_template = "/v2/{parent}/instances";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -89,6 +99,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListInstances",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -111,7 +132,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -125,10 +146,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -151,6 +174,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/GetInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -173,7 +207,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_instance_name = try_match(
                     Some(&req)
@@ -190,6 +224,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_instance_name,);
+                let path_template = "/v2/{instance.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -205,7 +240,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -231,6 +266,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateInstance",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -253,7 +298,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -267,10 +312,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:rename", var_name,);
+                let path_template = "/v2/{name}:rename";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -293,6 +340,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -315,7 +373,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -329,10 +387,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:reset", var_name,);
+                let path_template = "/v2/{name}:reset";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -355,6 +415,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ResetInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -377,7 +448,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -391,10 +462,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:start", var_name,);
+                let path_template = "/v2/{name}:start";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -417,6 +490,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/StartInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -439,7 +523,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -453,10 +537,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:stop", var_name,);
+                let path_template = "/v2/{name}:stop";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -479,6 +565,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/StopInstance",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -501,7 +598,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -515,10 +612,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:enableInteractiveSerialConsole", var_name,);
+                let path_template = "/v2/{name}:enableInteractiveSerialConsole";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -541,6 +640,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/EnableInteractiveSerialConsole")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -563,7 +671,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -577,10 +685,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:disableInteractiveSerialConsole", var_name,);
+                let path_template = "/v2/{name}:disableInteractiveSerialConsole";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -603,6 +713,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/DisableInteractiveSerialConsole")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -625,7 +744,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_instance = try_match(
                     Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
@@ -639,10 +758,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:detachLun", var_instance,);
+                let path_template = "/v2/{instance}:detachLun";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_instance,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -665,6 +786,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/DetachLun")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -687,7 +817,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -699,12 +829,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/sshKeys", var_parent,);
+                let path_template = "/v2/{parent}/sshKeys";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -725,6 +857,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListSSHKeys",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -747,7 +890,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -759,11 +902,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/sshKeys", var_parent,);
+                let path_template = "/v2/{parent}/sshKeys";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("sshKeyId", &req.ssh_key_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -784,6 +929,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateSSHKey",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -806,7 +962,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -820,10 +976,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -846,6 +1004,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteSSHKey",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -874,7 +1043,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -886,13 +1055,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/volumes", var_parent,);
+                let path_template = "/v2/{parent}/volumes";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -913,6 +1084,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListVolumes",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -935,7 +1117,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -949,10 +1131,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -975,6 +1159,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/GetVolume")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -997,7 +1190,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_volume_name = try_match(
                     Some(&req)
@@ -1014,6 +1207,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_volume_name,);
+                let path_template = "/v2/{volume.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1029,7 +1223,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1055,6 +1249,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateVolume",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1077,7 +1281,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1091,10 +1295,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:rename", var_name,);
+                let path_template = "/v2/{name}:rename";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1117,6 +1323,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameVolume",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1139,7 +1356,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1153,10 +1370,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:evict", var_name,);
+                let path_template = "/v2/{name}:evict";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1179,6 +1398,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/EvictVolume",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1201,7 +1431,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_volume = try_match(
                     Some(&req).map(|m| &m.volume).map(|s| s.as_str()),
@@ -1215,10 +1445,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:resize", var_volume,);
+                let path_template = "/v2/{volume}:resize";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_volume,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1241,6 +1473,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ResizeVolume",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1263,7 +1506,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1275,13 +1518,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/networks", var_parent,);
+                let path_template = "/v2/{parent}/networks";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1302,6 +1547,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNetworks",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1324,7 +1580,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -1336,10 +1592,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/networks:listNetworkUsage", var_location,);
+                let path_template = "/v2/{location}/networks:listNetworkUsage";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_location,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1360,6 +1618,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNetworkUsage",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1382,7 +1651,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1396,10 +1665,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1422,6 +1693,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/GetNetwork",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1444,7 +1726,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_network_name = try_match(
                     Some(&req)
@@ -1461,6 +1743,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_network_name,);
+                let path_template = "/v2/{network.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1476,7 +1759,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1502,6 +1785,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateNetwork",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1524,7 +1817,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1538,10 +1831,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/snapshots", var_parent,);
+                let path_template = "/v2/{parent}/snapshots";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1564,6 +1859,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateVolumeSnapshot",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1586,7 +1892,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_volume_snapshot = try_match(
                     Some(&req).map(|m| &m.volume_snapshot).map(|s| s.as_str()),
@@ -1602,10 +1908,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:restoreVolumeSnapshot", var_volume_snapshot,);
+                let path_template = "/v2/{volume_snapshot}:restoreVolumeSnapshot";
 
+                let resource_name =
+                    format!("//baremetalsolution.googleapis.com/{}", var_volume_snapshot,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1630,6 +1939,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/RestoreVolumeSnapshot",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1652,7 +1972,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1668,10 +1988,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1696,6 +2018,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteVolumeSnapshot",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1724,7 +2057,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1740,10 +2073,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1768,6 +2103,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/GetVolumeSnapshot",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1790,7 +2136,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1804,12 +2150,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/snapshots", var_parent,);
+                let path_template = "/v2/{parent}/snapshots";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1832,6 +2180,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListVolumeSnapshots",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1854,7 +2213,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1870,10 +2229,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1898,6 +2259,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/GetLun")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1920,7 +2290,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1934,12 +2304,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/luns", var_parent,);
+                let path_template = "/v2/{parent}/luns";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1962,6 +2334,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/ListLuns")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1984,7 +2365,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2000,10 +2381,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:evict", var_name,);
+                let path_template = "/v2/{name}:evict";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2028,6 +2411,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/EvictLun")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2050,7 +2442,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2064,10 +2456,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2090,6 +2484,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/GetNfsShare",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2112,7 +2517,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2124,13 +2529,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/nfsShares", var_parent,);
+                let path_template = "/v2/{parent}/nfsShares";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2151,6 +2558,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListNfsShares",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2173,7 +2591,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_nfs_share_name = try_match(
                     Some(&req)
@@ -2190,6 +2608,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_nfs_share_name,);
+                let path_template = "/v2/{nfs_share.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2205,7 +2624,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2231,6 +2650,16 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateNfsShare",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2253,7 +2682,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2265,10 +2694,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/nfsShares", var_parent,);
+                let path_template = "/v2/{parent}/nfsShares";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2289,6 +2720,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/CreateNfsShare",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2311,7 +2753,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2325,10 +2767,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:rename", var_name,);
+                let path_template = "/v2/{name}:rename";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2351,6 +2795,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameNfsShare",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2373,7 +2828,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2387,10 +2842,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2413,6 +2870,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/DeleteNfsShare",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2435,7 +2903,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2447,12 +2915,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/provisioningQuotas", var_parent,);
+                let path_template = "/v2/{parent}/provisioningQuotas";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2473,6 +2943,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/ListProvisioningQuotas")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2495,7 +2974,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2507,10 +2986,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/provisioningConfigs:submit", var_parent,);
+                let path_template = "/v2/{parent}/provisioningConfigs:submit";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2531,6 +3012,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/SubmitProvisioningConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2553,7 +3043,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2567,10 +3057,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2593,6 +3085,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/GetProvisioningConfig",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2615,7 +3118,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2627,11 +3130,13 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/provisioningConfigs", var_parent,);
+                let path_template = "/v2/{parent}/provisioningConfigs";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("email", &req.email)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2652,6 +3157,15 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/CreateProvisioningConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2674,7 +3188,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_provisioning_config_name = try_match(
                     Some(&req)
@@ -2691,6 +3205,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_provisioning_config_name,);
+                let path_template = "/v2/{provisioning_config.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2707,7 +3222,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     let builder = builder.query(&[("email", &req.email)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2733,6 +3248,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.baremetalsolution.v2.BareMetalSolution/UpdateProvisioningConfig")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2755,7 +3278,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2769,10 +3292,12 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}:rename", var_name,);
+                let path_template = "/v2/{name}:rename";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2795,6 +3320,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/RenameNetwork",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2817,7 +3353,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2829,12 +3365,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}/osImages", var_parent,);
+                let path_template = "/v2/{parent}/osImages";
 
+                let resource_name = format!("//baremetalsolution.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2855,6 +3393,17 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.baremetalsolution.v2.BareMetalSolution/ListOSImages",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2877,20 +3426,21 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/locations", var_name,);
+                let path_template = "/v2/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2906,6 +3456,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2928,7 +3486,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2940,10 +3498,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v2/{}", var_name,);
+                let path_template = "/v2/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2964,6 +3523,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2986,7 +3553,7 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2996,10 +3563,11 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3018,6 +3586,14 @@ impl super::stub::BareMetalSolution for BareMetalSolution {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

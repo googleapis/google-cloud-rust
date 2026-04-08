@@ -69,13 +69,87 @@ impl Client {
     }
 
     /// Fetches an access token for the default service account.
-    pub(crate) async fn access_token(&self, scopes: Option<Vec<String>>) -> crate::Result<Token> {
+    pub(crate) fn access_token(&self, scopes: Option<Vec<String>>) -> AccessTokenRequest {
+        AccessTokenRequest {
+            client: self.clone(),
+            scopes,
+        }
+    }
+
+    /// Fetches an ID token for the default service account.
+    /// Used by idtoken feature.
+    #[cfg(feature = "idtoken")]
+    pub(crate) fn id_token(
+        &self,
+        target_audience: &str,
+        format: Option<String>,
+        licenses: Option<String>,
+    ) -> IdTokenRequest {
+        IdTokenRequest {
+            client: self.clone(),
+            target_audience: target_audience.to_string(),
+            format,
+            licenses,
+        }
+    }
+
+    /// Fetches the email address of the service account from the Metadata Service.
+    pub(crate) fn email(&self) -> EmailRequest {
+        EmailRequest {
+            client: self.clone(),
+        }
+    }
+
+    /// Fetches the universe domain from the Metadata Service.
+    #[allow(dead_code)]
+    pub(crate) fn universe_domain(&self) -> UniverseDomainRequest {
+        UniverseDomainRequest {
+            client: self.clone(),
+        }
+    }
+
+    async fn send(
+        &self,
+        request: reqwest::RequestBuilder,
+        error_message: &'static str,
+    ) -> crate::Result<reqwest::Response> {
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        Ok(response)
+    }
+
+    async fn check_response_status(
+        response: reqwest::Response,
+        error_message: &str,
+    ) -> crate::Result<reqwest::Response> {
+        if !response.status().is_success() {
+            let err = errors::from_http_response(response, error_message).await;
+            Err(err)
+        } else {
+            Ok(response)
+        }
+    }
+}
+
+#[derive(Clone)]
+pub(crate) struct AccessTokenRequest {
+    client: Client,
+    scopes: Option<Vec<String>>,
+}
+
+impl AccessTokenRequest {
+    pub(crate) async fn send(self) -> crate::Result<Token> {
         let path = format!("{}/token", super::MDS_DEFAULT_URI);
-        let request = self.get(&path);
+        let request = self.client.get(&path);
 
         // Use the `scopes` option if set, otherwise let the MDS use the default
         // scopes.
-        let scopes = scopes.as_ref().map(|v| v.join(","));
+        let scopes = self.scopes.as_ref().map(|v| v.join(","));
         let request = scopes
             .into_iter()
             .fold(request, |r, s| r.query(&[("scopes", s)]));
@@ -86,12 +160,7 @@ impl Client {
         // running on MDS environments and not useful if there is no MDS. We will mark the error
         // as retryable and let the retry policy determine whether to retry or not. Whenever we
         // define a default retry policy, we can skip retrying this case.
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
+        let response = self.client.send(request, error_message).await?;
 
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             // Decoding errors are not transient. Typically they indicate a badly
@@ -109,33 +178,34 @@ impl Client {
             metadata: None,
         })
     }
+}
 
-    /// Fetches an ID token for the default service account.
-    /// Used by idtoken feature.
-    #[cfg(feature = "idtoken")]
-    pub(crate) async fn id_token(
-        &self,
-        target_audience: &str,
-        format: Option<String>,
-        licenses: Option<String>,
-    ) -> crate::Result<String> {
+#[cfg(feature = "idtoken")]
+#[derive(Clone)]
+pub(crate) struct IdTokenRequest {
+    client: Client,
+    target_audience: String,
+    format: Option<String>,
+    licenses: Option<String>,
+}
+
+#[cfg(feature = "idtoken")]
+impl IdTokenRequest {
+    pub(crate) async fn send(self) -> crate::Result<String> {
         let path = format!("{}/identity", super::MDS_DEFAULT_URI);
-        let request = self.get(&path).query(&[("audience", target_audience)]);
-        let request = format.iter().fold(request, |builder, format| {
+        let request = self
+            .client
+            .get(&path)
+            .query(&[("audience", &self.target_audience)]);
+        let request = self.format.iter().fold(request, |builder, format| {
             builder.query(&[("format", format)])
         });
-        let request = licenses.iter().fold(request, |builder, licenses| {
+        let request = self.licenses.iter().fold(request, |builder, licenses| {
             builder.query(&[("licenses", licenses)])
         });
 
         let error_message = "failed to fetch id token";
-
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
+        let response = self.client.send(request, error_message).await?;
 
         let token = response
             .text()
@@ -144,19 +214,20 @@ impl Client {
 
         Ok(token)
     }
+}
 
-    /// Fetches the email address of the service account from the Metadata Service.
-    pub(crate) async fn email(&self) -> crate::Result<String> {
+#[derive(Clone)]
+pub(crate) struct EmailRequest {
+    client: Client,
+}
+
+impl EmailRequest {
+    pub(crate) async fn send(self) -> crate::Result<String> {
         let path = format!("{}/email", super::MDS_DEFAULT_URI);
-        let request = self.get(&path);
+        let request = self.client.get(&path);
         let error_message = "failed to fetch email";
 
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
+        let response = self.client.send(request, error_message).await?;
 
         let email = response
             .text()
@@ -165,24 +236,36 @@ impl Client {
 
         Ok(email)
     }
+}
 
-    async fn check_response_status(
-        response: reqwest::Response,
-        error_message: &str,
-    ) -> crate::Result<reqwest::Response> {
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, error_message).await;
-            Err(err)
-        } else {
-            Ok(response)
-        }
+#[derive(Clone)]
+#[allow(dead_code)]
+pub(crate) struct UniverseDomainRequest {
+    client: Client,
+}
+
+impl UniverseDomainRequest {
+    #[allow(dead_code)]
+    pub(crate) async fn send(self) -> crate::Result<String> {
+        let path = super::MDS_UNIVERSE_DOMAIN_URI;
+        let request = self.client.get(path);
+        let error_message = "failed to fetch universe domain";
+
+        let response = self.client.send(request, error_message).await?;
+
+        let universe_domain = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(universe_domain.trim().to_string())
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::mds::MDS_DEFAULT_URI;
+    use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
@@ -216,6 +299,7 @@ mod tests {
 
         let token = client
             .access_token(Some(vec!["scope1".to_string(), "scope2".to_string()]))
+            .send()
             .await
             .unwrap();
         assert_eq!(token.token, "test-token");
@@ -236,7 +320,7 @@ mod tests {
             .respond_with(status_code(404).body("Not Found")),
         );
 
-        let err = client.access_token(None).await.unwrap_err();
+        let err = client.access_token(None).send().await.unwrap_err();
         assert!(err.to_string().contains("failed to fetch access token"));
     }
 
@@ -264,6 +348,7 @@ mod tests {
                 Some("full".to_string()),
                 Some("TRUE".to_string()),
             )
+            .send()
             .await
             .unwrap();
         assert_eq!(token, "test-id-token");
@@ -284,7 +369,11 @@ mod tests {
             .respond_with(status_code(404).body("Not Found")),
         );
 
-        let err = client.id_token("test-aud", None, None).await.unwrap_err();
+        let err = client
+            .id_token("test-aud", None, None)
+            .send()
+            .await
+            .unwrap_err();
         assert!(err.to_string().contains("failed to fetch id token"));
     }
 
@@ -302,7 +391,7 @@ mod tests {
             .respond_with(status_code(200).body("test@example.com")),
         );
 
-        let email = client.email().await.unwrap();
+        let email = client.email().send().await.unwrap();
         assert_eq!(email, "test@example.com");
     }
 
@@ -320,8 +409,44 @@ mod tests {
             .respond_with(status_code(404).body("Not Found")),
         );
 
-        let err = client.email().await.unwrap_err();
+        let err = client.email().send().await.unwrap_err();
         assert!(err.to_string().contains("failed to fetch email"));
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .respond_with(status_code(200).body("my-universe-domain.com")),
+        );
+
+        let domain = client.universe_domain().send().await.unwrap();
+        assert_eq!(domain, "my-universe-domain.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.universe_domain().send().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch universe domain"));
     }
 
     #[test]

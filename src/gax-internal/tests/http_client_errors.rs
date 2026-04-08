@@ -80,7 +80,6 @@ mod tests {
     #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
     mod tracing_tests {
         use super::*;
-        use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_CONNECTION_ERROR;
         use google_cloud_test_utils::test_layer::TestLayer;
         use opentelemetry_semantic_conventions::trace as semconv;
 
@@ -98,8 +97,21 @@ mod tests {
             let guard = TestLayer::initialize();
 
             let builder = client.builder(reqwest::Method::GET, "/".into());
-            let result = client
-                .execute::<Value, Value>(builder, Option::<Value>::None, options)
+            let mut test_info =
+                google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+            test_info.service_name = "test-service";
+            test_info.client_version = "1.2.3";
+            test_info.client_artifact = "test-artifact";
+            test_info.default_host = "localhost";
+            let recorder =
+                google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+
+            let result = recorder
+                .scope(async {
+                    client
+                        .execute::<Value, Value>(builder, Option::<Value>::None, options)
+                        .await
+                })
                 .await;
 
             assert!(result.is_err(), "Expected connection error");
@@ -116,30 +128,26 @@ mod tests {
             );
 
             assert_eq!(
-                attributes.get(semconv::ERROR_TYPE),
-                Some(&CLIENT_CONNECTION_ERROR.into()),
+                attributes.get("error.type"),
+                Some(&"CLIENT_CONNECTION_ERROR".into()),
                 "Span 0: '{}' mismatch, all attributes: {:?}",
-                semconv::ERROR_TYPE,
+                "error.type",
                 attributes
             );
             assert!(
-                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                !attributes.contains_key("http.response.status_code"),
                 "Span 0: '{}' should not be present on connection error, all attributes: {:?}",
                 semconv::HTTP_RESPONSE_STATUS_CODE,
                 attributes
             );
 
             assert_eq!(
-                attributes.get(
-                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
-                ),
+                attributes.get("otel.status_code"),
                 Some(&"ERROR".into()),
                 "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
                 attributes
             );
-            let status_description = attributes
-                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
-                .unwrap();
+            let status_description = attributes.get("otel.status_description").unwrap();
             match status_description {
                 google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
                     assert!(
@@ -157,7 +165,6 @@ mod tests {
 
         #[tokio::test]
         async fn test_redirect_error_with_tracing_on() -> Result<()> {
-            use google_cloud_gax_internal::observability::attributes::error_type_values::CLIENT_CONNECTION_ERROR;
             use httptest::{Expectation, ServerPool, matchers::*, responders::*};
             use serde_json::Value;
 
@@ -182,8 +189,25 @@ mod tests {
             let guard = TestLayer::initialize();
 
             let builder = client.builder(reqwest::Method::GET, "loop".into());
-            let result = client
-                .execute::<Value, Value>(builder, Option::<Value>::None, RequestOptions::default())
+            let mut test_info =
+                google_cloud_gax_internal::options::InstrumentationClientInfo::default();
+            test_info.service_name = "test-service";
+            test_info.client_version = "1.2.3";
+            test_info.client_artifact = "test-artifact";
+            test_info.default_host = "localhost";
+            let recorder =
+                google_cloud_gax_internal::observability::RequestRecorder::new(test_info);
+
+            let result = recorder
+                .scope(async {
+                    client
+                        .execute::<Value, Value>(
+                            builder,
+                            Option::<Value>::None,
+                            RequestOptions::default(),
+                        )
+                        .await
+                })
                 .await;
 
             assert!(result.is_err(), "Expected redirect error");
@@ -200,30 +224,26 @@ mod tests {
             );
 
             assert_eq!(
-                attributes.get(semconv::ERROR_TYPE),
-                Some(&CLIENT_CONNECTION_ERROR.into()),
+                attributes.get("error.type"),
+                Some(&"CLIENT_CONNECTION_ERROR".into()),
                 "Span 0: {} mismatch, all attributes: {:?}",
                 semconv::ERROR_TYPE,
                 attributes
             );
             assert!(
-                !attributes.contains_key(semconv::HTTP_RESPONSE_STATUS_CODE),
+                !attributes.contains_key("http.response.status_code"),
                 "Span 0: {} should not be present on redirect error, all attributes: {:?}",
-                semconv::HTTP_RESPONSE_STATUS_CODE,
+                "http.response.status_code",
                 attributes
             );
 
             assert_eq!(
-                attributes.get(
-                    google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_CODE
-                ),
+                attributes.get("otel.status_code"),
                 Some(&"ERROR".into()),
                 "Span 0: 'otel.status_code' mismatch, all attributes: {:?}",
                 attributes
             );
-            let status_description = attributes
-                .get(google_cloud_gax_internal::observability::attributes::keys::OTEL_STATUS_DESCRIPTION)
-                .unwrap();
+            let status_description = attributes.get("otel.status_description").unwrap();
             match status_description {
                 google_cloud_test_utils::test_layer::AttributeValue::String(s) => {
                     assert!(

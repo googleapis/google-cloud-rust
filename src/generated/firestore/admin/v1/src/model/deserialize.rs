@@ -1548,6 +1548,7 @@ impl<'de> serde::de::Deserialize<'de> for super::field::TtlConfig {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __state,
+            __expiration_offset,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1569,6 +1570,8 @@ impl<'de> serde::de::Deserialize<'de> for super::field::TtlConfig {
                         use std::string::ToString;
                         match value {
                             "state" => Ok(__FieldTag::__state),
+                            "expirationOffset" => Ok(__FieldTag::__expiration_offset),
+                            "expiration_offset" => Ok(__FieldTag::__expiration_offset),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1601,6 +1604,15 @@ impl<'de> serde::de::Deserialize<'de> for super::field::TtlConfig {
                                 ));
                             }
                             result.state = map.next_value::<std::option::Option<crate::model::field::ttl_config::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__expiration_offset => {
+                            if !fields.insert(__FieldTag::__expiration_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expiration_offset",
+                                ));
+                            }
+                            result.expiration_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6397,6 +6409,7 @@ impl<'de> serde::de::Deserialize<'de> for super::field_operation_metadata::TtlCo
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __change_type,
+            __expiration_offset,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -6419,6 +6432,8 @@ impl<'de> serde::de::Deserialize<'de> for super::field_operation_metadata::TtlCo
                         match value {
                             "changeType" => Ok(__FieldTag::__change_type),
                             "change_type" => Ok(__FieldTag::__change_type),
+                            "expirationOffset" => Ok(__FieldTag::__expiration_offset),
+                            "expiration_offset" => Ok(__FieldTag::__expiration_offset),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -6451,6 +6466,15 @@ impl<'de> serde::de::Deserialize<'de> for super::field_operation_metadata::TtlCo
                                 ));
                             }
                             result.change_type = map.next_value::<std::option::Option<crate::model::field_operation_metadata::ttl_config_delta::ChangeType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__expiration_offset => {
+                            if !fields.insert(__FieldTag::__expiration_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expiration_offset",
+                                ));
+                            }
+                            result.expiration_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

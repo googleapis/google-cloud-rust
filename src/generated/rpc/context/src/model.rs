@@ -770,6 +770,12 @@ pub mod attribute_context {
         /// Derived from the HTTP request `Authorization` header or equivalent.
         pub auth: std::option::Option<crate::model::attribute_context::Auth>,
 
+        /// The values from Origin header from the HTTP request, such as
+        /// `https://console.cloud.google.com`. Modern browsers can only have one
+        /// origin. Special browsers and/or HTTP clients may require multiple
+        /// origins.
+        pub origin: std::string::String,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -970,6 +976,18 @@ pub mod attribute_context {
             T: std::convert::Into<crate::model::attribute_context::Auth>,
         {
             self.auth = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [origin][crate::model::attribute_context::Request::origin].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_rpc_context::model::attribute_context::Request;
+        /// let x = Request::new().set_origin("example");
+        /// ```
+        pub fn set_origin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.origin = v.into();
             self
         }
     }

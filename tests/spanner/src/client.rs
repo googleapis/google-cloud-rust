@@ -14,6 +14,8 @@
 
 use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use std::time::Duration;
+use tokio::time::sleep;
 
 const PROJECT_ID: &str = "test-project";
 const INSTANCE_ID: &str = "test-instance";
@@ -198,4 +200,51 @@ pub async fn create_database_client() -> Option<google_cloud_spanner::client::Da
         .expect("Failed to build database client");
 
     Some(db_client)
+}
+
+pub async fn update_database_ddl(statement: String) -> anyhow::Result<()> {
+    let emulator_host = get_emulator_host().expect("SPANNER_EMULATOR_HOST must be set");
+    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
+    let db_path = format!(
+        "projects/{}/instances/{}/databases/{}",
+        PROJECT_ID,
+        INSTANCE_ID,
+        get_database_id().await
+    );
+    let url = format!("{}/v1/{}/ddl", rest_endpoint, db_path);
+    let client = reqwest::Client::new();
+    let payload = serde_json::json!({
+        "statements": [statement]
+    });
+
+    let mut attempts = 0;
+    const MAX_ATTEMPTS: u32 = 25;
+
+    loop {
+        attempts += 1;
+        let res = client.patch(&url).json(&payload).send().await?;
+
+        let status = res.status();
+        let text = res.text().await?;
+
+        if status.is_success() {
+            return Ok(());
+        }
+
+        // Check if the error is the specific one we want to retry.
+        // Code 9 is FailedPrecondition.
+        if text.contains("\"code\":9") && text.contains("Schema change operation rejected") {
+            if attempts >= MAX_ATTEMPTS {
+                anyhow::bail!(
+                    "Failed to update DDL after {} attempts. Last error: {}",
+                    attempts,
+                    text
+                );
+            }
+            sleep(Duration::from_millis(100)).await;
+            continue;
+        }
+
+        anyhow::bail!("Failed to update DDL: status={}, body={}", status, text);
+    }
 }

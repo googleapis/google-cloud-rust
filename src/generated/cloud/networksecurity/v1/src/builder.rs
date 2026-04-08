@@ -3822,6 +3822,9870 @@ pub mod organization_address_group_service {
     }
 }
 
+pub mod dns_threat_detector_service {
+    use crate::Result;
+
+    /// A builder for [DnsThreatDetectorService][crate::client::DnsThreatDetectorService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::*;
+    /// # use builder::dns_threat_detector_service::ClientBuilder;
+    /// # use client::DnsThreatDetectorService;
+    /// let builder : ClientBuilder = DnsThreatDetectorService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networksecurity.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::DnsThreatDetectorService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = DnsThreatDetectorService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::DnsThreatDetectorService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::list_dns_threat_detectors][crate::client::DnsThreatDetectorService::list_dns_threat_detectors] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::ListDnsThreatDetectors;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListDnsThreatDetectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDnsThreatDetectors(RequestBuilder<crate::model::ListDnsThreatDetectorsRequest>);
+
+    impl ListDnsThreatDetectors {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDnsThreatDetectorsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDnsThreatDetectorsResponse> {
+            (*self.0.stub)
+                .list_dns_threat_detectors(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDnsThreatDetectorsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDnsThreatDetectorsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDnsThreatDetectorsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDnsThreatDetectorsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDnsThreatDetectorsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListDnsThreatDetectors {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::get_dns_threat_detector][crate::client::DnsThreatDetectorService::get_dns_threat_detector] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::GetDnsThreatDetector;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetDnsThreatDetector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDnsThreatDetector(RequestBuilder<crate::model::GetDnsThreatDetectorRequest>);
+
+    impl GetDnsThreatDetector {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDnsThreatDetectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DnsThreatDetector> {
+            (*self.0.stub)
+                .get_dns_threat_detector(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDnsThreatDetectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetDnsThreatDetector {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::create_dns_threat_detector][crate::client::DnsThreatDetectorService::create_dns_threat_detector] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::CreateDnsThreatDetector;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateDnsThreatDetector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateDnsThreatDetector(
+        RequestBuilder<crate::model::CreateDnsThreatDetectorRequest>,
+    );
+
+    impl CreateDnsThreatDetector {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateDnsThreatDetectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DnsThreatDetector> {
+            (*self.0.stub)
+                .create_dns_threat_detector(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDnsThreatDetectorRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [dns_threat_detector_id][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector_id].
+        pub fn set_dns_threat_detector_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dns_threat_detector_id = v.into();
+            self
+        }
+
+        /// Sets the value of [dns_threat_detector][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dns_threat_detector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsThreatDetector>,
+        {
+            self.0.request.dns_threat_detector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_threat_detector][crate::model::CreateDnsThreatDetectorRequest::dns_threat_detector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_threat_detector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsThreatDetector>,
+        {
+            self.0.request.dns_threat_detector = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateDnsThreatDetector {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::update_dns_threat_detector][crate::client::DnsThreatDetectorService::update_dns_threat_detector] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::UpdateDnsThreatDetector;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateDnsThreatDetector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateDnsThreatDetector(
+        RequestBuilder<crate::model::UpdateDnsThreatDetectorRequest>,
+    );
+
+    impl UpdateDnsThreatDetector {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateDnsThreatDetectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DnsThreatDetector> {
+            (*self.0.stub)
+                .update_dns_threat_detector(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateDnsThreatDetectorRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDnsThreatDetectorRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [dns_threat_detector][crate::model::UpdateDnsThreatDetectorRequest::dns_threat_detector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dns_threat_detector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsThreatDetector>,
+        {
+            self.0.request.dns_threat_detector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_threat_detector][crate::model::UpdateDnsThreatDetectorRequest::dns_threat_detector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_threat_detector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsThreatDetector>,
+        {
+            self.0.request.dns_threat_detector = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateDnsThreatDetector {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::delete_dns_threat_detector][crate::client::DnsThreatDetectorService::delete_dns_threat_detector] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::DeleteDnsThreatDetector;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteDnsThreatDetector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDnsThreatDetector(
+        RequestBuilder<crate::model::DeleteDnsThreatDetectorRequest>,
+    );
+
+    impl DeleteDnsThreatDetector {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDnsThreatDetectorRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_dns_threat_detector(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDnsThreatDetectorRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteDnsThreatDetector {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::list_locations][crate::client::DnsThreatDetectorService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::ListLocations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::get_location][crate::client::DnsThreatDetectorService::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::GetLocation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::set_iam_policy][crate::client::DnsThreatDetectorService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::get_iam_policy][crate::client::DnsThreatDetectorService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::test_iam_permissions][crate::client::DnsThreatDetectorService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::list_operations][crate::client::DnsThreatDetectorService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::ListOperations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::get_operation][crate::client::DnsThreatDetectorService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::GetOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::delete_operation][crate::client::DnsThreatDetectorService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::DeleteOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DnsThreatDetectorService::cancel_operation][crate::client::DnsThreatDetectorService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::dns_threat_detector_service::CancelOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DnsThreatDetectorService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod firewall_activation {
+    use crate::Result;
+
+    /// A builder for [FirewallActivation][crate::client::FirewallActivation].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::*;
+    /// # use builder::firewall_activation::ClientBuilder;
+    /// # use client::FirewallActivation;
+    /// let builder : ClientBuilder = FirewallActivation::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networksecurity.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::FirewallActivation;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = FirewallActivation;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::FirewallActivation] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [FirewallActivation::list_firewall_endpoints][crate::client::FirewallActivation::list_firewall_endpoints] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::ListFirewallEndpoints;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListFirewallEndpoints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListFirewallEndpoints(RequestBuilder<crate::model::ListFirewallEndpointsRequest>);
+
+    impl ListFirewallEndpoints {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListFirewallEndpointsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListFirewallEndpointsResponse> {
+            (*self.0.stub)
+                .list_firewall_endpoints(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFirewallEndpointsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFirewallEndpointsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListFirewallEndpointsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListFirewallEndpointsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListFirewallEndpointsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListFirewallEndpointsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListFirewallEndpointsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListFirewallEndpoints {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::get_firewall_endpoint][crate::client::FirewallActivation::get_firewall_endpoint] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::GetFirewallEndpoint;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetFirewallEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFirewallEndpoint(RequestBuilder<crate::model::GetFirewallEndpointRequest>);
+
+    impl GetFirewallEndpoint {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFirewallEndpointRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FirewallEndpoint> {
+            (*self.0.stub)
+                .get_firewall_endpoint(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFirewallEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetFirewallEndpoint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::create_firewall_endpoint][crate::client::FirewallActivation::create_firewall_endpoint] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::CreateFirewallEndpoint;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateFirewallEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateFirewallEndpoint(RequestBuilder<crate::model::CreateFirewallEndpointRequest>);
+
+    impl CreateFirewallEndpoint {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateFirewallEndpointRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_firewall_endpoint][crate::client::FirewallActivation::create_firewall_endpoint].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_firewall_endpoint(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_firewall_endpoint`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::FirewallEndpoint, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::FirewallEndpoint,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateFirewallEndpointRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint_id][crate::model::CreateFirewallEndpointRequest::firewall_endpoint_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_firewall_endpoint_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.firewall_endpoint_id = v.into();
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint][crate::model::CreateFirewallEndpointRequest::firewall_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_firewall_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpoint>,
+        {
+            self.0.request.firewall_endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_endpoint][crate::model::CreateFirewallEndpointRequest::firewall_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpoint>,
+        {
+            self.0.request.firewall_endpoint = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateFirewallEndpointRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateFirewallEndpoint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::delete_firewall_endpoint][crate::client::FirewallActivation::delete_firewall_endpoint] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::DeleteFirewallEndpoint;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteFirewallEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteFirewallEndpoint(RequestBuilder<crate::model::DeleteFirewallEndpointRequest>);
+
+    impl DeleteFirewallEndpoint {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteFirewallEndpointRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_firewall_endpoint][crate::client::FirewallActivation::delete_firewall_endpoint].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_firewall_endpoint(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_firewall_endpoint`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteFirewallEndpointRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteFirewallEndpointRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteFirewallEndpoint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::update_firewall_endpoint][crate::client::FirewallActivation::update_firewall_endpoint] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::UpdateFirewallEndpoint;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateFirewallEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFirewallEndpoint(RequestBuilder<crate::model::UpdateFirewallEndpointRequest>);
+
+    impl UpdateFirewallEndpoint {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFirewallEndpointRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_firewall_endpoint][crate::client::FirewallActivation::update_firewall_endpoint].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_firewall_endpoint(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_firewall_endpoint`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::FirewallEndpoint, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::FirewallEndpoint,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFirewallEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint][crate::model::UpdateFirewallEndpointRequest::firewall_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_firewall_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpoint>,
+        {
+            self.0.request.firewall_endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_endpoint][crate::model::UpdateFirewallEndpointRequest::firewall_endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpoint>,
+        {
+            self.0.request.firewall_endpoint = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateFirewallEndpointRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateFirewallEndpoint {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::list_firewall_endpoint_associations][crate::client::FirewallActivation::list_firewall_endpoint_associations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::ListFirewallEndpointAssociations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListFirewallEndpointAssociations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListFirewallEndpointAssociations(
+        RequestBuilder<crate::model::ListFirewallEndpointAssociationsRequest>,
+    );
+
+    impl ListFirewallEndpointAssociations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListFirewallEndpointAssociationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListFirewallEndpointAssociationsResponse> {
+            (*self.0.stub)
+                .list_firewall_endpoint_associations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListFirewallEndpointAssociationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListFirewallEndpointAssociationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListFirewallEndpointAssociationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListFirewallEndpointAssociationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListFirewallEndpointAssociationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListFirewallEndpointAssociationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListFirewallEndpointAssociationsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListFirewallEndpointAssociations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::get_firewall_endpoint_association][crate::client::FirewallActivation::get_firewall_endpoint_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::GetFirewallEndpointAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetFirewallEndpointAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetFirewallEndpointAssociation(
+        RequestBuilder<crate::model::GetFirewallEndpointAssociationRequest>,
+    );
+
+    impl GetFirewallEndpointAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetFirewallEndpointAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FirewallEndpointAssociation> {
+            (*self.0.stub)
+                .get_firewall_endpoint_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetFirewallEndpointAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetFirewallEndpointAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::create_firewall_endpoint_association][crate::client::FirewallActivation::create_firewall_endpoint_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::CreateFirewallEndpointAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateFirewallEndpointAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateFirewallEndpointAssociation(
+        RequestBuilder<crate::model::CreateFirewallEndpointAssociationRequest>,
+    );
+
+    impl CreateFirewallEndpointAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateFirewallEndpointAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_firewall_endpoint_association][crate::client::FirewallActivation::create_firewall_endpoint_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_firewall_endpoint_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_firewall_endpoint_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::FirewallEndpointAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::FirewallEndpointAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateFirewallEndpointAssociationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint_association_id][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association_id].
+        pub fn set_firewall_endpoint_association_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.firewall_endpoint_association_id = v.into();
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint_association][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_firewall_endpoint_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+        {
+            self.0.request.firewall_endpoint_association = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_endpoint_association][crate::model::CreateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_endpoint_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+        {
+            self.0.request.firewall_endpoint_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateFirewallEndpointAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateFirewallEndpointAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::delete_firewall_endpoint_association][crate::client::FirewallActivation::delete_firewall_endpoint_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::DeleteFirewallEndpointAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteFirewallEndpointAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteFirewallEndpointAssociation(
+        RequestBuilder<crate::model::DeleteFirewallEndpointAssociationRequest>,
+    );
+
+    impl DeleteFirewallEndpointAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteFirewallEndpointAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_firewall_endpoint_association][crate::client::FirewallActivation::delete_firewall_endpoint_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_firewall_endpoint_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_firewall_endpoint_association`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteFirewallEndpointAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteFirewallEndpointAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteFirewallEndpointAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::update_firewall_endpoint_association][crate::client::FirewallActivation::update_firewall_endpoint_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::UpdateFirewallEndpointAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateFirewallEndpointAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateFirewallEndpointAssociation(
+        RequestBuilder<crate::model::UpdateFirewallEndpointAssociationRequest>,
+    );
+
+    impl UpdateFirewallEndpointAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateFirewallEndpointAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_firewall_endpoint_association][crate::client::FirewallActivation::update_firewall_endpoint_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_firewall_endpoint_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_firewall_endpoint_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::FirewallEndpointAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::FirewallEndpointAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateFirewallEndpointAssociationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallEndpointAssociationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [firewall_endpoint_association][crate::model::UpdateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_firewall_endpoint_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+        {
+            self.0.request.firewall_endpoint_association = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_endpoint_association][crate::model::UpdateFirewallEndpointAssociationRequest::firewall_endpoint_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_endpoint_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallEndpointAssociation>,
+        {
+            self.0.request.firewall_endpoint_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateFirewallEndpointAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateFirewallEndpointAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::list_locations][crate::client::FirewallActivation::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::ListLocations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::get_location][crate::client::FirewallActivation::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::GetLocation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::set_iam_policy][crate::client::FirewallActivation::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::get_iam_policy][crate::client::FirewallActivation::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::test_iam_permissions][crate::client::FirewallActivation::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::list_operations][crate::client::FirewallActivation::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::ListOperations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::get_operation][crate::client::FirewallActivation::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::GetOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::delete_operation][crate::client::FirewallActivation::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::DeleteOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [FirewallActivation::cancel_operation][crate::client::FirewallActivation::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::firewall_activation::CancelOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirewallActivation>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod intercept {
+    use crate::Result;
+
+    /// A builder for [Intercept][crate::client::Intercept].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::*;
+    /// # use builder::intercept::ClientBuilder;
+    /// # use client::Intercept;
+    /// let builder : ClientBuilder = Intercept::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networksecurity.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Intercept;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = Intercept;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::Intercept] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [Intercept::list_intercept_endpoint_groups][crate::client::Intercept::list_intercept_endpoint_groups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListInterceptEndpointGroups;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListInterceptEndpointGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInterceptEndpointGroups(
+        RequestBuilder<crate::model::ListInterceptEndpointGroupsRequest>,
+    );
+
+    impl ListInterceptEndpointGroups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListInterceptEndpointGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListInterceptEndpointGroupsResponse> {
+            (*self.0.stub)
+                .list_intercept_endpoint_groups(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListInterceptEndpointGroupsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInterceptEndpointGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListInterceptEndpointGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListInterceptEndpointGroupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListInterceptEndpointGroupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListInterceptEndpointGroupsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListInterceptEndpointGroupsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListInterceptEndpointGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_intercept_endpoint_group][crate::client::Intercept::get_intercept_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetInterceptEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetInterceptEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetInterceptEndpointGroup(
+        RequestBuilder<crate::model::GetInterceptEndpointGroupRequest>,
+    );
+
+    impl GetInterceptEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetInterceptEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InterceptEndpointGroup> {
+            (*self.0.stub)
+                .get_intercept_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetInterceptEndpointGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetInterceptEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::create_intercept_endpoint_group][crate::client::Intercept::create_intercept_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::CreateInterceptEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateInterceptEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInterceptEndpointGroup(
+        RequestBuilder<crate::model::CreateInterceptEndpointGroupRequest>,
+    );
+
+    impl CreateInterceptEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateInterceptEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_intercept_endpoint_group][crate::client::Intercept::create_intercept_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_intercept_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_intercept_endpoint_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptEndpointGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptEndpointGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateInterceptEndpointGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group_id][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_endpoint_group_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.intercept_endpoint_group_id = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_endpoint_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+        {
+            self.0.request.intercept_endpoint_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_endpoint_group][crate::model::CreateInterceptEndpointGroupRequest::intercept_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+        {
+            self.0.request.intercept_endpoint_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateInterceptEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateInterceptEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::update_intercept_endpoint_group][crate::client::Intercept::update_intercept_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::UpdateInterceptEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateInterceptEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateInterceptEndpointGroup(
+        RequestBuilder<crate::model::UpdateInterceptEndpointGroupRequest>,
+    );
+
+    impl UpdateInterceptEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateInterceptEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_intercept_endpoint_group][crate::client::Intercept::update_intercept_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_intercept_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_intercept_endpoint_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptEndpointGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptEndpointGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateInterceptEndpointGroupRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptEndpointGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group][crate::model::UpdateInterceptEndpointGroupRequest::intercept_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_endpoint_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+        {
+            self.0.request.intercept_endpoint_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_endpoint_group][crate::model::UpdateInterceptEndpointGroupRequest::intercept_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroup>,
+        {
+            self.0.request.intercept_endpoint_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateInterceptEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateInterceptEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::delete_intercept_endpoint_group][crate::client::Intercept::delete_intercept_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::DeleteInterceptEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteInterceptEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInterceptEndpointGroup(
+        RequestBuilder<crate::model::DeleteInterceptEndpointGroupRequest>,
+    );
+
+    impl DeleteInterceptEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteInterceptEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_intercept_endpoint_group][crate::client::Intercept::delete_intercept_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_intercept_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_intercept_endpoint_group`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteInterceptEndpointGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteInterceptEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteInterceptEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::list_intercept_endpoint_group_associations][crate::client::Intercept::list_intercept_endpoint_group_associations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListInterceptEndpointGroupAssociations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListInterceptEndpointGroupAssociations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInterceptEndpointGroupAssociations(
+        RequestBuilder<crate::model::ListInterceptEndpointGroupAssociationsRequest>,
+    );
+
+    impl ListInterceptEndpointGroupAssociations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::ListInterceptEndpointGroupAssociationsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ListInterceptEndpointGroupAssociationsResponse> {
+            (*self.0.stub)
+                .list_intercept_endpoint_group_associations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListInterceptEndpointGroupAssociationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInterceptEndpointGroupAssociationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListInterceptEndpointGroupAssociationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListInterceptEndpointGroupAssociationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListInterceptEndpointGroupAssociationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListInterceptEndpointGroupAssociationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListInterceptEndpointGroupAssociationsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListInterceptEndpointGroupAssociations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_intercept_endpoint_group_association][crate::client::Intercept::get_intercept_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetInterceptEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetInterceptEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetInterceptEndpointGroupAssociation(
+        RequestBuilder<crate::model::GetInterceptEndpointGroupAssociationRequest>,
+    );
+
+    impl GetInterceptEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetInterceptEndpointGroupAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InterceptEndpointGroupAssociation> {
+            (*self.0.stub)
+                .get_intercept_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetInterceptEndpointGroupAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetInterceptEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::create_intercept_endpoint_group_association][crate::client::Intercept::create_intercept_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::CreateInterceptEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateInterceptEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInterceptEndpointGroupAssociation(
+        RequestBuilder<crate::model::CreateInterceptEndpointGroupAssociationRequest>,
+    );
+
+    impl CreateInterceptEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::CreateInterceptEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_intercept_endpoint_group_association][crate::client::Intercept::create_intercept_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_intercept_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_intercept_endpoint_group_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptEndpointGroupAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptEndpointGroupAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateInterceptEndpointGroupAssociationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group_association_id][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association_id].
+        pub fn set_intercept_endpoint_group_association_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.intercept_endpoint_group_association_id = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group_association][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_endpoint_group_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+        {
+            self.0.request.intercept_endpoint_group_association =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_endpoint_group_association][crate::model::CreateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_endpoint_group_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+        {
+            self.0.request.intercept_endpoint_group_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateInterceptEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateInterceptEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::update_intercept_endpoint_group_association][crate::client::Intercept::update_intercept_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::UpdateInterceptEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateInterceptEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateInterceptEndpointGroupAssociation(
+        RequestBuilder<crate::model::UpdateInterceptEndpointGroupAssociationRequest>,
+    );
+
+    impl UpdateInterceptEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::UpdateInterceptEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_intercept_endpoint_group_association][crate::client::Intercept::update_intercept_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_intercept_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_intercept_endpoint_group_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptEndpointGroupAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptEndpointGroupAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateInterceptEndpointGroupAssociationRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptEndpointGroupAssociationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [intercept_endpoint_group_association][crate::model::UpdateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_endpoint_group_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+        {
+            self.0.request.intercept_endpoint_group_association =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_endpoint_group_association][crate::model::UpdateInterceptEndpointGroupAssociationRequest::intercept_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_endpoint_group_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptEndpointGroupAssociation>,
+        {
+            self.0.request.intercept_endpoint_group_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateInterceptEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateInterceptEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::delete_intercept_endpoint_group_association][crate::client::Intercept::delete_intercept_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::DeleteInterceptEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteInterceptEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInterceptEndpointGroupAssociation(
+        RequestBuilder<crate::model::DeleteInterceptEndpointGroupAssociationRequest>,
+    );
+
+    impl DeleteInterceptEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::DeleteInterceptEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_intercept_endpoint_group_association][crate::client::Intercept::delete_intercept_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_intercept_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_intercept_endpoint_group_association`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteInterceptEndpointGroupAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteInterceptEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteInterceptEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::list_intercept_deployment_groups][crate::client::Intercept::list_intercept_deployment_groups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListInterceptDeploymentGroups;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListInterceptDeploymentGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInterceptDeploymentGroups(
+        RequestBuilder<crate::model::ListInterceptDeploymentGroupsRequest>,
+    );
+
+    impl ListInterceptDeploymentGroups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListInterceptDeploymentGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListInterceptDeploymentGroupsResponse> {
+            (*self.0.stub)
+                .list_intercept_deployment_groups(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListInterceptDeploymentGroupsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInterceptDeploymentGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListInterceptDeploymentGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListInterceptDeploymentGroupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListInterceptDeploymentGroupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListInterceptDeploymentGroupsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListInterceptDeploymentGroupsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListInterceptDeploymentGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_intercept_deployment_group][crate::client::Intercept::get_intercept_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetInterceptDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetInterceptDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetInterceptDeploymentGroup(
+        RequestBuilder<crate::model::GetInterceptDeploymentGroupRequest>,
+    );
+
+    impl GetInterceptDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetInterceptDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InterceptDeploymentGroup> {
+            (*self.0.stub)
+                .get_intercept_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetInterceptDeploymentGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetInterceptDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::create_intercept_deployment_group][crate::client::Intercept::create_intercept_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::CreateInterceptDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateInterceptDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInterceptDeploymentGroup(
+        RequestBuilder<crate::model::CreateInterceptDeploymentGroupRequest>,
+    );
+
+    impl CreateInterceptDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateInterceptDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_intercept_deployment_group][crate::client::Intercept::create_intercept_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_intercept_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_intercept_deployment_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptDeploymentGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptDeploymentGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateInterceptDeploymentGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_deployment_group_id][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment_group_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.intercept_deployment_group_id = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_deployment_group][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+        {
+            self.0.request.intercept_deployment_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_deployment_group][crate::model::CreateInterceptDeploymentGroupRequest::intercept_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_deployment_group<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+        {
+            self.0.request.intercept_deployment_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateInterceptDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateInterceptDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::update_intercept_deployment_group][crate::client::Intercept::update_intercept_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::UpdateInterceptDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateInterceptDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateInterceptDeploymentGroup(
+        RequestBuilder<crate::model::UpdateInterceptDeploymentGroupRequest>,
+    );
+
+    impl UpdateInterceptDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateInterceptDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_intercept_deployment_group][crate::client::Intercept::update_intercept_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_intercept_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_intercept_deployment_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptDeploymentGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptDeploymentGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateInterceptDeploymentGroupRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptDeploymentGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [intercept_deployment_group][crate::model::UpdateInterceptDeploymentGroupRequest::intercept_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+        {
+            self.0.request.intercept_deployment_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_deployment_group][crate::model::UpdateInterceptDeploymentGroupRequest::intercept_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_deployment_group<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeploymentGroup>,
+        {
+            self.0.request.intercept_deployment_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateInterceptDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateInterceptDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::delete_intercept_deployment_group][crate::client::Intercept::delete_intercept_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::DeleteInterceptDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteInterceptDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInterceptDeploymentGroup(
+        RequestBuilder<crate::model::DeleteInterceptDeploymentGroupRequest>,
+    );
+
+    impl DeleteInterceptDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteInterceptDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_intercept_deployment_group][crate::client::Intercept::delete_intercept_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_intercept_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_intercept_deployment_group`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteInterceptDeploymentGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteInterceptDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteInterceptDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::list_intercept_deployments][crate::client::Intercept::list_intercept_deployments] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListInterceptDeployments;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListInterceptDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListInterceptDeployments(
+        RequestBuilder<crate::model::ListInterceptDeploymentsRequest>,
+    );
+
+    impl ListInterceptDeployments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListInterceptDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListInterceptDeploymentsResponse> {
+            (*self.0.stub)
+                .list_intercept_deployments(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListInterceptDeploymentsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListInterceptDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListInterceptDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListInterceptDeploymentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListInterceptDeploymentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListInterceptDeploymentsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListInterceptDeploymentsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListInterceptDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_intercept_deployment][crate::client::Intercept::get_intercept_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetInterceptDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetInterceptDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetInterceptDeployment(RequestBuilder<crate::model::GetInterceptDeploymentRequest>);
+
+    impl GetInterceptDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetInterceptDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InterceptDeployment> {
+            (*self.0.stub)
+                .get_intercept_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetInterceptDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetInterceptDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::create_intercept_deployment][crate::client::Intercept::create_intercept_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::CreateInterceptDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateInterceptDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateInterceptDeployment(
+        RequestBuilder<crate::model::CreateInterceptDeploymentRequest>,
+    );
+
+    impl CreateInterceptDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateInterceptDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_intercept_deployment][crate::client::Intercept::create_intercept_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_intercept_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_intercept_deployment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptDeployment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateInterceptDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_deployment_id][crate::model::CreateInterceptDeploymentRequest::intercept_deployment_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.intercept_deployment_id = v.into();
+            self
+        }
+
+        /// Sets the value of [intercept_deployment][crate::model::CreateInterceptDeploymentRequest::intercept_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeployment>,
+        {
+            self.0.request.intercept_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_deployment][crate::model::CreateInterceptDeploymentRequest::intercept_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeployment>,
+        {
+            self.0.request.intercept_deployment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateInterceptDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateInterceptDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::update_intercept_deployment][crate::client::Intercept::update_intercept_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::UpdateInterceptDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateInterceptDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateInterceptDeployment(
+        RequestBuilder<crate::model::UpdateInterceptDeploymentRequest>,
+    );
+
+    impl UpdateInterceptDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateInterceptDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_intercept_deployment][crate::client::Intercept::update_intercept_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_intercept_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_intercept_deployment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::InterceptDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::InterceptDeployment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateInterceptDeploymentRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInterceptDeploymentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [intercept_deployment][crate::model::UpdateInterceptDeploymentRequest::intercept_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_intercept_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeployment>,
+        {
+            self.0.request.intercept_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [intercept_deployment][crate::model::UpdateInterceptDeploymentRequest::intercept_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_intercept_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InterceptDeployment>,
+        {
+            self.0.request.intercept_deployment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateInterceptDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateInterceptDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::delete_intercept_deployment][crate::client::Intercept::delete_intercept_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::DeleteInterceptDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteInterceptDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteInterceptDeployment(
+        RequestBuilder<crate::model::DeleteInterceptDeploymentRequest>,
+    );
+
+    impl DeleteInterceptDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteInterceptDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_intercept_deployment][crate::client::Intercept::delete_intercept_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_intercept_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_intercept_deployment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteInterceptDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteInterceptDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteInterceptDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::list_locations][crate::client::Intercept::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListLocations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_location][crate::client::Intercept::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetLocation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::set_iam_policy][crate::client::Intercept::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_iam_policy][crate::client::Intercept::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::test_iam_permissions][crate::client::Intercept::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::list_operations][crate::client::Intercept::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::ListOperations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::get_operation][crate::client::Intercept::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::GetOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::delete_operation][crate::client::Intercept::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::DeleteOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Intercept::cancel_operation][crate::client::Intercept::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::intercept::CancelOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Intercept>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod mirroring {
+    use crate::Result;
+
+    /// A builder for [Mirroring][crate::client::Mirroring].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::*;
+    /// # use builder::mirroring::ClientBuilder;
+    /// # use client::Mirroring;
+    /// let builder : ClientBuilder = Mirroring::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networksecurity.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::Mirroring;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = Mirroring;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::Mirroring] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [Mirroring::list_mirroring_endpoint_groups][crate::client::Mirroring::list_mirroring_endpoint_groups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListMirroringEndpointGroups;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMirroringEndpointGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMirroringEndpointGroups(
+        RequestBuilder<crate::model::ListMirroringEndpointGroupsRequest>,
+    );
+
+    impl ListMirroringEndpointGroups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMirroringEndpointGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMirroringEndpointGroupsResponse> {
+            (*self.0.stub)
+                .list_mirroring_endpoint_groups(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMirroringEndpointGroupsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMirroringEndpointGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMirroringEndpointGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMirroringEndpointGroupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMirroringEndpointGroupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMirroringEndpointGroupsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMirroringEndpointGroupsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMirroringEndpointGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_mirroring_endpoint_group][crate::client::Mirroring::get_mirroring_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetMirroringEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMirroringEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMirroringEndpointGroup(
+        RequestBuilder<crate::model::GetMirroringEndpointGroupRequest>,
+    );
+
+    impl GetMirroringEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMirroringEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MirroringEndpointGroup> {
+            (*self.0.stub)
+                .get_mirroring_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMirroringEndpointGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMirroringEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::create_mirroring_endpoint_group][crate::client::Mirroring::create_mirroring_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::CreateMirroringEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMirroringEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMirroringEndpointGroup(
+        RequestBuilder<crate::model::CreateMirroringEndpointGroupRequest>,
+    );
+
+    impl CreateMirroringEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMirroringEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_mirroring_endpoint_group][crate::client::Mirroring::create_mirroring_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_mirroring_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_mirroring_endpoint_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringEndpointGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringEndpointGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMirroringEndpointGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group_id][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_endpoint_group_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.mirroring_endpoint_group_id = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_endpoint_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+        {
+            self.0.request.mirroring_endpoint_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_endpoint_group][crate::model::CreateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+        {
+            self.0.request.mirroring_endpoint_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateMirroringEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMirroringEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::update_mirroring_endpoint_group][crate::client::Mirroring::update_mirroring_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::UpdateMirroringEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMirroringEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMirroringEndpointGroup(
+        RequestBuilder<crate::model::UpdateMirroringEndpointGroupRequest>,
+    );
+
+    impl UpdateMirroringEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMirroringEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_mirroring_endpoint_group][crate::client::Mirroring::update_mirroring_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_mirroring_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_mirroring_endpoint_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringEndpointGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringEndpointGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMirroringEndpointGroupRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringEndpointGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group][crate::model::UpdateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_endpoint_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+        {
+            self.0.request.mirroring_endpoint_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_endpoint_group][crate::model::UpdateMirroringEndpointGroupRequest::mirroring_endpoint_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_endpoint_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroup>,
+        {
+            self.0.request.mirroring_endpoint_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateMirroringEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMirroringEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::delete_mirroring_endpoint_group][crate::client::Mirroring::delete_mirroring_endpoint_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::DeleteMirroringEndpointGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMirroringEndpointGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMirroringEndpointGroup(
+        RequestBuilder<crate::model::DeleteMirroringEndpointGroupRequest>,
+    );
+
+    impl DeleteMirroringEndpointGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMirroringEndpointGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_mirroring_endpoint_group][crate::client::Mirroring::delete_mirroring_endpoint_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_mirroring_endpoint_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_mirroring_endpoint_group`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMirroringEndpointGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteMirroringEndpointGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMirroringEndpointGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::list_mirroring_endpoint_group_associations][crate::client::Mirroring::list_mirroring_endpoint_group_associations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListMirroringEndpointGroupAssociations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMirroringEndpointGroupAssociations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMirroringEndpointGroupAssociations(
+        RequestBuilder<crate::model::ListMirroringEndpointGroupAssociationsRequest>,
+    );
+
+    impl ListMirroringEndpointGroupAssociations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::ListMirroringEndpointGroupAssociationsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::ListMirroringEndpointGroupAssociationsResponse> {
+            (*self.0.stub)
+                .list_mirroring_endpoint_group_associations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMirroringEndpointGroupAssociationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMirroringEndpointGroupAssociationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMirroringEndpointGroupAssociationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMirroringEndpointGroupAssociationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMirroringEndpointGroupAssociationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMirroringEndpointGroupAssociationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMirroringEndpointGroupAssociationsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMirroringEndpointGroupAssociations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_mirroring_endpoint_group_association][crate::client::Mirroring::get_mirroring_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetMirroringEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMirroringEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMirroringEndpointGroupAssociation(
+        RequestBuilder<crate::model::GetMirroringEndpointGroupAssociationRequest>,
+    );
+
+    impl GetMirroringEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMirroringEndpointGroupAssociationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MirroringEndpointGroupAssociation> {
+            (*self.0.stub)
+                .get_mirroring_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMirroringEndpointGroupAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMirroringEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::create_mirroring_endpoint_group_association][crate::client::Mirroring::create_mirroring_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::CreateMirroringEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMirroringEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMirroringEndpointGroupAssociation(
+        RequestBuilder<crate::model::CreateMirroringEndpointGroupAssociationRequest>,
+    );
+
+    impl CreateMirroringEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::CreateMirroringEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_mirroring_endpoint_group_association][crate::client::Mirroring::create_mirroring_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_mirroring_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_mirroring_endpoint_group_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringEndpointGroupAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringEndpointGroupAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMirroringEndpointGroupAssociationRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group_association_id][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association_id].
+        pub fn set_mirroring_endpoint_group_association_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.mirroring_endpoint_group_association_id = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group_association][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_endpoint_group_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+        {
+            self.0.request.mirroring_endpoint_group_association =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_endpoint_group_association][crate::model::CreateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_endpoint_group_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+        {
+            self.0.request.mirroring_endpoint_group_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateMirroringEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMirroringEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::update_mirroring_endpoint_group_association][crate::client::Mirroring::update_mirroring_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::UpdateMirroringEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMirroringEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMirroringEndpointGroupAssociation(
+        RequestBuilder<crate::model::UpdateMirroringEndpointGroupAssociationRequest>,
+    );
+
+    impl UpdateMirroringEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::UpdateMirroringEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_mirroring_endpoint_group_association][crate::client::Mirroring::update_mirroring_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_mirroring_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_mirroring_endpoint_group_association`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringEndpointGroupAssociation,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringEndpointGroupAssociation,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMirroringEndpointGroupAssociationRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringEndpointGroupAssociationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mirroring_endpoint_group_association][crate::model::UpdateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_endpoint_group_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+        {
+            self.0.request.mirroring_endpoint_group_association =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_endpoint_group_association][crate::model::UpdateMirroringEndpointGroupAssociationRequest::mirroring_endpoint_group_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_endpoint_group_association<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringEndpointGroupAssociation>,
+        {
+            self.0.request.mirroring_endpoint_group_association = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateMirroringEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMirroringEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::delete_mirroring_endpoint_group_association][crate::client::Mirroring::delete_mirroring_endpoint_group_association] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::DeleteMirroringEndpointGroupAssociation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMirroringEndpointGroupAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMirroringEndpointGroupAssociation(
+        RequestBuilder<crate::model::DeleteMirroringEndpointGroupAssociationRequest>,
+    );
+
+    impl DeleteMirroringEndpointGroupAssociation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::DeleteMirroringEndpointGroupAssociationRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_mirroring_endpoint_group_association][crate::client::Mirroring::delete_mirroring_endpoint_group_association].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_mirroring_endpoint_group_association(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_mirroring_endpoint_group_association`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMirroringEndpointGroupAssociationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteMirroringEndpointGroupAssociationRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMirroringEndpointGroupAssociation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::list_mirroring_deployment_groups][crate::client::Mirroring::list_mirroring_deployment_groups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListMirroringDeploymentGroups;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMirroringDeploymentGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMirroringDeploymentGroups(
+        RequestBuilder<crate::model::ListMirroringDeploymentGroupsRequest>,
+    );
+
+    impl ListMirroringDeploymentGroups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMirroringDeploymentGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMirroringDeploymentGroupsResponse> {
+            (*self.0.stub)
+                .list_mirroring_deployment_groups(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMirroringDeploymentGroupsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMirroringDeploymentGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMirroringDeploymentGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMirroringDeploymentGroupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMirroringDeploymentGroupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMirroringDeploymentGroupsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMirroringDeploymentGroupsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMirroringDeploymentGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_mirroring_deployment_group][crate::client::Mirroring::get_mirroring_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetMirroringDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMirroringDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMirroringDeploymentGroup(
+        RequestBuilder<crate::model::GetMirroringDeploymentGroupRequest>,
+    );
+
+    impl GetMirroringDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMirroringDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MirroringDeploymentGroup> {
+            (*self.0.stub)
+                .get_mirroring_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMirroringDeploymentGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMirroringDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::create_mirroring_deployment_group][crate::client::Mirroring::create_mirroring_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::CreateMirroringDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMirroringDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMirroringDeploymentGroup(
+        RequestBuilder<crate::model::CreateMirroringDeploymentGroupRequest>,
+    );
+
+    impl CreateMirroringDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMirroringDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_mirroring_deployment_group][crate::client::Mirroring::create_mirroring_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_mirroring_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_mirroring_deployment_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringDeploymentGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringDeploymentGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMirroringDeploymentGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment_group_id][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment_group_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.mirroring_deployment_group_id = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment_group][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+        {
+            self.0.request.mirroring_deployment_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_deployment_group][crate::model::CreateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_deployment_group<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+        {
+            self.0.request.mirroring_deployment_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateMirroringDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMirroringDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::update_mirroring_deployment_group][crate::client::Mirroring::update_mirroring_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::UpdateMirroringDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMirroringDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMirroringDeploymentGroup(
+        RequestBuilder<crate::model::UpdateMirroringDeploymentGroupRequest>,
+    );
+
+    impl UpdateMirroringDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMirroringDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_mirroring_deployment_group][crate::client::Mirroring::update_mirroring_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_mirroring_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_mirroring_deployment_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringDeploymentGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringDeploymentGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMirroringDeploymentGroupRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringDeploymentGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment_group][crate::model::UpdateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+        {
+            self.0.request.mirroring_deployment_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_deployment_group][crate::model::UpdateMirroringDeploymentGroupRequest::mirroring_deployment_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_deployment_group<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeploymentGroup>,
+        {
+            self.0.request.mirroring_deployment_group = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateMirroringDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMirroringDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::delete_mirroring_deployment_group][crate::client::Mirroring::delete_mirroring_deployment_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::DeleteMirroringDeploymentGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMirroringDeploymentGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMirroringDeploymentGroup(
+        RequestBuilder<crate::model::DeleteMirroringDeploymentGroupRequest>,
+    );
+
+    impl DeleteMirroringDeploymentGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMirroringDeploymentGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_mirroring_deployment_group][crate::client::Mirroring::delete_mirroring_deployment_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_mirroring_deployment_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_mirroring_deployment_group`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMirroringDeploymentGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteMirroringDeploymentGroupRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMirroringDeploymentGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::list_mirroring_deployments][crate::client::Mirroring::list_mirroring_deployments] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListMirroringDeployments;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListMirroringDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListMirroringDeployments(
+        RequestBuilder<crate::model::ListMirroringDeploymentsRequest>,
+    );
+
+    impl ListMirroringDeployments {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListMirroringDeploymentsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListMirroringDeploymentsResponse> {
+            (*self.0.stub)
+                .list_mirroring_deployments(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListMirroringDeploymentsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListMirroringDeploymentsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListMirroringDeploymentsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListMirroringDeploymentsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListMirroringDeploymentsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListMirroringDeploymentsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListMirroringDeploymentsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListMirroringDeployments {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_mirroring_deployment][crate::client::Mirroring::get_mirroring_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetMirroringDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetMirroringDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetMirroringDeployment(RequestBuilder<crate::model::GetMirroringDeploymentRequest>);
+
+    impl GetMirroringDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetMirroringDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::MirroringDeployment> {
+            (*self.0.stub)
+                .get_mirroring_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetMirroringDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetMirroringDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::create_mirroring_deployment][crate::client::Mirroring::create_mirroring_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::CreateMirroringDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateMirroringDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateMirroringDeployment(
+        RequestBuilder<crate::model::CreateMirroringDeploymentRequest>,
+    );
+
+    impl CreateMirroringDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateMirroringDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_mirroring_deployment][crate::client::Mirroring::create_mirroring_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_mirroring_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_mirroring_deployment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringDeployment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateMirroringDeploymentRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment_id][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.mirroring_deployment_id = v.into();
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeployment>,
+        {
+            self.0.request.mirroring_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_deployment][crate::model::CreateMirroringDeploymentRequest::mirroring_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeployment>,
+        {
+            self.0.request.mirroring_deployment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateMirroringDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateMirroringDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::update_mirroring_deployment][crate::client::Mirroring::update_mirroring_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::UpdateMirroringDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateMirroringDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateMirroringDeployment(
+        RequestBuilder<crate::model::UpdateMirroringDeploymentRequest>,
+    );
+
+    impl UpdateMirroringDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateMirroringDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_mirroring_deployment][crate::client::Mirroring::update_mirroring_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_mirroring_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_mirroring_deployment`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::MirroringDeployment,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::MirroringDeployment,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateMirroringDeploymentRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMirroringDeploymentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mirroring_deployment][crate::model::UpdateMirroringDeploymentRequest::mirroring_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_mirroring_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeployment>,
+        {
+            self.0.request.mirroring_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mirroring_deployment][crate::model::UpdateMirroringDeploymentRequest::mirroring_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mirroring_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MirroringDeployment>,
+        {
+            self.0.request.mirroring_deployment = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateMirroringDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateMirroringDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::delete_mirroring_deployment][crate::client::Mirroring::delete_mirroring_deployment] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::DeleteMirroringDeployment;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteMirroringDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteMirroringDeployment(
+        RequestBuilder<crate::model::DeleteMirroringDeploymentRequest>,
+    );
+
+    impl DeleteMirroringDeployment {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteMirroringDeploymentRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_mirroring_deployment][crate::client::Mirroring::delete_mirroring_deployment].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_mirroring_deployment(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_mirroring_deployment`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteMirroringDeploymentRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteMirroringDeploymentRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteMirroringDeployment {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::list_locations][crate::client::Mirroring::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListLocations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_location][crate::client::Mirroring::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetLocation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::set_iam_policy][crate::client::Mirroring::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_iam_policy][crate::client::Mirroring::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::test_iam_permissions][crate::client::Mirroring::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::list_operations][crate::client::Mirroring::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::ListOperations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::get_operation][crate::client::Mirroring::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::GetOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::delete_operation][crate::client::Mirroring::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::DeleteOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Mirroring::cancel_operation][crate::client::Mirroring::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::mirroring::CancelOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Mirroring>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 pub mod network_security {
     use crate::Result;
 
@@ -4457,6 +14321,602 @@ pub mod network_security {
         }
     }
 
+    /// The request builder for [NetworkSecurity::list_backend_authentication_configs][crate::client::NetworkSecurity::list_backend_authentication_configs] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListBackendAuthenticationConfigs;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListBackendAuthenticationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBackendAuthenticationConfigs(
+        RequestBuilder<crate::model::ListBackendAuthenticationConfigsRequest>,
+    );
+
+    impl ListBackendAuthenticationConfigs {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBackendAuthenticationConfigsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBackendAuthenticationConfigsResponse> {
+            (*self.0.stub)
+                .list_backend_authentication_configs(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBackendAuthenticationConfigsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBackendAuthenticationConfigsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListBackendAuthenticationConfigsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBackendAuthenticationConfigsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBackendAuthenticationConfigsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListBackendAuthenticationConfigs {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_backend_authentication_config][crate::client::NetworkSecurity::get_backend_authentication_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetBackendAuthenticationConfig;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetBackendAuthenticationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBackendAuthenticationConfig(
+        RequestBuilder<crate::model::GetBackendAuthenticationConfigRequest>,
+    );
+
+    impl GetBackendAuthenticationConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBackendAuthenticationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::BackendAuthenticationConfig> {
+            (*self.0.stub)
+                .get_backend_authentication_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBackendAuthenticationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetBackendAuthenticationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_backend_authentication_config][crate::client::NetworkSecurity::create_backend_authentication_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateBackendAuthenticationConfig;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateBackendAuthenticationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateBackendAuthenticationConfig(
+        RequestBuilder<crate::model::CreateBackendAuthenticationConfigRequest>,
+    );
+
+    impl CreateBackendAuthenticationConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateBackendAuthenticationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_backend_authentication_config][crate::client::NetworkSecurity::create_backend_authentication_config].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_backend_authentication_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_backend_authentication_config`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BackendAuthenticationConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BackendAuthenticationConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateBackendAuthenticationConfigRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [backend_authentication_config_id][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backend_authentication_config_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.backend_authentication_config_id = v.into();
+            self
+        }
+
+        /// Sets the value of [backend_authentication_config][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backend_authentication_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+        {
+            self.0.request.backend_authentication_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backend_authentication_config][crate::model::CreateBackendAuthenticationConfigRequest::backend_authentication_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backend_authentication_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+        {
+            self.0.request.backend_authentication_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateBackendAuthenticationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_backend_authentication_config][crate::client::NetworkSecurity::update_backend_authentication_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateBackendAuthenticationConfig;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateBackendAuthenticationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateBackendAuthenticationConfig(
+        RequestBuilder<crate::model::UpdateBackendAuthenticationConfigRequest>,
+    );
+
+    impl UpdateBackendAuthenticationConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateBackendAuthenticationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_backend_authentication_config][crate::client::NetworkSecurity::update_backend_authentication_config].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_backend_authentication_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_backend_authentication_config`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::BackendAuthenticationConfig,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::BackendAuthenticationConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateBackendAuthenticationConfigRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackendAuthenticationConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [backend_authentication_config][crate::model::UpdateBackendAuthenticationConfigRequest::backend_authentication_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backend_authentication_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+        {
+            self.0.request.backend_authentication_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backend_authentication_config][crate::model::UpdateBackendAuthenticationConfigRequest::backend_authentication_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backend_authentication_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BackendAuthenticationConfig>,
+        {
+            self.0.request.backend_authentication_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateBackendAuthenticationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_backend_authentication_config][crate::client::NetworkSecurity::delete_backend_authentication_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteBackendAuthenticationConfig;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteBackendAuthenticationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteBackendAuthenticationConfig(
+        RequestBuilder<crate::model::DeleteBackendAuthenticationConfigRequest>,
+    );
+
+    impl DeleteBackendAuthenticationConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteBackendAuthenticationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_backend_authentication_config][crate::client::NetworkSecurity::delete_backend_authentication_config].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_backend_authentication_config(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_backend_authentication_config`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteBackendAuthenticationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteBackendAuthenticationConfigRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteBackendAuthenticationConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [NetworkSecurity::list_server_tls_policies][crate::client::NetworkSecurity::list_server_tls_policies] calls.
     ///
     /// # Example
@@ -4555,6 +15015,12 @@ pub mod network_security {
         /// Sets the value of [page_token][crate::model::ListServerTlsPoliciesRequest::page_token].
         pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][crate::model::ListServerTlsPoliciesRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
             self
         }
     }
@@ -5591,6 +16057,2911 @@ pub mod network_security {
         }
     }
 
+    /// The request builder for [NetworkSecurity::list_gateway_security_policies][crate::client::NetworkSecurity::list_gateway_security_policies] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListGatewaySecurityPolicies;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListGatewaySecurityPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListGatewaySecurityPolicies(
+        RequestBuilder<crate::model::ListGatewaySecurityPoliciesRequest>,
+    );
+
+    impl ListGatewaySecurityPolicies {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListGatewaySecurityPoliciesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListGatewaySecurityPoliciesResponse> {
+            (*self.0.stub)
+                .list_gateway_security_policies(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListGatewaySecurityPoliciesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListGatewaySecurityPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListGatewaySecurityPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListGatewaySecurityPoliciesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListGatewaySecurityPoliciesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListGatewaySecurityPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_gateway_security_policy][crate::client::NetworkSecurity::get_gateway_security_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetGatewaySecurityPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetGatewaySecurityPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetGatewaySecurityPolicy(
+        RequestBuilder<crate::model::GetGatewaySecurityPolicyRequest>,
+    );
+
+    impl GetGatewaySecurityPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetGatewaySecurityPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::GatewaySecurityPolicy> {
+            (*self.0.stub)
+                .get_gateway_security_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetGatewaySecurityPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetGatewaySecurityPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_gateway_security_policy][crate::client::NetworkSecurity::create_gateway_security_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateGatewaySecurityPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateGatewaySecurityPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateGatewaySecurityPolicy(
+        RequestBuilder<crate::model::CreateGatewaySecurityPolicyRequest>,
+    );
+
+    impl CreateGatewaySecurityPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateGatewaySecurityPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_gateway_security_policy][crate::client::NetworkSecurity::create_gateway_security_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_gateway_security_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_gateway_security_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::GatewaySecurityPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::GatewaySecurityPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateGatewaySecurityPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy_id][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_gateway_security_policy_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.gateway_security_policy_id = v.into();
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_gateway_security_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+        {
+            self.0.request.gateway_security_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway_security_policy][crate::model::CreateGatewaySecurityPolicyRequest::gateway_security_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+        {
+            self.0.request.gateway_security_policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateGatewaySecurityPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_gateway_security_policy][crate::client::NetworkSecurity::update_gateway_security_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateGatewaySecurityPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateGatewaySecurityPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateGatewaySecurityPolicy(
+        RequestBuilder<crate::model::UpdateGatewaySecurityPolicyRequest>,
+    );
+
+    impl UpdateGatewaySecurityPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateGatewaySecurityPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_gateway_security_policy][crate::client::NetworkSecurity::update_gateway_security_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_gateway_security_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_gateway_security_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::GatewaySecurityPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::GatewaySecurityPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy][crate::model::UpdateGatewaySecurityPolicyRequest::gateway_security_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_gateway_security_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+        {
+            self.0.request.gateway_security_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway_security_policy][crate::model::UpdateGatewaySecurityPolicyRequest::gateway_security_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway_security_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicy>,
+        {
+            self.0.request.gateway_security_policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateGatewaySecurityPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_gateway_security_policy][crate::client::NetworkSecurity::delete_gateway_security_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteGatewaySecurityPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteGatewaySecurityPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteGatewaySecurityPolicy(
+        RequestBuilder<crate::model::DeleteGatewaySecurityPolicyRequest>,
+    );
+
+    impl DeleteGatewaySecurityPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteGatewaySecurityPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_gateway_security_policy][crate::client::NetworkSecurity::delete_gateway_security_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_gateway_security_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_gateway_security_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteGatewaySecurityPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteGatewaySecurityPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::list_gateway_security_policy_rules][crate::client::NetworkSecurity::list_gateway_security_policy_rules] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListGatewaySecurityPolicyRules;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListGatewaySecurityPolicyRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListGatewaySecurityPolicyRules(
+        RequestBuilder<crate::model::ListGatewaySecurityPolicyRulesRequest>,
+    );
+
+    impl ListGatewaySecurityPolicyRules {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListGatewaySecurityPolicyRulesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListGatewaySecurityPolicyRulesResponse> {
+            (*self.0.stub)
+                .list_gateway_security_policy_rules(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListGatewaySecurityPolicyRulesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListGatewaySecurityPolicyRulesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListGatewaySecurityPolicyRulesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListGatewaySecurityPolicyRulesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListGatewaySecurityPolicyRulesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListGatewaySecurityPolicyRules {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_gateway_security_policy_rule][crate::client::NetworkSecurity::get_gateway_security_policy_rule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetGatewaySecurityPolicyRule;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetGatewaySecurityPolicyRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetGatewaySecurityPolicyRule(
+        RequestBuilder<crate::model::GetGatewaySecurityPolicyRuleRequest>,
+    );
+
+    impl GetGatewaySecurityPolicyRule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetGatewaySecurityPolicyRuleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::GatewaySecurityPolicyRule> {
+            (*self.0.stub)
+                .get_gateway_security_policy_rule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetGatewaySecurityPolicyRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetGatewaySecurityPolicyRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_gateway_security_policy_rule][crate::client::NetworkSecurity::create_gateway_security_policy_rule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateGatewaySecurityPolicyRule;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateGatewaySecurityPolicyRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateGatewaySecurityPolicyRule(
+        RequestBuilder<crate::model::CreateGatewaySecurityPolicyRuleRequest>,
+    );
+
+    impl CreateGatewaySecurityPolicyRule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateGatewaySecurityPolicyRuleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_gateway_security_policy_rule][crate::client::NetworkSecurity::create_gateway_security_policy_rule].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_gateway_security_policy_rule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_gateway_security_policy_rule`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::GatewaySecurityPolicyRule,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::GatewaySecurityPolicyRule,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateGatewaySecurityPolicyRuleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy_rule][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_gateway_security_policy_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+        {
+            self.0.request.gateway_security_policy_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway_security_policy_rule][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway_security_policy_rule<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+        {
+            self.0.request.gateway_security_policy_rule = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy_rule_id][crate::model::CreateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule_id].
+        pub fn set_gateway_security_policy_rule_id<T: Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.gateway_security_policy_rule_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateGatewaySecurityPolicyRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_gateway_security_policy_rule][crate::client::NetworkSecurity::update_gateway_security_policy_rule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateGatewaySecurityPolicyRule;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateGatewaySecurityPolicyRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateGatewaySecurityPolicyRule(
+        RequestBuilder<crate::model::UpdateGatewaySecurityPolicyRuleRequest>,
+    );
+
+    impl UpdateGatewaySecurityPolicyRule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateGatewaySecurityPolicyRuleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_gateway_security_policy_rule][crate::client::NetworkSecurity::update_gateway_security_policy_rule].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_gateway_security_policy_rule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_gateway_security_policy_rule`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::GatewaySecurityPolicyRule,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::GatewaySecurityPolicyRule,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRuleRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGatewaySecurityPolicyRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [gateway_security_policy_rule][crate::model::UpdateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_gateway_security_policy_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+        {
+            self.0.request.gateway_security_policy_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway_security_policy_rule][crate::model::UpdateGatewaySecurityPolicyRuleRequest::gateway_security_policy_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway_security_policy_rule<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::GatewaySecurityPolicyRule>,
+        {
+            self.0.request.gateway_security_policy_rule = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateGatewaySecurityPolicyRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_gateway_security_policy_rule][crate::client::NetworkSecurity::delete_gateway_security_policy_rule] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteGatewaySecurityPolicyRule;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteGatewaySecurityPolicyRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteGatewaySecurityPolicyRule(
+        RequestBuilder<crate::model::DeleteGatewaySecurityPolicyRuleRequest>,
+    );
+
+    impl DeleteGatewaySecurityPolicyRule {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteGatewaySecurityPolicyRuleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_gateway_security_policy_rule][crate::client::NetworkSecurity::delete_gateway_security_policy_rule].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_gateway_security_policy_rule(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_gateway_security_policy_rule`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteGatewaySecurityPolicyRuleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteGatewaySecurityPolicyRule {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::list_url_lists][crate::client::NetworkSecurity::list_url_lists] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListUrlLists;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListUrlLists {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListUrlLists(RequestBuilder<crate::model::ListUrlListsRequest>);
+
+    impl ListUrlLists {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListUrlListsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListUrlListsResponse> {
+            (*self.0.stub)
+                .list_url_lists(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<crate::model::ListUrlListsResponse, crate::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListUrlListsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListUrlListsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListUrlListsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListUrlListsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListUrlLists {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_url_list][crate::client::NetworkSecurity::get_url_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetUrlList;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetUrlList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetUrlList(RequestBuilder<crate::model::GetUrlListRequest>);
+
+    impl GetUrlList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetUrlListRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::UrlList> {
+            (*self.0.stub)
+                .get_url_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetUrlListRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetUrlList {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_url_list][crate::client::NetworkSecurity::create_url_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateUrlList;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateUrlList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateUrlList(RequestBuilder<crate::model::CreateUrlListRequest>);
+
+    impl CreateUrlList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateUrlListRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_url_list][crate::client::NetworkSecurity::create_url_list].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_url_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_url_list`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::UrlList, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::UrlList,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateUrlListRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [url_list_id][crate::model::CreateUrlListRequest::url_list_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_url_list_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.url_list_id = v.into();
+            self
+        }
+
+        /// Sets the value of [url_list][crate::model::CreateUrlListRequest::url_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_url_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UrlList>,
+        {
+            self.0.request.url_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [url_list][crate::model::CreateUrlListRequest::url_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_url_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UrlList>,
+        {
+            self.0.request.url_list = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateUrlList {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_url_list][crate::client::NetworkSecurity::update_url_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateUrlList;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateUrlList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateUrlList(RequestBuilder<crate::model::UpdateUrlListRequest>);
+
+    impl UpdateUrlList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateUrlListRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_url_list][crate::client::NetworkSecurity::update_url_list].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_url_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_url_list`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::UrlList, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::UrlList,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateUrlListRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateUrlListRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [url_list][crate::model::UpdateUrlListRequest::url_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_url_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UrlList>,
+        {
+            self.0.request.url_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [url_list][crate::model::UpdateUrlListRequest::url_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_url_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UrlList>,
+        {
+            self.0.request.url_list = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateUrlList {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_url_list][crate::client::NetworkSecurity::delete_url_list] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteUrlList;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteUrlList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteUrlList(RequestBuilder<crate::model::DeleteUrlListRequest>);
+
+    impl DeleteUrlList {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteUrlListRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_url_list][crate::client::NetworkSecurity::delete_url_list].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_url_list(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_url_list`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteUrlListRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteUrlList {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::list_tls_inspection_policies][crate::client::NetworkSecurity::list_tls_inspection_policies] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListTlsInspectionPolicies;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListTlsInspectionPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListTlsInspectionPolicies(
+        RequestBuilder<crate::model::ListTlsInspectionPoliciesRequest>,
+    );
+
+    impl ListTlsInspectionPolicies {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListTlsInspectionPoliciesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListTlsInspectionPoliciesResponse> {
+            (*self.0.stub)
+                .list_tls_inspection_policies(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListTlsInspectionPoliciesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTlsInspectionPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListTlsInspectionPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListTlsInspectionPoliciesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListTlsInspectionPoliciesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListTlsInspectionPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_tls_inspection_policy][crate::client::NetworkSecurity::get_tls_inspection_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetTlsInspectionPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetTlsInspectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetTlsInspectionPolicy(RequestBuilder<crate::model::GetTlsInspectionPolicyRequest>);
+
+    impl GetTlsInspectionPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetTlsInspectionPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::TlsInspectionPolicy> {
+            (*self.0.stub)
+                .get_tls_inspection_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetTlsInspectionPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetTlsInspectionPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_tls_inspection_policy][crate::client::NetworkSecurity::create_tls_inspection_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateTlsInspectionPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateTlsInspectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateTlsInspectionPolicy(
+        RequestBuilder<crate::model::CreateTlsInspectionPolicyRequest>,
+    );
+
+    impl CreateTlsInspectionPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateTlsInspectionPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_tls_inspection_policy][crate::client::NetworkSecurity::create_tls_inspection_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_tls_inspection_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_tls_inspection_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::TlsInspectionPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::TlsInspectionPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateTlsInspectionPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [tls_inspection_policy_id][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_tls_inspection_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.tls_inspection_policy_id = v.into();
+            self
+        }
+
+        /// Sets the value of [tls_inspection_policy][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_tls_inspection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+        {
+            self.0.request.tls_inspection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tls_inspection_policy][crate::model::CreateTlsInspectionPolicyRequest::tls_inspection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tls_inspection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+        {
+            self.0.request.tls_inspection_policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateTlsInspectionPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_tls_inspection_policy][crate::client::NetworkSecurity::update_tls_inspection_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateTlsInspectionPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateTlsInspectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateTlsInspectionPolicy(
+        RequestBuilder<crate::model::UpdateTlsInspectionPolicyRequest>,
+    );
+
+    impl UpdateTlsInspectionPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateTlsInspectionPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_tls_inspection_policy][crate::client::NetworkSecurity::update_tls_inspection_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_tls_inspection_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_tls_inspection_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::TlsInspectionPolicy,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::TlsInspectionPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateTlsInspectionPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTlsInspectionPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tls_inspection_policy][crate::model::UpdateTlsInspectionPolicyRequest::tls_inspection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_tls_inspection_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+        {
+            self.0.request.tls_inspection_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tls_inspection_policy][crate::model::UpdateTlsInspectionPolicyRequest::tls_inspection_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tls_inspection_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TlsInspectionPolicy>,
+        {
+            self.0.request.tls_inspection_policy = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateTlsInspectionPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_tls_inspection_policy][crate::client::NetworkSecurity::delete_tls_inspection_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteTlsInspectionPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteTlsInspectionPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteTlsInspectionPolicy(
+        RequestBuilder<crate::model::DeleteTlsInspectionPolicyRequest>,
+    );
+
+    impl DeleteTlsInspectionPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteTlsInspectionPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_tls_inspection_policy][crate::client::NetworkSecurity::delete_tls_inspection_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_tls_inspection_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_tls_inspection_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteTlsInspectionPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [force][crate::model::DeleteTlsInspectionPolicyRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteTlsInspectionPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::list_authz_policies][crate::client::NetworkSecurity::list_authz_policies] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListAuthzPolicies;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListAuthzPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListAuthzPolicies(RequestBuilder<crate::model::ListAuthzPoliciesRequest>);
+
+    impl ListAuthzPolicies {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListAuthzPoliciesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListAuthzPoliciesResponse> {
+            (*self.0.stub)
+                .list_authz_policies(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListAuthzPoliciesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListAuthzPoliciesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListAuthzPoliciesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListAuthzPoliciesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListAuthzPoliciesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListAuthzPoliciesRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListAuthzPoliciesRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListAuthzPolicies {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::get_authz_policy][crate::client::NetworkSecurity::get_authz_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetAuthzPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetAuthzPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetAuthzPolicy(RequestBuilder<crate::model::GetAuthzPolicyRequest>);
+
+    impl GetAuthzPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetAuthzPolicyRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AuthzPolicy> {
+            (*self.0.stub)
+                .get_authz_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetAuthzPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetAuthzPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::create_authz_policy][crate::client::NetworkSecurity::create_authz_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateAuthzPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateAuthzPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateAuthzPolicy(RequestBuilder<crate::model::CreateAuthzPolicyRequest>);
+
+    impl CreateAuthzPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateAuthzPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_authz_policy][crate::client::NetworkSecurity::create_authz_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_authz_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_authz_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::AuthzPolicy, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::AuthzPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateAuthzPolicyRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [authz_policy_id][crate::model::CreateAuthzPolicyRequest::authz_policy_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_policy_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.authz_policy_id = v.into();
+            self
+        }
+
+        /// Sets the value of [authz_policy][crate::model::CreateAuthzPolicyRequest::authz_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzPolicy>,
+        {
+            self.0.request.authz_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authz_policy][crate::model::CreateAuthzPolicyRequest::authz_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authz_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzPolicy>,
+        {
+            self.0.request.authz_policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateAuthzPolicyRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateAuthzPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::update_authz_policy][crate::client::NetworkSecurity::update_authz_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateAuthzPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateAuthzPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateAuthzPolicy(RequestBuilder<crate::model::UpdateAuthzPolicyRequest>);
+
+    impl UpdateAuthzPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateAuthzPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_authz_policy][crate::client::NetworkSecurity::update_authz_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_authz_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_authz_policy`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::AuthzPolicy, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::AuthzPolicy,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateAuthzPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthzPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [authz_policy][crate::model::UpdateAuthzPolicyRequest::authz_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzPolicy>,
+        {
+            self.0.request.authz_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authz_policy][crate::model::UpdateAuthzPolicyRequest::authz_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authz_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzPolicy>,
+        {
+            self.0.request.authz_policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateAuthzPolicyRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateAuthzPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkSecurity::delete_authz_policy][crate::client::NetworkSecurity::delete_authz_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteAuthzPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteAuthzPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteAuthzPolicy(RequestBuilder<crate::model::DeleteAuthzPolicyRequest>);
+
+    impl DeleteAuthzPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteAuthzPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_authz_policy][crate::client::NetworkSecurity::delete_authz_policy].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_authz_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_authz_policy`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteAuthzPolicyRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteAuthzPolicyRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteAuthzPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [NetworkSecurity::list_locations][crate::client::NetworkSecurity::list_locations] calls.
     ///
     /// # Example
@@ -6308,6 +19679,2031 @@ pub mod network_security {
     impl CancelOperation {
         pub(crate) fn new(
             stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::CancelOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .cancel_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::CancelOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CancelOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
+pub mod organization_security_profile_group_service {
+    use crate::Result;
+
+    /// A builder for [OrganizationSecurityProfileGroupService][crate::client::OrganizationSecurityProfileGroupService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_networksecurity_v1::*;
+    /// # use builder::organization_security_profile_group_service::ClientBuilder;
+    /// # use client::OrganizationSecurityProfileGroupService;
+    /// let builder : ClientBuilder = OrganizationSecurityProfileGroupService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://networksecurity.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder = crate::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::OrganizationSecurityProfileGroupService;
+        pub struct Factory;
+        impl crate::ClientFactory for Factory {
+            type Client = OrganizationSecurityProfileGroupService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> crate::ClientBuilderResult<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::OrganizationSecurityProfileGroupService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<
+            dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+        >,
+        request: R,
+        options: crate::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: crate::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::list_security_profile_groups][crate::client::OrganizationSecurityProfileGroupService::list_security_profile_groups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::ListSecurityProfileGroups;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListSecurityProfileGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSecurityProfileGroups(
+        RequestBuilder<crate::model::ListSecurityProfileGroupsRequest>,
+    );
+
+    impl ListSecurityProfileGroups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSecurityProfileGroupsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSecurityProfileGroupsResponse> {
+            (*self.0.stub)
+                .list_security_profile_groups(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSecurityProfileGroupsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSecurityProfileGroupsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSecurityProfileGroupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSecurityProfileGroupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSecurityProfileGroupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListSecurityProfileGroups {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::get_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::get_security_profile_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::GetSecurityProfileGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetSecurityProfileGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSecurityProfileGroup(
+        RequestBuilder<crate::model::GetSecurityProfileGroupRequest>,
+    );
+
+    impl GetSecurityProfileGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSecurityProfileGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SecurityProfileGroup> {
+            (*self.0.stub)
+                .get_security_profile_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSecurityProfileGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetSecurityProfileGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::create_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::create_security_profile_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::CreateSecurityProfileGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateSecurityProfileGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateSecurityProfileGroup(
+        RequestBuilder<crate::model::CreateSecurityProfileGroupRequest>,
+    );
+
+    impl CreateSecurityProfileGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSecurityProfileGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::create_security_profile_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_security_profile_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_security_profile_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SecurityProfileGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SecurityProfileGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSecurityProfileGroupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [security_profile_group_id][crate::model::CreateSecurityProfileGroupRequest::security_profile_group_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile_group_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.security_profile_group_id = v.into();
+            self
+        }
+
+        /// Sets the value of [security_profile_group][crate::model::CreateSecurityProfileGroupRequest::security_profile_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfileGroup>,
+        {
+            self.0.request.security_profile_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_profile_group][crate::model::CreateSecurityProfileGroupRequest::security_profile_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_profile_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfileGroup>,
+        {
+            self.0.request.security_profile_group = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateSecurityProfileGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::update_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::update_security_profile_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::UpdateSecurityProfileGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateSecurityProfileGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateSecurityProfileGroup(
+        RequestBuilder<crate::model::UpdateSecurityProfileGroupRequest>,
+    );
+
+    impl UpdateSecurityProfileGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateSecurityProfileGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::update_security_profile_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_security_profile_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_security_profile_group`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<
+            crate::model::SecurityProfileGroup,
+            crate::model::OperationMetadata,
+        > {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SecurityProfileGroup,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateSecurityProfileGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityProfileGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [security_profile_group][crate::model::UpdateSecurityProfileGroupRequest::security_profile_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfileGroup>,
+        {
+            self.0.request.security_profile_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_profile_group][crate::model::UpdateSecurityProfileGroupRequest::security_profile_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_profile_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfileGroup>,
+        {
+            self.0.request.security_profile_group = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateSecurityProfileGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::delete_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::delete_security_profile_group] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::DeleteSecurityProfileGroup;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteSecurityProfileGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteSecurityProfileGroup(
+        RequestBuilder<crate::model::DeleteSecurityProfileGroupRequest>,
+    );
+
+    impl DeleteSecurityProfileGroup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSecurityProfileGroupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_security_profile_group][crate::client::OrganizationSecurityProfileGroupService::delete_security_profile_group].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_security_profile_group(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_security_profile_group`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSecurityProfileGroupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteSecurityProfileGroupRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteSecurityProfileGroup {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::list_security_profiles][crate::client::OrganizationSecurityProfileGroupService::list_security_profiles] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::ListSecurityProfiles;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListSecurityProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSecurityProfiles(RequestBuilder<crate::model::ListSecurityProfilesRequest>);
+
+    impl ListSecurityProfiles {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSecurityProfilesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSecurityProfilesResponse> {
+            (*self.0.stub)
+                .list_security_profiles(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListSecurityProfilesResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListSecurityProfilesResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSecurityProfilesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSecurityProfilesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSecurityProfilesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListSecurityProfiles {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::get_security_profile][crate::client::OrganizationSecurityProfileGroupService::get_security_profile] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::GetSecurityProfile;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetSecurityProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSecurityProfile(RequestBuilder<crate::model::GetSecurityProfileRequest>);
+
+    impl GetSecurityProfile {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSecurityProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SecurityProfile> {
+            (*self.0.stub)
+                .get_security_profile(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSecurityProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetSecurityProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::create_security_profile][crate::client::OrganizationSecurityProfileGroupService::create_security_profile] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::CreateSecurityProfile;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateSecurityProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateSecurityProfile(RequestBuilder<crate::model::CreateSecurityProfileRequest>);
+
+    impl CreateSecurityProfile {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSecurityProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_security_profile][crate::client::OrganizationSecurityProfileGroupService::create_security_profile].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_security_profile(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `create_security_profile`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::SecurityProfile, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SecurityProfile,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSecurityProfileRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [security_profile_id][crate::model::CreateSecurityProfileRequest::security_profile_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.security_profile_id = v.into();
+            self
+        }
+
+        /// Sets the value of [security_profile][crate::model::CreateSecurityProfileRequest::security_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfile>,
+        {
+            self.0.request.security_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_profile][crate::model::CreateSecurityProfileRequest::security_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfile>,
+        {
+            self.0.request.security_profile = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for CreateSecurityProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::update_security_profile][crate::client::OrganizationSecurityProfileGroupService::update_security_profile] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::UpdateSecurityProfile;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateSecurityProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateSecurityProfile(RequestBuilder<crate::model::UpdateSecurityProfileRequest>);
+
+    impl UpdateSecurityProfile {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateSecurityProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_security_profile][crate::client::OrganizationSecurityProfileGroupService::update_security_profile].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_security_profile(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `update_security_profile`.
+        pub fn poller(
+            self,
+        ) -> impl google_cloud_lro::Poller<crate::model::SecurityProfile, crate::model::OperationMetadata>
+        {
+            type Operation = google_cloud_lro::internal::Operation<
+                crate::model::SecurityProfile,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateSecurityProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [security_profile][crate::model::UpdateSecurityProfileRequest::security_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_security_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfile>,
+        {
+            self.0.request.security_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_profile][crate::model::UpdateSecurityProfileRequest::security_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityProfile>,
+        {
+            self.0.request.security_profile = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for UpdateSecurityProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::delete_security_profile][crate::client::OrganizationSecurityProfileGroupService::delete_security_profile] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::DeleteSecurityProfile;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteSecurityProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteSecurityProfile(RequestBuilder<crate::model::DeleteSecurityProfileRequest>);
+
+    impl DeleteSecurityProfile {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSecurityProfileRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_security_profile][crate::client::OrganizationSecurityProfileGroupService::delete_security_profile].
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_security_profile(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Creates a [Poller][google_cloud_lro::Poller] to work with `delete_security_profile`.
+        pub fn poller(self) -> impl google_cloud_lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation =
+                google_cloud_lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(google_cloud_gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            google_cloud_lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSecurityProfileRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteSecurityProfileRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteSecurityProfile {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::list_locations][crate::client::OrganizationSecurityProfileGroupService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::ListLocations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListLocations(RequestBuilder<google_cloud_location::model::ListLocationsRequest>);
+
+    impl ListLocations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::ListLocationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::ListLocationsResponse> {
+            (*self.0.stub)
+                .list_locations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_location::model::ListLocationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::ListLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_location::model::ListLocationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_location::model::ListLocationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_location::model::ListLocationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListLocations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::get_location][crate::client::OrganizationSecurityProfileGroupService::get_location] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::GetLocation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetLocation(RequestBuilder<google_cloud_location::model::GetLocationRequest>);
+
+    impl GetLocation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_location::model::GetLocationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_location::model::Location> {
+            (*self.0.stub)
+                .get_location(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_location::model::GetLocationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetLocation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::set_iam_policy][crate::client::OrganizationSecurityProfileGroupService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::SetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct SetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::SetIamPolicyRequest>);
+
+    impl SetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::SetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .set_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::SetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][google_cloud_iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][google_cloud_iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for SetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::get_iam_policy][crate::client::OrganizationSecurityProfileGroupService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::GetIamPolicy;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetIamPolicy(RequestBuilder<google_cloud_iam_v1::model::GetIamPolicyRequest>);
+
+    impl GetIamPolicy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::GetIamPolicyRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::Policy> {
+            (*self.0.stub)
+                .get_iam_policy(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::GetIamPolicyRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][google_cloud_iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<google_cloud_iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetIamPolicy {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::test_iam_permissions][crate::client::OrganizationSecurityProfileGroupService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::TestIamPermissions;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct TestIamPermissions(
+        RequestBuilder<google_cloud_iam_v1::model::TestIamPermissionsRequest>,
+    );
+
+    impl TestIamPermissions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_iam_v1::model::TestIamPermissionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_iam_v1::model::TestIamPermissionsResponse> {
+            (*self.0.stub)
+                .test_iam_permissions(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [resource][google_cloud_iam_v1::model::TestIamPermissionsRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.resource = v.into();
+            self
+        }
+
+        /// Sets the value of [permissions][google_cloud_iam_v1::model::TestIamPermissionsRequest::permissions].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for TestIamPermissions {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::list_operations][crate::client::OrganizationSecurityProfileGroupService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::ListOperations;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListOperations(
+        RequestBuilder<google_cloud_longrunning::model::ListOperationsRequest>,
+    );
+
+    impl ListOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::ListOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::ListOperationsResponse> {
+            (*self.0.stub)
+                .list_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            google_cloud_longrunning::model::ListOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::ListOperationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][google_cloud_longrunning::model::ListOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][google_cloud_longrunning::model::ListOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][google_cloud_longrunning::model::ListOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [return_partial_success][google_cloud_longrunning::model::ListOperationsRequest::return_partial_success].
+        pub fn set_return_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.return_partial_success = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::get_operation][crate::client::OrganizationSecurityProfileGroupService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::GetOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<google_cloud_longrunning::model::GetOperationRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::GetOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<google_cloud_longrunning::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::GetOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::delete_operation][crate::client::OrganizationSecurityProfileGroupService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::DeleteOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteOperation(
+        RequestBuilder<google_cloud_longrunning::model::DeleteOperationRequest>,
+    );
+
+    impl DeleteOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<google_cloud_longrunning::model::DeleteOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][google_cloud_longrunning::model::DeleteOperationRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for DeleteOperation {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [OrganizationSecurityProfileGroupService::cancel_operation][crate::client::OrganizationSecurityProfileGroupService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_security_profile_group_service::CancelOperation;
+    /// # async fn sample() -> google_cloud_networksecurity_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CancelOperation(
+        RequestBuilder<google_cloud_longrunning::model::CancelOperationRequest>,
+    );
+
+    impl CancelOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::OrganizationSecurityProfileGroupService,
+            >,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

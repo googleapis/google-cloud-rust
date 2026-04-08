@@ -13,5 +13,6 @@
 // limitations under the License.
 
 pub mod create_topic;
+pub mod delete_topic;
 pub mod list_topic_subscriptions;
 pub mod list_topics;

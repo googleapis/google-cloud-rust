@@ -460,6 +460,7 @@ impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
         self.client
             .access_token(self.scopes.clone())
+            .send()
             .await
             .map_err(|e| CredentialsError::new(e.is_transient(), self.error_message(), e))
     }
@@ -468,7 +469,7 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
+    use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
@@ -864,6 +865,7 @@ mod tests {
         let mdsc = Builder::default()
             .with_scopes(scopes)
             .with_endpoint(format!("http://{}", server.addr()))
+            .without_access_boundary()
             .build()?;
         let headers = mdsc.headers(Extensions::new()).await?;
         assert_eq!(
