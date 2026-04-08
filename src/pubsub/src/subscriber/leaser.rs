@@ -18,7 +18,10 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::NeverRetry;
+use google_cloud_gax::retry_throttler::CircuitBreaker;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::UnboundedSender;
@@ -47,7 +50,7 @@ pub(super) type ConfirmedAcks = HashMap<String, AckResult>;
 
 pub(super) struct DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
@@ -58,7 +61,7 @@ where
 
 impl<T> Clone for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     fn clone(&self) -> Self {
         Self {
@@ -73,7 +76,7 @@ where
 
 impl<T> DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     pub(super) fn new(
         inner: Arc<T>,
@@ -138,60 +141,79 @@ where
     /// keep the retry logic in the leaser, while allowing for partial results
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
-        use std::time::Duration;
+        let leaser = self.clone();
+        let mut ack_ids = ack_ids;
 
-        let subscription = self.subscription.clone();
-        let stub = self.inner.clone();
-        let options = self.options.clone();
-        let confirmed_acks = Arc::new(Mutex::new(HashMap::<String, AckResult>::new()));
-        let acks = Arc::clone(&confirmed_acks);
-
-        // TODO(#4804): implement inner retry closure to check response metadata.
-        let inner = async move |_remaining_time: Option<Duration>| {
-            let req = AcknowledgeRequest::new()
-                .set_subscription(subscription.clone())
-                .set_ack_ids(ack_ids.clone());
-            let response = stub.clone().acknowledge(req, options.clone()).await;
-            let shared_result = response.map(|_| ()).map_err(Arc::new);
-            // TODO(#4804): examine response metadata and update acks as needed.
-            let confirmed: HashMap<String, AckResult> = ack_ids
-                .clone()
-                .into_iter()
-                .map(|id| {
-                    (
-                        id,
-                        shared_result
-                            .clone()
-                            .map_err(|source| AckError::Rpc { source }),
-                    )
-                })
-                .collect();
-            let mut guard = acks.lock().expect("never poisoned");
-            *guard = confirmed;
-            Ok(())
+        // Returns `Result<()>`.
+        let attempt = async move |_| {
+            let ids = std::mem::take(&mut ack_ids);
+            let ack_ids = leaser.confirmed_ack_attempt(ids).await;
+            if ack_ids.is_empty() {
+                Ok(())
+            } else {
+                // Return a synthetic error to force retry.
+                Err(crate::Error::timeout("retry me"))
+            }
         };
 
         let sleep = async |d| tokio::time::sleep(d).await;
-        // TODO(#4804): update retry_loop configuration and move to retry_policy.
-        // Result is ignored as inner always return Ok.
         let _ = retry_loop(
-            inner,
+            attempt,
             sleep,
-            false,
-            Arc::new(Mutex::new(
-                google_cloud_gax::retry_throttler::AdaptiveThrottler::default(),
-            )),
-            Arc::new(google_cloud_gax::retry_policy::NeverRetry),
-            Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default()),
+            true,
+            retry_throttler(&self.options),
+            retry_policy(),
+            backoff_policy(),
         )
         .await;
+    }
+}
 
-        let _ = self.confirmed_tx.send(
-            Arc::into_inner(confirmed_acks)
-                .expect("retry_loop inner closure is dropped")
-                .into_inner()
-                .expect("never poisoned"),
-        );
+fn retry_policy() -> Arc<NeverRetry> {
+    Arc::new(NeverRetry)
+}
+
+fn backoff_policy() -> Arc<ExponentialBackoff> {
+    Arc::new(ExponentialBackoff::default())
+}
+
+fn retry_throttler(
+    options: &RequestOptions,
+) -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+    options.retry_throttler().clone().unwrap_or_else(|| {
+        // Effectively disable throttling. The stub throttles.
+        Arc::new(Mutex::new(
+            CircuitBreaker::new(1000, 0, 0).expect("This is a valid configuration"),
+        ))
+    })
+}
+
+impl<T> DefaultLeaser<T>
+where
+    T: Stub + 'static,
+{
+    async fn confirmed_ack_attempt(&self, ack_ids: Vec<String>) -> Vec<String> {
+        let req = AcknowledgeRequest::new()
+            .set_subscription(self.subscription.clone())
+            .set_ack_ids(ack_ids.clone());
+        let response = self.inner.acknowledge(req, self.options.clone()).await;
+        let shared_result = response.map(|_| ()).map_err(Arc::new);
+        let confirmed_acks = ack_ids
+            .into_iter()
+            .map(|id| {
+                (
+                    id,
+                    shared_result
+                        .clone()
+                        .map_err(|source| AckError::Rpc { source }),
+                )
+            })
+            .collect();
+        let _ = self.confirmed_tx.send(confirmed_acks);
+
+        // TODO(#4804): process the results, and return ack IDs that fail with
+        // transient errors here.
+        Vec::new()
     }
 }
 
