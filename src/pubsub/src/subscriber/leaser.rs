@@ -144,14 +144,13 @@ where
         let leaser = self.clone();
         let mut ack_ids = ack_ids;
 
-        // Returns `Result<()>`.
         let attempt = async move |_| {
             let ids = std::mem::take(&mut ack_ids);
             let ack_ids = leaser.confirmed_ack_attempt(ids).await;
             if ack_ids.is_empty() {
                 Ok(())
             } else {
-                // Return a synthetic error to force retry.
+                // Return a synthetic error to indicate that we should retry.
                 Err(crate::Error::timeout("retry me"))
             }
         };
