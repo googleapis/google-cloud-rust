@@ -828,9 +828,26 @@ mod tests {
                 KeyValue::new("gcp.client.artifact", "test-artifact"),
                 KeyValue::new("gcp.client.service", "test-service"),
                 KeyValue::new("gcp.client.repo", "googleapis/google-cloud-rust"),
+                KeyValue::new("gcp.client.version", "1.2.3"),
             ])
             .build();
-        assert_eq!(scope, &want, "{got:?}");
+        let got_attrs = std::collections::BTreeSet::from_iter(
+            scope
+                .attributes()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        let want_attrs = std::collections::BTreeSet::from_iter(
+            want.attributes()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        assert_eq!(got_attrs, want_attrs, "scope attributes mismatch");
+        assert_eq!(scope.name(), want.name(), "scope name mismatch");
+        assert_eq!(scope.version(), want.version(), "scope version mismatch");
+        assert_eq!(
+            scope.schema_url(),
+            want.schema_url(),
+            "scope schema_url mismatch"
+        );
     }
 
     #[track_caller]
