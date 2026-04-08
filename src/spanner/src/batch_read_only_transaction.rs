@@ -16,7 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
+    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
@@ -345,6 +345,10 @@ impl Partition {
 
         Ok(ResultSet::new(
             stream,
+            Some(ReadContextTransactionSelector::Fixed(
+                transaction_selector.clone(),
+                None,
+            )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
             StreamOperation::Query(request),
@@ -374,6 +378,10 @@ impl Partition {
 
         Ok(ResultSet::new(
             stream,
+            Some(ReadContextTransactionSelector::Fixed(
+                transaction_selector.clone(),
+                None,
+            )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
             StreamOperation::Read(request),
