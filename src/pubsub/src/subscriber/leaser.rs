@@ -168,6 +168,30 @@ where
         )
         .await;
     }
+
+    async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+        let req = ModifyAckDeadlineRequest::new()
+            .set_subscription(self.subscription.clone())
+            .set_ack_ids(ack_ids.clone())
+            .set_ack_deadline_seconds(0);
+        let response = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
+        let shared_result = response.map(|_| ()).map_err(Arc::new);
+        let confirmed_acks = ack_ids
+            .into_iter()
+            .map(|id| {
+                (
+                    id,
+                    shared_result
+                        .clone()
+                        .map_err(|source| AckError::Rpc { source }),
+                )
+            })
+            .collect();
+        let _ = self.confirmed_tx.send(confirmed_acks);
+    }
 }
 
 fn retry_policy() -> Arc<NeverRetry> {
@@ -215,30 +239,6 @@ where
         // TODO(#4804): process the results, and return ack IDs that fail with
         // transient errors here.
         Vec::new()
-    }
-
-    async fn confirmed_nack(&self, ack_ids: Vec<String>) {
-        let req = ModifyAckDeadlineRequest::new()
-            .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids.clone())
-            .set_ack_deadline_seconds(0);
-        let response = self
-            .inner
-            .modify_ack_deadline(req, self.options.clone())
-            .await;
-        let shared_result = response.map(|_| ()).map_err(Arc::new);
-        let confirmed_acks = ack_ids
-            .into_iter()
-            .map(|id| {
-                (
-                    id,
-                    shared_result
-                        .clone()
-                        .map_err(|source| AckError::Rpc { source }),
-                )
-            })
-            .collect();
-        let _ = self.confirmed_tx.send(confirmed_acks);
     }
 }
 
