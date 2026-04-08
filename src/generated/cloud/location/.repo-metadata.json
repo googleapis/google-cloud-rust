@@ -4,12 +4,10 @@
     "api_shortname": "cloud",
     "client_documentation": "https://docs.rs/google-cloud-location/latest",
     "distribution_name": "google-cloud-location",
-    "issue_tracker": "https://github.com/googleapis/google-cloud-python/issues",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "cloud",
     "name_pretty": "Cloud Metadata",
-    "product_documentation": "https://github.com/googleapis/googleapis/tree/master/google",
     "release_level": "stable",
     "repo": "googleapis/google-cloud-rust"
 }
