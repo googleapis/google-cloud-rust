@@ -41,6 +41,7 @@
 //! ```
 
 use crate::error::AckError;
+use crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot::Receiver;
 
@@ -380,9 +381,7 @@ impl ExactlyOnceImpl {
     pub async fn confirmed_nack(self) -> AckResult {
         self.ack_tx
             .send(Action::ExactlyOnceNack(self.ack_id))
-            .map_err(|_| {
-                AckError::Shutdown(crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR.into())
-            })?;
+            .map_err(|_| AckError::Shutdown(NACK_SHUTDOWN_ERROR.into()))?;
         self.result_rx
             .await
             .map_err(|e| AckError::Shutdown(e.into()))?
@@ -606,7 +605,7 @@ mod tests {
             err.source()
                 .expect("shutdown errors have a source")
                 .to_string(),
-            crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR
+            NACK_SHUTDOWN_ERROR
         );
 
         Ok(())
