@@ -347,6 +347,105 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Config::get_deployment_group].
+    fn get_deployment_group(
+        &self,
+        _req: crate::model::GetDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DeploymentGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::create_deployment_group].
+    fn create_deployment_group(
+        &self,
+        _req: crate::model::CreateDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::update_deployment_group].
+    fn update_deployment_group(
+        &self,
+        _req: crate::model::UpdateDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::delete_deployment_group].
+    fn delete_deployment_group(
+        &self,
+        _req: crate::model::DeleteDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::list_deployment_groups].
+    fn list_deployment_groups(
+        &self,
+        _req: crate::model::ListDeploymentGroupsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentGroupsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::provision_deployment_group].
+    fn provision_deployment_group(
+        &self,
+        _req: crate::model::ProvisionDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::deprovision_deployment_group].
+    fn deprovision_deployment_group(
+        &self,
+        _req: crate::model::DeprovisionDeploymentGroupRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::get_deployment_group_revision].
+    fn get_deployment_group_revision(
+        &self,
+        _req: crate::model::GetDeploymentGroupRevisionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DeploymentGroupRevision>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::list_deployment_group_revisions].
+    fn list_deployment_group_revisions(
+        &self,
+        _req: crate::model::ListDeploymentGroupRevisionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentGroupRevisionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Config::list_locations].
     fn list_locations(
         &self,

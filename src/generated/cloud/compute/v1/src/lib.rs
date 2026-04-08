@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260320" revision of the API.
+//! This client library was generated from the "20260331" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -60,6 +60,7 @@
 //! * [InstanceSettings](client/struct.InstanceSettings.html)
 //! * [InstanceTemplates](client/struct.InstanceTemplates.html)
 //! * [Instances](client/struct.Instances.html)
+//! * [InstantSnapshotGroups](client/struct.InstantSnapshotGroups.html)
 //! * [InstantSnapshots](client/struct.InstantSnapshots.html)
 //! * [InterconnectAttachmentGroups](client/struct.InterconnectAttachmentGroups.html)
 //! * [InterconnectAttachments](client/struct.InterconnectAttachments.html)
@@ -102,12 +103,15 @@
 //! * [RegionInstanceGroups](client/struct.RegionInstanceGroups.html)
 //! * [RegionInstanceTemplates](client/struct.RegionInstanceTemplates.html)
 //! * [RegionInstances](client/struct.RegionInstances.html)
+//! * [RegionInstantSnapshotGroups](client/struct.RegionInstantSnapshotGroups.html)
 //! * [RegionInstantSnapshots](client/struct.RegionInstantSnapshots.html)
 //! * [RegionNetworkEndpointGroups](client/struct.RegionNetworkEndpointGroups.html)
 //! * [RegionNetworkFirewallPolicies](client/struct.RegionNetworkFirewallPolicies.html)
 //! * [RegionNotificationEndpoints](client/struct.RegionNotificationEndpoints.html)
 //! * [RegionOperations](client/struct.RegionOperations.html)
 //! * [RegionSecurityPolicies](client/struct.RegionSecurityPolicies.html)
+//! * [RegionSnapshotSettings](client/struct.RegionSnapshotSettings.html)
+//! * [RegionSnapshots](client/struct.RegionSnapshots.html)
 //! * [RegionSslCertificates](client/struct.RegionSslCertificates.html)
 //! * [RegionSslPolicies](client/struct.RegionSslPolicies.html)
 //! * [RegionTargetHttpProxies](client/struct.RegionTargetHttpProxies.html)
@@ -229,6 +233,7 @@ pub(crate) mod transport;
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -271,12 +276,15 @@ pub(crate) mod transport;
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -351,6 +359,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -393,12 +402,15 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
