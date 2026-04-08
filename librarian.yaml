@@ -424,16 +424,15 @@ libraries:
     copyright_year: "2025"
     output: src/bigquery
     skip_release: true
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic_storage::model
           output: src/bigquery/src/generated/convert/storage
-          api_path: google/cloud/bigquery/storage/v1
-          template: convert-prost
           skipped_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
             - .google.cloud.bigquery.storage.v1.ProtoSchema
+          api_path: google/cloud/bigquery/storage/v1
+          template: convert-prost
         - extend_grpc_transport: true
           generate_setter_samples: "false"
           generate_rpc_samples: "false"
@@ -441,10 +440,10 @@ libraries:
           internal_builders: true
           output: src/bigquery/src/generated/gapic_storage
           service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
-          api_path: google/cloud/bigquery/storage/v1
-          template: grpc-client
           skipped_ids:
             - .google.cloud.bigquery.storage.v1.BigQueryRead
+          api_path: google/cloud/bigquery/storage/v1
+          template: grpc-client
         - output: src/bigquery/src/generated/protos/storage
           api_path: google/cloud/bigquery/storage/v1
           template: prost
