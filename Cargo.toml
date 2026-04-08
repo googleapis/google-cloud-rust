@@ -528,6 +528,7 @@ integration-tests        = { path = "tests/integration" }
 integration-tests-o11y   = { default-features = false, path = "tests/o11y" }
 pubsub-samples           = { path = "src/pubsub/examples" }
 storage-samples          = { path = "src/storage/examples" }
+storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
