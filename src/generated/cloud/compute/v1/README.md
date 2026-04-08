@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20260320" revision of the API.
+This client library was generated from the "20260331" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -47,6 +47,7 @@ The main types to work with this crate are the clients:
 - [InstanceSettings]: enabled by the `instance-settings` feature.
 - [InstanceTemplates]: enabled by the `instance-templates` feature.
 - [Instances]: enabled by the `instances` feature.
+- [InstantSnapshotGroups]: enabled by the `instant-snapshot-groups` feature.
 - [InstantSnapshots]: enabled by the `instant-snapshots` feature.
 - [InterconnectAttachmentGroups]: enabled by the `interconnect-attachment-groups` feature.
 - [InterconnectAttachments]: enabled by the `interconnect-attachments` feature.
@@ -89,12 +90,15 @@ The main types to work with this crate are the clients:
 - [RegionInstanceGroups]: enabled by the `region-instance-groups` feature.
 - [RegionInstanceTemplates]: enabled by the `region-instance-templates` feature.
 - [RegionInstances]: enabled by the `region-instances` feature.
+- [RegionInstantSnapshotGroups]: enabled by the `region-instant-snapshot-groups` feature.
 - [RegionInstantSnapshots]: enabled by the `region-instant-snapshots` feature.
 - [RegionNetworkEndpointGroups]: enabled by the `region-network-endpoint-groups` feature.
 - [RegionNetworkFirewallPolicies]: enabled by the `region-network-firewall-policies` feature.
 - [RegionNotificationEndpoints]: enabled by the `region-notification-endpoints` feature.
 - [RegionOperations]: enabled by the `region-operations` feature.
 - [RegionSecurityPolicies]: enabled by the `region-security-policies` feature.
+- [RegionSnapshotSettings]: enabled by the `region-snapshot-settings` feature.
+- [RegionSnapshots]: enabled by the `region-snapshots` feature.
 - [RegionSslCertificates]: enabled by the `region-ssl-certificates` feature.
 - [RegionSslPolicies]: enabled by the `region-ssl-policies` feature.
 - [RegionTargetHttpProxies]: enabled by the `region-target-http-proxies` feature.
@@ -182,6 +186,7 @@ The main types to work with this crate are the clients:
 [InstanceSettings]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InstanceSettings.html
 [InstanceTemplates]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InstanceTemplates.html
 [Instances]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.Instances.html
+[InstantSnapshotGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InstantSnapshotGroups.html
 [InstantSnapshots]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InstantSnapshots.html
 [InterconnectAttachmentGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InterconnectAttachmentGroups.html
 [InterconnectAttachments]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.InterconnectAttachments.html
@@ -224,12 +229,15 @@ The main types to work with this crate are the clients:
 [RegionInstanceGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceGroups.html
 [RegionInstanceTemplates]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstanceTemplates.html
 [RegionInstances]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstances.html
+[RegionInstantSnapshotGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstantSnapshotGroups.html
 [RegionInstantSnapshots]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionInstantSnapshots.html
 [RegionNetworkEndpointGroups]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionNetworkEndpointGroups.html
 [RegionNetworkFirewallPolicies]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionNetworkFirewallPolicies.html
 [RegionNotificationEndpoints]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionNotificationEndpoints.html
 [RegionOperations]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionOperations.html
 [RegionSecurityPolicies]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionSecurityPolicies.html
+[RegionSnapshotSettings]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionSnapshotSettings.html
+[RegionSnapshots]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionSnapshots.html
 [RegionSslCertificates]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionSslCertificates.html
 [RegionSslPolicies]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionSslPolicies.html
 [RegionTargetHttpProxies]: https://docs.rs/google-cloud-compute-v1/2.4.0/google_cloud_compute_v1/client/struct.RegionTargetHttpProxies.html

@@ -3917,17 +3917,6 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
-    /// Implements [super::client::Instances::get_partner_metadata].
-    fn get_partner_metadata(
-        &self,
-        _req: crate::model::instances::GetPartnerMetadataRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<
-        Output = crate::Result<crate::Response<crate::model::PartnerMetadata>>,
-    > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
     /// Implements [super::client::Instances::get_screenshot].
     fn get_screenshot(
         &self,
@@ -3989,16 +3978,6 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::InstanceListReferrers>>,
     > + Send {
-        gaxi::unimplemented::unimplemented_stub()
-    }
-
-    /// Implements [super::client::Instances::patch_partner_metadata].
-    fn patch_partner_metadata(
-        &self,
-        _req: crate::model::instances::PatchPartnerMetadataRequest,
-        _options: crate::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
-    {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -4313,6 +4292,126 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::Instances::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::InstantSnapshotGroups].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::InstantSnapshotGroups`.  In other use-cases, application developers only
+/// use `client::InstantSnapshotGroups` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "instant-snapshot-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instant-snapshot-groups")))]
+pub trait InstantSnapshotGroups: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::InstantSnapshotGroups::delete].
+    fn delete(
+        &self,
+        _req: crate::model::instant_snapshot_groups::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::get].
+    fn get(
+        &self,
+        _req: crate::model::instant_snapshot_groups::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::InstantSnapshotGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::instant_snapshot_groups::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::insert].
+    fn insert(
+        &self,
+        _req: crate::model::instant_snapshot_groups::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::list].
+    fn list(
+        &self,
+        _req: crate::model::instant_snapshot_groups::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::instant_snapshot_groups::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::instant_snapshot_groups::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InstantSnapshotGroups::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::zone_operations::GetRequest,
@@ -9603,6 +9702,126 @@ pub trait RegionInstances: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::RegionInstantSnapshotGroups].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionInstantSnapshotGroups`.  In other use-cases, application developers only
+/// use `client::RegionInstantSnapshotGroups` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-instant-snapshot-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instant-snapshot-groups")))]
+pub trait RegionInstantSnapshotGroups: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionInstantSnapshotGroups::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::get].
+    fn get(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::InstantSnapshotGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::list].
+    fn list(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_instant_snapshot_groups::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionInstantSnapshotGroups::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::RegionInstantSnapshots].
 ///
 /// Application developers may need to implement this trait to mock
@@ -10366,6 +10585,213 @@ pub trait RegionSecurityPolicies: std::fmt::Debug + Send + Sync {
     }
 
     /// Implements [super::client::RegionSecurityPolicies::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionSnapshotSettings].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionSnapshotSettings`.  In other use-cases, application developers only
+/// use `client::RegionSnapshotSettings` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-snapshot-settings")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-snapshot-settings")))]
+pub trait RegionSnapshotSettings: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionSnapshotSettings::get].
+    fn get(
+        &self,
+        _req: crate::model::region_snapshot_settings::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SnapshotSettings>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshotSettings::patch].
+    fn patch(
+        &self,
+        _req: crate::model::region_snapshot_settings::PatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshotSettings::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::region_operations::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
+/// Defines the trait used to implement [super::client::RegionSnapshots].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::RegionSnapshots`.  In other use-cases, application developers only
+/// use `client::RegionSnapshots` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "region-snapshots")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-snapshots")))]
+pub trait RegionSnapshots: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::RegionSnapshots::delete].
+    fn delete(
+        &self,
+        _req: crate::model::region_snapshots::DeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::get].
+    fn get(
+        &self,
+        _req: crate::model::region_snapshots::GetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Snapshot>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::get_iam_policy].
+    fn get_iam_policy(
+        &self,
+        _req: crate::model::region_snapshots::GetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::insert].
+    fn insert(
+        &self,
+        _req: crate::model::region_snapshots::InsertRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::list].
+    fn list(
+        &self,
+        _req: crate::model::region_snapshots::ListRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::SnapshotList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::set_iam_policy].
+    fn set_iam_policy(
+        &self,
+        _req: crate::model::region_snapshots::SetIamPolicyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Policy>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::set_labels].
+    fn set_labels(
+        &self,
+        _req: crate::model::region_snapshots::SetLabelsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_snapshots::TestIamPermissionsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::update_kms_key].
+    fn update_kms_key(
+        &self,
+        _req: crate::model::region_snapshots::UpdateKmsKeyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<Output = crate::Result<crate::Response<crate::model::Operation>>> + Send
+    {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionSnapshots::get_operation].
     fn get_operation(
         &self,
         _req: crate::model::region_operations::GetRequest,

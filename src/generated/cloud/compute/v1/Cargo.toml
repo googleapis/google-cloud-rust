@@ -98,6 +98,8 @@ instance-settings = []
 instance-templates = []
 # Enables `client::Instances` and all the types it depends on.
 instances = []
+# Enables `client::InstantSnapshotGroups` and all the types it depends on.
+instant-snapshot-groups = []
 # Enables `client::InstantSnapshots` and all the types it depends on.
 instant-snapshots = []
 # Enables `client::InterconnectAttachmentGroups` and all the types it depends on.
@@ -182,6 +184,8 @@ region-instance-groups = []
 region-instance-templates = []
 # Enables `client::RegionInstances` and all the types it depends on.
 region-instances = []
+# Enables `client::RegionInstantSnapshotGroups` and all the types it depends on.
+region-instant-snapshot-groups = []
 # Enables `client::RegionInstantSnapshots` and all the types it depends on.
 region-instant-snapshots = []
 # Enables `client::RegionNetworkEndpointGroups` and all the types it depends on.
@@ -194,6 +198,10 @@ region-notification-endpoints = []
 region-operations = []
 # Enables `client::RegionSecurityPolicies` and all the types it depends on.
 region-security-policies = []
+# Enables `client::RegionSnapshotSettings` and all the types it depends on.
+region-snapshot-settings = []
+# Enables `client::RegionSnapshots` and all the types it depends on.
+region-snapshots = []
 # Enables `client::RegionSslCertificates` and all the types it depends on.
 region-ssl-certificates = []
 # Enables `client::RegionSslPolicies` and all the types it depends on.

@@ -530,6 +530,9 @@ pub struct AdaptiveMtTranslateRequest {
     /// Required. The content of the input in string format.
     pub content: std::vec::Vec<std::string::String>,
 
+    /// The format of the source text.
+    pub mime_type: std::string::String,
+
     /// Configuration for caller provided reference sentences.
     pub reference_sentence_config:
         std::option::Option<crate::model::adaptive_mt_translate_request::ReferenceSentenceConfig>,
@@ -586,6 +589,18 @@ impl AdaptiveMtTranslateRequest {
     {
         use std::iter::Iterator;
         self.content = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [mime_type][crate::model::AdaptiveMtTranslateRequest::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_translation_v3::model::AdaptiveMtTranslateRequest;
+    /// let x = AdaptiveMtTranslateRequest::new().set_mime_type("example");
+    /// ```
+    pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.mime_type = v.into();
         self
     }
 
