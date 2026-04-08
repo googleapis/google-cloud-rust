@@ -26,6 +26,7 @@ pub use crate::mutation::{Mutation, ValueBinder, WriteBuilder};
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequest;
 pub use crate::read::ReadRequestBuilder;
+pub use crate::read_only_transaction::BeginTransactionOption;
 pub use crate::read_only_transaction::MultiUseReadOnlyTransaction;
 pub use crate::read_only_transaction::MultiUseReadOnlyTransactionBuilder;
 pub use crate::read_only_transaction::SingleUseReadOnlyTransaction;

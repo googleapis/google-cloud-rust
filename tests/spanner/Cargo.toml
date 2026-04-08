@@ -33,10 +33,16 @@ google-cloud-gax        = { workspace = true }
 google-cloud-lro        = { workspace = true }
 google-cloud-spanner    = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils = { workspace = true }
+google-cloud-wkt        = { workspace = true }
 prost-types.workspace   = true
+rand                    = { workspace = true }
 reqwest                 = { workspace = true, features = ["json"] }
 serde_json              = { workspace = true }
+spanner-grpc-mock       = { path = "../../src/spanner/grpc-mock" }
+time                    = { workspace = true }
 tokio                   = { workspace = true, features = ["sync"] }
+tokio-stream            = { workspace = true }
+tonic                   = { workspace = true }
 tracing.workspace       = true
 
 [lints]
