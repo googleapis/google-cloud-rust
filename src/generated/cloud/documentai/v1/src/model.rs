@@ -199,6 +199,12 @@ pub struct Document {
     /// Document chunked based on chunking config.
     pub chunked_document: std::option::Option<crate::model::document::ChunkedDocument>,
 
+    /// Optional. The blob assets in this document. This is used to store the
+    /// content of the inline blobs in this document, for example, image bytes,
+    /// such that it can be referenced by other fields in the document via asset
+    /// id.
+    pub blob_assets: std::vec::Vec<crate::model::document::BlobAsset>,
+
     /// The entity validation output for the document. This is the validation
     /// output for `document.entities` field.
     pub entity_validation_output:
@@ -212,7 +218,7 @@ pub struct Document {
     /// The entity revision ID that `document.entities` field is based on.
     /// If this field is set and `entities_revisions` is not empty, the entities in
     /// `document.entities` field are the entities in the entity revision with this
-    /// ID and `document.entity_validation_output` field is the
+    /// id and `document.entity_validation_output` field is the
     /// `entity_validation_output` field in this entity revision.
     pub entities_revision_id: std::string::String,
 
@@ -525,6 +531,28 @@ impl Document {
         T: std::convert::Into<crate::model::document::ChunkedDocument>,
     {
         self.chunked_document = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [blob_assets][crate::model::Document::blob_assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_documentai_v1::model::Document;
+    /// use google_cloud_documentai_v1::model::document::BlobAsset;
+    /// let x = Document::new()
+    ///     .set_blob_assets([
+    ///         BlobAsset::default()/* use setters */,
+    ///         BlobAsset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_blob_assets<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::document::BlobAsset>,
+    {
+        use std::iter::Iterator;
+        self.blob_assets = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -1105,7 +1133,7 @@ pub mod document {
         /// A list of visually detected tokens on the page.
         pub tokens: std::vec::Vec<crate::model::document::page::Token>,
 
-        /// A list of detected non-text visual elements e.g. checkbox,
+        /// A list of detected non-text visual elements, for example, checkbox,
         /// signature etc. on the page.
         pub visual_elements: std::vec::Vec<crate::model::document::page::VisualElement>,
 
@@ -1813,9 +1841,9 @@ pub mod document {
 
             /// Confidence of the current
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] within
-            /// context of the object this layout is for. e.g. confidence can be for a
-            /// single token, a table, a visual element, etc. depending on context.
-            /// Range `[0, 1]`.
+            /// context of the object this layout is for. For example, confidence can
+            /// be for a single token, a table, a visual element, etc. depending on
+            /// context. Range `[0, 1]`.
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             pub confidence: f32,
@@ -3255,8 +3283,8 @@ pub mod document {
             }
         }
 
-        /// Detected non-text visual elements e.g. checkbox, signature etc. on the
-        /// page.
+        /// Detected non-text visual elements, for example, checkbox, signature etc.
+        /// on the page.
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct VisualElement {
@@ -3702,7 +3730,7 @@ pub mod document {
         pub struct FormField {
             /// [Layout][google.cloud.documentai.v1.Document.Page.Layout] for the
             /// [FormField][google.cloud.documentai.v1.Document.Page.FormField] name.
-            /// e.g. `Address`, `Email`, `Grand total`, `Phone number`, etc.
+            /// For example, `Address`, `Email`, `Grand total`, `Phone number`, etc.
             ///
             /// [google.cloud.documentai.v1.Document.Page.FormField]: crate::model::document::page::FormField
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
@@ -4243,10 +4271,11 @@ pub mod document {
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
         pub text_anchor: std::option::Option<crate::model::document::TextAnchor>,
 
-        /// Required. Entity type from a schema e.g. `Address`.
+        /// Required. Entity type from a schema, for example, `Address`.
         pub r#type: std::string::String,
 
-        /// Optional. Text value of the entity e.g. `1600 Amphitheatre Pkwy`.
+        /// Optional. Text value of the entity, for example, `1600 Amphitheatre
+        /// Pkwy`.
         pub mention_text: std::string::String,
 
         /// Optional. Deprecated.  Use `id` field instead.
@@ -4264,9 +4293,9 @@ pub mod document {
         pub id: std::string::String,
 
         /// Optional. Normalized entity value. Absent if the extracted value could
-        /// not be converted or the type (e.g. address) is not supported for certain
-        /// parsers. This field is also only populated for certain supported document
-        /// types.
+        /// not be converted or the type (for example, address) is not supported for
+        /// certain parsers. This field is also only populated for certain supported
+        /// document types.
         pub normalized_value: std::option::Option<crate::model::document::entity::NormalizedValue>,
 
         /// Optional. Entities can be nested to form a hierarchical data structure
@@ -5003,6 +5032,8 @@ pub mod document {
                 IntegerValue(i32),
                 /// Float value.
                 FloatValue(f32),
+                /// A signature - a graphical representation of a person's name,
+                /// often used to sign a document.
                 SignatureValue(bool),
             }
         }
@@ -6359,7 +6390,7 @@ pub mod document {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct HumanReview {
-            /// Human review state. e.g. `requested`, `succeeded`, `rejected`.
+            /// Human review state. For example, `requested`, `succeeded`, `rejected`.
             pub state: std::string::String,
 
             /// A message providing more details about the current state of processing.
@@ -6525,6 +6556,40 @@ pub mod document {
     impl wkt::message::Message for TextChange {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.documentai.v1.Document.TextChange"
+        }
+    }
+
+    /// Represents the annotation of a block or a chunk.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Annotations {
+        /// The description of the content with this annotation.
+        pub description: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Annotations {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [description][crate::model::document::Annotations::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::document::Annotations;
+        /// let x = Annotations::new().set_description("example");
+        /// ```
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Annotations {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.documentai.v1.Document.Annotations"
         }
     }
 
@@ -6742,6 +6807,7 @@ pub mod document {
             /// assert!(x.text_block().is_some());
             /// assert!(x.table_block().is_none());
             /// assert!(x.list_block().is_none());
+            /// assert!(x.image_block().is_none());
             /// ```
             pub fn set_text_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTextBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
@@ -6777,6 +6843,7 @@ pub mod document {
             /// assert!(x.table_block().is_some());
             /// assert!(x.text_block().is_none());
             /// assert!(x.list_block().is_none());
+            /// assert!(x.image_block().is_none());
             /// ```
             pub fn set_table_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
@@ -6818,10 +6885,47 @@ pub mod document {
             /// assert!(x.list_block().is_some());
             /// assert!(x.text_block().is_none());
             /// assert!(x.table_block().is_none());
+            /// assert!(x.image_block().is_none());
             /// ```
             pub fn set_list_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>>>(mut self, v: T) -> Self{
                 self.block = std::option::Option::Some(
                     crate::model::document::document_layout::document_layout_block::Block::ListBlock(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
+            /// if it holds a `ImageBlock`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn image_block(&self) -> std::option::Option<&std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutImageBlock>>{
+                #[allow(unreachable_patterns)]
+                self.block.as_ref().and_then(|v| match v {
+                    crate::model::document::document_layout::document_layout_block::Block::ImageBlock(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [block][crate::model::document::document_layout::DocumentLayoutBlock::block]
+            /// to hold a `ImageBlock`.
+            ///
+            /// Note that all the setters affecting `block` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_documentai_v1::model::document::document_layout::DocumentLayoutBlock;
+            /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+            /// let x = DocumentLayoutBlock::new().set_image_block(LayoutImageBlock::default()/* use setters */);
+            /// assert!(x.image_block().is_some());
+            /// assert!(x.text_block().is_none());
+            /// assert!(x.table_block().is_none());
+            /// assert!(x.list_block().is_none());
+            /// ```
+            pub fn set_image_block<T: std::convert::Into<std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutImageBlock>>>(mut self, v: T) -> Self{
+                self.block = std::option::Option::Some(
+                    crate::model::document::document_layout::document_layout_block::Block::ImageBlock(
                         v.into()
                     )
                 );
@@ -6906,6 +7010,9 @@ pub mod document {
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
+                /// Annotation of the text block.
+                pub annotations: std::option::Option<crate::model::document::Annotations>,
+
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
@@ -6967,6 +7074,39 @@ pub mod document {
                     self.blocks = v.into_iter().map(|i| i.into()).collect();
                     self
                 }
+
+                /// Sets the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutTextBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutTextBlock::new().set_annotations(Annotations::default()/* use setters */);
+                /// ```
+                pub fn set_annotations<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutTextBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTextBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutTextBlock::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+                /// let x = LayoutTextBlock::new().set_or_clear_annotations(None::<Annotations>);
+                /// ```
+                pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = v.map(|x| x.into());
+                    self
+                }
             }
 
             impl wkt::message::Message for LayoutTextBlock {
@@ -6991,6 +7131,9 @@ pub mod document {
 
                 /// Table caption/title.
                 pub caption: std::string::String,
+
+                /// Annotation of the table block.
+                pub annotations: std::option::Option<crate::model::document::Annotations>,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
@@ -7056,6 +7199,39 @@ pub mod document {
                     v: T,
                 ) -> Self {
                     self.caption = v.into();
+                    self
+                }
+
+                /// Sets the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutTableBlock::new().set_annotations(Annotations::default()/* use setters */);
+                /// ```
+                pub fn set_annotations<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutTableBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutTableBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutTableBlock::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+                /// let x = LayoutTableBlock::new().set_or_clear_annotations(None::<Annotations>);
+                /// ```
+                pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = v.map(|x| x.into());
                     self
                 }
             }
@@ -7303,6 +7479,254 @@ pub mod document {
                 }
             }
 
+            /// Represents an image type block.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct LayoutImageBlock {
+
+                /// Mime type of the image. An IANA published [media type (MIME type)]
+                /// (<https://www.iana.org/assignments/media-types/media-types.xhtml>).
+                pub mime_type: std::string::String,
+
+                /// Text extracted from the image using OCR or alt text describing the
+                /// image.
+                pub image_text: std::string::String,
+
+                /// Annotation of the image block.
+                pub annotations: std::option::Option<crate::model::document::Annotations>,
+
+                /// Source of the image.
+                pub image_source: std::option::Option<crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl LayoutImageBlock {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [mime_type][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::mime_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// let x = LayoutImageBlock::new().set_mime_type("example");
+                /// ```
+                pub fn set_mime_type<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.mime_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [image_text][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_text].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// let x = LayoutImageBlock::new().set_image_text("example");
+                /// ```
+                pub fn set_image_text<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_text = v.into();
+                    self
+                }
+
+                /// Sets the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutImageBlock::new().set_annotations(Annotations::default()/* use setters */);
+                /// ```
+                pub fn set_annotations<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [annotations][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = LayoutImageBlock::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+                /// let x = LayoutImageBlock::new().set_or_clear_annotations(None::<Annotations>);
+                /// ```
+                pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source].
+                ///
+                /// Note that all the setters affecting `image_source` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::layout_image_block::ImageSource;
+                /// let x = LayoutImageBlock::new().set_image_source(Some(ImageSource::BlobAssetId("example".to_string())));
+                /// ```
+                pub fn set_image_source<T: std::convert::Into<std::option::Option<crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource>>>(mut self, v: T) -> Self
+                {
+                    self.image_source = v.into();
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// if it holds a `BlobAssetId`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn blob_asset_id(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::BlobAssetId(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// to hold a `BlobAssetId`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// let x = LayoutImageBlock::new().set_blob_asset_id("example");
+                /// assert!(x.blob_asset_id().is_some());
+                /// assert!(x.gcs_uri().is_none());
+                /// assert!(x.data_uri().is_none());
+                /// ```
+                pub fn set_blob_asset_id<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::BlobAssetId(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// if it holds a `GcsUri`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn gcs_uri(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::GcsUri(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// to hold a `GcsUri`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// let x = LayoutImageBlock::new().set_gcs_uri("example");
+                /// assert!(x.gcs_uri().is_some());
+                /// assert!(x.blob_asset_id().is_none());
+                /// assert!(x.data_uri().is_none());
+                /// ```
+                pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::GcsUri(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// if it holds a `DataUri`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn data_uri(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::DataUri(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::document_layout::document_layout_block::LayoutImageBlock::image_source]
+                /// to hold a `DataUri`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::document_layout::document_layout_block::LayoutImageBlock;
+                /// let x = LayoutImageBlock::new().set_data_uri("example");
+                /// assert!(x.data_uri().is_some());
+                /// assert!(x.blob_asset_id().is_none());
+                /// assert!(x.gcs_uri().is_none());
+                /// ```
+                pub fn set_data_uri<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::document_layout::document_layout_block::layout_image_block::ImageSource::DataUri(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            impl wkt::message::Message for LayoutImageBlock {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.documentai.v1.Document.DocumentLayout.DocumentLayoutBlock.LayoutImageBlock"
+                }
+            }
+
+            /// Defines additional types related to [LayoutImageBlock].
+            pub mod layout_image_block {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Source of the image.
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum ImageSource {
+                    /// Optional. Asset id of the inline image. If set, find the image
+                    /// content in the blob_assets field.
+                    BlobAssetId(std::string::String),
+                    /// Optional. Google Cloud Storage uri of the image.
+                    GcsUri(std::string::String),
+                    /// Optional. Data uri of the image.
+                    /// It is composed of four parts: a prefix (data:), a MIME type
+                    /// indicating the type of data, an optional base64 token if
+                    /// non-textual, and the data itself:
+                    /// data:[\<mediatype\>][;base64],\<data\>
+                    DataUri(std::string::String),
+                }
+            }
+
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Block {
@@ -7312,6 +7736,8 @@ pub mod document {
                 TableBlock(std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutTableBlock>),
                 /// Block consisting of list content/structure.
                 ListBlock(std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutListBlock>),
+                /// Block consisting of image content.
+                ImageBlock(std::boxed::Box<crate::model::document::document_layout::document_layout_block::LayoutImageBlock>),
             }
         }
     }
@@ -7389,6 +7815,10 @@ pub mod document {
             /// Page footers associated with the chunk.
             pub page_footers:
                 std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>,
+
+            /// Chunk fields inside this chunk.
+            pub chunk_fields:
+                std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkField>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -7524,6 +7954,28 @@ pub mod document {
             {
                 use std::iter::Iterator;
                 self.page_footers = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [chunk_fields][crate::model::document::chunked_document::Chunk::chunk_fields].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_documentai_v1::model::document::chunked_document::Chunk;
+            /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkField;
+            /// let x = Chunk::new()
+            ///     .set_chunk_fields([
+            ///         ChunkField::default()/* use setters */,
+            ///         ChunkField::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_chunk_fields<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::document::chunked_document::chunk::ChunkField>,
+            {
+                use std::iter::Iterator;
+                self.chunk_fields = v.into_iter().map(|i| i.into()).collect();
                 self
             }
         }
@@ -7745,6 +8197,505 @@ pub mod document {
                     "type.googleapis.com/google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ChunkPageFooter"
                 }
             }
+
+            /// The image chunk field in the chunk.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ImageChunkField {
+                /// Annotation of the image chunk field.
+                pub annotations: std::option::Option<crate::model::document::Annotations>,
+
+                /// Source of the image.
+                pub image_source: std::option::Option<
+                    crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl ImageChunkField {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [annotations][crate::model::document::chunked_document::chunk::ImageChunkField::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = ImageChunkField::new().set_annotations(Annotations::default()/* use setters */);
+                /// ```
+                pub fn set_annotations<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [annotations][crate::model::document::chunked_document::chunk::ImageChunkField::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = ImageChunkField::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+                /// let x = ImageChunkField::new().set_or_clear_annotations(None::<Annotations>);
+                /// ```
+                pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = v.map(|x| x.into());
+                    self
+                }
+
+                /// Sets the value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source].
+                ///
+                /// Note that all the setters affecting `image_source` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::image_chunk_field::ImageSource;
+                /// let x = ImageChunkField::new().set_image_source(Some(ImageSource::BlobAssetId("example".to_string())));
+                /// ```
+                pub fn set_image_source<T: std::convert::Into<std::option::Option<crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource>>>(mut self, v: T) -> Self
+                {
+                    self.image_source = v.into();
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// if it holds a `BlobAssetId`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn blob_asset_id(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::BlobAssetId(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// to hold a `BlobAssetId`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// let x = ImageChunkField::new().set_blob_asset_id("example");
+                /// assert!(x.blob_asset_id().is_some());
+                /// assert!(x.gcs_uri().is_none());
+                /// assert!(x.data_uri().is_none());
+                /// ```
+                pub fn set_blob_asset_id<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::BlobAssetId(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// if it holds a `GcsUri`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn gcs_uri(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::GcsUri(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// to hold a `GcsUri`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// let x = ImageChunkField::new().set_gcs_uri("example");
+                /// assert!(x.gcs_uri().is_some());
+                /// assert!(x.blob_asset_id().is_none());
+                /// assert!(x.data_uri().is_none());
+                /// ```
+                pub fn set_gcs_uri<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::GcsUri(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// if it holds a `DataUri`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn data_uri(&self) -> std::option::Option<&std::string::String> {
+                    #[allow(unreachable_patterns)]
+                    self.image_source.as_ref().and_then(|v| match v {
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::DataUri(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [image_source][crate::model::document::chunked_document::chunk::ImageChunkField::image_source]
+                /// to hold a `DataUri`.
+                ///
+                /// Note that all the setters affecting `image_source` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// let x = ImageChunkField::new().set_data_uri("example");
+                /// assert!(x.data_uri().is_some());
+                /// assert!(x.blob_asset_id().is_none());
+                /// assert!(x.gcs_uri().is_none());
+                /// ```
+                pub fn set_data_uri<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.image_source = std::option::Option::Some(
+                        crate::model::document::chunked_document::chunk::image_chunk_field::ImageSource::DataUri(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ImageChunkField {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ImageChunkField"
+                }
+            }
+
+            /// Defines additional types related to [ImageChunkField].
+            pub mod image_chunk_field {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// Source of the image.
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum ImageSource {
+                    /// Optional. Asset id of the inline image. If set, find the image
+                    /// content in the blob_assets field.
+                    BlobAssetId(std::string::String),
+                    /// Optional. Google Cloud Storage uri of the image.
+                    GcsUri(std::string::String),
+                    /// Optional. Data uri of the image.
+                    /// It is composed of four parts: a prefix (data:), a MIME type
+                    /// indicating the type of data, an optional base64 token if
+                    /// non-textual, and the data itself:
+                    /// data:[\<mediatype\>][;base64],\<data\>
+                    DataUri(std::string::String),
+                }
+            }
+
+            /// The table chunk field in the chunk.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct TableChunkField {
+                /// Annotation of the table chunk field.
+                pub annotations: std::option::Option<crate::model::document::Annotations>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl TableChunkField {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [annotations][crate::model::document::chunked_document::chunk::TableChunkField::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::TableChunkField;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = TableChunkField::new().set_annotations(Annotations::default()/* use setters */);
+                /// ```
+                pub fn set_annotations<T>(mut self, v: T) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = std::option::Option::Some(v.into());
+                    self
+                }
+
+                /// Sets or clears the value of [annotations][crate::model::document::chunked_document::chunk::TableChunkField::annotations].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::TableChunkField;
+                /// use google_cloud_documentai_v1::model::document::Annotations;
+                /// let x = TableChunkField::new().set_or_clear_annotations(Some(Annotations::default()/* use setters */));
+                /// let x = TableChunkField::new().set_or_clear_annotations(None::<Annotations>);
+                /// ```
+                pub fn set_or_clear_annotations<T>(mut self, v: std::option::Option<T>) -> Self
+                where
+                    T: std::convert::Into<crate::model::document::Annotations>,
+                {
+                    self.annotations = v.map(|x| x.into());
+                    self
+                }
+            }
+
+            impl wkt::message::Message for TableChunkField {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.TableChunkField"
+                }
+            }
+
+            /// The chunk field in the chunk. A chunk field could be one of the various
+            /// types (for example, image, table) supported.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct ChunkField {
+                /// The type of the chunk field.
+                pub field_type: std::option::Option<
+                    crate::model::document::chunked_document::chunk::chunk_field::FieldType,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl ChunkField {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [field_type][crate::model::document::chunked_document::chunk::ChunkField::field_type].
+                ///
+                /// Note that all the setters affecting `field_type` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkField;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// let x = ChunkField::new().set_field_type(Some(
+                ///     google_cloud_documentai_v1::model::document::chunked_document::chunk::chunk_field::FieldType::ImageChunkField(ImageChunkField::default().into())));
+                /// ```
+                pub fn set_field_type<T: std::convert::Into<std::option::Option<crate::model::document::chunked_document::chunk::chunk_field::FieldType>>>(mut self, v: T) -> Self
+                {
+                    self.field_type = v.into();
+                    self
+                }
+
+                /// The value of [field_type][crate::model::document::chunked_document::chunk::ChunkField::field_type]
+                /// if it holds a `ImageChunkField`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn image_chunk_field(
+                    &self,
+                ) -> std::option::Option<
+                    &std::boxed::Box<
+                        crate::model::document::chunked_document::chunk::ImageChunkField,
+                    >,
+                > {
+                    #[allow(unreachable_patterns)]
+                    self.field_type.as_ref().and_then(|v| match v {
+                        crate::model::document::chunked_document::chunk::chunk_field::FieldType::ImageChunkField(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [field_type][crate::model::document::chunked_document::chunk::ChunkField::field_type]
+                /// to hold a `ImageChunkField`.
+                ///
+                /// Note that all the setters affecting `field_type` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkField;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::ImageChunkField;
+                /// let x = ChunkField::new().set_image_chunk_field(ImageChunkField::default()/* use setters */);
+                /// assert!(x.image_chunk_field().is_some());
+                /// assert!(x.table_chunk_field().is_none());
+                /// ```
+                pub fn set_image_chunk_field<
+                    T: std::convert::Into<
+                            std::boxed::Box<
+                                crate::model::document::chunked_document::chunk::ImageChunkField,
+                            >,
+                        >,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.field_type = std::option::Option::Some(
+                        crate::model::document::chunked_document::chunk::chunk_field::FieldType::ImageChunkField(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [field_type][crate::model::document::chunked_document::chunk::ChunkField::field_type]
+                /// if it holds a `TableChunkField`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn table_chunk_field(
+                    &self,
+                ) -> std::option::Option<
+                    &std::boxed::Box<
+                        crate::model::document::chunked_document::chunk::TableChunkField,
+                    >,
+                > {
+                    #[allow(unreachable_patterns)]
+                    self.field_type.as_ref().and_then(|v| match v {
+                        crate::model::document::chunked_document::chunk::chunk_field::FieldType::TableChunkField(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [field_type][crate::model::document::chunked_document::chunk::ChunkField::field_type]
+                /// to hold a `TableChunkField`.
+                ///
+                /// Note that all the setters affecting `field_type` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_documentai_v1::model::document::chunked_document::chunk::ChunkField;
+                /// use google_cloud_documentai_v1::model::document::chunked_document::chunk::TableChunkField;
+                /// let x = ChunkField::new().set_table_chunk_field(TableChunkField::default()/* use setters */);
+                /// assert!(x.table_chunk_field().is_some());
+                /// assert!(x.image_chunk_field().is_none());
+                /// ```
+                pub fn set_table_chunk_field<
+                    T: std::convert::Into<
+                            std::boxed::Box<
+                                crate::model::document::chunked_document::chunk::TableChunkField,
+                            >,
+                        >,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.field_type = std::option::Option::Some(
+                        crate::model::document::chunked_document::chunk::chunk_field::FieldType::TableChunkField(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            impl wkt::message::Message for ChunkField {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.documentai.v1.Document.ChunkedDocument.Chunk.ChunkField"
+                }
+            }
+
+            /// Defines additional types related to [ChunkField].
+            pub mod chunk_field {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// The type of the chunk field.
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum FieldType {
+                    /// The image chunk field in the chunk.
+                    ImageChunkField(
+                        std::boxed::Box<
+                            crate::model::document::chunked_document::chunk::ImageChunkField,
+                        >,
+                    ),
+                    /// The table chunk field in the chunk.
+                    TableChunkField(
+                        std::boxed::Box<
+                            crate::model::document::chunked_document::chunk::TableChunkField,
+                        >,
+                    ),
+                }
+            }
+        }
+    }
+
+    /// Represents a blob asset. It's used to store the content of the inline blob
+    /// in this document, for example, image bytes, such that it can be referenced
+    /// by other fields in the document via asset ID.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BlobAsset {
+        /// Optional. The id of the blob asset.
+        pub asset_id: std::string::String,
+
+        /// Optional. The content of the blob asset, for example, image bytes.
+        pub content: ::bytes::Bytes,
+
+        /// The mime type of the blob asset.
+        /// An IANA published [media type (MIME
+        /// type)](https://www.iana.org/assignments/media-types/media-types.xhtml).
+        pub mime_type: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BlobAsset {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [asset_id][crate::model::document::BlobAsset::asset_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::document::BlobAsset;
+        /// let x = BlobAsset::new().set_asset_id("example");
+        /// ```
+        pub fn set_asset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.asset_id = v.into();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::document::BlobAsset::content].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::document::BlobAsset;
+        /// let x = BlobAsset::new().set_content(bytes::Bytes::from_static(b"example"));
+        /// ```
+        pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.content = v.into();
+            self
+        }
+
+        /// Sets the value of [mime_type][crate::model::document::BlobAsset::mime_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_documentai_v1::model::document::BlobAsset;
+        /// let x = BlobAsset::new().set_mime_type("example");
+        /// ```
+        pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.mime_type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for BlobAsset {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.documentai.v1.Document.BlobAsset"
         }
     }
 

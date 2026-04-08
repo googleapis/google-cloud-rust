@@ -512,6 +512,38 @@ impl NetApp {
         super::builder::net_app::RevertVolume::new(self.inner.clone())
     }
 
+    /// Establish volume peering. This is used to establish cluster and svm
+    /// peerings between the GCNV and OnPrem clusters.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.establish_volume_peering()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn establish_volume_peering(&self) -> super::builder::net_app::EstablishVolumePeering {
+        super::builder::net_app::EstablishVolumePeering::new(self.inner.clone())
+    }
+
     /// Returns descriptions of all snapshots for a volume.
     ///
     /// # Example
@@ -2067,7 +2099,107 @@ impl NetApp {
         super::builder::net_app::DeleteHostGroup::new(self.inner.clone())
     }
 
+    /// `ExecuteOntapPost` dispatches the ONTAP `POST` request to the
+    /// `StoragePool` cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.execute_ontap_post()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_ontap_post(&self) -> super::builder::net_app::ExecuteOntapPost {
+        super::builder::net_app::ExecuteOntapPost::new(self.inner.clone())
+    }
+
+    /// `ExecuteOntapGet` dispatches the ONTAP `GET` request to the
+    /// `StoragePool` cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.execute_ontap_get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_ontap_get(&self) -> super::builder::net_app::ExecuteOntapGet {
+        super::builder::net_app::ExecuteOntapGet::new(self.inner.clone())
+    }
+
+    /// `ExecuteOntapDelete` dispatches the ONTAP `DELETE` request to the
+    /// `StoragePool` cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.execute_ontap_delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_ontap_delete(&self) -> super::builder::net_app::ExecuteOntapDelete {
+        super::builder::net_app::ExecuteOntapDelete::new(self.inner.clone())
+    }
+
+    /// `ExecuteOntapPatch` dispatches the ONTAP `PATCH` request to the
+    /// `StoragePool` cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.execute_ontap_patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn execute_ontap_patch(&self) -> super::builder::net_app::ExecuteOntapPatch {
+        super::builder::net_app::ExecuteOntapPatch::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```

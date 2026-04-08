@@ -658,6 +658,7 @@ impl serde::ser::Serialize for super::CompletionStats {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -692,6 +693,7 @@ impl serde::ser::Serialize for super::Content {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -762,6 +764,7 @@ impl serde::ser::Serialize for super::Part {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -793,6 +796,7 @@ impl serde::ser::Serialize for super::part::MediaResolution {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -836,6 +840,7 @@ impl serde::ser::Serialize for super::Blob {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -870,6 +875,7 @@ impl serde::ser::Serialize for super::FileData {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -914,7 +920,11 @@ impl serde::ser::Serialize for super::VideoMetadata {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PrebuiltVoiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -937,7 +947,11 @@ impl serde::ser::Serialize for super::PrebuiltVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ReplicatedVoiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -972,7 +986,11 @@ impl serde::ser::Serialize for super::ReplicatedVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::VoiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -998,7 +1016,11 @@ impl serde::ser::Serialize for super::VoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SpeakerVoiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1024,7 +1046,11 @@ impl serde::ser::Serialize for super::SpeakerVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::MultiSpeakerVoiceConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1047,7 +1073,11 @@ impl serde::ser::Serialize for super::MultiSpeakerVoiceConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SpeechConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1076,7 +1106,11 @@ impl serde::ser::Serialize for super::SpeechConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ImageConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1108,7 +1142,11 @@ impl serde::ser::Serialize for super::ImageConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::image_config::ImageOutputOptions {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1145,7 +1183,11 @@ impl serde::ser::Serialize for super::image_config::ImageOutputOptions {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GenerationConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1327,7 +1369,11 @@ impl serde::ser::Serialize for super::GenerationConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::generation_config::RoutingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1353,7 +1399,11 @@ impl serde::ser::Serialize for super::generation_config::RoutingConfig {
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::generation_config::routing_config::AutoRoutingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1376,7 +1426,11 @@ impl serde::ser::Serialize for super::generation_config::routing_config::AutoRou
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::generation_config::routing_config::ManualRoutingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1399,7 +1453,11 @@ impl serde::ser::Serialize for super::generation_config::routing_config::ManualR
     }
 }
 
-#[cfg(any(feature = "llm-utility-service", feature = "prediction-service",))]
+#[cfg(any(
+    feature = "gen-ai-tuning-service",
+    feature = "llm-utility-service",
+    feature = "prediction-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::generation_config::ThinkingConfig {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6251,6 +6309,96 @@ impl serde::ser::Serialize for super::EvaluateInstancesRequest {
     }
 }
 
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Metric {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.predefined_metric_spec() {
+            state.serialize_entry("predefinedMetricSpec", value)?;
+        }
+        if let Some(value) = self.computation_based_metric_spec() {
+            state.serialize_entry("computationBasedMetricSpec", value)?;
+        }
+        if let Some(value) = self.llm_based_metric_spec() {
+            state.serialize_entry("llmBasedMetricSpec", value)?;
+        }
+        if let Some(value) = self.pointwise_metric_spec() {
+            state.serialize_entry("pointwiseMetricSpec", value)?;
+        }
+        if let Some(value) = self.pairwise_metric_spec() {
+            state.serialize_entry("pairwiseMetricSpec", value)?;
+        }
+        if let Some(value) = self.exact_match_spec() {
+            state.serialize_entry("exactMatchSpec", value)?;
+        }
+        if let Some(value) = self.bleu_spec() {
+            state.serialize_entry("bleuSpec", value)?;
+        }
+        if let Some(value) = self.rouge_spec() {
+            state.serialize_entry("rougeSpec", value)?;
+        }
+        if !self.aggregation_metrics.is_empty() {
+            state.serialize_entry("aggregationMetrics", &self.aggregation_metrics)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AutoraterConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.sampling_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("samplingCount", &__With(&self.sampling_count))?;
+        }
+        if self.flip_enabled.is_some() {
+            state.serialize_entry("flipEnabled", &self.flip_enabled)?;
+        }
+        if !self.autorater_model.is_empty() {
+            state.serialize_entry("autoraterModel", &self.autorater_model)?;
+        }
+        if self.generation_config.is_some() {
+            state.serialize_entry("generationConfig", &self.generation_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "evaluation-service")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::EvaluateInstancesResponse {
@@ -6337,6 +6485,301 @@ impl serde::ser::Serialize for super::EvaluateInstancesResponse {
         if let Some(value) = self.metricx_result() {
             state.serialize_entry("metricxResult", value)?;
         }
+        if !self.metric_results.is_empty() {
+            state.serialize_entry("metricResults", &self.metric_results)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::MetricResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.score.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if self.explanation.is_some() {
+            state.serialize_entry("explanation", &self.explanation)?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OutputConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.gcs_destination() {
+            state.serialize_entry("gcsDestination", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EvaluationDataset {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.gcs_source() {
+            state.serialize_entry("gcsSource", value)?;
+        }
+        if let Some(value) = self.bigquery_source() {
+            state.serialize_entry("bigquerySource", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EvaluateDatasetResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.aggregation_output.is_some() {
+            state.serialize_entry("aggregationOutput", &self.aggregation_output)?;
+        }
+        if self.output_info.is_some() {
+            state.serialize_entry("outputInfo", &self.output_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::OutputInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.gcs_output_directory() {
+            state.serialize_entry("gcsOutputDirectory", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AggregationOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.dataset.is_some() {
+            state.serialize_entry("dataset", &self.dataset)?;
+        }
+        if !self.aggregation_results.is_empty() {
+            state.serialize_entry("aggregationResults", &self.aggregation_results)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AggregationResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.pointwise_metric_result() {
+            state.serialize_entry("pointwiseMetricResult", value)?;
+        }
+        if let Some(value) = self.pairwise_metric_result() {
+            state.serialize_entry("pairwiseMetricResult", value)?;
+        }
+        if let Some(value) = self.exact_match_metric_value() {
+            state.serialize_entry("exactMatchMetricValue", value)?;
+        }
+        if let Some(value) = self.bleu_metric_value() {
+            state.serialize_entry("bleuMetricValue", value)?;
+        }
+        if let Some(value) = self.rouge_metric_value() {
+            state.serialize_entry("rougeMetricValue", value)?;
+        }
+        if !wkt::internal::is_default(&self.aggregation_metric) {
+            state.serialize_entry("aggregationMetric", &self.aggregation_metric)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::PredefinedMetricSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.metric_spec_name.is_empty() {
+            state.serialize_entry("metricSpecName", &self.metric_spec_name)?;
+        }
+        if self.metric_spec_parameters.is_some() {
+            state.serialize_entry("metricSpecParameters", &self.metric_spec_parameters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ComputationBasedMetricSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.parameters.is_some() {
+            state.serialize_entry("parameters", &self.parameters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LLMBasedMetricSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.rubric_group_key() {
+            state.serialize_entry("rubricGroupKey", value)?;
+        }
+        if let Some(value) = self.predefined_rubric_generation_spec() {
+            state.serialize_entry("predefinedRubricGenerationSpec", value)?;
+        }
+        if self.metric_prompt_template.is_some() {
+            state.serialize_entry("metricPromptTemplate", &self.metric_prompt_template)?;
+        }
+        if self.system_instruction.is_some() {
+            state.serialize_entry("systemInstruction", &self.system_instruction)?;
+        }
+        if self.judge_autorater_config.is_some() {
+            state.serialize_entry("judgeAutoraterConfig", &self.judge_autorater_config)?;
+        }
+        if self.additional_config.is_some() {
+            state.serialize_entry("additionalConfig", &self.additional_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -6398,7 +6841,7 @@ impl serde::ser::Serialize for super::ExactMatchInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ExactMatchSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6441,7 +6884,7 @@ impl serde::ser::Serialize for super::ExactMatchResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::ExactMatchMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6527,7 +6970,7 @@ impl serde::ser::Serialize for super::BleuInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::BleuSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6573,7 +7016,7 @@ impl serde::ser::Serialize for super::BleuResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::BleuMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6659,7 +7102,7 @@ impl serde::ser::Serialize for super::RougeInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::RougeSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -6711,7 +7154,7 @@ impl serde::ser::Serialize for super::RougeResults {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::RougeMetricValue {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8731,6 +9174,9 @@ impl serde::ser::Serialize for super::PointwiseMetricInstance {
         if let Some(value) = self.json_instance() {
             state.serialize_entry("jsonInstance", value)?;
         }
+        if let Some(value) = self.content_map_instance() {
+            state.serialize_entry("contentMapInstance", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8740,7 +9186,7 @@ impl serde::ser::Serialize for super::PointwiseMetricInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PointwiseMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8754,6 +9200,15 @@ impl serde::ser::Serialize for super::PointwiseMetricSpec {
         if self.metric_prompt_template.is_some() {
             state.serialize_entry("metricPromptTemplate", &self.metric_prompt_template)?;
         }
+        if self.system_instruction.is_some() {
+            state.serialize_entry("systemInstruction", &self.system_instruction)?;
+        }
+        if self.custom_output_format_config.is_some() {
+            state.serialize_entry(
+                "customOutputFormatConfig",
+                &self.custom_output_format_config,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8763,7 +9218,30 @@ impl serde::ser::Serialize for super::PointwiseMetricSpec {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomOutputFormatConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.return_raw_output() {
+            state.serialize_entry("returnRawOutput", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PointwiseMetricResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8790,6 +9268,55 @@ impl serde::ser::Serialize for super::PointwiseMetricResult {
         }
         if !self.explanation.is_empty() {
             state.serialize_entry("explanation", &self.explanation)?;
+        }
+        if self.custom_output.is_some() {
+            state.serialize_entry("customOutput", &self.custom_output)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.raw_outputs() {
+            state.serialize_entry("rawOutputs", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RawOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.raw_output.is_empty() {
+            state.serialize_entry("rawOutput", &self.raw_output)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -8840,6 +9367,9 @@ impl serde::ser::Serialize for super::PairwiseMetricInstance {
         if let Some(value) = self.json_instance() {
             state.serialize_entry("jsonInstance", value)?;
         }
+        if let Some(value) = self.content_map_instance() {
+            state.serialize_entry("contentMapInstance", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8849,7 +9379,7 @@ impl serde::ser::Serialize for super::PairwiseMetricInstance {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PairwiseMetricSpec {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8863,6 +9393,27 @@ impl serde::ser::Serialize for super::PairwiseMetricSpec {
         if self.metric_prompt_template.is_some() {
             state.serialize_entry("metricPromptTemplate", &self.metric_prompt_template)?;
         }
+        if !self.candidate_response_field_name.is_empty() {
+            state.serialize_entry(
+                "candidateResponseFieldName",
+                &self.candidate_response_field_name,
+            )?;
+        }
+        if !self.baseline_response_field_name.is_empty() {
+            state.serialize_entry(
+                "baselineResponseFieldName",
+                &self.baseline_response_field_name,
+            )?;
+        }
+        if self.system_instruction.is_some() {
+            state.serialize_entry("systemInstruction", &self.system_instruction)?;
+        }
+        if self.custom_output_format_config.is_some() {
+            state.serialize_entry(
+                "customOutputFormatConfig",
+                &self.custom_output_format_config,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -8872,7 +9423,7 @@ impl serde::ser::Serialize for super::PairwiseMetricSpec {
     }
 }
 
-#[cfg(feature = "evaluation-service")]
+#[cfg(any(feature = "evaluation-service", feature = "gen-ai-tuning-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PairwiseMetricResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -8888,6 +9439,9 @@ impl serde::ser::Serialize for super::PairwiseMetricResult {
         }
         if !self.explanation.is_empty() {
             state.serialize_entry("explanation", &self.explanation)?;
+        }
+        if self.custom_output.is_some() {
+            state.serialize_entry("customOutput", &self.custom_output)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9655,6 +10209,52 @@ impl serde::ser::Serialize for super::MetricxResult {
                 }
             }
             state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ContentMap {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "evaluation-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::content_map::Contents {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.contents.is_empty() {
+            state.serialize_entry("contents", &self.contents)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -17763,6 +18363,7 @@ impl serde::ser::Serialize for super::CsvSource {
     feature = "deployment-resource-pool-service",
     feature = "endpoint-service",
     feature = "featurestore-service",
+    feature = "gen-ai-tuning-service",
     feature = "job-service",
     feature = "model-service",
     feature = "pipeline-service",
@@ -17825,6 +18426,7 @@ impl serde::ser::Serialize for super::GcsDestination {
 #[cfg(any(
     feature = "feature-registry-service",
     feature = "featurestore-service",
+    feature = "gen-ai-tuning-service",
     feature = "job-service",
 ))]
 #[doc(hidden)]
@@ -27447,6 +28049,7 @@ impl serde::ser::Serialize for super::NotebookSoftwareConfig {
 
 #[cfg(any(
     feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
     feature = "vertex-rag-service",
@@ -30608,6 +31211,9 @@ impl serde::ser::Serialize for super::ReasoningEngineSpec {
         if let Some(value) = self.source_code_spec() {
             state.serialize_entry("sourceCodeSpec", value)?;
         }
+        if let Some(value) = self.container_spec() {
+            state.serialize_entry("containerSpec", value)?;
+        }
         if self.service_account.is_some() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
@@ -30903,6 +31509,29 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::P
         }
         if !self.requirements_file.is_empty() {
             state.serialize_entry("requirementsFile", &self.requirements_file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::ContainerSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.image_uri.is_empty() {
+            state.serialize_entry("imageUri", &self.image_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -35613,6 +36242,7 @@ impl serde::ser::Serialize for super::FunctionDeclaration {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35653,6 +36283,7 @@ impl serde::ser::Serialize for super::FunctionCall {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35708,6 +36339,7 @@ impl serde::ser::Serialize for super::PartialArg {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35742,6 +36374,7 @@ impl serde::ser::Serialize for super::FunctionResponsePart {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35788,6 +36421,7 @@ impl serde::ser::Serialize for super::FunctionResponseBlob {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35825,6 +36459,7 @@ impl serde::ser::Serialize for super::FunctionResponseFileData {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35862,6 +36497,7 @@ impl serde::ser::Serialize for super::FunctionResponse {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -35896,6 +36532,7 @@ impl serde::ser::Serialize for super::ExecutableCode {
 
 #[cfg(any(
     feature = "data-foundry-service",
+    feature = "evaluation-service",
     feature = "gen-ai-cache-service",
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
@@ -36948,6 +37585,9 @@ impl serde::ser::Serialize for super::TuningJob {
         if !self.service_account.is_empty() {
             state.serialize_entry("serviceAccount", &self.service_account)?;
         }
+        if !self.evaluate_dataset_runs.is_empty() {
+            state.serialize_entry("evaluateDatasetRuns", &self.evaluate_dataset_runs)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -37408,6 +38048,9 @@ impl serde::ser::Serialize for super::SupervisedTuningSpec {
                 &self.export_last_checkpoint_only,
             )?;
         }
+        if self.evaluation_config.is_some() {
+            state.serialize_entry("evaluationConfig", &self.evaluation_config)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -37436,6 +38079,76 @@ impl serde::ser::Serialize for super::TunedModelRef {
         }
         if let Some(value) = self.pipeline_job() {
             state.serialize_entry("pipelineJob", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EvaluationConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.metrics.is_empty() {
+            state.serialize_entry("metrics", &self.metrics)?;
+        }
+        if self.output_config.is_some() {
+            state.serialize_entry("outputConfig", &self.output_config)?;
+        }
+        if self.autorater_config.is_some() {
+            state.serialize_entry("autoraterConfig", &self.autorater_config)?;
+        }
+        if self.inference_generation_config.is_some() {
+            state.serialize_entry(
+                "inferenceGenerationConfig",
+                &self.inference_generation_config,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "gen-ai-tuning-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EvaluateDatasetRun {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.operation_name.is_empty() {
+            state.serialize_entry("operationName", &self.operation_name)?;
+        }
+        if !self.evaluation_run.is_empty() {
+            state.serialize_entry("evaluationRun", &self.evaluation_run)?;
+        }
+        if !self.checkpoint_id.is_empty() {
+            state.serialize_entry("checkpointId", &self.checkpoint_id)?;
+        }
+        if self.evaluate_dataset_response.is_some() {
+            state.serialize_entry("evaluateDatasetResponse", &self.evaluate_dataset_response)?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

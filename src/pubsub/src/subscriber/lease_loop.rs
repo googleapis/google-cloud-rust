@@ -351,6 +351,8 @@ mod tests {
             flush_start: Duration::from_secs(900),
             extend_period: EXTEND_PERIOD,
             extend_start: EXTEND_START,
+            // extend leases for all messages on the timer
+            max_lease_extension: Duration::ZERO,
             ..Default::default()
         };
         let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);

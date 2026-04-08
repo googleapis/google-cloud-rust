@@ -54,7 +54,7 @@
 //!     "private_key_id": "test-private-key-id",
 //!     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 //!     "project_id": "test-project-id",
-//!     "universe_domain": "test-universe-domain",
+//!     "universe_domain": "googleapis.com",
 //! });
 //! let credentials: Credentials = Builder::new(service_account_key)
 //!     .with_quota_project_id("my-quota-project")
@@ -196,7 +196,7 @@ impl AccessSpecifier {
 ///     "private_key_id": "test-private-key-id",
 ///     "private_key": "<YOUR_PKCS8_PEM_KEY_HERE>",
 ///     "project_id": "test-project-id",
-///     "universe_domain": "test-universe-domain",
+///     "universe_domain": "googleapis.com",
 /// });
 /// let credentials = Builder::new(key)
 ///     .with_access_specifier(AccessSpecifier::from_audience("https://pubsub.googleapis.com"))
@@ -207,6 +207,7 @@ pub struct Builder {
     service_account_key: Value,
     access_specifier: AccessSpecifier,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
     iam_endpoint_override: Option<String>,
 }
 
@@ -222,6 +223,7 @@ impl Builder {
             service_account_key,
             access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
             quota_project_id: None,
+            universe_domain: None,
             iam_endpoint_override: None,
         }
     }
@@ -262,6 +264,15 @@ impl Builder {
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Sets the Google Cloud universe domain for these credentials.
+    ///
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
+    #[allow(dead_code)]
+    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
         self
     }
 
@@ -313,7 +324,7 @@ impl Builder {
     ///     "private_key_id": "test-private-key-id",
     ///     "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
     ///     "project_id": "test-project-id",
-    ///     "universe_domain": "test-universe-domain",
+    ///     "universe_domain": "googleapis.com",
     /// });
     /// let credentials: AccessTokenCredentials = Builder::new(service_account_key)
     ///     .with_quota_project_id("my-quota-project")
@@ -343,8 +354,11 @@ impl Builder {
     ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let quota_project_id = self.quota_project_id.clone();
+        let universe_domain_override = self.universe_domain.clone();
         let token_provider = self.build_token_provider()?;
         let client_email = token_provider.service_account_key.client_email.clone();
+        let universe_domain =
+            universe_domain_override.or(token_provider.service_account_key.universe_domain.clone());
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
             iam_endpoint.as_deref(),
@@ -352,11 +366,13 @@ impl Builder {
         let creds = ServiceAccountCredentials {
             quota_project_id,
             token_provider: TokenCache::new(token_provider),
+            universe_domain: universe_domain.clone(),
         };
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
+            universe_domain,
         ))
     }
 
@@ -485,6 +501,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    universe_domain: Option<String>,
 }
 
 #[derive(Debug)]
@@ -601,6 +618,10 @@ where
             .maybe_quota_project_id(self.quota_project_id.as_deref())
             .build()
     }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.universe_domain.clone()
+    }
 }
 
 #[async_trait::async_trait]
@@ -686,6 +707,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
+            universe_domain: None,
         };
 
         let mut extensions = Extensions::new();
@@ -729,6 +751,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: Some(quota_project.to_string()),
+            universe_domain: None,
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -757,6 +780,7 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
+            universe_domain: None,
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -832,7 +856,7 @@ mod tests {
             "private_key_id": "test-private-key-id",
             "private_key": private_key,
             "project_id": "test-project-id",
-            "universe_domain": "test-universe-domain"
+            "universe_domain": "googleapis.com"
         });
 
         let credentials = Builder::new(json_value).build()?;
@@ -862,6 +886,50 @@ mod tests {
         // Validate that the issued at claim is the same for the two tokens. If
         // the 2nd token is not from the cache, its `iat` will be different.
         assert_eq!(first_iat, second_iat);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn universe_domain() -> TestResult {
+        let private_key = PKCS8_PK.clone();
+        // SA key without universe_domain
+        let json_value = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": private_key,
+            "project_id": "test-project-id",
+        });
+
+        let credentials = Builder::new(json_value).build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(universe_domain, None);
+
+        // SA key with universe_domain
+        let json_value = json!({
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": private_key,
+            "project_id": "test-project-id",
+            "universe_domain": "some-universe-domain.com"
+        });
+
+        let credentials = Builder::new(json_value.clone()).build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("some-universe-domain.com"));
+
+        let credentials = Builder::new(json_value)
+            .with_universe_domain("other-universe-domain.com")
+            .build()?;
+
+        let universe_domain = credentials.universe_domain().await;
+        assert_eq!(
+            universe_domain.as_deref(),
+            Some("other-universe-domain.com")
+        );
 
         Ok(())
     }

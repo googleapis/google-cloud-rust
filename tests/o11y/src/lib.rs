@@ -12,22 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_tracing)]
-use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+pub mod auth;
+pub mod detector;
+pub mod mock_collector;
+pub mod otlp;
+pub mod tracing;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub mod auth;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod detector;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod e2e;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod http_tracing;
 #[cfg(google_cloud_unstable_tracing)]
-pub mod mock_collector;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod otlp;
-#[cfg(google_cloud_unstable_tracing)]
 pub mod storage_tracing;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod tracing;

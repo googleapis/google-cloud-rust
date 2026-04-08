@@ -29,7 +29,12 @@
 //!
 //! * [AddressGroupService](client/struct.AddressGroupService.html)
 //! * [OrganizationAddressGroupService](client/struct.OrganizationAddressGroupService.html)
+//! * [DnsThreatDetectorService](client/struct.DnsThreatDetectorService.html)
+//! * [FirewallActivation](client/struct.FirewallActivation.html)
+//! * [Intercept](client/struct.Intercept.html)
+//! * [Mirroring](client/struct.Mirroring.html)
 //! * [NetworkSecurity](client/struct.NetworkSecurity.html)
+//! * [OrganizationSecurityProfileGroupService](client/struct.OrganizationSecurityProfileGroupService.html)
 //!
 //! # Features
 //!
@@ -41,6 +46,8 @@
 //!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [ring]: https://crates.io/crates/ring
+
+#![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]

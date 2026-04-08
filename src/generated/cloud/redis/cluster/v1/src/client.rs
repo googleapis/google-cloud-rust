@@ -330,6 +330,31 @@ impl CloudRedisCluster {
         super::builder::cloud_redis_cluster::GetClusterCertificateAuthority::new(self.inner.clone())
     }
 
+    /// Gets the details of regional certificate authority information for Redis
+    /// cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// use google_cloud_redis_cluster_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_shared_regional_certificate_authority()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_shared_regional_certificate_authority(
+        &self,
+    ) -> super::builder::cloud_redis_cluster::GetSharedRegionalCertificateAuthority {
+        super::builder::cloud_redis_cluster::GetSharedRegionalCertificateAuthority::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Reschedules upcoming maintenance event.
     ///
     /// # Long running operations

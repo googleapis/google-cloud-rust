@@ -179,6 +179,17 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::NetApp::establish_volume_peering].
+    fn establish_volume_peering(
+        &self,
+        _req: crate::model::EstablishVolumePeeringRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::NetApp::list_snapshots].
     fn list_snapshots(
         &self,
@@ -751,6 +762,50 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::execute_ontap_post].
+    fn execute_ontap_post(
+        &self,
+        _req: crate::model::ExecuteOntapPostRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExecuteOntapPostResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::execute_ontap_get].
+    fn execute_ontap_get(
+        &self,
+        _req: crate::model::ExecuteOntapGetRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExecuteOntapGetResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::execute_ontap_delete].
+    fn execute_ontap_delete(
+        &self,
+        _req: crate::model::ExecuteOntapDeleteRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExecuteOntapDeleteResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::execute_ontap_patch].
+    fn execute_ontap_patch(
+        &self,
+        _req: crate::model::ExecuteOntapPatchRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ExecuteOntapPatchResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

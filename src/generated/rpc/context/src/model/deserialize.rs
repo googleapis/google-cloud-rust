@@ -578,6 +578,7 @@ impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Request {
             __protocol,
             __reason,
             __auth,
+            __origin,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -610,6 +611,7 @@ impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Request {
                             "protocol" => Ok(__FieldTag::__protocol),
                             "reason" => Ok(__FieldTag::__reason),
                             "auth" => Ok(__FieldTag::__auth),
+                            "origin" => Ok(__FieldTag::__origin),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -766,6 +768,16 @@ impl<'de> serde::de::Deserialize<'de> for super::attribute_context::Request {
                             }
                             result.auth = map.next_value::<std::option::Option<crate::model::attribute_context::Auth>>()?
                                 ;
+                        }
+                        __FieldTag::__origin => {
+                            if !fields.insert(__FieldTag::__origin) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for origin",
+                                ));
+                            }
+                            result.origin = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

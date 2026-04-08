@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// [START pubsub_quickstart_create_topic]
 // [START pubsub_create_topic]
 use google_cloud_pubsub::client::TopicAdmin;
 
@@ -26,3 +27,4 @@ pub async fn sample(client: &TopicAdmin, project_id: &str, topic_id: &str) -> an
     Ok(())
 }
 // [END pubsub_create_topic]
+// [END pubsub_quickstart_create_topic]

@@ -696,6 +696,73 @@ pub mod cloud_redis_cluster {
         }
     }
 
+    /// The request builder for [CloudRedisCluster::get_shared_regional_certificate_authority][crate::client::CloudRedisCluster::get_shared_regional_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::builder::cloud_redis_cluster::GetSharedRegionalCertificateAuthority;
+    /// # async fn sample() -> google_cloud_redis_cluster_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetSharedRegionalCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSharedRegionalCertificateAuthority(
+        RequestBuilder<crate::model::GetSharedRegionalCertificateAuthorityRequest>,
+    );
+
+    impl GetSharedRegionalCertificateAuthority {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudRedisCluster>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSharedRegionalCertificateAuthorityRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SharedRegionalCertificateAuthority> {
+            (*self.0.stub)
+                .get_shared_regional_certificate_authority(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSharedRegionalCertificateAuthorityRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetSharedRegionalCertificateAuthority {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CloudRedisCluster::reschedule_cluster_maintenance][crate::client::CloudRedisCluster::reschedule_cluster_maintenance] calls.
     ///
     /// # Example

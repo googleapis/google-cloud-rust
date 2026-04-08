@@ -14,15 +14,27 @@
 
 mod duration_metric;
 mod recorder;
+mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
+#[cfg(feature = "_internal-http-client")]
+mod with_transport_logging;
+mod with_transport_metric;
+#[cfg(feature = "_internal-http-client")]
+mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
 pub use recorder::{ClientRequestAttributes, RequestRecorder};
+pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
+#[cfg(feature = "_internal-http-client")]
+pub use with_transport_logging::WithTransportLogging;
+pub use with_transport_metric::WithTransportMetric;
+#[cfg(feature = "_internal-http-client")]
+pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.
 ///
@@ -35,7 +47,7 @@ pub use with_client_span::WithClientSpan;
 ///   - `"client::SecretManagerService::create_secret"`
 ///   - `"client::Storage::open_object"`
 ///   - `"client::PredictionService::predict"`
-/// * `inner` (impl Future<Output = google_cloud_gax::Result<T>): the pending RPC.
+/// * `inner` (`impl Future<Output = google_cloud_gax::Result<T>>`): the pending RPC.
 ///
 /// This is typically used in the body of the `Tracing` stub, to simplify the
 /// code. The body of the tracing function would be:
@@ -65,38 +77,8 @@ pub use with_client_span::WithClientSpan;
 #[macro_export]
 macro_rules! client_request_signals {
     (metric: $metric:expr, info: $info:expr, method: $method:literal, $inner:expr) => {{
-        use ::tracing::field::Empty;
         use ::tracing::instrument::Instrument;
-        use $crate::observability::attributes::keys::*;
-        use $crate::observability::attributes::otel_status_codes;
-        use $crate::observability::attributes::{
-            GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, SCHEMA_URL_VALUE,
-        };
-
-        let span = tracing::info_span!(
-            "client_request",
-            { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
-            { OTEL_KIND } = OTEL_KIND_INTERNAL,
-            { RPC_SYSTEM } = RPC_SYSTEM_HTTP, // Default to HTTP, can be overridden
-            { GCP_CLIENT_SERVICE } = $info.service_name,
-            { GCP_CLIENT_VERSION } = $info.client_version,
-            { GCP_CLIENT_REPO } = GCP_CLIENT_REPO_GOOGLEAPIS,
-            { GCP_CLIENT_ARTIFACT } = $info.client_artifact,
-            { GCP_SCHEMA_URL } = SCHEMA_URL_VALUE,
-            // Fields to be recorded later
-            { RPC_METHOD } = Empty,
-            { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-            { OTEL_STATUS_DESCRIPTION } = Empty,
-            { ERROR_TYPE } = Empty,
-            { SERVER_ADDRESS } = Empty,
-            { SERVER_PORT } = Empty,
-            { NETWORK_PEER_ADDRESS } = Empty,
-            { NETWORK_PEER_PORT } = Empty,
-            { URL_FULL } = Empty,
-            { HTTP_REQUEST_METHOD } = Empty,
-            { HTTP_RESPONSE_STATUS_CODE } = Empty,
-            { HTTP_REQUEST_RESEND_COUNT } = Empty,
-        );
+        let span = $crate::client_request_signals!(info: $info, method: $method);
         let recorder = $crate::observability::RequestRecorder::new($info);
         let pending = recorder
             .scope($crate::observability::WithClientSpan::new(
@@ -109,6 +91,38 @@ macro_rules! client_request_signals {
             .instrument(span.clone());
         (span, pending)
     }};
+    (info: $info:expr, method: $method:literal) => {{
+        use ::tracing::field::Empty;
+        // We use string literals for all the field names because it narrows the public API for
+        // `google-cloud-gax-internal`. The exception are these values, which we expect may change
+        // from time to time.
+        use $crate::observability::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};
+        tracing::info_span!(
+            "client_request",
+             "otel.name"             = concat!(env!("CARGO_CRATE_NAME"), "::", $method),
+             "otel.kind"             = "Internal",
+             "rpc.system.name"       = "http", // Default to HTTP, can be overridden
+             "gcp.client.service"    = $info.service_name,
+             "gcp.client.repo"       = GCP_CLIENT_REPO_GOOGLEAPIS,
+             "gcp.client.artifact"   = $info.client_artifact,
+             "gcp.client.version"    = $info.client_version,
+             "gcp.schema.url"        = SCHEMA_URL_VALUE,
+             "otel.status_code"      = "UNSET",
+            // Fields to be recorded later
+            "rpc.method"                  = Empty,
+            "otel.status_description"     = Empty,
+            "error.type"                  = Empty,
+            "server.address"              = Empty,
+            "server.port"                 = Empty,
+            "network.peer.address"        = Empty,
+            "network.peer.port"           = Empty,
+            "url.full"                    = Empty,
+            "http.request.method"         = Empty,
+            "http.request.resend_count"   = Empty,
+            "http.response.status_code"   = Empty,
+            "gcp.resource.destination.id" = Empty,
+        )
+    }};
 }
 
 #[cfg(test)]
@@ -117,13 +131,16 @@ mod tests {
     use super::with_client_logging::{NAME, TARGET};
     use super::{ClientRequestAttributes, RequestRecorder};
     use crate::observability::DurationMetric;
+    use crate::observability::attributes::SCHEMA_URL_VALUE;
     use crate::options::InstrumentationClientInfo;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::Error;
+    use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use httptest::matchers::request::method_path;
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
-    use opentelemetry::TraceId;
     use opentelemetry::logs::AnyValue;
+    use opentelemetry::trace::TraceId;
     use opentelemetry::trace::{Status as SpanStatus, TracerProvider};
     use opentelemetry::{InstrumentationScope, KeyValue};
     use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
@@ -235,6 +252,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.system.name", "http"),
@@ -249,10 +267,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
             ],
         );
 
@@ -270,7 +285,7 @@ mod tests {
         );
         let want = BTreeSet::from_iter(
             [
-                ("rpc.system", "http"),
+                ("rpc.system.name", "http"),
                 ("rpc.method", TEST_METHOD),
                 ("gcp.client.service", "test-service"),
                 ("gcp.client.version", "1.2.3"),
@@ -314,10 +329,7 @@ mod tests {
                 ("gcp.client.version", "1.2.3"),
                 ("gcp.client.repo", "googleapis/google-cloud-rust"),
                 ("gcp.client.artifact", "test-artifact"),
-                (
-                    "gcp.schema.url",
-                    crate::observability::attributes::SCHEMA_URL_VALUE,
-                ),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
                 ("gcp.client.service", "test-service"),
                 ("rpc.method", TEST_METHOD),
                 ("error.type", "404"),
@@ -335,6 +347,404 @@ mod tests {
                 ("url.full", url.as_str()),
             ],
         );
+        Ok(())
+    }
+
+    // Simulate the transport stub for a request that fills the `RequestRecorder` data for gRPC.
+    #[cfg(feature = "_internal-grpc-client")]
+    pub(crate) async fn recorded_request_grpc_stub(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        // Don't retry, just fail once
+        config.retry_policy = Some(std::sync::Arc::new(
+            google_cloud_gax::retry_policy::NeverRetry,
+        ));
+
+        config.cred = Some(Anonymous::new().build());
+
+        let client = crate::grpc::Client::new(config, url)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    // Direct tonic endpoint that does not exist to trigger an error
+                    http::uri::PathAndQuery::from_static(
+                        "/google.test.v1.EchoService/NonExistentMethod",
+                    ),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
+
+        response.map(|_| "SUCCESS".to_string())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    pub(crate) async fn recorded_request_grpc_stub_retry(url: &str) -> Result<String, Error> {
+        use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        use std::sync::Arc;
+
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        config.retry_policy = Some(Arc::new(AlwaysRetry.with_attempt_limit(3)));
+
+        config.cred = Some(Anonymous::new().build());
+
+        let client = crate::grpc::Client::new(config, url)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
+
+        response.map(|_| "SUCCESS".to_string())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    pub(crate) async fn recorded_request_grpc_stub_success(url: &str) -> Result<String, Error> {
+        let recorder = RequestRecorder::current().expect("current recorder should be available");
+        recorder.on_client_request(
+            ClientRequestAttributes::default()
+                .set_rpc_method(TEST_METHOD)
+                .set_url_template(TEST_URL_TEMPLATE)
+                .set_resource_name("//test.googleapis.com/test-only".to_string()),
+        );
+
+        use std::sync::Arc;
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        config.retry_policy = Some(Arc::new(google_cloud_gax::retry_policy::NeverRetry));
+
+        config.cred = Some(Anonymous::new().build());
+
+        let client = crate::grpc::Client::new(config, url)
+            .await
+            .map_err(|e| Error::io(e.to_string()))?;
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Echo",
+            ));
+            e
+        };
+        let request = EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        tokio::time::sleep(TEST_REQUEST_DURATION).await;
+
+        let response: Result<tonic::Response<EchoResponse>, google_cloud_gax::error::Error> =
+            client
+                .execute::<EchoRequest, EchoResponse>(
+                    extensions,
+                    http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                    request,
+                    google_cloud_gax::options::RequestOptions::default(),
+                    "test-client",
+                    "",
+                )
+                .await;
+
+        response.map(|_| "SUCCESS".to_string())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn grpc_client_request() -> anyhow::Result<()> {
+        let (endpoint, _server) = grpc_server::start_echo_server().await?;
+        let signals = SignalProviders::new();
+
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeGrpcClient::some_rust_function",
+            recorded_request_grpc_stub(&endpoint)
+        );
+        let result = pending.await;
+        assert!(result.is_err(), "{result:?}");
+        drop(span);
+
+        signals.force_flush()?;
+
+        const FULL_METHOD: &str = concat!(
+            env!("CARGO_CRATE_NAME"),
+            "::",
+            "FakeGrpcClient::some_rust_function"
+        );
+
+        let metrics = signals.metric_exporter.get_finished_metrics()?;
+        check_metric_scope(&metrics);
+        check_metric_data(
+            &metrics,
+            "gcp.client.request.duration",
+            1_u64..=1_u64,
+            &[
+                ("rpc.system.name", "grpc"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.response.status_code", "UNIMPLEMENTED"),
+                ("error.type", "UNIMPLEMENTED"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
+            ],
+        );
+
+        // Verify the span exists.
+        let spans = signals.trace_exporter.get_finished_spans()?;
+        let span = spans
+            .iter()
+            .find(|s| s.name.as_ref() == FULL_METHOD)
+            .unwrap_or_else(|| panic!("expected one span named 'client_request', spans={spans:?}"));
+        let trace_id = span.span_context.trace_id();
+        assert!(matches!(span.status, SpanStatus::Error { .. }), "{span:#?}");
+
+        // Verify the logs.
+        let captured = signals.logs_exporter.get_emitted_logs()?;
+        let record = captured
+            .iter()
+            .find(|r| r.record.target().is_some_and(|v| v == TARGET))
+            .unwrap_or_else(|| panic!("missing log for target {TARGET} in {captured:#?}"));
+
+        check_log_record_grpc(
+            &record.record,
+            trace_id,
+            &[
+                ("rpc.system.name", "grpc"),
+                ("http.request.method", "POST"),
+                ("url.full", "/google.test.v1.EchoService/NonExistentMethod"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("url.domain", "example.com"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
+                ("gcp.client.service", "test-service"),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.response.status_code", "UNIMPLEMENTED"),
+                ("error.type", "UNIMPLEMENTED"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+            ],
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn grpc_client_request_retry() -> anyhow::Result<()> {
+        let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
+            Err(tonic::Status::unavailable("try again")),
+            Ok(tonic::Response::new(EchoResponse {
+                message: "success".into(),
+                ..Default::default()
+            })),
+        ])
+        .await?;
+
+        let signals = SignalProviders::new();
+
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeGrpcClient::some_rust_function_retry",
+            recorded_request_grpc_stub_retry(&endpoint)
+        );
+        let result = pending.await;
+        assert!(result.is_ok(), "{result:?}");
+        drop(span);
+
+        signals.force_flush()?;
+
+        let spans = signals.trace_exporter.get_finished_spans()?;
+
+        // Assert that at least one span has resend_count = 1
+        let retry_span = spans.iter().find(|s| {
+            s.attributes
+                .iter()
+                .any(|kv| kv.key.as_str() == "gcp.grpc.resend_count" && kv.value.to_string() == "1")
+        });
+        assert!(
+            retry_span.is_some(),
+            "expected a span with resend_count=1, spans={spans:#?}"
+        );
+
+        Ok(())
+    }
+
+    #[cfg(feature = "_internal-grpc-client")]
+    #[tokio::test]
+    async fn grpc_client_request_success() -> anyhow::Result<()> {
+        let (endpoint, _server) = grpc_server::start_echo_server().await?;
+        tokio::time::pause();
+        let signals = SignalProviders::new();
+
+        let metric = DurationMetric::new_with_provider(
+            &TEST_INFO,
+            Arc::new(signals.metric_provider.clone()),
+        );
+
+        let (span, pending) = crate::client_request_signals!(
+            metric: metric.clone(),
+            info: TEST_INFO,
+            method: "FakeGrpcClient::some_rust_function_success",
+            recorded_request_grpc_stub_success(&endpoint)
+        );
+        let result = pending.await;
+        assert!(result.is_ok(), "{result:?}");
+        drop(span);
+
+        signals.force_flush()?;
+
+        const FULL_METHOD: &str = concat!(
+            env!("CARGO_CRATE_NAME"),
+            "::",
+            "FakeGrpcClient::some_rust_function_success"
+        );
+
+        let metrics = signals.metric_exporter.get_finished_metrics()?;
+        check_metric_scope(&metrics);
+        check_metric_data(
+            &metrics,
+            "gcp.client.request.duration",
+            1_u64..=1_u64,
+            &[
+                ("rpc.system.name", "grpc"),
+                ("url.domain", "example.com"),
+                ("url.template", TEST_URL_TEMPLATE),
+                ("rpc.method", TEST_METHOD),
+                ("rpc.response.status_code", "OK"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("gcp.schema.url", SCHEMA_URL_VALUE),
+            ],
+        );
+
+        // Verify the span exists.
+        let spans = signals.trace_exporter.get_finished_spans()?;
+        let span = spans
+            .iter()
+            .find(|s| s.name.as_ref() == FULL_METHOD)
+            .unwrap_or_else(|| panic!("expected one span named 'client_request', spans={spans:?}"));
+        assert!(matches!(span.status, SpanStatus::Unset), "{span:#?}");
+
+        // Verify span attributes
+        let got = BTreeSet::from_iter(
+            span.attributes
+                .iter()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        let want = BTreeSet::from_iter(
+            [
+                ("rpc.system.name", "grpc"),
+                ("rpc.method", TEST_METHOD),
+                ("gcp.client.service", "test-service"),
+                ("gcp.client.version", "1.2.3"),
+                ("gcp.client.repo", "googleapis/google-cloud-rust"),
+                ("gcp.client.artifact", "test-artifact"),
+                ("server.address", "example.com"),
+                ("server.port", "443"),
+                ("url.full", "/google.test.v1.EchoService/Echo"),
+            ]
+            .map(|(k, v)| (k, v.to_string())),
+        );
+        let missing = want.difference(&got).collect::<Vec<_>>();
+        assert!(
+            missing.is_empty(),
+            "missing span attributes = {missing:?}\nwant = {want:?}\ngot  = {got:?}"
+        );
+
+        // Verify NO logs are recorded for success.
+        let captured = signals.logs_exporter.get_emitted_logs()?;
+        let record = captured
+            .iter()
+            .find(|r| r.record.target().is_some_and(|v| v == TARGET));
+        assert!(
+            record.is_none(),
+            "expected no logs for success, found {record:#?}"
+        );
+
         Ok(())
     }
 
@@ -412,9 +822,10 @@ mod tests {
         };
         let scope = got.scope();
         let want = InstrumentationScope::builder("test-artifact")
+            .with_version("1.2.3")
+            .with_schema_url(SCHEMA_URL_VALUE)
             .with_attributes([
                 KeyValue::new("gcp.client.artifact", "test-artifact"),
-                KeyValue::new("gcp.client.version", "1.2.3"),
                 KeyValue::new("gcp.client.service", "test-service"),
                 KeyValue::new("gcp.client.repo", "googleapis/google-cloud-rust"),
             ])
@@ -425,6 +836,7 @@ mod tests {
     #[track_caller]
     pub fn check_metric_data<R>(
         metrics: &Vec<ResourceMetrics>,
+        expected_name: &str,
         want_count: R,
         want_attributes: &[(&'static str, &str)],
     ) where
@@ -440,6 +852,7 @@ mod tests {
                 "expected a single metric after flattening scopes and resources, metric={metrics:?}"
             ),
         };
+        assert_eq!(actual.name(), expected_name);
         assert_eq!(actual.unit(), "s");
         let histo = match actual.data() {
             AggregatedMetrics::F64(MetricData::Histogram(h)) => h,
@@ -481,6 +894,43 @@ mod tests {
             bucket.is_some_and(|(c, b)| want_count.contains(&c) && b == low),
             "mismatched bucket {bucket:?} want (1, {low})\nfound=[{low}, {high})\n{point:?}"
         );
+    }
+
+    #[track_caller]
+    pub fn check_log_record_grpc(
+        record: &SdkLogRecord,
+        trace_id: TraceId,
+        extra_attributes: &[(&'static str, &str)],
+    ) {
+        fn format_value(any: &AnyValue) -> String {
+            match any {
+                AnyValue::Int(v) => v.to_string(),
+                AnyValue::Double(v) => v.to_string(),
+                AnyValue::String(v) => v.to_string(),
+                AnyValue::Boolean(v) => v.to_string(),
+                _ => "unexpected AnyValue variant".to_string(),
+            }
+        }
+        assert_eq!(record.event_name(), Some(NAME), "{record:?}");
+        assert_eq!(
+            record.target().map(|s| s.as_ref()),
+            Some(TARGET),
+            "{record:?}"
+        );
+        assert_eq!(record.severity_text(), Some("WARN"), "{record:?}");
+        assert_eq!(
+            record.trace_context().map(|c| c.trace_id),
+            Some(trace_id),
+            "{record:?}"
+        );
+        let got = BTreeSet::from_iter(
+            record
+                .attributes_iter()
+                .map(|(k, v)| (k.as_str(), format_value(v))),
+        );
+        let want = BTreeSet::from_iter(extra_attributes.iter().map(|(k, v)| (*k, v.to_string())));
+        let diff = got.symmetric_difference(&want).collect::<Vec<_>>();
+        assert_eq!(got, want, "diff={diff:?}");
     }
 
     #[track_caller]
