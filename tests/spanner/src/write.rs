@@ -526,6 +526,7 @@ async fn write_internal(
 
     let metadata = rs
         .metadata()
+        .await
         .expect("result set metadata is unexpectedly missing");
     let column_count = metadata.column_names().len();
     assert_eq!(row2.raw_values().len(), column_count);
