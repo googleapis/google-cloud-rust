@@ -42,11 +42,6 @@ pub(crate) mod model {
 #[allow(dead_code)]
 pub(crate) mod generated;
 
-//#[allow(dead_code)]
-//pub mod prost_types {
-//    include!("generated/convert/protobuf/convert.rs");
-//}
-
 #[allow(dead_code)]
 pub(crate) mod google {
     pub mod api {
@@ -63,10 +58,6 @@ pub(crate) mod google {
             }
         }
     }
-    //    pub mod protobuf {
-    //        use prost_types::*;
-    //        include!("generated/convert/protobuf/convert.rs");
-    //    }
     pub mod rpc {
         include!("generated/protos/storage/google.rpc.rs");
     }
