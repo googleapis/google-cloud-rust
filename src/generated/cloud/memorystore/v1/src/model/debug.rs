@@ -80,6 +80,9 @@ impl std::fmt::Debug for super::Instance {
             "allow_fewer_zones_deployment",
             &self.allow_fewer_zones_deployment,
         );
+        debug_struct.field("server_ca_mode", &self.server_ca_mode);
+        debug_struct.field("server_ca_pool", &self.server_ca_pool);
+        debug_struct.field("rotate_server_certificate", &self.rotate_server_certificate);
         debug_struct.field("import_sources", &self.import_sources);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -676,6 +679,53 @@ impl std::fmt::Debug for super::certificate_authority::managed_certificate_autho
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CertChain");
         debug_struct.field("certificates", &self.certificates);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SharedRegionalCertificateAuthority {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SharedRegionalCertificateAuthority");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("server_ca", &self.server_ca);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::shared_regional_certificate_authority::RegionalManagedCertificateAuthority
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionalManagedCertificateAuthority");
+        debug_struct.field("ca_certs", &self.ca_certs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionalCertChain");
+        debug_struct.field("certificates", &self.certificates);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetSharedRegionalCertificateAuthorityRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSharedRegionalCertificateAuthorityRequest");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -119,6 +119,7 @@ impl std::fmt::Debug for super::BackendRule {
             "overrides_by_request_protocol",
             &self.overrides_by_request_protocol,
         );
+        debug_struct.field("load_balancing_policy", &self.load_balancing_policy);
         debug_struct.field("authentication", &self.authentication);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -242,6 +243,7 @@ impl std::fmt::Debug for super::PhpSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("PhpSettings");
         debug_struct.field("common", &self.common);
+        debug_struct.field("library_package", &self.library_package);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -336,6 +338,7 @@ impl std::fmt::Debug for super::MethodSettings {
         debug_struct.field("selector", &self.selector);
         debug_struct.field("long_running", &self.long_running);
         debug_struct.field("auto_populated_fields", &self.auto_populated_fields);
+        debug_struct.field("batching", &self.batching);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -365,6 +368,55 @@ impl std::fmt::Debug for super::SelectiveGapicGeneration {
             "generate_omitted_as_internal",
             &self.generate_omitted_as_internal,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchingConfigProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchingConfigProto");
+        debug_struct.field("thresholds", &self.thresholds);
+        debug_struct.field("batch_descriptor", &self.batch_descriptor);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchingSettingsProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchingSettingsProto");
+        debug_struct.field("element_count_threshold", &self.element_count_threshold);
+        debug_struct.field("request_byte_threshold", &self.request_byte_threshold);
+        debug_struct.field("delay_threshold", &self.delay_threshold);
+        debug_struct.field("element_count_limit", &self.element_count_limit);
+        debug_struct.field("request_byte_limit", &self.request_byte_limit);
+        debug_struct.field(
+            "flow_control_element_limit",
+            &self.flow_control_element_limit,
+        );
+        debug_struct.field("flow_control_byte_limit", &self.flow_control_byte_limit);
+        debug_struct.field(
+            "flow_control_limit_exceeded_behavior",
+            &self.flow_control_limit_exceeded_behavior,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BatchingDescriptorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BatchingDescriptorProto");
+        debug_struct.field("batched_field", &self.batched_field);
+        debug_struct.field("discriminator_fields", &self.discriminator_fields);
+        debug_struct.field("subresponse_field", &self.subresponse_field);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

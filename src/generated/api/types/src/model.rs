@@ -829,6 +829,12 @@ pub struct BackendRule {
     /// operation. The default is no deadline.
     pub operation_deadline: f64,
 
+    /// Path translation specifies how to combine the backend address with the
+    /// request path in order to produce the appropriate forwarding URL for the
+    /// request. See [PathTranslation][google.api.BackendRule.PathTranslation] for
+    /// more details.
+    ///
+    /// [google.api.BackendRule.PathTranslation]: crate::model::backend_rule::PathTranslation
     pub path_translation: crate::model::backend_rule::PathTranslation,
 
     /// The protocol used for sending a request to the backend.
@@ -859,6 +865,13 @@ pub struct BackendRule {
     /// The map between request protocol and the backend address.
     pub overrides_by_request_protocol:
         std::collections::HashMap<std::string::String, crate::model::BackendRule>,
+
+    /// The load balancing policy used for connection to the application backend.
+    ///
+    /// Defined as an arbitrary string to accomondate custom load balancing
+    /// policies supported by the underlying channel, but suggest most users use
+    /// one of the standard policies, such as the default, "RoundRobin".
+    pub load_balancing_policy: std::string::String,
 
     /// Authentication settings used by the backend.
     ///
@@ -995,6 +1008,21 @@ impl BackendRule {
         use std::iter::Iterator;
         self.overrides_by_request_protocol =
             v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [load_balancing_policy][crate::model::BackendRule::load_balancing_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BackendRule;
+    /// let x = BackendRule::new().set_load_balancing_policy("example");
+    /// ```
+    pub fn set_load_balancing_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_policy = v.into();
         self
     }
 
@@ -1475,6 +1503,8 @@ pub struct CommonLanguageSettings {
     pub destinations: std::vec::Vec<crate::model::ClientLibraryDestination>,
 
     /// Configuration for which RPCs should be generated in the GAPIC client.
+    ///
+    /// Note: This field should not be used in most cases.
     pub selective_gapic_generation: std::option::Option<crate::model::SelectiveGapicGeneration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2172,9 +2202,12 @@ pub struct JavaSettings {
     ///
     /// Example of a YAML configuration::
     ///
+    /// ```norust
     /// publishing:
-    /// java_settings:
-    /// library_package: com.google.cloud.pubsub.v1
+    ///   library_settings:
+    ///     java_settings:
+    ///       library_package: com.google.cloud.pubsub.v1
+    /// ```
     pub library_package: std::string::String,
 
     /// Configure the Java class name to use instead of the service's for its
@@ -2186,11 +2219,13 @@ pub struct JavaSettings {
     ///
     /// Example of a YAML configuration::
     ///
+    /// ```norust
     /// publishing:
-    /// java_settings:
-    /// service_class_names:
-    /// - google.pubsub.v1.Publisher: TopicAdmin
-    /// - google.pubsub.v1.Subscriber: SubscriptionAdmin
+    ///   java_settings:
+    ///     service_class_names:
+    ///       - google.pubsub.v1.Publisher: TopicAdmin
+    ///       - google.pubsub.v1.Subscriber: SubscriptionAdmin
+    /// ```
     pub service_class_names: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Some settings.
@@ -2339,6 +2374,22 @@ pub struct PhpSettings {
     /// Some settings.
     pub common: std::option::Option<crate::model::CommonLanguageSettings>,
 
+    /// The package name to use in Php. Clobbers the php_namespace option
+    /// set in the protobuf. This should be used **only** by APIs
+    /// who have already set the language_settings.php.package_name" field
+    /// in gapic.yaml. API teams should use the protobuf php_namespace option
+    /// where possible.
+    ///
+    /// Example of a YAML configuration::
+    ///
+    /// ```norust
+    /// publishing:
+    ///   library_settings:
+    ///     php_settings:
+    ///       library_package: Google\Cloud\PubSub\V1
+    /// ```
+    pub library_package: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2377,6 +2428,18 @@ impl PhpSettings {
         T: std::convert::Into<crate::model::CommonLanguageSettings>,
     {
         self.common = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [library_package][crate::model::PhpSettings::library_package].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::PhpSettings;
+    /// let x = PhpSettings::new().set_library_package("example");
+    /// ```
+    pub fn set_library_package<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.library_package = v.into();
         self
     }
 }
@@ -2865,10 +2928,14 @@ pub struct GoSettings {
     /// service names and values are the name to be used for the service client
     /// and call options.
     ///
+    /// Example:
+    ///
+    /// ```norust
     /// publishing:
-    /// go_settings:
-    /// renamed_services:
-    /// Publisher: TopicAdmin
+    ///   go_settings:
+    ///     renamed_services:
+    ///       Publisher: TopicAdmin
+    /// ```
     pub renamed_services: std::collections::HashMap<std::string::String, std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2990,6 +3057,21 @@ pub struct MethodSettings {
     /// ```
     pub auto_populated_fields: std::vec::Vec<std::string::String>,
 
+    /// Batching configuration for an API method in client libraries.
+    ///
+    /// Example of a YAML configuration:
+    ///
+    /// ```norust
+    /// publishing:
+    ///   method_settings:
+    ///   - selector: google.example.v1.ExampleService.BatchCreateExample
+    ///     batching:
+    ///       element_count_threshold: 1000
+    ///       request_byte_threshold: 100000000
+    ///       delay_threshold_millis: 10
+    /// ```
+    pub batching: std::option::Option<crate::model::BatchingConfigProto>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3057,6 +3139,39 @@ impl MethodSettings {
     {
         use std::iter::Iterator;
         self.auto_populated_fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [batching][crate::model::MethodSettings::batching].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::MethodSettings;
+    /// use google_cloud_api::model::BatchingConfigProto;
+    /// let x = MethodSettings::new().set_batching(BatchingConfigProto::default()/* use setters */);
+    /// ```
+    pub fn set_batching<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingConfigProto>,
+    {
+        self.batching = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [batching][crate::model::MethodSettings::batching].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::MethodSettings;
+    /// use google_cloud_api::model::BatchingConfigProto;
+    /// let x = MethodSettings::new().set_or_clear_batching(Some(BatchingConfigProto::default()/* use setters */));
+    /// let x = MethodSettings::new().set_or_clear_batching(None::<BatchingConfigProto>);
+    /// ```
+    pub fn set_or_clear_batching<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingConfigProto>,
+    {
+        self.batching = v.map(|x| x.into());
         self
     }
 }
@@ -3226,6 +3341,8 @@ pub mod method_settings {
 
 /// This message is used to configure the generation of a subset of the RPCs in
 /// a service for client libraries.
+///
+/// Note: This feature should not be used in most cases.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SelectiveGapicGeneration {
@@ -3282,6 +3399,351 @@ impl SelectiveGapicGeneration {
 impl wkt::message::Message for SelectiveGapicGeneration {
     fn typename() -> &'static str {
         "type.googleapis.com/google.api.SelectiveGapicGeneration"
+    }
+}
+
+/// `BatchingConfigProto` defines the batching configuration for an API method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchingConfigProto {
+    /// The thresholds which trigger a batched request to be sent.
+    pub thresholds: std::option::Option<crate::model::BatchingSettingsProto>,
+
+    /// The request and response fields used in batching.
+    pub batch_descriptor: std::option::Option<crate::model::BatchingDescriptorProto>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchingConfigProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [thresholds][crate::model::BatchingConfigProto::thresholds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingConfigProto;
+    /// use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingConfigProto::new().set_thresholds(BatchingSettingsProto::default()/* use setters */);
+    /// ```
+    pub fn set_thresholds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingSettingsProto>,
+    {
+        self.thresholds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [thresholds][crate::model::BatchingConfigProto::thresholds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingConfigProto;
+    /// use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingConfigProto::new().set_or_clear_thresholds(Some(BatchingSettingsProto::default()/* use setters */));
+    /// let x = BatchingConfigProto::new().set_or_clear_thresholds(None::<BatchingSettingsProto>);
+    /// ```
+    pub fn set_or_clear_thresholds<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingSettingsProto>,
+    {
+        self.thresholds = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [batch_descriptor][crate::model::BatchingConfigProto::batch_descriptor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingConfigProto;
+    /// use google_cloud_api::model::BatchingDescriptorProto;
+    /// let x = BatchingConfigProto::new().set_batch_descriptor(BatchingDescriptorProto::default()/* use setters */);
+    /// ```
+    pub fn set_batch_descriptor<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingDescriptorProto>,
+    {
+        self.batch_descriptor = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [batch_descriptor][crate::model::BatchingConfigProto::batch_descriptor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingConfigProto;
+    /// use google_cloud_api::model::BatchingDescriptorProto;
+    /// let x = BatchingConfigProto::new().set_or_clear_batch_descriptor(Some(BatchingDescriptorProto::default()/* use setters */));
+    /// let x = BatchingConfigProto::new().set_or_clear_batch_descriptor(None::<BatchingDescriptorProto>);
+    /// ```
+    pub fn set_or_clear_batch_descriptor<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BatchingDescriptorProto>,
+    {
+        self.batch_descriptor = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BatchingConfigProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.BatchingConfigProto"
+    }
+}
+
+/// `BatchingSettingsProto` specifies a set of batching thresholds, each of
+/// which acts as a trigger to send a batch of messages as a request. At least
+/// one threshold must be positive nonzero.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchingSettingsProto {
+    /// The number of elements of a field collected into a batch which, if
+    /// exceeded, causes the batch to be sent.
+    pub element_count_threshold: i32,
+
+    /// The aggregated size of the batched field which, if exceeded, causes the
+    /// batch to be sent. This size is computed by aggregating the sizes of the
+    /// request field to be batched, not of the entire request message.
+    pub request_byte_threshold: i64,
+
+    /// The duration after which a batch should be sent, starting from the addition
+    /// of the first message to that batch.
+    pub delay_threshold: std::option::Option<wkt::Duration>,
+
+    /// The maximum number of elements collected in a batch that could be accepted
+    /// by server.
+    pub element_count_limit: i32,
+
+    /// The maximum size of the request that could be accepted by server.
+    pub request_byte_limit: i32,
+
+    /// The maximum number of elements allowed by flow control.
+    pub flow_control_element_limit: i32,
+
+    /// The maximum size of data allowed by flow control.
+    pub flow_control_byte_limit: i32,
+
+    /// The behavior to take when the flow control limit is exceeded.
+    pub flow_control_limit_exceeded_behavior: crate::model::FlowControlLimitExceededBehaviorProto,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchingSettingsProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [element_count_threshold][crate::model::BatchingSettingsProto::element_count_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_element_count_threshold(42);
+    /// ```
+    pub fn set_element_count_threshold<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.element_count_threshold = v.into();
+        self
+    }
+
+    /// Sets the value of [request_byte_threshold][crate::model::BatchingSettingsProto::request_byte_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_request_byte_threshold(42);
+    /// ```
+    pub fn set_request_byte_threshold<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.request_byte_threshold = v.into();
+        self
+    }
+
+    /// Sets the value of [delay_threshold][crate::model::BatchingSettingsProto::delay_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// use wkt::Duration;
+    /// let x = BatchingSettingsProto::new().set_delay_threshold(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_delay_threshold<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.delay_threshold = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delay_threshold][crate::model::BatchingSettingsProto::delay_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// use wkt::Duration;
+    /// let x = BatchingSettingsProto::new().set_or_clear_delay_threshold(Some(Duration::default()/* use setters */));
+    /// let x = BatchingSettingsProto::new().set_or_clear_delay_threshold(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_delay_threshold<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.delay_threshold = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [element_count_limit][crate::model::BatchingSettingsProto::element_count_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_element_count_limit(42);
+    /// ```
+    pub fn set_element_count_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.element_count_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [request_byte_limit][crate::model::BatchingSettingsProto::request_byte_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_request_byte_limit(42);
+    /// ```
+    pub fn set_request_byte_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.request_byte_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [flow_control_element_limit][crate::model::BatchingSettingsProto::flow_control_element_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_flow_control_element_limit(42);
+    /// ```
+    pub fn set_flow_control_element_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.flow_control_element_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [flow_control_byte_limit][crate::model::BatchingSettingsProto::flow_control_byte_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// let x = BatchingSettingsProto::new().set_flow_control_byte_limit(42);
+    /// ```
+    pub fn set_flow_control_byte_limit<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.flow_control_byte_limit = v.into();
+        self
+    }
+
+    /// Sets the value of [flow_control_limit_exceeded_behavior][crate::model::BatchingSettingsProto::flow_control_limit_exceeded_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingSettingsProto;
+    /// use google_cloud_api::model::FlowControlLimitExceededBehaviorProto;
+    /// let x0 = BatchingSettingsProto::new().set_flow_control_limit_exceeded_behavior(FlowControlLimitExceededBehaviorProto::ThrowException);
+    /// let x1 = BatchingSettingsProto::new().set_flow_control_limit_exceeded_behavior(FlowControlLimitExceededBehaviorProto::Block);
+    /// let x2 = BatchingSettingsProto::new().set_flow_control_limit_exceeded_behavior(FlowControlLimitExceededBehaviorProto::Ignore);
+    /// ```
+    pub fn set_flow_control_limit_exceeded_behavior<
+        T: std::convert::Into<crate::model::FlowControlLimitExceededBehaviorProto>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.flow_control_limit_exceeded_behavior = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchingSettingsProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.BatchingSettingsProto"
+    }
+}
+
+/// `BatchingDescriptorProto` specifies the fields of the request message to be
+/// used for batching, and, optionally, the fields of the response message to be
+/// used for demultiplexing.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BatchingDescriptorProto {
+    /// The repeated field in the request message to be aggregated by batching.
+    pub batched_field: std::string::String,
+
+    /// A list of the fields in the request message. Two requests will be batched
+    /// together only if the values of every field specified in
+    /// `request_discriminator_fields` is equal between the two requests.
+    pub discriminator_fields: std::vec::Vec<std::string::String>,
+
+    /// Optional. When present, indicates the field in the response message to be
+    /// used to demultiplex the response into multiple response messages, in
+    /// correspondence with the multiple request messages originally batched
+    /// together.
+    pub subresponse_field: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchingDescriptorProto {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [batched_field][crate::model::BatchingDescriptorProto::batched_field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingDescriptorProto;
+    /// let x = BatchingDescriptorProto::new().set_batched_field("example");
+    /// ```
+    pub fn set_batched_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.batched_field = v.into();
+        self
+    }
+
+    /// Sets the value of [discriminator_fields][crate::model::BatchingDescriptorProto::discriminator_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingDescriptorProto;
+    /// let x = BatchingDescriptorProto::new().set_discriminator_fields(["a", "b", "c"]);
+    /// ```
+    pub fn set_discriminator_fields<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.discriminator_fields = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [subresponse_field][crate::model::BatchingDescriptorProto::subresponse_field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_api::model::BatchingDescriptorProto;
+    /// let x = BatchingDescriptorProto::new().set_subresponse_field("example");
+    /// ```
+    pub fn set_subresponse_field<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.subresponse_field = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchingDescriptorProto {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.api.BatchingDescriptorProto"
     }
 }
 
@@ -3961,8 +4423,8 @@ impl wkt::message::Message for ContextRule {
 #[non_exhaustive]
 pub struct Control {
     /// The service controller environment to use. If empty, no control plane
-    /// feature (like quota and billing) will be enabled. The recommended value for
-    /// most services is servicecontrol.googleapis.com
+    /// features (like quota and billing) will be enabled. The recommended value
+    /// for most services is servicecontrol.googleapis.com.
     pub environment: std::string::String,
 
     /// Defines policies applying to the API methods of the service.
@@ -9770,9 +10232,13 @@ impl wkt::message::Message for ResourceReference {
 /// }
 /// ```
 ///
-/// The routing header consists of one or multiple key-value pairs. Every key
-/// and value must be percent-encoded, and joined together in the format of
-/// `key1=value1&key2=value2`.
+/// The routing header consists of one or multiple key-value pairs. The order of
+/// the key-value pairs is undefined, the order of the `routing_parameters` in
+/// the `RoutingRule` only matters for the evaluation order of the path
+/// templates when `field` is the same. See the examples below for more details.
+///
+/// Every key and value in the routing header must be percent-encoded,
+/// and joined together in the following format: `key1=value1&key2=value2`.
 /// The examples below skip the percent-encoding for readability.
 ///
 /// Example 1
@@ -10430,11 +10896,7 @@ pub struct Service {
     pub metrics: std::vec::Vec<crate::model::MetricDescriptor>,
 
     /// Defines the monitored resources used by this service. This is required
-    /// by the [Service.monitoring][google.api.Service.monitoring] and
-    /// [Service.logging][google.api.Service.logging] configurations.
-    ///
-    /// [google.api.Service.logging]: crate::model::Service::logging
-    /// [google.api.Service.monitoring]: crate::model::Service::monitoring
+    /// by the `Service.monitoring` and `Service.logging` configurations.
     pub monitored_resources: std::vec::Vec<crate::model::MonitoredResourceDescriptor>,
 
     /// Billing configuration.
@@ -11543,33 +12005,6 @@ impl wkt::message::Message for Usage {
 }
 
 /// Usage configuration rules for the service.
-///
-/// NOTE: Under development.
-///
-/// Use this rule to configure unregistered calls for the service. Unregistered
-/// calls are calls that do not contain consumer project identity.
-/// (Example: calls that do not contain an API key).
-/// By default, API methods do not allow unregistered calls, and each method call
-/// must be identified by a consumer project identity. Use this rule to
-/// allow/disallow unregistered calls.
-///
-/// Example of an API that wants to allow unregistered calls for entire service.
-///
-/// ```norust
-/// usage:
-///   rules:
-///   - selector: "*"
-///     allow_unregistered_calls: true
-/// ```
-///
-/// Example of a method that wants to allow unregistered calls.
-///
-/// ```norust
-/// usage:
-///   rules:
-///   - selector: "google.example.library.v1.LibraryService.CreateBook"
-///     allow_unregistered_calls: true
-/// ```
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UsageRule {
@@ -11582,8 +12017,12 @@ pub struct UsageRule {
     /// [google.api.DocumentationRule.selector]: crate::model::DocumentationRule::selector
     pub selector: std::string::String,
 
-    /// If true, the selected method allows unregistered calls, e.g. calls
-    /// that don't identify any user or application.
+    /// Use this rule to configure unregistered calls for the service. Unregistered
+    /// calls are calls that do not contain consumer project identity.
+    /// (Example: calls that do not contain an API key).
+    ///
+    /// WARNING: By default, API methods do not allow unregistered calls, and each
+    /// method call must be identified by a consumer project identity.
     pub allow_unregistered_calls: bool,
 
     /// If true, the selected method should skip service control and the control
@@ -12088,6 +12527,147 @@ impl<'de> serde::de::Deserialize<'de> for ClientLibraryDestination {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClientLibraryDestination>::new(
             ".google.api.ClientLibraryDestination",
+        ))
+    }
+}
+
+/// The behavior to take when the flow control limit is exceeded.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FlowControlLimitExceededBehaviorProto {
+    /// Default behavior, system-defined.
+    UnsetBehavior,
+    /// Stop operation, raise error.
+    ThrowException,
+    /// Pause operation until limit clears.
+    Block,
+    /// Continue operation, disregard limit.
+    Ignore,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FlowControlLimitExceededBehaviorProto::value] or
+    /// [FlowControlLimitExceededBehaviorProto::name].
+    UnknownValue(flow_control_limit_exceeded_behavior_proto::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod flow_control_limit_exceeded_behavior_proto {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FlowControlLimitExceededBehaviorProto {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::UnsetBehavior => std::option::Option::Some(0),
+            Self::ThrowException => std::option::Option::Some(1),
+            Self::Block => std::option::Option::Some(2),
+            Self::Ignore => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::UnsetBehavior => std::option::Option::Some("UNSET_BEHAVIOR"),
+            Self::ThrowException => std::option::Option::Some("THROW_EXCEPTION"),
+            Self::Block => std::option::Option::Some("BLOCK"),
+            Self::Ignore => std::option::Option::Some("IGNORE"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FlowControlLimitExceededBehaviorProto {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FlowControlLimitExceededBehaviorProto {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FlowControlLimitExceededBehaviorProto {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::UnsetBehavior,
+            1 => Self::ThrowException,
+            2 => Self::Block,
+            3 => Self::Ignore,
+            _ => Self::UnknownValue(flow_control_limit_exceeded_behavior_proto::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FlowControlLimitExceededBehaviorProto {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "UNSET_BEHAVIOR" => Self::UnsetBehavior,
+            "THROW_EXCEPTION" => Self::ThrowException,
+            "BLOCK" => Self::Block,
+            "IGNORE" => Self::Ignore,
+            _ => Self::UnknownValue(flow_control_limit_exceeded_behavior_proto::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FlowControlLimitExceededBehaviorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::UnsetBehavior => serializer.serialize_i32(0),
+            Self::ThrowException => serializer.serialize_i32(1),
+            Self::Block => serializer.serialize_i32(2),
+            Self::Ignore => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FlowControlLimitExceededBehaviorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<
+            FlowControlLimitExceededBehaviorProto,
+        >::new(
+            ".google.api.FlowControlLimitExceededBehaviorProto"
         ))
     }
 }
@@ -12876,6 +13456,202 @@ pub enum ErrorReason {
     /// }
     /// }
     OverloadedCredentials,
+    /// The request whose associated location violates the location org policy
+    /// restrictions when creating resources in the restricted region.
+    ///
+    /// Example of an ErrorInfo when creating the Cloud Storage Bucket in the
+    /// container "projects/123" under a restricted region
+    /// "locations/asia-northeast3":
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "LOCATION_ORG_POLICY_VIOLATED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///     "resource": "projects/123",
+    ///     "location": "locations/asia-northeast3"
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// This response indicates creating the Cloud Storage Bucket in
+    /// "locations/asia-northeast3" violates the location org policy restriction.
+    LocationOrgPolicyViolated,
+    /// The request is denied because it access data of regulated customers using
+    /// TLS 1.0 and 1.1.
+    ///
+    /// Example of an ErrorInfo when accessing a GCP resource "projects/123" that
+    /// is restricted by TLS Version Restriction for "pubsub.googleapis.com"
+    /// service.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "TLS_ORG_POLICY_VIOLATED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///     "service": "pubsub.googleapis.com"
+    ///     "resource": "projects/123",
+    ///     "policyName": "constraints/gcp.restrictTLSVersion",
+    ///     "tlsVersion": "TLS_VERSION_1"
+    ///   }
+    /// }
+    /// ```
+    TlsOrgPolicyViolated,
+    /// The request is denied because the associated project has exceeded the
+    /// emulator quota limit.
+    ///
+    /// Example of an ErrorInfo when the associated "projects/123" has exceeded the
+    /// emulator quota limit.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "EMULATOR_QUOTA_EXCEEDED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "service": "pubsub.googleapis.com"
+    ///       "consumer": "projects/123"
+    ///    }
+    /// }
+    /// ```
+    EmulatorQuotaExceeded,
+    /// The request is denied because the associated application credential header
+    /// is invalid for an Android applications.
+    ///
+    /// Example of an ErrorInfo when the request from an Android application to the
+    /// "pubsub.googleapis.com" with an invalid application credential header.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "CREDENTIAL_ANDROID_APP_INVALID",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "service": "pubsub.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    CredentialAndroidAppInvalid,
+    /// The request is denied because IAM permission on resource is denied.
+    ///
+    /// Example of an ErrorInfo when the IAM permission `aiplatform.datasets.list`
+    /// is denied on resource `projects/123`.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "IAM_PERMISSION_DENIED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "resource": "projects/123"
+    ///       "permission": "aiplatform.datasets.list"
+    ///    }
+    /// }
+    /// ```
+    IamPermissionDenied,
+    /// The request is denied because it contains the invalid JWT token.
+    ///
+    /// Example of an ErrorInfo when the request contains an invalid JWT token for
+    /// service `storage.googleapis.com`.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "JWT_TOKEN_INVALID",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "service": "storage.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    JwtTokenInvalid,
+    /// The request is denied because it contains credential with type that is
+    /// unsupported.
+    ///
+    /// Example of an ErrorInfo when the request contains an unsupported credential
+    /// type for service `storage.googleapis.com`.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "CREDENTIAL_TYPE_UNSUPPORTED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "service": "storage.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    CredentialTypeUnsupported,
+    /// The request is denied because it contains unsupported account type.
+    ///
+    /// Example of an ErrorInfo when the request contains an unsupported account
+    /// type for service `storage.googleapis.com`.
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "ACCOUNT_TYPE_UNSUPPORTED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///       "service": "storage.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    AccountTypeUnsupported,
+    /// The request is denied because the API endpoint is restricted by
+    /// administrators according to the organization policy constraint.
+    /// For more information see
+    /// <https://cloud.google.com/assured-workloads/docs/restrict-endpoint-usage>.
+    ///
+    /// Example of an ErrorInfo when access to Google Cloud Storage service is
+    /// restricted by Restrict Endpoint Usage policy:
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "ENDPOINT_USAGE_RESTRICTION_VIOLATED",
+    ///   "domain": "googleapis.com/policies/endpointUsageRestriction",
+    ///   "metadata": {
+    ///     "policy_name": "constraints/gcp.restrictEndpointUsage",
+    ///     "checked_value": "storage.googleapis.com"
+    ///     "consumer": "organization/123"
+    ///     "service": "storage.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    EndpointUsageRestrictionViolated,
+    /// The request is denied because the TLS Cipher Suite is restricted by
+    /// administrators according to the organization policy constraint.
+    /// For more information see
+    /// <https://cloud.google.com/assured-workloads/docs/restrict-tls-cipher-suites>
+    ///
+    /// Example of an ErrorInfo when access to Google Cloud BigQuery service is
+    /// restricted by Restrict TLS Cipher Suites policy:
+    ///
+    /// ```norust
+    /// {
+    ///   "reason": "TLS_CIPHER_RESTRICTION_VIOLATED",
+    ///   "domain": "googleapis.com/policies/tlsCipherRestriction",
+    ///   "metadata": {
+    ///     "policy_name": "constraints/gcp.restrictTLSCipherSuites",
+    ///     "checked_value": "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+    ///     "consumer": "organization/123"
+    ///     "service": "bigquery.googleapis.com"
+    ///    }
+    /// }
+    /// ```
+    TlsCipherRestrictionViolated,
+    /// The request is denied because the MCP activation check fails.
+    ///
+    /// Example of an ErrorInfo when the container "projects/123" contacting
+    /// "pubsub.googleapis.com" service which is disabled by MCP:
+    ///
+    /// ```norust
+    /// { "reason": "MCP_SERVER_DISABLED",
+    ///   "domain": "googleapis.com",
+    ///   "metadata": {
+    ///     "consumer": "projects/123",
+    ///     "service": "pubsub.googleapis.com"
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// This response indicates the "pubsub.googleapis.com" has been disabled in
+    /// "projects/123" for MCP.
+    McpServerDisabled,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ErrorReason::value] or
@@ -12931,6 +13707,17 @@ impl ErrorReason {
             Self::LocationPolicyViolated => std::option::Option::Some(31),
             Self::MissingOrigin => std::option::Option::Some(33),
             Self::OverloadedCredentials => std::option::Option::Some(34),
+            Self::LocationOrgPolicyViolated => std::option::Option::Some(35),
+            Self::TlsOrgPolicyViolated => std::option::Option::Some(36),
+            Self::EmulatorQuotaExceeded => std::option::Option::Some(38),
+            Self::CredentialAndroidAppInvalid => std::option::Option::Some(39),
+            Self::IamPermissionDenied => std::option::Option::Some(41),
+            Self::JwtTokenInvalid => std::option::Option::Some(42),
+            Self::CredentialTypeUnsupported => std::option::Option::Some(43),
+            Self::AccountTypeUnsupported => std::option::Option::Some(44),
+            Self::EndpointUsageRestrictionViolated => std::option::Option::Some(45),
+            Self::TlsCipherRestrictionViolated => std::option::Option::Some(46),
+            Self::McpServerDisabled => std::option::Option::Some(47),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -12990,6 +13777,27 @@ impl ErrorReason {
             Self::LocationPolicyViolated => std::option::Option::Some("LOCATION_POLICY_VIOLATED"),
             Self::MissingOrigin => std::option::Option::Some("MISSING_ORIGIN"),
             Self::OverloadedCredentials => std::option::Option::Some("OVERLOADED_CREDENTIALS"),
+            Self::LocationOrgPolicyViolated => {
+                std::option::Option::Some("LOCATION_ORG_POLICY_VIOLATED")
+            }
+            Self::TlsOrgPolicyViolated => std::option::Option::Some("TLS_ORG_POLICY_VIOLATED"),
+            Self::EmulatorQuotaExceeded => std::option::Option::Some("EMULATOR_QUOTA_EXCEEDED"),
+            Self::CredentialAndroidAppInvalid => {
+                std::option::Option::Some("CREDENTIAL_ANDROID_APP_INVALID")
+            }
+            Self::IamPermissionDenied => std::option::Option::Some("IAM_PERMISSION_DENIED"),
+            Self::JwtTokenInvalid => std::option::Option::Some("JWT_TOKEN_INVALID"),
+            Self::CredentialTypeUnsupported => {
+                std::option::Option::Some("CREDENTIAL_TYPE_UNSUPPORTED")
+            }
+            Self::AccountTypeUnsupported => std::option::Option::Some("ACCOUNT_TYPE_UNSUPPORTED"),
+            Self::EndpointUsageRestrictionViolated => {
+                std::option::Option::Some("ENDPOINT_USAGE_RESTRICTION_VIOLATED")
+            }
+            Self::TlsCipherRestrictionViolated => {
+                std::option::Option::Some("TLS_CIPHER_RESTRICTION_VIOLATED")
+            }
+            Self::McpServerDisabled => std::option::Option::Some("MCP_SERVER_DISABLED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -13044,6 +13852,17 @@ impl std::convert::From<i32> for ErrorReason {
             31 => Self::LocationPolicyViolated,
             33 => Self::MissingOrigin,
             34 => Self::OverloadedCredentials,
+            35 => Self::LocationOrgPolicyViolated,
+            36 => Self::TlsOrgPolicyViolated,
+            38 => Self::EmulatorQuotaExceeded,
+            39 => Self::CredentialAndroidAppInvalid,
+            41 => Self::IamPermissionDenied,
+            42 => Self::JwtTokenInvalid,
+            43 => Self::CredentialTypeUnsupported,
+            44 => Self::AccountTypeUnsupported,
+            45 => Self::EndpointUsageRestrictionViolated,
+            46 => Self::TlsCipherRestrictionViolated,
+            47 => Self::McpServerDisabled,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -13088,6 +13907,17 @@ impl std::convert::From<&str> for ErrorReason {
             "LOCATION_POLICY_VIOLATED" => Self::LocationPolicyViolated,
             "MISSING_ORIGIN" => Self::MissingOrigin,
             "OVERLOADED_CREDENTIALS" => Self::OverloadedCredentials,
+            "LOCATION_ORG_POLICY_VIOLATED" => Self::LocationOrgPolicyViolated,
+            "TLS_ORG_POLICY_VIOLATED" => Self::TlsOrgPolicyViolated,
+            "EMULATOR_QUOTA_EXCEEDED" => Self::EmulatorQuotaExceeded,
+            "CREDENTIAL_ANDROID_APP_INVALID" => Self::CredentialAndroidAppInvalid,
+            "IAM_PERMISSION_DENIED" => Self::IamPermissionDenied,
+            "JWT_TOKEN_INVALID" => Self::JwtTokenInvalid,
+            "CREDENTIAL_TYPE_UNSUPPORTED" => Self::CredentialTypeUnsupported,
+            "ACCOUNT_TYPE_UNSUPPORTED" => Self::AccountTypeUnsupported,
+            "ENDPOINT_USAGE_RESTRICTION_VIOLATED" => Self::EndpointUsageRestrictionViolated,
+            "TLS_CIPHER_RESTRICTION_VIOLATED" => Self::TlsCipherRestrictionViolated,
+            "MCP_SERVER_DISABLED" => Self::McpServerDisabled,
             _ => Self::UnknownValue(error_reason::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -13134,6 +13964,17 @@ impl serde::ser::Serialize for ErrorReason {
             Self::LocationPolicyViolated => serializer.serialize_i32(31),
             Self::MissingOrigin => serializer.serialize_i32(33),
             Self::OverloadedCredentials => serializer.serialize_i32(34),
+            Self::LocationOrgPolicyViolated => serializer.serialize_i32(35),
+            Self::TlsOrgPolicyViolated => serializer.serialize_i32(36),
+            Self::EmulatorQuotaExceeded => serializer.serialize_i32(38),
+            Self::CredentialAndroidAppInvalid => serializer.serialize_i32(39),
+            Self::IamPermissionDenied => serializer.serialize_i32(41),
+            Self::JwtTokenInvalid => serializer.serialize_i32(42),
+            Self::CredentialTypeUnsupported => serializer.serialize_i32(43),
+            Self::AccountTypeUnsupported => serializer.serialize_i32(44),
+            Self::EndpointUsageRestrictionViolated => serializer.serialize_i32(45),
+            Self::TlsCipherRestrictionViolated => serializer.serialize_i32(46),
+            Self::McpServerDisabled => serializer.serialize_i32(47),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

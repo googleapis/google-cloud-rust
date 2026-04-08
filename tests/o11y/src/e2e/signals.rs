@@ -255,7 +255,7 @@ async fn check_metrics(
             .set_name(format!("projects/{project_id}"))
             .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
             .set_filter(
-                format!(r#"metric.type = "workload.googleapis.com/test.client.duration" AND resource.labels.node_id = "{node_id}""#),
+                format!(r#"metric.type = "workload.googleapis.com/gcp.client.request.duration" AND resource.labels.node_id = "{node_id}""#),
             )
             .set_order_by("timestamp desc")
             .send()

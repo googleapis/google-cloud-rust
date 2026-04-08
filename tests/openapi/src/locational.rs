@@ -401,14 +401,17 @@ async fn cleanup_stale_secrets(
 
     let pending = stale_secrets.iter().map(|name| async move {
         let (project, location, secret) = parse_secret_name(name)?;
-        client
+        let _ = client
             .delete_secret_by_project_and_location_and_secret()
             .set_project(project)
             .set_location(location)
             .set_secret(secret)
             .with_idempotency(true)
             .send()
-            .await?;
+            .await
+            .inspect_err(|e| {
+                eprintln!("error cleaning up secret {project}, {location}, {secret}: {e:?}")
+            });
         Ok::<(), anyhow::Error>(())
     });
 

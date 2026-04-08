@@ -152,6 +152,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.response.status_code", "OK"),
@@ -201,6 +202,7 @@ mod tests {
         check_metric_scope(&metrics);
         check_metric_data(
             &metrics,
+            "gcp.client.request.duration",
             1_u64..=1_u64,
             &[
                 ("rpc.method", TEST_METHOD),

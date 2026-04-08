@@ -188,6 +188,15 @@ impl serde::ser::Serialize for super::Instance {
                 &self.allow_fewer_zones_deployment,
             )?;
         }
+        if self.server_ca_mode.is_some() {
+            state.serialize_entry("serverCaMode", &self.server_ca_mode)?;
+        }
+        if self.server_ca_pool.is_some() {
+            state.serialize_entry("serverCaPool", &self.server_ca_pool)?;
+        }
+        if self.rotate_server_certificate.is_some() {
+            state.serialize_entry("rotateServerCertificate", &self.rotate_server_certificate)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1613,6 +1622,99 @@ impl serde::ser::Serialize
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.certificates.is_empty() {
             state.serialize_entry("certificates", &self.certificates)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SharedRegionalCertificateAuthority {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.managed_server_ca() {
+            state.serialize_entry("managedServerCa", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize
+    for super::shared_regional_certificate_authority::RegionalManagedCertificateAuthority
+{
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ca_certs.is_empty() {
+            state.serialize_entry("caCerts", &self.ca_certs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::shared_regional_certificate_authority::regional_managed_certificate_authority::RegionalCertChain {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.certificates.is_empty() {
+            state.serialize_entry("certificates", &self.certificates)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetSharedRegionalCertificateAuthorityRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

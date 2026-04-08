@@ -22,6 +22,8 @@ where
     T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> WebSecurityScanner<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,120 +43,266 @@ impl<T> super::stub::WebSecurityScanner for WebSecurityScanner<T>
 where
     T: super::stub::WebSecurityScanner + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_scan_config(
         &self,
         req: crate::model::CreateScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::create_scan_config",
+                self.inner.create_scan_config(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_scan_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_scan_config(
         &self,
         req: crate::model::DeleteScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::delete_scan_config",
+                self.inner.delete_scan_config(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_scan_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_scan_config(
         &self,
         req: crate::model::GetScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::get_scan_config",
+                self.inner.get_scan_config(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_scan_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_scan_configs(
         &self,
         req: crate::model::ListScanConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListScanConfigsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::list_scan_configs",
+                self.inner.list_scan_configs(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_scan_configs(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_scan_config(
         &self,
         req: crate::model::UpdateScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::update_scan_config",
+                self.inner.update_scan_config(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_scan_config(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn start_scan_run(
         &self,
         req: crate::model::StartScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::start_scan_run",
+                self.inner.start_scan_run(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.start_scan_run(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_scan_run(
         &self,
         req: crate::model::GetScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::get_scan_run",
+                self.inner.get_scan_run(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_scan_run(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_scan_runs(
         &self,
         req: crate::model::ListScanRunsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListScanRunsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::list_scan_runs",
+                self.inner.list_scan_runs(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_scan_runs(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn stop_scan_run(
         &self,
         req: crate::model::StopScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::stop_scan_run",
+                self.inner.stop_scan_run(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.stop_scan_run(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_crawled_urls(
         &self,
         req: crate::model::ListCrawledUrlsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCrawledUrlsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::list_crawled_urls",
+                self.inner.list_crawled_urls(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_crawled_urls(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_finding(
         &self,
         req: crate::model::GetFindingRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Finding>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::get_finding",
+                self.inner.get_finding(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_finding(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_findings(
         &self,
         req: crate::model::ListFindingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFindingsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::list_findings",
+                self.inner.list_findings(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_findings(req, options).await
     }
 
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_finding_type_stats(
         &self,
         req: crate::model::ListFindingTypeStatsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFindingTypeStatsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::WebSecurityScanner::list_finding_type_stats",
+                self.inner.list_finding_type_stats(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_finding_type_stats(req, options).await
     }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "websecurityscanner";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "websecurityscanner";
+        info
+    });
 }

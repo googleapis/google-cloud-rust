@@ -362,7 +362,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),
@@ -441,7 +441,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),
@@ -529,7 +529,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     let expected_attributes: BTreeMap<String, AttributeValue> = [
         ("otel.name", expected_otel_name.into()),
         ("otel.kind", "Internal".into()),
-        ("rpc.system", "http".into()),
+        ("rpc.system.name", "http".into()),
         ("rpc.method", "google.showcase.v1beta1.Echo/Echo".into()),
         ("gcp.client.service", "showcase".into()),
         ("gcp.client.version", version.clone()),

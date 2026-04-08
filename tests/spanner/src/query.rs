@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{get_database_id, get_emulator_host, get_emulator_rest_endpoint};
+use crate::client::{get_database_id, get_emulator_host};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
 use google_cloud_spanner::client::{
     BeginTransactionOption, DatabaseClient, Kind, Spanner, Statement,
@@ -542,33 +542,8 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
     begin_transaction_entered_latch.notified().await;
 
     // Create the table on the emulator while the BeginTransaction RPC is blocked.
-    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
-
-    let client = reqwest::Client::new();
-    let database_payload = serde_json::json!({
-        "statements": [
-            format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_name)
-        ]
-    });
-
-    let db_path = format!(
-        "projects/test-project/instances/test-instance/databases/{}",
-        get_database_id().await
-    );
-    let update_database_ddl_url = format!("{}/v1/{}/ddl", rest_endpoint, db_path);
-
-    let res: reqwest::Response = client
-        .patch(&update_database_ddl_url)
-        .json(&database_payload)
-        .send()
-        .await
-        .expect("Failed to send CREATE TABLE request");
-
-    assert!(
-        res.status().is_success(),
-        "Failed to update DDL: {}",
-        res.text().await.unwrap()
-    );
+    let statement = format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_name);
+    crate::client::update_database_ddl(statement).await?;
 
     // Unblock the BeginTransaction RPC.
     latch.notify_one();

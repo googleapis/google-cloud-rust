@@ -22,6 +22,8 @@ where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
     inner: T,
+    #[cfg(google_cloud_unstable_tracing)]
+    duration: gaxi::observability::DurationMetric,
 }
 
 impl<T> GatewayControl<T>
@@ -29,7 +31,11 @@ where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
     pub fn new(inner: T) -> Self {
-        Self { inner }
+        Self {
+            inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
     }
 }
 
@@ -37,12 +43,38 @@ impl<T> super::stub::GatewayControl for GatewayControl<T>
 where
     T: super::stub::GatewayControl + std::fmt::Debug + Send + Sync,
 {
-    #[tracing::instrument(ret)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn generate_credentials(
         &self,
         req: crate::model::GenerateCredentialsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateCredentialsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::GatewayControl::generate_credentials",
+                self.inner.generate_credentials(req, options));
+            pending.await
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.generate_credentials(req, options).await
     }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    pub(crate) static INSTRUMENTATION_CLIENT_INFO: std::sync::LazyLock<
+        gaxi::options::InstrumentationClientInfo,
+    > = std::sync::LazyLock::new(|| {
+        let mut info = gaxi::options::InstrumentationClientInfo::default();
+        info.service_name = "connectgateway";
+        info.client_version = VERSION;
+        info.client_artifact = NAME;
+        info.default_host = "connectgateway";
+        info
+    });
 }

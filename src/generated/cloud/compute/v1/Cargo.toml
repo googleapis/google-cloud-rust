@@ -26,6 +26,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [features]
 default = ["default-rustls-provider", "instances", "projects"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
@@ -149,6 +152,8 @@ public-advertised-prefixes = []
 public-delegated-prefixes = []
 # Enables `client::RegionAutoscalers` and all the types it depends on.
 region-autoscalers = []
+# Enables `client::RegionBackendBuckets` and all the types it depends on.
+region-backend-buckets = []
 # Enables `client::RegionBackendServices` and all the types it depends on.
 region-backend-services = []
 # Enables `client::RegionCommitments` and all the types it depends on.

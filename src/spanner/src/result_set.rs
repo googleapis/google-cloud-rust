@@ -702,11 +702,64 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
+    async fn test_result_set_metadata() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            ..Default::default()
+        }])
+        .await;
+
+        // Called before next() -> blocks and returns metadata
+        let meta = rs.metadata().await;
+        assert!(meta.is_ok());
+        let meta = meta.unwrap();
+        assert_eq!(
+            meta.column_names(),
+            &["col0".to_string(), "col1".to_string()]
+        );
+
+        // Now consume the row
+        let _next = rs.next().await.expect("Expected a row")?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_result_set_handle_partial_result_set_error() -> anyhow::Result<()> {
         let mut rs = run_mock_query(vec![PartialResultSet {
             values: vec![string_val("row1")],
             ..Default::default()
         }])
+        .await;
+
+        let res = rs.next().await;
+        assert!(res.is_some(), "Expected an error but got None");
+        let res = res.expect("Expected some response but got None");
+        assert!(res.is_err(), "Expected an error but got Ok");
+        let err_str = res.expect_err("Expected should be an error").to_string();
+        assert!(
+            err_str.contains("First PartialResultSet did not contain metadata"),
+            "Expected error to contain 'First PartialResultSet did not contain metadata', but got '{}'",
+            err_str
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_result_set_handle_partial_result_set_error_immediate() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![
+            PartialResultSet {
+                values: vec![string_val("row1")],
+                ..Default::default()
+            },
+            PartialResultSet {
+                resume_token: b"token".to_vec(),
+                ..Default::default()
+            },
+        ])
         .await;
 
         let res = rs.next().await;

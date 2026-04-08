@@ -12,17 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::MAX_IDS_PER_RPC;
+use super::{AtLeastOnceInfo, EXTEND_PERIOD, MAX_IDS_PER_RPC};
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
+
+/// The buffer applied to the lease extension period to account for network
+/// latency and processing time.
+const EXTEND_BUFFER: Duration = Duration::from_secs(2);
 
 /// Leases for messages with at-least-once delivery semantics.
 #[derive(Debug, Default)]
 pub struct Leases {
     /// Ack IDs that are under lease management. The `Instant` denotes the time
     /// they were received.
-    under_lease: HashMap<String, Instant>,
+    under_lease: HashMap<String, AtLeastOnceInfo>,
     /// Ack IDs we need to acknowledge.
     to_ack: Vec<String>,
     /// Ack IDs we need to nack.
@@ -31,8 +35,8 @@ pub struct Leases {
 
 impl Leases {
     /// Accept a new ack ID under lease management
-    pub fn add(&mut self, ack_id: String, receive_time: Instant) {
-        self.under_lease.insert(ack_id, receive_time);
+    pub fn add(&mut self, ack_id: String, info: AtLeastOnceInfo) {
+        self.under_lease.insert(ack_id, info);
     }
 
     /// Process an ack from the application
@@ -71,17 +75,28 @@ impl Leases {
     /// Returns batches of ack IDs to extend.
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub fn retain(&mut self, max_lease_extension: Duration) -> Vec<Vec<String>> {
+    pub fn retain(
+        &mut self,
+        max_lease: Duration,
+        max_lease_extension: Duration,
+    ) -> Vec<Vec<String>> {
         let now = Instant::now();
         let mut batches = Vec::new();
         let mut batch = Vec::new();
-        self.under_lease.retain(|ack_id, receive_time| {
+        self.under_lease.retain(|ack_id, info| {
             // Note that using `HashMap::retain` allows us to iterate over the
             // map and conditionally drop elements in one pass.
 
-            if *receive_time + max_lease_extension < now {
+            if info.receive_time + max_lease < now {
                 // Drop messages that have been held for too long.
                 false
+            } else if info
+                .last_extension
+                .is_some_and(|i| i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER)
+            {
+                // The current lease is valid for a while. Retain the message,
+                // but do not extend its leases.
+                true
             } else {
                 // Extend leases for all other messages.
                 batch.push(ack_id.clone());
@@ -89,6 +104,7 @@ impl Leases {
                     // Flush the batch when it is full.
                     batches.push(std::mem::take(&mut batch));
                 }
+                info.last_extension = Some(now);
                 true
             }
         });
@@ -132,7 +148,7 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{NackBatches, TestLeases, sorted, test_id, test_ids};
+    use super::super::tests::{Batches, TestLeases, sorted, test_id, test_ids};
     use super::*;
     use std::collections::HashSet;
 
@@ -151,7 +167,7 @@ mod tests {
             leases
         );
 
-        leases.add(test_id(1), Instant::now());
+        leases.add(test_id(1), AtLeastOnceInfo::new());
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(1)],
@@ -161,7 +177,7 @@ mod tests {
             leases
         );
 
-        leases.add(test_id(2), Instant::now());
+        leases.add(test_id(2), AtLeastOnceInfo::new());
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(1), test_id(2)],
@@ -171,7 +187,7 @@ mod tests {
             leases
         );
 
-        leases.add(test_id(3), Instant::now());
+        leases.add(test_id(3), AtLeastOnceInfo::new());
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(1), test_id(2), test_id(3)],
@@ -201,7 +217,7 @@ mod tests {
             leases
         );
 
-        leases.add(test_id(4), Instant::now());
+        leases.add(test_id(4), AtLeastOnceInfo::new());
         assert_eq!(
             TestLeases {
                 under_lease: vec![test_id(3), test_id(4)],
@@ -236,7 +252,7 @@ mod tests {
     fn drain() {
         let mut leases = Leases::default();
         for i in 0..100 {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
         }
         for i in 0..10 {
             leases.ack(test_id(i));
@@ -271,7 +287,7 @@ mod tests {
     fn evict() {
         let mut leases = Leases::default();
         for i in 0..30 {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
         }
         for i in 0..10 {
             leases.ack(test_id(i));
@@ -291,7 +307,7 @@ mod tests {
         let (to_ack, to_nack) = leases.evict_and_drain();
         assert_eq!(sorted(&to_ack), test_ids(0..10));
 
-        let to_nack = NackBatches::flatten(to_nack);
+        let to_nack = Batches::flatten(to_nack);
         assert_eq!(sorted(&to_nack.ack_ids), test_ids(10..30));
     }
 
@@ -299,7 +315,7 @@ mod tests {
     fn evict_overflow_batches() {
         let mut leases = Leases::default();
         for i in 0..MAX_IDS_PER_RPC * 3 {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
         }
         for i in 0..10 {
             leases.ack(test_id(i));
@@ -319,7 +335,7 @@ mod tests {
         let (to_ack, to_nack) = leases.evict_and_drain();
         assert_eq!(sorted(&to_ack), test_ids(0..10));
 
-        let to_nack = NackBatches::flatten(to_nack);
+        let to_nack = Batches::flatten(to_nack);
         assert_eq!(
             to_nack.counts,
             vec![MAX_IDS_PER_RPC, MAX_IDS_PER_RPC, MAX_IDS_PER_RPC - 10]
@@ -377,18 +393,19 @@ mod tests {
     fn needs_flush_ack() {
         let mut leases = Leases::default();
 
-        for i in 0..1000 {
-            leases.add(test_id(i), Instant::now());
+        for i in 0..100 {
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             leases.ack(test_id(i));
         }
-        // With 1000 pending acks, the batch is not full.
+        // With 100 pending acks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..MAX_IDS_PER_RPC {
-            leases.add(test_id(i), Instant::now());
+        for i in 100..MAX_IDS_PER_RPC {
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             leases.ack(test_id(i));
         }
-        // With 2500 pending acks, the batch is full. We should flush it now.
+        // With `MAX_IDS_PER_RPC` pending acks, the batch is full. We should
+        // flush it now.
         assert!(leases.needs_flush());
     }
 
@@ -396,18 +413,19 @@ mod tests {
     fn needs_flush_nack() {
         let mut leases = Leases::default();
 
-        for i in 0..1000 {
-            leases.add(test_id(i), Instant::now());
+        for i in 0..100 {
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             leases.nack(test_id(i));
         }
-        // With 1000 pending nacks, the batch is not full.
+        // With 100 pending nacks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..MAX_IDS_PER_RPC {
-            leases.add(test_id(i), Instant::now());
+        for i in 100..MAX_IDS_PER_RPC {
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             leases.nack(test_id(i));
         }
-        // With 2500 pending nacks, the batch is full. We should flush it now.
+        // With `MAX_IDS_PER_RPC` pending nacks, the batch is full. We should
+        // flush it now.
         assert!(leases.needs_flush());
     }
 
@@ -417,10 +435,10 @@ mod tests {
 
         let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             leases.ack(test_id(i));
 
-            leases.add(test_id(over_half_full + i), Instant::now());
+            leases.add(test_id(over_half_full + i), AtLeastOnceInfo::new());
             leases.nack(test_id(over_half_full + i));
         }
 
@@ -437,11 +455,11 @@ mod tests {
 
         let mut want = HashSet::new();
         for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
             want.insert(test_id(i));
         }
 
-        let batches = leases.retain(Duration::from_secs(1));
+        let batches = leases.retain(Duration::from_secs(1), Duration::ZERO);
         assert_eq!(batches.len(), NUM_BATCHES as usize);
 
         let mut got = HashSet::new();
@@ -457,22 +475,22 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn message_expiration() -> anyhow::Result<()> {
-        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
+        const MAX_LEASE: Duration = Duration::from_secs(300);
         const DELTA: Duration = Duration::from_secs(1);
 
         let mut leases = Leases::default();
 
         // Add 10 messages under lease management
         for i in 0..10 {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
         }
 
         // Add 10 more messages under lease management, a little later.
         tokio::time::advance(DELTA * 2).await;
         for i in 10..20 {
-            leases.add(test_id(i), Instant::now());
+            leases.add(test_id(i), AtLeastOnceInfo::new());
         }
-        let batches = leases.retain(MAX_LEASE_EXTENSION);
+        let batches = leases.retain(MAX_LEASE, Duration::ZERO);
         assert_eq!(batches.len(), 1);
         assert_eq!(sorted(&batches[0]), test_ids(0..20));
         assert_eq!(
@@ -485,8 +503,8 @@ mod tests {
         );
 
         // Advance the time past the expiration of the original 10 messages.
-        tokio::time::advance(MAX_LEASE_EXTENSION - DELTA).await;
-        let batches = leases.retain(MAX_LEASE_EXTENSION);
+        tokio::time::advance(MAX_LEASE - DELTA).await;
+        let batches = leases.retain(MAX_LEASE, Duration::ZERO);
         assert_eq!(batches.len(), 1);
         assert_eq!(sorted(&batches[0]), test_ids(10..20));
         assert_eq!(
@@ -500,11 +518,63 @@ mod tests {
 
         // Advance the time past the expiration of the subsequent 10 messages.
         tokio::time::advance(DELTA * 2).await;
-        let batches = leases.retain(MAX_LEASE_EXTENSION);
+        let batches = leases.retain(MAX_LEASE, Duration::ZERO);
         assert!(batches.is_empty(), "{}", batches.len());
         assert_eq!(
             TestLeases {
                 under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn necessary_extensions() -> anyhow::Result<()> {
+        const MAX_LEASE: Duration = Duration::from_secs(900);
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
+
+        let mut leases = Leases::default();
+        leases.add(test_id(0), AtLeastOnceInfo::new());
+
+        // We should always send a receipt lease extension upon receiving a
+        // message.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        assert_eq!(batches, vec![vec![test_id(0)]]);
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..1),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        // The clock has not advanced, and we just sent out an extension. We
+        // should not send another extension.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        assert!(batches.is_empty(), "{batches:?}");
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..1),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        // Advance the time close to the expiration of the initial lease.
+        tokio::time::advance(MAX_LEASE_EXTENSION - Duration::from_secs(1)).await;
+
+        // We need to extend the lease again.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        assert_eq!(batches, vec![vec![test_id(0)]]);
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..1),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },

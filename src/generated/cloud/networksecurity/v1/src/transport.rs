@@ -34,7 +34,15 @@ impl std::fmt::Debug for AddressGroupService {
 
 impl AddressGroupService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -62,14 +70,16 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +100,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/ListAddressGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +133,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -126,10 +147,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -152,6 +175,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/GetAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -174,7 +208,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -186,12 +220,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("addressGroupId", &req.address_group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -212,6 +248,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/CreateAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -234,7 +281,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_address_group_name = try_match(
                     Some(&req)
@@ -251,6 +298,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_address_group_name,);
+                let path_template = "/v1/{address_group.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -267,7 +315,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -293,6 +341,16 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/UpdateAddressGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -315,7 +373,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -329,10 +387,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:addItems", var_address_group,);
+                let path_template = "/v1/{address_group}:addItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -355,6 +416,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/AddAddressGroupItems",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -377,7 +449,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -391,10 +463,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:removeItems", var_address_group,);
+                let path_template = "/v1/{address_group}:removeItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -417,6 +492,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/RemoveAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -439,7 +523,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -453,10 +537,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cloneItems", var_address_group,);
+                let path_template = "/v1/{address_group}:cloneItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -479,6 +566,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/CloneAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -501,7 +597,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -515,11 +611,13 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -542,6 +640,17 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.AddressGroupService/DeleteAddressGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -564,7 +673,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -578,12 +687,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:listReferences", var_address_group,);
+                let path_template = "/v1/{address_group}:listReferences";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -606,6 +718,15 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.AddressGroupService/ListAddressGroupReferences")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -628,20 +749,21 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -654,13 +776,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -691,6 +814,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -713,7 +844,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -725,10 +856,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -741,10 +873,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -780,6 +913,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -802,25 +943,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -834,10 +957,32 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -852,10 +997,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -870,10 +1017,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -888,30 +1037,35 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -926,6 +1080,23 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -980,8 +1151,34 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1004,37 +1201,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1048,7 +1215,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1063,7 +1232,39 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1078,7 +1279,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1093,7 +1296,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1108,7 +1311,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1123,7 +1328,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1138,7 +1343,9 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -1153,27 +1360,42 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -1188,6 +1410,23 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1242,8 +1481,34 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1266,25 +1531,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1298,10 +1545,32 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1316,10 +1585,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1334,10 +1605,12 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -1352,30 +1625,35 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -1390,6 +1668,23 @@ impl super::stub::AddressGroupService for AddressGroupService {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1444,8 +1739,34 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,7 +1789,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1480,6 +1801,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1488,7 +1810,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1501,6 +1823,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1509,7 +1832,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1545,6 +1868,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1567,7 +1898,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1581,10 +1912,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1599,10 +1931,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1642,6 +1975,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1664,7 +2005,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1678,10 +2019,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1696,10 +2038,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1739,6 +2082,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1767,7 +2118,7 @@ impl super::stub::AddressGroupService for AddressGroupService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1781,10 +2132,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1799,10 +2151,11 @@ impl super::stub::AddressGroupService for AddressGroupService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1842,6 +2195,14 @@ impl super::stub::AddressGroupService for AddressGroupService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1891,7 +2252,15 @@ impl std::fmt::Debug for OrganizationAddressGroupService {
 
 impl OrganizationAddressGroupService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -1907,7 +2276,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1919,14 +2288,16 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1947,6 +2318,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/ListAddressGroups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1969,7 +2349,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1983,10 +2363,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2009,6 +2391,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/GetAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2031,7 +2422,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2043,12 +2434,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/addressGroups", var_parent,);
+                let path_template = "/v1/{parent}/addressGroups";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("addressGroupId", &req.address_group_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2069,6 +2462,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/CreateAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2091,7 +2493,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_address_group_name = try_match(
                     Some(&req)
@@ -2108,6 +2510,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_address_group_name,);
+                let path_template = "/v1/{address_group.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -2124,7 +2527,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2150,6 +2553,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/UpdateAddressGroup")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2172,7 +2583,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2186,10 +2597,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:addItems", var_address_group,);
+                let path_template = "/v1/{address_group}:addItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2212,6 +2626,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/AddAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2234,7 +2657,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2248,10 +2671,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:removeItems", var_address_group,);
+                let path_template = "/v1/{address_group}:removeItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2274,6 +2700,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/RemoveAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2296,7 +2731,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2310,10 +2745,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cloneItems", var_address_group,);
+                let path_template = "/v1/{address_group}:cloneItems";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2336,6 +2774,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/CloneAddressGroupItems")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2358,7 +2805,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2372,11 +2819,13 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2399,6 +2848,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/DeleteAddressGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2421,7 +2879,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_address_group = try_match(
                     Some(&req).map(|m| &m.address_group).map(|s| s.as_str()),
@@ -2435,12 +2893,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:listReferences", var_address_group,);
+                let path_template = "/v1/{address_group}:listReferences";
 
+                let resource_name =
+                    format!("//networksecurity.googleapis.com/{}", var_address_group,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2463,6 +2924,15 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationAddressGroupService/ListAddressGroupReferences")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2485,20 +2955,21 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2511,13 +2982,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2548,6 +3020,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2570,7 +3050,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2582,10 +3062,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2598,10 +3079,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2637,6 +3119,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2659,25 +3149,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2691,10 +3163,32 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2709,10 +3203,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2727,10 +3223,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2745,30 +3243,35 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -2783,6 +3286,23 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2837,8 +3357,34 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2861,37 +3407,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -2905,7 +3421,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2920,7 +3438,39 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2935,7 +3485,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2950,7 +3502,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2965,7 +3517,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -2980,7 +3534,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -2995,7 +3549,9 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -3010,27 +3566,42 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -3045,6 +3616,23 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3099,8 +3687,34 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3123,25 +3737,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -3155,10 +3751,32 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3173,10 +3791,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3191,10 +3811,12 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -3209,30 +3831,35 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -3247,6 +3874,23 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3301,8 +3945,34 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3325,7 +3995,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3337,6 +4007,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3345,7 +4016,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3358,6 +4029,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -3366,7 +4038,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3402,6 +4074,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3424,7 +4104,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3438,10 +4118,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3456,10 +4137,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3499,6 +4181,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3521,7 +4211,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3535,10 +4225,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3553,10 +4244,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3596,6 +4288,14 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3624,7 +4324,7 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3638,10 +4338,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3656,10 +4357,11 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3699,6 +4401,10390 @@ impl super::stub::OrganizationAddressGroupService for OrganizationAddressGroupSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements [DnsThreatDetectorService](super::stub::DnsThreatDetectorService) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct DnsThreatDetectorService {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for DnsThreatDetectorService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("DnsThreatDetectorService")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl DnsThreatDetectorService {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::DnsThreatDetectorService for DnsThreatDetectorService {
+    async fn list_dns_threat_detectors(
+        &self,
+        req: crate::model::ListDnsThreatDetectorsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDnsThreatDetectorsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dnsThreatDetectors", var_parent,);
+                let path_template = "/v1/{parent}/dnsThreatDetectors";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.DnsThreatDetectorService/ListDnsThreatDetectors")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_dns_threat_detector(
+        &self,
+        req: crate::model::GetDnsThreatDetectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DnsThreatDetector>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dnsThreatDetectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dnsThreatDetectors/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/dnsThreatDetectors/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.DnsThreatDetectorService/GetDnsThreatDetector")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_dns_threat_detector(
+        &self,
+        req: crate::model::CreateDnsThreatDetectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DnsThreatDetector>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/dnsThreatDetectors", var_parent,);
+                let path_template = "/v1/{parent}/dnsThreatDetectors";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("dnsThreatDetectorId", &req.dns_threat_detector_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.DnsThreatDetectorService/CreateDnsThreatDetector")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.dns_threat_detector, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_dns_threat_detector(
+        &self,
+        req: crate::model::UpdateDnsThreatDetectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DnsThreatDetector>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_dns_threat_detector_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.dns_threat_detector.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dnsThreatDetectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_dns_threat_detector_name,);
+                let path_template = "/v1/{dns_threat_detector.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.dns_threat_detector.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dnsThreatDetectors/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "dns_threat_detector.name",
+                        "projects/*/locations/*/dnsThreatDetectors/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.DnsThreatDetectorService/UpdateDnsThreatDetector")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.dns_threat_detector, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_dns_threat_detector(
+        &self,
+        req: crate::model::DeleteDnsThreatDetectorRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/dnsThreatDetectors/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/dnsThreatDetectors/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/dnsThreatDetectors/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.DnsThreatDetectorService/DeleteDnsThreatDetector")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+}
+
+/// Implements [FirewallActivation](super::stub::FirewallActivation) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct FirewallActivation {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for FirewallActivation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("FirewallActivation")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl FirewallActivation {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::FirewallActivation for FirewallActivation {
+    async fn list_firewall_endpoints(
+        &self,
+        req: crate::model::ListFirewallEndpointsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFirewallEndpointsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/firewallEndpoints", var_parent,);
+                let path_template = "/v1/{parent}/firewallEndpoints";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.FirewallActivation/ListFirewallEndpoints",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_firewall_endpoint(
+        &self,
+        req: crate::model::GetFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallEndpoint>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpoints/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpoints/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/firewallEndpoints/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.FirewallActivation/GetFirewallEndpoint",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_firewall_endpoint(
+        &self,
+        req: crate::model::CreateFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/firewallEndpoints", var_parent,);
+                let path_template = "/v1/{parent}/firewallEndpoints";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("firewallEndpointId", &req.firewall_endpoint_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.FirewallActivation/CreateFirewallEndpoint",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.firewall_endpoint, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_firewall_endpoint(
+        &self,
+        req: crate::model::DeleteFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpoints/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpoints/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/firewallEndpoints/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.FirewallActivation/DeleteFirewallEndpoint",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_firewall_endpoint(
+        &self,
+        req: crate::model::UpdateFirewallEndpointRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_firewall_endpoint_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.firewall_endpoint.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpoints/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_firewall_endpoint_name,);
+                let path_template = "/v1/{firewall_endpoint.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.firewall_endpoint.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpoints/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "firewall_endpoint.name",
+                        "organizations/*/locations/*/firewallEndpoints/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.FirewallActivation/UpdateFirewallEndpoint",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.firewall_endpoint, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_firewall_endpoint_associations(
+        &self,
+        req: crate::model::ListFirewallEndpointAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListFirewallEndpointAssociationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/firewallEndpointAssociations", var_parent,);
+                let path_template = "/v1/{parent}/firewallEndpointAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.FirewallActivation/ListFirewallEndpointAssociations")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_firewall_endpoint_association(
+        &self,
+        req: crate::model::GetFirewallEndpointAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FirewallEndpointAssociation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpointAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpointAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/firewallEndpointAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.FirewallActivation/GetFirewallEndpointAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_firewall_endpoint_association(
+        &self,
+        req: crate::model::CreateFirewallEndpointAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/firewallEndpointAssociations", var_parent,);
+                let path_template = "/v1/{parent}/firewallEndpointAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "firewallEndpointAssociationId",
+                    &req.firewall_endpoint_association_id,
+                )]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.FirewallActivation/CreateFirewallEndpointAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.firewall_endpoint_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_firewall_endpoint_association(
+        &self,
+        req: crate::model::DeleteFirewallEndpointAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpointAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpointAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/firewallEndpointAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.FirewallActivation/DeleteFirewallEndpointAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_firewall_endpoint_association(
+        &self,
+        req: crate::model::UpdateFirewallEndpointAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_firewall_endpoint_association_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.firewall_endpoint_association.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/firewallEndpointAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_firewall_endpoint_association_name,);
+                let path_template = "/v1/{firewall_endpoint_association.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.firewall_endpoint_association.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/firewallEndpointAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "firewall_endpoint_association.name",
+                        "projects/*/locations/*/firewallEndpointAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.FirewallActivation/UpdateFirewallEndpointAssociation")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.firewall_endpoint_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements [Intercept](super::stub::Intercept) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct Intercept {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for Intercept {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("Intercept")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl Intercept {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::Intercept for Intercept {
+    async fn list_intercept_endpoint_groups(
+        &self,
+        req: crate::model::ListInterceptEndpointGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListInterceptEndpointGroupsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptEndpointGroups", var_parent,);
+                let path_template = "/v1/{parent}/interceptEndpointGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/ListInterceptEndpointGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_intercept_endpoint_group(
+        &self,
+        req: crate::model::GetInterceptEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterceptEndpointGroup>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/GetInterceptEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_intercept_endpoint_group(
+        &self,
+        req: crate::model::CreateInterceptEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptEndpointGroups", var_parent,);
+                let path_template = "/v1/{parent}/interceptEndpointGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder
+                    .query(&[("interceptEndpointGroupId", &req.intercept_endpoint_group_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/CreateInterceptEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_endpoint_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_intercept_endpoint_group(
+        &self,
+        req: crate::model::UpdateInterceptEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_intercept_endpoint_group_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.intercept_endpoint_group.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_intercept_endpoint_group_name,);
+                let path_template = "/v1/{intercept_endpoint_group.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.intercept_endpoint_group.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "intercept_endpoint_group.name",
+                        "projects/*/locations/*/interceptEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/UpdateInterceptEndpointGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_endpoint_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_intercept_endpoint_group(
+        &self,
+        req: crate::model::DeleteInterceptEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/DeleteInterceptEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_intercept_endpoint_group_associations(
+        &self,
+        req: crate::model::ListInterceptEndpointGroupAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListInterceptEndpointGroupAssociationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptEndpointGroupAssociations", var_parent,);
+                let path_template = "/v1/{parent}/interceptEndpointGroupAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Intercept/ListInterceptEndpointGroupAssociations")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_intercept_endpoint_group_association(
+        &self,
+        req: crate::model::GetInterceptEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterceptEndpointGroupAssociation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Intercept/GetInterceptEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_intercept_endpoint_group_association(
+        &self,
+        req: crate::model::CreateInterceptEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptEndpointGroupAssociations", var_parent,);
+                let path_template = "/v1/{parent}/interceptEndpointGroupAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "interceptEndpointGroupAssociationId",
+                    &req.intercept_endpoint_group_association_id,
+                )]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Intercept/CreateInterceptEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_endpoint_group_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_intercept_endpoint_group_association(
+        &self,
+        req: crate::model::UpdateInterceptEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_intercept_endpoint_group_association_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.intercept_endpoint_group_association.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_intercept_endpoint_group_association_name,);
+                let path_template = "/v1/{intercept_endpoint_group_association.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.intercept_endpoint_group_association.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "intercept_endpoint_group_association.name",
+                        "projects/*/locations/*/interceptEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Intercept/UpdateInterceptEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_endpoint_group_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_intercept_endpoint_group_association(
+        &self,
+        req: crate::model::DeleteInterceptEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Intercept/DeleteInterceptEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_intercept_deployment_groups(
+        &self,
+        req: crate::model::ListInterceptDeploymentGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListInterceptDeploymentGroupsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptDeploymentGroups", var_parent,);
+                let path_template = "/v1/{parent}/interceptDeploymentGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/ListInterceptDeploymentGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_intercept_deployment_group(
+        &self,
+        req: crate::model::GetInterceptDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterceptDeploymentGroup>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/GetInterceptDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_intercept_deployment_group(
+        &self,
+        req: crate::model::CreateInterceptDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptDeploymentGroups", var_parent,);
+                let path_template = "/v1/{parent}/interceptDeploymentGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "interceptDeploymentGroupId",
+                    &req.intercept_deployment_group_id,
+                )]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/CreateInterceptDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_deployment_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_intercept_deployment_group(
+        &self,
+        req: crate::model::UpdateInterceptDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_intercept_deployment_group_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.intercept_deployment_group.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_intercept_deployment_group_name,);
+                let path_template = "/v1/{intercept_deployment_group.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.intercept_deployment_group.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "intercept_deployment_group.name",
+                        "projects/*/locations/*/interceptDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/UpdateInterceptDeploymentGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_deployment_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_intercept_deployment_group(
+        &self,
+        req: crate::model::DeleteInterceptDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/DeleteInterceptDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_intercept_deployments(
+        &self,
+        req: crate::model::ListInterceptDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListInterceptDeploymentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptDeployments", var_parent,);
+                let path_template = "/v1/{parent}/interceptDeployments";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/ListInterceptDeployments",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_intercept_deployment(
+        &self,
+        req: crate::model::GetInterceptDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::InterceptDeployment>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/GetInterceptDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_intercept_deployment(
+        &self,
+        req: crate::model::CreateInterceptDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/interceptDeployments", var_parent,);
+                let path_template = "/v1/{parent}/interceptDeployments";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("interceptDeploymentId", &req.intercept_deployment_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/CreateInterceptDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_deployment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_intercept_deployment(
+        &self,
+        req: crate::model::UpdateInterceptDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_intercept_deployment_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.intercept_deployment.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_intercept_deployment_name,);
+                let path_template = "/v1/{intercept_deployment.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.intercept_deployment.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "intercept_deployment.name",
+                        "projects/*/locations/*/interceptDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/UpdateInterceptDeployment",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.intercept_deployment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_intercept_deployment(
+        &self,
+        req: crate::model::DeleteInterceptDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/interceptDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/interceptDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/interceptDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Intercept/DeleteInterceptDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements [Mirroring](super::stub::Mirroring) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct Mirroring {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for Mirroring {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("Mirroring")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl Mirroring {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::Mirroring for Mirroring {
+    async fn list_mirroring_endpoint_groups(
+        &self,
+        req: crate::model::ListMirroringEndpointGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMirroringEndpointGroupsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringEndpointGroups", var_parent,);
+                let path_template = "/v1/{parent}/mirroringEndpointGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/ListMirroringEndpointGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_mirroring_endpoint_group(
+        &self,
+        req: crate::model::GetMirroringEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MirroringEndpointGroup>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/GetMirroringEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_mirroring_endpoint_group(
+        &self,
+        req: crate::model::CreateMirroringEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringEndpointGroups", var_parent,);
+                let path_template = "/v1/{parent}/mirroringEndpointGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder
+                    .query(&[("mirroringEndpointGroupId", &req.mirroring_endpoint_group_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/CreateMirroringEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_endpoint_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_mirroring_endpoint_group(
+        &self,
+        req: crate::model::UpdateMirroringEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_mirroring_endpoint_group_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mirroring_endpoint_group.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_mirroring_endpoint_group_name,);
+                let path_template = "/v1/{mirroring_endpoint_group.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.mirroring_endpoint_group.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "mirroring_endpoint_group.name",
+                        "projects/*/locations/*/mirroringEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/UpdateMirroringEndpointGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_endpoint_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_mirroring_endpoint_group(
+        &self,
+        req: crate::model::DeleteMirroringEndpointGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringEndpointGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/DeleteMirroringEndpointGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_mirroring_endpoint_group_associations(
+        &self,
+        req: crate::model::ListMirroringEndpointGroupAssociationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMirroringEndpointGroupAssociationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringEndpointGroupAssociations", var_parent,);
+                let path_template = "/v1/{parent}/mirroringEndpointGroupAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Mirroring/ListMirroringEndpointGroupAssociations")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_mirroring_endpoint_group_association(
+        &self,
+        req: crate::model::GetMirroringEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MirroringEndpointGroupAssociation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Mirroring/GetMirroringEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_mirroring_endpoint_group_association(
+        &self,
+        req: crate::model::CreateMirroringEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringEndpointGroupAssociations", var_parent,);
+                let path_template = "/v1/{parent}/mirroringEndpointGroupAssociations";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "mirroringEndpointGroupAssociationId",
+                    &req.mirroring_endpoint_group_association_id,
+                )]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Mirroring/CreateMirroringEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_endpoint_group_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_mirroring_endpoint_group_association(
+        &self,
+        req: crate::model::UpdateMirroringEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_mirroring_endpoint_group_association_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mirroring_endpoint_group_association.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_mirroring_endpoint_group_association_name,);
+                let path_template = "/v1/{mirroring_endpoint_group_association.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.mirroring_endpoint_group_association.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "mirroring_endpoint_group_association.name",
+                        "projects/*/locations/*/mirroringEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Mirroring/UpdateMirroringEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_endpoint_group_association, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_mirroring_endpoint_group_association(
+        &self,
+        req: crate::model::DeleteMirroringEndpointGroupAssociationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringEndpointGroupAssociations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringEndpointGroupAssociations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.Mirroring/DeleteMirroringEndpointGroupAssociation")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_mirroring_deployment_groups(
+        &self,
+        req: crate::model::ListMirroringDeploymentGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMirroringDeploymentGroupsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringDeploymentGroups", var_parent,);
+                let path_template = "/v1/{parent}/mirroringDeploymentGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/ListMirroringDeploymentGroups",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_mirroring_deployment_group(
+        &self,
+        req: crate::model::GetMirroringDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MirroringDeploymentGroup>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/GetMirroringDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_mirroring_deployment_group(
+        &self,
+        req: crate::model::CreateMirroringDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringDeploymentGroups", var_parent,);
+                let path_template = "/v1/{parent}/mirroringDeploymentGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "mirroringDeploymentGroupId",
+                    &req.mirroring_deployment_group_id,
+                )]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/CreateMirroringDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_deployment_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_mirroring_deployment_group(
+        &self,
+        req: crate::model::UpdateMirroringDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_mirroring_deployment_group_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mirroring_deployment_group.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_mirroring_deployment_group_name,);
+                let path_template = "/v1/{mirroring_deployment_group.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.mirroring_deployment_group.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "mirroring_deployment_group.name",
+                        "projects/*/locations/*/mirroringDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/UpdateMirroringDeploymentGroup",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_deployment_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_mirroring_deployment_group(
+        &self,
+        req: crate::model::DeleteMirroringDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeploymentGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeploymentGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringDeploymentGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/DeleteMirroringDeploymentGroup",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_mirroring_deployments(
+        &self,
+        req: crate::model::ListMirroringDeploymentsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListMirroringDeploymentsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringDeployments", var_parent,);
+                let path_template = "/v1/{parent}/mirroringDeployments";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/ListMirroringDeployments",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_mirroring_deployment(
+        &self,
+        req: crate::model::GetMirroringDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::MirroringDeployment>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/GetMirroringDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_mirroring_deployment(
+        &self,
+        req: crate::model::CreateMirroringDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/mirroringDeployments", var_parent,);
+                let path_template = "/v1/{parent}/mirroringDeployments";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("mirroringDeploymentId", &req.mirroring_deployment_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/CreateMirroringDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_deployment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_mirroring_deployment(
+        &self,
+        req: crate::model::UpdateMirroringDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_mirroring_deployment_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.mirroring_deployment.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_mirroring_deployment_name,);
+                let path_template = "/v1/{mirroring_deployment.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.mirroring_deployment.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "mirroring_deployment.name",
+                        "projects/*/locations/*/mirroringDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/UpdateMirroringDeployment",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.mirroring_deployment, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_mirroring_deployment(
+        &self,
+        req: crate::model::DeleteMirroringDeploymentRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/mirroringDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/mirroringDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/mirroringDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.Mirroring/DeleteMirroringDeployment",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3748,7 +14834,15 @@ impl std::fmt::Debug for NetworkSecurity {
 
 impl NetworkSecurity {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3764,7 +14858,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3776,12 +14870,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/authorizationPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authorizationPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3802,6 +14898,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListAuthorizationPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3824,7 +14931,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3838,10 +14945,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3864,6 +14973,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3886,7 +15006,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3898,12 +15018,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/authorizationPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authorizationPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("authorizationPolicyId", &req.authorization_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3924,6 +15046,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3946,7 +15079,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_authorization_policy_name = try_match(
                     Some(&req)
@@ -3963,6 +15096,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_authorization_policy_name,);
+                let path_template = "/v1/{authorization_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -3978,7 +15112,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4004,6 +15138,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4026,7 +15170,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4040,10 +15184,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4066,6 +15212,397 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteAuthorizationPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_backend_authentication_configs(
+        &self,
+        req: crate::model::ListBackendAuthenticationConfigsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBackendAuthenticationConfigsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/backendAuthenticationConfigs", var_parent,);
+                let path_template = "/v1/{parent}/backendAuthenticationConfigs";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/ListBackendAuthenticationConfigs")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_backend_authentication_config(
+        &self,
+        req: crate::model::GetBackendAuthenticationConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BackendAuthenticationConfig>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backendAuthenticationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backendAuthenticationConfigs/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/backendAuthenticationConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/GetBackendAuthenticationConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_backend_authentication_config(
+        &self,
+        req: crate::model::CreateBackendAuthenticationConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/backendAuthenticationConfigs", var_parent,);
+                let path_template = "/v1/{parent}/backendAuthenticationConfigs";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "backendAuthenticationConfigId",
+                    &req.backend_authentication_config_id,
+                )]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/CreateBackendAuthenticationConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.backend_authentication_config, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_backend_authentication_config(
+        &self,
+        req: crate::model::UpdateBackendAuthenticationConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_backend_authentication_config_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.backend_authentication_config.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backendAuthenticationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_backend_authentication_config_name,);
+                let path_template = "/v1/{backend_authentication_config.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.backend_authentication_config.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backendAuthenticationConfigs/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "backend_authentication_config.name",
+                        "projects/*/locations/*/backendAuthenticationConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/UpdateBackendAuthenticationConfig")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.backend_authentication_config, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_backend_authentication_config(
+        &self,
+        req: crate::model::DeleteBackendAuthenticationConfigRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backendAuthenticationConfigs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/backendAuthenticationConfigs/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/backendAuthenticationConfigs/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/DeleteBackendAuthenticationConfig")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4088,7 +15625,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4100,12 +15637,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/serverTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/serverTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4126,6 +15667,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListServerTlsPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4148,7 +15700,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4162,10 +15714,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4188,6 +15742,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4210,7 +15775,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4222,11 +15787,13 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/serverTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/serverTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("serverTlsPolicyId", &req.server_tls_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4247,6 +15814,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4269,7 +15847,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_server_tls_policy_name = try_match(
                     Some(&req)
@@ -4286,6 +15864,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_server_tls_policy_name,);
+                let path_template = "/v1/{server_tls_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4301,7 +15880,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4327,6 +15906,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4349,7 +15938,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4363,10 +15952,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4389,6 +15980,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteServerTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4411,7 +16013,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4423,12 +16025,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/clientTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/clientTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4449,6 +16053,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListClientTlsPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4471,7 +16086,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4485,10 +16100,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4511,6 +16128,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4533,7 +16161,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4545,11 +16173,13 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/clientTlsPolicies", var_parent,);
+                let path_template = "/v1/{parent}/clientTlsPolicies";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("clientTlsPolicyId", &req.client_tls_policy_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4570,6 +16200,17 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4592,7 +16233,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_client_tls_policy_name = try_match(
                     Some(&req)
@@ -4609,6 +16250,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_client_tls_policy_name,);
+                let path_template = "/v1/{client_tls_policy.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4624,7 +16266,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4650,6 +16292,16 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4672,7 +16324,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4686,10 +16338,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4712,6 +16366,1950 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteClientTlsPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_gateway_security_policies(
+        &self,
+        req: crate::model::ListGatewaySecurityPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListGatewaySecurityPoliciesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/gatewaySecurityPolicies", var_parent,);
+                let path_template = "/v1/{parent}/gatewaySecurityPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/ListGatewaySecurityPolicies")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_gateway_security_policy(
+        &self,
+        req: crate::model::GetGatewaySecurityPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GatewaySecurityPolicy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetGatewaySecurityPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_gateway_security_policy(
+        &self,
+        req: crate::model::CreateGatewaySecurityPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/gatewaySecurityPolicies", var_parent,);
+                let path_template = "/v1/{parent}/gatewaySecurityPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("gatewaySecurityPolicyId", &req.gateway_security_policy_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/CreateGatewaySecurityPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.gateway_security_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_gateway_security_policy(
+        &self,
+        req: crate::model::UpdateGatewaySecurityPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_gateway_security_policy_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.gateway_security_policy.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_gateway_security_policy_name,);
+                let path_template = "/v1/{gateway_security_policy.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.gateway_security_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "gateway_security_policy.name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/UpdateGatewaySecurityPolicy")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.gateway_security_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_gateway_security_policy(
+        &self,
+        req: crate::model::DeleteGatewaySecurityPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/DeleteGatewaySecurityPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_gateway_security_policy_rules(
+        &self,
+        req: crate::model::ListGatewaySecurityPolicyRulesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListGatewaySecurityPolicyRulesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/rules", var_parent,);
+                let path_template = "/v1/{parent}/rules";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/ListGatewaySecurityPolicyRules")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_gateway_security_policy_rule(
+        &self,
+        req: crate::model::GetGatewaySecurityPolicyRuleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::GatewaySecurityPolicyRule>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/rules/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/rules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*/rules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/GetGatewaySecurityPolicyRule")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_gateway_security_policy_rule(
+        &self,
+        req: crate::model::CreateGatewaySecurityPolicyRuleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/rules", var_parent,);
+                let path_template = "/v1/{parent}/rules";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[(
+                    "gatewaySecurityPolicyRuleId",
+                    &req.gateway_security_policy_rule_id,
+                )]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/CreateGatewaySecurityPolicyRule")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.gateway_security_policy_rule, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_gateway_security_policy_rule(
+        &self,
+        req: crate::model::UpdateGatewaySecurityPolicyRuleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_gateway_security_policy_rule_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.gateway_security_policy_rule.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/rules/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_gateway_security_policy_rule_name,);
+                let path_template = "/v1/{gateway_security_policy_rule.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.gateway_security_policy_rule.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/rules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "gateway_security_policy_rule.name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*/rules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/UpdateGatewaySecurityPolicyRule")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.gateway_security_policy_rule, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_gateway_security_policy_rule(
+        &self,
+        req: crate::model::DeleteGatewaySecurityPolicyRuleRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/gatewaySecurityPolicies/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/rules/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/gatewaySecurityPolicies/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/rules/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/gatewaySecurityPolicies/*/rules/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/DeleteGatewaySecurityPolicyRule")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_url_lists(
+        &self,
+        req: crate::model::ListUrlListsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListUrlListsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/urlLists", var_parent,);
+                let path_template = "/v1/{parent}/urlLists";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/ListUrlLists")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_url_list(
+        &self,
+        req: crate::model::GetUrlListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::UrlList>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/urlLists/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/urlLists/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/urlLists/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/GetUrlList")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_url_list(
+        &self,
+        req: crate::model::CreateUrlListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/urlLists", var_parent,);
+                let path_template = "/v1/{parent}/urlLists";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("urlListId", &req.url_list_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/CreateUrlList")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.url_list, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_url_list(
+        &self,
+        req: crate::model::UpdateUrlListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_url_list_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.url_list.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/urlLists/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_url_list_name,);
+                let path_template = "/v1/{url_list.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.url_list.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/urlLists/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "url_list.name",
+                        "projects/*/locations/*/urlLists/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/UpdateUrlList")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.url_list, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_url_list(
+        &self,
+        req: crate::model::DeleteUrlListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/urlLists/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/urlLists/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/urlLists/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.NetworkSecurity/DeleteUrlList")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_tls_inspection_policies(
+        &self,
+        req: crate::model::ListTlsInspectionPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListTlsInspectionPoliciesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/tlsInspectionPolicies", var_parent,);
+                let path_template = "/v1/{parent}/tlsInspectionPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListTlsInspectionPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_tls_inspection_policy(
+        &self,
+        req: crate::model::GetTlsInspectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TlsInspectionPolicy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tlsInspectionPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/tlsInspectionPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/tlsInspectionPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetTlsInspectionPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_tls_inspection_policy(
+        &self,
+        req: crate::model::CreateTlsInspectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/tlsInspectionPolicies", var_parent,);
+                let path_template = "/v1/{parent}/tlsInspectionPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("tlsInspectionPolicyId", &req.tls_inspection_policy_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateTlsInspectionPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.tls_inspection_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_tls_inspection_policy(
+        &self,
+        req: crate::model::UpdateTlsInspectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_tls_inspection_policy_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.tls_inspection_policy.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tlsInspectionPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_tls_inspection_policy_name,);
+                let path_template = "/v1/{tls_inspection_policy.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.tls_inspection_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/tlsInspectionPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "tls_inspection_policy.name",
+                        "projects/*/locations/*/tlsInspectionPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateTlsInspectionPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.tls_inspection_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_tls_inspection_policy(
+        &self,
+        req: crate::model::DeleteTlsInspectionPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tlsInspectionPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("force", &req.force)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/tlsInspectionPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/tlsInspectionPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteTlsInspectionPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_authz_policies(
+        &self,
+        req: crate::model::ListAuthzPoliciesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListAuthzPoliciesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/authzPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authzPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/ListAuthzPolicies",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_authz_policy(
+        &self,
+        req: crate::model::GetAuthzPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AuthzPolicy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/GetAuthzPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_authz_policy(
+        &self,
+        req: crate::model::CreateAuthzPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/authzPolicies", var_parent,);
+                let path_template = "/v1/{parent}/authzPolicies";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("authzPolicyId", &req.authz_policy_id)]);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/CreateAuthzPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.authz_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_authz_policy(
+        &self,
+        req: crate::model::UpdateAuthzPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_authz_policy_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.authz_policy.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_authz_policy_name,);
+                let path_template = "/v1/{authz_policy.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("requestId", &req.request_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.authz_policy.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "authz_policy.name",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/UpdateAuthzPolicy",
+                    )
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.authz_policy, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_authz_policy(
+        &self,
+        req: crate::model::DeleteAuthzPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("requestId", &req.request_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.networksecurity.v1.NetworkSecurity/DeleteAuthzPolicy",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4734,20 +18332,21 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4760,13 +18359,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4797,6 +18397,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4819,7 +18427,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4831,10 +18439,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4847,10 +18456,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4886,6 +18496,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4908,25 +18526,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:setIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -4940,10 +18540,32 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4958,10 +18580,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4976,10 +18600,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -4994,30 +18620,35 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -5032,6 +18663,23 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5086,8 +18734,34 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5110,37 +18784,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:getIamPolicy", var_resource,);
-
-                let builder = self.inner.builder(Method::GET, path);
-                let builder = (|| {
-                    let builder = req
-                        .options
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "options")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::GET)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5154,7 +18798,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5169,7 +18815,39 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5184,7 +18862,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5199,7 +18879,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5214,7 +18894,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5229,7 +18911,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5244,7 +18926,9 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -5259,27 +18943,42 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -5294,6 +18993,23 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5348,8 +19064,34 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5372,25 +19114,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
-            .or_else(|| {
-                let var_resource = try_match(
-                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("projects/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/locations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/authorizationPolicies/"),
-                        Segment::SingleWildcard,
-                    ],
-                )?;
-                let path = format!("/v1/{}:testIamPermissions", var_resource,);
-
-                let builder = self.inner.builder(Method::POST, path);
-                let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
-            })
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -5404,10 +19128,32 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5422,10 +19168,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5440,10 +19188,12 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .or_else(|| {
                 let var_resource = try_match(
@@ -5458,30 +19208,35 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
 
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
-                {
-                    let builder = PathMismatchBuilder::default();
-                    let builder = builder.maybe_add(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/authorizationPolicies/"),
-                            Segment::SingleWildcard,
-                        ],
-                        "resource",
-                        "projects/*/locations/*/authorizationPolicies/*",
-                    );
-                    paths.push(builder.build());
-                }
                 {
                     let builder = PathMismatchBuilder::default();
                     let builder = builder.maybe_add(
@@ -5496,6 +19251,23 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                         ],
                         "resource",
                         "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5550,8 +19322,34 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     );
                     paths.push(builder.build());
                 }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5574,7 +19372,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5586,6 +19384,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5594,7 +19393,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5607,6 +19406,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -5615,7 +19415,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5651,6 +19451,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5673,7 +19481,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5687,10 +19495,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5705,10 +19514,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5748,6 +19558,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5770,7 +19588,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5784,10 +19602,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5802,10 +19621,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5845,6 +19665,14 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5873,7 +19701,7 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5887,10 +19715,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5905,10 +19734,11 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5948,6 +19778,2298 @@ impl super::stub::NetworkSecurity for NetworkSecurity {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements [OrganizationSecurityProfileGroupService](super::stub::OrganizationSecurityProfileGroupService) using a [gaxi::http::ReqwestClient].
+#[derive(Clone)]
+pub struct OrganizationSecurityProfileGroupService {
+    inner: gaxi::http::ReqwestClient,
+}
+
+impl std::fmt::Debug for OrganizationSecurityProfileGroupService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        f.debug_struct("OrganizationSecurityProfileGroupService")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl OrganizationSecurityProfileGroupService {
+    pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
+        let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
+        Ok(Self { inner })
+    }
+}
+
+impl super::stub::OrganizationSecurityProfileGroupService
+    for OrganizationSecurityProfileGroupService
+{
+    async fn list_security_profile_groups(
+        &self,
+        req: crate::model::ListSecurityProfileGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecurityProfileGroupsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/securityProfileGroups", var_parent,);
+                let path_template = "/v1/{parent}/securityProfileGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/ListSecurityProfileGroups")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_security_profile_group(
+        &self,
+        req: crate::model::GetSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityProfileGroup>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfileGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfileGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/securityProfileGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/GetSecurityProfileGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_security_profile_group(
+        &self,
+        req: crate::model::CreateSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/securityProfileGroups", var_parent,);
+                let path_template = "/v1/{parent}/securityProfileGroups";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("securityProfileGroupId", &req.security_profile_group_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/CreateSecurityProfileGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.security_profile_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_security_profile_group(
+        &self,
+        req: crate::model::UpdateSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_security_profile_group_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_profile_group.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfileGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_security_profile_group_name,);
+                let path_template = "/v1/{security_profile_group.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.security_profile_group.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfileGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "security_profile_group.name",
+                        "organizations/*/locations/*/securityProfileGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/UpdateSecurityProfileGroup")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.security_profile_group, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_security_profile_group(
+        &self,
+        req: crate::model::DeleteSecurityProfileGroupRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfileGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfileGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/securityProfileGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/DeleteSecurityProfileGroup")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_security_profiles(
+        &self,
+        req: crate::model::ListSecurityProfilesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSecurityProfilesResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/securityProfiles", var_parent,);
+                let path_template = "/v1/{parent}/securityProfiles";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/ListSecurityProfiles")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_security_profile(
+        &self,
+        req: crate::model::GetSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::SecurityProfile>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfiles/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfiles/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/securityProfiles/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/GetSecurityProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn create_security_profile(
+        &self,
+        req: crate::model::CreateSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/securityProfiles", var_parent,);
+                let path_template = "/v1/{parent}/securityProfiles";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("securityProfileId", &req.security_profile_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/CreateSecurityProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.security_profile, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn update_security_profile(
+        &self,
+        req: crate::model::UpdateSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_security_profile_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.security_profile.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfiles/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_security_profile_name,);
+                let path_template = "/v1/{security_profile.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.security_profile.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfiles/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "security_profile.name",
+                        "organizations/*/locations/*/securityProfiles/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/UpdateSecurityProfile")
+                    .set_url_template(_path_template)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(req.security_profile, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_security_profile(
+        &self,
+        req: crate::model::DeleteSecurityProfileRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/securityProfiles/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/securityProfiles/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/securityProfiles/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.networksecurity.v1.OrganizationSecurityProfileGroupService/DeleteSecurityProfile")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:setIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:setIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:getIamPolicy", var_resource,);
+                let path_template = "/v1/{resource}:getIamPolicy";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = (|| {
+                    let builder = req
+                        .options
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "options")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template, _resource_name) = None
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authorizationPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/addressGroups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/serverTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/clientTlsPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .or_else(|| {
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/authzPolicies/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:testIamPermissions", var_resource,);
+                let path_template = "/v1/{resource}:testIamPermissions";
+
+                let resource_name = format!("//networksecurity.googleapis.com/{}", var_resource,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authorizationPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authorizationPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/addressGroups/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "organizations/*/locations/*/addressGroups/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/serverTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/serverTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/clientTlsPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/clientTlsPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/authzPolicies/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "resource",
+                        "projects/*/locations/*/authzPolicies/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(Some(req), &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner.execute(builder, body, options).await
+    }
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
+        let options = google_cloud_gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
+        let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
+            "x-goog-api-client",
+            HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+        );
+        let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
+        self.inner
+            .execute(builder, body, options)
+            .await
+            .map(|r: crate::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                crate::Response::from_parts(parts, ())
+            })
+    }
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        use gaxi::http::reqwest::{HeaderValue, Method};
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        use google_cloud_gax::error::binding::BindingError;
+        let (builder, method, _path_template) = None
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
+            .ok_or_else(|| {
+                let mut paths = Vec::new();
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("organizations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                google_cloud_gax::error::Error::binding(BindingError { paths })
+            })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

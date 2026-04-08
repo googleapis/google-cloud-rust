@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::client::{
-    get_database_id, get_emulator_host, get_emulator_rest_endpoint, provision_emulator,
-};
+use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
 use futures::stream::{self, StreamExt};
 use google_cloud_spanner::client::{
@@ -106,7 +104,6 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
         None => return Ok(()),
     };
     provision_emulator(&emulator_host).await;
-    let rest_endpoint = get_emulator_rest_endpoint(&emulator_host);
     let db_id = get_database_id().await;
     let db_path = format!(
         "projects/test-project/instances/test-instance/databases/{}",
@@ -118,15 +115,8 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let table_success = format!("TableSuccess_{}", suffix);
     let table_not_found = format!("TableNotFound_{}", suffix);
 
-    let client = reqwest::Client::new();
-    client
-        .patch(format!("{}/v1/{}/ddl", rest_endpoint, db_path))
-        .json(&serde_json::json!({
-            "statements": [format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_success)]
-        }))
-        .send()
-        .await?
-        .error_for_status()?;
+    let statement = format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_success);
+    update_database_ddl(statement).await?;
 
     // 2. Capture snapshot time.
     let spanner = Spanner::builder()
@@ -144,14 +134,11 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let snapshot_time: OffsetDateTime = row.try_get(0)?;
 
     // 3. Setup Table 2 (Does NOT exist at snapshot time)
-    client
-        .patch(format!("{}/v1/{}/ddl", rest_endpoint, db_path))
-        .json(&serde_json::json!({
-            "statements": [format!("CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)", table_not_found)]
-        }))
-        .send()
-        .await?
-        .error_for_status()?;
+    let statement = format!(
+        "CREATE TABLE {} (Id INT64) PRIMARY KEY (Id)",
+        table_not_found
+    );
+    update_database_ddl(statement).await?;
 
     // 4. Start the Intercepted Server
     let listener = TcpListener::bind("127.0.0.1:0").await?;
