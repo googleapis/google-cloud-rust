@@ -54,7 +54,11 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         .await?;
 
     let meter_provider = MeterProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint.parse::<http::Uri>().expect("Failed to parse URI"))
+        .with_endpoint(
+            otlp_endpoint
+                .parse::<http::Uri>()
+                .expect("Failed to parse URI"),
+        )
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
@@ -165,13 +169,25 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         })
         .collect();
 
-    assert_eq!(scope_attributes.get("gcp.client.version").map(|s| s.as_str()), Some("1.0.0"));
-    
+    assert_eq!(
+        scope_attributes
+            .get("gcp.client.version")
+            .map(|s| s.as_str()),
+        Some("1.0.0")
+    );
+
     let metrics = &scope_metrics.metrics;
-    println!("Received metrics: {:?}", metrics.iter().map(|m| &m.name).collect::<Vec<_>>());
+    println!(
+        "Received metrics: {:?}",
+        metrics.iter().map(|m| &m.name).collect::<Vec<_>>()
+    );
     let duration_metric = metrics
         .iter()
-        .find(|m| m.name == "test.client.duration" || m.name == "gcp.client.request.duration" || m.name == "workload.googleapis.com/gcp.client.request.duration")
+        .find(|m| {
+            m.name == "test.client.duration"
+                || m.name == "gcp.client.request.duration"
+                || m.name == "workload.googleapis.com/gcp.client.request.duration"
+        })
         .expect("Should have found duration metric");
 
     println!("Metric data: {:?}", duration_metric.data);
@@ -184,11 +200,20 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         .data_points
         .iter()
         .find(|dp| {
-            let attrs: std::collections::HashMap<String, _> = dp.attributes.iter().map(|kv| (kv.key.clone(), kv.value.clone().unwrap())).collect();
-            attrs.get("http.response.status_code").and_then(|v| match &v.value {
-                Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
-                _ => None,
-            }) == Some(200)
+            let attrs: std::collections::HashMap<String, _> = dp
+                .attributes
+                .iter()
+                .map(|kv| (kv.key.clone(), kv.value.clone().unwrap()))
+                .collect();
+            attrs
+                .get("http.response.status_code")
+                .and_then(|v| match &v.value {
+                    Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => {
+                        Some(*i)
+                    }
+                    _ => None,
+                })
+                == Some(200)
         })
         .expect("Should have found a data point with status 200");
 
@@ -207,15 +232,18 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         })
     };
 
-    assert_eq!(get_metric_string("rpc.method").as_deref(), Some("google.showcase.v1beta1.Echo/Echo"));
-    
+    assert_eq!(
+        get_metric_string("rpc.method").as_deref(),
+        Some("google.showcase.v1beta1.Echo/Echo")
+    );
+
     let get_metric_int = |key: &str| -> Option<i64> {
         metric_attributes.get(key).and_then(|v| match &v.value {
             Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
             _ => None,
         })
     };
-    
+
     assert_eq!(get_metric_int("http.response.status_code"), Some(200));
 
     Ok(())
