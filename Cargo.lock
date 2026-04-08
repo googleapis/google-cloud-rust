@@ -2837,6 +2837,7 @@ dependencies = [
  "google-cloud-test-utils",
  "google-cloud-wkt",
  "grpc-server",
+ "h2",
  "http",
  "http-body",
  "http-body-util",

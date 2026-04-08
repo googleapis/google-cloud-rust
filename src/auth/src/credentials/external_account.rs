@@ -115,7 +115,7 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
+use crate::constants::{DEFAULT_SCOPE, DEFAULT_UNIVERSE_DOMAIN, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
@@ -621,9 +621,9 @@ impl Builder {
         self
     }
 
-    /// Sets the [universe domain] for this credentials.
+    /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// The universe domain is the default service domain for a given Cloud universe.
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
     ///
     /// # Example
     /// ```
@@ -1014,9 +1014,9 @@ impl ProgrammaticBuilder {
         self
     }
 
-    /// Sets the optional [universe domain] for this credentials.
+    /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// The universe domain is the default service domain for a given Cloud universe.
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
     ///
     /// # Example
     /// ```
@@ -1480,7 +1480,13 @@ impl ProgrammaticBuilder {
             config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
         }
         if config_builder.token_url.is_none() {
-            config_builder = config_builder.with_token_url(STS_TOKEN_URL.to_string());
+            let mut token_url = STS_TOKEN_URL.to_string();
+            if let Some(ref ud) = config_builder.universe_domain {
+                if ud != DEFAULT_UNIVERSE_DOMAIN {
+                    token_url = token_url.replace(DEFAULT_UNIVERSE_DOMAIN, ud);
+                }
+            }
+            config_builder = config_builder.with_token_url(token_url);
         }
         let final_config = config_builder.build()?;
 
@@ -1591,6 +1597,92 @@ mod tests {
         // Use the debug output to verify the right kind of credentials are created.
         let fmt = format!("{creds:?}");
         assert!(fmt.contains("ExternalAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_external_account_with_universe_domain() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.my-custom-universe.com/v1beta/token",
+            "credential_source": {
+                "url": "https://example.com/token",
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            },
+            "universe_domain": "my-custom-universe.com"
+        });
+
+        let creds = Builder::new(contents).build().unwrap();
+
+        assert_eq!(
+            creds.universe_domain().await,
+            Some("my-custom-universe.com".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn create_external_account_with_universe_domain_override() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.my-custom-universe.com/v1beta/token",
+            "credential_source": {
+                "url": "https://example.com/token",
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            },
+            "universe_domain": "my-custom-universe.com"
+        });
+
+        let creds = Builder::new(contents)
+            .with_universe_domain("my-overridden-universe.com")
+            .build()
+            .unwrap();
+
+        assert_eq!(
+            creds.universe_domain().await,
+            Some("my-overridden-universe.com".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_with_universe_domain() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(STS_TOKEN_URL)
+            .with_universe_domain("my-custom-universe.com");
+
+        let creds = builder.build().unwrap();
+
+        assert_eq!(
+            creds.universe_domain().await,
+            Some("my-custom-universe.com".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_sts_url_updates_with_universe_domain() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_universe_domain("my-custom-universe.com");
+
+        let (config, _, _) = builder.build_components().unwrap();
+
+        assert_eq!(
+            config.token_url,
+            "https://sts.my-custom-universe.com/v1/token"
+        );
     }
 
     #[tokio::test]
