@@ -39,6 +39,8 @@ pub(super) trait Leaser {
     /// The caller should spawn a task for this operation, as retries can take
     /// arbitrarily long.
     async fn confirmed_ack(&self, ack_ids: Vec<String>);
+    /// Negatively acknowledge a batch of messages and confirm the result.
+    async fn confirmed_nack(&self, ack_ids: Vec<String>);
 }
 
 /// A map of exactly-once ack IDs to their final result.
@@ -156,6 +158,30 @@ where
             .collect();
         let _ = self.confirmed_tx.send(confirmed_acks);
     }
+
+    async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+        let req = ModifyAckDeadlineRequest::new()
+            .set_subscription(self.subscription.clone())
+            .set_ack_ids(ack_ids.clone())
+            .set_ack_deadline_seconds(0);
+        let response = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
+        let shared_result = response.map(|_| ()).map_err(Arc::new);
+        let confirmed_acks = ack_ids
+            .into_iter()
+            .map(|id| {
+                (
+                    id,
+                    shared_result
+                        .clone()
+                        .map_err(|source| AckError::Rpc { source }),
+                )
+            })
+            .collect();
+        let _ = self.confirmed_tx.send(confirmed_acks);
+    }
 }
 
 #[cfg(test)]
@@ -179,6 +205,7 @@ pub(super) mod tests {
             async fn nack(&self, ack_ids: Vec<String>);
             async fn extend(&self, ack_ids: Vec<String>);
             async fn confirmed_ack(&self, ack_ids: Vec<String>);
+            async fn confirmed_nack(&self, ack_ids: Vec<String>);
         }
     }
 
@@ -196,6 +223,9 @@ pub(super) mod tests {
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
             MockLeaser::confirmed_ack(self, ack_ids).await
         }
+        async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+            MockLeaser::confirmed_nack(self, ack_ids).await
+        }
     }
 
     #[async_trait::async_trait]
@@ -211,6 +241,9 @@ pub(super) mod tests {
         }
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
             self.lock().await.confirmed_ack(ack_ids).await
+        }
+        async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+            self.lock().await.confirmed_nack(ack_ids).await
         }
     }
 
