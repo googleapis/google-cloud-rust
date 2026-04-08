@@ -34,6 +34,7 @@ pub async fn run_topic_samples(topic_names: &mut Vec<String>) -> anyhow::Result<
     topic::create_topic::sample(&client, &project_id, &id).await?;
     topic::list_topics::sample(&client, &project_id).await?;
     topic::list_topic_subscriptions::sample(&client, &project_id, &id).await?;
+    topic::delete_topic::sample(&client, &project_id, &id).await?;
 
     Ok(())
 }
@@ -54,6 +55,8 @@ pub async fn run_subscription_samples(
     subscriber::quickstart_subscriber::sample(&project_id, &id).await?;
     subscriber::subscriber_stream::sample(&project_id, &id).await?;
 
+    subscription::delete_subscription::sample(&client, &project_id, &id).await?;
+
     Ok(())
 }
 
@@ -68,6 +71,7 @@ pub async fn run_schema_samples(schema_names: &mut Vec<String>) -> anyhow::Resul
     schema::create_avro_schema::sample(&client, &project, &id).await?;
     schema::list_schemas::sample(&client, &project).await?;
     schema::list_schema_revisions::sample(&client, &project, &id).await?;
+    schema::delete_schema::sample(&client, &project, &id).await?;
 
     Ok(())
 }

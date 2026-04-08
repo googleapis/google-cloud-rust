@@ -709,6 +709,96 @@ impl std::fmt::Debug for super::KmsConfig {
     }
 }
 
+impl std::fmt::Debug for super::ExecuteOntapPostRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapPostRequest");
+        debug_struct.field("body", &self.body);
+        debug_struct.field("ontap_path", &self.ontap_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapPostResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapPostResponse");
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapGetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapGetRequest");
+        debug_struct.field("ontap_path", &self.ontap_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapGetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapGetResponse");
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapDeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapDeleteRequest");
+        debug_struct.field("ontap_path", &self.ontap_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapDeleteResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapDeleteResponse");
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapPatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapPatchRequest");
+        debug_struct.field("body", &self.body);
+        debug_struct.field("ontap_path", &self.ontap_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteOntapPatchResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteOntapPatchResponse");
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListQuotaRulesRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListQuotaRulesRequest");
@@ -1244,6 +1334,7 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.field("cold_tier_size_used_gib", &self.cold_tier_size_used_gib);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("mode", &self.mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1399,6 +1490,20 @@ impl std::fmt::Debug for super::Volume {
         debug_struct.field("cache_parameters", &self.cache_parameters);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         debug_struct.field("block_devices", &self.block_devices);
+        debug_struct.field("clone_details", &self.clone_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::volume::CloneDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CloneDetails");
+        debug_struct.field("source_snapshot", &self.source_snapshot);
+        debug_struct.field("source_volume", &self.source_volume);
+        debug_struct.field("shared_space_gib", &self.shared_space_gib);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1674,6 +1779,21 @@ impl std::fmt::Debug for super::RestoreBackupFilesRequest {
 impl std::fmt::Debug for super::RestoreBackupFilesResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RestoreBackupFilesResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::EstablishVolumePeeringRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EstablishVolumePeeringRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("peer_cluster_name", &self.peer_cluster_name);
+        debug_struct.field("peer_svm_name", &self.peer_svm_name);
+        debug_struct.field("peer_ip_addresses", &self.peer_ip_addresses);
+        debug_struct.field("peer_volume_name", &self.peer_volume_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

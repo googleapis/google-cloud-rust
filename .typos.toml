@@ -48,4 +48,13 @@ extend-ignore-re = [
   "test_typ\"",
   # The name of a Cloud Storage dual region, used in some tests.
   "NAM4",
+  # Google App Engine
+  "\\WGAE\\.",
+  "\\WGAE\\W",
+  "\\WGAE_",
+  "\\Wgae\\.",
+  "\\Wgae\\W",
+  "\\Wgae_",
+  "_GAE\\W",
+  "_gae\\W",
 ]

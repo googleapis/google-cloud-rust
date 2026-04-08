@@ -50,6 +50,18 @@ impl std::fmt::Debug for Spanner {
 
 impl Spanner {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                DEFAULT_HOST,
+                &super::tracing::info::INSTRUMENTATION_CLIENT_INFO,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -84,6 +96,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/CreateSession");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -126,6 +155,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::BatchCreateSessionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/BatchCreateSessions");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -164,6 +210,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/GetSession");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -202,6 +265,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ListSessionsResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/ListSessions");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -243,6 +323,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/DeleteSession");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -281,6 +378,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/ExecuteSql");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -323,6 +437,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ExecuteBatchDmlResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/ExecuteBatchDml");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -361,6 +492,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/Read");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -403,6 +551,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Transaction;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/BeginTransaction");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -441,6 +606,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::CommitResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/Commit");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -479,6 +661,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/Rollback");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -521,6 +720,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/PartitionQuery");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,
@@ -562,6 +778,23 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            let attributes = gaxi::observability::ClientRequestAttributes::default()
+                .set_rpc_method("google.spanner.v1.Spanner/PartitionRead");
+            let resource_name = (|| {
+                Some(format!(
+                    "//spanner.googleapis.com/{}",
+                    Some(&req).map(|m| &m.session).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
+            recorder.on_client_request(attributes);
+        }
         self.inner
             .execute(
                 extensions,

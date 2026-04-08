@@ -210,9 +210,21 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        Ok(inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .streaming(request.into_streaming_request(), path, codec)
-            .await)
+            .await;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(&to_gax_error(e.clone())),
+            }
+        }
+        Ok(result)
     }
 
     /// Opens a server stream.
@@ -268,9 +280,21 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        Ok(inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .server_streaming(request.into_request(), path, codec)
-            .await)
+            .await;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(&to_gax_error(e.clone())),
+            }
+        }
+        Ok(result)
     }
 
     /// Runs the retry loop.
@@ -363,10 +387,22 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
-        inner
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.on_grpc_request(&path);
+        }
+        let result = inner
             .unary(request, path, codec)
             .await
-            .map_err(to_gax_error)
+            .map_err(to_gax_error);
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            match &result {
+                Ok(_) => recorder.on_grpc_response(),
+                Err(e) => recorder.on_grpc_error(e),
+            }
+        }
+        result
     }
 
     async fn make_inner(
@@ -378,7 +414,12 @@ impl Client {
         >,
     ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
-        let endpoint = Self::make_endpoint(config.endpoint.clone(), default_endpoint).await?;
+        let endpoint = Self::make_endpoint(
+            config.endpoint.clone(),
+            default_endpoint,
+            config.grpc_max_header_list_size,
+        )
+        .await?;
         let (channel, tx) = Channel::balance_channel(
             config
                 .grpc_request_buffer_capacity
@@ -421,6 +462,7 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
+        grpc_max_header_list_size: Option<u32>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
@@ -440,7 +482,11 @@ impl Client {
         } else {
             endpoint
         };
-        Ok(endpoint.origin(origin).concurrency_limit(100))
+        let mut endpoint = endpoint.origin(origin).concurrency_limit(100);
+        if let Some(limit) = grpc_max_header_list_size {
+            endpoint = endpoint.http2_max_header_list_size(limit);
+        }
+        Ok(endpoint)
     }
 
     async fn make_credentials(

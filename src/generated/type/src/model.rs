@@ -29,22 +29,22 @@ mod deserialize;
 mod serialize;
 
 /// Represents a color in the RGBA color space. This representation is designed
-/// for simplicity of conversion to/from color representations in various
+/// for simplicity of conversion to and from color representations in various
 /// languages over compactness. For example, the fields of this representation
 /// can be trivially provided to the constructor of `java.awt.Color` in Java; it
 /// can also be trivially provided to UIColor's `+colorWithRed:green:blue:alpha`
 /// method in iOS; and, with just a little work, it can be easily formatted into
 /// a CSS `rgba()` string in JavaScript.
 ///
-/// This reference page doesn't carry information about the absolute color
-/// space
-/// that should be used to interpret the RGB value (e.g. sRGB, Adobe RGB,
-/// DCI-P3, BT.2020, etc.). By default, applications should assume the sRGB color
+/// This reference page doesn't have information about the absolute color
+/// space that should be used to interpret the RGB value—for example, sRGB,
+/// Adobe RGB,
+/// DCI-P3, and BT.2020. By default, applications should assume the sRGB color
 /// space.
 ///
-/// When color equality needs to be decided, implementations, unless
-/// documented otherwise, treat two colors as equal if all their red,
-/// green, blue, and alpha values each differ by at most 1e-5.
+/// When color equality needs to be decided, implementations, unless documented
+/// otherwise, treat two colors as equal if all their red, green, blue, and alpha
+/// values each differ by at most `1e-5`.
 ///
 /// Example (Java):
 ///
@@ -272,15 +272,20 @@ impl wkt::message::Message for Color {
 /// date is relative to the Gregorian Calendar. This can represent one of the
 /// following:
 ///
-/// * A full date, with non-zero year, month, and day values
-/// * A month and day value, with a zero year, such as an anniversary
-/// * A year on its own, with zero month and day values
-/// * A year and month value, with a zero day, such as a credit card expiration
-///   date
+/// * A full date, with non-zero year, month, and day values.
+/// * A month and day, with a zero year (for example, an anniversary).
+/// * A year on its own, with a zero month and a zero day.
+/// * A year and month, with a zero day (for example, a credit card expiration
+///   date).
 ///
-/// Related types are [google.type.TimeOfDay][google.type.TimeOfDay] and
-/// `google.protobuf.Timestamp`.
+/// Related types:
 ///
+/// * [google.type.TimeOfDay][google.type.TimeOfDay]
+/// * [google.type.DateTime][google.type.DateTime]
+/// * [google.protobuf.Timestamp][google.protobuf.Timestamp]
+///
+/// [google.protobuf.Timestamp]: wkt::Timestamp
+/// [google.type.DateTime]: crate::model::DateTime
 /// [google.type.TimeOfDay]: crate::model::TimeOfDay
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -362,8 +367,8 @@ impl wkt::message::Message for Date {
 ///
 /// The date is relative to the Proleptic Gregorian Calendar.
 ///
-/// If year is 0, the DateTime is considered not to have a specific year. month
-/// and day must have valid, non-zero values.
+/// If year, month, or day are 0, the DateTime is considered not to have a
+/// specific year, month, or day respectively.
 ///
 /// This type may also be used to represent a physical time if all the date and
 /// time fields are set and either case of the `time_offset` oneof is set.
@@ -380,27 +385,28 @@ pub struct DateTime {
     /// datetime without a year.
     pub year: i32,
 
-    /// Required. Month of year. Must be from 1 to 12.
+    /// Optional. Month of year. Must be from 1 to 12, or 0 if specifying a
+    /// datetime without a month.
     pub month: i32,
 
-    /// Required. Day of month. Must be from 1 to 31 and valid for the year and
-    /// month.
+    /// Optional. Day of month. Must be from 1 to 31 and valid for the year and
+    /// month, or 0 if specifying a datetime without a day.
     pub day: i32,
 
-    /// Required. Hours of day in 24 hour format. Should be from 0 to 23. An API
-    /// may choose to allow the value "24:00:00" for scenarios like business
-    /// closing time.
+    /// Optional. Hours of day in 24 hour format. Should be from 0 to 23, defaults
+    /// to 0 (midnight). An API may choose to allow the value "24:00:00" for
+    /// scenarios like business closing time.
     pub hours: i32,
 
-    /// Required. Minutes of hour of day. Must be from 0 to 59.
+    /// Optional. Minutes of hour of day. Must be from 0 to 59, defaults to 0.
     pub minutes: i32,
 
-    /// Required. Seconds of minutes of the time. Must normally be from 0 to 59. An
-    /// API may allow the value 60 if it allows leap-seconds.
+    /// Optional. Seconds of minutes of the time. Must normally be from 0 to 59,
+    /// defaults to 0. An API may allow the value 60 if it allows leap-seconds.
     pub seconds: i32,
 
-    /// Required. Fractions of seconds in nanoseconds. Must be from 0 to
-    /// 999,999,999.
+    /// Optional. Fractions of seconds in nanoseconds. Must be from 0 to
+    /// 999,999,999, defaults to 0.
     pub nanos: i32,
 
     /// Optional. Specifies either the UTC offset or the time zone of the DateTime.
@@ -626,10 +632,10 @@ pub mod date_time {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeZone {
-    /// IANA Time Zone Database time zone, e.g. "America/New_York".
+    /// IANA Time Zone Database time zone. For example "America/New_York".
     pub id: std::string::String,
 
-    /// Optional. IANA Time Zone Database version number, e.g. "2019a".
+    /// Optional. IANA Time Zone Database version number. For example "2019a".
     pub version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -672,13 +678,10 @@ impl wkt::message::Message for TimeZone {
 }
 
 /// A representation of a decimal value, such as 2.5. Clients may convert values
-/// into language-native decimal formats, such as Java's [BigDecimal][] or
-/// Python's [decimal.Decimal][].
-///
-/// [BigDecimal]:
-///  https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html
-/// [decimal.Decimal]:
-///  https://docs.python.org/3/library/decimal.html
+/// into language-native decimal formats, such as Java's
+/// [BigDecimal](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html)
+/// or Python's
+/// [decimal.Decimal](https://docs.python.org/3/library/decimal.html).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Decimal {
@@ -687,7 +690,7 @@ pub struct Decimal {
     /// The string representation consists of an optional sign, `+` (`U+002B`)
     /// or `-` (`U+002D`), followed by a sequence of zero or more decimal digits
     /// ("the integer"), optionally followed by a fraction, optionally followed
-    /// by an exponent.
+    /// by an exponent. An empty string **should** be interpreted as `0`.
     ///
     /// The fraction consists of a decimal point followed by zero or more decimal
     /// digits. The string must contain at least one digit in either the integer
@@ -701,12 +704,13 @@ pub struct Decimal {
     ///
     /// - Removing an explicitly-provided `+` sign (`+2.5` -> `2.5`).
     /// - Replacing a zero-length integer value with `0` (`.5` -> `0.5`).
-    /// - Coercing the exponent character to lower-case (`2.5E8` -> `2.5e8`).
-    /// - Removing an explicitly-provided zero exponent (`2.5e0` -> `2.5`).
+    /// - Coercing the exponent character to upper-case, with explicit sign
+    ///   (`2.5e8` -> `2.5E+8`).
+    /// - Removing an explicitly-provided zero exponent (`2.5E0` -> `2.5`).
     ///
     /// Services **may** perform additional normalization based on its own needs
     /// and the internal decimal implementation selected, such as shifting the
-    /// decimal point and exponent value together (example: `2.5e-1` <-> `0.25`).
+    /// decimal point and exponent value together (example: `2.5E-1` <-> `0.25`).
     /// Additionally, services **may** preserve trailing zeroes in the fraction
     /// to indicate increased precision, but are not required to do so.
     ///
@@ -719,7 +723,7 @@ pub struct Decimal {
     ///
     /// ```norust
     /// DecimalString =
-    ///   [Sign] Significand [Exponent];
+    ///   '' | [Sign] Significand [Exponent];
     ///
     /// Sign = '+' | '-';
     ///
@@ -1049,9 +1053,9 @@ impl wkt::message::Message for Interval {
 
 /// An object that represents a latitude/longitude pair. This is expressed as a
 /// pair of doubles to represent degrees latitude and degrees longitude. Unless
-/// specified otherwise, this must conform to the
-/// <a href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
-/// standard</a>. Values must be within normalized ranges.
+/// specified otherwise, this object must conform to the
+/// <a href="https://en.wikipedia.org/wiki/World_Geodetic_System#1984_version">
+/// WGS84 standard</a>. Values must be within normalized ranges.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LatLng {
@@ -1104,7 +1108,10 @@ impl wkt::message::Message for LatLng {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LocalizedText {
-    /// Localized string in the language corresponding to `language_code' below.
+    /// Localized string in the language corresponding to
+    /// [language_code][google.type.LocalizedText.language_code] below.
+    ///
+    /// [google.type.LocalizedText.language_code]: crate::model::LocalizedText::language_code
     pub text: std::string::String,
 
     /// The text's BCP-47 language code, such as "en-US" or "sr-Latn".
@@ -1240,13 +1247,15 @@ impl wkt::message::Message for Money {
 ///
 /// For instance, in Java this would be:
 ///
+/// ```norust
 /// com.google.type.PhoneNumber wireProto =
-/// com.google.type.PhoneNumber.newBuilder().build();
+///     com.google.type.PhoneNumber.newBuilder().build();
 /// com.google.i18n.phonenumbers.Phonenumber.PhoneNumber phoneNumber =
-/// PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
+///     PhoneNumberUtil.getInstance().parse(wireProto.getE164Number(), "ZZ");
 /// if (!wireProto.getExtension().isEmpty()) {
-/// phoneNumber.setExtension(wireProto.getExtension());
+///   phoneNumber.setExtension(wireProto.getExtension());
 /// }
+/// ```
 ///
 /// Reference(s):
 ///
@@ -1394,12 +1403,13 @@ pub mod phone_number {
     /// An object representing a short code, which is a phone number that is
     /// typically much shorter than regular phone numbers and can be used to
     /// address messages in MMS and SMS systems, as well as for abbreviated dialing
-    /// (e.g. "Text 611 to see how many minutes you have remaining on your plan.").
+    /// (For example "Text 611 to see how many minutes you have remaining on your
+    /// plan.").
     ///
     /// Short codes are restricted to a region and are not internationally
     /// dialable, which means the same short code can exist in different regions,
     /// with different usage and pricing, even if those regions share the same
-    /// country calling code (e.g. US and CA).
+    /// country calling code (For example: US and CA).
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ShortCode {
@@ -1412,7 +1422,7 @@ pub mod phone_number {
         pub region_code: std::string::String,
 
         /// Required. The short code digits, without a leading plus ('+') or country
-        /// calling code, e.g. "611".
+        /// calling code. For example "611".
         pub number: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1463,10 +1473,12 @@ pub mod phone_number {
         /// The phone number, represented as a leading plus sign ('+'), followed by a
         /// phone number that uses a relaxed ITU E.164 format consisting of the
         /// country calling code (1 to 3 digits) and the subscriber number, with no
-        /// additional spaces or formatting, e.g.:
+        /// additional spaces or formatting. For example:
         ///
         /// - correct: "+15552220123"
-        /// - incorrect: "+1 (555) 222-01234 x123".
+        ///
+        /// - incorrect: "+1 (555) 222-01234 x123"
+        ///
         ///
         /// The ITU E.164 format limits the latter to 12 digits, but in practice not
         /// all countries respect that, so we relax that restriction here.
@@ -1475,36 +1487,38 @@ pub mod phone_number {
         /// References:
         ///
         /// - <https://www.itu.int/rec/T-REC-E.164-201011-I>
+        ///
         /// - <https://en.wikipedia.org/wiki/E.164>.
+        ///
         /// - <https://en.wikipedia.org/wiki/List_of_country_calling_codes>
+        ///
         E164Number(std::string::String),
         /// A short code.
         ///
         /// Reference(s):
         ///
-        /// - <https://en.wikipedia.org/wiki/Short_code>
+        /// - <https://wikipedia.org/wiki/Short_code>
         ShortCode(std::boxed::Box<crate::model::phone_number::ShortCode>),
     }
 }
 
-/// Represents a postal address, e.g. for postal delivery or payments addresses.
-/// Given a postal address, a postal service can deliver items to a premise, P.O.
-/// Box or similar.
-/// It is not intended to model geographical locations (roads, towns,
-/// mountains).
+/// Represents a postal address, such as for postal delivery or payments
+/// addresses. With a postal address, a postal service can deliver items to a
+/// premise, P.O. box, or similar. A postal address is not intended to model
+/// geographical locations like roads, towns, or mountains.
 ///
-/// In typical usage an address would be created via user input or from importing
+/// In typical usage, an address would be created by user input or from importing
 /// existing data, depending on the type of process.
 ///
-/// Advice on address input / editing:
+/// Advice on address input or editing:
 ///
-/// - Use an i18n-ready address widget such as
-///   <https://github.com/google/libaddressinput>)
+/// - Use an internationalization-ready address widget such as
+///   <https://github.com/google/libaddressinput>.
 /// - Users should not be presented with UI elements for input or editing of
 ///   fields outside countries where that field is used.
 ///
-/// For more guidance on how to use this schema, please see:
-/// <https://support.google.com/business/answer/6397478>
+/// For more guidance on how to use this schema, see:
+/// <https://support.google.com/business/answer/6397478>.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PostalAddress {
@@ -1516,8 +1530,8 @@ pub struct PostalAddress {
 
     /// Required. CLDR region code of the country/region of the address. This
     /// is never inferred and it is up to the user to ensure the value is
-    /// correct. See <http://cldr.unicode.org/> and
-    /// <http://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>
+    /// correct. See <https://cldr.unicode.org/> and
+    /// <https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html>
     /// for details. Example: "CH" for Switzerland.
     pub region_code: std::string::String,
 
@@ -1537,55 +1551,56 @@ pub struct PostalAddress {
 
     /// Optional. Postal code of the address. Not all countries use or require
     /// postal codes to be present, but where they are used, they may trigger
-    /// additional validation with other parts of the address (e.g. state/zip
-    /// validation in the U.S.A.).
+    /// additional validation with other parts of the address (for example,
+    /// state or zip code validation in the United States).
     pub postal_code: std::string::String,
 
     /// Optional. Additional, country-specific, sorting code. This is not used
     /// in most regions. Where it is used, the value is either a string like
-    /// "CEDEX", optionally followed by a number (e.g. "CEDEX 7"), or just a number
-    /// alone, representing the "sector code" (Jamaica), "delivery area indicator"
-    /// (Malawi) or "post office indicator" (e.g. Côte d'Ivoire).
+    /// "CEDEX", optionally followed by a number (for example, "CEDEX 7"), or just
+    /// a number alone, representing the "sector code" (Jamaica), "delivery area
+    /// indicator" (Malawi) or "post office indicator" (Côte d'Ivoire).
     pub sorting_code: std::string::String,
 
     /// Optional. Highest administrative subdivision which is used for postal
     /// addresses of a country or region.
     /// For example, this can be a state, a province, an oblast, or a prefecture.
-    /// Specifically, for Spain this is the province and not the autonomous
-    /// community (e.g. "Barcelona" and not "Catalonia").
-    /// Many countries don't use an administrative area in postal addresses. E.g.
-    /// in Switzerland this should be left unpopulated.
+    /// For Spain, this is the province and not the autonomous
+    /// community (for example, "Barcelona" and not "Catalonia").
+    /// Many countries don't use an administrative area in postal addresses. For
+    /// example, in Switzerland, this should be left unpopulated.
     pub administrative_area: std::string::String,
 
-    /// Optional. Generally refers to the city/town portion of the address.
+    /// Optional. Generally refers to the city or town portion of the address.
     /// Examples: US city, IT comune, UK post town.
     /// In regions of the world where localities are not well defined or do not fit
-    /// into this structure well, leave locality empty and use address_lines.
+    /// into this structure well, leave `locality` empty and use `address_lines`.
     pub locality: std::string::String,
 
     /// Optional. Sublocality of the address.
-    /// For example, this can be neighborhoods, boroughs, districts.
+    /// For example, this can be a neighborhood, borough, or district.
     pub sublocality: std::string::String,
 
     /// Unstructured address lines describing the lower levels of an address.
     ///
-    /// Because values in address_lines do not have type information and may
-    /// sometimes contain multiple values in a single field (e.g.
+    /// Because values in `address_lines` do not have type information and may
+    /// sometimes contain multiple values in a single field (for example,
     /// "Austin, TX"), it is important that the line order is clear. The order of
-    /// address lines should be "envelope order" for the country/region of the
-    /// address. In places where this can vary (e.g. Japan), address_language is
-    /// used to make it explicit (e.g. "ja" for large-to-small ordering and
-    /// "ja-Latn" or "en" for small-to-large). This way, the most specific line of
-    /// an address can be selected based on the language.
+    /// address lines should be "envelope order" for the country or region of the
+    /// address. In places where this can vary (for example, Japan),
+    /// `address_language` is used to make it explicit (for example, "ja" for
+    /// large-to-small ordering and "ja-Latn" or "en" for small-to-large). In this
+    /// way, the most specific line of an address can be selected based on the
+    /// language.
     ///
     /// The minimum permitted structural representation of an address consists
-    /// of a region_code with all remaining information placed in the
-    /// address_lines. It would be possible to format such an address very
+    /// of a `region_code` with all remaining information placed in the
+    /// `address_lines`. It would be possible to format such an address very
     /// approximately without geocoding, but no semantic reasoning could be
     /// made about any of the address components until it was at least
     /// partially resolved.
     ///
-    /// Creating an address only containing a region_code and address_lines, and
+    /// Creating an address only containing a `region_code` and `address_lines` and
     /// then geocoding is the recommended way to handle completely unstructured
     /// addresses (as opposed to guessing which parts of the address should be
     /// localities or administrative areas).
@@ -1759,6 +1774,8 @@ impl wkt::message::Message for PostalAddress {
     }
 }
 
+/// A quaternion, represented by four 64-bit floating point values.
+///
 /// A quaternion is defined as the quotient of two directed lines in a
 /// three-dimensional space or equivalently as the quotient of two Euclidean
 /// vectors (<https://en.wikipedia.org/wiki/Quaternion>).
@@ -1778,7 +1795,7 @@ impl wkt::message::Message for PostalAddress {
 /// where x, y, z, and w are real numbers, and i, j, and k are three imaginary
 /// numbers.
 ///
-/// Our naming choice `(x, y, z, w)` comes from the desire to avoid confusion for
+/// The naming choice `(x, y, z, w)` comes from the desire to avoid confusion for
 /// those interested in the geometric properties of the quaternion in the 3D
 /// Cartesian space. Other texts often use alternative names or subscripts, such
 /// as `(a, b, c, d)`, `(1, i, j, k)`, or `(0, 1, 2, 3)`, which are perhaps
@@ -1905,18 +1922,22 @@ impl wkt::message::Message for Quaternion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeOfDay {
-    /// Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
-    /// to allow the value "24:00:00" for scenarios like business closing time.
+    /// Hours of a day in 24 hour format. Must be greater than or equal to 0 and
+    /// typically must be less than or equal to 23. An API may choose to allow the
+    /// value "24:00:00" for scenarios like business closing time.
     pub hours: i32,
 
-    /// Minutes of hour of day. Must be from 0 to 59.
+    /// Minutes of an hour. Must be greater than or equal to 0 and less than or
+    /// equal to 59.
     pub minutes: i32,
 
-    /// Seconds of minutes of the time. Must normally be from 0 to 59. An API may
-    /// allow the value 60 if it allows leap-seconds.
+    /// Seconds of a minute. Must be greater than or equal to 0 and typically must
+    /// be less than or equal to 59. An API may allow the value 60 if it allows
+    /// leap-seconds.
     pub seconds: i32,
 
-    /// Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+    /// Fractions of seconds, in nanoseconds. Must be greater than or equal to 0
+    /// and less than or equal to 999,999,999.
     pub nanos: i32,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

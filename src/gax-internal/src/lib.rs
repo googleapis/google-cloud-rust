@@ -63,6 +63,9 @@ pub mod routing_parameter;
 #[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 pub(crate) mod host;
 
+#[cfg(feature = "_internal-common")]
+pub(crate) mod universe_domain;
+
 #[cfg(feature = "_internal-grpc-client")]
 pub(crate) mod google {
     pub mod rpc {

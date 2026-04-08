@@ -105,4 +105,19 @@ mod spanner {
     async fn run_concurrent_inline_begin_tests() -> anyhow::Result<()> {
         integration_tests_spanner::concurrent_inline_begin::test_concurrent_inline_begin_with_snapshot_consistency().await
     }
+
+    #[tokio::test]
+    async fn run_batch_read_only_transaction_tests() -> anyhow::Result<()> {
+        let db_client = match integration_tests_spanner::client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::batch_read_only_transaction::partitioned_query(&db_client)
+            .await?;
+        integration_tests_spanner::batch_read_only_transaction::partitioned_read(&db_client)
+            .await?;
+
+        Ok(())
+    }
 }

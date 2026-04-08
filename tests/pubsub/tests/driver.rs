@@ -86,7 +86,6 @@ mod pubsub {
         result
     }
 
-    #[ignore = "TODO(#5063) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn run_exactly_once_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();

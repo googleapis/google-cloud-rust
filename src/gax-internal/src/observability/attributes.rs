@@ -34,6 +34,7 @@ pub mod keys {
     pub const OTEL_STATUS_DESCRIPTION: &str = "otel.status_description";
 
     /// The string representation of the gRPC status code.
+    #[allow(dead_code)]
     pub const GRPC_STATUS: &str = "grpc.status";
 
     /// The Remote Procedure Call (RPC) system.
@@ -74,19 +75,16 @@ pub mod keys {
     ///
     /// Example: google-cloud-storage
     pub const GCP_CLIENT_ARTIFACT: &str = "gcp.client.artifact";
-    /// The client library language.
-    ///
-    /// Always "rust".
-    pub const GCP_CLIENT_LANGUAGE: &str = "gcp.client.language";
     /// The Google Cloud resource name.
     ///
     /// Example: //pubsub.googleapis.com/projects/my-project/topics/my-topic
-    pub const GCP_RESOURCE_NAME: &str = "gcp.resource.name";
+    pub const GCP_RESOURCE_DESTINATION_ID: &str = "gcp.resource.destination.id";
     /// The OpenTelemetry Schema URL indicating the schema used for the telemetry.
     pub const GCP_SCHEMA_URL: &str = "gcp.schema.url";
     /// The number of times this same gRPC request has been resent due to retries.
     ///
     /// 1 for the first retry.
+    #[cfg(feature = "_internal-grpc-client")]
     pub const GCP_GRPC_RESEND_COUNT: &str = "gcp.grpc.resend_count";
     /// The Google Cloud error domain.
     ///
@@ -101,22 +99,20 @@ pub mod keys {
     // macro.
     pub use opentelemetry_semantic_conventions::trace::{
         ERROR_TYPE, HTTP_REQUEST_METHOD, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE,
-        RPC_METHOD, RPC_SYSTEM, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
+        RPC_METHOD, SERVER_ADDRESS, SERVER_PORT, URL_FULL,
     };
 }
 
 /// Value for [keys::OTEL_KIND].
 pub const OTEL_KIND_CLIENT: &str = "Client";
-/// Value for [keys::OTEL_KIND].
-pub const OTEL_KIND_INTERNAL: &str = "Internal";
 /// Value for `rpc.system`.
+#[allow(dead_code)]
 pub const RPC_SYSTEM_HTTP: &str = "http";
 /// Value for `rpc.system`.
+#[cfg(feature = "_internal-grpc-client")]
 pub const RPC_SYSTEM_GRPC: &str = "grpc";
-/// Value for [keys::GCP_CLIENT_REPO].
+/// The GitHub repository hosting the client libraries.
 pub const GCP_CLIENT_REPO_GOOGLEAPIS: &str = "googleapis/google-cloud-rust";
-/// Value for [keys::GCP_CLIENT_LANGUAGE].
-pub const GCP_CLIENT_LANGUAGE_RUST: &str = "rust";
 /// The OpenTelemetry Schema URL.
 pub const SCHEMA_URL_VALUE: &str = "https://opentelemetry.io/schemas/1.39.0";
 
@@ -128,6 +124,7 @@ pub mod error_type_values {
     /// A client-configured timeout was reached.
     pub const CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";
     /// The operation was cancelled by the caller.
+    #[cfg(feature = "_internal-grpc-client")]
     pub const CLIENT_CANCELLED: &str = "CLIENT_CANCELLED";
     /// Failure to establish the network connection (DNS, TCP, TLS).
     pub const CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";

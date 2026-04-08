@@ -329,7 +329,7 @@ impl TokenProvider for MDSTokenProvider {
         let licenses = self.licenses.clone();
         let aud = self.target_audience.clone();
 
-        let token = self.client.id_token(&aud, format, licenses).await?;
+        let token = self.client.id_token(&aud, format, licenses).send().await?;
 
         parse_id_token_from_str(token)
     }

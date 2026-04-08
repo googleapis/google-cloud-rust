@@ -53,6 +53,12 @@ pub trait CloudRedisCluster: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CertificateAuthority>>;
 
+    async fn get_shared_regional_certificate_authority(
+        &self,
+        req: crate::model::GetSharedRegionalCertificateAuthorityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SharedRegionalCertificateAuthority>>;
+
     async fn reschedule_cluster_maintenance(
         &self,
         req: crate::model::RescheduleClusterMaintenanceRequest,
@@ -203,6 +209,15 @@ impl<T: super::CloudRedisCluster> CloudRedisCluster for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CertificateAuthority>> {
         T::get_cluster_certificate_authority(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_shared_regional_certificate_authority(
+        &self,
+        req: crate::model::GetSharedRegionalCertificateAuthorityRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SharedRegionalCertificateAuthority>> {
+        T::get_shared_regional_certificate_authority(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260306" revision of the API.
+//! This client library was generated from the "20260320" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -87,6 +87,7 @@
 //! * [PublicAdvertisedPrefixes](client/struct.PublicAdvertisedPrefixes.html)
 //! * [PublicDelegatedPrefixes](client/struct.PublicDelegatedPrefixes.html)
 //! * [RegionAutoscalers](client/struct.RegionAutoscalers.html)
+//! * [RegionBackendBuckets](client/struct.RegionBackendBuckets.html)
 //! * [RegionBackendServices](client/struct.RegionBackendServices.html)
 //! * [RegionCommitments](client/struct.RegionCommitments.html)
 //! * [RegionCompositeHealthChecks](client/struct.RegionCompositeHealthChecks.html)
@@ -255,6 +256,7 @@ pub(crate) mod transport;
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
     feature = "region-autoscalers",
+    feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-composite-health-checks",
@@ -376,6 +378,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "public-advertised-prefixes",
     feature = "public-delegated-prefixes",
     feature = "region-autoscalers",
+    feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-composite-health-checks",

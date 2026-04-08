@@ -296,6 +296,8 @@ impl ::prost::Name for CppSettings {
 pub struct PhpSettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
+    #[prost(string, tag = "2")]
+    pub library_package: ::prost::alloc::string::String,
 }
 impl ::prost::Name for PhpSettings {
     const NAME: &'static str = "PhpSettings";
@@ -439,6 +441,8 @@ pub struct MethodSettings {
     pub long_running: ::core::option::Option<method_settings::LongRunning>,
     #[prost(string, repeated, tag = "3")]
     pub auto_populated_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(message, optional, tag = "4")]
+    pub batching: ::core::option::Option<BatchingConfigProto>,
 }
 /// Nested message and enum types in `MethodSettings`.
 pub mod method_settings {
@@ -489,6 +493,71 @@ impl ::prost::Name for SelectiveGapicGeneration {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.api.SelectiveGapicGeneration".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BatchingConfigProto {
+    #[prost(message, optional, tag = "1")]
+    pub thresholds: ::core::option::Option<BatchingSettingsProto>,
+    #[prost(message, optional, tag = "2")]
+    pub batch_descriptor: ::core::option::Option<BatchingDescriptorProto>,
+}
+impl ::prost::Name for BatchingConfigProto {
+    const NAME: &'static str = "BatchingConfigProto";
+    const PACKAGE: &'static str = "google.api";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.api.BatchingConfigProto".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.api.BatchingConfigProto".into()
+    }
+}
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct BatchingSettingsProto {
+    #[prost(int32, tag = "1")]
+    pub element_count_threshold: i32,
+    #[prost(int64, tag = "2")]
+    pub request_byte_threshold: i64,
+    #[prost(message, optional, tag = "3")]
+    pub delay_threshold: ::core::option::Option<::prost_types::Duration>,
+    #[prost(int32, tag = "4")]
+    pub element_count_limit: i32,
+    #[prost(int32, tag = "5")]
+    pub request_byte_limit: i32,
+    #[prost(int32, tag = "6")]
+    pub flow_control_element_limit: i32,
+    #[prost(int32, tag = "7")]
+    pub flow_control_byte_limit: i32,
+    #[prost(enumeration = "FlowControlLimitExceededBehaviorProto", tag = "8")]
+    pub flow_control_limit_exceeded_behavior: i32,
+}
+impl ::prost::Name for BatchingSettingsProto {
+    const NAME: &'static str = "BatchingSettingsProto";
+    const PACKAGE: &'static str = "google.api";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.api.BatchingSettingsProto".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.api.BatchingSettingsProto".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BatchingDescriptorProto {
+    #[prost(string, tag = "1")]
+    pub batched_field: ::prost::alloc::string::String,
+    #[prost(string, repeated, tag = "2")]
+    pub discriminator_fields: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag = "3")]
+    pub subresponse_field: ::prost::alloc::string::String,
+}
+impl ::prost::Name for BatchingDescriptorProto {
+    const NAME: &'static str = "BatchingDescriptorProto";
+    const PACKAGE: &'static str = "google.api";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.api.BatchingDescriptorProto".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.api.BatchingDescriptorProto".into()
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -560,6 +629,38 @@ impl ClientLibraryDestination {
             "CLIENT_LIBRARY_DESTINATION_UNSPECIFIED" => Some(Self::Unspecified),
             "GITHUB" => Some(Self::Github),
             "PACKAGE_MANAGER" => Some(Self::PackageManager),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FlowControlLimitExceededBehaviorProto {
+    UnsetBehavior = 0,
+    ThrowException = 1,
+    Block = 2,
+    Ignore = 3,
+}
+impl FlowControlLimitExceededBehaviorProto {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::UnsetBehavior => "UNSET_BEHAVIOR",
+            Self::ThrowException => "THROW_EXCEPTION",
+            Self::Block => "BLOCK",
+            Self::Ignore => "IGNORE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "UNSET_BEHAVIOR" => Some(Self::UnsetBehavior),
+            "THROW_EXCEPTION" => Some(Self::ThrowException),
+            "BLOCK" => Some(Self::Block),
+            "IGNORE" => Some(Self::Ignore),
             _ => None,
         }
     }

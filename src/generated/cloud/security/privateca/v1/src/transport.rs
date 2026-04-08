@@ -34,7 +34,15 @@ impl std::fmt::Debug for CertificateAuthorityService {
 
 impl CertificateAuthorityService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -50,7 +58,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -64,7 +72,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificates", var_parent,);
+                let path_template = "/v1/{parent}/certificates";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("certificateId", &req.certificate_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
@@ -74,7 +84,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     &req.issuing_certificate_authority_id,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -97,6 +107,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -119,7 +138,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -135,10 +154,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -163,6 +184,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -185,7 +215,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -199,14 +229,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificates", var_parent,);
+                let path_template = "/v1/{parent}/certificates";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -229,6 +261,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificates")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -251,7 +292,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -267,10 +308,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:revoke", var_name,);
+                let path_template = "/v1/{name}:revoke";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -295,6 +338,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/RevokeCertificate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -317,7 +369,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_certificate_name = try_match(
                     Some(&req)
@@ -336,6 +388,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_certificate_name,);
+                let path_template = "/v1/{certificate.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -352,7 +405,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -380,6 +433,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificate")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -402,7 +463,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -418,10 +479,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:activate", var_name,);
+                let path_template = "/v1/{name}:activate";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -446,6 +509,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ActivateCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -468,7 +540,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -482,13 +554,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificateAuthorities", var_parent,);
+                let path_template = "/v1/{parent}/certificateAuthorities";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("certificateAuthorityId", &req.certificate_authority_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -511,6 +585,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -533,7 +616,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -549,10 +632,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:disable", var_name,);
+                let path_template = "/v1/{name}:disable";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -577,6 +662,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/DisableCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -599,7 +693,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -615,10 +709,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:enable", var_name,);
+                let path_template = "/v1/{name}:enable";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -643,6 +739,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/EnableCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -665,7 +770,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -681,10 +786,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:fetch", var_name,);
+                let path_template = "/v1/{name}:fetch";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -709,6 +816,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/FetchCertificateAuthorityCsr")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -731,7 +847,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -747,10 +863,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -775,6 +893,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -797,7 +924,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -811,14 +938,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificateAuthorities", var_parent,);
+                let path_template = "/v1/{parent}/certificateAuthorities";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -841,6 +970,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateAuthorities")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -863,7 +1001,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -879,10 +1017,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:undelete", var_name,);
+                let path_template = "/v1/{name}:undelete";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -907,6 +1047,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UndeleteCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -929,7 +1078,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -945,7 +1094,9 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder =
@@ -954,7 +1105,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder =
                     builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -979,6 +1130,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCertificateAuthority")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1001,7 +1161,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_certificate_authority_name = try_match(
                     Some(&req)
@@ -1020,6 +1180,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_certificate_authority_name,);
+                let path_template = "/v1/{certificate_authority.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1036,7 +1197,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1064,6 +1225,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateAuthority")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1086,7 +1255,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1098,12 +1267,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/caPools", var_parent,);
+                let path_template = "/v1/{parent}/caPools";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("caPoolId", &req.ca_pool_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1124,6 +1295,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCaPool")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1146,7 +1326,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_ca_pool_name = try_match(
                     Some(&req)
@@ -1163,6 +1343,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_ca_pool_name,);
+                let path_template = "/v1/{ca_pool.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1179,7 +1360,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1205,6 +1386,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCaPool")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1227,7 +1416,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1241,10 +1430,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1267,6 +1458,17 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method(
+                        "google.cloud.security.privateca.v1.CertificateAuthorityService/GetCaPool",
+                    )
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1289,7 +1491,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1301,14 +1503,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/caPools", var_parent,);
+                let path_template = "/v1/{parent}/caPools";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1329,6 +1533,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ListCaPools")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1351,7 +1564,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1365,13 +1578,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder =
                     builder.query(&[("ignoreDependentResources", &req.ignore_dependent_resources)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1394,6 +1609,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCaPool")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1416,7 +1640,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_ca_pool = try_match(
                     Some(&req).map(|m| &m.ca_pool).map(|s| s.as_str()),
@@ -1430,10 +1654,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:fetchCaCerts", var_ca_pool,);
+                let path_template = "/v1/{ca_pool}:fetchCaCerts";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_ca_pool,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1456,6 +1682,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/FetchCaCerts")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1478,17 +1713,22 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard, Segment::Literal("/certificateAuthorities/"), Segment::SingleWildcard, Segment::Literal("/certificateRevocationLists/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v1/{}",
                 var_name,
             );
+            let path_template = "/v1/{name}";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_name,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1503,6 +1743,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateRevocationList")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1525,7 +1774,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1541,14 +1790,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificateRevocationLists", var_parent,);
+                let path_template = "/v1/{parent}/certificateRevocationLists";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1573,6 +1824,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateRevocationLists")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1595,13 +1855,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
         .or_else(|| {
             let var_certificate_revocation_list_name = try_match(Some(&req).and_then(|m| m.certificate_revocation_list.as_ref()).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard, Segment::Literal("/certificateAuthorities/"), Segment::SingleWildcard, Segment::Literal("/certificateRevocationLists/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v1/{}",
                 var_certificate_revocation_list_name,
             );
+            let path_template = "/v1/{certificate_revocation_list.name}";
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -1609,7 +1870,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::PATCH)))
+            Some(builder.map(|b| (b, Method::PATCH, path_template)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1624,6 +1885,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateRevocationList")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1646,7 +1915,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1658,13 +1927,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificateTemplates", var_parent,);
+                let path_template = "/v1/{parent}/certificateTemplates";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::POST, path);
                 let builder =
                     builder.query(&[("certificateTemplateId", &req.certificate_template_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1685,6 +1956,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificateTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1707,7 +1987,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1721,11 +2001,13 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1748,6 +2030,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCertificateTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1770,7 +2061,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1784,10 +2075,12 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_name,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1810,6 +2103,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateTemplate")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1832,7 +2134,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1844,14 +2146,16 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/certificateTemplates", var_parent,);
+                let path_template = "/v1/{parent}/certificateTemplates";
 
+                let resource_name = format!("//privateca.googleapis.com/{}", var_parent,);
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1872,6 +2176,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateTemplates")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1894,7 +2207,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_certificate_template_name = try_match(
                     Some(&req)
@@ -1911,6 +2224,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_certificate_template_name,);
+                let path_template = "/v1/{certificate_template.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1927,7 +2241,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1953,6 +2267,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateTemplate")
+                    .set_url_template(_path_template)
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1975,20 +2297,21 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2004,6 +2327,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/ListLocations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2026,7 +2357,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2038,10 +2369,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2062,6 +2394,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.cloud.location.Locations/GetLocation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2084,17 +2424,22 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v1/{}:setIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:setIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/certificateTemplates/"), Segment::SingleWildcard])?;
@@ -2102,10 +2447,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:setIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:setIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard, Segment::Literal("/certificateAuthorities/"), Segment::SingleWildcard, Segment::Literal("/certificateRevocationLists/"), Segment::SingleWildcard])?;
@@ -2113,10 +2463,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:setIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:setIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2149,6 +2504,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/SetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2171,20 +2535,25 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v1/{}:getIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:getIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
                 let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/certificateTemplates/"), Segment::SingleWildcard])?;
@@ -2192,13 +2561,18 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:getIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:getIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
                 let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard, Segment::Literal("/certificateAuthorities/"), Segment::SingleWildcard, Segment::Literal("/certificateRevocationLists/"), Segment::SingleWildcard])?;
@@ -2206,13 +2580,18 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:getIamPolicy",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:getIamPolicy";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::GET, path);
             let builder = (|| {
                 let builder = req.options.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "options") });
                 Ok(builder)
             })();
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2245,6 +2624,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/GetIamPolicy")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2267,17 +2655,22 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template, _resource_name) = None
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard])?;
             let path = format!(
                 "/v1/{}:testIamPermissions",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:testIamPermissions";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/certificateTemplates/"), Segment::SingleWildcard])?;
@@ -2285,10 +2678,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:testIamPermissions",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:testIamPermissions";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .or_else(|| {
             let var_resource = try_match(Some(&req).map(|m| &m.resource).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/caPools/"), Segment::SingleWildcard, Segment::Literal("/certificateAuthorities/"), Segment::SingleWildcard, Segment::Literal("/certificateRevocationLists/"), Segment::SingleWildcard])?;
@@ -2296,10 +2694,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 "/v1/{}:testIamPermissions",
                 var_resource,
             );
+            let path_template = "/v1/{resource}:testIamPermissions";
 
+            let resource_name = format!(
+                "//privateca.googleapis.com/{}",
+                var_resource,
+            );
             let builder = self.inner.builder(Method::POST, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::POST)))
+            Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2332,6 +2735,15 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.iam.v1.IAMPolicy/TestIamPermissions")
+                    .set_url_template(_path_template)
+                    .set_resource_name(_resource_name),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2354,7 +2766,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2366,6 +2778,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2374,7 +2787,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2395,6 +2808,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/ListOperations")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2417,7 +2838,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2431,10 +2852,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2457,6 +2879,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/GetOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2479,7 +2909,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2493,10 +2923,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2519,6 +2950,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/DeleteOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2547,7 +2986,7 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2561,10 +3000,11 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                     ],
                 )?;
                 let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2587,6 +3027,14 @@ impl super::stub::CertificateAuthorityService for CertificateAuthorityService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
+            recorder.on_client_request(
+                gaxi::observability::ClientRequestAttributes::default()
+                    .set_rpc_method("google.longrunning.Operations/CancelOperation")
+                    .set_url_template(_path_template),
+            );
+        }
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
