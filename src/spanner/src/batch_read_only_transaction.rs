@@ -16,7 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::model::PartitionOptions;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::{
-    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder,
+    MultiUseReadOnlyTransaction, MultiUseReadOnlyTransactionBuilder, ReadContextTransactionSelector,
 };
 use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
@@ -44,7 +44,8 @@ pub struct BatchReadOnlyTransactionBuilder {
 impl BatchReadOnlyTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
         Self {
-            inner: MultiUseReadOnlyTransactionBuilder::new(client),
+            inner: MultiUseReadOnlyTransactionBuilder::new(client)
+                .with_explicit_begin_transaction(true),
         }
     }
 
@@ -143,12 +144,13 @@ impl BatchReadOnlyTransaction {
         statement: T,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
+        let selector = self.inner.context.transaction_selector.selector().await?;
         let statement = statement.into();
         let request = statement
             .clone()
             .into_partition_query_request()
             .set_session(self.inner.context.client.session.name.clone())
-            .set_transaction(self.inner.context.transaction_selector.clone())
+            .set_transaction(selector.clone())
             .set_partition_options(options);
 
         let response = self
@@ -165,7 +167,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| Partition {
                 inner: PartitionedOperation::Query {
                     partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.clone(),
+                    transaction_selector: selector.clone(),
                     session_name: self.inner.context.client.session.name.clone(),
                     statement: statement.clone(),
                 },
@@ -198,12 +200,13 @@ impl BatchReadOnlyTransaction {
         read: T,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
+        let selector = self.inner.context.transaction_selector.selector().await?;
         let read = read.into();
         let request = read
             .clone()
             .into_partition_read_request()
             .set_session(self.inner.context.client.session.name.clone())
-            .set_transaction(self.inner.context.transaction_selector.clone())
+            .set_transaction(selector.clone())
             .set_partition_options(options);
 
         let response = self
@@ -220,7 +223,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| Partition {
                 inner: PartitionedOperation::Read {
                     partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.clone(),
+                    transaction_selector: selector.clone(),
                     session_name: self.inner.context.client.session.name.clone(),
                     read_request: read.clone(),
                 },
@@ -344,6 +347,10 @@ impl Partition {
 
         Ok(ResultSet::new(
             stream,
+            Some(ReadContextTransactionSelector::Fixed(
+                transaction_selector.clone(),
+                None,
+            )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
             StreamOperation::Query(request),
@@ -373,6 +380,10 @@ impl Partition {
 
         Ok(ResultSet::new(
             stream,
+            Some(ReadContextTransactionSelector::Fixed(
+                transaction_selector.clone(),
+                None,
+            )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
             StreamOperation::Read(request),
