@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::errors::{self, CredentialsError};
+use crate::errors::CredentialsError;
 use crate::token::Token;
-use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
-use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicyArg};
 use google_cloud_gax::retry_throttler::{
     AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
 };
@@ -123,31 +121,11 @@ impl Client {
         &self,
         request: reqwest::RequestBuilder,
         error_message: &'static str,
-    ) -> crate::Result<reqwest::Response> {
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
-
-        let response = Self::check_response_status(response, error_message).await?;
-
-        Ok(response)
-    }
-
-    async fn send_with_retry(
-        &self,
-        request: reqwest::RequestBuilder,
-        error_message: &'static str,
         retry_config: RetryConfig,
     ) -> crate::Result<reqwest::Response> {
         let sleep = async |d| tokio::time::sleep(d).await;
 
-        if !retry_config.has_retry_config() {
-            return self.send(request, error_message).await;
-        }
-
-        let (retry_policy, backoff_policy, retry_throttler) = retry_config.build();
-
+        let error_message_str = error_message.to_string().clone();
         retry_loop(
             async move |_| {
                 let req = request
@@ -158,94 +136,71 @@ impl Client {
                     .await
                     .map_err(google_cloud_gax::error::Error::io)?;
 
-                let status = response.status();
-                if !status.is_success() {
-                    let err_headers = response.headers().clone();
-                    let err_payload = response.bytes().await.map_err(|e| {
-                        google_cloud_gax::error::Error::transport(err_headers.clone(), e)
-                    })?;
-                    return Err(google_cloud_gax::error::Error::http(
-                        status.as_u16(),
-                        err_headers,
-                        err_payload,
-                    ));
-                }
+                let response = Self::check_response_status(response, error_message_str.clone()).await?;
 
                 Ok(response)
             },
             sleep,
             true, // GET requests are idempotent
-            retry_throttler,
-            retry_policy,
-            backoff_policy,
+            retry_config.retry_throttler,
+            retry_config.retry_policy.into(),
+            retry_config.backoff_policy.into(),
         )
         .await
-        .map_err(|e| errors::CredentialsError::new(false, error_message, e))
+        .map_err(|e| crate::errors::from_gax_error(e, error_message))
     }
 
     async fn check_response_status(
         response: reqwest::Response,
-        error_message: &str,
-    ) -> crate::Result<reqwest::Response> {
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, error_message).await;
-            Err(err)
-        } else {
-            Ok(response)
+        error_message: String,
+    ) -> Result<reqwest::Response, google_cloud_gax::error::Error> {
+        let status = response.status();
+        if !status.is_success() {
+            let err_headers = response.headers().clone();
+            let err_payload = response
+                .bytes()
+                .await
+                .map_err(|e| google_cloud_gax::error::Error::transport(err_headers.clone(), e))?;
+            return Err(google_cloud_gax::error::Error::http(
+                status.as_u16(),
+                err_headers,
+                format!("{error_message} :{err_payload:?}").into(),
+            ));
         }
+        Ok(response)
     }
 }
-#[derive(Clone, Default)]
+#[derive(Clone)]
 struct RetryConfig {
-    retry_policy: Option<RetryPolicyArg>,
-    backoff_policy: Option<BackoffPolicyArg>,
-    retry_throttler: Option<RetryThrottlerArg>,
+    retry_policy: RetryPolicyArg,
+    backoff_policy: BackoffPolicyArg,
+    retry_throttler: SharedRetryThrottler,
+}
+
+impl Default for RetryConfig {
+    fn default() -> Self {
+        Self {
+            retry_policy: NeverRetry.into(),
+            backoff_policy: ExponentialBackoff::default().into(),
+            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        }
+    }
 }
 
 impl RetryConfig {
     fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
-        self.retry_policy = Some(retry_policy);
+        self.retry_policy = retry_policy;
         self
     }
 
     fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
-        self.backoff_policy = Some(backoff_policy);
+        self.backoff_policy = backoff_policy;
         self
     }
 
     fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
-        self.retry_throttler = Some(retry_throttler);
+        self.retry_throttler = retry_throttler.into();
         self
-    }
-
-    fn has_retry_config(&self) -> bool {
-        self.retry_policy.is_some()
-            || self.backoff_policy.is_some()
-            || self.retry_throttler.is_some()
-    }
-
-    fn build(
-        self,
-    ) -> (
-        Arc<dyn RetryPolicy>,
-        Arc<dyn BackoffPolicy>,
-        SharedRetryThrottler,
-    ) {
-        let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
-            Some(p) => p.into(),
-            None => Arc::new(ExponentialBackoff::default()),
-        };
-        let retry_throttler: SharedRetryThrottler = match self.retry_throttler {
-            Some(p) => p.into(),
-            None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
-        };
-
-        let retry_policy = self
-            .retry_policy
-            .unwrap_or_else(|| Aip194Strict.with_time_limit(Duration::from_secs(60)).into())
-            .into();
-
-        (retry_policy, backoff_policy, retry_throttler)
     }
 }
 
@@ -273,7 +228,10 @@ impl AccessTokenRequest {
         // running on MDS environments and not useful if there is no MDS. We will mark the error
         // as retryable and let the retry policy determine whether to retry or not. Whenever we
         // define a default retry policy, we can skip retrying this case.
-        let response = self.client.send(request, error_message).await?;
+        let response = self
+            .client
+            .send(request, error_message, RetryConfig::default())
+            .await?;
 
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             // Decoding errors are not transient. Typically they indicate a badly
@@ -318,7 +276,10 @@ impl IdTokenRequest {
         });
 
         let error_message = "failed to fetch id token";
-        let response = self.client.send(request, error_message).await?;
+        let response = self
+            .client
+            .send(request, error_message, RetryConfig::default())
+            .await?;
 
         let token = response
             .text()
@@ -340,7 +301,10 @@ impl EmailRequest {
         let request = self.client.get(&path);
         let error_message = "failed to fetch email";
 
-        let response = self.client.send(request, error_message).await?;
+        let response = self
+            .client
+            .send(request, error_message, RetryConfig::default())
+            .await?;
 
         let email = response
             .text()
@@ -385,7 +349,7 @@ impl UniverseDomainRequest {
 
         let response = self
             .client
-            .send_with_retry(request, error_message, self.retry_config)
+            .send(request, error_message, self.retry_config)
             .await?;
 
         let universe_domain = response
@@ -402,7 +366,7 @@ mod tests {
     use super::*;
     use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-    use google_cloud_gax::retry_policy::AlwaysRetry;
+    use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};

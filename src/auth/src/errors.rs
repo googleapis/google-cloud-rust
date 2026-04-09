@@ -73,6 +73,22 @@ impl SubjectTokenProviderError for CredentialsError {
     }
 }
 
+pub(crate) fn from_gax_error(err: google_cloud_gax::error::Error, msg: &str) -> CredentialsError {
+    let transient = match err.source() {
+        Some(s) => {
+            if let Some(cred_err) = s.downcast_ref::<CredentialsError>() {
+                cred_err.is_transient()
+            } else if let Some(req_err) = s.downcast_ref::<reqwest::Error>() {
+                self::is_retryable(req_err)
+            } else {
+                false
+            }
+        },
+        None => false,
+    };
+    CredentialsError::new(transient, msg, err)
+}
+
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);
     CredentialsError::new(transient, msg, err)
