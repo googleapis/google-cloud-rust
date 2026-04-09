@@ -12,26 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::retry_result::RetryResult;
 use crate::retry_state::RetryState;
 use crate::throttle_result::ThrottleResult;
 
-use super::Result;
 use super::backoff_policy::BackoffPolicy;
-use super::error::Error;
-use super::retry_policy::RetryPolicy;
-use super::retry_result::RetryResult;
-use super::retry_throttler::RetryThrottler;
+use super::retry_policy::RetryPolicyGeneric;
+use super::retry_throttler::RetryThrottlerGeneric;
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-enum RetryLoopAttempt {
+enum RetryLoopAttempt<E> {
     // The first attempt
     Initial,
     // (Attempt count, backoff delay, previous error)
-    Retry(u32, Duration, Error),
+    Retry(u32, Duration, E),
 }
 
-impl RetryLoopAttempt {
+impl<E> RetryLoopAttempt<E> {
     fn count(&self) -> u32 {
         match self {
             RetryLoopAttempt::Initial => 0,
@@ -48,16 +46,20 @@ impl RetryLoopAttempt {
 ///
 /// In between calls the function waits the amount of time prescribed by the
 /// backoff policy, using `sleep` to implement any sleep.
-pub async fn retry_loop<F, S, Response>(
+pub async fn retry_loop<E, F, S, T, P, B, Response>(
     mut inner: F,
     sleep: S,
     idempotent: bool,
-    retry_throttler: Arc<Mutex<dyn RetryThrottler>>,
-    retry_policy: Arc<dyn RetryPolicy>,
-    backoff_policy: Arc<dyn BackoffPolicy>,
-) -> Result<Response>
+    retry_throttler: Arc<Mutex<T>>,
+    retry_policy: Arc<P>,
+    backoff_policy: Arc<B>,
+) -> std::result::Result<Response, E>
 where
-    F: AsyncFnMut(Option<Duration>) -> Result<Response> + Send,
+    E: Send + Sync,
+    T: RetryThrottlerGeneric<Error = E> + ?Sized,
+    P: RetryPolicyGeneric<Error = E> + ?Sized,
+    B: BackoffPolicy + ?Sized,
+    F: AsyncFnMut(Option<Duration>) -> std::result::Result<Response, E> + Send,
     S: AsyncFn(Duration) -> () + Send,
 {
     let loop_start = tokio::time::Instant::now().into_std();
@@ -67,21 +69,21 @@ where
         let state = RetryState::new(idempotent)
             .set_attempt_count(attempt_count)
             .set_start(loop_start);
-        let remaining_time = retry_policy.remaining_time(&state);
+        let remaining_time = retry_policy.retry_remaining_time(&state);
 
         if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
             if remaining_time.is_some_and(|remaining| remaining < delay) {
-                return Err(Error::exhausted(prev_error));
+                return Err(retry_policy.on_retry_exhausted(prev_error));
             }
             sleep(delay).await;
 
             if retry_throttler
                 .lock()
                 .expect("retry throttler lock is poisoned")
-                .throttle_retry_attempt()
+                .throttle_retry()
             {
                 // This counts as an error for the purposes of the retry policy.
-                let error = match retry_policy.on_throttle(&state, prev_error) {
+                let error = match retry_policy.on_retry_throttle(&state, prev_error) {
                     ThrottleResult::Exhausted(e) => {
                         return Err(e);
                     }
@@ -99,16 +101,16 @@ where
                 retry_throttler
                     .lock()
                     .expect("retry throttler lock is poisoned")
-                    .on_success();
+                    .on_retry_success();
                 return Ok(r);
             }
             Err(e) => {
-                let flow = retry_policy.on_error(&state, e);
+                let flow = retry_policy.on_retry_error(&state, e);
                 let delay = backoff_policy.on_failure(&state);
                 retry_throttler
                     .lock()
                     .expect("retry throttler lock is poisoned")
-                    .on_retry_failure(&flow);
+                    .on_failure(&flow);
                 match flow {
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => return Err(e),
                     RetryResult::Continue(e) => {
@@ -138,7 +140,10 @@ pub fn effective_timeout(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::Result;
     use crate::error::{Error, rpc::Code, rpc::Status, rpc::StatusDetails};
+    use crate::retry_policy::RetryPolicy;
+    use crate::retry_throttler::RetryThrottler;
     use google_cloud_rpc::model::DebugInfo;
     use std::error::Error as _;
     use test_case::test_case;

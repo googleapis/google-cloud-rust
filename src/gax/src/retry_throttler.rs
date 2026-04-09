@@ -109,6 +109,40 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
     fn on_success(&mut self);
 }
 
+/// Implementations of this trait prevent a client from sending too many retries.
+///
+/// This is a version of [RetryThrottler] that is generic over the error type.
+pub trait RetryThrottlerGeneric: Send + Sync + std::fmt::Debug {
+    /// The error type handled by the throttler.
+    type Error;
+
+    /// Called by the retry loop before issuing a retry attempt. Returns `true`
+    /// if the request should be throttled.
+    fn throttle_retry(&self) -> bool;
+
+    /// Called by the retry loop after a retry failure.
+    fn on_failure(&mut self, flow: &RetryResult<Self::Error>);
+
+    /// Called by the retry loop when a RPC succeeds.
+    fn on_retry_success(&mut self);
+}
+
+impl<T: RetryThrottler + ?Sized> RetryThrottlerGeneric for T {
+    type Error = crate::error::Error;
+
+    fn throttle_retry(&self) -> bool {
+        self.throttle_retry_attempt()
+    }
+
+    fn on_failure(&mut self, flow: &RetryResult<Self::Error>) {
+        self.on_retry_failure(flow)
+    }
+
+    fn on_retry_success(&mut self) {
+        self.on_success()
+    }
+}
+
 /// Retry throttlers are shared by many clients, so they are wrapped in `Arc<>`.
 /// Consequently, they are used from many threads at the same time, so they are
 /// wrapped in `Mutex`.
@@ -390,7 +424,7 @@ impl RetryThrottler for CircuitBreaker {
                 self.cur_tokens = self.cur_tokens.saturating_sub(self.error_cost);
             }
             RetryResult::Permanent(_) => {
-                self.on_success();
+                RetryThrottler::on_success(self);
             }
         };
     }

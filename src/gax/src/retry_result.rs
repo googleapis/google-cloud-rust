@@ -18,8 +18,6 @@
 //! Applications only need to use these types when implementing their own retry
 //! and polling policies.
 
-use crate::error::Error;
-
 /// The result of a loop control decision.
 ///
 /// # Example
@@ -43,21 +41,21 @@ use crate::error::Error;
 /// }
 /// ```
 #[derive(Debug)]
-pub enum RetryResult {
+pub enum RetryResult<E = crate::error::Error> {
     /// The error is non-retryable, stop the loop.
-    Permanent(Error),
+    Permanent(E),
 
     /// The error is retryable, but the policy is stopping the loop.
     ///
     /// Loop control policies may stop the loop on retryable errors, for
     /// example, because the policy only allows a limited number of attempts.
-    Exhausted(Error),
+    Exhausted(E),
 
     /// The error was retryable, continue the loop.
-    Continue(Error),
+    Continue(E),
 }
 
-impl RetryResult {
+impl<E> RetryResult<E> {
     pub fn is_permanent(&self) -> bool {
         match &self {
             Self::Permanent(_) => true,
@@ -81,6 +79,7 @@ impl RetryResult {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::Error;
 
     #[test]
     fn loop_state() {

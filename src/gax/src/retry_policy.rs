@@ -109,6 +109,56 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     }
 }
 
+/// Implementations of this trait determine how errors are handled in the retry loop.
+///
+/// This is a version of [RetryPolicy] that is generic over the error type.
+pub trait RetryPolicyGeneric: Send + Sync + std::fmt::Debug {
+    /// The error type handled by the policy.
+    type Error;
+
+    /// Query the retry policy after an error.
+    fn on_retry_error(&self, state: &RetryState, error: Self::Error) -> RetryResult<Self::Error>;
+
+    /// Query the retry policy after a retry attempt is throttled.
+    fn on_retry_throttle(
+        &self,
+        state: &RetryState,
+        error: Self::Error,
+    ) -> ThrottleResult<Self::Error>;
+
+    /// The remaining time in the retry policy.
+    fn retry_remaining_time(&self, state: &RetryState) -> Option<Duration>;
+
+    /// Wrap the final error when the retry policy is exhausted.
+    fn on_retry_exhausted(&self, error: Self::Error) -> Self::Error {
+        error
+    }
+}
+
+impl<T: RetryPolicy + ?Sized> RetryPolicyGeneric for T {
+    type Error = crate::error::Error;
+
+    fn on_retry_error(&self, state: &RetryState, error: Self::Error) -> RetryResult<Self::Error> {
+        self.on_error(state, error)
+    }
+
+    fn on_retry_throttle(
+        &self,
+        state: &RetryState,
+        error: Self::Error,
+    ) -> ThrottleResult<Self::Error> {
+        self.on_throttle(state, error)
+    }
+
+    fn retry_remaining_time(&self, state: &RetryState) -> Option<Duration> {
+        self.remaining_time(state)
+    }
+
+    fn on_retry_exhausted(&self, error: Self::Error) -> Self::Error {
+        crate::error::Error::exhausted(error)
+    }
+}
+
 /// A helper type to use [RetryPolicy] in client and request options.
 #[derive(Clone, Debug)]
 pub struct RetryPolicyArg(Arc<dyn RetryPolicy>);

@@ -14,8 +14,6 @@
 
 //! Defines types related to throttling the retry loop.
 
-use crate::error::Error;
-
 /// The result of a retry throttling control decision.
 ///
 /// The client libraries retry loop may throttle some retry attempts, that is,
@@ -46,13 +44,13 @@ use crate::error::Error;
 /// }
 /// ```
 #[derive(Debug)]
-pub enum ThrottleResult {
+pub enum ThrottleResult<E = crate::error::Error> {
     /// The error is retryable, but the policy is stopping the loop.
     ///
     /// Loop control policies may stop the loop on retryable errors, for
     /// example, because the policy only allows a limited number of attempts.
-    Exhausted(Error),
+    Exhausted(E),
 
     /// The error was retryable, continue the loop.
-    Continue(Error),
+    Continue(E),
 }
