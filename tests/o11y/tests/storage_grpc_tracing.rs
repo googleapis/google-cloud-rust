@@ -126,3 +126,64 @@ pub async fn grpc_can_be_disabled() -> anyhow::Result<()> {
 
     Ok(())
 }
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+pub async fn grpc_reports_client_failure() -> anyhow::Result<()> {
+    let mock_collector = MockCollector::default();
+    let otlp_endpoint: String = mock_collector.start().await;
+
+    let provider: opentelemetry_sdk::trace::SdkTracerProvider =
+        TracerProviderBuilder::new("test-project", "integration-tests")
+            .with_endpoint(otlp_endpoint.clone())
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+    let _guard = tracing_subscriber::Registry::default()
+        .with(integration_tests_o11y::tracing::trace_layer(
+            provider.clone(),
+        ))
+        .set_default();
+
+    // Use a bogus endpoint to trigger a client failure (connection refused)
+    let endpoint = "http://127.0.0.1:12345";
+
+    let client = StorageControl::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(google_cloud_gax::retry_policy::NeverRetry)
+        .with_tracing()
+        .build()
+        .await?;
+
+    let _ = client
+        .delete_bucket()
+        .set_name("projects/_/buckets/test-bucket")
+        .send()
+        .await;
+
+    tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+    let _ = provider.force_flush();
+
+    let (_, _, request) = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .pop()
+        .expect("should have received at least one trace request")
+        .into_parts();
+
+    let mut all_spans = Vec::new();
+    for rs in request.resource_spans {
+        for ss in rs.scope_spans {
+            all_spans.extend(ss.spans);
+        }
+    }
+
+    let _client_span = all_spans
+        .iter()
+        .find(|s| s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket")
+        .expect("Should have a DeleteBucket span");
+
+    Ok(())
+}
