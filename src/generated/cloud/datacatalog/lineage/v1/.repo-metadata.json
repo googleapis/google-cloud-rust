@@ -3,7 +3,6 @@
     "api_shortname": "datalineage",
     "client_documentation": "https://docs.rs/google-cloud-datacatalog-lineage-v1/latest",
     "distribution_name": "google-cloud-datacatalog-lineage-v1",
-    "issue_tracker": "https://github.com/googleapis/google-cloud-python/issues",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "datalineage",

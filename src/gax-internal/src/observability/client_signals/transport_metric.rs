@@ -65,6 +65,7 @@ impl TransportMetric {
                 KeyValue::new(GCP_CLIENT_ARTIFACT, info.client_artifact),
                 KeyValue::new(GCP_CLIENT_SERVICE, info.service_name),
                 KeyValue::new(GCP_CLIENT_REPO, GCP_CLIENT_REPO_GOOGLEAPIS),
+                KeyValue::new(GCP_CLIENT_VERSION, info.client_version),
             ])
             .build();
         let meter = provider.meter_with_scope(scope);

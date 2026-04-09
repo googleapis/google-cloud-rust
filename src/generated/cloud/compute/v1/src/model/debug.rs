@@ -749,6 +749,7 @@ impl std::fmt::Debug for super::AttachedDiskInitializeParams {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -761,8 +762,10 @@ impl std::fmt::Debug for super::AttachedDiskInitializeParams {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -792,6 +795,7 @@ impl std::fmt::Debug for super::AuditConfig {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -804,8 +808,10 @@ impl std::fmt::Debug for super::AuditConfig {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -2178,6 +2184,7 @@ impl std::fmt::Debug for super::BgpRouteNetworkLayerReachabilityInformation {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -2190,8 +2197,10 @@ impl std::fmt::Debug for super::BgpRouteNetworkLayerReachabilityInformation {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -2218,6 +2227,11 @@ impl std::fmt::Debug for super::Binding {
 impl std::fmt::Debug for super::BulkInsertDiskResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BulkInsertDiskResource");
+        debug_struct.field(
+            "instant_snapshot_group_parameters",
+            &self.instant_snapshot_group_parameters,
+        );
+        debug_struct.field("snapshot_group_parameters", &self.snapshot_group_parameters);
         debug_struct.field(
             "source_consistency_group_policy",
             &self.source_consistency_group_policy,
@@ -2292,6 +2306,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -2327,12 +2342,15 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -3063,6 +3081,7 @@ impl std::fmt::Debug for super::CustomErrorResponsePolicyCustomErrorResponseRule
     feature = "region-disks",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-snapshots",
     feature = "snapshots",
 ))]
 impl std::fmt::Debug for super::CustomerEncryptionKey {
@@ -3763,6 +3782,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -3798,12 +3818,15 @@ impl std::fmt::Debug for super::Duration {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -3921,6 +3944,7 @@ impl std::fmt::Debug for super::exchanged_peering_routes_list::warning::Data {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -3934,9 +3958,11 @@ impl std::fmt::Debug for super::exchanged_peering_routes_list::warning::Data {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -5249,6 +5275,7 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -5284,12 +5311,15 @@ impl std::fmt::Debug for super::GRPCTLSHealthCheck {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -5365,6 +5395,7 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -5400,12 +5431,15 @@ impl std::fmt::Debug for super::GetVersionOperationMetadata {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -5647,6 +5681,7 @@ impl std::fmt::Debug for super::GuestAttributesValue {
     feature = "region-disks",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-snapshots",
     feature = "snapshots",
 ))]
 impl std::fmt::Debug for super::GuestOsFeature {
@@ -6500,6 +6535,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -6535,12 +6571,15 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -6616,6 +6655,7 @@ impl std::fmt::Debug for super::Help {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -6651,12 +6691,15 @@ impl std::fmt::Debug for super::Help {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -7258,7 +7301,6 @@ impl std::fmt::Debug for super::Instance {
             &self.network_performance_config,
         );
         debug_struct.field("params", &self.params);
-        debug_struct.field("partner_metadata", &self.partner_metadata);
         debug_struct.field(
             "private_ipv_6_google_access",
             &self.private_ipv_6_google_access,
@@ -8966,7 +9008,6 @@ impl std::fmt::Debug for super::InstanceProperties {
             "network_performance_config",
             &self.network_performance_config,
         );
-        debug_struct.field("partner_metadata", &self.partner_metadata);
         debug_struct.field(
             "private_ipv_6_google_access",
             &self.private_ipv_6_google_access,
@@ -9245,6 +9286,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -9280,12 +9322,15 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -9565,6 +9610,14 @@ impl std::fmt::Debug for super::InstantSnapshot {
         debug_struct.field("self_link_with_id", &self.self_link_with_id);
         debug_struct.field("source_disk", &self.source_disk);
         debug_struct.field("source_disk_id", &self.source_disk_id);
+        debug_struct.field(
+            "source_instant_snapshot_group",
+            &self.source_instant_snapshot_group,
+        );
+        debug_struct.field(
+            "source_instant_snapshot_group_id",
+            &self.source_instant_snapshot_group_id,
+        );
         debug_struct.field("status", &self.status);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
@@ -9612,6 +9665,82 @@ impl std::fmt::Debug for super::instant_snapshot_aggregated_list::warning::Data 
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::InstantSnapshotGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantSnapshotGroup");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource_status", &self.resource_status);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("source_consistency_group", &self.source_consistency_group);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "disks", feature = "region-disks",))]
+impl std::fmt::Debug for super::InstantSnapshotGroupParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantSnapshotGroupParameters");
+        debug_struct.field(
+            "source_instant_snapshot_group",
+            &self.source_instant_snapshot_group,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::InstantSnapshotGroupResourceStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantSnapshotGroupResourceStatus");
+        debug_struct.field(
+            "consistency_membership_resolution_time",
+            &self.consistency_membership_resolution_time,
+        );
+        debug_struct.field("source_info", &self.source_info);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::InstantSnapshotGroupSourceInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstantSnapshotGroupSourceInfo");
+        debug_struct.field("consistency_group", &self.consistency_group);
+        debug_struct.field("consistency_group_id", &self.consistency_group_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11389,6 +11518,61 @@ impl std::fmt::Debug for super::licenses_list_response::warning::Data {
     }
 }
 
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::ListInstantSnapshotGroups {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstantSnapshotGroups");
+        debug_struct.field("etag", &self.etag);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::list_instant_snapshot_groups::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+impl std::fmt::Debug for super::list_instant_snapshot_groups::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "node-groups", feature = "node-templates",))]
 impl std::fmt::Debug for super::LocalDisk {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -11431,6 +11615,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -11466,12 +11651,15 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14182,6 +14370,7 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14217,12 +14406,15 @@ impl std::fmt::Debug for super::notification_endpoints_scoped_list::warning::Dat
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14333,6 +14525,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14368,12 +14561,15 @@ impl std::fmt::Debug for super::Operation {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14449,6 +14645,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14484,12 +14681,15 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14568,6 +14768,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14603,12 +14804,15 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14687,6 +14891,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14722,12 +14927,15 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14805,6 +15013,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14840,12 +15049,15 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -15339,19 +15551,6 @@ impl std::fmt::Debug for super::packet_mirrorings_scoped_list::warning::Data {
     }
 }
 
-#[cfg(feature = "instances")]
-impl std::fmt::Debug for super::PartnerMetadata {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PartnerMetadata");
-        debug_struct.field("fingerprint", &self.fingerprint);
-        debug_struct.field("partner_metadata", &self.partner_metadata);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
 #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
 impl std::fmt::Debug for super::PathMatcher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -15420,6 +15619,7 @@ impl std::fmt::Debug for super::PerInstanceConfig {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -15432,8 +15632,10 @@ impl std::fmt::Debug for super::PerInstanceConfig {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -16089,6 +16291,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -16124,12 +16327,15 @@ impl std::fmt::Debug for super::Quota {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -16977,6 +17183,7 @@ impl std::fmt::Debug
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-security-policies",
+    feature = "region-snapshots",
     feature = "target-vpn-gateways",
     feature = "vpn-gateways",
     feature = "vpn-tunnels",
@@ -16999,8 +17206,10 @@ impl std::fmt::Debug for super::RegionSetLabelsRequest {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "subnetworks",
@@ -17011,6 +17220,18 @@ impl std::fmt::Debug for super::RegionSetPolicyRequest {
         debug_struct.field("bindings", &self.bindings);
         debug_struct.field("etag", &self.etag);
         debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::RegionSnapshotUpdateKmsKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegionSnapshotUpdateKmsKeyRequest");
+        debug_struct.field("kms_key_name", &self.kms_key_name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -20288,6 +20509,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -20323,12 +20545,15 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -20405,6 +20630,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -20440,12 +20666,15 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -20609,7 +20838,12 @@ impl std::fmt::Debug for super::SignedUrlKey {
     }
 }
 
-#[cfg(any(feature = "disks", feature = "region-disks", feature = "snapshots",))]
+#[cfg(any(
+    feature = "disks",
+    feature = "region-disks",
+    feature = "region-snapshots",
+    feature = "snapshots",
+))]
 impl std::fmt::Debug for super::Snapshot {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Snapshot");
@@ -20636,10 +20870,13 @@ impl std::fmt::Debug for super::Snapshot {
         debug_struct.field("location_hint", &self.location_hint);
         debug_struct.field("name", &self.name);
         debug_struct.field("params", &self.params);
+        debug_struct.field("region", &self.region);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("snapshot_encryption_key", &self.snapshot_encryption_key);
+        debug_struct.field("snapshot_group_id", &self.snapshot_group_id);
+        debug_struct.field("snapshot_group_name", &self.snapshot_group_name);
         debug_struct.field("snapshot_type", &self.snapshot_type);
         debug_struct.field("source_disk", &self.source_disk);
         debug_struct.field(
@@ -20679,7 +20916,21 @@ impl std::fmt::Debug for super::Snapshot {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "disks", feature = "region-disks",))]
+impl std::fmt::Debug for super::SnapshotGroupParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnapshotGroupParameters");
+        debug_struct.field("replica_zones", &self.replica_zones);
+        debug_struct.field("source_snapshot_group", &self.source_snapshot_group);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 impl std::fmt::Debug for super::SnapshotList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnapshotList");
@@ -20696,7 +20947,7 @@ impl std::fmt::Debug for super::SnapshotList {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 impl std::fmt::Debug for super::snapshot_list::Warning {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Warning");
@@ -20710,7 +20961,7 @@ impl std::fmt::Debug for super::snapshot_list::Warning {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 impl std::fmt::Debug for super::snapshot_list::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
@@ -20723,7 +20974,12 @@ impl std::fmt::Debug for super::snapshot_list::warning::Data {
     }
 }
 
-#[cfg(any(feature = "disks", feature = "region-disks", feature = "snapshots",))]
+#[cfg(any(
+    feature = "disks",
+    feature = "region-disks",
+    feature = "region-snapshots",
+    feature = "snapshots",
+))]
 impl std::fmt::Debug for super::SnapshotParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnapshotParams");
@@ -20735,10 +20991,11 @@ impl std::fmt::Debug for super::SnapshotParams {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 impl std::fmt::Debug for super::SnapshotSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnapshotSettings");
+        debug_struct.field("access_location", &self.access_location);
         debug_struct.field("storage_location", &self.storage_location);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -20747,7 +21004,33 @@ impl std::fmt::Debug for super::SnapshotSettings {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
+impl std::fmt::Debug for super::SnapshotSettingsAccessLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SnapshotSettingsAccessLocation");
+        debug_struct.field("locations", &self.locations);
+        debug_struct.field("policy", &self.policy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
+impl std::fmt::Debug for super::SnapshotSettingsAccessLocationAccessLocationPreference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("SnapshotSettingsAccessLocationAccessLocationPreference");
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 impl std::fmt::Debug for super::SnapshotSettingsStorageLocationSettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SnapshotSettingsStorageLocationSettings");
@@ -20760,7 +21043,7 @@ impl std::fmt::Debug for super::SnapshotSettingsStorageLocationSettings {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 impl std::fmt::Debug for super::SnapshotSettingsStorageLocationSettingsStorageLocationPreference {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct =
@@ -21318,6 +21601,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -21353,12 +21637,15 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -21885,24 +22172,6 @@ impl std::fmt::Debug for super::storage_pools_scoped_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(any(
-    feature = "instance-templates",
-    feature = "instances",
-    feature = "machine-images",
-    feature = "region-instance-templates",
-    feature = "region-instances",
-))]
-impl std::fmt::Debug for super::StructuredEntries {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("StructuredEntries");
-        debug_struct.field("entries", &self.entries);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -23591,6 +23860,7 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "instance-groups",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -23613,9 +23883,11 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "region-health-checks",
     feature = "region-health-sources",
     feature = "region-instance-groups",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -23660,6 +23932,7 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "instance-groups",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -23682,9 +23955,11 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "region-health-checks",
     feature = "region-health-sources",
     feature = "region-instance-groups",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -25161,6 +25436,7 @@ impl std::fmt::Debug for super::ZoneSetNestedPolicyRequest {
 #[cfg(any(
     feature = "disks",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "node-groups",
     feature = "reservations",
@@ -28855,7 +29131,6 @@ impl std::fmt::Debug for super::instance_templates::GetRequest {
         let mut debug_struct = f.debug_struct("GetRequest");
         debug_struct.field("instance_template", &self.instance_template);
         debug_struct.field("project", &self.project);
-        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -28904,7 +29179,6 @@ impl std::fmt::Debug for super::instance_templates::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
-        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29110,7 +29384,6 @@ impl std::fmt::Debug for super::instances::GetRequest {
         let mut debug_struct = f.debug_struct("GetRequest");
         debug_struct.field("instance", &self.instance);
         debug_struct.field("project", &self.project);
-        debug_struct.field("view", &self.view);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29160,21 +29433,6 @@ impl std::fmt::Debug for super::instances::GetIamPolicyRequest {
         );
         debug_struct.field("project", &self.project);
         debug_struct.field("resource", &self.resource);
-        debug_struct.field("zone", &self.zone);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "instances")]
-impl std::fmt::Debug for super::instances::GetPartnerMetadataRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("GetPartnerMetadataRequest");
-        debug_struct.field("instance", &self.instance);
-        debug_struct.field("namespaces", &self.namespaces);
-        debug_struct.field("project", &self.project);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29254,7 +29512,6 @@ impl std::fmt::Debug for super::instances::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
-        debug_struct.field("view", &self.view);
         debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -29275,22 +29532,6 @@ impl std::fmt::Debug for super::instances::ListReferrersRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
         debug_struct.field("zone", &self.zone);
-        if !self._unknown_fields.is_empty() {
-            debug_struct.field("_unknown_fields", &self._unknown_fields);
-        }
-        debug_struct.finish()
-    }
-}
-
-#[cfg(feature = "instances")]
-impl std::fmt::Debug for super::instances::PatchPartnerMetadataRequest {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut debug_struct = f.debug_struct("PatchPartnerMetadataRequest");
-        debug_struct.field("instance", &self.instance);
-        debug_struct.field("project", &self.project);
-        debug_struct.field("request_id", &self.request_id);
-        debug_struct.field("zone", &self.zone);
-        debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -29789,6 +30030,117 @@ impl std::fmt::Debug for super::instances::UpdateShieldedInstanceConfigRequest {
         debug_struct.field("instance", &self.instance);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instant_snapshot_group", &self.instant_snapshot_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instant_snapshot_group", &self.instant_snapshot_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("source_consistency_group", &self.source_consistency_group);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl std::fmt::Debug for super::instant_snapshot_groups::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
@@ -34985,7 +35337,6 @@ impl std::fmt::Debug for super::region_instance_templates::GetRequest {
         debug_struct.field("instance_template", &self.instance_template);
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
-        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35019,7 +35370,6 @@ impl std::fmt::Debug for super::region_instance_templates::ListRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("return_partial_success", &self.return_partial_success);
-        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -35034,6 +35384,117 @@ impl std::fmt::Debug for super::region_instances::BulkInsertRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("instant_snapshot_group", &self.instant_snapshot_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("instant_snapshot_group", &self.instant_snapshot_group);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("source_consistency_group", &self.source_consistency_group);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl std::fmt::Debug for super::region_instant_snapshot_groups::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -35688,12 +36149,15 @@ impl std::fmt::Debug for super::region_operations::DeleteRequest {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -35906,6 +36370,177 @@ impl std::fmt::Debug for super::region_security_policies::SetLabelsRequest {
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshot-settings")]
+impl std::fmt::Debug for super::region_snapshot_settings::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshot-settings")]
+impl std::fmt::Debug for super::region_snapshot_settings::PatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("snapshot", &self.snapshot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("snapshot", &self.snapshot);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::GetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetIamPolicyRequest");
+        debug_struct.field(
+            "options_requested_policy_version",
+            &self.options_requested_policy_version,
+        );
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::SetIamPolicyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetIamPolicyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::SetLabelsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SetLabelsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+impl std::fmt::Debug for super::region_snapshots::UpdateKmsKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateKmsKeyRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("snapshot", &self.snapshot);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -40066,6 +40701,7 @@ impl std::fmt::Debug for super::zone_operations::DeleteRequest {
     feature = "instance-groups",
     feature = "instance-settings",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "network-endpoint-groups",
     feature = "node-groups",

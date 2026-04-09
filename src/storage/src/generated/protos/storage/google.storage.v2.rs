@@ -685,6 +685,8 @@ impl ::prost::Name for WriteObjectRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct WriteObjectResponse {
+    #[prost(message, optional, tag = "3")]
+    pub persisted_data_checksums: ::core::option::Option<ObjectChecksums>,
     #[prost(oneof = "write_object_response::WriteStatus", tags = "1, 2")]
     pub write_status: ::core::option::Option<write_object_response::WriteStatus>,
 }
@@ -783,6 +785,8 @@ impl ::prost::Name for BidiWriteObjectRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct BidiWriteObjectResponse {
+    #[prost(message, optional, tag = "4")]
+    pub persisted_data_checksums: ::core::option::Option<ObjectChecksums>,
     #[prost(message, optional, tag = "3")]
     pub write_handle: ::core::option::Option<BidiWriteHandle>,
     #[prost(oneof = "bidi_write_object_response::WriteStatus", tags = "1, 2")]
@@ -868,6 +872,8 @@ impl ::prost::Name for QueryWriteStatusRequest {
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct QueryWriteStatusResponse {
+    #[prost(message, optional, tag = "3")]
+    pub persisted_data_checksums: ::core::option::Option<ObjectChecksums>,
     #[prost(oneof = "query_write_status_response::WriteStatus", tags = "1, 2")]
     pub write_status: ::core::option::Option<query_write_status_response::WriteStatus>,
 }
