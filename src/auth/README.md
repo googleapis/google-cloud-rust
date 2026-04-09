@@ -33,8 +33,12 @@ also describes the common terminology used with authentication, such as
     `features = ["idtoken"]`
   - Select the desired backend for `jsonwebtoken`.
 
+For a complete example of centrally managing rustls provider selection in an
+application, see [Configuring rustls crypto providers].
+
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[configuring rustls crypto providers]: ../../guide/src/configuring_rustls_crypto_providers.md
 [credentials]: https://cloud.google.com/docs/authentication#credentials
 [credentials::credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credentials.html
 [gcloud-auth]: https://crates.io/crates/gcloud-auth
