@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod publish_with_batch_settings;
 pub mod publish_with_ordering_keys;
 pub mod quickstart_publisher;
 pub mod resume_publish_with_ordering_keys;
