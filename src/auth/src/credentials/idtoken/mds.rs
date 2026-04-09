@@ -377,9 +377,9 @@ mod tests {
             .build()?;
 
         let err = creds.id_token().await.unwrap_err();
-        let source = find_source_error::<reqwest::Error>(&err);
+        let source = find_source_error::<google_cloud_gax::error::Error>(&err);
         assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
+            matches!(source, Some(e) if e.http_status_code() == Some(StatusCode::UNAUTHORIZED.into())),
             "{err:?}"
         );
 
@@ -494,9 +494,9 @@ mod tests {
             .build()?;
 
         let err = creds.id_token().await.unwrap_err();
-        let source = find_source_error::<reqwest::Error>(&err);
+        let source = find_source_error::<google_cloud_gax::error::Error>(&err);
         assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            matches!(source, Some(e) if e.http_status_code() == Some(StatusCode::SERVICE_UNAVAILABLE.into())),
             "{err:?}"
         );
         Ok(())
