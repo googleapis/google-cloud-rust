@@ -42,13 +42,36 @@ const EXPECTED_QUERY_PARAMETERS: &str =
 /// This makes sure that the end-to-end system of tracing to OpenTelemetry
 /// works as intended, value types are preserved, etc.
 pub async fn to_otlp() -> anyhow::Result<()> {
-    // 1. Start Mock OTLP Collector
     let mock_collector = MockCollector::default();
     let otlp_endpoint = mock_collector.start().await;
 
-    // 2. Configure OTel Provider
+    let (tracer_provider, meter_provider, _guard) = setup_otel(&otlp_endpoint).await?;
+
+    let echo_server = Server::run();
+    setup_echo_expectations(&echo_server);
+
+    let client = setup_client(&echo_server.url("/").to_string()).await?;
+
+    let _ = client.echo().set_content("test").send().await;
+
+    let _ = tracer_provider.force_flush();
+    let _ = meter_provider.force_flush();
+
+    verify_spans(&mock_collector)?;
+    verify_metrics(&mock_collector)?;
+
+    Ok(())
+}
+
+async fn setup_otel(
+    otlp_endpoint: &str,
+) -> anyhow::Result<(
+    opentelemetry_sdk::trace::SdkTracerProvider,
+    opentelemetry_sdk::metrics::SdkMeterProvider,
+    tracing::subscriber::DefaultGuard,
+)> {
     let provider = TracerProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint.clone())
+        .with_endpoint(otlp_endpoint.to_string())
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
@@ -64,13 +87,14 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         .await?;
     opentelemetry::global::set_meter_provider(meter_provider.clone());
 
-    // 3. Install Tracing Subscriber
-    let _guard = tracing_subscriber::Registry::default()
+    let guard = tracing_subscriber::Registry::default()
         .with(crate::tracing::trace_layer(provider.clone()))
         .set_default();
 
-    // 4. Start Mock HTTP Server (Showcase Echo)
-    let echo_server = Server::run();
+    Ok((provider, meter_provider, guard))
+}
+
+fn setup_echo_expectations(echo_server: &httptest::Server) {
     echo_server.expect(
         Expectation::matching(all_of![
             request::method("POST"),
@@ -78,9 +102,9 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         ])
         .respond_with(status_code(200).body(r#"{"content": "test"}"#)),
     );
+}
 
-    // 5. Configure Client
-    let endpoint = echo_server.url("/").to_string();
+async fn setup_client(endpoint: &str) -> anyhow::Result<Echo> {
     let endpoint = endpoint.trim_end_matches('/');
     let client = Echo::builder()
         .with_endpoint(endpoint)
@@ -88,15 +112,10 @@ pub async fn to_otlp() -> anyhow::Result<()> {
         .with_tracing()
         .build()
         .await?;
+    Ok(client)
+}
 
-    // 6. Make Request
-    let _ = client.echo().set_content("test").send().await;
-
-    // 7. Flush Spans
-    let _ = provider.force_flush();
-    let _ = meter_provider.force_flush();
-
-    // 8. Verify Spans
+fn verify_spans(mock_collector: &MockCollector) -> anyhow::Result<()> {
     let (_metadata, _, request) = mock_collector
         .traces
         .lock()
@@ -117,7 +136,7 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     let client_span = spans.iter().find(|s| s.kind == 3 /* CLIENT */); // 3 is SPAN_KIND_CLIENT
     assert!(client_span.is_some(), "Should have a CLIENT span");
 
-    // 9. Verify HTTP Span Details
+    // Verify HTTP Span Details
     let client_span = client_span.unwrap();
     assert_eq!(client_span.name, "POST /v1beta1/echo:echo");
 
@@ -144,7 +163,10 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     );
     assert!(get_string("gcp.client.version").is_some(), "{attributes:?}");
 
-    // 10. Verify Metrics
+    Ok(())
+}
+
+fn verify_metrics(mock_collector: &MockCollector) -> anyhow::Result<()> {
     let metrics_requests = mock_collector.metrics.lock().unwrap();
     let metric_request = metrics_requests
         .first()
