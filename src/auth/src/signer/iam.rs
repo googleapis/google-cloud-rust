@@ -209,6 +209,7 @@ mod tests {
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use serde_json::json;
+    use test_case::test_case;
     use tokio::time::Duration;
 
     type TestResult = anyhow::Result<()>;
@@ -350,9 +351,13 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(None ; "no custom universe domain")]
+    #[test_case(Some("my-custom-universe.com".to_string()) ; "with custom universe domain")]
     #[tokio::test]
-    async fn test_sign_blob_url_with_override() -> TestResult {
-        let mock = MockCredentials::new();
+    async fn test_sign_blob_url_with_override(universe_domain: Option<String>) -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(move || universe_domain.clone());
         let creds = Credentials::from(mock);
         let signer = IamSigner::new(
             "test@example.com".to_string(),
