@@ -73,6 +73,11 @@ impl SubjectTokenProviderError for CredentialsError {
     }
 }
 
+pub(crate) fn from_gax_error(err: google_cloud_gax::error::Error, msg: &str) -> CredentialsError {
+    let transient = is_gax_error_retryable(&err);
+    CredentialsError::new(transient, msg, err)
+}
+
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);
     CredentialsError::new(transient, msg, err)
@@ -97,6 +102,29 @@ pub(crate) fn non_retryable<T: Error + Send + Sync + 'static>(source: T) -> Cred
 
 pub(crate) fn non_retryable_from_str<T: Into<String>>(message: T) -> CredentialsError {
     CredentialsError::from_msg(false, message)
+}
+
+pub(crate) fn is_gax_error_retryable(err: &google_cloud_gax::error::Error) -> bool {
+    if let Some(code) = err.http_status_code() {
+        if let Ok(status_code) = StatusCode::from_u16(code) {
+            if is_retryable_code(status_code) {
+                return true;
+            }
+        }
+    }
+
+    match err.source() {
+        Some(s) => {
+            if let Some(cred_err) = s.downcast_ref::<CredentialsError>() {
+                cred_err.is_transient()
+            } else if let Some(req_err) = s.downcast_ref::<reqwest::Error>() {
+                is_retryable(req_err)
+            } else {
+                false
+            }
+        }
+        None => false,
+    }
 }
 
 fn is_retryable(err: &reqwest::Error) -> bool {
@@ -128,6 +156,8 @@ fn is_retryable_code(code: StatusCode) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use bytes::Bytes;
+    use http::HeaderMap;
     use std::num::ParseIntError;
     use test_case::test_case;
 
@@ -160,5 +190,16 @@ mod tests {
         assert!(!e.is_transient(), "{e:?}");
         let source = e.source().and_then(|e| e.downcast_ref::<ParseIntError>());
         assert!(matches!(source, Some(ParseIntError { .. })), "{e:?}");
+    }
+
+    #[test_case(google_cloud_gax::error::Error::http(503, HeaderMap::new(), Bytes::from("test")), true ; "retryable http status")]
+    #[test_case(google_cloud_gax::error::Error::http(404, HeaderMap::new(), Bytes::from("test")), false ; "non-retryable http status")]
+    #[test_case(google_cloud_gax::error::Error::authentication(CredentialsError::new(true, "msg", "NaN".parse::<u32>().unwrap_err())), true ; "transient credentials error")]
+    #[test_case(google_cloud_gax::error::Error::authentication(CredentialsError::new(false, "msg", "NaN".parse::<u32>().unwrap_err())), false ; "permanent credentials error")]
+    #[test_case(google_cloud_gax::error::Error::io("some io error"), false ; "io error fallback")]
+    #[test_case(google_cloud_gax::error::Error::timeout("timeout"), false ; "timeout fallback")]
+    fn test_is_gax_error_retryable(gax_err: google_cloud_gax::error::Error, expected: bool) {
+        let cred_err = from_gax_error(gax_err, "some msg");
+        assert_eq!(cred_err.is_transient(), expected);
     }
 }

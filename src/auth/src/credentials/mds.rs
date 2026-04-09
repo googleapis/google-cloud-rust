@@ -716,7 +716,7 @@ mod tests {
             return Ok(());
         };
 
-        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        let original_err = err.source().unwrap();
         assert!(
             original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
