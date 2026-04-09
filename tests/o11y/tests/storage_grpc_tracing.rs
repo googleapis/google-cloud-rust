@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::StorageControl;
 use integration_tests_o11y::mock_collector::MockCollector;
 use integration_tests_o11y::otlp::logs::Builder as LoggerProviderBuilder;
@@ -25,7 +24,7 @@ use opentelemetry_proto::tonic::collector::logs::v1::ExportLogsServiceRequest;
 use opentelemetry_proto::tonic::collector::metrics::v1::ExportMetricsServiceRequest;
 use opentelemetry_proto::tonic::collector::trace::v1::ExportTraceServiceRequest;
 use storage_grpc_mock::{MockStorage, start};
-use tonic::{Code, Response as TonicResponse, Status};
+use tonic::{Code, Status};
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
