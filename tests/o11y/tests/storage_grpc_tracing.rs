@@ -299,7 +299,6 @@ pub async fn f1_8_f2_8_f3_10_grpc_server_error() -> anyhow::Result<()> {
         }
     }
 
-
     /* Temporarily ignore span check
     assert_eq!(client_span.kind, 3); // SPAN_KIND_CLIENT
 
@@ -376,7 +375,9 @@ pub async fn f1_8_f2_8_f3_10_grpc_server_error() -> anyhow::Result<()> {
     {
         let client_span = all_spans
             .iter()
-            .find(|s| s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket")
+            .find(|s| {
+                s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket"
+            })
             .expect("Should have a DeleteBucket span");
 
         // 5. Verify Metrics
@@ -421,18 +422,20 @@ pub async fn f1_8_f2_8_f3_10_grpc_server_error() -> anyhow::Result<()> {
                                 opentelemetry_proto::tonic::metrics::v1::metric::Data::Histogram(h),
                             ) = m.data
                             {
-                                let point = h.data_points.first().expect("should have a data point");
+                                let point =
+                                    h.data_points.first().expect("should have a data point");
                                 assert_eq!(
                                     point.explicit_bounds,
                                     vec![
-                                        0.0, 0.0001, 0.0005, 0.0010, 0.005, 0.010, 0.050, 0.100, 0.5,
-                                        1.0, 5.0, 10.0, 60.0, 300.0, 900.0, 3600.0
+                                        0.0, 0.0001, 0.0005, 0.0010, 0.005, 0.010, 0.050, 0.100,
+                                        0.5, 1.0, 5.0, 10.0, 60.0, 300.0, 900.0, 3600.0
                                     ]
                                 );
 
                                 let mut metric_attributes = std::collections::HashMap::new();
                                 for kv in &point.attributes {
-                                    metric_attributes.insert(kv.key.clone(), kv.value.clone().unwrap());
+                                    metric_attributes
+                                        .insert(kv.key.clone(), kv.value.clone().unwrap());
                                 }
 
                                 let get_metric_string = |key: &str| -> Option<String> {
@@ -492,7 +495,9 @@ pub async fn f1_8_f2_8_f3_10_grpc_server_error() -> anyhow::Result<()> {
         let logs_requests = mock_collector.logs.lock().unwrap();
         let log_event = logs_requests
             .iter()
-            .flat_map(|r: &tonic::Request<ExportLogsServiceRequest>| r.get_ref().resource_logs.clone())
+            .flat_map(|r: &tonic::Request<ExportLogsServiceRequest>| {
+                r.get_ref().resource_logs.clone()
+            })
             .flat_map(|rl| rl.scope_logs)
             .filter(|sl| {
                 sl.scope
