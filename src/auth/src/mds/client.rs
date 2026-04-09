@@ -136,7 +136,8 @@ impl Client {
                     .await
                     .map_err(google_cloud_gax::error::Error::io)?;
 
-                let response = Self::check_response_status(response, error_message_str.clone()).await?;
+                let response =
+                    Self::check_response_status(response, error_message_str.clone()).await?;
 
                 Ok(response)
             },

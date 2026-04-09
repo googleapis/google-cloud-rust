@@ -850,6 +850,7 @@ pub mod testing {
 pub(crate) mod tests {
     use super::*;
     use crate::constants::TRUST_BOUNDARY_HEADER;
+    use crate::errors::is_gax_error_retryable;
     use base64::Engine;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::retry_policy::RetryPolicy;
@@ -871,7 +872,7 @@ pub(crate) mod tests {
     pub(crate) fn find_source_error<'a, T: Error + 'static>(
         error: &'a (dyn Error + 'static),
     ) -> Option<&'a T> {
-        let mut source = error.source();
+        let mut source = Some(error);
         while let Some(err) = source {
             if let Some(target_err) = err.downcast_ref::<T>() {
                 return Some(target_err);
@@ -921,11 +922,8 @@ pub(crate) mod tests {
                 if state.attempt_count >= attempts as u32 {
                     return RetryResult::Exhausted(error);
                 }
-                let is_transient = error
-                    .source()
-                    .and_then(|e| e.downcast_ref::<CredentialsError>())
-                    .is_some_and(|ce| ce.is_transient());
-                if is_transient {
+                let is_retryable = is_gax_error_retryable(&error);
+                if is_retryable {
                     RetryResult::Continue(error)
                 } else {
                     RetryResult::Permanent(error)
