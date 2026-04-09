@@ -316,11 +316,21 @@ impl StorageInner {
         } else {
             client
         };
-        let inner = StorageInner::new(
-            client,
-            options,
-            gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
-        );
+        #[cfg(google_cloud_unstable_tracing)]
+        let grpc = if gaxi::options::tracing_enabled(&config) {
+            gaxi::grpc::Client::new_with_instrumentation(
+                config,
+                super::DEFAULT_HOST,
+                &super::info::INSTRUMENTATION,
+            )
+            .await?
+        } else {
+            gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?
+        };
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let grpc = gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?;
+
+        let inner = StorageInner::new(client, options, grpc);
         Ok(inner)
     }
 }
