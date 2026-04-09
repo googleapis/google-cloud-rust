@@ -118,7 +118,7 @@ pub(crate) fn is_gax_error_retryable(err: &google_cloud_gax::error::Error) -> bo
             if let Some(cred_err) = s.downcast_ref::<CredentialsError>() {
                 cred_err.is_transient()
             } else if let Some(req_err) = s.downcast_ref::<reqwest::Error>() {
-                self::is_retryable(req_err)
+                is_retryable(req_err)
             } else {
                 false
             }
