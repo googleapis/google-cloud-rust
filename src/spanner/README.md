@@ -1,4 +1,4 @@
-# Google Cloud Client Libraries for Rust - Spanner
+# Google Cloud Client Libraries for Rust - Spanner!
 
 This crate implements the [Spanner] client library.
 
