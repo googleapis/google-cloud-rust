@@ -110,13 +110,16 @@ impl AtLeastOnceInfo {
 pub(super) enum MessageStatus {
     Leased,
     /// We are currently trying to ack this message.
+    ///
     /// We need to continue to extend these leases because the exactly-once
     /// confirmed ack retry loop can take arbitrarily long.
+    ///
     /// The client will not expire leases in this state. The server will
     /// report if a lease has expired. We do not want to mask a success with
     /// a `LeaseExpired` error.
     Acking,
     /// We are currently trying to nack this message.
+    ///
     /// We keep it in `under_lease` to hold onto `result_tx` until the nack is confirmed,
     /// but we do not want to extend its lease while we wait.
     Nacking,
