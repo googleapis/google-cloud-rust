@@ -48,21 +48,33 @@ pub async fn setup_o11y() -> anyhow::Result<TestSetup> {
         .await?;
 
     let meter_provider = MeterProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint.parse::<http::Uri>().expect("Failed to parse URI"))
+        .with_endpoint(
+            otlp_endpoint
+                .parse::<http::Uri>()
+                .expect("Failed to parse URI"),
+        )
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     opentelemetry::global::set_meter_provider(meter_provider.clone());
 
     let logger_provider = LoggerProviderBuilder::new("test-project", "integration-tests")
-        .with_endpoint(otlp_endpoint.parse::<http::Uri>().expect("Failed to parse URI"))
+        .with_endpoint(
+            otlp_endpoint
+                .parse::<http::Uri>()
+                .expect("Failed to parse URI"),
+        )
         .with_credentials(Anonymous::new().build())
         .build()
         .await?;
 
     let guard = tracing_subscriber::Registry::default()
-        .with(integration_tests_o11y::tracing::trace_layer(provider.clone()))
-        .with(integration_tests_o11y::tracing::log_layer(logger_provider.clone()))
+        .with(integration_tests_o11y::tracing::trace_layer(
+            provider.clone(),
+        ))
+        .with(integration_tests_o11y::tracing::log_layer(
+            logger_provider.clone(),
+        ))
         .set_default();
 
     Ok(TestSetup {
