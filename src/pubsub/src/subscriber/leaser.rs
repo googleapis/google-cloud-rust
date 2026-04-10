@@ -609,6 +609,55 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
+    async fn confirmed_ack_attempt_failure_no_error_info() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+        mock.expect_acknowledge().times(1).return_once(|_, _| {
+            Err(Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("internal error"),
+            ))
+        });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            1_usize,
+        );
+        let ack_ids = leaser
+            .confirmed_ack_attempt(vec!["ack_1".to_string(), "ack_2".to_string()])
+            .await;
+
+        assert!(ack_ids.is_empty());
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+        assert_eq!(confirmed_acks.len(), 2);
+
+        let result_1 = confirmed_acks.get("ack_1").unwrap();
+        match result_1 {
+            Err(AckError::Rpc { source }) => {
+                let status = source.status().expect("RPC source should have a status");
+                assert_eq!(status.code, Code::Internal);
+            }
+            _ => panic!("Expected AckError::Rpc, got {:?}", result_1),
+        }
+
+        let result_2 = confirmed_acks.get("ack_2").unwrap();
+        match result_2 {
+            Err(AckError::Rpc { source }) => {
+                let status = source.status().expect("RPC source should have a status");
+                assert_eq!(status.code, Code::Internal);
+            }
+            _ => panic!("Expected AckError::Rpc, got {:?}", result_2),
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn confirmed_ack_attempt_permanent_failure() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
