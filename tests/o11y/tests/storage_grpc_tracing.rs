@@ -18,10 +18,6 @@ use integration_tests_o11y::mock_collector::MockCollector;
 use integration_tests_o11y::otlp::logs::Builder as LoggerProviderBuilder;
 use integration_tests_o11y::otlp::metrics::Builder as MeterProviderBuilder;
 use integration_tests_o11y::otlp::trace::Builder as TracerProviderBuilder;
-#[cfg(google_cloud_unstable_tracing)]
-use opentelemetry_proto::tonic::collector::logs::v1::ExportLogsServiceRequest;
-#[cfg(google_cloud_unstable_tracing)]
-use opentelemetry_proto::tonic::collector::metrics::v1::ExportMetricsServiceRequest;
 use opentelemetry_proto::tonic::collector::trace::v1::ExportTraceServiceRequest;
 use storage_grpc_mock::{MockStorage, start};
 use tonic::{Code, Status};
