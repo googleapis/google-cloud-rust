@@ -431,6 +431,8 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
     Ok(())
 }
 
+// These tests must run sequentially because they share a global OpenTelemetry state.
+// Running them in parallel leads to race conditions and flaky metric assertions.
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn storage_grpc_observability_pipeline() -> anyhow::Result<()> {
     grpc_can_be_disabled().await?;
