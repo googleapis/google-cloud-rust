@@ -537,6 +537,7 @@ libraries:
     roots:
       - discovery
       - googleapis
+    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:
