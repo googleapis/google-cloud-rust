@@ -431,17 +431,6 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
     Ok(())
 }
 
-// These tests must run sequentially because they share a global OpenTelemetry state.
-// Running them in parallel leads to race conditions and flaky metric assertions.
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn storage_grpc_observability_pipeline() -> anyhow::Result<()> {
-    grpc_can_be_disabled().await?;
-    grpc_reports_client_failure().await?;
-    grpc_reports_server_error().await?;
-    grpc_reports_success().await?;
-    Ok(())
-}
-
 async fn grpc_reports_success() -> anyhow::Result<()> {
     let mock_collector = MockCollector::default();
     let otlp_endpoint: String = mock_collector.start().await;
@@ -537,5 +526,16 @@ async fn grpc_reports_success() -> anyhow::Result<()> {
     );
     assert!(get_string("error.type").is_none());
 
+    Ok(())
+}
+
+// These tests must run sequentially because they share a global OpenTelemetry state.
+// Running them in parallel leads to race conditions and flaky metric assertions.
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn storage_grpc_observability_pipeline() -> anyhow::Result<()> {
+    grpc_can_be_disabled().await?;
+    grpc_reports_client_failure().await?;
+    grpc_reports_server_error().await?;
+    grpc_reports_success().await?;
     Ok(())
 }
