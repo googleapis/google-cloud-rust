@@ -21,6 +21,7 @@ pub mod tonic;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
+use futures::TryFutureExt;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -60,9 +61,20 @@ pub type GrpcService = tower::util::Either<
 /// The inner gRPC client type.
 pub type InnerClient = Grpc<GrpcService>;
 
+#[cfg(google_cloud_unstable_tracing)]
+#[derive(Clone, Debug)]
+pub struct TracingAttributes {
+    pub server_address: String,
+    pub server_port: Option<i64>,
+    pub url_domain: String,
+    pub instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+}
+
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
+    #[cfg(google_cloud_unstable_tracing)]
+    metric: crate::observability::TransportMetric,
     credentials: Credentials,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -106,17 +118,17 @@ impl Client {
         let credentials = Self::make_credentials(&config).await?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
 
-        let inner = Self::make_inner(
-            &config,
-            default_endpoint,
-            tracing_enabled,
-            #[cfg(google_cloud_unstable_tracing)]
-            instrumentation,
-        )
-        .await?;
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let inner = Self::make_inner(&config, default_endpoint, tracing_enabled).await?;
+
+        #[cfg(google_cloud_unstable_tracing)]
+        let (inner, _) =
+            Self::make_inner(&config, default_endpoint, tracing_enabled, instrumentation).await?;
 
         Ok(Self {
             inner,
+            #[cfg(google_cloud_unstable_tracing)]
+            metric: crate::observability::TransportMetric::new(instrumentation),
             credentials,
             retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
                 Arc::new(
@@ -387,31 +399,34 @@ impl Client {
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
+
         #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = crate::observability::RequestRecorder::current() {
             recorder.on_grpc_request(&path);
         }
-        let result = inner
-            .unary(request, path, codec)
-            .await
-            .map_err(to_gax_error);
+
+        let pending = inner.unary(request, path, codec).map_err(to_gax_error);
+
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
-            match &result {
-                Ok(_) => recorder.on_grpc_response(),
-                Err(e) => recorder.on_grpc_error(e),
-            }
-        }
+        let result = {
+            use crate::observability::{WithTransportLogging, WithTransportMetric};
+
+            let pending =
+                WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
+            let pending = WithTransportLogging::new(pending);
+            pending.await
+        };
+
         result
     }
 
+    #[cfg(not(google_cloud_unstable_tracing))]
     async fn make_inner(
         config: &crate::options::ClientConfig,
         default_endpoint: &str,
         tracing_enabled: bool,
-        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
-            &'static crate::options::InstrumentationClientInfo,
-        >,
     ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(
@@ -430,32 +445,72 @@ impl Client {
             let _ = tx.send(Change::Insert(i, endpoint.clone())).await;
         }
 
-        #[cfg(not(google_cloud_unstable_tracing))]
-        {
-            let _ = tracing_enabled;
-            Ok(InnerClient::new(channel))
+        let _ = tracing_enabled;
+        Ok(InnerClient::new(channel))
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn make_inner(
+        config: &crate::options::ClientConfig,
+        default_endpoint: &str,
+        tracing_enabled: bool,
+        instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    ) -> ClientBuilderResult<(InnerClient, Option<TracingAttributes>)> {
+        use ::tonic::transport::{Channel, channel::Change};
+        let endpoint = Self::make_endpoint(
+            config.endpoint.clone(),
+            default_endpoint,
+            config.grpc_max_header_list_size,
+        )
+        .await?;
+        let (channel, tx) = Channel::balance_channel(
+            config
+                .grpc_request_buffer_capacity
+                .unwrap_or(DEFAULT_REQUEST_BUFFER_CAPACITY),
+        );
+        let count = std::cmp::max(1, config.grpc_subchannel_count.unwrap_or_default());
+        for i in 0..count {
+            let _ = tx.send(Change::Insert(i, endpoint.clone())).await;
         }
 
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            use crate::observability::grpc_tracing::NoTracingTowerLayer;
-            use crate::observability::grpc_tracing::TracingTowerLayer;
-            use tower::ServiceBuilder;
-            use tower::util::Either;
+        let default_uri = default_endpoint
+            .parse::<::tonic::transport::Uri>()
+            .map_err(BuilderError::transport)?;
+        let default_host = default_uri.host().unwrap_or("").to_string();
 
-            if tracing_enabled {
-                let default_uri = default_endpoint
-                    .parse::<::tonic::transport::Uri>()
-                    .map_err(BuilderError::transport)?;
-                let default_host = default_uri.host().unwrap_or("").to_string();
-                let layer = TracingTowerLayer::new(endpoint.uri(), default_host, instrumentation);
-                let service = ServiceBuilder::new().layer(layer).service(channel);
-                Ok(InnerClient::new(Either::Left(service)))
-            } else {
-                let layer = NoTracingTowerLayer;
-                let service = ServiceBuilder::new().layer(layer).service(channel);
-                Ok(InnerClient::new(Either::Right(service)))
-            }
+        let uri = endpoint.uri();
+        let host = uri.host().unwrap_or("").to_string();
+        let port = uri.port_u16().or_else(|| match uri.scheme_str() {
+            Some("https") => Some(443),
+            Some("http") => Some(80),
+            _ => None,
+        });
+
+        let attrs = TracingAttributes {
+            server_address: host,
+            server_port: port.map(|p| p as i64),
+            url_domain: default_host.clone(),
+            instrumentation,
+        };
+
+        if tracing_enabled {
+            use tower::Layer;
+            let layer = crate::observability::grpc_tracing::TracingTowerLayer::new(
+                uri,
+                default_host,
+                instrumentation,
+            );
+            let service = layer.layer(channel);
+            let service = tower::util::Either::Left(service);
+            let inner_client = InnerClient::new(service);
+            Ok((inner_client, Some(attrs)))
+        } else {
+            use tower::Layer;
+            let layer = crate::observability::grpc_tracing::NoTracingTowerLayer;
+            let service = layer.layer(channel);
+            let service = tower::util::Either::Right(service);
+            let inner_client = InnerClient::new(service);
+            Ok((inner_client, None))
         }
     }
 
