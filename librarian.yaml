@@ -531,13 +531,13 @@ libraries:
   - name: google-cloud-compute-v1
     version: 2.5.0
     copyright_year: "2025"
-    skip_release: true
     keep:
       - src/errors.rs
       - src/operation.rs
     roots:
       - discovery
       - googleapis
+    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:
