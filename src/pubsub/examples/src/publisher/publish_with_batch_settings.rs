@@ -31,10 +31,9 @@ pub async fn sample(project_id: &str, topic_id: &str) -> anyhow::Result<()> {
         .build()
         .await?;
 
-    let mut futures = vec![];
-    for i in 0..10 {
-        futures.push(publisher.publish(Message::new().set_data(format!("Message {i}"))));
-    }
+    let futures: Vec<_> = (0..10)
+        .map(|i| publisher.publish(Message::new().set_data(format!("Message {i}"))))
+        .collect();
 
     for (i, future) in futures.into_iter().enumerate() {
         match future.await {
