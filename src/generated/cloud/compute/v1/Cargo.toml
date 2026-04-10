@@ -25,6 +25,7 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
+publish                = false
 
 [lints]
 workspace = true
