@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![cfg(google_cloud_unstable_tracing)]
+
 use gaxi::observability::RequestRecorder;
 use gaxi::options::InstrumentationClientInfo;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -359,8 +361,6 @@ fn verify_logs(
 
     assert_eq!(log_event.severity_text, "DEBUG", "severity_text mismatch");
 }
-
-
 
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 pub async fn grpc_reports_server_error() -> anyhow::Result<()> {
