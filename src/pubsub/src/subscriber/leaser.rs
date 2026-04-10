@@ -233,11 +233,9 @@ where
             if let Some(status) = e.status() {
                 for detail in &status.details {
                     if let google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(info) = detail {
-                        Self::extract_failures(
-                            info,
-                            &mut transient_failures,
-                            &mut permanent_failures,
-                        );
+                        let (transient, permanent) = Self::extract_failures(info);
+                        transient_failures.extend(transient);
+                        permanent_failures.extend(permanent);
                     }
                 }
             }
@@ -268,9 +266,12 @@ where
 
     fn extract_failures(
         info: &google_cloud_rpc::model::ErrorInfo,
-        transient: &mut std::collections::HashSet<String>,
-        permanent: &mut std::collections::HashMap<String, String>,
+    ) -> (
+        std::collections::HashSet<String>,
+        std::collections::HashMap<String, String>,
     ) {
+        let mut transient = std::collections::HashSet::new();
+        let mut permanent = std::collections::HashMap::new();
         for (k, v) in &info.metadata {
             if v.starts_with("TRANSIENT_FAILURE_") {
                 transient.insert(k.clone());
@@ -278,6 +279,7 @@ where
                 permanent.insert(k.clone(), v.clone());
             }
         }
+        (transient, permanent)
     }
 }
 
@@ -383,9 +385,7 @@ pub(super) mod tests {
         .into_iter()
         .collect();
 
-        let mut transient = std::collections::HashSet::new();
-        let mut permanent = std::collections::HashMap::new();
-        DefaultLeaser::<MockStub>::extract_failures(&info, &mut transient, &mut permanent);
+        let (transient, permanent) = DefaultLeaser::<MockStub>::extract_failures(&info);
         let expected_transient: std::collections::HashSet<_> =
             vec!["ack_1".to_string(), "ack_3".to_string()]
                 .into_iter()
