@@ -1067,7 +1067,7 @@ libraries:
       - path: google/monitoring/v3
     copyright_year: "2025"
   - name: google-cloud-netapp-v1
-    version: 1.9.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-networkconnectivity-v1
     version: 1.9.0
