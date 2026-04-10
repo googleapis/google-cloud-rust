@@ -227,12 +227,14 @@ where
             .set_ack_ids(ack_ids.clone());
         let response = self.inner.acknowledge(req, self.options.clone()).await;
 
+        let mut has_error_info = false;
         let mut transient_failures = std::collections::HashSet::new();
         let mut permanent_failures = std::collections::HashMap::new();
         if let Err(e) = &response {
             if let Some(status) = e.status() {
                 for detail in &status.details {
                     if let google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(info) = detail {
+                        has_error_info = true;
                         let (transient, permanent) = Self::extract_failures(info);
                         transient_failures.extend(transient);
                         permanent_failures.extend(permanent);
@@ -249,9 +251,18 @@ where
             .into_iter()
             .filter(|id| !transient_failures.contains(id))
             .map(|id| {
-                let result = if let Some(err_str) = permanent_failures.get(&id) {
-                    Err(AckError::Permanent(err_str.clone()))
+                let result = if has_error_info {
+                    if permanent_failures.contains_key(&id) {
+                        shared_result
+                            .clone()
+                            .map_err(|source| AckError::Rpc { source })
+                    } else {
+                        // For responses with error info, successfully processed acknowledgement ids are not
+                        // included in the ErrorInfo.
+                        Ok(())
+                    }
                 } else {
+                    // No error info in response, so all ack_ids share the same result.
                     shared_result
                         .clone()
                         .map_err(|source| AckError::Rpc { source })
@@ -641,22 +652,21 @@ pub(super) mod tests {
             .get("ack_1")
             .expect("ack_1 should be present");
         match result_1 {
-            Err(AckError::Permanent(err_str)) => {
-                assert_eq!(err_str, "PERMANENT_FAILURE_INVALID_ACK_ID");
+            Err(AckError::Rpc { source }) => {
+                let status = source.status().expect("RPC source should have a status");
+                assert_eq!(status.code, Code::FailedPrecondition);
             }
-            _ => panic!("Expected AckError::Permanent, got {:?}", result_1),
+            _ => panic!("Expected AckError::Rpc, got {:?}", result_1),
         }
 
         let result_2 = confirmed_acks
             .get("ack_2")
             .expect("ack_2 should be present");
-        match result_2 {
-            Err(AckError::Rpc { source }) => {
-                let status = source.status().expect("RPC source should have a status");
-                assert_eq!(status.code, Code::FailedPrecondition);
-            }
-            _ => panic!("Expected AckError::Rpc, got {:?}", result_2),
-        }
+        assert!(
+            result_2.is_ok(),
+            "Expected Ok for ack_2, got {:?}",
+            result_2
+        );
 
         Ok(())
     }
@@ -702,13 +712,11 @@ pub(super) mod tests {
         let result_2 = confirmed_acks
             .get("ack_2")
             .expect("ack_2 should be present");
-        match result_2 {
-            Err(AckError::Rpc { source }) => {
-                let status = source.status().expect("RPC source should have a status");
-                assert_eq!(status.code, Code::FailedPrecondition);
-            }
-            _ => panic!("Expected AckError::Rpc, got {:?}", result_2),
-        }
+        assert!(
+            result_2.is_ok(),
+            "Expected Ok for ack_2, got {:?}",
+            result_2
+        );
 
         Ok(())
     }

@@ -84,20 +84,6 @@ pub enum AckError {
     /// the message, the service may or may not redeliver it.
     #[error("error during shutdown. The result of the operation is unknown. {0}")]
     Shutdown(#[source] Box<dyn std::error::Error + Send + Sync + 'static>),
-
-    /// Permanent failure from the Pub/Sub backend server.
-    ///
-    /// Do not retry.
-    #[error("permanent error from the Pub/Sub backend server: {0}. Do not retry.")]
-    Permanent(String),
-
-    /// Transient failure from the Pub/Sub backend server.
-    ///
-    /// The client has exhausted all retry attempts.
-    #[error(
-        "transient error from the Pub/Sub backend server: {0}. The client has exhausted all retry attempts."
-    )]
-    Transient(String),
 }
 
 #[cfg(test)]
