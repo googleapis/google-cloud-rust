@@ -89,8 +89,7 @@ pub async fn setup_o11y() -> anyhow::Result<TestSetup> {
     })
 }
 
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-pub async fn grpc_can_be_disabled() -> anyhow::Result<()> {
+async fn grpc_can_be_disabled() -> anyhow::Result<()> {
     let setup = setup_o11y().await?;
 
     let mut mock = MockStorage::new();
@@ -133,8 +132,7 @@ pub async fn grpc_can_be_disabled() -> anyhow::Result<()> {
     Ok(())
 }
 
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-pub async fn grpc_reports_client_failure() -> anyhow::Result<()> {
+async fn grpc_reports_client_failure() -> anyhow::Result<()> {
     let mock_collector = MockCollector::default();
     let otlp_endpoint: String = mock_collector.start().await;
 
@@ -362,8 +360,7 @@ fn verify_logs(
     assert_eq!(log_event.severity_text, "DEBUG", "severity_text mismatch");
 }
 
-#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-pub async fn grpc_reports_server_error() -> anyhow::Result<()> {
+async fn grpc_reports_server_error() -> anyhow::Result<()> {
     let setup = setup_o11y().await?;
 
     let mut mock = MockStorage::new();
@@ -431,5 +428,13 @@ pub async fn grpc_reports_server_error() -> anyhow::Result<()> {
     verify_metrics(&setup.mock_collector);
     verify_logs(&setup.mock_collector, client_span);
 
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn storage_grpc_observability_pipeline() -> anyhow::Result<()> {
+    grpc_can_be_disabled().await?;
+    grpc_reports_client_failure().await?;
+    grpc_reports_server_error().await?;
     Ok(())
 }
