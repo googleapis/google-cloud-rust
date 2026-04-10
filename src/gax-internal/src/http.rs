@@ -98,13 +98,16 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
+        let host = crate::host::header(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            &universe_domain,
+        )
+        .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
-
-        let host = crate::host::header(Some(endpoint.as_ref()), default_endpoint, &universe_domain)
-            .map_err(|e| e.client_builder())?;
 
         Ok(Self {
             inner,
@@ -808,27 +811,30 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn host_from_endpoint_with_universe_domain_success() -> TestResult {
-        let universe_domain = "my-universe-domain.com".to_string();
+    #[test_case(None, "my-universe-domain.com", "language.my-universe-domain.com", "https://language.my-universe-domain.com"; "default endpoint")]
+    #[test_case(Some("https://rep.another-universe-domain.com/"), "another-universe-domain.com", "language.another-universe-domain.com", "https://rep.another-universe-domain.com/"; "custom endpoint override")]
+    #[test_case(Some("https://rep.googleapis.com/"), "my-universe-domain.com", "language.my-universe-domain.com", "https://rep.googleapis.com/"; "regional endpoint with universe domain")]
+    async fn host_from_endpoint_with_universe_domain_success(
+        endpoint_override: Option<&str>,
+        universe_domain: &str,
+        expected_host: &str,
+        expected_endpoint: &str,
+    ) -> TestResult {
+        let universe_domain = universe_domain.to_string();
         let mut config = ClientConfig::default();
         config.universe_domain = Some(universe_domain.clone());
+        config.endpoint = endpoint_override.map(String::from);
 
+        let universe_domain_clone = universe_domain.clone();
         let mut cred = MockCredentials::new();
         cred.expect_universe_domain()
-            .returning(move || Some(universe_domain.clone()));
+            .returning(move || Some(universe_domain_clone.clone()));
         config.cred = Some(cred.into());
 
-        // test with trailing slash
-        let client = ReqwestClient::new(config.clone(), "https://language.googleapis.com/").await?;
-        assert_eq!(client.universe_domain, "my-universe-domain.com");
-        assert_eq!(client.host, "language.my-universe-domain.com");
-        assert_eq!(client.endpoint, "https://language.my-universe-domain.com/");
-
-        // test without trailing slash
         let client = ReqwestClient::new(config, "https://language.googleapis.com").await?;
-        assert_eq!(client.universe_domain, "my-universe-domain.com");
-        assert_eq!(client.host, "language.my-universe-domain.com");
-        assert_eq!(client.endpoint, "https://language.my-universe-domain.com");
+        assert_eq!(client.universe_domain, universe_domain);
+        assert_eq!(client.host, expected_host);
+        assert_eq!(client.endpoint, expected_endpoint);
 
         Ok(())
     }

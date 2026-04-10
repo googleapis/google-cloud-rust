@@ -51,16 +51,16 @@ fn origin_and_header(
     default_endpoint: &str,
     universe_domain: &str,
 ) -> Result<(Uri, String), HostError> {
-    let default_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
-    let default_origin = Uri::from_str(&default_endpoint).map_err(HostError::Uri)?;
-    let default_host = default_origin
+    let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
+    let service_origin = Uri::from_str(&service_endpoint).map_err(HostError::Uri)?;
+    let service_host = service_origin
         .authority()
         .expect("missing authority in default endpoint")
         .host()
         .to_string();
 
     let Some(endpoint) = endpoint else {
-        return Ok((default_origin, default_host));
+        return Ok((service_origin, service_host));
     };
     let custom_origin = Uri::from_str(endpoint).map_err(HostError::Uri)?;
     let custom_host = custom_origin
@@ -72,9 +72,9 @@ fn origin_and_header(
     let custom_suffix = format!(".{}", universe_domain);
     let (Some(prefix), Some(service)) = (
         custom_host.strip_suffix(&custom_suffix),
-        default_host.strip_suffix(&custom_suffix),
+        service_host.strip_suffix(&custom_suffix),
     ) else {
-        return Ok((default_origin, default_host));
+        return Ok((service_origin, service_host));
     };
     let parts: Vec<&str> = prefix.split(".").collect();
     match &parts[..] {
@@ -91,7 +91,7 @@ fn origin_and_header(
         {
             Ok((custom_origin, custom_host))
         }
-        _ => Ok((default_origin, default_host)),
+        _ => Ok((service_origin, service_host)),
     }
 }
 
@@ -138,7 +138,7 @@ mod tests {
     #[test_case("https://us-central1test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing dash")]
     #[test_case("https://-test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "test.googleapis.com"; "universe domain")]
+    #[test_case("https://test.my-universe-domain.com", "test.googleapis.com"; "universe domain endpoint with GDU")]
     #[test_case("localhost:5678", "test.googleapis.com"; "emulator")]
     #[test_case("https://localhost:5678", "test.googleapis.com"; "emulator with scheme")]
     fn header_success(input: &str, want: &str) -> anyhow::Result<()> {
@@ -173,7 +173,7 @@ mod tests {
     #[test_case("https://us-central1test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing dash")]
     #[test_case("https://-test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "https://test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "https://test.googleapis.com"; "universe domain")]
+    #[test_case("https://test.my-universe-domain.com", "https://test.googleapis.com"; "universe domain endpoint with GDU")]
     #[test_case("localhost:5678", "https://test.googleapis.com"; "emulator")]
     #[test_case("http://localhost:5678", "https://test.googleapis.com"; "emulator with scheme")]
     fn origin_success(input: &str, want: &str) -> anyhow::Result<()> {

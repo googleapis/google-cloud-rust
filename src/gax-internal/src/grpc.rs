@@ -18,6 +18,7 @@ pub mod from_status;
 pub mod status;
 pub mod tonic;
 
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
@@ -478,13 +479,9 @@ impl Client {
 
         let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
-        let endpoint = Endpoint::from_shared(endpoint.unwrap_or_else(|| {
-            default_endpoint.replace(
-                crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN,
-                universe_domain,
-            )
-        }))
-        .map_err(BuilderError::transport)?;
+        let service_endpoint = endpoint
+            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
+        let endpoint = Endpoint::from_shared(service_endpoint).map_err(BuilderError::transport)?;
         let endpoint = if endpoint
             .uri()
             .scheme()
