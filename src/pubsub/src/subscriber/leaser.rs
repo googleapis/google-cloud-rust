@@ -243,7 +243,7 @@ where
             }
         }
 
-        // For transient_failures, we want to rety so do not send the result to
+        // For transient_failures, we want to retry so do not send the result to
         // confirmed_tx.
         // For other failures, send the result to confirmed_tx.
         let shared_result = response.map(|_| ()).map_err(Arc::new);
