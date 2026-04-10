@@ -5821,6 +5821,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serial_test",
+ "storage-grpc-mock",
  "storage-samples",
  "test-case",
  "thiserror 2.0.18",

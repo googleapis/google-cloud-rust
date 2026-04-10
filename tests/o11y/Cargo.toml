@@ -76,6 +76,7 @@ serial_test       = { workspace = true }
 scoped-env        = { workspace = true }
 test-case         = { workspace = true }
 tower             = { workspace = true, features = ["util"] }
+storage-grpc-mock = { workspace = true }
 
 [dependencies.opentelemetry-appender-tracing]
 workspace = true
