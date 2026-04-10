@@ -70,10 +70,30 @@ fn origin_and_header(
         .to_string();
 
     let custom_suffix = format!(".{}", universe_domain);
-    let (Some(prefix), Some(service)) = (
-        custom_host.strip_suffix(&custom_suffix),
-        service_host.strip_suffix(&custom_suffix),
-    ) else {
+    let default_suffix = format!(".{}", DEFAULT_UNIVERSE_DOMAIN);
+
+    let service = service_host.strip_suffix(&custom_suffix);
+
+    let (prefix, service_origin, service_host) =
+        if let Some(p) = custom_host.strip_suffix(&custom_suffix) {
+            (Some(p), service_origin.clone(), service_host.clone())
+        } else if universe_domain != DEFAULT_UNIVERSE_DOMAIN {
+            let def_origin = Uri::from_str(default_endpoint).map_err(HostError::Uri)?;
+            let def_host = def_origin
+                .authority()
+                .expect("missing authority in default endpoint")
+                .host()
+                .to_string();
+            (
+                custom_host.strip_suffix(&default_suffix),
+                def_origin,
+                def_host,
+            )
+        } else {
+            (None, service_origin.clone(), service_host.clone())
+        };
+
+    let (Some(prefix), Some(service)) = (prefix, service) else {
         return Ok((service_origin, service_host));
     };
     let parts: Vec<&str> = prefix.split(".").collect();
@@ -220,14 +240,19 @@ mod tests {
         assert!(matches!(got, Err(HostError::Uri(_))), "{got:?}");
     }
 
-    #[test]
-    fn universe_domain_endpoint() -> anyhow::Result<()> {
+    #[test_case(None, "language.my-universe-domain.com"; "no custom endpoint")]
+    #[test_case(Some("https://rep.language.my-universe-domain.com"), "language.my-universe-domain.com"; "regional non GDU endpoint")]
+    #[test_case(Some("https://rep.language.googleapis.com"), "language.googleapis.com"; "regional GDU endpoint")]
+    fn googleapis_endpoint_in_custom_universe(
+        endpoint_override: Option<&str>,
+        expected_host: &str,
+    ) -> anyhow::Result<()> {
         let got = header(
-            None,
-            "https://cloudkms.googleapis.com",
+            endpoint_override,
+            "https://language.googleapis.com",
             "my-universe-domain.com",
         )?;
-        assert_eq!(got, "cloudkms.my-universe-domain.com");
+        assert_eq!(got, expected_host);
         Ok(())
     }
 

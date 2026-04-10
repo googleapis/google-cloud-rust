@@ -81,12 +81,6 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> ClientBuilderResult<Self> {
         let cred = Self::make_credentials(&config).await?;
-
-        let universe_domain =
-            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
-                .await
-                .map_err(BuilderError::universe_domain_mismatch)?;
-
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
         // TODO(#4298): Remove after adding HTTP2 support.
@@ -98,6 +92,10 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
+                .await
+                .map_err(BuilderError::universe_domain_mismatch)?;
         let host = crate::host::header(
             config.endpoint.as_deref(),
             default_endpoint,
@@ -108,7 +106,6 @@ impl ReqwestClient {
         let endpoint = config
             .endpoint
             .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
-
         Ok(Self {
             inner,
             cred,
@@ -813,7 +810,7 @@ mod tests {
     #[tokio::test]
     #[test_case(None, "my-universe-domain.com", "language.my-universe-domain.com", "https://language.my-universe-domain.com"; "default endpoint")]
     #[test_case(Some("https://rep.another-universe-domain.com/"), "another-universe-domain.com", "language.another-universe-domain.com", "https://rep.another-universe-domain.com/"; "custom endpoint override")]
-    #[test_case(Some("https://rep.googleapis.com/"), "my-universe-domain.com", "language.my-universe-domain.com", "https://rep.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "language.googleapis.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
     async fn host_from_endpoint_with_universe_domain_success(
         endpoint_override: Option<&str>,
         universe_domain: &str,

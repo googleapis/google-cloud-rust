@@ -105,13 +105,11 @@ impl Client {
         >,
     ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
-
+        let tracing_enabled = crate::options::tracing_enabled(&config);
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
                 .await
                 .map_err(BuilderError::universe_domain_mismatch)?;
-
-        let tracing_enabled = crate::options::tracing_enabled(&config);
 
         let inner = Self::make_inner(
             &config,
@@ -480,7 +478,7 @@ impl Client {
         let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
         let service_endpoint = endpoint
-            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
+            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain));
         let endpoint = Endpoint::from_shared(service_endpoint).map_err(BuilderError::transport)?;
         let endpoint = if endpoint
             .uri()
@@ -615,20 +613,29 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
-    async fn make_endpoint_with_universe_domain() -> TestResult {
+    #[test_case(None, "my-universe-domain.com", "https://language.my-universe-domain.com/"; "default endpoint")]
+    #[test_case(Some("https://rep.language.another-universe-domain.com/"), "another-universe-domain.com", "https://rep.language.another-universe-domain.com/"; "custom endpoint override")]
+    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
+    async fn make_endpoint_with_universe_domain(
+        endpoint_override: Option<&str>,
+        universe_domain: &str,
+        expected_uri: &str,
+    ) -> TestResult {
         let default_endpoint = "https://language.googleapis.com";
-        let universe_domain = "my-universe-domain.com";
+        let endpoint = Client::make_endpoint(
+            endpoint_override.map(String::from),
+            default_endpoint,
+            universe_domain,
+            None,
+        )
+        .await?;
 
-        let endpoint = Client::make_endpoint(None, default_endpoint, universe_domain, None).await?;
-
-        assert_eq!(
-            endpoint.uri().to_string(),
-            "https://language.my-universe-domain.com/"
-        );
+        assert_eq!(endpoint.uri().to_string(), expected_uri);
 
         Ok(())
     }
