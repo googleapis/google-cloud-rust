@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::observability::RequestRecorder;
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::observability::errors::ErrorType;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -31,19 +32,6 @@ impl AttemptCount {
     }
     pub fn as_i64(&self) -> i64 {
         self.0
-    }
-}
-
-/// A wrapper for the resource name to be stored in request extensions.
-#[derive(Clone, Debug)]
-pub struct ResourceName(String);
-
-impl ResourceName {
-    pub fn new(value: String) -> Self {
-        Self(value)
-    }
-    pub fn as_str(&self) -> &str {
-        self.0.as_str()
     }
 }
 
@@ -185,8 +173,15 @@ where
 
     fn call(&mut self, mut req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
-        let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
-        let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
+        let resource_name = RequestRecorder::current()
+            .map(|r| r.client_snapshot())
+            .and_then(|s| s.resource_name().map(|n| n.to_string()));
+        let span = create_grpc_span(
+            req.uri(),
+            &self.layer.inner,
+            attempt_count,
+            resource_name.as_deref(),
+        );
         crate::observability::propagation::inject_context(&span, req.headers_mut());
         let future = self.inner.call(req);
         ResponseFuture {

@@ -59,32 +59,69 @@ where
         let this = self.project();
         let output = futures::ready!(this.inner.poll(cx));
 
-        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+        let Some(recorder) = RequestRecorder::current() else {
             return Poll::Ready(output);
         };
+        let snapshot = recorder.client_snapshot();
+
+        if let Some(rn) = snapshot.resource_name() {
+            span.record(GCP_RESOURCE_DESTINATION_ID, rn);
+        }
 
         match &output {
             Ok(_) => {
-                tracing::record_all!(
-                    span,
-                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
-                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
-                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
-                    { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
-                    { URL_SCHEME } = snapshot.url_scheme()
-                );
+                if snapshot.rpc_system() == Some("grpc") {
+                    tracing::record_all!(
+                        span,
+                        { RPC_RESPONSE_STATUS_CODE } = "OK",
+                        { HTTP_RESPONSE_STATUS_CODE } =
+                            snapshot.http_status_code().map(|v| v as i64),
+                        { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                        { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
+                        { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64),
+                        { URL_SCHEME } = snapshot.url_scheme()
+                    );
+                } else {
+                    tracing::record_all!(
+                        span,
+                        { HTTP_RESPONSE_STATUS_CODE } =
+                            snapshot.http_status_code().map(|v| v as i64),
+                        { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                        { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
+                        { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64),
+                        { URL_SCHEME } = snapshot.url_scheme()
+                    );
+                }
             }
             Err(err) => {
                 let error_type = ErrorType::from_gax_error(err);
-                tracing::record_all!(
-                    span,
-                    { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
-                    { HTTP_RESPONSE_STATUS_CODE } = err.http_status_code().map(|v| v as i64),
-                    { ERROR_TYPE } = error_type.as_str(),
-                    { OTEL_STATUS_DESCRIPTION } = err.to_string(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64)
-                );
+                let rpc_status_code = err.status().map(|s| s.code.name());
+
+                if snapshot.rpc_system() == Some("grpc") {
+                    tracing::record_all!(
+                        span,
+                        { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
+                        { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+                        { ERROR_TYPE } = error_type.as_str(),
+                        { OTEL_STATUS_DESCRIPTION } = err.to_string(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64)
+                    );
+                } else {
+                    tracing::record_all!(
+                        span,
+                        { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
+                        { HTTP_RESPONSE_STATUS_CODE } = err.http_status_code().map(|v| v as i64),
+                        { ERROR_TYPE } = error_type.as_str(),
+                        { OTEL_STATUS_DESCRIPTION } = err.to_string(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64)
+                    );
+                }
                 crate::observability::errors::emit_error_log(&span, err);
             }
         }

@@ -18,10 +18,10 @@ mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
-#[cfg(feature = "_internal-http-client")]
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 mod with_transport_logging;
 mod with_transport_metric;
-#[cfg(feature = "_internal-http-client")]
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
@@ -30,10 +30,10 @@ pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
-#[cfg(feature = "_internal-http-client")]
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 pub use with_transport_logging::WithTransportLogging;
 pub use with_transport_metric::WithTransportMetric;
-#[cfg(feature = "_internal-http-client")]
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.
@@ -80,6 +80,15 @@ macro_rules! client_request_signals {
         use ::tracing::instrument::Instrument;
         let span = $crate::client_request_signals!(info: $info, method: $method);
         let recorder = $crate::observability::RequestRecorder::new($info);
+        if let Some(current) = $crate::observability::RequestRecorder::current() {
+            let snap = current.client_snapshot();
+            if let Some(rn) = snap.resource_name() {
+                recorder.on_client_request(
+                    $crate::observability::ClientRequestAttributes::default()
+                        .set_resource_name(rn.to_string())
+                );
+            }
+        }
         let pending = recorder
             .scope($crate::observability::WithClientSpan::new(
                 span.clone(),

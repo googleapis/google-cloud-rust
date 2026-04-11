@@ -18,6 +18,8 @@ pub mod from_status;
 pub mod status;
 pub mod tonic;
 
+#[cfg(google_cloud_unstable_tracing)]
+use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
@@ -43,20 +45,15 @@ use google_cloud_gax::retry_policy::{
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
+#[cfg(google_cloud_unstable_tracing)]
+use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
 
-#[cfg(not(google_cloud_unstable_tracing))]
 pub type GrpcService = Channel;
-
-#[cfg(google_cloud_unstable_tracing)]
-pub type GrpcService = tower::util::Either<
-    crate::observability::grpc_tracing::TracingTowerService<Channel>,
-    crate::observability::grpc_tracing::NoTracingTowerService<Channel>,
->;
 
 /// The inner gRPC client type.
 pub type InnerClient = Grpc<GrpcService>;
@@ -75,6 +72,8 @@ pub struct Client {
     inner: InnerClient,
     #[cfg(google_cloud_unstable_tracing)]
     metric: crate::observability::TransportMetric,
+    #[cfg(google_cloud_unstable_tracing)]
+    tracing_attributes: Option<TracingAttributes>,
     credentials: Credentials,
     retry_policy: Arc<dyn RetryPolicy>,
     backoff_policy: Arc<dyn BackoffPolicy>,
@@ -122,13 +121,15 @@ impl Client {
         let inner = Self::make_inner(&config, default_endpoint, tracing_enabled).await?;
 
         #[cfg(google_cloud_unstable_tracing)]
-        let (inner, _) =
+        let (inner, tracing_attributes) =
             Self::make_inner(&config, default_endpoint, tracing_enabled, instrumentation).await?;
 
         Ok(Self {
             inner,
             #[cfg(google_cloud_unstable_tracing)]
             metric: crate::observability::TransportMetric::new(instrumentation),
+            #[cfg(google_cloud_unstable_tracing)]
+            tracing_attributes,
             credentials,
             retry_policy: config.retry_policy.clone().unwrap_or_else(|| {
                 Arc::new(
@@ -365,33 +366,62 @@ impl Client {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
         headers: HeaderMap,
-        prior_attempt_count: i64,
+        _prior_attempt_count: i64,
     ) -> Result<tonic::Response<Response>>
     where
         Request: prost::Message + 'static,
         Response: prost::Message + std::default::Default + 'static,
     {
-        let headers = self.add_auth_headers(headers).await?;
-        let metadata = tonic::MetadataMap::from_headers(headers);
-        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
+        #[cfg(google_cloud_unstable_tracing)]
+        let span = if let Some(attrs) = &self.tracing_attributes {
+            let rpc_method = path.path().trim_start_matches('/');
+            let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
+                (
+                    Some(info.service_name),
+                    Some(info.client_version),
+                    Some("googleapis/google-cloud-rust"),
+                    Some(info.client_artifact),
+                )
+            } else {
+                (None, None, None, None)
+            };
+            let resend_count = if _prior_attempt_count > 0 {
+                Some(_prior_attempt_count)
+            } else {
+                None
+            };
+
+            tracing::info_span!(
+                "grpc.request",
+                { OTEL_NAME } = rpc_method,
+                { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
+                { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
+                { otel_trace::RPC_METHOD } = rpc_method,
+                { otel_trace::SERVER_ADDRESS } = attrs.server_address,
+                { otel_trace::SERVER_PORT } = attrs.server_port,
+                { otel_attr::URL_DOMAIN } = attrs.url_domain,
+                { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
+                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+                { otel_trace::ERROR_TYPE } = tracing::field::Empty,
+                { GCP_CLIENT_SERVICE } = service,
+                { GCP_CLIENT_VERSION } = version,
+                { GCP_CLIENT_REPO } = repo,
+                { GCP_CLIENT_ARTIFACT } = artifact,
+                { GCP_GRPC_RESEND_COUNT } = resend_count,
+                { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
+            )
+        } else {
+            tracing::Span::none()
+        };
+
+        #[allow(unused_mut)]
+        let mut headers = self.add_auth_headers(headers).await?;
 
         #[cfg(google_cloud_unstable_tracing)]
-        {
-            use crate::observability::grpc_tracing::{AttemptCount, ResourceName};
-            use google_cloud_gax::options::internal::{
-                RequestOptionsExt, ResourceName as GaxResourceName,
-            };
-            request
-                .extensions_mut()
-                .insert(AttemptCount::new(prior_attempt_count));
-            if let Some(n) = options.get_extension::<GaxResourceName>() {
-                request
-                    .extensions_mut()
-                    .insert(ResourceName::new(n.0.to_string()));
-            }
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let _ = prior_attempt_count;
+        crate::observability::propagation::inject_context(&span, &mut headers);
+
+        let metadata = tonic::MetadataMap::from_headers(headers);
+        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
 
         if let Some(timeout) = effective_timeout(options, remaining_time) {
             request.set_timeout(timeout);
@@ -411,12 +441,20 @@ impl Client {
         let result = pending.await;
         #[cfg(google_cloud_unstable_tracing)]
         let result = {
-            use crate::observability::{WithTransportLogging, WithTransportMetric};
+            use crate::observability::{
+                WithTransportLogging, WithTransportMetric, WithTransportSpan,
+            };
 
             let pending =
-                WithTransportMetric::new(self.metric.clone(), pending, prior_attempt_count as u32);
+                WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
             let pending = WithTransportLogging::new(pending);
-            pending.await
+            let pending = WithTransportSpan::new(span, pending);
+
+            if let Some(recorder) = crate::observability::RequestRecorder::current() {
+                recorder.scope(pending).await
+            } else {
+                pending.await
+            }
         };
 
         result
@@ -493,23 +531,10 @@ impl Client {
             instrumentation,
         };
 
+        let inner_client = InnerClient::new(channel);
         if tracing_enabled {
-            use tower::Layer;
-            let layer = crate::observability::grpc_tracing::TracingTowerLayer::new(
-                uri,
-                default_host,
-                instrumentation,
-            );
-            let service = layer.layer(channel);
-            let service = tower::util::Either::Left(service);
-            let inner_client = InnerClient::new(service);
             Ok((inner_client, Some(attrs)))
         } else {
-            use tower::Layer;
-            let layer = crate::observability::grpc_tracing::NoTracingTowerLayer;
-            let service = layer.layer(channel);
-            let service = tower::util::Either::Right(service);
-            let inner_client = InnerClient::new(service);
             Ok((inner_client, None))
         }
     }
