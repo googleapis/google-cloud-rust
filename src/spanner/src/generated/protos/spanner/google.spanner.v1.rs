@@ -360,7 +360,7 @@ pub mod change_stream_record {
                 .into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct HeartbeatRecord {
         #[prost(message, optional, tag = "1")]
         pub timestamp: ::core::option::Option<::prost_types::Timestamp>,
@@ -376,7 +376,7 @@ pub mod change_stream_record {
                 .into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct PartitionStartRecord {
         #[prost(message, optional, tag = "1")]
         pub start_timestamp: ::core::option::Option<::prost_types::Timestamp>,
@@ -396,7 +396,7 @@ pub mod change_stream_record {
                 .into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct PartitionEndRecord {
         #[prost(message, optional, tag = "1")]
         pub end_timestamp: ::core::option::Option<::prost_types::Timestamp>,
@@ -435,7 +435,7 @@ pub mod change_stream_record {
     }
     /// Nested message and enum types in `PartitionEventRecord`.
     pub mod partition_event_record {
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct MoveInEvent {
             #[prost(string, tag = "1")]
             pub source_partition_token: ::prost::alloc::string::String,
@@ -452,7 +452,7 @@ pub mod change_stream_record {
                     .into()
             }
         }
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct MoveOutEvent {
             #[prost(string, tag = "1")]
             pub destination_partition_token: ::prost::alloc::string::String,
@@ -505,7 +505,7 @@ impl ::prost::Name for ChangeStreamRecord {
         "type.googleapis.com/google.spanner.v1.ChangeStreamRecord".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Range {
     #[prost(bytes = "bytes", tag = "1")]
     pub start_key: ::prost::bytes::Bytes,
@@ -528,7 +528,7 @@ impl ::prost::Name for Range {
         "type.googleapis.com/google.spanner.v1.Range".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Tablet {
     #[prost(uint64, tag = "1")]
     pub tablet_uid: u64,
@@ -745,7 +745,7 @@ pub mod key_recipe {
             "type.googleapis.com/google.spanner.v1.KeyRecipe.Part".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Target {
         #[prost(string, tag = "1")]
         TableName(::prost::alloc::string::String),
@@ -828,7 +828,7 @@ pub struct RoutingHint {
 }
 /// Nested message and enum types in `RoutingHint`.
 pub mod routing_hint {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct SkippedTablet {
         #[prost(uint64, tag = "1")]
         pub tablet_uid: u64,
@@ -856,7 +856,7 @@ impl ::prost::Name for RoutingHint {
         "type.googleapis.com/google.spanner.v1.RoutingHint".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct TransactionOptions {
     #[prost(bool, tag = "5")]
     pub exclude_txn_from_change_streams: bool,
@@ -867,7 +867,7 @@ pub struct TransactionOptions {
 }
 /// Nested message and enum types in `TransactionOptions`.
 pub mod transaction_options {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ReadWrite {
         #[prost(enumeration = "read_write::ReadLockMode", tag = "1")]
         pub read_lock_mode: i32,
@@ -926,7 +926,7 @@ pub mod transaction_options {
             "type.googleapis.com/google.spanner.v1.TransactionOptions.ReadWrite".into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct PartitionedDml {}
     impl ::prost::Name for PartitionedDml {
         const NAME: &'static str = "PartitionedDml";
@@ -939,7 +939,7 @@ pub mod transaction_options {
                 .into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ReadOnly {
         #[prost(bool, tag = "6")]
         pub return_read_timestamp: bool,
@@ -948,7 +948,7 @@ pub mod transaction_options {
     }
     /// Nested message and enum types in `ReadOnly`.
     pub mod read_only {
-        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
         pub enum TimestampBound {
             #[prost(bool, tag = "1")]
             Strong(bool),
@@ -1011,7 +1011,7 @@ pub mod transaction_options {
             }
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Mode {
         #[prost(message, tag = "1")]
         ReadWrite(ReadWrite),
@@ -1052,14 +1052,14 @@ impl ::prost::Name for Transaction {
         "type.googleapis.com/google.spanner.v1.Transaction".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct TransactionSelector {
     #[prost(oneof = "transaction_selector::Selector", tags = "1, 2, 3")]
     pub selector: ::core::option::Option<transaction_selector::Selector>,
 }
 /// Nested message and enum types in `TransactionSelector`.
 pub mod transaction_selector {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Selector {
         #[prost(message, tag = "1")]
         SingleUse(super::TransactionOptions),
@@ -1079,7 +1079,7 @@ impl ::prost::Name for TransactionSelector {
         "type.googleapis.com/google.spanner.v1.TransactionSelector".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MultiplexedSessionPrecommitToken {
     #[prost(bytes = "bytes", tag = "1")]
     pub precommit_token: ::prost::bytes::Bytes,
@@ -1113,7 +1113,7 @@ pub struct CommitResponse {
 }
 /// Nested message and enum types in `CommitResponse`.
 pub mod commit_response {
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct CommitStats {
         #[prost(int64, tag = "1")]
         pub mutation_count: i64,
@@ -1128,7 +1128,7 @@ pub mod commit_response {
             "type.googleapis.com/google.spanner.v1.CommitResponse.CommitStats".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum MultiplexedSessionRetry {
         #[prost(message, tag = "4")]
         PrecommitToken(super::MultiplexedSessionPrecommitToken),
@@ -1327,7 +1327,7 @@ pub struct PlanNode {
 }
 /// Nested message and enum types in `PlanNode`.
 pub mod plan_node {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ChildLink {
         #[prost(int32, tag = "1")]
         pub child_index: i32,
@@ -1547,7 +1547,7 @@ pub struct ResultSetStats {
 }
 /// Nested message and enum types in `ResultSetStats`.
 pub mod result_set_stats {
-    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum RowCount {
         #[prost(int64, tag = "3")]
         RowCountExact(i64),
@@ -1644,7 +1644,7 @@ impl ::prost::Name for Session {
         "type.googleapis.com/google.spanner.v1.Session".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct GetSessionRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1659,7 +1659,7 @@ impl ::prost::Name for GetSessionRequest {
         "type.googleapis.com/google.spanner.v1.GetSessionRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListSessionsRequest {
     #[prost(string, tag = "1")]
     pub database: ::prost::alloc::string::String,
@@ -1697,7 +1697,7 @@ impl ::prost::Name for ListSessionsResponse {
         "type.googleapis.com/google.spanner.v1.ListSessionsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DeleteSessionRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1803,7 +1803,7 @@ pub struct DirectedReadOptions {
 }
 /// Nested message and enum types in `DirectedReadOptions`.
 pub mod directed_read_options {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ReplicaSelection {
         #[prost(string, tag = "1")]
         pub location: ::prost::alloc::string::String,
@@ -1950,7 +1950,7 @@ pub struct ExecuteSqlRequest {
 }
 /// Nested message and enum types in `ExecuteSqlRequest`.
 pub mod execute_sql_request {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct QueryOptions {
         #[prost(string, tag = "1")]
         pub optimizer_version: ::prost::alloc::string::String,
@@ -2093,7 +2093,7 @@ impl ::prost::Name for ExecuteBatchDmlResponse {
         "type.googleapis.com/google.spanner.v1.ExecuteBatchDmlResponse".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PartitionOptions {
     #[prost(int64, tag = "1")]
     pub partition_size_bytes: i64,
@@ -2162,7 +2162,7 @@ impl ::prost::Name for PartitionReadRequest {
         "type.googleapis.com/google.spanner.v1.PartitionReadRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Partition {
     #[prost(bytes = "bytes", tag = "1")]
     pub partition_token: ::prost::bytes::Bytes,
@@ -2362,7 +2362,7 @@ pub struct CommitRequest {
 }
 /// Nested message and enum types in `CommitRequest`.
 pub mod commit_request {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Transaction {
         #[prost(bytes, tag = "2")]
         TransactionId(::prost::bytes::Bytes),
@@ -2380,7 +2380,7 @@ impl ::prost::Name for CommitRequest {
         "type.googleapis.com/google.spanner.v1.CommitRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RollbackRequest {
     #[prost(string, tag = "1")]
     pub session: ::prost::alloc::string::String,
