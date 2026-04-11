@@ -40,18 +40,18 @@ pub struct WithTransportSpan<F> {
     span: Span,
 }
 
-impl<F> WithTransportSpan<F>
+impl<F, R> WithTransportSpan<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     pub fn new(span: Span, inner: F) -> Self {
         Self { inner, span }
     }
 }
 
-impl<F> Future for WithTransportSpan<F>
+impl<F, R> Future for WithTransportSpan<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     type Output = <F as Future>::Output;
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
@@ -191,7 +191,8 @@ mod tests {
             if let Some(recorder) = RequestRecorder::current() {
                 recorder.on_http_error(&err);
             }
-            Err(err)
+            let res: Result<reqwest::Response, Error> = Err(err);
+            res
         };
 
         let future = recorder
@@ -280,7 +281,6 @@ mod tests {
         );
 
         assert!(got.contains(&(HTTP_REQUEST_RESEND_COUNT, "1".to_string())));
-
         Ok(())
     }
 
