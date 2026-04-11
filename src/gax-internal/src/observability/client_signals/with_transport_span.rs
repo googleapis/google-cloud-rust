@@ -25,7 +25,7 @@ use opentelemetry_semantic_conventions::attribute::HTTP_RESPONSE_STATUS_CODE;
 use opentelemetry_semantic_conventions::trace::{
     ERROR_TYPE, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_BODY_SIZE, URL_SCHEME,
 };
-use pin_project::pin_project;
+use pin_project::{pin_project, pinned_drop};
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
@@ -33,11 +33,12 @@ use tracing::Span;
 
 /// A future instrumented to add span attributes for transport attempts.
 #[must_use = "futures do nothing unless you `.await` or poll them"]
-#[pin_project]
+#[pin_project(PinnedDrop)]
 pub struct WithTransportSpan<F> {
     #[pin]
     inner: F,
     span: Span,
+    completed: bool,
 }
 
 impl<F, R> WithTransportSpan<F>
@@ -45,7 +46,11 @@ where
     F: Future<Output = Result<R, Error>>,
 {
     pub fn new(span: Span, inner: F) -> Self {
-        Self { inner, span }
+        Self {
+            inner,
+            span,
+            completed: false,
+        }
     }
 }
 
@@ -58,6 +63,7 @@ where
         let span = self.span.clone();
         let this = self.project();
         let output = futures::ready!(this.inner.poll(cx));
+        *this.completed = true;
 
         let Some(recorder) = RequestRecorder::current() else {
             return Poll::Ready(output);
@@ -126,6 +132,20 @@ where
             }
         }
         Poll::Ready(output)
+    }
+}
+
+#[pinned_drop]
+impl<F> PinnedDrop for WithTransportSpan<F> {
+    fn drop(self: Pin<&mut Self>) {
+        let this = self.project();
+        if !*this.completed {
+            this.span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+            this.span.record(
+                ERROR_TYPE,
+                crate::observability::attributes::error_type_values::CLIENT_CANCELLED,
+            );
+        }
     }
 }
 
