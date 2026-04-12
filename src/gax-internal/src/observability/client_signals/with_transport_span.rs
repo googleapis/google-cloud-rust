@@ -25,7 +25,7 @@ use opentelemetry_semantic_conventions::attribute::HTTP_RESPONSE_STATUS_CODE;
 use opentelemetry_semantic_conventions::trace::{
     ERROR_TYPE, HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_BODY_SIZE, URL_SCHEME,
 };
-use pin_project::pin_project;
+use pin_project::{pin_project, pinned_drop};
 use std::future::Future;
 use std::pin::Pin;
 use std::task::{Context, Poll};
@@ -33,11 +33,12 @@ use tracing::Span;
 
 /// A future instrumented to add span attributes for transport attempts.
 #[must_use = "futures do nothing unless you `.await` or poll them"]
-#[pin_project]
+#[pin_project(PinnedDrop)]
 pub struct WithTransportSpan<F> {
     #[pin]
     inner: F,
     span: Span,
+    completed: bool,
 }
 
 impl<F, R> WithTransportSpan<F>
@@ -45,7 +46,11 @@ where
     F: Future<Output = Result<R, Error>>,
 {
     pub fn new(span: Span, inner: F) -> Self {
-        Self { inner, span }
+        Self {
+            inner,
+            span,
+            completed: false,
+        }
     }
 }
 
@@ -58,37 +63,89 @@ where
         let span = self.span.clone();
         let this = self.project();
         let output = futures::ready!(this.inner.poll(cx));
+        *this.completed = true;
 
-        let Some(snapshot) = RequestRecorder::current().map(|r| r.client_snapshot()) else {
+        let Some(recorder) = RequestRecorder::current() else {
             return Poll::Ready(output);
         };
+        let snapshot = recorder.client_snapshot();
+
+        if let Some(rn) = snapshot.resource_name() {
+            span.record(GCP_RESOURCE_DESTINATION_ID, rn);
+        }
 
         match &output {
             Ok(_) => {
-                tracing::record_all!(
-                    span,
-                    { HTTP_RESPONSE_STATUS_CODE } = snapshot.http_status_code().map(|v| v as i64),
-                    { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
-                    { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
-                    { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
-                    { URL_SCHEME } = snapshot.url_scheme()
-                );
+                if snapshot.rpc_system() == Some("grpc") {
+                    tracing::record_all!(
+                        span,
+                        { RPC_RESPONSE_STATUS_CODE } = "OK",
+                        { HTTP_RESPONSE_STATUS_CODE } =
+                            snapshot.http_status_code().map(|v| v as i64),
+                        { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                        { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
+                        { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64),
+                        { URL_SCHEME } = snapshot.url_scheme()
+                    );
+                } else {
+                    tracing::record_all!(
+                        span,
+                        { HTTP_RESPONSE_STATUS_CODE } =
+                            snapshot.http_status_code().map(|v| v as i64),
+                        { NETWORK_PEER_ADDRESS } = snapshot.network_peer_address(),
+                        { NETWORK_PEER_PORT } = snapshot.network_peer_port(),
+                        { HTTP_RESPONSE_BODY_SIZE } = snapshot.http_response_body_size(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64),
+                        { URL_SCHEME } = snapshot.url_scheme()
+                    );
+                }
             }
             Err(err) => {
                 let error_type = ErrorType::from_gax_error(err);
-                tracing::record_all!(
-                    span,
-                    { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
-                    { HTTP_RESPONSE_STATUS_CODE } = err.http_status_code().map(|v| v as i64),
-                    { ERROR_TYPE } = error_type.as_str(),
-                    { OTEL_STATUS_DESCRIPTION } = err.to_string(),
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64)
-                );
+                let rpc_status_code = err.status().map(|s| s.code.name());
+
+                if snapshot.rpc_system() == Some("grpc") {
+                    tracing::record_all!(
+                        span,
+                        { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
+                        { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
+                        { ERROR_TYPE } = error_type.as_str(),
+                        { OTEL_STATUS_DESCRIPTION } = err.to_string(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64)
+                    );
+                } else {
+                    tracing::record_all!(
+                        span,
+                        { OTEL_STATUS_CODE } = otel_status_codes::ERROR,
+                        { HTTP_RESPONSE_STATUS_CODE } = err.http_status_code().map(|v| v as i64),
+                        { ERROR_TYPE } = error_type.as_str(),
+                        { OTEL_STATUS_DESCRIPTION } = err.to_string(),
+                        { HTTP_REQUEST_RESEND_COUNT } =
+                            snapshot.http_resend_count().map(|v| v as i64)
+                    );
+                }
                 crate::observability::errors::emit_error_log(&span, err);
             }
         }
         Poll::Ready(output)
+    }
+}
+
+#[pinned_drop]
+impl<F> PinnedDrop for WithTransportSpan<F> {
+    fn drop(self: Pin<&mut Self>) {
+        let this = self.project();
+        if !*this.completed {
+            this.span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
+            this.span.record(
+                ERROR_TYPE,
+                crate::observability::attributes::error_type_values::CLIENT_CANCELLED,
+            );
+        }
     }
 }
 
