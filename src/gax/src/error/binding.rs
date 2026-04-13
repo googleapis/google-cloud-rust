@@ -26,7 +26,7 @@
 /// Also see the [Handling binding errors] section in the user guide to learn
 /// how to resolve these errors.
 ///
-/// [Handling binding errors]: https://google-cloud-rust.github.io/binding_errors.html
+/// [Handling binding errors]: https://googleapis.github.io/google-cloud-rust/binding_errors.html
 /// [aip-127]: https://google.aip.dev/127
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
 #[derive(thiserror::Error, Debug, PartialEq)]
