@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use google_cloud_gax::client_builder::Error as BuilderError;
-#[cfg(any(test, feature = "_internal-http-client"))]
 use google_cloud_gax::error::Error;
 use http::Uri;
 use std::str::FromStr;
@@ -61,7 +60,7 @@ fn origin_and_header(
 
     let is_default_universe_domain = default_host.ends_with(".googleapis.com");
     if !is_default_universe_domain {
-        // Universe domain logic: endpoint takes priority if provided.
+        // For non GDU environments, endpoint takes priority if provided.
         // And we don't treat regional/locational endpoints specially.
         return Ok((custom_origin, custom_host));
     }
@@ -107,7 +106,6 @@ impl HostError {
         }
     }
 
-    #[cfg(any(test, feature = "_internal-http-client"))]
     pub fn gax(self) -> Error {
         match self {
             Self::Uri(e) => Error::io(e),
@@ -157,6 +155,22 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(
+        "https://language.another-universe.com/",
+        "language.another-universe.com";
+        "custom endpoint takes priority on universe domain"
+    )]
+    #[test_case(
+        "https://language.us-central1.rep.googleapis.com",
+        "language.us-central1.rep.googleapis.com";
+        "regional endpoint takes priority on universe domain"
+    )]
+    fn header_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {
+        let got = header(Some(input), "https://language.my-custom-universe.com")?;
+        assert_eq!(got, want, "input={input:?}");
+        Ok(())
+    }
+
     #[test_case("http://www.googleapis.com", "https://test.googleapis.com"; "global")]
     #[test_case("http://private.googleapis.com", "https://test.googleapis.com"; "VPC-SC private")]
     #[test_case("http://restricted.googleapis.com", "https://test.googleapis.com"; "VPC-SC restricted")]
@@ -184,6 +198,22 @@ mod tests {
     #[test_case("http://localhost:5678", "http://localhost:5678")]
     fn origin_default(input: &str, want: &str) -> anyhow::Result<()> {
         let got = origin(None, input)?;
+        assert_eq!(got, want, "input={input:?}");
+        Ok(())
+    }
+
+    #[test_case(
+        "https://language.another-universe.com",
+        "language.another-universe.com";
+        "custom endpoint takes priority on universe domain"
+    )]
+    #[test_case(
+        "https://language.us-central1.rep.googleapis.com",
+        "language.us-central1.rep.googleapis.com";
+        "regional endpoint takes priority on universe domain"
+    )]
+    fn origin_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {
+        let got = origin(Some(input), "https://language.my-custom-universe.com")?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }

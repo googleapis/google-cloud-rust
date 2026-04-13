@@ -606,6 +606,8 @@ mod tests {
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
     use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
+    use scoped_env::ScopedEnv;
+    use serial_test::serial;
     use test_case::test_case;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
@@ -808,12 +810,14 @@ mod tests {
     #[test_case(Some("https://yet-another-universe-domain.com/"), "yet-another-universe-domain.com", "yet-another-universe-domain.com", "https://yet-another-universe-domain.com/"; "custom endpoint override")]
     #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "rep.language.googleapis.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
     #[test_case(Some("https://us-central1-language.googleapis.com/"), "my-universe-domain.com", "us-central1-language.googleapis.com", "https://us-central1-language.googleapis.com/"; "locational endpoint with universe domain")]
+    #[serial]
     async fn host_from_endpoint_with_universe_domain_success(
         endpoint_override: Option<&str>,
         universe_domain: &str,
         expected_host: &str,
         expected_endpoint: &str,
     ) -> TestResult {
+        let _env = ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN");
         let universe_domain = universe_domain.to_string();
         let mut config = ClientConfig::default();
         config.universe_domain = Some(universe_domain.clone());
