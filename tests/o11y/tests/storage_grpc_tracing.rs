@@ -17,6 +17,7 @@
 use gaxi::observability::RequestRecorder;
 use gaxi::options::InstrumentationClientInfo;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_storage::client::StorageControl;
 use integration_tests_o11y::mock_collector::MockCollector;
 use integration_tests_o11y::otlp::logs::Builder as LoggerProviderBuilder;
@@ -133,21 +134,7 @@ async fn grpc_can_be_disabled() -> anyhow::Result<()> {
 }
 
 async fn grpc_reports_client_failure() -> anyhow::Result<()> {
-    let mock_collector = MockCollector::default();
-    let otlp_endpoint: String = mock_collector.start().await;
-
-    let provider: opentelemetry_sdk::trace::SdkTracerProvider =
-        TracerProviderBuilder::new("test-project", "integration-tests")
-            .with_endpoint(otlp_endpoint.clone())
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-
-    let _guard = tracing_subscriber::Registry::default()
-        .with(integration_tests_o11y::tracing::trace_layer(
-            provider.clone(),
-        ))
-        .set_default();
+    let setup = setup_o11y().await?;
 
     // Use a bogus endpoint to trigger a client failure (connection refused)
     let endpoint = "http://127.0.0.1:12345";
@@ -167,9 +154,12 @@ async fn grpc_reports_client_failure() -> anyhow::Result<()> {
         .await;
 
     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-    let _ = provider.force_flush();
+    let _ = setup.provider.force_flush();
+    let _ = setup.meter_provider.force_flush();
+    let _ = setup.logger_provider.force_flush();
 
-    let (_, _, request) = mock_collector
+    let (_, _, request) = setup
+        .mock_collector
         .traces
         .lock()
         .expect("never poisoned")
@@ -184,10 +174,40 @@ async fn grpc_reports_client_failure() -> anyhow::Result<()> {
         }
     }
 
-    let _client_span = all_spans
+    let client_span = all_spans
         .iter()
         .find(|s| s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket")
         .expect("Should have a DeleteBucket span");
+
+    // Verify metrics
+    let mut metrics_requests = setup.mock_collector.metrics.lock().expect("never poisoned");
+    let mut found_duration_metric = false;
+    while let Some(req) = metrics_requests.pop() {
+        let (_, _, metrics_request) = req.into_parts();
+        for rm in metrics_request.resource_metrics {
+            for sm in rm.scope_metrics {
+                for m in sm.metrics {
+                    if m.name.contains("gcp.client.request.duration")
+                        || m.name.contains("test.client.duration")
+                    {
+                        found_duration_metric = true;
+                    }
+                }
+            }
+        }
+    }
+    assert!(found_duration_metric, "Should have found duration metric");
+
+    // Verify logs
+    let logs_requests = setup.mock_collector.logs.lock().unwrap();
+    let log_event = logs_requests
+        .iter()
+        .flat_map(|r| r.get_ref().resource_logs.clone())
+        .flat_map(|rl| rl.scope_logs)
+        .flat_map(|sl| sl.log_records)
+        .find(|l| l.span_id == client_span.span_id);
+
+    assert!(log_event.is_some(), "Should have found log matching span");
 
     Ok(())
 }
@@ -367,8 +387,7 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
     mock.expect_delete_bucket()
         .return_once(|_| Err(Status::new(Code::NotFound, "Object not found")));
 
-    let (endpoint, _server): (String, tokio::task::JoinHandle<()>) =
-        start("0.0.0.0:0", mock).await?;
+    let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
     let endpoint = endpoint.trim_end_matches('/');
 
     let client = StorageControl::builder()
@@ -431,6 +450,104 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
     Ok(())
 }
 
+async fn grpc_reports_success() -> anyhow::Result<()> {
+    let mock_collector = MockCollector::default();
+    let otlp_endpoint: String = mock_collector.start().await;
+
+    let provider: opentelemetry_sdk::trace::SdkTracerProvider =
+        TracerProviderBuilder::new("test-project", "integration-tests")
+            .with_endpoint(otlp_endpoint.clone())
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+    let _guard = tracing_subscriber::Registry::default()
+        .with(integration_tests_o11y::tracing::trace_layer(
+            provider.clone(),
+        ))
+        .set_default();
+
+    let mut mock = MockStorage::new();
+    mock.expect_delete_bucket()
+        .returning(|_| Ok(tonic::Response::new(())));
+
+    let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+    let endpoint = endpoint.trim_end_matches('/');
+
+    let client = StorageControl::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .build()
+        .await?;
+
+    let _ = client
+        .delete_bucket()
+        .set_name("projects/_/buckets/test-bucket")
+        .send()
+        .await;
+
+    tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+    let _ = provider.force_flush();
+
+    let (_, _, request) = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .pop()
+        .expect("should have received at least one trace request")
+        .into_parts();
+
+    let mut all_spans = Vec::new();
+    for rs in request.resource_spans {
+        for ss in rs.scope_spans {
+            all_spans.extend(ss.spans);
+        }
+    }
+
+    let client_span = all_spans
+        .iter()
+        .find(|s| s.name == "google.storage.v2.Storage/DeleteBucket")
+        .expect("Should have a DeleteBucket span");
+
+    assert_eq!(client_span.kind, 3); // SPAN_KIND_CLIENT
+
+    let status_code = client_span.status.as_ref().map(|s| s.code).unwrap_or(0);
+    assert!(
+        status_code == 0 || status_code == 1,
+        "status code should be UNSET (0) or OK (1), was {}",
+        status_code
+    );
+
+    let attributes: std::collections::HashMap<String, _> = client_span
+        .attributes
+        .iter()
+        .map(|kv| (kv.key.clone(), kv.value.clone().unwrap()))
+        .collect();
+
+    let get_string = |key: &str| -> Option<String> {
+        attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
+                Some(s.clone())
+            }
+            _ => None,
+        })
+    };
+
+    assert_eq!(get_string("rpc.system.name").as_deref(), Some("grpc"));
+    assert_eq!(
+        get_string("rpc.method").as_deref(),
+        Some("google.storage.v2.Storage/DeleteBucket")
+    );
+    assert_eq!(
+        get_string("rpc.response.status_code").as_deref(),
+        Some("OK")
+    );
+    assert!(get_string("error.type").is_none());
+
+    Ok(())
+}
+
 // These tests must run sequentially because they share a global OpenTelemetry state.
 // Running them in parallel leads to race conditions and flaky metric assertions.
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -438,5 +555,110 @@ async fn storage_grpc_observability_pipeline() -> anyhow::Result<()> {
     grpc_can_be_disabled().await?;
     grpc_reports_client_failure().await?;
     grpc_reports_server_error().await?;
+    grpc_reports_success().await?;
+    Ok(())
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+pub async fn grpc_reports_retries() -> anyhow::Result<()> {
+    let mock_collector = MockCollector::default();
+    let otlp_endpoint: String = mock_collector.start().await;
+
+    let provider: opentelemetry_sdk::trace::SdkTracerProvider =
+        TracerProviderBuilder::new("test-project", "integration-tests")
+            .with_endpoint(otlp_endpoint.clone())
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+    let _guard = tracing_subscriber::Registry::default()
+        .with(integration_tests_o11y::tracing::trace_layer(
+            provider.clone(),
+        ))
+        .set_default();
+
+    let mut mock = MockStorage::new();
+
+    mock.expect_delete_bucket()
+        .returning(|_| Err(Status::new(Code::Unavailable, "try again")));
+
+    let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+    let endpoint = endpoint.trim_end_matches('/');
+
+    let backoff_policy = google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        .with_initial_delay(std::time::Duration::from_millis(10))
+        .with_maximum_delay(std::time::Duration::from_millis(50))
+        .with_scaling(1.5)
+        .build()
+        .unwrap();
+
+    let client = StorageControl::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(google_cloud_gax::retry_policy::AlwaysRetry)
+        .with_backoff_policy(backoff_policy)
+        .with_tracing()
+        .build()
+        .await?;
+
+    let _ = tokio::time::timeout(
+        std::time::Duration::from_millis(2000),
+        client
+            .delete_bucket()
+            .set_name("projects/_/buckets/test-bucket")
+            .with_retry_policy(google_cloud_gax::retry_policy::AlwaysRetry)
+            .send(),
+    )
+    .await;
+
+    tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+    let _ = provider.force_flush();
+
+    let requests = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .drain(..)
+        .collect::<Vec<_>>();
+
+    let mut all_spans = Vec::new();
+    for req in requests {
+        let req: tonic::Request<ExportTraceServiceRequest> = req;
+        let (_, _, request) = req.into_parts();
+        for rs in request.resource_spans {
+            for ss in rs.scope_spans {
+                all_spans.extend(ss.spans);
+            }
+        }
+    }
+
+    let attempt_spans: Vec<_> = all_spans
+        .iter()
+        .filter(|s| s.name == "google.storage.v2.Storage/DeleteBucket")
+        .collect();
+
+    assert!(
+        attempt_spans.len() > 1,
+        "Should have recorded multiple attempt spans for retries, found only: {}",
+        attempt_spans.len()
+    );
+
+    let last_span = attempt_spans.last().unwrap();
+
+    let attributes: std::collections::HashMap<String, _> = last_span
+        .attributes
+        .iter()
+        .map(|kv| (kv.key.clone(), kv.value.clone().unwrap()))
+        .collect();
+
+    let get_int = |key: &str| -> Option<i64> {
+        attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
+            _ => None,
+        })
+    };
+
+    assert!(get_int("gcp.grpc.resend_count").is_some());
+
     Ok(())
 }

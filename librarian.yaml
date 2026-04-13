@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.10.1-0.20260408162740-399e2ccbf6bb
+version: v0.10.2-0.20260413120931-14e2e5bc1bb1
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -131,13 +131,13 @@ libraries:
           api_path: src/wkt/tests/protos
           template: mod
   - name: google-cloud-accessapproval-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-advisorynotifications-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-aiplatform-v1
-    version: 1.9.0
+    version: 1.10.0
     copyright_year: "2025"
     rust:
       disabled_rustdoc_warnings:
@@ -181,29 +181,29 @@ libraries:
         - vizier-service
       quickstart_service_override: PredictionService
   - name: google-cloud-aiplatform-v1-schema-predict-instance
-    version: 1.1.0
+    version: 1.2.0
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/instance
   - name: google-cloud-aiplatform-v1-schema-predict-params
-    version: 1.1.0
+    version: 1.2.0
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/params
   - name: google-cloud-aiplatform-v1-schema-predict-prediction
-    version: 1.1.0
+    version: 1.2.0
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/prediction
   - name: google-cloud-aiplatform-v1-schema-trainingjob-definition
-    version: 1.1.0
+    version: 1.2.0
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/trainingjob/definition
   - name: google-cloud-alloydb-connectors-v1
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-alloydb-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-api
-    version: 1.4.0
+    version: 1.5.0
     apis:
       - path: google/api
     copyright_year: "2025"
@@ -229,17 +229,17 @@ libraries:
                   - name: EXTENDED_TILE_CACHE_PERIOD
                     type: INT64
   - name: google-cloud-api-cloudquotas-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/api/cloudquotas/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/api/servicecontrol/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/api/servicecontrol/v2
     copyright_year: "2025"
@@ -254,26 +254,26 @@ libraries:
             - `organizations/<organization-number>`
 
   - name: google-cloud-api-servicemanagement-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/api/servicemanagement/v1
     copyright_year: "2025"
   - name: google-cloud-api-serviceusage-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/api/serviceusage/v1
     copyright_year: "2025"
   - name: google-cloud-apigateway-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-apigeeconnect-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-apihub-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-apihub-v1
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-apikeys-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/api/apikeys/v2
     copyright_year: "2025"
@@ -283,21 +283,21 @@ libraries:
     version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-appengine-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/appengine/v1
     copyright_year: "2025"
   - name: google-cloud-apphub-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-apps-script-type
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/apps/script/type
     copyright_year: "2025"
     output: src/generated/apps/script/gtype
   - name: google-cloud-apps-script-type-calendar
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/calendar
     copyright_year: "2025"
@@ -308,7 +308,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-docs
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/docs
     copyright_year: "2025"
@@ -319,7 +319,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-drive
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/drive
     copyright_year: "2025"
@@ -330,7 +330,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-gmail
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/gmail
     copyright_year: "2025"
@@ -341,7 +341,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-sheets
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/sheets
     copyright_year: "2025"
@@ -352,7 +352,7 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-slides
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/apps/script/type/slides
     copyright_year: "2025"
@@ -363,14 +363,14 @@ libraries:
           package: google-cloud-apps-script-type
           source: google.apps.script.type
   - name: google-cloud-artifactregistry-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/artifactregistry/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-artifactregistry-v1
   - name: google-cloud-asset-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -387,38 +387,38 @@ libraries:
           package: google-cloud-osconfig-v1
           source: google.cloud.osconfig.v1
   - name: google-cloud-assuredworkloads-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-auditmanager-v1
     version: 1.0.0
     copyright_year: "2026"
   - name: google-cloud-auth
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     output: src/auth
   - name: google-cloud-backupdr-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-baremetalsolution-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-beyondcorp-appconnections-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-beyondcorp-appconnectors-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-beyondcorp-appgateways-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-beyondcorp-clientconnectorservices-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-beyondcorp-clientgateways-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-biglake-v1
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
   - name: google-cloud-bigquery
     copyright_year: "2026"
@@ -448,25 +448,25 @@ libraries:
           api_path: google/cloud/bigquery/storage/v1
           template: prost
   - name: google-cloud-bigquery-analyticshub-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-connection-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-datapolicies-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-datapolicies-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-datatransfer-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-migration-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-reservation-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-bigquery-v2
     version: 1.0.0
@@ -479,57 +479,57 @@ libraries:
     output: src/bigtable
     skip_release: true
   - name: google-cloud-bigtable-admin-v2
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/bigtable/admin/v2
     copyright_year: "2025"
   - name: google-cloud-billing-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-binaryauthorization-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-build-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/cloudbuild/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-build-v1
   - name: google-cloud-build-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/cloudbuild/v2
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-build-v2
   - name: google-cloud-certificatemanager-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-ces-v1
     version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-chronicle-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-cloudcontrolspartner-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-clouddms-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-clouddms-v1
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-cloudsecuritycompliance-v1
-    version: 2.7.0
+    version: 2.8.0
     copyright_year: "2025"
   - name: google-cloud-commerce-consumer-procurement-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-common
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-compute-v1
-    version: 2.4.0
+    version: 2.5.0
     copyright_year: "2025"
     keep:
       - src/errors.rs
@@ -537,6 +537,7 @@ libraries:
     roots:
       - discovery
       - googleapis
+    skip_release: true
     specification_format: discovery
     rust:
       package_dependencies:
@@ -572,73 +573,73 @@ libraries:
             method_id: .google.cloud.compute.v1.globalOrganizationOperations.get
       quickstart_service_override: Instances
   - name: google-cloud-confidentialcomputing-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-config-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-configdelivery-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-connectors-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-contactcenterinsights-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-container-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/container/v1
     copyright_year: "2025"
   - name: google-cloud-containeranalysis-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/containeranalysis/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-containeranalysis-v1
   - name: google-cloud-datacatalog-lineage-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-datacatalog-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-dataform-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-datafusion-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-dataplex-v1
-    version: 2.0.0
+    version: 2.1.0
     copyright_year: "2025"
   - name: google-cloud-dataproc-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-datastore
     copyright_year: "2025"
     output: src/datastore
     skip_release: true
   - name: google-cloud-datastore-admin-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/datastore/admin/v1
     copyright_year: "2025"
   - name: google-cloud-datastream-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-deploy-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-developerconnect-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-devicestreaming-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-dialogflow-cx-v3
-    version: 2.3.0
+    version: 2.4.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -664,7 +665,7 @@ libraries:
         - versions
         - webhooks
   - name: google-cloud-dialogflow-v2
-    version: 1.9.0
+    version: 1.10.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -692,7 +693,7 @@ libraries:
         - tools
         - versions
   - name: google-cloud-discoveryengine-v1
-    version: 2.8.0
+    version: 2.9.0
     copyright_year: "2025"
     rust:
       per_service_features: true
@@ -719,7 +720,7 @@ libraries:
         - user-event-service
         - user-license-service
   - name: google-cloud-dns-v1
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2026"
     keep:
       - src/operation.rs
@@ -738,31 +739,31 @@ libraries:
           - prefix: dns/v1/projects/{project}/managedZones/{managedZone}
             method_id: ..managedZoneOperations.get
   - name: google-cloud-documentai-v1
-    version: 1.9.0
+    version: 1.10.0
     copyright_year: "2025"
   - name: google-cloud-domains-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-edgecontainer-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-edgenetwork-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-essentialcontacts-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-eventarc-publishing-v1
-    version: 1.4.0
+    version: 1.5.0
     copyright_year: "2026"
   - name: google-cloud-eventarc-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-filestore-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-financialservices-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-firestore
     copyright_year: "2025"
@@ -796,12 +797,12 @@ libraries:
           api_path: google/firestore/v1
           template: prost
   - name: google-cloud-firestore-admin-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/firestore/admin/v1
     copyright_year: "2025"
   - name: google-cloud-functions-v2
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-gax
     version: 1.9.0
@@ -823,31 +824,31 @@ libraries:
           api_path: google/rpc
           template: prost
   - name: google-cloud-gkebackup-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-gkeconnect-gateway-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-gkehub-configmanagement-v1
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/cloud/gkehub/v1/configmanagement
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/configmanagement/v1
   - name: google-cloud-gkehub-multiclusteringress-v1
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
   - name: google-cloud-gkehub-rbacrolebindingactuation-v1
-    version: 1.1.0
+    version: 1.2.0
     apis:
       - path: google/cloud/gkehub/v1/rbacrolebindingactuation
     copyright_year: "2026"
     output: src/generated/cloud/gkehub/rbacrolebindingactuation/v1
   - name: google-cloud-gkehub-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -861,18 +862,18 @@ libraries:
           package: google-cloud-gkehub-rbacrolebindingactuation-v1
           source: google.cloud.gkehub.rbacrolebindingactuation.v1
   - name: google-cloud-gkemulticloud-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-gkerecommender-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-grafeas-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: grafeas/v1
     copyright_year: "2025"
   - name: google-cloud-gsuiteaddons-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -902,42 +903,42 @@ libraries:
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-iam-admin-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/iam/admin/v1
     copyright_year: "2025"
   - name: google-cloud-iam-credentials-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/iam/credentials/v1
     copyright_year: "2025"
   - name: google-cloud-iam-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/iam/v1
     copyright_year: "2024"
   - name: google-cloud-iam-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/iam/v2
     copyright_year: "2025"
   - name: google-cloud-iam-v3
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/iam/v3
     copyright_year: "2025"
   - name: google-cloud-iap-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-identity-accesscontextmanager-type
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/identity/accesscontextmanager/type
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-identity-accesscontextmanager-type
   - name: google-cloud-identity-accesscontextmanager-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/identity/accesscontextmanager/v1
     copyright_year: "2025"
@@ -947,10 +948,10 @@ libraries:
           package: google-cloud-identity-accesscontextmanager-type
           source: google.identity.accesscontextmanager.type
   - name: google-cloud-ids-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-kms-inventory-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -958,16 +959,16 @@ libraries:
           package: google-cloud-kms-v1
           source: google.cloud.kms.v1
   - name: google-cloud-kms-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-language-v2
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-licensemanager-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-language-v2
+    version: 1.8.0
+    copyright_year: "2025"
+  - name: google-cloud-licensemanager-v1
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-location
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2024"
     rust:
       package_dependencies:
@@ -975,24 +976,24 @@ libraries:
           ignore: true
           package: ""
   - name: google-cloud-locationfinder-v1
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2025"
   - name: google-cloud-logging-type
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/logging/type
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-logging-type
   - name: google-cloud-logging-v2
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/logging/v2
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "false"
   - name: google-cloud-longrunning
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/longrunning
     copyright_year: "2024"
@@ -1018,68 +1019,68 @@ libraries:
           ignore: true
           package: ""
   - name: google-cloud-lro
-    version: 1.4.0
+    version: 1.5.0
     copyright_year: "2025"
     output: src/lro
   - name: google-cloud-lustre-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-maintenance-api-v1
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
   - name: google-cloud-managedidentities-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-managedkafka-schemaregistry-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-managedkafka-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-memcache-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-memorystore-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-metastore-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-migrationcenter-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-modelarmor-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-monitoring-dashboard-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/monitoring/dashboard/v1
     copyright_year: "2025"
   - name: google-cloud-monitoring-metricsscope-v1
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/monitoring/metricsscope/v1
     copyright_year: "2025"
   - name: google-cloud-monitoring-v3
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/monitoring/v3
     copyright_year: "2025"
   - name: google-cloud-netapp-v1
-    version: 1.8.0
+    version: 2.0.0
     copyright_year: "2025"
   - name: google-cloud-networkconnectivity-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-networkmanagement-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-networksecurity-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-networkservices-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     rust:
       documentation_overrides:
@@ -1087,19 +1088,19 @@ libraries:
           match: Specificies
           replace: Specifies
   - name: google-cloud-notebooks-v2
-    version: 1.8.0
-    copyright_year: "2025"
-  - name: google-cloud-optimization-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-oracledatabase-v1
     version: 1.9.0
     copyright_year: "2025"
-  - name: google-cloud-orchestration-airflow-service-v1
+  - name: google-cloud-optimization-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-oracledatabase-v1
+    version: 1.10.0
+    copyright_year: "2025"
+  - name: google-cloud-orchestration-airflow-service-v1
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-orgpolicy-v1
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2025"
     rust:
       documentation_overrides:
@@ -1110,10 +1111,10 @@ libraries:
           match: The `supports_under` field of the associated `Constraint`  defines whether
           replace: " \nThe `supports_under` field of the associated `Constraint`  defines whether"
   - name: google-cloud-orgpolicy-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-osconfig-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       disabled_rustdoc_warnings:
@@ -1122,11 +1123,11 @@ libraries:
         - bare_urls
         - invalid_html_tags
   - name: google-cloud-oslogin-common
-    version: 1.3.0
+    version: 1.4.0
     copyright_year: "2025"
     output: src/generated/oslogin/common
   - name: google-cloud-oslogin-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -1135,13 +1136,13 @@ libraries:
           source: google.cloud.oslogin.common
       generate_rpc_samples: "false"
   - name: google-cloud-parallelstore-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-parametermanager-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-policysimulator-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -1149,7 +1150,7 @@ libraries:
           package: google-cloud-orgpolicy-v2
           source: google.cloud.orgpolicy.v2
   - name: google-cloud-policytroubleshooter-iam-v3
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -1157,25 +1158,25 @@ libraries:
           package: google-cloud-iam-v2
           source: google.iam.v2
   - name: google-cloud-policytroubleshooter-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-privacy-dlp-v2
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/privacy/dlp/v2
     copyright_year: "2025"
   - name: google-cloud-privilegedaccessmanager-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-profiler-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/cloudprofiler/v2
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 0.33.1
+    version: 0.33.2
     copyright_year: "2025"
     output: src/pubsub
     rust:
@@ -1251,13 +1252,13 @@ libraries:
         - id: .google.pubsub.v1.Publisher.ListTopicSubscriptions
           item_field: subscriptions
   - name: google-cloud-rapidmigrationassessment-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-recaptchaenterprise-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-recommender-logging-v1
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     rust:
       package_dependencies:
@@ -1265,19 +1266,19 @@ libraries:
           package: google-cloud-recommender-v1
           source: google.cloud.recommender.v1
   - name: google-cloud-recommender-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-redis-cluster-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-redis-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-resourcemanager-v3
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-retail-v2
-    version: 2.7.0
+    version: 2.8.0
     copyright_year: "2025"
     rust:
       documentation_overrides:
@@ -1285,7 +1286,7 @@ libraries:
           match: Duplcate
           replace: Duplicate
   - name: google-cloud-rpc
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/rpc
     copyright_year: "2024"
@@ -1293,48 +1294,48 @@ libraries:
     rust:
       package_name_override: google-cloud-rpc
   - name: google-cloud-rpc-context
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/rpc/context
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-rpc-context
   - name: google-cloud-run-v2
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-scheduler-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-secretmanager-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2024"
   - name: google-cloud-securesourcemanager-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-security-privateca-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-security-publicca-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-securitycenter-v2
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-securitycentermanagement-v1
     version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-securityposture-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-servicedirectory-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-servicehealth-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-shell-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-showcase-v1beta1
     version: 1.0.0
@@ -1369,7 +1370,7 @@ libraries:
           api_path: google/spanner/v1
           template: prost
   - name: google-cloud-spanner-admin-database-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/spanner/admin/database/v1
     copyright_year: "2025"
@@ -1406,15 +1407,15 @@ libraries:
               * `backup_schedules:daily` - The backup is created from a schedule with
                 "daily" in its name.
   - name: google-cloud-spanner-admin-instance-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/spanner/admin/instance/v1
     copyright_year: "2025"
   - name: google-cloud-speech-v2
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-sql-v1
-    version: 2.4.0
+    version: 2.5.0
     copyright_year: "2025"
     rust:
       resource_name_heuristic: true
@@ -1423,7 +1424,7 @@ libraries:
           item_field: items
       quickstart_service_override: SqlInstancesService
   - name: google-cloud-storage
-    version: 1.10.0
+    version: 1.11.0
     copyright_year: "2025"
     output: src/storage
     rust:
@@ -1546,64 +1547,64 @@ libraries:
           api_path: google/storage/v2
           template: prost
   - name: google-cloud-storagebatchoperations-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-storageinsights-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     rust:
       name_overrides: .google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_locations=CloudStorageLocationsOneOf
   - name: google-cloud-storagetransfer-v1
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/storagetransfer/v1
     copyright_year: "2025"
   - name: google-cloud-support-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-talent-v4
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-tasks-v2
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-telcoautomation-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-test-utils
     copyright_year: "2025"
     output: src/test-utils
     skip_release: true
   - name: google-cloud-texttospeech-v1
-    version: 1.9.0
+    version: 1.10.0
     copyright_year: "2025"
   - name: google-cloud-timeseriesinsights-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-tpu-v2
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-tpu-v2
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-trace-v1
-    version: 1.5.0
+    version: 1.6.0
     apis:
       - path: google/devtools/cloudtrace/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-trace-v1
   - name: google-cloud-trace-v2
-    version: 1.7.0
+    version: 1.8.0
     apis:
       - path: google/devtools/cloudtrace/v2
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-trace-v2
   - name: google-cloud-translation-v3
-    version: 1.8.0
+    version: 1.9.0
     apis:
       - path: google/cloud/translate/v3
     copyright_year: "2025"
   - name: google-cloud-type
-    version: 1.3.0
+    version: 1.4.0
     apis:
       - path: google/type
     copyright_year: "2024"
@@ -1614,37 +1615,38 @@ libraries:
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-video-livestream-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-video-stitcher-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-video-transcoder-v1
-    version: 1.7.0
-    copyright_year: "2025"
-  - name: google-cloud-videointelligence-v1
     version: 1.8.0
     copyright_year: "2025"
+  - name: google-cloud-videointelligence-v1
+    version: 1.9.0
+    copyright_year: "2025"
   - name: google-cloud-vision-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-visionai-v1
+    version: 1.0.0
     copyright_year: "2026"
     rust: {}
   - name: google-cloud-vmmigration-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-vmwareengine-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-vpcaccess-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-webrisk-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-websecurityscanner-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-wkt
     version: 1.2.1
@@ -1660,10 +1662,10 @@ libraries:
           api_path: google/protobuf
           template: mod
   - name: google-cloud-workflows-executions-v1
-    version: 1.7.0
+    version: 1.8.0
     copyright_year: "2025"
   - name: google-cloud-workflows-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
     rust:
       disabled_rustdoc_warnings:
@@ -1672,7 +1674,7 @@ libraries:
         - invalid_html_tags
         - bare_urls
   - name: google-cloud-workstations-v1
-    version: 1.8.0
+    version: 1.9.0
     copyright_year: "2025"
   - name: grpc-server
     copyright_year: "2025"

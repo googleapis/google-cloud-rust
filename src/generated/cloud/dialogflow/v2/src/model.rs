@@ -312,7 +312,7 @@ pub mod agent {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -455,7 +455,7 @@ pub mod agent {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -603,7 +603,7 @@ pub mod agent {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2059,7 +2059,7 @@ pub mod agent_coaching_instruction {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "answer-records",
         feature = "conversations",
@@ -2986,7 +2986,7 @@ pub mod answer_feedback {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "answer-records")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3651,7 +3651,7 @@ pub mod agent_assistant_feedback {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "answer-records")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3792,7 +3792,7 @@ pub mod agent_assistant_feedback {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "answer-records")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3933,7 +3933,7 @@ pub mod agent_assistant_feedback {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "answer-records")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5211,7 +5211,7 @@ pub mod custom_pronunciation_params {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversation-profiles",
         feature = "conversations",
@@ -7390,7 +7390,7 @@ pub mod conversation {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "conversations")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -7536,7 +7536,7 @@ pub mod conversation {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "conversations")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -7732,7 +7732,7 @@ pub mod conversation {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "conversations")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -7907,7 +7907,7 @@ pub mod conversation {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversations")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -8050,7 +8050,7 @@ pub mod conversation {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversations")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -10896,7 +10896,7 @@ pub mod search_knowledge_request {
                         /// Please consult the [Working with enums] section in the user guide for some
                         /// guidelines.
                         ///
-                        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                         #[cfg(feature = "conversations")]
                         #[derive(Clone, Debug, PartialEq)]
                         #[non_exhaustive]
@@ -11056,7 +11056,7 @@ pub mod search_knowledge_request {
                         /// Please consult the [Working with enums] section in the user guide for some
                         /// guidelines.
                         ///
-                        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                         #[cfg(feature = "conversations")]
                         #[derive(Clone, Debug, PartialEq)]
                         #[non_exhaustive]
@@ -11274,7 +11274,7 @@ pub mod search_knowledge_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversations")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -11974,7 +11974,7 @@ pub mod search_knowledge_answer {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversations")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13544,7 +13544,7 @@ pub mod conversation_event {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(all(
         feature = "agents",
         feature = "answer-records",
@@ -14296,7 +14296,7 @@ pub mod conversation_model {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversation-models")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -14481,7 +14481,7 @@ pub mod conversation_model {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversation-models")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16271,7 +16271,7 @@ pub mod create_conversation_model_operation_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversation-models")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -16931,7 +16931,7 @@ pub mod create_conversation_model_evaluation_operation_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversation-models")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -19596,7 +19596,7 @@ pub mod human_agent_assistant_config {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -20422,7 +20422,7 @@ pub mod notification_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -20658,7 +20658,7 @@ pub mod suggestion_feature {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -21682,7 +21682,7 @@ pub mod document {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "documents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -21847,7 +21847,7 @@ pub mod document {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "documents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -23354,7 +23354,7 @@ pub mod knowledge_operation_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "documents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -24019,7 +24019,7 @@ pub mod entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "entity-types",
         feature = "participants",
@@ -24218,7 +24218,7 @@ pub mod entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "entity-types",
         feature = "participants",
@@ -25803,7 +25803,7 @@ pub mod environment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "environments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -27152,7 +27152,7 @@ pub mod fulfillment {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "environments", feature = "fulfillments",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -28074,7 +28074,7 @@ pub mod message_entry {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversations",
         feature = "generator-evaluations",
@@ -28995,7 +28995,7 @@ pub mod summarization_section {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversations",
         feature = "generator-evaluations",
@@ -31403,7 +31403,7 @@ pub mod rai_settings {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -31561,7 +31561,7 @@ pub mod rai_settings {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "conversation-profiles", feature = "conversations",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -34530,7 +34530,7 @@ pub mod generator_evaluation_config {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "generator-evaluations")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -34836,7 +34836,7 @@ pub mod generator_evaluation_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "generator-evaluations")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -35986,7 +35986,7 @@ pub mod intent {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "answer-records",
             feature = "intents",
@@ -39143,7 +39143,7 @@ pub mod intent {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
                 feature = "answer-records",
                 feature = "intents",
@@ -39695,7 +39695,7 @@ pub mod intent {
                     /// Please consult the [Working with enums] section in the user guide for some
                     /// guidelines.
                     ///
-                    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                     #[cfg(any(
                         feature = "answer-records",
                         feature = "intents",
@@ -39893,7 +39893,7 @@ pub mod intent {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
                 feature = "answer-records",
                 feature = "intents",
@@ -40380,7 +40380,7 @@ pub mod intent {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
                 feature = "answer-records",
                 feature = "intents",
@@ -40713,7 +40713,7 @@ pub mod intent {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "answer-records",
             feature = "intents",
@@ -41069,7 +41069,7 @@ pub mod intent {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "answer-records",
         feature = "intents",
@@ -43066,7 +43066,7 @@ pub mod participant {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversation-profiles",
         feature = "conversations",
@@ -43252,7 +43252,7 @@ pub mod participant {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversation-profiles",
         feature = "conversations",
@@ -46870,7 +46870,7 @@ pub mod automated_agent_reply {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "participants")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -48339,7 +48339,7 @@ pub mod suggestion_input {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "participants")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -48910,7 +48910,7 @@ pub mod ingested_context_reference_debug_info {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "conversations", feature = "participants",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -49802,7 +49802,7 @@ pub mod knowledge_assist_debug_info {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "participants")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -50030,7 +50030,7 @@ pub mod knowledge_assist_debug_info {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "participants")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -53411,7 +53411,7 @@ pub mod streaming_recognition_result {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "participants", feature = "sessions",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -54070,7 +54070,7 @@ pub mod session_entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "participants",
         feature = "session-entity-types",
@@ -55434,7 +55434,7 @@ pub mod connection {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sip-trunks")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -55589,7 +55589,7 @@ pub mod connection {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sip-trunks")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -57475,7 +57475,7 @@ pub mod tool {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(any(
                     feature = "conversations",
                     feature = "generator-evaluations",
@@ -58251,7 +58251,7 @@ pub mod tool {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
                 feature = "conversations",
                 feature = "generator-evaluations",
@@ -58507,7 +58507,7 @@ pub mod tool {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(
                 feature = "conversations",
                 feature = "generator-evaluations",
@@ -58784,7 +58784,7 @@ pub mod tool {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "conversations",
             feature = "generator-evaluations",
@@ -59215,7 +59215,7 @@ pub mod tool {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversations",
         feature = "generator-evaluations",
@@ -59406,7 +59406,7 @@ pub mod tool {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "conversations",
         feature = "generator-evaluations",
@@ -59994,7 +59994,7 @@ pub mod tool_call {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "answer-records",
         feature = "conversations",
@@ -60909,7 +60909,7 @@ pub mod validation_error {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -61267,7 +61267,7 @@ pub mod version {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "versions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -62550,7 +62550,7 @@ impl wkt::message::Message for OriginalDetectIntentRequest {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "participants")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -62793,7 +62793,7 @@ impl<'de> serde::de::Deserialize<'de> for TelephonyDtmf {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "conversation-profiles",
     feature = "conversations",
@@ -63050,7 +63050,7 @@ impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "conversation-profiles",
     feature = "conversations",
@@ -63269,7 +63269,7 @@ impl<'de> serde::de::Deserialize<'de> for SpeechModelVariant {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "conversation-profiles",
     feature = "conversations",
@@ -63472,7 +63472,7 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "environments",
     feature = "participants",
@@ -63681,7 +63681,7 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "conversations",
     feature = "generator-evaluations",
@@ -63876,7 +63876,7 @@ impl<'de> serde::de::Deserialize<'de> for TriggerEvent {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "intents")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -64011,7 +64011,7 @@ impl<'de> serde::de::Deserialize<'de> for IntentView {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "conversations", feature = "participants",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
