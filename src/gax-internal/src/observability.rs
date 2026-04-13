@@ -47,7 +47,10 @@ pub use client_signals::{
     WithClientMetric, WithClientSpan, WithTransportMetric,
 };
 
-#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+#[cfg(all(
+    google_cloud_unstable_tracing,
+    any(feature = "_internal-http-client", feature = "_internal-grpc-client")
+))]
 pub use client_signals::{WithTransportLogging, WithTransportSpan};
 
 #[doc(hidden)]

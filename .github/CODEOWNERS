@@ -14,3 +14,9 @@
 
 *           @googleapis/cloud-sdk-rust-team
 /src/auth/  @googleapis/cloud-sdk-rust-team @googleapis/cloud-sdk-auth-team
+
+/src/spanner/ @googleapis/spanner-team @googleapis/cloud-sdk-rust-team
+/tests/spanner/ @googleapis/spanner-team @googleapis/cloud-sdk-rust-team
+
+/src/storage/ @googleapis/gcs-team @googleapis/cloud-sdk-rust-team
+/tests/storage/ @googleapis/gcs-team @googleapis/cloud-sdk-rust-team

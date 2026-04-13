@@ -14449,7 +14449,7 @@ pub mod resource_record_sets {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListRequest {
-        /// Specify a filter expression to view records that exactly match the specified domain. Both the name and type parameters are not supported when you use filter and must be omitted. Your filter expression must conform to AIP-160 and you must specify a domain in the name field. Optionally, you can include the type field to filter records by type. You can also include the has_suffix function to view records that match by domain suffix. Examples: - name="example.com." - name="example.com." AND type="A" - name=has_suffix("example.com.") - name=has_suffix("example.com.") AND type="A"
+        /// Specify a filter expression to view records that exactly match the specified domain. Both the `name` and `type` parameters are not supported and must be omitted when you use `filter`. Your `filter` expression must conform to AIP-160 and you must specify a domain in the `name` field. Optionally, you can include the `type` field to filter records by type. You can also include the `has_suffix` function to view records that match by domain suffix. Examples: * `name`="example.com." * `name`="example.com." AND type="A" * `name`=`has_suffix`("example.com.") * `name`=`has_suffix`("example.com.") AND type="A"
         pub filter: std::option::Option<std::string::String>,
 
         /// Identifies the managed zone addressed by this request. Can be the managed zone name or ID.
@@ -14458,7 +14458,7 @@ pub mod resource_record_sets {
         /// Optional. Maximum number of results to be returned. If unspecified, the server decides how many results to return.
         pub max_results: std::option::Option<i32>,
 
-        /// Specify a fully qualified domain name to view only those records. The name parameter is not supported and must be omitted when you use filter.
+        /// Specify a fully qualified domain name to view only those records. The `name` parameter is not supported and must be omitted when you use `filter`.
         pub name: std::option::Option<std::string::String>,
 
         /// Optional. A tag returned by a previous list request that was truncated. Use this parameter to continue a previous list request.
@@ -14467,7 +14467,7 @@ pub mod resource_record_sets {
         /// Identifies the project addressed by this request.
         pub project: std::string::String,
 
-        /// Specify a record type to view only those records. You must also specify the name parameter. The type parameter is not supported and must be omitted when you use filter.
+        /// Specify a record type to view only those records. You must also specify the `name` parameter. The `type` parameter is not supported and must be omitted when you use `filter`.
         pub r#type: std::option::Option<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,

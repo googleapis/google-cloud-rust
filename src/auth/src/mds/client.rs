@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::errors::{self, CredentialsError};
+use crate::errors::{self, CredentialsError, from_gax_error};
 use crate::token::Token;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
@@ -179,7 +179,7 @@ impl Client {
             backoff_policy,
         )
         .await
-        .map_err(|e| errors::CredentialsError::new(false, error_message, e))
+        .map_err(|e| from_gax_error(e, error_message))
     }
 
     async fn check_response_status(

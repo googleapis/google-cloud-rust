@@ -191,6 +191,60 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn get_deployment_group(
+        &self,
+        req: crate::model::GetDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentGroup>>;
+
+    async fn create_deployment_group(
+        &self,
+        req: crate::model::CreateDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn update_deployment_group(
+        &self,
+        req: crate::model::UpdateDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_deployment_group(
+        &self,
+        req: crate::model::DeleteDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn list_deployment_groups(
+        &self,
+        req: crate::model::ListDeploymentGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentGroupsResponse>>;
+
+    async fn provision_deployment_group(
+        &self,
+        req: crate::model::ProvisionDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn deprovision_deployment_group(
+        &self,
+        req: crate::model::DeprovisionDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn get_deployment_group_revision(
+        &self,
+        req: crate::model::GetDeploymentGroupRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentGroupRevision>>;
+
+    async fn list_deployment_group_revisions(
+        &self,
+        req: crate::model::ListDeploymentGroupRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentGroupRevisionsResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -518,6 +572,87 @@ impl<T: super::Config> Config for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::update_auto_migration_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_deployment_group(
+        &self,
+        req: crate::model::GetDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentGroup>> {
+        T::get_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_deployment_group(
+        &self,
+        req: crate::model::CreateDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::create_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_deployment_group(
+        &self,
+        req: crate::model::UpdateDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_deployment_group(
+        &self,
+        req: crate::model::DeleteDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_deployment_groups(
+        &self,
+        req: crate::model::ListDeploymentGroupsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentGroupsResponse>> {
+        T::list_deployment_groups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn provision_deployment_group(
+        &self,
+        req: crate::model::ProvisionDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::provision_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn deprovision_deployment_group(
+        &self,
+        req: crate::model::DeprovisionDeploymentGroupRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::deprovision_deployment_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_deployment_group_revision(
+        &self,
+        req: crate::model::GetDeploymentGroupRevisionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentGroupRevision>> {
+        T::get_deployment_group_revision(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_deployment_group_revisions(
+        &self,
+        req: crate::model::ListDeploymentGroupRevisionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentGroupRevisionsResponse>> {
+        T::list_deployment_group_revisions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

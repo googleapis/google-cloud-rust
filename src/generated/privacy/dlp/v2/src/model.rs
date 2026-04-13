@@ -2101,6 +2101,9 @@ pub mod byte_content_item {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContentItem {
+    /// User provided metadata for the content.
+    pub content_metadata: std::option::Option<crate::model::ContentMetadata>,
+
     /// Data of the item either in the byte array or UTF-8 string form, or table.
     pub data_item: std::option::Option<crate::model::content_item::DataItem>,
 
@@ -2110,6 +2113,39 @@ pub struct ContentItem {
 impl ContentItem {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [content_metadata][crate::model::ContentItem::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// let x = ContentItem::new().set_content_metadata(ContentMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_content_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentMetadata>,
+    {
+        self.content_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_metadata][crate::model::ContentItem::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// let x = ContentItem::new().set_or_clear_content_metadata(Some(ContentMetadata::default()/* use setters */));
+    /// let x = ContentItem::new().set_or_clear_content_metadata(None::<ContentMetadata>);
+    /// ```
+    pub fn set_or_clear_content_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentMetadata>,
+    {
+        self.content_metadata = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [data_item][crate::model::ContentItem::data_item].
@@ -2263,6 +2299,50 @@ pub mod content_item {
     }
 }
 
+/// Metadata on content to be scanned.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ContentMetadata {
+    /// User provided key-value pairs of content metadata.
+    pub properties: std::vec::Vec<crate::model::KeyValueMetadataProperty>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ContentMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [properties][crate::model::ContentMetadata::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = ContentMetadata::new()
+    ///     .set_properties([
+    ///         KeyValueMetadataProperty::default()/* use setters */,
+    ///         KeyValueMetadataProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyValueMetadataProperty>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ContentMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ContentMetadata"
+    }
+}
+
 /// Structured content to inspect. Up to 50,000 `Value`s per request allowed. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-structured-text#inspecting_a_table>
 /// to learn more.
@@ -2381,6 +2461,55 @@ pub mod table {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.Table.Row"
         }
+    }
+}
+
+/// A key-value pair in the Metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct KeyValueMetadataProperty {
+    /// The key of the property.
+    pub key: std::string::String,
+
+    /// The value of the property.
+    pub value: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl KeyValueMetadataProperty {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::KeyValueMetadataProperty::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = KeyValueMetadataProperty::new().set_key("example");
+    /// ```
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::KeyValueMetadataProperty::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = KeyValueMetadataProperty::new().set_value("example");
+    /// ```
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for KeyValueMetadataProperty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.KeyValueMetadataProperty"
     }
 }
 
@@ -3306,6 +3435,7 @@ impl MetadataLocation {
     /// use google_cloud_privacy_dlp_v2::model::MetadataType;
     /// let x0 = MetadataLocation::new().set_type(MetadataType::StorageMetadata);
     /// let x1 = MetadataLocation::new().set_type(MetadataType::ContentMetadata);
+    /// let x2 = MetadataLocation::new().set_type(MetadataType::ClientProvidedMetadata);
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::MetadataType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -51655,6 +51785,8 @@ pub enum MetadataType {
     StorageMetadata,
     /// Metadata extracted from the files.
     ContentMetadata,
+    /// Metadata provided by the client.
+    ClientProvidedMetadata,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [MetadataType::value] or
@@ -51680,6 +51812,7 @@ impl MetadataType {
             Self::MetadatatypeUnspecified => std::option::Option::Some(0),
             Self::StorageMetadata => std::option::Option::Some(2),
             Self::ContentMetadata => std::option::Option::Some(3),
+            Self::ClientProvidedMetadata => std::option::Option::Some(4),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -51693,6 +51826,7 @@ impl MetadataType {
             Self::MetadatatypeUnspecified => std::option::Option::Some("METADATATYPE_UNSPECIFIED"),
             Self::StorageMetadata => std::option::Option::Some("STORAGE_METADATA"),
             Self::ContentMetadata => std::option::Option::Some("CONTENT_METADATA"),
+            Self::ClientProvidedMetadata => std::option::Option::Some("CLIENT_PROVIDED_METADATA"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -51717,6 +51851,7 @@ impl std::convert::From<i32> for MetadataType {
             0 => Self::MetadatatypeUnspecified,
             2 => Self::StorageMetadata,
             3 => Self::ContentMetadata,
+            4 => Self::ClientProvidedMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -51731,6 +51866,7 @@ impl std::convert::From<&str> for MetadataType {
             "METADATATYPE_UNSPECIFIED" => Self::MetadatatypeUnspecified,
             "STORAGE_METADATA" => Self::StorageMetadata,
             "CONTENT_METADATA" => Self::ContentMetadata,
+            "CLIENT_PROVIDED_METADATA" => Self::ClientProvidedMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -51747,6 +51883,7 @@ impl serde::ser::Serialize for MetadataType {
             Self::MetadatatypeUnspecified => serializer.serialize_i32(0),
             Self::StorageMetadata => serializer.serialize_i32(2),
             Self::ContentMetadata => serializer.serialize_i32(3),
+            Self::ClientProvidedMetadata => serializer.serialize_i32(4),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

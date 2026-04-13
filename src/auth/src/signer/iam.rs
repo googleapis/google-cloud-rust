@@ -68,6 +68,20 @@ impl IamSigner {
             backoff_policy: Arc::new(backoff_policy),
         }
     }
+
+    async fn sign_blob_url(&self) -> String {
+        let endpoint = match self.iam_endpoint_override.as_ref() {
+            Some(endpoint) => endpoint.clone(),
+            None => {
+                let universe_domain = crate::universe_domain::resolve(&self.inner).await;
+                format!("https://iamcredentials.{universe_domain}")
+            }
+        };
+        format!(
+            "{}/v1/projects/-/serviceAccounts/{}:signBlob",
+            endpoint, self.client_email
+        )
+    }
 }
 
 #[async_trait::async_trait]
@@ -82,18 +96,7 @@ impl SigningProvider for IamSigner {
         let payload = BASE64_STANDARD.encode(content);
         let body = SignBlobRequest { payload };
 
-        let client_email = self.client_email.clone();
-        let endpoint = match self.iam_endpoint_override.as_ref() {
-            Some(endpoint) => endpoint.clone(),
-            None => {
-                let universe_domain = crate::universe_domain::resolve(&self.inner).await;
-                format!("https://iamcredentials.{universe_domain}")
-            }
-        };
-        let url = format!(
-            "{}/v1/projects/-/serviceAccounts/{client_email}:signBlob",
-            endpoint
-        );
+        let url = self.sign_blob_url().await;
         let response = sign_blob_call_with_retry(
             self.inner.clone(),
             self.client.clone(),
@@ -206,6 +209,7 @@ mod tests {
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use serde_json::json;
+    use test_case::test_case;
     use tokio::time::Duration;
 
     type TestResult = anyhow::Result<()>;
@@ -344,6 +348,56 @@ mod tests {
 
         assert_eq!(signature.as_ref(), b"signed_blob");
 
+        Ok(())
+    }
+
+    #[test_case(None ; "no custom universe domain")]
+    #[test_case(Some("my-custom-universe.com".to_string()) ; "with custom universe domain")]
+    #[tokio::test]
+    async fn test_sign_blob_url_with_override(universe_domain: Option<String>) -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(move || universe_domain.clone());
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new(
+            "test@example.com".to_string(),
+            creds,
+            Some("http://example.com".to_string()),
+        );
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "http://example.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_sign_blob_url_default_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain().returning(|| None);
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_sign_blob_url_custom_universe() -> TestResult {
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(|| Some("my-custom-universe.com".to_string()));
+        let creds = Credentials::from(mock);
+        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
+        let url = signer.sign_blob_url().await;
+        assert_eq!(
+            url,
+            "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test@example.com:signBlob"
+        );
         Ok(())
     }
 

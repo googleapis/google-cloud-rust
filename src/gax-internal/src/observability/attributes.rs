@@ -124,7 +124,6 @@ pub mod error_type_values {
     /// A client-configured timeout was reached.
     pub const CLIENT_TIMEOUT: &str = "CLIENT_TIMEOUT";
     /// The operation was cancelled by the caller.
-    #[cfg(feature = "_internal-grpc-client")]
     pub const CLIENT_CANCELLED: &str = "CLIENT_CANCELLED";
     /// Failure to establish the network connection (DNS, TCP, TLS).
     pub const CLIENT_CONNECTION_ERROR: &str = "CLIENT_CONNECTION_ERROR";

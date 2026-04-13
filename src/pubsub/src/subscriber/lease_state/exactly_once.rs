@@ -13,14 +13,14 @@
 // limitations under the License.
 
 use super::super::handler::AckResult;
-use super::ExactlyOnceInfo;
 use super::MAX_IDS_PER_RPC;
+use super::{ExactlyOnceInfo, MessageStatus};
 use crate::error::AckError;
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
 
-const NACK_SHUTDOWN_ERROR: &str = "subscriber is configured to `NackImmediately` on shutdown. To avoid this error, consider setting the shutdown behavior to `WaitForProcessing`.";
+pub(crate) const NACK_SHUTDOWN_ERROR: &str = "subscriber is configured to `NackImmediately` on shutdown. To avoid this error, consider setting the shutdown behavior to `WaitForProcessing`.";
 
 /// Leases for messages with exactly-once delivery semantics.
 #[derive(Debug, Default)]
@@ -52,21 +52,23 @@ impl Leases {
 
     /// Process an ack from the application
     pub fn ack(&mut self, ack_id: String) {
-        let Some(ExactlyOnceInfo { pending, .. }) = self.under_lease.get_mut(&ack_id) else {
+        let Some(info) = self.under_lease.get_mut(&ack_id) else {
             // We already reported an error for this message, either because
             // it's lease expired, or because the server reported a failure in
             // an attempt to extend its lease.
             return;
         };
-        *pending = true;
+        info.status = MessageStatus::Acking;
         self.to_ack.push(ack_id);
     }
 
     /// Process a nack from the application
     pub fn nack(&mut self, ack_id: String) {
-        if self.under_lease.remove(&ack_id).is_some() {
-            self.to_nack.push(ack_id);
-        }
+        let Some(info) = self.under_lease.get_mut(&ack_id) else {
+            return;
+        };
+        info.status = MessageStatus::Nacking;
+        self.to_nack.push(ack_id);
     }
 
     /// If true, an ack or nack batch is full. We need to flush it.
@@ -104,12 +106,16 @@ impl Leases {
         let remaining = self
             .under_lease
             .iter()
-            .filter_map(|(id, info)| {
-                if !info.pending && info.receive_time + max_lease < now {
-                    expired.push(id.clone());
-                    None
-                } else {
-                    Some(id.clone())
+            .filter_map(|(id, info)| match info.status {
+                MessageStatus::Nacking => None,
+                MessageStatus::Acking => Some(id.clone()),
+                MessageStatus::Leased => {
+                    if info.receive_time + max_lease < now {
+                        expired.push(id.clone());
+                        None
+                    } else {
+                        Some(id.clone())
+                    }
                 }
             })
             .collect::<Vec<_>>()
@@ -130,14 +136,18 @@ impl Leases {
     /// the application and drains all messages from the lease state.
     ///
     /// Called during shutdown, if configured to `NackImmediately`.
-    pub fn evict_and_drain(mut self) -> (Vec<String>, Vec<Vec<String>>) {
-        for (ack_id, info) in self.under_lease {
-            let _ = info
-                .result_tx
-                .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
-            self.to_nack.push(ack_id);
-        }
-        (self.to_ack, super::batch(self.to_nack))
+    pub fn evict_and_drain(self) -> (Vec<String>, Vec<Vec<String>>) {
+        let to_nack = self
+            .under_lease
+            .into_iter()
+            .map(|(ack_id, info)| {
+                let _ = info
+                    .result_tx
+                    .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
+                ack_id
+            })
+            .collect();
+        (self.to_ack, super::batch(to_nack))
     }
 }
 
@@ -178,7 +188,7 @@ mod tests {
         ExactlyOnceInfo {
             receive_time: Instant::now(),
             result_tx,
-            pending: false,
+            status: MessageStatus::Leased,
         }
     }
 
@@ -237,7 +247,7 @@ mod tests {
         leases.nack(test_id(2));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -247,7 +257,7 @@ mod tests {
         leases.add(test_id(4), test_info());
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -257,7 +267,7 @@ mod tests {
         leases.ack(test_id(4));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2)],
             },
@@ -267,7 +277,7 @@ mod tests {
         leases.nack(test_id(3));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2), test_id(3)],
             },
@@ -284,14 +294,14 @@ mod tests {
             .under_lease
             .get(&test_id(1))
             .expect("ack ID should be under lease");
-        assert!(!ack_id.pending, "{ack_id:?}");
+        assert_eq!(ack_id.status, MessageStatus::Leased);
 
         leases.ack(test_id(1));
         let ack_id = leases
             .under_lease
             .get(&test_id(1))
             .expect("ack ID should be under lease");
-        assert!(ack_id.pending, "{ack_id:?}");
+        assert_eq!(ack_id.status, MessageStatus::Acking);
     }
 
     #[tokio::test]
@@ -304,7 +314,7 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
-                pending: false,
+                status: MessageStatus::Leased,
             },
         );
         assert_eq!(
@@ -413,7 +423,7 @@ mod tests {
         }
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(10..100),
+                under_lease: test_ids(0..100),
                 to_ack: test_ids(10..20),
                 to_nack: test_ids(0..10),
             },
@@ -426,7 +436,7 @@ mod tests {
 
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(10..100),
+                under_lease: test_ids(0..100),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
@@ -529,7 +539,7 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
-                pending: false,
+                status: MessageStatus::Leased,
             },
         );
 
@@ -539,7 +549,7 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
-                pending: false,
+                status: MessageStatus::Leased,
             },
         );
 
@@ -599,7 +609,7 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
-                pending: true,
+                status: MessageStatus::Acking,
             },
         );
 
@@ -609,7 +619,7 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
-                pending: false,
+                status: MessageStatus::Leased,
             },
         );
 
@@ -632,6 +642,51 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn nacking_messages_are_not_extended() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx1) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(1),
+                result_tx,
+                status: MessageStatus::Leased,
+            },
+        );
+        leases.nack(test_id(1));
+
+        let (result_tx, result_rx2) = channel();
+        leases.add(
+            test_id(2),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(1),
+                result_tx,
+                status: MessageStatus::Leased,
+            },
+        );
+
+        let batches = leases.retain(Duration::ZERO);
+        assert!(batches.is_empty(), "{batches:?}");
+
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(1)],
+                to_ack: Vec::new(),
+                to_nack: vec![test_id(1)],
+            },
+            leases
+        );
+
+        let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
+
+        assert!(result_rx1.is_empty(), "{result_rx1:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn evict() -> anyhow::Result<()> {
         let mut leases = Leases::default();
 
@@ -643,7 +698,7 @@ mod tests {
                 result_tx,
                 // Even pending acks will be evicted, and satisfied with
                 // `Shutdown` errors.
-                pending: true,
+                status: MessageStatus::Acking,
             },
         );
         let (result_tx, result_rx2) = channel();
@@ -652,14 +707,30 @@ mod tests {
             ExactlyOnceInfo {
                 receive_time: Instant::now(),
                 result_tx,
-                pending: false,
+                status: MessageStatus::Leased,
             },
         );
-        leases.add(test_id(3), test_info());
+        let (result_tx, result_rx3) = channel();
+        leases.add(
+            test_id(3),
+            ExactlyOnceInfo {
+                receive_time: Instant::now(),
+                result_tx,
+                status: MessageStatus::Leased,
+            },
+        );
         leases.nack(test_id(3));
         assert_eq!(
+            leases
+                .under_lease
+                .get(&test_id(3))
+                .expect("nack is under lease")
+                .status,
+            MessageStatus::Nacking
+        );
+        assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(2)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: Vec::new(),
                 to_nack: vec![test_id(3)],
             },
@@ -675,6 +746,8 @@ mod tests {
         let err = result_rx1.await?.expect_err("error should be returned");
         assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
         let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
+        let err = result_rx3.await?.expect_err("error should be returned");
         assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
 
         Ok(())

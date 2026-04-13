@@ -4,7 +4,6 @@
     "api_shortname": "vmwareengine",
     "client_documentation": "https://docs.rs/google-cloud-vmwareengine-v1/latest",
     "distribution_name": "google-cloud-vmwareengine-v1",
-    "issue_tracker": "https://github.com/googleapis/google-cloud-python/issues",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "vmwareengine",

@@ -417,6 +417,7 @@ where
 
         let retry_builder = self.retry_builder.clone();
         let (backoff_policy, retry_throttler, retry_policy) = retry_builder.resolve();
+
         // No overrides and no cache. Try to fetch from MDS.
         let response = self
             .mds_client
@@ -426,9 +427,21 @@ where
             .with_retry_throttler(retry_throttler.into())
             .send()
             .await;
-        let universe_domain = response.ok();
-        let _ = self.universe_domain.set(universe_domain.clone());
-        universe_domain
+        match response {
+            Ok(universe_domain) => {
+                let _ = self.universe_domain.set(Some(universe_domain.clone()));
+                Some(universe_domain)
+            }
+            Err(e) => {
+                if !e.is_transient() {
+                    // Only cache None if the error is permanent (e.g., 404 on GDU)
+                    let _ = self.universe_domain.set(None);
+                }
+                // Return None but do not cache it if it's transient,
+                // allowing subsequent calls to retry or try again.
+                None
+            }
+        }
     }
 }
 
@@ -533,9 +546,13 @@ mod tests {
     use crate::errors;
     use crate::errors::CredentialsError;
     use crate::mds::client::MDSTokenResponse;
-    use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_ROOT};
+    use crate::mds::{
+        GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI, METADATA_ROOT,
+    };
     use crate::token::tests::MockTokenProvider;
+    use crate::token_cache::TokenCache;
     use base64::{Engine, prelude::BASE64_STANDARD};
+    use google_cloud_gax::retry_policy::NeverRetry;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
@@ -778,7 +795,7 @@ mod tests {
             return Ok(());
         };
 
-        let original_err = find_source_error::<CredentialsError>(&err).unwrap();
+        let original_err = err.source().unwrap();
         assert!(
             original_err.to_string().contains("application-default"),
             "display={err}, debug={err:?}"
@@ -1136,9 +1153,137 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn get_default_universe_domain_success() -> TestResult {
-        let universe_domain_response = Builder::default().build()?.universe_domain().await;
-        assert!(universe_domain_response.is_none());
+    async fn get_default_universe_domain() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .respond_with(status_code(404)),
+        );
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .returning(|| Err(crate::errors::non_retryable_from_str("fail")));
+
+        let creds = MDSCredentials {
+            quota_project_id: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
+            token_provider: TokenCache::new(mock),
+            mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            retry_builder: RetryTokenProviderBuilder::default(),
+        };
+
+        let universe_domain = creds.universe_domain().await;
+        assert!(universe_domain.is_none());
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn get_universe_domain_override() -> TestResult {
+        let creds = Builder::default()
+            .with_universe_domain("my-universe-domain.com")
+            .without_access_boundary()
+            .build()?;
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn get_universe_domain_from_mds() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .respond_with(status_code(200).body("my-universe-domain.com")),
+        );
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .returning(|| Err(crate::errors::non_retryable_from_str("fail")));
+
+        let creds = MDSCredentials {
+            quota_project_id: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
+            token_provider: TokenCache::new(mock),
+            mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            retry_builder: RetryTokenProviderBuilder::default(),
+        };
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn get_universe_domain_caching() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .times(2)
+                .respond_with(cycle![
+                    status_code(503).body("transient error"),
+                    status_code(200).body("my-universe-domain.com"),
+                ]),
+        );
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .returning(|| Err(crate::errors::non_retryable_from_str("fail")));
+
+        let creds = MDSCredentials {
+            quota_project_id: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
+            token_provider: TokenCache::new(mock),
+            mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            retry_builder: RetryTokenProviderBuilder::default()
+                .with_retry_policy(NeverRetry.into()),
+        };
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain, None);
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn get_universe_domain_caching_permanent_error() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .times(1)
+                .respond_with(status_code(404).body("permanent error")),
+        );
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .returning(|| Err(crate::errors::non_retryable_from_str("fail")));
+
+        let creds = MDSCredentials {
+            quota_project_id: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
+            token_provider: TokenCache::new(mock),
+            mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            retry_builder: RetryTokenProviderBuilder::default(),
+        };
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain, None);
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain, None);
+
         Ok(())
     }
 
