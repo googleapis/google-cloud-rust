@@ -44,9 +44,15 @@ mod client_signals;
 #[cfg(google_cloud_unstable_tracing)]
 pub use client_signals::{
     ClientRequestAttributes, DurationMetric, RequestRecorder, TransportMetric, WithClientLogging,
-    WithClientMetric, WithClientSpan, WithTransportLogging, WithTransportMetric, WithTransportSpan,
+    WithClientMetric, WithClientSpan, WithTransportMetric,
 };
 
-#[cfg(google_cloud_unstable_tracing)]
+#[cfg(all(
+    google_cloud_unstable_tracing,
+    any(feature = "_internal-http-client", feature = "_internal-grpc-client")
+))]
+pub use client_signals::{WithTransportLogging, WithTransportSpan};
+
 #[doc(hidden)]
+#[cfg(google_cloud_unstable_tracing)]
 pub use attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};

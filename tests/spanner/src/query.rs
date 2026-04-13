@@ -194,17 +194,40 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
 }
 
 pub async fn multi_use_read_only_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    // Start a multi-use read-only transaction.
-    let tx = db_client.read_only_transaction().build().await?;
+    for explicit_begin in [false, true] {
+        test_multi_use_read_only_transaction(db_client, explicit_begin).await?;
+    }
+    Ok(())
+}
 
-    // Expect a read timestamp to have been chosen.
-    assert!(tx.read_timestamp().is_some());
+async fn test_multi_use_read_only_transaction(
+    db_client: &DatabaseClient,
+    explicit_begin: bool,
+) -> anyhow::Result<()> {
+    // Start a multi-use read-only transaction.
+    let tx = db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(explicit_begin)
+        .build()
+        .await?;
+
+    if explicit_begin {
+        // Expect a read timestamp to have been chosen immediately.
+        assert!(tx.read_timestamp().is_some());
+    } else {
+        // Expect a read timestamp to NOT have been chosen yet.
+        assert!(tx.read_timestamp().is_none());
+    }
 
     // Execute the first query.
     let mut rs1 = tx
         .execute_query(Statement::builder("SELECT 1 AS col_int").build())
         .await?;
     let row1 = rs1.next().await.transpose()?.expect("should yield a row");
+
+    // The read timestamp is now always available.
+    assert!(tx.read_timestamp().is_some());
+
     let val1 = row1.raw_values()[0].as_string();
     assert_eq!(val1, "1");
     let next1 = rs1.next().await.transpose()?;

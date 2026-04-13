@@ -18,8 +18,10 @@ mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
+#[cfg(feature = "_internal-http-client")]
 mod with_transport_logging;
 mod with_transport_metric;
+#[cfg(feature = "_internal-http-client")]
 mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
@@ -28,8 +30,10 @@ pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
+#[cfg(feature = "_internal-http-client")]
 pub use with_transport_logging::WithTransportLogging;
 pub use with_transport_metric::WithTransportMetric;
+#[cfg(feature = "_internal-http-client")]
 pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.
@@ -646,9 +650,10 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
-    #[tokio::test(flavor = "current_thread", start_paused = true)]
+    #[tokio::test]
     async fn grpc_client_request_success() -> anyhow::Result<()> {
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
+        tokio::time::pause();
         let signals = SignalProviders::new();
 
         let metric = DurationMetric::new_with_provider(
@@ -823,9 +828,26 @@ mod tests {
                 KeyValue::new("gcp.client.artifact", "test-artifact"),
                 KeyValue::new("gcp.client.service", "test-service"),
                 KeyValue::new("gcp.client.repo", "googleapis/google-cloud-rust"),
+                KeyValue::new("gcp.client.version", "1.2.3"),
             ])
             .build();
-        assert_eq!(scope, &want, "{got:?}");
+        let got_attrs = std::collections::BTreeSet::from_iter(
+            scope
+                .attributes()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        let want_attrs = std::collections::BTreeSet::from_iter(
+            want.attributes()
+                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
+        );
+        assert_eq!(got_attrs, want_attrs, "scope attributes mismatch");
+        assert_eq!(scope.name(), want.name(), "scope name mismatch");
+        assert_eq!(scope.version(), want.version(), "scope version mismatch");
+        assert_eq!(
+            scope.schema_url(),
+            want.schema_url(),
+            "scope schema_url mismatch"
+        );
     }
 
     #[track_caller]

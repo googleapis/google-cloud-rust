@@ -16,6 +16,7 @@ use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::google::spanner::v1::PartialResultSet;
 use crate::precommit::PrecommitTokenTracker;
+use crate::read_only_transaction::ReadContextTransactionSelector;
 use crate::result_set_metadata::ResultSetMetadata;
 use crate::row::Row;
 use crate::server_streaming::stream::PartialResultSetStream;
@@ -58,6 +59,7 @@ pub struct ResultSet {
     safe_to_retry: bool,
     max_buffered_partial_result_sets: usize,
     retry_count: usize,
+    transaction_selector: Option<ReadContextTransactionSelector>,
 }
 
 /// Errors that can occur when interacting with a [`ResultSet`].
@@ -84,6 +86,7 @@ impl ResultSet {
     /// Creates a new result set.
     pub(crate) fn new(
         stream: PartialResultSetStream,
+        transaction_selector: Option<ReadContextTransactionSelector>,
         precommit_token_tracker: PrecommitTokenTracker,
         client: DatabaseClient,
         operation: StreamOperation,
@@ -102,6 +105,7 @@ impl ResultSet {
             safe_to_retry: true,
             max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
             retry_count: 0,
+            transaction_selector,
         }
     }
 
@@ -274,8 +278,19 @@ impl ResultSet {
             (Some(_), Some(_)) => {
                 return Err(internal_error("Additional metadata after first result set"));
             }
-            (None, Some(m)) => {
+            (None, Some(mut m)) => {
+                let transaction = m.transaction.take();
                 self.metadata = Some(ResultSetMetadata::new(Some(m)));
+                if let (Some(selector), Some(transaction)) =
+                    (&self.transaction_selector, transaction)
+                {
+                    selector.update(
+                        transaction.id,
+                        transaction
+                            .read_timestamp
+                            .and_then(|t| wkt::Timestamp::new(t.seconds, t.nanos).ok()),
+                    );
+                }
             }
         }
 

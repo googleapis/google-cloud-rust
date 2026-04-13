@@ -41,6 +41,7 @@
 //! ```
 
 use crate::error::AckError;
+use crate::subscriber::lease_state::NACK_SHUTDOWN_ERROR;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot::Receiver;
 
@@ -308,6 +309,29 @@ impl ExactlyOnce {
         inner.confirmed_ack().await
     }
 
+    /// Rejects the message associated with this handler and waits for
+    /// confirmation.
+    ///
+    /// ```
+    /// use google_cloud_pubsub::model::Message;
+    /// # use google_cloud_pubsub::subscriber::handler::ExactlyOnce;
+    /// async fn on_message(m: Message, h: ExactlyOnce) {
+    ///   match h.confirmed_nack().await {
+    ///     Ok(()) => println!("Confirmed nack for message={m:?}. The message will be redelivered."),
+    ///     Err(e) => println!("Failed to confirm nack for message={m:?} with error={e:?}"),
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// If the result is an `Ok`, the message is guaranteed to be immediately
+    /// considered for redelivery. If an error occurs, the message will still
+    /// be redelivered, but it may be held for the remainder of its
+    /// `max_lease_extension`.
+    pub async fn confirmed_nack(mut self) -> std::result::Result<(), AckError> {
+        let inner = self.inner.take().expect("handler impl is always some");
+        inner.confirmed_nack().await
+    }
+
     #[cfg(test)]
     pub(crate) fn ack_id(&self) -> &str {
         self.inner
@@ -353,6 +377,15 @@ impl ExactlyOnceImpl {
             .await
             .map_err(|e| AckError::Shutdown(e.into()))?
     }
+
+    pub async fn confirmed_nack(self) -> AckResult {
+        self.ack_tx
+            .send(Action::ExactlyOnceNack(self.ack_id))
+            .map_err(|_| AckError::Shutdown(NACK_SHUTDOWN_ERROR.into()))?;
+        self.result_rx
+            .await
+            .map_err(|e| AckError::Shutdown(e.into()))?
+    }
 }
 
 /// The result of a confirmed acknowledgement.
@@ -360,6 +393,8 @@ pub(super) type AckResult = std::result::Result<(), AckError>;
 
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
+
     use super::super::lease_state::tests::test_id;
     use super::*;
     use tokio::sync::mpsc::error::TryRecvError;
@@ -481,6 +516,26 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn exactly_once_nack_success() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        let task = tokio::task::spawn(async move { h.confirmed_nack().await });
+
+        let nack = ack_rx.recv().await.expect("ack should be sent");
+        assert_eq!(nack, Action::ExactlyOnceNack(test_id(1)));
+
+        result_tx
+            .send(Ok(()))
+            .expect("sending on a channel succeeds");
+        task.await??;
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn exactly_once_error() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
@@ -502,6 +557,27 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn exactly_once_nack_error() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        let task = tokio::task::spawn(async move { h.confirmed_nack().await });
+
+        let nack = ack_rx.recv().await.expect("ack should be sent");
+        assert_eq!(nack, Action::ExactlyOnceNack(test_id(1)));
+
+        result_tx
+            .send(Err(AckError::LeaseExpired))
+            .expect("sending on a channel succeeds");
+        let err = task.await?.expect_err("ack should fail");
+        assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn exactly_once_action_channel_closed() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
@@ -511,6 +587,26 @@ mod tests {
 
         let err = h.confirmed_ack().await.expect_err("ack should fail");
         assert!(matches!(err, AckError::ShutdownBeforeAck), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exactly_once_nack_action_channel_closed() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (_result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+        drop(ack_rx);
+
+        let err = h.confirmed_nack().await.expect_err("nack should fail");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
+        assert_eq!(
+            err.source()
+                .expect("shutdown errors have a source")
+                .to_string(),
+            NACK_SHUTDOWN_ERROR
+        );
 
         Ok(())
     }

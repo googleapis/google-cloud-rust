@@ -2867,6 +2867,12 @@ pub mod translation_service {
             self
         }
 
+        /// Sets the value of [mime_type][crate::model::AdaptiveMtTranslateRequest::mime_type].
+        pub fn set_mime_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.mime_type = v.into();
+            self
+        }
+
         /// Sets the value of [reference_sentence_config][crate::model::AdaptiveMtTranslateRequest::reference_sentence_config].
         pub fn set_reference_sentence_config<T>(mut self, v: T) -> Self
         where

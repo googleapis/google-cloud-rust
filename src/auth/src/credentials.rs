@@ -869,11 +869,12 @@ pub(crate) mod tests {
     use tokio::time::Duration;
     use tokio::time::Instant;
 
+    // find the last/root error in the chain that matches the given type
     pub(crate) fn find_source_error<'a, T: Error + 'static>(
         error: &'a (dyn Error + 'static),
     ) -> Option<&'a T> {
         let mut last_err = None;
-        let mut source = Some(error);
+        let mut source = error.source();
         while let Some(err) = source {
             if let Some(target_err) = err.downcast_ref::<T>() {
                 last_err = Some(target_err);
