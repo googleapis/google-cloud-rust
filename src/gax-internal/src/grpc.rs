@@ -478,9 +478,6 @@ impl Client {
         default_endpoint: &str,
         tracing_enabled: bool,
         universe_domain: &str,
-        #[cfg(google_cloud_unstable_tracing)] instrumentation: Option<
-            &'static crate::options::InstrumentationClientInfo,
-        >,
     ) -> ClientBuilderResult<InnerClient> {
         use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(

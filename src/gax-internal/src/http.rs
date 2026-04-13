@@ -785,6 +785,7 @@ mod tests {
     #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
     #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
+    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
     #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
     #[tokio::test]
     async fn host_from_endpoint(
