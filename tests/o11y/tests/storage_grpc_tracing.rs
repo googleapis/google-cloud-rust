@@ -134,21 +134,7 @@ async fn grpc_can_be_disabled() -> anyhow::Result<()> {
 }
 
 async fn grpc_reports_client_failure() -> anyhow::Result<()> {
-    let mock_collector = MockCollector::default();
-    let otlp_endpoint: String = mock_collector.start().await;
-
-    let provider: opentelemetry_sdk::trace::SdkTracerProvider =
-        TracerProviderBuilder::new("test-project", "integration-tests")
-            .with_endpoint(otlp_endpoint.clone())
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-
-    let _guard = tracing_subscriber::Registry::default()
-        .with(integration_tests_o11y::tracing::trace_layer(
-            provider.clone(),
-        ))
-        .set_default();
+    let setup = setup_o11y().await?;
 
     // Use a bogus endpoint to trigger a client failure (connection refused)
     let endpoint = "http://127.0.0.1:12345";
@@ -168,9 +154,12 @@ async fn grpc_reports_client_failure() -> anyhow::Result<()> {
         .await;
 
     tokio::time::sleep(std::time::Duration::from_millis(100)).await;
-    let _ = provider.force_flush();
+    let _ = setup.provider.force_flush();
+    let _ = setup.meter_provider.force_flush();
+    let _ = setup.logger_provider.force_flush();
 
-    let (_, _, request) = mock_collector
+    let (_, _, request) = setup
+        .mock_collector
         .traces
         .lock()
         .expect("never poisoned")
@@ -185,10 +174,40 @@ async fn grpc_reports_client_failure() -> anyhow::Result<()> {
         }
     }
 
-    let _client_span = all_spans
+    let client_span = all_spans
         .iter()
         .find(|s| s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket")
         .expect("Should have a DeleteBucket span");
+
+    // Verify metrics
+    let mut metrics_requests = setup.mock_collector.metrics.lock().expect("never poisoned");
+    let mut found_duration_metric = false;
+    while let Some(req) = metrics_requests.pop() {
+        let (_, _, metrics_request) = req.into_parts();
+        for rm in metrics_request.resource_metrics {
+            for sm in rm.scope_metrics {
+                for m in sm.metrics {
+                    if m.name.contains("gcp.client.request.duration")
+                        || m.name.contains("test.client.duration")
+                    {
+                        found_duration_metric = true;
+                    }
+                }
+            }
+        }
+    }
+    assert!(found_duration_metric, "Should have found duration metric");
+
+    // Verify logs
+    let logs_requests = setup.mock_collector.logs.lock().unwrap();
+    let log_event = logs_requests
+        .iter()
+        .flat_map(|r| r.get_ref().resource_logs.clone())
+        .flat_map(|rl| rl.scope_logs)
+        .flat_map(|sl| sl.log_records)
+        .find(|l| l.span_id == client_span.span_id);
+
+    assert!(log_event.is_some(), "Should have found log matching span");
 
     Ok(())
 }
