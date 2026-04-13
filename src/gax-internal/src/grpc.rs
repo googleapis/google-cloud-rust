@@ -18,8 +18,6 @@ pub mod from_status;
 pub mod status;
 pub mod tonic;
 
-#[cfg(google_cloud_unstable_tracing)]
-use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
@@ -45,8 +43,6 @@ use google_cloud_gax::retry_policy::{
 };
 use google_cloud_gax::retry_throttler::SharedRetryThrottler;
 use http::HeaderMap;
-#[cfg(google_cloud_unstable_tracing)]
-use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -282,7 +278,6 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        use ::tonic::IntoRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
@@ -294,20 +289,51 @@ impl Client {
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;
         #[cfg(google_cloud_unstable_tracing)]
+        let span = self.create_grpc_span(&path, None);
+
+        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = crate::observability::RequestRecorder::current() {
             recorder.on_grpc_request(&path);
         }
-        let result = inner
-            .server_streaming(request.into_request(), path, codec)
-            .await;
+
+        let pending = inner
+            .server_streaming(request, path, codec)
+            .map_err(to_gax_error);
+
+        #[cfg(not(google_cloud_unstable_tracing))]
+        let result = pending.await;
+
+        // TODO(#5372): The span created by `WithTransportSpan` only covers stream initiation.
+        // Consider instrumenting the returned stream to capture errors during the stream's lifetime.
+
         #[cfg(google_cloud_unstable_tracing)]
-        if let Some(recorder) = crate::observability::RequestRecorder::current() {
-            match &result {
-                Ok(_) => recorder.on_grpc_response(),
-                Err(e) => recorder.on_grpc_error(&to_gax_error(e.clone())),
+        let result = {
+            use crate::observability::{
+                WithTransportLogging, WithTransportMetric, WithTransportSpan,
+            };
+
+            let pending = WithTransportMetric::new(self.metric.clone(), pending, 0);
+            let pending = WithTransportLogging::new(pending);
+            let pending = WithTransportSpan::new(span, pending);
+
+            if let Some(recorder) = crate::observability::RequestRecorder::current() {
+                recorder.scope(pending).await
+            } else {
+                pending.await
+            }
+        };
+
+        match result {
+            Ok(response) => Ok(Ok(response)),
+            Err(err) => {
+                use std::error::Error as _;
+                if let Some(status) = err.source().and_then(|e| e.downcast_ref::<tonic::Status>()) {
+                    Ok(Err(status.clone()))
+                } else {
+                    Err(err)
+                }
             }
         }
-        Ok(result)
     }
 
     /// Runs the retry loop.
@@ -373,46 +399,14 @@ impl Client {
         Response: prost::Message + std::default::Default + 'static,
     {
         #[cfg(google_cloud_unstable_tracing)]
-        let span = if let Some(attrs) = &self.tracing_attributes {
-            let rpc_method = path.path().trim_start_matches('/');
-            let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
-                (
-                    Some(info.service_name),
-                    Some(info.client_version),
-                    Some("googleapis/google-cloud-rust"),
-                    Some(info.client_artifact),
-                )
-            } else {
-                (None, None, None, None)
-            };
-            let resend_count = if _prior_attempt_count > 0 {
+        let span = self.create_grpc_span(
+            &path,
+            if _prior_attempt_count > 0 {
                 Some(_prior_attempt_count)
             } else {
                 None
-            };
-
-            tracing::info_span!(
-                "grpc.request",
-                { OTEL_NAME } = rpc_method,
-                { RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
-                { OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
-                { otel_trace::RPC_METHOD } = rpc_method,
-                { otel_trace::SERVER_ADDRESS } = attrs.server_address,
-                { otel_trace::SERVER_PORT } = attrs.server_port,
-                { otel_attr::URL_DOMAIN } = attrs.url_domain,
-                { RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
-                { OTEL_STATUS_CODE } = otel_status_codes::UNSET,
-                { otel_trace::ERROR_TYPE } = tracing::field::Empty,
-                { GCP_CLIENT_SERVICE } = service,
-                { GCP_CLIENT_VERSION } = version,
-                { GCP_CLIENT_REPO } = repo,
-                { GCP_CLIENT_ARTIFACT } = artifact,
-                { GCP_GRPC_RESEND_COUNT } = resend_count,
-                { GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
-            )
-        } else {
-            tracing::Span::none()
-        };
+            },
+        );
 
         #[allow(unused_mut)]
         let mut headers = self.add_auth_headers(headers).await?;
@@ -624,6 +618,52 @@ impl Client {
             );
         }
         Ok(headers)
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    fn create_grpc_span(
+        &self,
+        path: &http::uri::PathAndQuery,
+        resend_count: Option<i64>,
+    ) -> tracing::Span {
+        use crate::observability::attributes::{self, keys, otel_status_codes};
+        use opentelemetry_semantic_conventions::attribute as otel_attr;
+
+        if let Some(attrs) = &self.tracing_attributes {
+            let rpc_method = path.path().trim_start_matches('/');
+            let (service, version, repo, artifact) = if let Some(info) = attrs.instrumentation {
+                (
+                    Some(info.service_name),
+                    Some(info.client_version),
+                    Some("googleapis/google-cloud-rust"),
+                    Some(info.client_artifact),
+                )
+            } else {
+                (None, None, None, None)
+            };
+
+            tracing::info_span!(
+                "grpc.request",
+                { keys::OTEL_NAME } = rpc_method,
+                { keys::RPC_SYSTEM_NAME } = attributes::RPC_SYSTEM_GRPC,
+                { keys::OTEL_KIND } = attributes::OTEL_KIND_CLIENT,
+                { keys::RPC_METHOD } = rpc_method,
+                { keys::SERVER_ADDRESS } = attrs.server_address,
+                { keys::SERVER_PORT } = attrs.server_port,
+                { otel_attr::URL_DOMAIN } = attrs.url_domain,
+                { keys::RPC_RESPONSE_STATUS_CODE } = tracing::field::Empty,
+                { keys::OTEL_STATUS_CODE } = otel_status_codes::UNSET,
+                { keys::ERROR_TYPE } = tracing::field::Empty,
+                { keys::GCP_CLIENT_SERVICE } = service,
+                { keys::GCP_CLIENT_VERSION } = version,
+                { keys::GCP_CLIENT_REPO } = repo,
+                { keys::GCP_CLIENT_ARTIFACT } = artifact,
+                { keys::GCP_GRPC_RESEND_COUNT } = resend_count,
+                { keys::GCP_RESOURCE_DESTINATION_ID } = tracing::field::Empty,
+            )
+        } else {
+            tracing::Span::none()
+        }
     }
 
     fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
