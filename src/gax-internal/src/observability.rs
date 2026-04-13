@@ -40,7 +40,6 @@ pub use client_signals::{
     WithClientMetric, WithClientSpan, WithTransportMetric,
 };
 
-#[cfg(feature = "_internal-http-client")]
 pub use client_signals::{WithTransportLogging, WithTransportSpan};
 
 #[doc(hidden)]
