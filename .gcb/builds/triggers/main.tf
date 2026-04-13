@@ -117,9 +117,6 @@ locals {
       config = "complex.yaml"
       script = "regenerate"
     }
-    rustdocfx = {
-      config = "rustdocfx.yaml"
-    }
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
@@ -156,10 +153,6 @@ locals {
 
   # There are builds that only run Post Merge.
   pm_build_overrides = {
-    # Uploads the reference docs, too expensive for PR builds.
-    referenceupload = {
-      config = "referenceupload.yaml"
-    }
     # Builds and tests all the crates. This is too slow for a PR build.
     workspace = {
       config = "complex.yaml"

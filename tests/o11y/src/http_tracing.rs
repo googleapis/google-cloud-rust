@@ -19,7 +19,7 @@ use crate::otlp::metrics::Builder as MeterProviderBuilder;
 use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
-use httptest::{Expectation, Server, matchers::*, responders::status_code};
+use httptest::{Expectation, Server, cycle, matchers::*, responders::status_code};
 use pretty_assertions::assert_eq;
 use std::collections::BTreeMap;
 use tracing_subscriber::layer::SubscriberExt;
@@ -174,7 +174,6 @@ fn verify_metrics(mock_collector: &MockCollector) -> anyhow::Result<()> {
         .get_ref();
 
     let scope_metrics = &metric_request.resource_metrics[0].scope_metrics[0];
-    println!("Scope: {:?}", scope_metrics.scope);
 
     let scope_attributes: std::collections::HashMap<String, String> = scope_metrics
         .scope
@@ -199,10 +198,7 @@ fn verify_metrics(mock_collector: &MockCollector) -> anyhow::Result<()> {
     );
 
     let metrics = &scope_metrics.metrics;
-    println!(
-        "Received metrics: {:?}",
-        metrics.iter().map(|m| &m.name).collect::<Vec<_>>()
-    );
+
     let duration_metric = metrics
         .iter()
         .find(|m| {
@@ -212,7 +208,6 @@ fn verify_metrics(mock_collector: &MockCollector) -> anyhow::Result<()> {
         })
         .expect("Should have found duration metric");
 
-    println!("Metric data: {:?}", duration_metric.data);
     let histogram = match &duration_metric.data {
         Some(opentelemetry_proto::tonic::metrics::v1::metric::Data::ExponentialHistogram(h)) => h,
         _ => panic!("Expected exponential histogram data"),
@@ -706,6 +701,99 @@ pub async fn api_error() -> anyhow::Result<()> {
 
     let got = BTreeMap::from_iter(t3_span.attributes.clone());
     assert_eq!(got, expected_attributes);
+
+    Ok(())
+}
+
+pub async fn to_otlp_retries() -> anyhow::Result<()> {
+    let mock_collector = MockCollector::default();
+    let otlp_endpoint = mock_collector.start().await;
+
+    let provider = TracerProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.clone())
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let meter_provider = MeterProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.parse().expect("Failed to parse URI"))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+    opentelemetry::global::set_meter_provider(meter_provider.clone());
+
+    let logger_provider = LoggerProviderBuilder::new("test-project", "integration-tests")
+        .with_endpoint(otlp_endpoint.parse().expect("Failed to parse URI"))
+        .with_credentials(Anonymous::new().build())
+        .build()
+        .await?;
+
+    let _guard = tracing_subscriber::Registry::default()
+        .with(crate::tracing::trace_layer(provider.clone()))
+        .with(crate::tracing::log_layer(logger_provider.clone()))
+        .set_default();
+
+    let echo_server = Server::run();
+
+    // Fail twice with 503, then succeed with 200
+    echo_server.expect(
+        Expectation::matching(all_of![
+            request::method("POST"),
+            request::path("/v1beta1/echo:echo"),
+        ])
+        .times(3)
+        .respond_with(cycle![
+            status_code(503),
+            status_code(503),
+            status_code(200).body(r#"{"content": "retry_test"}"#),
+        ]),
+    );
+
+    let backoff_policy = google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder::new()
+        .with_initial_delay(std::time::Duration::from_millis(10))
+        .with_maximum_delay(std::time::Duration::from_millis(50))
+        .with_scaling(1.5)
+        .build()
+        .unwrap();
+
+    let endpoint = echo_server.url("/").to_string();
+    let endpoint = endpoint.trim_end_matches('/');
+
+    let client = Echo::builder()
+        .with_endpoint(endpoint)
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .with_backoff_policy(backoff_policy)
+        .build()
+        .await?;
+
+    let result = client.echo().set_content("retry_test").send().await;
+
+    result?;
+
+    let _ = provider.force_flush();
+    let _ = meter_provider.force_flush();
+    let _ = logger_provider.force_flush();
+
+    // Verify logs exist for retries
+    let logs_requests = mock_collector.logs.lock().unwrap();
+    let error_logs: Vec<_> = logs_requests
+        .iter()
+        .flat_map(|r| r.get_ref().resource_logs.clone())
+        .flat_map(|rl| rl.scope_logs)
+        .filter(|sl| {
+            sl.scope
+                .as_ref()
+                .is_some_and(|i| i.name == "google_cloud_gax_internal::observability::errors")
+        })
+        .flat_map(|sl| sl.log_records)
+        .collect();
+
+    assert!(
+        error_logs.len() >= 2,
+        "Should have found at least 2 error logs for retries, found {}",
+        error_logs.len()
+    );
 
     Ok(())
 }

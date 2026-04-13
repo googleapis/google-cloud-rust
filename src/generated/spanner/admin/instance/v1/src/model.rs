@@ -271,7 +271,7 @@ pub mod replica_info {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ReplicaType {
@@ -774,7 +774,7 @@ pub mod instance_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -906,7 +906,7 @@ pub mod instance_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -1040,7 +1040,7 @@ pub mod instance_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FreeInstanceAvailability {
@@ -1195,7 +1195,7 @@ pub mod instance_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum QuorumType {
@@ -2750,7 +2750,7 @@ pub mod instance {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -2888,7 +2888,7 @@ pub mod instance {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InstanceType {
@@ -3024,7 +3024,7 @@ pub mod instance {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Edition {
@@ -3166,7 +3166,7 @@ pub mod instance {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DefaultBackupScheduleType {
@@ -5122,7 +5122,7 @@ pub mod free_instance_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ExpireBehavior {
@@ -5909,7 +5909,7 @@ pub mod instance_partition {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -7423,7 +7423,7 @@ impl wkt::message::Message for MoveInstanceMetadata {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum FulfillmentPeriod {

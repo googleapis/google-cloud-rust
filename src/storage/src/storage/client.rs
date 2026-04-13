@@ -642,37 +642,59 @@ impl ClientBuilder {
         self
     }
 
-    /// Enable debug logs and traces using the [tracing] framework.
-    ///
-    /// <div class="warning">
-    ///
-    /// Traces at any level may contain sensitive data like bucket names, object
-    /// names, full URLs and error messages. Traces at the `INFO` level follow
-    /// [OpenTelemetry Semantic Conventions] with additional Storage attributes,
-    /// and are intended to be suitable for production monitoring. Traces at
-    /// the `DEBUG` level or lower are meant for detailed debugging and include
-    /// the full content of requests, responses, and the debug information for
-    /// the client.
-    ///
-    /// Review the contents of the traces and consult the [tracing]
-    /// framework documentation to set up filters and formatters to prevent
-    /// leaking sensitive information, depending on your intended use case.
-    ///
-    /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
-    /// </div>
+    /// Enables observability signals for the client.
     ///
     /// # Example
     /// ```
-    /// // In your `main` function enable a tracing subscriber, for example:
-    /// // tracing_subscriber::fmt::init();
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Storage::builder()
     ///     .with_tracing()
     ///     .build()
     ///     .await?;
+    /// // For observing traces and logs, you must also enable a tracing subscriber in your `main` function,
+    /// // for example:
+    /// //     tracing_subscriber::fmt::init();
+    /// // For observing metrics, you must also install an OpenTelemetry meter provider in your `main` function,
+    /// // for example:
+    /// //     opentelemetry::global::set_meter_provider(provider.clone());
     /// # Ok(()) }
     /// ```
+    ///
+    /// <div class="warning">
+    ///
+    /// Observability signals at any level may contain sensitive data such as resource names (bucket
+    /// and object names), full URLs, and error messages.
+    ///
+    /// Before configuring subscribers or exporters for traces and logs, review the contents of the
+    /// spans and consult the [tracing] framework documentation to set up filters and formatters to
+    /// prevent leaking sensitive information, depending on your intended use case.
+    ///
+    /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
+    /// [tracing]: https://docs.rs/tracing/latest/tracing/
+    ///
+    /// </div>
+    ///
+    /// The libraries are instrumented to generate the following signals:
+    ///
+    /// 1. `INFO` spans for each logical client request. Typically a single method call in the client
+    ///    struct gets such a span.
+    /// 1. A histogram metric measuring the elapsed time for each logical client request.
+    /// 1. `WARN` logs for each logical client requests that fail.
+    /// 1. `INFO` spans for each low-level attempt RPC attempt. Typically a single method in the client
+    ///    struct gets one such span, but there may be more if the library had to retry the RPC.
+    /// 1. `DEBUG` logs for each low-level attempt that fails.
+    ///
+    /// These spans and logs follow [OpenTelemetry Semantic Conventions] with additional Google
+    /// Cloud attributes. Both the spans and logs and are should be suitable for production
+    /// monitoring.
+    ///
+    /// The libraries also have `DEBUG` spans for each request, these include the full request body,
+    /// and the full response body for successful requests, and the full error message, with
+    /// details, for failed requests. Consider the contents of these requests and responses before
+    /// enabling them in production environments, as the request or responses may include sensitive
+    /// data. These `DEBUG` spans use the `google_cloud_storage::tracing` as their target and the
+    /// method name as the span name. You can use the name and/or target to set up your filters.
     ///
     /// # More information
     ///
