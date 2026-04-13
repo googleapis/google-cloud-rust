@@ -47,14 +47,12 @@ where
         req: crate::model::CreateSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::create_ssh_public_key",
-                self.inner.create_ssh_public_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::create_ssh_public_key",
+            self.inner.create_ssh_public_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::DeletePosixAccountRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::delete_posix_account",
-                self.inner.delete_posix_account(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::delete_posix_account",
+            self.inner.delete_posix_account(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::DeleteSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::delete_ssh_public_key",
-                self.inner.delete_ssh_public_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::delete_ssh_public_key",
+            self.inner.delete_ssh_public_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::GetLoginProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LoginProfile>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::get_login_profile",
-                self.inner.get_login_profile(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::get_login_profile",
+            self.inner.get_login_profile(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::GetSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::get_ssh_public_key",
-                self.inner.get_ssh_public_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::get_ssh_public_key",
+            self.inner.get_ssh_public_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::ImportSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ImportSshPublicKeyResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::import_ssh_public_key",
-                self.inner.import_ssh_public_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::import_ssh_public_key",
+            self.inner.import_ssh_public_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::UpdateSshPublicKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_oslogin_common::model::SshPublicKey>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::OsLoginService::update_ssh_public_key",
-                self.inner.update_ssh_public_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::OsLoginService::update_ssh_public_key",
+            self.inner.update_ssh_public_key(req, options));
+        pending.await
     }
 }
 

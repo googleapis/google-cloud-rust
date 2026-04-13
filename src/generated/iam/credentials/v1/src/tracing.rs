@@ -47,14 +47,12 @@ where
         req: crate::model::GenerateAccessTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IAMCredentials::generate_access_token",
-                self.inner.generate_access_token(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IAMCredentials::generate_access_token",
+            self.inner.generate_access_token(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::GenerateIdTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateIdTokenResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IAMCredentials::generate_id_token",
-                self.inner.generate_id_token(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IAMCredentials::generate_id_token",
+            self.inner.generate_id_token(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::SignBlobRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignBlobResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IAMCredentials::sign_blob",
-                self.inner.sign_blob(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IAMCredentials::sign_blob",
+            self.inner.sign_blob(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::SignJwtRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SignJwtResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IAMCredentials::sign_jwt",
-                self.inner.sign_jwt(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IAMCredentials::sign_jwt",
+            self.inner.sign_jwt(req, options));
+        pending.await
     }
 }
 

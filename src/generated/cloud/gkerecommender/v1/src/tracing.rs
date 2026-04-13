@@ -47,14 +47,12 @@ where
         req: crate::model::FetchModelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::fetch_models",
-                self.inner.fetch_models(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::fetch_models",
+            self.inner.fetch_models(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::FetchModelServersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelServersResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::fetch_model_servers",
-                self.inner.fetch_model_servers(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::fetch_model_servers",
+            self.inner.fetch_model_servers(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::FetchModelServerVersionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchModelServerVersionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::fetch_model_server_versions",
-                self.inner.fetch_model_server_versions(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::fetch_model_server_versions",
+            self.inner.fetch_model_server_versions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::FetchProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchProfilesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::fetch_profiles",
-                self.inner.fetch_profiles(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::fetch_profiles",
+            self.inner.fetch_profiles(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::GenerateOptimizedManifestRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateOptimizedManifestResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::generate_optimized_manifest",
-                self.inner.generate_optimized_manifest(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::generate_optimized_manifest",
+            self.inner.generate_optimized_manifest(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::FetchBenchmarkingDataRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FetchBenchmarkingDataResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GkeInferenceQuickstart::fetch_benchmarking_data",
-                self.inner.fetch_benchmarking_data(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GkeInferenceQuickstart::fetch_benchmarking_data",
+            self.inner.fetch_benchmarking_data(req, options));
+        pending.await
     }
 }
 

@@ -47,14 +47,12 @@ where
         req: crate::model::CreateConversationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Conversation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_conversation",
-                self.inner.create_conversation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_conversation",
+            self.inner.create_conversation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::UploadConversationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::upload_conversation",
-                self.inner.upload_conversation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::upload_conversation",
+            self.inner.upload_conversation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::UpdateConversationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Conversation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_conversation",
-                self.inner.update_conversation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_conversation",
+            self.inner.update_conversation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::GetConversationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Conversation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_conversation",
-                self.inner.get_conversation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_conversation",
+            self.inner.get_conversation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::ListConversationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListConversationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_conversations",
-                self.inner.list_conversations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_conversations",
+            self.inner.list_conversations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::DeleteConversationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_conversation",
-                self.inner.delete_conversation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_conversation",
+            self.inner.delete_conversation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::CreateAnalysisRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_analysis",
-                self.inner.create_analysis(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_analysis",
+            self.inner.create_analysis(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::GetAnalysisRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Analysis>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_analysis",
-                self.inner.get_analysis(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_analysis",
+            self.inner.get_analysis(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::ListAnalysesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAnalysesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_analyses",
-                self.inner.list_analyses(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_analyses",
+            self.inner.list_analyses(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::DeleteAnalysisRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_analysis",
-                self.inner.delete_analysis(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_analysis",
+            self.inner.delete_analysis(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::BulkAnalyzeConversationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::bulk_analyze_conversations",
-                self.inner.bulk_analyze_conversations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::bulk_analyze_conversations",
+            self.inner.bulk_analyze_conversations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::BulkDeleteConversationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::bulk_delete_conversations",
-                self.inner.bulk_delete_conversations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::bulk_delete_conversations",
+            self.inner.bulk_delete_conversations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::IngestConversationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::ingest_conversations",
-                self.inner.ingest_conversations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::ingest_conversations",
+            self.inner.ingest_conversations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::ExportInsightsDataRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::export_insights_data",
-                self.inner.export_insights_data(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::export_insights_data",
+            self.inner.export_insights_data(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,14 +243,12 @@ where
         req: crate::model::CreateIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_issue_model",
-                self.inner.create_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_issue_model",
+            self.inner.create_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -287,14 +257,12 @@ where
         req: crate::model::UpdateIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IssueModel>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_issue_model",
-                self.inner.update_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_issue_model",
+            self.inner.update_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -303,14 +271,12 @@ where
         req: crate::model::GetIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IssueModel>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_issue_model",
-                self.inner.get_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_issue_model",
+            self.inner.get_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -319,14 +285,12 @@ where
         req: crate::model::ListIssueModelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIssueModelsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_issue_models",
-                self.inner.list_issue_models(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_issue_models",
+            self.inner.list_issue_models(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -335,14 +299,12 @@ where
         req: crate::model::DeleteIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_issue_model",
-                self.inner.delete_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_issue_model",
+            self.inner.delete_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -351,14 +313,12 @@ where
         req: crate::model::DeployIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::deploy_issue_model",
-                self.inner.deploy_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::deploy_issue_model",
+            self.inner.deploy_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -367,14 +327,12 @@ where
         req: crate::model::UndeployIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::undeploy_issue_model",
-                self.inner.undeploy_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::undeploy_issue_model",
+            self.inner.undeploy_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -383,14 +341,12 @@ where
         req: crate::model::ExportIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::export_issue_model",
-                self.inner.export_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::export_issue_model",
+            self.inner.export_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -399,14 +355,12 @@ where
         req: crate::model::ImportIssueModelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::import_issue_model",
-                self.inner.import_issue_model(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::import_issue_model",
+            self.inner.import_issue_model(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -415,14 +369,12 @@ where
         req: crate::model::GetIssueRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Issue>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_issue",
-                self.inner.get_issue(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_issue",
+            self.inner.get_issue(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -431,14 +383,12 @@ where
         req: crate::model::ListIssuesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIssuesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_issues",
-                self.inner.list_issues(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_issues",
+            self.inner.list_issues(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -447,14 +397,12 @@ where
         req: crate::model::UpdateIssueRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Issue>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_issue",
-                self.inner.update_issue(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_issue",
+            self.inner.update_issue(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -463,14 +411,12 @@ where
         req: crate::model::DeleteIssueRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_issue",
-                self.inner.delete_issue(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_issue",
+            self.inner.delete_issue(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -479,14 +425,12 @@ where
         req: crate::model::CalculateIssueModelStatsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CalculateIssueModelStatsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::calculate_issue_model_stats",
-                self.inner.calculate_issue_model_stats(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::calculate_issue_model_stats",
+            self.inner.calculate_issue_model_stats(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -495,14 +439,12 @@ where
         req: crate::model::CreatePhraseMatcherRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PhraseMatcher>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_phrase_matcher",
-                self.inner.create_phrase_matcher(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_phrase_matcher",
+            self.inner.create_phrase_matcher(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -511,14 +453,12 @@ where
         req: crate::model::GetPhraseMatcherRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PhraseMatcher>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_phrase_matcher",
-                self.inner.get_phrase_matcher(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_phrase_matcher",
+            self.inner.get_phrase_matcher(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -527,14 +467,12 @@ where
         req: crate::model::ListPhraseMatchersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListPhraseMatchersResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_phrase_matchers",
-                self.inner.list_phrase_matchers(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_phrase_matchers",
+            self.inner.list_phrase_matchers(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -543,14 +481,12 @@ where
         req: crate::model::DeletePhraseMatcherRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_phrase_matcher",
-                self.inner.delete_phrase_matcher(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_phrase_matcher",
+            self.inner.delete_phrase_matcher(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -559,14 +495,12 @@ where
         req: crate::model::UpdatePhraseMatcherRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PhraseMatcher>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_phrase_matcher",
-                self.inner.update_phrase_matcher(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_phrase_matcher",
+            self.inner.update_phrase_matcher(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -575,14 +509,12 @@ where
         req: crate::model::CalculateStatsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CalculateStatsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::calculate_stats",
-                self.inner.calculate_stats(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::calculate_stats",
+            self.inner.calculate_stats(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -591,14 +523,12 @@ where
         req: crate::model::GetSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_settings",
-                self.inner.get_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_settings",
+            self.inner.get_settings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -607,14 +537,12 @@ where
         req: crate::model::UpdateSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_settings",
-                self.inner.update_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_settings",
+            self.inner.update_settings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -623,14 +551,12 @@ where
         req: crate::model::CreateAnalysisRuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnalysisRule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_analysis_rule",
-                self.inner.create_analysis_rule(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_analysis_rule",
+            self.inner.create_analysis_rule(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -639,14 +565,12 @@ where
         req: crate::model::GetAnalysisRuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnalysisRule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_analysis_rule",
-                self.inner.get_analysis_rule(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_analysis_rule",
+            self.inner.get_analysis_rule(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -655,14 +579,12 @@ where
         req: crate::model::ListAnalysisRulesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAnalysisRulesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_analysis_rules",
-                self.inner.list_analysis_rules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_analysis_rules",
+            self.inner.list_analysis_rules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -671,14 +593,12 @@ where
         req: crate::model::UpdateAnalysisRuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnalysisRule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_analysis_rule",
-                self.inner.update_analysis_rule(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_analysis_rule",
+            self.inner.update_analysis_rule(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -687,14 +607,12 @@ where
         req: crate::model::DeleteAnalysisRuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_analysis_rule",
-                self.inner.delete_analysis_rule(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_analysis_rule",
+            self.inner.delete_analysis_rule(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -703,14 +621,12 @@ where
         req: crate::model::GetEncryptionSpecRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EncryptionSpec>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_encryption_spec",
-                self.inner.get_encryption_spec(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_encryption_spec",
+            self.inner.get_encryption_spec(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -719,14 +635,12 @@ where
         req: crate::model::InitializeEncryptionSpecRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::initialize_encryption_spec",
-                self.inner.initialize_encryption_spec(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::initialize_encryption_spec",
+            self.inner.initialize_encryption_spec(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -735,14 +649,12 @@ where
         req: crate::model::CreateViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::View>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_view",
-                self.inner.create_view(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_view",
+            self.inner.create_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -751,14 +663,12 @@ where
         req: crate::model::GetViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::View>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_view",
-                self.inner.get_view(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_view",
+            self.inner.get_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -767,14 +677,12 @@ where
         req: crate::model::ListViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListViewsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_views",
-                self.inner.list_views(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_views",
+            self.inner.list_views(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -783,14 +691,12 @@ where
         req: crate::model::UpdateViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::View>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_view",
-                self.inner.update_view(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_view",
+            self.inner.update_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -799,14 +705,12 @@ where
         req: crate::model::DeleteViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_view",
-                self.inner.delete_view(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_view",
+            self.inner.delete_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -815,14 +719,12 @@ where
         req: crate::model::QueryMetricsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::query_metrics",
-                self.inner.query_metrics(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::query_metrics",
+            self.inner.query_metrics(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -831,14 +733,12 @@ where
         req: crate::model::CreateQaQuestionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaQuestion>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_qa_question",
-                self.inner.create_qa_question(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_qa_question",
+            self.inner.create_qa_question(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -847,14 +747,12 @@ where
         req: crate::model::GetQaQuestionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaQuestion>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_qa_question",
-                self.inner.get_qa_question(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_qa_question",
+            self.inner.get_qa_question(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -863,14 +761,12 @@ where
         req: crate::model::UpdateQaQuestionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaQuestion>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_qa_question",
-                self.inner.update_qa_question(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_qa_question",
+            self.inner.update_qa_question(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -879,14 +775,12 @@ where
         req: crate::model::DeleteQaQuestionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_qa_question",
-                self.inner.delete_qa_question(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_qa_question",
+            self.inner.delete_qa_question(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -895,14 +789,12 @@ where
         req: crate::model::ListQaQuestionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQaQuestionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_qa_questions",
-                self.inner.list_qa_questions(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_qa_questions",
+            self.inner.list_qa_questions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -911,14 +803,12 @@ where
         req: crate::model::CreateQaScorecardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecard>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_qa_scorecard",
-                self.inner.create_qa_scorecard(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_qa_scorecard",
+            self.inner.create_qa_scorecard(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -927,14 +817,12 @@ where
         req: crate::model::GetQaScorecardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecard>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_qa_scorecard",
-                self.inner.get_qa_scorecard(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_qa_scorecard",
+            self.inner.get_qa_scorecard(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -943,14 +831,12 @@ where
         req: crate::model::UpdateQaScorecardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecard>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_qa_scorecard",
-                self.inner.update_qa_scorecard(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_qa_scorecard",
+            self.inner.update_qa_scorecard(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -959,14 +845,12 @@ where
         req: crate::model::DeleteQaScorecardRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_qa_scorecard",
-                self.inner.delete_qa_scorecard(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_qa_scorecard",
+            self.inner.delete_qa_scorecard(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -975,14 +859,12 @@ where
         req: crate::model::ListQaScorecardsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQaScorecardsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_qa_scorecards",
-                self.inner.list_qa_scorecards(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_qa_scorecards",
+            self.inner.list_qa_scorecards(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -991,14 +873,12 @@ where
         req: crate::model::CreateQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecardRevision>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_qa_scorecard_revision",
-                self.inner.create_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_qa_scorecard_revision",
+            self.inner.create_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1007,14 +887,12 @@ where
         req: crate::model::GetQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecardRevision>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_qa_scorecard_revision",
-                self.inner.get_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_qa_scorecard_revision",
+            self.inner.get_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1023,14 +901,12 @@ where
         req: crate::model::TuneQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::tune_qa_scorecard_revision",
-                self.inner.tune_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::tune_qa_scorecard_revision",
+            self.inner.tune_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1039,14 +915,12 @@ where
         req: crate::model::DeployQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecardRevision>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::deploy_qa_scorecard_revision",
-                self.inner.deploy_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::deploy_qa_scorecard_revision",
+            self.inner.deploy_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1055,14 +929,12 @@ where
         req: crate::model::UndeployQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QaScorecardRevision>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::undeploy_qa_scorecard_revision",
-                self.inner.undeploy_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::undeploy_qa_scorecard_revision",
+            self.inner.undeploy_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1071,14 +943,12 @@ where
         req: crate::model::DeleteQaScorecardRevisionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_qa_scorecard_revision",
-                self.inner.delete_qa_scorecard_revision(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_qa_scorecard_revision",
+            self.inner.delete_qa_scorecard_revision(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1087,14 +957,12 @@ where
         req: crate::model::ListQaScorecardRevisionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQaScorecardRevisionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_qa_scorecard_revisions",
-                self.inner.list_qa_scorecard_revisions(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_qa_scorecard_revisions",
+            self.inner.list_qa_scorecard_revisions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1103,14 +971,12 @@ where
         req: crate::model::CreateFeedbackLabelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FeedbackLabel>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::create_feedback_label",
-                self.inner.create_feedback_label(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::create_feedback_label",
+            self.inner.create_feedback_label(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1119,14 +985,12 @@ where
         req: crate::model::ListFeedbackLabelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFeedbackLabelsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_feedback_labels",
-                self.inner.list_feedback_labels(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_feedback_labels",
+            self.inner.list_feedback_labels(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1135,14 +999,12 @@ where
         req: crate::model::GetFeedbackLabelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FeedbackLabel>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_feedback_label",
-                self.inner.get_feedback_label(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_feedback_label",
+            self.inner.get_feedback_label(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1151,14 +1013,12 @@ where
         req: crate::model::UpdateFeedbackLabelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FeedbackLabel>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::update_feedback_label",
-                self.inner.update_feedback_label(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::update_feedback_label",
+            self.inner.update_feedback_label(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1167,14 +1027,12 @@ where
         req: crate::model::DeleteFeedbackLabelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::delete_feedback_label",
-                self.inner.delete_feedback_label(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::delete_feedback_label",
+            self.inner.delete_feedback_label(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1183,14 +1041,12 @@ where
         req: crate::model::ListAllFeedbackLabelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAllFeedbackLabelsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_all_feedback_labels",
-                self.inner.list_all_feedback_labels(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_all_feedback_labels",
+            self.inner.list_all_feedback_labels(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1199,14 +1055,12 @@ where
         req: crate::model::BulkUploadFeedbackLabelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::bulk_upload_feedback_labels",
-                self.inner.bulk_upload_feedback_labels(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::bulk_upload_feedback_labels",
+            self.inner.bulk_upload_feedback_labels(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1215,14 +1069,12 @@ where
         req: crate::model::BulkDownloadFeedbackLabelsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::bulk_download_feedback_labels",
-                self.inner.bulk_download_feedback_labels(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::bulk_download_feedback_labels",
+            self.inner.bulk_download_feedback_labels(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1231,14 +1083,12 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::list_operations",
-                self.inner.list_operations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1247,14 +1097,12 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::get_operation",
-                self.inner.get_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1263,14 +1111,12 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ContactCenterInsights::cancel_operation",
-                self.inner.cancel_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ContactCenterInsights::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
     }
 
     fn get_polling_error_policy(

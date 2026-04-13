@@ -47,14 +47,12 @@ where
         req: crate::model::PublishRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PublishResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Publisher::publish",
-                self.inner.publish(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Publisher::publish",
+            self.inner.publish(req, options));
+        pending.await
     }
 }
 
@@ -90,14 +88,12 @@ where
         req: crate::model::ModifyAckDeadlineRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Subscriber::modify_ack_deadline",
-                self.inner.modify_ack_deadline(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Subscriber::modify_ack_deadline",
+            self.inner.modify_ack_deadline(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -106,14 +102,12 @@ where
         req: crate::model::AcknowledgeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Subscriber::acknowledge",
-                self.inner.acknowledge(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Subscriber::acknowledge",
+            self.inner.acknowledge(req, options));
+        pending.await
     }
 }
 
