@@ -47,14 +47,12 @@ where
         req: crate::model::LookupServiceProjectAttachmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LookupServiceProjectAttachmentResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::lookup_service_project_attachment",
-                self.inner.lookup_service_project_attachment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::lookup_service_project_attachment",
+            self.inner.lookup_service_project_attachment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::ListServiceProjectAttachmentsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListServiceProjectAttachmentsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_service_project_attachments",
-                self.inner.list_service_project_attachments(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_service_project_attachments",
+            self.inner.list_service_project_attachments(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::CreateServiceProjectAttachmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::create_service_project_attachment",
-                self.inner.create_service_project_attachment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::create_service_project_attachment",
+            self.inner.create_service_project_attachment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::GetServiceProjectAttachmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ServiceProjectAttachment>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_service_project_attachment",
-                self.inner.get_service_project_attachment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_service_project_attachment",
+            self.inner.get_service_project_attachment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::DeleteServiceProjectAttachmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::delete_service_project_attachment",
-                self.inner.delete_service_project_attachment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::delete_service_project_attachment",
+            self.inner.delete_service_project_attachment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::DetachServiceProjectAttachmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DetachServiceProjectAttachmentResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::detach_service_project_attachment",
-                self.inner.detach_service_project_attachment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::detach_service_project_attachment",
+            self.inner.detach_service_project_attachment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::ListDiscoveredServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDiscoveredServicesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_discovered_services",
-                self.inner.list_discovered_services(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_discovered_services",
+            self.inner.list_discovered_services(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::GetDiscoveredServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DiscoveredService>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_discovered_service",
-                self.inner.get_discovered_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_discovered_service",
+            self.inner.get_discovered_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::LookupDiscoveredServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LookupDiscoveredServiceResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::lookup_discovered_service",
-                self.inner.lookup_discovered_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::lookup_discovered_service",
+            self.inner.lookup_discovered_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::ListServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListServicesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_services",
-                self.inner.list_services(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_services",
+            self.inner.list_services(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::CreateServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::create_service",
-                self.inner.create_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::create_service",
+            self.inner.create_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::GetServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Service>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_service",
-                self.inner.get_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_service",
+            self.inner.get_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::UpdateServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::update_service",
-                self.inner.update_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::update_service",
+            self.inner.update_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::DeleteServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::delete_service",
-                self.inner.delete_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::delete_service",
+            self.inner.delete_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,14 +243,12 @@ where
         req: crate::model::ListDiscoveredWorkloadsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDiscoveredWorkloadsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_discovered_workloads",
-                self.inner.list_discovered_workloads(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_discovered_workloads",
+            self.inner.list_discovered_workloads(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -287,14 +257,12 @@ where
         req: crate::model::GetDiscoveredWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DiscoveredWorkload>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_discovered_workload",
-                self.inner.get_discovered_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_discovered_workload",
+            self.inner.get_discovered_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -303,14 +271,12 @@ where
         req: crate::model::LookupDiscoveredWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LookupDiscoveredWorkloadResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::lookup_discovered_workload",
-                self.inner.lookup_discovered_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::lookup_discovered_workload",
+            self.inner.lookup_discovered_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -319,14 +285,12 @@ where
         req: crate::model::ListWorkloadsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkloadsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_workloads",
-                self.inner.list_workloads(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_workloads",
+            self.inner.list_workloads(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -335,14 +299,12 @@ where
         req: crate::model::CreateWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::create_workload",
-                self.inner.create_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::create_workload",
+            self.inner.create_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -351,14 +313,12 @@ where
         req: crate::model::GetWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Workload>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_workload",
-                self.inner.get_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_workload",
+            self.inner.get_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -367,14 +327,12 @@ where
         req: crate::model::UpdateWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::update_workload",
-                self.inner.update_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::update_workload",
+            self.inner.update_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -383,14 +341,12 @@ where
         req: crate::model::DeleteWorkloadRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::delete_workload",
-                self.inner.delete_workload(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::delete_workload",
+            self.inner.delete_workload(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -399,14 +355,12 @@ where
         req: crate::model::ListApplicationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListApplicationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_applications",
-                self.inner.list_applications(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_applications",
+            self.inner.list_applications(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -415,14 +369,12 @@ where
         req: crate::model::CreateApplicationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::create_application",
-                self.inner.create_application(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::create_application",
+            self.inner.create_application(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -431,14 +383,12 @@ where
         req: crate::model::GetApplicationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Application>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_application",
-                self.inner.get_application(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_application",
+            self.inner.get_application(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -447,14 +397,12 @@ where
         req: crate::model::UpdateApplicationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::update_application",
-                self.inner.update_application(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::update_application",
+            self.inner.update_application(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -463,14 +411,12 @@ where
         req: crate::model::DeleteApplicationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::delete_application",
-                self.inner.delete_application(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::delete_application",
+            self.inner.delete_application(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -479,14 +425,12 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_locations",
-                self.inner.list_locations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -495,14 +439,12 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_location",
-                self.inner.get_location(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_location",
+            self.inner.get_location(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -511,14 +453,12 @@ where
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::set_iam_policy",
-                self.inner.set_iam_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -527,14 +467,12 @@ where
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_iam_policy",
-                self.inner.get_iam_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -543,14 +481,12 @@ where
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::test_iam_permissions",
-                self.inner.test_iam_permissions(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -559,14 +495,12 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::list_operations",
-                self.inner.list_operations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -575,14 +509,12 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::get_operation",
-                self.inner.get_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -591,14 +523,12 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::delete_operation",
-                self.inner.delete_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -607,14 +537,12 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AppHub::cancel_operation",
-                self.inner.cancel_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AppHub::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
     }
 
     fn get_polling_error_policy(

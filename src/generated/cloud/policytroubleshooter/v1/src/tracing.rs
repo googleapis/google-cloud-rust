@@ -47,14 +47,12 @@ where
         req: crate::model::TroubleshootIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TroubleshootIamPolicyResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IamChecker::troubleshoot_iam_policy",
-                self.inner.troubleshoot_iam_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IamChecker::troubleshoot_iam_policy",
+            self.inner.troubleshoot_iam_policy(req, options));
+        pending.await
     }
 }
 

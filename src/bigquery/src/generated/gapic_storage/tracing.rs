@@ -47,14 +47,12 @@ where
         req: crate::model::CreateWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WriteStream>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigQueryWrite::create_write_stream",
-                self.inner.create_write_stream(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigQueryWrite::create_write_stream",
+            self.inner.create_write_stream(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::GetWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WriteStream>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigQueryWrite::get_write_stream",
-                self.inner.get_write_stream(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigQueryWrite::get_write_stream",
+            self.inner.get_write_stream(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::FinalizeWriteStreamRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FinalizeWriteStreamResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigQueryWrite::finalize_write_stream",
-                self.inner.finalize_write_stream(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigQueryWrite::finalize_write_stream",
+            self.inner.finalize_write_stream(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::BatchCommitWriteStreamsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BatchCommitWriteStreamsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigQueryWrite::batch_commit_write_streams",
-                self.inner.batch_commit_write_streams(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigQueryWrite::batch_commit_write_streams",
+            self.inner.batch_commit_write_streams(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::FlushRowsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FlushRowsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigQueryWrite::flush_rows",
-                self.inner.flush_rows(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigQueryWrite::flush_rows",
+            self.inner.flush_rows(req, options));
+        pending.await
     }
 }
 

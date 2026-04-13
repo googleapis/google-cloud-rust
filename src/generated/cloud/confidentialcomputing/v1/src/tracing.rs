@@ -47,14 +47,12 @@ where
         req: crate::model::CreateChallengeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Challenge>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::create_challenge",
-                self.inner.create_challenge(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::create_challenge",
+            self.inner.create_challenge(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::VerifyAttestationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyAttestationResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::verify_attestation",
-                self.inner.verify_attestation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::verify_attestation",
+            self.inner.verify_attestation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::VerifyConfidentialSpaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyConfidentialSpaceResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::verify_confidential_space",
-                self.inner.verify_confidential_space(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::verify_confidential_space",
+            self.inner.verify_confidential_space(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::VerifyConfidentialGkeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyConfidentialGkeResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::verify_confidential_gke",
-                self.inner.verify_confidential_gke(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::verify_confidential_gke",
+            self.inner.verify_confidential_gke(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::list_locations",
-                self.inner.list_locations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConfidentialComputing::get_location",
-                self.inner.get_location(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConfidentialComputing::get_location",
+            self.inner.get_location(req, options));
+        pending.await
     }
 }
 

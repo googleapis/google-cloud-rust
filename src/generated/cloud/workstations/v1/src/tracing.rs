@@ -47,14 +47,12 @@ where
         req: crate::model::GetWorkstationClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkstationCluster>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::get_workstation_cluster",
-                self.inner.get_workstation_cluster(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::get_workstation_cluster",
+            self.inner.get_workstation_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::ListWorkstationClustersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkstationClustersResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_workstation_clusters",
-                self.inner.list_workstation_clusters(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_workstation_clusters",
+            self.inner.list_workstation_clusters(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::CreateWorkstationClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::create_workstation_cluster",
-                self.inner.create_workstation_cluster(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::create_workstation_cluster",
+            self.inner.create_workstation_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::UpdateWorkstationClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::update_workstation_cluster",
-                self.inner.update_workstation_cluster(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::update_workstation_cluster",
+            self.inner.update_workstation_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::DeleteWorkstationClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::delete_workstation_cluster",
-                self.inner.delete_workstation_cluster(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::delete_workstation_cluster",
+            self.inner.delete_workstation_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::GetWorkstationConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::WorkstationConfig>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::get_workstation_config",
-                self.inner.get_workstation_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::get_workstation_config",
+            self.inner.get_workstation_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::ListWorkstationConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkstationConfigsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_workstation_configs",
-                self.inner.list_workstation_configs(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_workstation_configs",
+            self.inner.list_workstation_configs(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::ListUsableWorkstationConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListUsableWorkstationConfigsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_usable_workstation_configs",
-                self.inner.list_usable_workstation_configs(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_usable_workstation_configs",
+            self.inner.list_usable_workstation_configs(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::CreateWorkstationConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::create_workstation_config",
-                self.inner.create_workstation_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::create_workstation_config",
+            self.inner.create_workstation_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::UpdateWorkstationConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::update_workstation_config",
-                self.inner.update_workstation_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::update_workstation_config",
+            self.inner.update_workstation_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::DeleteWorkstationConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::delete_workstation_config",
-                self.inner.delete_workstation_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::delete_workstation_config",
+            self.inner.delete_workstation_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::GetWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Workstation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::get_workstation",
-                self.inner.get_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::get_workstation",
+            self.inner.get_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::ListWorkstationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListWorkstationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_workstations",
-                self.inner.list_workstations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_workstations",
+            self.inner.list_workstations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::ListUsableWorkstationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListUsableWorkstationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_usable_workstations",
-                self.inner.list_usable_workstations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_usable_workstations",
+            self.inner.list_usable_workstations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,14 +243,12 @@ where
         req: crate::model::CreateWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::create_workstation",
-                self.inner.create_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::create_workstation",
+            self.inner.create_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -287,14 +257,12 @@ where
         req: crate::model::UpdateWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::update_workstation",
-                self.inner.update_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::update_workstation",
+            self.inner.update_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -303,14 +271,12 @@ where
         req: crate::model::DeleteWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::delete_workstation",
-                self.inner.delete_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::delete_workstation",
+            self.inner.delete_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -319,14 +285,12 @@ where
         req: crate::model::StartWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::start_workstation",
-                self.inner.start_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::start_workstation",
+            self.inner.start_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -335,14 +299,12 @@ where
         req: crate::model::StopWorkstationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::stop_workstation",
-                self.inner.stop_workstation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::stop_workstation",
+            self.inner.stop_workstation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -351,14 +313,12 @@ where
         req: crate::model::GenerateAccessTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateAccessTokenResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::generate_access_token",
-                self.inner.generate_access_token(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::generate_access_token",
+            self.inner.generate_access_token(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -367,14 +327,12 @@ where
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::set_iam_policy",
-                self.inner.set_iam_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -383,14 +341,12 @@ where
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::get_iam_policy",
-                self.inner.get_iam_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -399,14 +355,12 @@ where
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::test_iam_permissions",
-                self.inner.test_iam_permissions(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -415,14 +369,12 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::list_operations",
-                self.inner.list_operations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -431,14 +383,12 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::get_operation",
-                self.inner.get_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -447,14 +397,12 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::delete_operation",
-                self.inner.delete_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -463,14 +411,12 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Workstations::cancel_operation",
-                self.inner.cancel_operation(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Workstations::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
     }
 
     fn get_polling_error_policy(

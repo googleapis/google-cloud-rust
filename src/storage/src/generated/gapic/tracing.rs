@@ -47,14 +47,12 @@ where
         req: crate::model::DeleteBucketRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::delete_bucket",
-                self.inner.delete_bucket(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::delete_bucket",
+            self.inner.delete_bucket(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::GetBucketRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Bucket>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::get_bucket",
-                self.inner.get_bucket(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::get_bucket",
+            self.inner.get_bucket(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::CreateBucketRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Bucket>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::create_bucket",
-                self.inner.create_bucket(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::create_bucket",
+            self.inner.create_bucket(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::ListBucketsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBucketsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::list_buckets",
-                self.inner.list_buckets(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::list_buckets",
+            self.inner.list_buckets(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::LockBucketRetentionPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Bucket>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::lock_bucket_retention_policy",
-                self.inner.lock_bucket_retention_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::lock_bucket_retention_policy",
+            self.inner.lock_bucket_retention_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::UpdateBucketRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Bucket>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::update_bucket",
-                self.inner.update_bucket(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::update_bucket",
+            self.inner.update_bucket(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::ComposeObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Object>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::compose_object",
-                self.inner.compose_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::compose_object",
+            self.inner.compose_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::DeleteObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::delete_object",
-                self.inner.delete_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::delete_object",
+            self.inner.delete_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::RestoreObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Object>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::restore_object",
-                self.inner.restore_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::restore_object",
+            self.inner.restore_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::GetObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Object>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::get_object",
-                self.inner.get_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::get_object",
+            self.inner.get_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::UpdateObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Object>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::update_object",
-                self.inner.update_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::update_object",
+            self.inner.update_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::ListObjectsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListObjectsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::list_objects",
-                self.inner.list_objects(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::list_objects",
+            self.inner.list_objects(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::RewriteObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RewriteResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::rewrite_object",
-                self.inner.rewrite_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::rewrite_object",
+            self.inner.rewrite_object(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::MoveObjectRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Object>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::StorageControl::move_object",
-                self.inner.move_object(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::StorageControl::move_object",
+            self.inner.move_object(req, options));
+        pending.await
     }
 }
 

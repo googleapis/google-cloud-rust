@@ -49,14 +49,12 @@ where
     ) -> Result<
         crate::Response<crate::model::ListEffectiveSecurityHealthAnalyticsCustomModulesResponse>,
     > {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_effective_security_health_analytics_custom_modules",
-                self.inner.list_effective_security_health_analytics_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_effective_security_health_analytics_custom_modules",
+            self.inner.list_effective_security_health_analytics_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -65,14 +63,12 @@ where
         req: crate::model::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EffectiveSecurityHealthAnalyticsCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_effective_security_health_analytics_custom_module",
-                self.inner.get_effective_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_effective_security_health_analytics_custom_module",
+            self.inner.get_effective_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -82,14 +78,12 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecurityHealthAnalyticsCustomModulesResponse>>
     {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_security_health_analytics_custom_modules",
-                self.inner.list_security_health_analytics_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_security_health_analytics_custom_modules",
+            self.inner.list_security_health_analytics_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -100,14 +94,12 @@ where
     ) -> Result<
         crate::Response<crate::model::ListDescendantSecurityHealthAnalyticsCustomModulesResponse>,
     > {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_descendant_security_health_analytics_custom_modules",
-                self.inner.list_descendant_security_health_analytics_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_descendant_security_health_analytics_custom_modules",
+            self.inner.list_descendant_security_health_analytics_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -116,14 +108,12 @@ where
         req: crate::model::GetSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_security_health_analytics_custom_module",
-                self.inner.get_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_security_health_analytics_custom_module",
+            self.inner.get_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -132,14 +122,12 @@ where
         req: crate::model::CreateSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::create_security_health_analytics_custom_module",
-                self.inner.create_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::create_security_health_analytics_custom_module",
+            self.inner.create_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -148,14 +136,12 @@ where
         req: crate::model::UpdateSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityHealthAnalyticsCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::update_security_health_analytics_custom_module",
-                self.inner.update_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::update_security_health_analytics_custom_module",
+            self.inner.update_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -164,14 +150,12 @@ where
         req: crate::model::DeleteSecurityHealthAnalyticsCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::delete_security_health_analytics_custom_module",
-                self.inner.delete_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::delete_security_health_analytics_custom_module",
+            self.inner.delete_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -181,14 +165,12 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SimulateSecurityHealthAnalyticsCustomModuleResponse>>
     {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::simulate_security_health_analytics_custom_module",
-                self.inner.simulate_security_health_analytics_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::simulate_security_health_analytics_custom_module",
+            self.inner.simulate_security_health_analytics_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -198,14 +180,12 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEffectiveEventThreatDetectionCustomModulesResponse>>
     {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_effective_event_threat_detection_custom_modules",
-                self.inner.list_effective_event_threat_detection_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_effective_event_threat_detection_custom_modules",
+            self.inner.list_effective_event_threat_detection_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -214,14 +194,12 @@ where
         req: crate::model::GetEffectiveEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EffectiveEventThreatDetectionCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_effective_event_threat_detection_custom_module",
-                self.inner.get_effective_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_effective_event_threat_detection_custom_module",
+            self.inner.get_effective_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -230,14 +208,12 @@ where
         req: crate::model::ListEventThreatDetectionCustomModulesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListEventThreatDetectionCustomModulesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_event_threat_detection_custom_modules",
-                self.inner.list_event_threat_detection_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_event_threat_detection_custom_modules",
+            self.inner.list_event_threat_detection_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -248,14 +224,12 @@ where
     ) -> Result<
         crate::Response<crate::model::ListDescendantEventThreatDetectionCustomModulesResponse>,
     > {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_descendant_event_threat_detection_custom_modules",
-                self.inner.list_descendant_event_threat_detection_custom_modules(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_descendant_event_threat_detection_custom_modules",
+            self.inner.list_descendant_event_threat_detection_custom_modules(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -264,14 +238,12 @@ where
         req: crate::model::GetEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_event_threat_detection_custom_module",
-                self.inner.get_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_event_threat_detection_custom_module",
+            self.inner.get_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -280,14 +252,12 @@ where
         req: crate::model::CreateEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::create_event_threat_detection_custom_module",
-                self.inner.create_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::create_event_threat_detection_custom_module",
+            self.inner.create_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -296,14 +266,12 @@ where
         req: crate::model::UpdateEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EventThreatDetectionCustomModule>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::update_event_threat_detection_custom_module",
-                self.inner.update_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::update_event_threat_detection_custom_module",
+            self.inner.update_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -312,14 +280,12 @@ where
         req: crate::model::DeleteEventThreatDetectionCustomModuleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::delete_event_threat_detection_custom_module",
-                self.inner.delete_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::delete_event_threat_detection_custom_module",
+            self.inner.delete_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -329,14 +295,12 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ValidateEventThreatDetectionCustomModuleResponse>>
     {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::validate_event_threat_detection_custom_module",
-                self.inner.validate_event_threat_detection_custom_module(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::validate_event_threat_detection_custom_module",
+            self.inner.validate_event_threat_detection_custom_module(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -345,14 +309,12 @@ where
         req: crate::model::GetSecurityCenterServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityCenterService>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_security_center_service",
-                self.inner.get_security_center_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_security_center_service",
+            self.inner.get_security_center_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -361,14 +323,12 @@ where
         req: crate::model::ListSecurityCenterServicesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSecurityCenterServicesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_security_center_services",
-                self.inner.list_security_center_services(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_security_center_services",
+            self.inner.list_security_center_services(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -377,14 +337,12 @@ where
         req: crate::model::UpdateSecurityCenterServiceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SecurityCenterService>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::update_security_center_service",
-                self.inner.update_security_center_service(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::update_security_center_service",
+            self.inner.update_security_center_service(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -393,14 +351,12 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::list_locations",
-                self.inner.list_locations(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::list_locations",
+            self.inner.list_locations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -409,14 +365,12 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SecurityCenterManagement::get_location",
-                self.inner.get_location(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SecurityCenterManagement::get_location",
+            self.inner.get_location(req, options));
+        pending.await
     }
 }
 

@@ -47,14 +47,12 @@ where
         req: crate::model::ListConnectionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListConnectionsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ConnectionService::list_connections",
-                self.inner.list_connections(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ConnectionService::list_connections",
+            self.inner.list_connections(req, options));
+        pending.await
     }
 }
 

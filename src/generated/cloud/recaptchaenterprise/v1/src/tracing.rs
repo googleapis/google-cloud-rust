@@ -47,14 +47,12 @@ where
         req: crate::model::CreateAssessmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Assessment>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::create_assessment",
-                self.inner.create_assessment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::create_assessment",
+            self.inner.create_assessment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::AnnotateAssessmentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnnotateAssessmentResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::annotate_assessment",
-                self.inner.annotate_assessment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::annotate_assessment",
+            self.inner.annotate_assessment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::CreateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::create_key",
-                self.inner.create_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::create_key",
+            self.inner.create_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::ListKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListKeysResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::list_keys",
-                self.inner.list_keys(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::list_keys",
+            self.inner.list_keys(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::RetrieveLegacySecretKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RetrieveLegacySecretKeyResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::retrieve_legacy_secret_key",
-                self.inner.retrieve_legacy_secret_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::retrieve_legacy_secret_key",
+            self.inner.retrieve_legacy_secret_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::GetKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::get_key",
-                self.inner.get_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::get_key",
+            self.inner.get_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::UpdateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::update_key",
-                self.inner.update_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::update_key",
+            self.inner.update_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::DeleteKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::delete_key",
-                self.inner.delete_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::delete_key",
+            self.inner.delete_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::MigrateKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Key>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::migrate_key",
-                self.inner.migrate_key(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::migrate_key",
+            self.inner.migrate_key(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::AddIpOverrideRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AddIpOverrideResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::add_ip_override",
-                self.inner.add_ip_override(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::add_ip_override",
+            self.inner.add_ip_override(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::RemoveIpOverrideRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RemoveIpOverrideResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::remove_ip_override",
-                self.inner.remove_ip_override(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::remove_ip_override",
+            self.inner.remove_ip_override(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::ListIpOverridesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIpOverridesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::list_ip_overrides",
-                self.inner.list_ip_overrides(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::list_ip_overrides",
+            self.inner.list_ip_overrides(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::GetMetricsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Metrics>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::get_metrics",
-                self.inner.get_metrics(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::get_metrics",
+            self.inner.get_metrics(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::CreateFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::create_firewall_policy",
-                self.inner.create_firewall_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::create_firewall_policy",
+            self.inner.create_firewall_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,14 +243,12 @@ where
         req: crate::model::ListFirewallPoliciesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFirewallPoliciesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::list_firewall_policies",
-                self.inner.list_firewall_policies(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::list_firewall_policies",
+            self.inner.list_firewall_policies(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -287,14 +257,12 @@ where
         req: crate::model::GetFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::get_firewall_policy",
-                self.inner.get_firewall_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::get_firewall_policy",
+            self.inner.get_firewall_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -303,14 +271,12 @@ where
         req: crate::model::UpdateFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FirewallPolicy>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::update_firewall_policy",
-                self.inner.update_firewall_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::update_firewall_policy",
+            self.inner.update_firewall_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -319,14 +285,12 @@ where
         req: crate::model::DeleteFirewallPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::delete_firewall_policy",
-                self.inner.delete_firewall_policy(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::delete_firewall_policy",
+            self.inner.delete_firewall_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -335,14 +299,12 @@ where
         req: crate::model::ReorderFirewallPoliciesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReorderFirewallPoliciesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::reorder_firewall_policies",
-                self.inner.reorder_firewall_policies(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::reorder_firewall_policies",
+            self.inner.reorder_firewall_policies(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -351,14 +313,12 @@ where
         req: crate::model::ListRelatedAccountGroupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRelatedAccountGroupsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::list_related_account_groups",
-                self.inner.list_related_account_groups(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::list_related_account_groups",
+            self.inner.list_related_account_groups(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -367,14 +327,12 @@ where
         req: crate::model::ListRelatedAccountGroupMembershipsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRelatedAccountGroupMembershipsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::list_related_account_group_memberships",
-                self.inner.list_related_account_group_memberships(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::list_related_account_group_memberships",
+            self.inner.list_related_account_group_memberships(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -383,14 +341,12 @@ where
         req: crate::model::SearchRelatedAccountGroupMembershipsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchRelatedAccountGroupMembershipsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::RecaptchaEnterpriseService::search_related_account_group_memberships",
-                self.inner.search_related_account_group_memberships(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::RecaptchaEnterpriseService::search_related_account_group_memberships",
+            self.inner.search_related_account_group_memberships(req, options));
+        pending.await
     }
 }
 

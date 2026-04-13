@@ -47,14 +47,12 @@ where
         req: crate::model::ListDataSetsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDataSetsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::list_data_sets",
-                self.inner.list_data_sets(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::list_data_sets",
+            self.inner.list_data_sets(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::CreateDataSetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DataSet>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::create_data_set",
-                self.inner.create_data_set(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::create_data_set",
+            self.inner.create_data_set(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::DeleteDataSetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::delete_data_set",
-                self.inner.delete_data_set(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::delete_data_set",
+            self.inner.delete_data_set(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::AppendEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AppendEventsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::append_events",
-                self.inner.append_events(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::append_events",
+            self.inner.append_events(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::QueryDataSetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QueryDataSetResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::query_data_set",
-                self.inner.query_data_set(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::query_data_set",
+            self.inner.query_data_set(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::EvaluateSliceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EvaluatedSlice>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::evaluate_slice",
-                self.inner.evaluate_slice(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::evaluate_slice",
+            self.inner.evaluate_slice(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::EvaluateTimeseriesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EvaluatedSlice>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::TimeseriesInsightsController::evaluate_timeseries",
-                self.inner.evaluate_timeseries(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::TimeseriesInsightsController::evaluate_timeseries",
+            self.inner.evaluate_timeseries(req, options));
+        pending.await
     }
 }
 

@@ -47,14 +47,12 @@ where
         req: crate::model::ListCryptoKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCryptoKeysResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::KeyDashboardService::list_crypto_keys",
-                self.inner.list_crypto_keys(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::KeyDashboardService::list_crypto_keys",
+            self.inner.list_crypto_keys(req, options));
+        pending.await
     }
 }
 
@@ -90,14 +88,12 @@ where
         req: crate::model::GetProtectedResourcesSummaryRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ProtectedResourcesSummary>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::KeyTrackingService::get_protected_resources_summary",
-                self.inner.get_protected_resources_summary(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::KeyTrackingService::get_protected_resources_summary",
+            self.inner.get_protected_resources_summary(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -106,14 +102,12 @@ where
         req: crate::model::SearchProtectedResourcesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchProtectedResourcesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::KeyTrackingService::search_protected_resources",
-                self.inner.search_protected_resources(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::KeyTrackingService::search_protected_resources",
+            self.inner.search_protected_resources(req, options));
+        pending.await
     }
 }
 

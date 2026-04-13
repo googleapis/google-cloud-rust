@@ -47,14 +47,12 @@ where
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupRunsService::delete",
-                self.inner.delete(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupRunsService::delete",
+            self.inner.delete(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::SqlBackupRunsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BackupRun>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupRunsService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupRunsService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::SqlBackupRunsInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupRunsService::insert",
-                self.inner.insert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupRunsService::insert",
+            self.inner.insert(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::SqlBackupRunsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BackupRunsListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupRunsService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupRunsService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 }
 
@@ -138,14 +130,12 @@ where
         req: crate::model::CreateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupsService::create_backup",
-                self.inner.create_backup(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupsService::create_backup",
+            self.inner.create_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -154,14 +144,12 @@ where
         req: crate::model::GetBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupsService::get_backup",
-                self.inner.get_backup(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupsService::get_backup",
+            self.inner.get_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -170,14 +158,12 @@ where
         req: crate::model::ListBackupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupsService::list_backups",
-                self.inner.list_backups(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupsService::list_backups",
+            self.inner.list_backups(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -186,14 +172,12 @@ where
         req: crate::model::UpdateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupsService::update_backup",
-                self.inner.update_backup(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupsService::update_backup",
+            self.inner.update_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -202,14 +186,12 @@ where
         req: crate::model::DeleteBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlBackupsService::delete_backup",
-                self.inner.delete_backup(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlBackupsService::delete_backup",
+            self.inner.delete_backup(req, options));
+        pending.await
     }
 }
 
@@ -245,14 +227,12 @@ where
         req: crate::model::GetConnectSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ConnectSettings>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlConnectService::get_connect_settings",
-                self.inner.get_connect_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlConnectService::get_connect_settings",
+            self.inner.get_connect_settings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -261,14 +241,12 @@ where
         req: crate::model::GenerateEphemeralCertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateEphemeralCertResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlConnectService::generate_ephemeral_cert",
-                self.inner.generate_ephemeral_cert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlConnectService::generate_ephemeral_cert",
+            self.inner.generate_ephemeral_cert(req, options));
+        pending.await
     }
 }
 
@@ -304,14 +282,12 @@ where
         req: crate::model::SqlDatabasesDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::delete",
-                self.inner.delete(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::delete",
+            self.inner.delete(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -320,14 +296,12 @@ where
         req: crate::model::SqlDatabasesGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Database>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -336,14 +310,12 @@ where
         req: crate::model::SqlDatabasesInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::insert",
-                self.inner.insert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::insert",
+            self.inner.insert(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -352,14 +324,12 @@ where
         req: crate::model::SqlDatabasesListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DatabasesListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -368,14 +338,12 @@ where
         req: crate::model::SqlDatabasesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::patch",
-                self.inner.patch(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::patch",
+            self.inner.patch(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -384,14 +352,12 @@ where
         req: crate::model::SqlDatabasesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlDatabasesService::update",
-                self.inner.update(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlDatabasesService::update",
+            self.inner.update(req, options));
+        pending.await
     }
 }
 
@@ -427,14 +393,12 @@ where
         req: crate::model::SqlFlagsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FlagsListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlFlagsService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlFlagsService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 }
 
@@ -470,14 +434,12 @@ where
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::add_server_ca",
-                self.inner.add_server_ca(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::add_server_ca",
+            self.inner.add_server_ca(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -486,14 +448,12 @@ where
         req: crate::model::SqlInstancesAddServerCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::add_server_certificate",
-                self.inner.add_server_certificate(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::add_server_certificate",
+            self.inner.add_server_certificate(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -502,14 +462,12 @@ where
         req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::add_entra_id_certificate",
-                self.inner.add_entra_id_certificate(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::add_entra_id_certificate",
+            self.inner.add_entra_id_certificate(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -518,14 +476,12 @@ where
         req: crate::model::SqlInstancesCloneRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::clone",
-                self.inner.clone(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::clone",
+            self.inner.clone(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -534,14 +490,12 @@ where
         req: crate::model::SqlInstancesDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::delete",
-                self.inner.delete(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::delete",
+            self.inner.delete(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -550,14 +504,12 @@ where
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::demote_master",
-                self.inner.demote_master(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::demote_master",
+            self.inner.demote_master(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -566,14 +518,12 @@ where
         req: crate::model::SqlInstancesDemoteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::demote",
-                self.inner.demote(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::demote",
+            self.inner.demote(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -582,14 +532,12 @@ where
         req: crate::model::SqlInstancesExportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::export",
-                self.inner.export(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::export",
+            self.inner.export(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -598,14 +546,12 @@ where
         req: crate::model::SqlInstancesFailoverRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::failover",
-                self.inner.failover(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::failover",
+            self.inner.failover(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -614,14 +560,12 @@ where
         req: crate::model::SqlInstancesReencryptRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::reencrypt",
-                self.inner.reencrypt(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::reencrypt",
+            self.inner.reencrypt(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -630,14 +574,12 @@ where
         req: crate::model::SqlInstancesGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DatabaseInstance>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -646,14 +588,12 @@ where
         req: crate::model::SqlInstancesImportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::import",
-                self.inner.import(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::import",
+            self.inner.import(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -662,14 +602,12 @@ where
         req: crate::model::SqlInstancesInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::insert",
-                self.inner.insert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::insert",
+            self.inner.insert(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -678,14 +616,12 @@ where
         req: crate::model::SqlInstancesListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -694,14 +630,12 @@ where
         req: crate::model::SqlInstancesListServerCasRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListServerCasResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::list_server_cas",
-                self.inner.list_server_cas(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::list_server_cas",
+            self.inner.list_server_cas(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -710,14 +644,12 @@ where
         req: crate::model::SqlInstancesListServerCertificatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListServerCertificatesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::list_server_certificates",
-                self.inner.list_server_certificates(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::list_server_certificates",
+            self.inner.list_server_certificates(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -726,14 +658,12 @@ where
         req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::InstancesListEntraIdCertificatesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::list_entra_id_certificates",
-                self.inner.list_entra_id_certificates(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::list_entra_id_certificates",
+            self.inner.list_entra_id_certificates(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -742,14 +672,12 @@ where
         req: crate::model::SqlInstancesPatchRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::patch",
-                self.inner.patch(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::patch",
+            self.inner.patch(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -758,14 +686,12 @@ where
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::promote_replica",
-                self.inner.promote_replica(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::promote_replica",
+            self.inner.promote_replica(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -774,14 +700,12 @@ where
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::switchover",
-                self.inner.switchover(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::switchover",
+            self.inner.switchover(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -790,14 +714,12 @@ where
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::reset_ssl_config",
-                self.inner.reset_ssl_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::reset_ssl_config",
+            self.inner.reset_ssl_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -806,14 +728,12 @@ where
         req: crate::model::SqlInstancesRestartRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::restart",
-                self.inner.restart(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::restart",
+            self.inner.restart(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -822,14 +742,12 @@ where
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::restore_backup",
-                self.inner.restore_backup(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::restore_backup",
+            self.inner.restore_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -838,14 +756,12 @@ where
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::rotate_server_ca",
-                self.inner.rotate_server_ca(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::rotate_server_ca",
+            self.inner.rotate_server_ca(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -854,14 +770,12 @@ where
         req: crate::model::SqlInstancesRotateServerCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::rotate_server_certificate",
-                self.inner.rotate_server_certificate(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::rotate_server_certificate",
+            self.inner.rotate_server_certificate(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -870,14 +784,12 @@ where
         req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::rotate_entra_id_certificate",
-                self.inner.rotate_entra_id_certificate(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::rotate_entra_id_certificate",
+            self.inner.rotate_entra_id_certificate(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -886,14 +798,12 @@ where
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::start_replica",
-                self.inner.start_replica(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::start_replica",
+            self.inner.start_replica(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -902,14 +812,12 @@ where
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::stop_replica",
-                self.inner.stop_replica(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::stop_replica",
+            self.inner.stop_replica(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -918,14 +826,12 @@ where
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::truncate_log",
-                self.inner.truncate_log(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::truncate_log",
+            self.inner.truncate_log(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -934,14 +840,12 @@ where
         req: crate::model::SqlInstancesUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::update",
-                self.inner.update(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::update",
+            self.inner.update(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -950,14 +854,12 @@ where
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCert>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::create_ephemeral",
-                self.inner.create_ephemeral(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::create_ephemeral",
+            self.inner.create_ephemeral(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -966,14 +868,12 @@ where
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::reschedule_maintenance",
-                self.inner.reschedule_maintenance(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::reschedule_maintenance",
+            self.inner.reschedule_maintenance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -982,14 +882,12 @@ where
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::verify_external_sync_settings",
-                self.inner.verify_external_sync_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::verify_external_sync_settings",
+            self.inner.verify_external_sync_settings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -998,14 +896,12 @@ where
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::start_external_sync",
-                self.inner.start_external_sync(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::start_external_sync",
+            self.inner.start_external_sync(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1014,14 +910,12 @@ where
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::perform_disk_shrink",
-                self.inner.perform_disk_shrink(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::perform_disk_shrink",
+            self.inner.perform_disk_shrink(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1030,14 +924,12 @@ where
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::get_disk_shrink_config",
-                self.inner.get_disk_shrink_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::get_disk_shrink_config",
+            self.inner.get_disk_shrink_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1046,14 +938,12 @@ where
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::reset_replica_size",
-                self.inner.reset_replica_size(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::reset_replica_size",
+            self.inner.reset_replica_size(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1062,14 +952,12 @@ where
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::get_latest_recovery_time",
-                self.inner.get_latest_recovery_time(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::get_latest_recovery_time",
+            self.inner.get_latest_recovery_time(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1078,14 +966,12 @@ where
         req: crate::model::SqlInstancesExecuteSqlRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::execute_sql",
-                self.inner.execute_sql(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::execute_sql",
+            self.inner.execute_sql(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1094,14 +980,12 @@ where
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::acquire_ssrs_lease",
-                self.inner.acquire_ssrs_lease(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::acquire_ssrs_lease",
+            self.inner.acquire_ssrs_lease(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1110,14 +994,12 @@ where
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::release_ssrs_lease",
-                self.inner.release_ssrs_lease(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::release_ssrs_lease",
+            self.inner.release_ssrs_lease(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1126,14 +1008,12 @@ where
         req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::pre_check_major_version_upgrade",
-                self.inner.pre_check_major_version_upgrade(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::pre_check_major_version_upgrade",
+            self.inner.pre_check_major_version_upgrade(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1142,14 +1022,12 @@ where
         req: crate::model::SqlInstancesPointInTimeRestoreRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlInstancesService::point_in_time_restore",
-                self.inner.point_in_time_restore(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlInstancesService::point_in_time_restore",
+            self.inner.point_in_time_restore(req, options));
+        pending.await
     }
 }
 
@@ -1185,14 +1063,12 @@ where
         req: crate::model::SqlOperationsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlOperationsService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlOperationsService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1201,14 +1077,12 @@ where
         req: crate::model::SqlOperationsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::OperationsListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlOperationsService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlOperationsService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1217,14 +1091,12 @@ where
         req: crate::model::SqlOperationsCancelRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlOperationsService::cancel",
-                self.inner.cancel(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlOperationsService::cancel",
+            self.inner.cancel(req, options));
+        pending.await
     }
 }
 
@@ -1260,14 +1132,12 @@ where
         req: crate::model::SqlSslCertsDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlSslCertsService::delete",
-                self.inner.delete(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::delete",
+            self.inner.delete(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1276,14 +1146,12 @@ where
         req: crate::model::SqlSslCertsGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCert>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlSslCertsService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1292,14 +1160,12 @@ where
         req: crate::model::SqlSslCertsInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCertsInsertResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlSslCertsService::insert",
-                self.inner.insert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::insert",
+            self.inner.insert(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1308,14 +1174,12 @@ where
         req: crate::model::SqlSslCertsListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SslCertsListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlSslCertsService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlSslCertsService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 }
 
@@ -1351,14 +1215,12 @@ where
         req: crate::model::SqlTiersListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TiersListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlTiersService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlTiersService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 }
 
@@ -1394,14 +1256,12 @@ where
         req: crate::model::SqlUsersDeleteRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlUsersService::delete",
-                self.inner.delete(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlUsersService::delete",
+            self.inner.delete(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1410,14 +1270,12 @@ where
         req: crate::model::SqlUsersGetRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::User>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlUsersService::get",
-                self.inner.get(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlUsersService::get",
+            self.inner.get(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1426,14 +1284,12 @@ where
         req: crate::model::SqlUsersInsertRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlUsersService::insert",
-                self.inner.insert(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlUsersService::insert",
+            self.inner.insert(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1442,14 +1298,12 @@ where
         req: crate::model::SqlUsersListRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UsersListResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlUsersService::list",
-                self.inner.list(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlUsersService::list",
+            self.inner.list(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1458,14 +1312,12 @@ where
         req: crate::model::SqlUsersUpdateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::SqlUsersService::update",
-                self.inner.update(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::SqlUsersService::update",
+            self.inner.update(req, options));
+        pending.await
     }
 }
 

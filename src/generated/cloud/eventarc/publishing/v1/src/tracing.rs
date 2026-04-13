@@ -47,14 +47,12 @@ where
         req: crate::model::PublishChannelConnectionEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PublishChannelConnectionEventsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Publisher::publish_channel_connection_events",
-                self.inner.publish_channel_connection_events(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Publisher::publish_channel_connection_events",
+            self.inner.publish_channel_connection_events(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::PublishEventsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PublishEventsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Publisher::publish_events",
-                self.inner.publish_events(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Publisher::publish_events",
+            self.inner.publish_events(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::PublishRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PublishResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::Publisher::publish",
-                self.inner.publish(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::Publisher::publish",
+            self.inner.publish(req, options));
+        pending.await
     }
 }
 

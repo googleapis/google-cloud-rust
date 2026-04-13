@@ -47,14 +47,12 @@ where
         req: crate::model::AnalyzeSentimentRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnalyzeSentimentResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::LanguageService::analyze_sentiment",
-                self.inner.analyze_sentiment(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LanguageService::analyze_sentiment",
+            self.inner.analyze_sentiment(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::AnalyzeEntitiesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnalyzeEntitiesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::LanguageService::analyze_entities",
-                self.inner.analyze_entities(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LanguageService::analyze_entities",
+            self.inner.analyze_entities(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::ClassifyTextRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ClassifyTextResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::LanguageService::classify_text",
-                self.inner.classify_text(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LanguageService::classify_text",
+            self.inner.classify_text(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::ModerateTextRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ModerateTextResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::LanguageService::moderate_text",
-                self.inner.moderate_text(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LanguageService::moderate_text",
+            self.inner.moderate_text(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::AnnotateTextRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AnnotateTextResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::LanguageService::annotate_text",
-                self.inner.annotate_text(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::LanguageService::annotate_text",
+            self.inner.annotate_text(req, options));
+        pending.await
     }
 }
 

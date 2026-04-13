@@ -47,14 +47,12 @@ where
         req: crate::model::ListNotificationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListNotificationsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AdvisoryNotificationsService::list_notifications",
-                self.inner.list_notifications(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AdvisoryNotificationsService::list_notifications",
+            self.inner.list_notifications(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::GetNotificationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Notification>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AdvisoryNotificationsService::get_notification",
-                self.inner.get_notification(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AdvisoryNotificationsService::get_notification",
+            self.inner.get_notification(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::GetSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AdvisoryNotificationsService::get_settings",
-                self.inner.get_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AdvisoryNotificationsService::get_settings",
+            self.inner.get_settings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::UpdateSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Settings>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::AdvisoryNotificationsService::update_settings",
-                self.inner.update_settings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::AdvisoryNotificationsService::update_settings",
+            self.inner.update_settings(req, options));
+        pending.await
     }
 }
 
