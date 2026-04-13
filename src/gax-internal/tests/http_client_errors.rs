@@ -77,7 +77,7 @@ mod tests {
 
         Ok(())
     }
-    #[cfg(all(test, google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+    #[cfg(all(test, feature = "_internal-http-client"))]
     mod tracing_tests {
         use super::*;
         use google_cloud_test_utils::test_layer::TestLayer;
