@@ -100,7 +100,7 @@ impl ReqwestClient {
         let host = crate::host::header(config.endpoint.as_deref(), &service_endpoint)
             .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config.endpoint.unwrap_or_else(|| service_endpoint);
+        let endpoint = config.endpoint.unwrap_or(service_endpoint);
         Ok(Self {
             inner,
             cred,
