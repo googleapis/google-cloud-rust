@@ -47,12 +47,14 @@ where
         req: crate::model::CreateDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::DirectAccessService::create_device_session",
-            self.inner.create_device_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::DirectAccessService::create_device_session",
+                self.inner.create_device_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::ListDeviceSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListDeviceSessionsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::DirectAccessService::list_device_sessions",
-            self.inner.list_device_sessions(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::DirectAccessService::list_device_sessions",
+                self.inner.list_device_sessions(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::GetDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::DirectAccessService::get_device_session",
-            self.inner.get_device_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::DirectAccessService::get_device_session",
+                self.inner.get_device_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: crate::model::CancelDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::DirectAccessService::cancel_device_session",
-            self.inner.cancel_device_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::DirectAccessService::cancel_device_session",
+                self.inner.cancel_device_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: crate::model::UpdateDeviceSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::DeviceSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::DirectAccessService::update_device_session",
-            self.inner.update_device_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::DirectAccessService::update_device_session",
+                self.inner.update_device_session(req, options));
+            pending.await
+        }
     }
 }
 

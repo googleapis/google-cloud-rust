@@ -47,12 +47,14 @@ where
         req: crate::model::GetMcpServerRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::McpServer>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::get_mcp_server",
-            self.inner.get_mcp_server(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::get_mcp_server",
+                self.inner.get_mcp_server(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::ListMcpServersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMcpServersResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::list_mcp_servers",
-            self.inner.list_mcp_servers(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::list_mcp_servers",
+                self.inner.list_mcp_servers(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::GetMcpToolRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::McpTool>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::get_mcp_tool",
-            self.inner.get_mcp_tool(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::get_mcp_tool",
+                self.inner.get_mcp_tool(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: crate::model::ListMcpToolsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMcpToolsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::list_mcp_tools",
-            self.inner.list_mcp_tools(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::list_mcp_tools",
+                self.inner.list_mcp_tools(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::list_locations",
-            self.inner.list_locations(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::list_locations",
+                self.inner.list_locations(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -117,12 +127,14 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudApiRegistry::get_location",
-            self.inner.get_location(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudApiRegistry::get_location",
+                self.inner.get_location(req, options));
+            pending.await
+        }
     }
 }
 

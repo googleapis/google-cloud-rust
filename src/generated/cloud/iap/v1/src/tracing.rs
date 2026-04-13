@@ -47,12 +47,14 @@ where
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::set_iam_policy",
-            self.inner.set_iam_policy(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::set_iam_policy",
+                self.inner.set_iam_policy(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::get_iam_policy",
-            self.inner.get_iam_policy(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::get_iam_policy",
+                self.inner.get_iam_policy(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::test_iam_permissions",
-            self.inner.test_iam_permissions(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::test_iam_permissions",
+                self.inner.test_iam_permissions(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: crate::model::GetIapSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IapSettings>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::get_iap_settings",
-            self.inner.get_iap_settings(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::get_iap_settings",
+                self.inner.get_iap_settings(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: crate::model::UpdateIapSettingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IapSettings>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::update_iap_settings",
-            self.inner.update_iap_settings(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::update_iap_settings",
+                self.inner.update_iap_settings(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -117,12 +127,14 @@ where
         req: crate::model::ValidateIapAttributeExpressionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::validate_iap_attribute_expression",
-            self.inner.validate_iap_attribute_expression(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::validate_iap_attribute_expression",
+                self.inner.validate_iap_attribute_expression(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -131,12 +143,14 @@ where
         req: crate::model::ListTunnelDestGroupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTunnelDestGroupsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::list_tunnel_dest_groups",
-            self.inner.list_tunnel_dest_groups(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::list_tunnel_dest_groups",
+                self.inner.list_tunnel_dest_groups(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -145,12 +159,14 @@ where
         req: crate::model::CreateTunnelDestGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::create_tunnel_dest_group",
-            self.inner.create_tunnel_dest_group(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::create_tunnel_dest_group",
+                self.inner.create_tunnel_dest_group(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,12 +175,14 @@ where
         req: crate::model::GetTunnelDestGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::get_tunnel_dest_group",
-            self.inner.get_tunnel_dest_group(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::get_tunnel_dest_group",
+                self.inner.get_tunnel_dest_group(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -173,12 +191,14 @@ where
         req: crate::model::DeleteTunnelDestGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::delete_tunnel_dest_group",
-            self.inner.delete_tunnel_dest_group(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::delete_tunnel_dest_group",
+                self.inner.delete_tunnel_dest_group(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -187,12 +207,14 @@ where
         req: crate::model::UpdateTunnelDestGroupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::TunnelDestGroup>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyAdminService::update_tunnel_dest_group",
-            self.inner.update_tunnel_dest_group(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyAdminService::update_tunnel_dest_group",
+                self.inner.update_tunnel_dest_group(req, options));
+            pending.await
+        }
     }
 }
 
@@ -228,12 +250,14 @@ where
         req: crate::model::ListBrandsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBrandsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::list_brands",
-            self.inner.list_brands(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::list_brands",
+                self.inner.list_brands(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -242,12 +266,14 @@ where
         req: crate::model::CreateBrandRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Brand>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::create_brand",
-            self.inner.create_brand(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::create_brand",
+                self.inner.create_brand(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -256,12 +282,14 @@ where
         req: crate::model::GetBrandRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Brand>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::get_brand",
-            self.inner.get_brand(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::get_brand",
+                self.inner.get_brand(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -270,12 +298,14 @@ where
         req: crate::model::CreateIdentityAwareProxyClientRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client",
-            self.inner.create_identity_aware_proxy_client(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::create_identity_aware_proxy_client",
+                self.inner.create_identity_aware_proxy_client(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -284,12 +314,14 @@ where
         req: crate::model::ListIdentityAwareProxyClientsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients",
-            self.inner.list_identity_aware_proxy_clients(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::list_identity_aware_proxy_clients",
+                self.inner.list_identity_aware_proxy_clients(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -298,12 +330,14 @@ where
         req: crate::model::GetIdentityAwareProxyClientRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client",
-            self.inner.get_identity_aware_proxy_client(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::get_identity_aware_proxy_client",
+                self.inner.get_identity_aware_proxy_client(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -312,12 +346,14 @@ where
         req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IdentityAwareProxyClient>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret",
-            self.inner.reset_identity_aware_proxy_client_secret(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::reset_identity_aware_proxy_client_secret",
+                self.inner.reset_identity_aware_proxy_client_secret(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -326,12 +362,14 @@ where
         req: crate::model::DeleteIdentityAwareProxyClientRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client",
-            self.inner.delete_identity_aware_proxy_client(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::IdentityAwareProxyOAuthService::delete_identity_aware_proxy_client",
+                self.inner.delete_identity_aware_proxy_client(req, options));
+            pending.await
+        }
     }
 }
 

@@ -47,12 +47,14 @@ where
         req: crate::model::ListCloudLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCloudLocationsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudLocationFinder::list_cloud_locations",
-            self.inner.list_cloud_locations(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudLocationFinder::list_cloud_locations",
+                self.inner.list_cloud_locations(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::GetCloudLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CloudLocation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudLocationFinder::get_cloud_location",
-            self.inner.get_cloud_location(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudLocationFinder::get_cloud_location",
+                self.inner.get_cloud_location(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::SearchCloudLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SearchCloudLocationsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudLocationFinder::search_cloud_locations",
-            self.inner.search_cloud_locations(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudLocationFinder::search_cloud_locations",
+                self.inner.search_cloud_locations(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudLocationFinder::list_locations",
-            self.inner.list_locations(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudLocationFinder::list_locations",
+                self.inner.list_locations(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudLocationFinder::get_location",
-            self.inner.get_location(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudLocationFinder::get_location",
+                self.inner.get_location(req, options));
+            pending.await
+        }
     }
 }
 

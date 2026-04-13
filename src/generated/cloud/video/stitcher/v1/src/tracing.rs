@@ -47,12 +47,14 @@ where
         req: crate::model::CreateCdnKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_cdn_key",
-            self.inner.create_cdn_key(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_cdn_key",
+                self.inner.create_cdn_key(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::ListCdnKeysRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCdnKeysResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_cdn_keys",
-            self.inner.list_cdn_keys(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_cdn_keys",
+                self.inner.list_cdn_keys(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::GetCdnKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CdnKey>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_cdn_key",
-            self.inner.get_cdn_key(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_cdn_key",
+                self.inner.get_cdn_key(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: crate::model::DeleteCdnKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::delete_cdn_key",
-            self.inner.delete_cdn_key(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::delete_cdn_key",
+                self.inner.delete_cdn_key(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: crate::model::UpdateCdnKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::update_cdn_key",
-            self.inner.update_cdn_key(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::update_cdn_key",
+                self.inner.update_cdn_key(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -117,12 +127,14 @@ where
         req: crate::model::CreateVodSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VodSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_vod_session",
-            self.inner.create_vod_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_vod_session",
+                self.inner.create_vod_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -131,12 +143,14 @@ where
         req: crate::model::GetVodSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VodSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_vod_session",
-            self.inner.get_vod_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_vod_session",
+                self.inner.get_vod_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -145,12 +159,14 @@ where
         req: crate::model::ListVodStitchDetailsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListVodStitchDetailsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_vod_stitch_details",
-            self.inner.list_vod_stitch_details(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_vod_stitch_details",
+                self.inner.list_vod_stitch_details(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,12 +175,14 @@ where
         req: crate::model::GetVodStitchDetailRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VodStitchDetail>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_vod_stitch_detail",
-            self.inner.get_vod_stitch_detail(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_vod_stitch_detail",
+                self.inner.get_vod_stitch_detail(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -173,12 +191,14 @@ where
         req: crate::model::ListVodAdTagDetailsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListVodAdTagDetailsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_vod_ad_tag_details",
-            self.inner.list_vod_ad_tag_details(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_vod_ad_tag_details",
+                self.inner.list_vod_ad_tag_details(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -187,12 +207,14 @@ where
         req: crate::model::GetVodAdTagDetailRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VodAdTagDetail>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_vod_ad_tag_detail",
-            self.inner.get_vod_ad_tag_detail(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_vod_ad_tag_detail",
+                self.inner.get_vod_ad_tag_detail(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -201,12 +223,14 @@ where
         req: crate::model::ListLiveAdTagDetailsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLiveAdTagDetailsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_live_ad_tag_details",
-            self.inner.list_live_ad_tag_details(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_live_ad_tag_details",
+                self.inner.list_live_ad_tag_details(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -215,12 +239,14 @@ where
         req: crate::model::GetLiveAdTagDetailRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LiveAdTagDetail>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_live_ad_tag_detail",
-            self.inner.get_live_ad_tag_detail(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_live_ad_tag_detail",
+                self.inner.get_live_ad_tag_detail(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -229,12 +255,14 @@ where
         req: crate::model::CreateSlateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_slate",
-            self.inner.create_slate(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_slate",
+                self.inner.create_slate(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -243,12 +271,14 @@ where
         req: crate::model::ListSlatesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSlatesResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_slates",
-            self.inner.list_slates(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_slates",
+                self.inner.list_slates(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -257,12 +287,14 @@ where
         req: crate::model::GetSlateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Slate>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_slate",
-            self.inner.get_slate(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_slate",
+                self.inner.get_slate(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,12 +303,14 @@ where
         req: crate::model::UpdateSlateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::update_slate",
-            self.inner.update_slate(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::update_slate",
+                self.inner.update_slate(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -285,12 +319,14 @@ where
         req: crate::model::DeleteSlateRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::delete_slate",
-            self.inner.delete_slate(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::delete_slate",
+                self.inner.delete_slate(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -299,12 +335,14 @@ where
         req: crate::model::CreateLiveSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LiveSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_live_session",
-            self.inner.create_live_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_live_session",
+                self.inner.create_live_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -313,12 +351,14 @@ where
         req: crate::model::GetLiveSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LiveSession>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_live_session",
-            self.inner.get_live_session(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_live_session",
+                self.inner.get_live_session(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -327,12 +367,14 @@ where
         req: crate::model::CreateLiveConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_live_config",
-            self.inner.create_live_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_live_config",
+                self.inner.create_live_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -341,12 +383,14 @@ where
         req: crate::model::ListLiveConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLiveConfigsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_live_configs",
-            self.inner.list_live_configs(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_live_configs",
+                self.inner.list_live_configs(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -355,12 +399,14 @@ where
         req: crate::model::GetLiveConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LiveConfig>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_live_config",
-            self.inner.get_live_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_live_config",
+                self.inner.get_live_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -369,12 +415,14 @@ where
         req: crate::model::DeleteLiveConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::delete_live_config",
-            self.inner.delete_live_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::delete_live_config",
+                self.inner.delete_live_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -383,12 +431,14 @@ where
         req: crate::model::UpdateLiveConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::update_live_config",
-            self.inner.update_live_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::update_live_config",
+                self.inner.update_live_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -397,12 +447,14 @@ where
         req: crate::model::CreateVodConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::create_vod_config",
-            self.inner.create_vod_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::create_vod_config",
+                self.inner.create_vod_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -411,12 +463,14 @@ where
         req: crate::model::ListVodConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListVodConfigsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_vod_configs",
-            self.inner.list_vod_configs(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_vod_configs",
+                self.inner.list_vod_configs(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -425,12 +479,14 @@ where
         req: crate::model::GetVodConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VodConfig>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_vod_config",
-            self.inner.get_vod_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_vod_config",
+                self.inner.get_vod_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -439,12 +495,14 @@ where
         req: crate::model::DeleteVodConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::delete_vod_config",
-            self.inner.delete_vod_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::delete_vod_config",
+                self.inner.delete_vod_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -453,12 +511,14 @@ where
         req: crate::model::UpdateVodConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::update_vod_config",
-            self.inner.update_vod_config(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::update_vod_config",
+                self.inner.update_vod_config(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -467,12 +527,14 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::list_operations",
-            self.inner.list_operations(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::list_operations",
+                self.inner.list_operations(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -481,12 +543,14 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::get_operation",
-            self.inner.get_operation(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::get_operation",
+                self.inner.get_operation(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -495,12 +559,14 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::delete_operation",
-            self.inner.delete_operation(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::delete_operation",
+                self.inner.delete_operation(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -509,12 +575,14 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::VideoStitcherService::cancel_operation",
-            self.inner.cancel_operation(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::VideoStitcherService::cancel_operation",
+                self.inner.cancel_operation(req, options));
+            pending.await
+        }
     }
 
     fn get_polling_error_policy(

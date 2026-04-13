@@ -47,12 +47,14 @@ where
         req: crate::model::CreateProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ProfilerService::create_profile",
-            self.inner.create_profile(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ProfilerService::create_profile",
+                self.inner.create_profile(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::CreateOfflineProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ProfilerService::create_offline_profile",
-            self.inner.create_offline_profile(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ProfilerService::create_offline_profile",
+                self.inner.create_offline_profile(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::UpdateProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Profile>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ProfilerService::update_profile",
-            self.inner.update_profile(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ProfilerService::update_profile",
+                self.inner.update_profile(req, options));
+            pending.await
+        }
     }
 }
 
@@ -116,12 +122,14 @@ where
         req: crate::model::ListProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListProfilesResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::ExportService::list_profiles",
-            self.inner.list_profiles(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::ExportService::list_profiles",
+                self.inner.list_profiles(req, options));
+            pending.await
+        }
     }
 }
 

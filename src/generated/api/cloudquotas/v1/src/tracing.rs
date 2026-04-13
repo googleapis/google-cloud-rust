@@ -47,12 +47,14 @@ where
         req: crate::model::ListQuotaInfosRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQuotaInfosResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::list_quota_infos",
-            self.inner.list_quota_infos(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::list_quota_infos",
+                self.inner.list_quota_infos(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -61,12 +63,14 @@ where
         req: crate::model::GetQuotaInfoRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaInfo>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::get_quota_info",
-            self.inner.get_quota_info(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::get_quota_info",
+                self.inner.get_quota_info(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -75,12 +79,14 @@ where
         req: crate::model::ListQuotaPreferencesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListQuotaPreferencesResponse>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::list_quota_preferences",
-            self.inner.list_quota_preferences(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::list_quota_preferences",
+                self.inner.list_quota_preferences(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -89,12 +95,14 @@ where
         req: crate::model::GetQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::get_quota_preference",
-            self.inner.get_quota_preference(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::get_quota_preference",
+                self.inner.get_quota_preference(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -103,12 +111,14 @@ where
         req: crate::model::CreateQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::create_quota_preference",
-            self.inner.create_quota_preference(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::create_quota_preference",
+                self.inner.create_quota_preference(req, options));
+            pending.await
+        }
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -117,12 +127,14 @@ where
         req: crate::model::UpdateQuotaPreferenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::QuotaPreference>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::CloudQuotas::update_quota_preference",
-            self.inner.update_quota_preference(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::CloudQuotas::update_quota_preference",
+                self.inner.update_quota_preference(req, options));
+            pending.await
+        }
     }
 }
 

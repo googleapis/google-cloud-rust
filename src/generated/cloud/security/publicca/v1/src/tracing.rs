@@ -47,12 +47,14 @@ where
         req: crate::model::CreateExternalAccountKeyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ExternalAccountKey>> {
-        let (_span, pending) = gaxi::client_request_signals!(
-            metric: self.duration.clone(),
-            info: *info::INSTRUMENTATION_CLIENT_INFO,
-            method: "client::PublicCertificateAuthorityService::create_external_account_key",
-            self.inner.create_external_account_key(req, options));
-        pending.await
+        {
+            let (_span, pending) = gaxi::client_request_signals!(
+                metric: self.duration.clone(),
+                info: *info::INSTRUMENTATION_CLIENT_INFO,
+                method: "client::PublicCertificateAuthorityService::create_external_account_key",
+                self.inner.create_external_account_key(req, options));
+            pending.await
+        }
     }
 }
 
