@@ -96,16 +96,11 @@ impl ReqwestClient {
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
                 .await
                 .map_err(BuilderError::universe_domain_mismatch)?;
-        let host = crate::host::header(
-            config.endpoint.as_deref(),
-            default_endpoint,
-            &universe_domain,
-        )
-        .map_err(|e| e.client_builder())?;
+        let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
+        let host = crate::host::header(config.endpoint.as_deref(), &service_endpoint)
+            .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config
-            .endpoint
-            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
+        let endpoint = config.endpoint.unwrap_or_else(|| service_endpoint);
         Ok(Self {
             inner,
             cred,
@@ -236,8 +231,9 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
-            .map_err(|e| e.gax())?;
+        let service_endpoint =
+            default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &self.universe_domain);
+        let host = crate::host::header(Some(url), &service_endpoint).map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)
@@ -809,8 +805,9 @@ mod tests {
 
     #[tokio::test]
     #[test_case(None, "my-universe-domain.com", "language.my-universe-domain.com", "https://language.my-universe-domain.com"; "default endpoint")]
-    #[test_case(Some("https://rep.another-universe-domain.com/"), "another-universe-domain.com", "language.another-universe-domain.com", "https://rep.another-universe-domain.com/"; "custom endpoint override")]
-    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "language.googleapis.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("https://yet-another-universe-domain.com/"), "yet-another-universe-domain.com", "yet-another-universe-domain.com", "https://yet-another-universe-domain.com/"; "custom endpoint override")]
+    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "rep.language.googleapis.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("https://us-central1-language.googleapis.com/"), "my-universe-domain.com", "us-central1-language.googleapis.com", "https://us-central1-language.googleapis.com/"; "locational endpoint with universe domain")]
     async fn host_from_endpoint_with_universe_domain_success(
         endpoint_override: Option<&str>,
         universe_domain: &str,

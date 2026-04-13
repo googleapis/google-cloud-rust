@@ -475,11 +475,11 @@ impl Client {
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
+        let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
+        let origin = crate::host::origin(endpoint.as_deref(), &service_endpoint)
             .map_err(|e| e.client_builder())?;
-        let service_endpoint = endpoint
-            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain));
-        let endpoint = Endpoint::from_shared(service_endpoint).map_err(BuilderError::transport)?;
+        let target_endpoint = endpoint.unwrap_or(service_endpoint);
+        let endpoint = Endpoint::from_shared(target_endpoint).map_err(BuilderError::transport)?;
         let endpoint = if endpoint
             .uri()
             .scheme()
@@ -619,8 +619,9 @@ mod tests {
 
     #[tokio::test]
     #[test_case(None, "my-universe-domain.com", "https://language.my-universe-domain.com/"; "default endpoint")]
-    #[test_case(Some("https://rep.language.another-universe-domain.com/"), "another-universe-domain.com", "https://rep.language.another-universe-domain.com/"; "custom endpoint override")]
+    #[test_case(Some("https://yet-another-universe-domain.com/"), "yet-another-universe-domain.com", "https://yet-another-universe-domain.com/"; "custom endpoint override")]
     #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("https://us-central1-language.googleapis.com/"), "my-universe-domain.com", "https://us-central1-language.googleapis.com/"; "locational endpoint with universe domain")]
     async fn make_endpoint_with_universe_domain(
         endpoint_override: Option<&str>,
         universe_domain: &str,
