@@ -127,6 +127,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/CreateFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -212,6 +223,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -297,6 +319,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -321,7 +354,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -371,6 +404,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/ListFolders");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -456,6 +500,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/RenameFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -541,6 +596,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DeleteFolderRecursive");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -626,6 +692,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetStorageLayout");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -700,6 +777,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/CreateManagedFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -785,6 +873,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DeleteManagedFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -870,6 +969,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetManagedFolder");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -944,6 +1054,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/ListManagedFolders");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1018,6 +1139,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/CreateAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1109,6 +1241,20 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/UpdateAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.anywhere_cache.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1194,6 +1340,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/DisableAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1279,6 +1436,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/PauseAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1364,6 +1532,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/ResumeAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1449,6 +1628,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetAnywhereCache");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1523,6 +1713,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/ListAnywhereCaches");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1931,7 +2132,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -2010,6 +2211,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/GetIamPolicy");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -2034,7 +2246,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -2113,6 +2325,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/SetIamPolicy");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -2137,7 +2360,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -2250,6 +2473,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.control.v2.StorageControl/TestIamPermissions");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner

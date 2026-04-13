@@ -77,7 +77,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteBucket"));
@@ -122,6 +122,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/DeleteBucket");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -146,7 +157,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "GetBucket"));
@@ -191,6 +202,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/GetBucket");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -215,7 +237,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "CreateBucket"));
@@ -284,6 +306,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/CreateBucket");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -308,7 +341,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "ListBuckets"));
@@ -353,6 +386,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ListBuckets");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -377,7 +421,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -427,6 +471,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/LockBucketRetentionPolicy");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.bucket).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -451,7 +506,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateBucket"));
@@ -502,6 +557,20 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/UpdateBucket");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.bucket.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -526,7 +595,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -580,6 +649,20 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ComposeObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.destination.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -604,7 +687,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteObject"));
@@ -649,6 +732,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/DeleteObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.bucket).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -673,7 +767,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -721,6 +815,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/RestoreObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.bucket).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -745,7 +850,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "GetObject"));
@@ -790,6 +895,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/GetObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.bucket).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -814,7 +930,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateObject"));
@@ -865,6 +981,20 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/UpdateObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .and_then(|m| m.object.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -889,7 +1019,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "ListObjects"));
@@ -934,6 +1064,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ListObjects");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -958,7 +1099,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new(
@@ -1026,6 +1167,19 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/RewriteObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req)
+                        .map(|m| &m.destination_name)
+                        .map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner
@@ -1050,7 +1204,7 @@ impl super::stub::StorageControl for StorageControl {
             grpc::tonic::{Extensions, GrpcMethod},
             prost::ToProto,
         };
-        let options = google_cloud_gax::options::internal::set_default_idempotency(options, false);
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = Extensions::new();
             e.insert(GrpcMethod::new("google.storage.v2.Storage", "MoveObject"));
@@ -1095,6 +1249,17 @@ impl super::stub::StorageControl for StorageControl {
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/MoveObject");
+            let resource_name = (|| {
+                Some(format!(
+                    "//storage.googleapis.com/{}",
+                    Some(&req).map(|m| &m.bucket).map(|s| s.as_str())?,
+                ))
+            })();
+            let attributes = if let Some(rn) = resource_name.filter(|s| !s.is_empty()) {
+                attributes.set_resource_name(rn)
+            } else {
+                attributes
+            };
             recorder.on_client_request(attributes);
         }
         self.inner

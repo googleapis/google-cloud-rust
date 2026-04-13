@@ -18,7 +18,7 @@ use gaxi::observability::RequestRecorder;
 use gaxi::options::InstrumentationClientInfo;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::options::RequestOptionsBuilder;
-use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::client::{Storage, StorageControl};
 use integration_tests_o11y::mock_collector::MockCollector;
 use integration_tests_o11y::otlp::logs::Builder as LoggerProviderBuilder;
 use integration_tests_o11y::otlp::metrics::Builder as MeterProviderBuilder;
@@ -366,7 +366,7 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
 
     let mut mock = MockStorage::new();
     mock.expect_delete_bucket()
-        .return_once(|_| Err(Status::new(Code::NotFound, "Object not found")));
+        .return_once(|_| Err(Status::new(Code::NotFound, "Bucket not found")));
 
     let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
     let endpoint = endpoint.trim_end_matches('/');
@@ -419,11 +419,69 @@ async fn grpc_reports_server_error() -> anyhow::Result<()> {
 
     let client_span = all_spans
         .iter()
-        .find(|s| {
-            (s.name == "delete_bucket" || s.name == "google.storage.v2.Storage/DeleteBucket")
-                && (s.kind == 1 || s.kind == 3)
-        })
+        .find(|s| s.name == "google.storage.v2.Storage/DeleteBucket")
         .expect("Should have a DeleteBucket span");
+
+    // Assert Span Kind and Status
+    assert_eq!(client_span.kind, 3, "Span kind should be CLIENT (3)");
+    let status_code = client_span.status.as_ref().map(|s| s.code).unwrap_or(0);
+    assert_eq!(status_code, 2, "Status code should be ERROR (2)");
+
+    let attributes: std::collections::HashMap<String, _> = client_span
+        .attributes
+        .iter()
+        .map(|kv| (kv.key.clone(), kv.value.clone().unwrap()))
+        .collect();
+
+    let get_string = |key: &str| -> Option<String> {
+        attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
+                Some(s.clone())
+            }
+            _ => None,
+        })
+    };
+
+    let get_int = |key: &str| -> Option<i64> {
+        attributes.get(key).and_then(|v| match &v.value {
+            Some(opentelemetry_proto::tonic::common::v1::any_value::Value::IntValue(i)) => Some(*i),
+            _ => None,
+        })
+    };
+    assert_eq!(get_string("rpc.system.name").as_deref(), Some("grpc"));
+    assert_eq!(
+        get_string("rpc.method").as_deref(),
+        Some("google.storage.v2.Storage/DeleteBucket")
+    );
+    assert_eq!(
+        get_string("rpc.response.status_code").as_deref(),
+        Some("NOT_FOUND")
+    );
+    assert_eq!(get_string("error.type").as_deref(), Some("NOT_FOUND"));
+
+    assert_eq!(
+        get_string("gcp.client.repo").as_deref(),
+        Some("googleapis/google-cloud-rust")
+    );
+    assert_eq!(
+        get_string("gcp.client.artifact").as_deref(),
+        Some("google-cloud-storage")
+    );
+    assert!(get_string("gcp.client.version").is_some());
+    assert_eq!(get_string("gcp.client.service").as_deref(), Some("storage"));
+
+    let actual_addr = get_string("server.address").unwrap();
+    assert!(
+        actual_addr == "127.0.0.1" || actual_addr == "::1" || actual_addr == "0.0.0.0",
+        "address was {}",
+        actual_addr
+    );
+    assert!(get_int("server.port").is_some());
+
+    assert_eq!(
+        get_string("gcp.resource.destination.id").as_deref(),
+        Some("//storage.googleapis.com/projects/_/buckets/test-bucket")
+    );
 
     verify_metrics(&setup.mock_collector);
     verify_logs(&setup.mock_collector, client_span);
