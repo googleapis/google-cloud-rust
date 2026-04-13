@@ -18,6 +18,7 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use google_cloud_gax::error::rpc::StatusDetails;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_policy::NeverRetry;
@@ -144,14 +145,21 @@ where
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
         let leaser = self.clone();
-        let mut ack_ids = ack_ids;
+        let mut remaining_ids: Vec<String> = ack_ids;
 
         let attempt = async move |_| {
-            let ids = std::mem::take(&mut ack_ids);
-            let ack_ids = leaser.confirmed_ack_attempt(ids).await;
-            if ack_ids.is_empty() {
+            let ids = std::mem::take(&mut remaining_ids);
+            let req = AcknowledgeRequest::new()
+                .set_subscription(leaser.subscription.clone())
+                .set_ack_ids(ids.clone());
+            let response = leaser.inner.acknowledge(req, leaser.options.clone()).await;
+
+            let (to_confirm, remaining) = Self::process_ack_attempt(ids, response);
+            let _ = leaser.confirmed_tx.send(to_confirm);
+            if remaining.is_empty() {
                 Ok(())
             } else {
+                remaining_ids = remaining;
                 // Return a synthetic error to indicate that we should retry.
                 Err(crate::Error::timeout("retry me"))
             }
@@ -221,73 +229,81 @@ impl<T> DefaultLeaser<T>
 where
     T: Stub + 'static,
 {
-    async fn confirmed_ack_attempt(&self, ack_ids: Vec<String>) -> Vec<String> {
-        let req = AcknowledgeRequest::new()
-            .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids.clone());
-        let response = self.inner.acknowledge(req, self.options.clone()).await;
+    fn process_ack_attempt(
+        ack_ids: Vec<String>,
+        response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error>,
+    ) -> (HashMap<String, AckResult>, Vec<String>) {
+        let e = match response {
+            Ok(_) => {
+                let to_confirm = ack_ids.into_iter().map(|id| (id, Ok(()))).collect();
+                return (to_confirm, Vec::new());
+            }
+            Err(e) => e,
+        };
 
-        let mut has_error_info = false;
-        let mut transient_failures = std::collections::HashSet::new();
-        let mut permanent_failures = std::collections::HashMap::new();
-        if let Err(e) = &response {
-            if let Some(status) = e.status() {
-                for detail in &status.details {
-                    if let google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(info) = detail {
-                        has_error_info = true;
-                        let (transient, permanent) = Self::extract_failures(info);
-                        transient_failures.extend(transient);
-                        permanent_failures.extend(permanent);
-                    }
-                }
+        let (transient_failures, permanent_failures) = Self::extract_failures(&e);
+        let shared_err = Arc::new(e);
+
+        // If the response lacks specific per ack_id failure info, we treat the response as all sharing the same
+        // RPC error.
+        if transient_failures.is_empty() && permanent_failures.is_empty() {
+            let to_confirm = ack_ids
+                .into_iter()
+                .map(|id| {
+                    (
+                        id,
+                        Err(AckError::Rpc {
+                            source: shared_err.clone(),
+                        }),
+                    )
+                })
+                .collect();
+            return (to_confirm, Vec::new());
+        }
+
+        // Otherwise, we extract specific failures:
+        // - ack_ids with transient failures are to be retried.
+        // - ack_ids with permanent failures are resolved with the RPC error.
+        // - Unlisted ack_ids are considered successfully acknowledged.
+        let mut transient = Vec::new();
+        let mut to_confirm = HashMap::new();
+        for id in ack_ids {
+            if transient_failures.contains(&id) {
+                transient.push(id);
+            } else if permanent_failures.contains(&id) {
+                to_confirm.insert(
+                    id,
+                    Err(AckError::Rpc {
+                        source: shared_err.clone(),
+                    }),
+                );
+            } else {
+                to_confirm.insert(id, Ok(()));
             }
         }
 
-        // For transient_failures, we want to retry so do not send the result to
-        // confirmed_tx.
-        // For other failures, send the result to confirmed_tx.
-        let shared_result = response.map(|_| ()).map_err(Arc::new);
-        let confirmed_acks = ack_ids
-            .into_iter()
-            .filter(|id| !transient_failures.contains(id))
-            .map(|id| {
-                let result = if has_error_info {
-                    if permanent_failures.contains_key(&id) {
-                        shared_result
-                            .clone()
-                            .map_err(|source| AckError::Rpc { source })
-                    } else {
-                        // For responses with error info, successfully processed acknowledgement ids are not
-                        // included in the ErrorInfo.
-                        Ok(())
-                    }
-                } else {
-                    // No error info in response, so all ack_ids share the same result.
-                    shared_result
-                        .clone()
-                        .map_err(|source| AckError::Rpc { source })
-                };
-                (id, result)
-            })
-            .collect::<std::collections::HashMap<_, _>>();
-        let _ = self.confirmed_tx.send(confirmed_acks);
-
-        transient_failures.into_iter().collect()
+        (to_confirm, transient)
     }
 
     fn extract_failures(
-        info: &google_cloud_rpc::model::ErrorInfo,
+        e: &crate::Error,
     ) -> (
         std::collections::HashSet<String>,
-        std::collections::HashMap<String, String>,
+        std::collections::HashSet<String>,
     ) {
         let mut transient = std::collections::HashSet::new();
-        let mut permanent = std::collections::HashMap::new();
-        for (k, v) in &info.metadata {
-            if v.starts_with("TRANSIENT_FAILURE_") {
-                transient.insert(k.clone());
-            } else if v.starts_with("PERMANENT_FAILURE_") {
-                permanent.insert(k.clone(), v.clone());
+        let mut permanent = std::collections::HashSet::new();
+        if let Some(status) = e.status() {
+            for detail in &status.details {
+                if let StatusDetails::ErrorInfo(info) = detail {
+                    for (k, v) in &info.metadata {
+                        if v.starts_with("TRANSIENT_FAILURE_") {
+                            transient.insert(k.clone());
+                        } else if v.starts_with("PERMANENT_FAILURE_") {
+                            permanent.insert(k.clone());
+                        }
+                    }
+                }
             }
         }
         (transient, permanent)
@@ -296,13 +312,13 @@ where
 
 #[cfg(test)]
 pub(super) mod tests {
-    use super::super::lease_state::tests::{sorted, test_ids};
+    use super::super::lease_state::tests::{sorted, test_id, test_ids};
     use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
     use crate::{Error, Response};
     use google_cloud_gax::error::rpc::{Code, Status};
-    use std::sync::Arc;
+    use std::collections::HashSet;
     use tokio::sync::Mutex;
     use tokio::sync::mpsc::unbounded_channel;
 
@@ -357,6 +373,22 @@ pub(super) mod tests {
         }
     }
 
+    impl PartialEq for AckError {
+        fn eq(&self, other: &Self) -> bool {
+            match (self, other) {
+                (AckError::LeaseExpired, AckError::LeaseExpired) => true,
+                (AckError::ShutdownBeforeAck, AckError::ShutdownBeforeAck) => true,
+                (AckError::Rpc { source: s1 }, AckError::Rpc { source: s2 }) => {
+                    format!("{:?}", s1) == format!("{:?}", s2)
+                }
+                (AckError::Shutdown(e1), AckError::Shutdown(e2)) => {
+                    format!("{:?}", e1) == format!("{:?}", e2)
+                }
+                _ => false,
+            }
+        }
+    }
+
     #[test]
     fn clone() {
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
@@ -376,43 +408,33 @@ pub(super) mod tests {
     }
 
     #[test]
-    fn test_extract_failures() {
-        let mut info = google_cloud_rpc::model::ErrorInfo::default();
-        info.reason = "reason".to_string();
-        info.domain = "domain".to_string();
-        info.metadata = [
-            (
-                "ack_1".to_string(),
-                "TRANSIENT_FAILURE_UNORDERED_ACK_ID".to_string(),
-            ),
-            ("ack_2".to_string(), "GIBBERISH_IGNORE".to_string()),
-            ("ack_3".to_string(), "TRANSIENT_FAILURE_OTHER".to_string()),
-            (
-                "ack_4".to_string(),
-                "PERMANENT_FAILURE_INVALID_ACK_ID".to_string(),
-            ),
-            ("ack_5".to_string(), "PERMANENT_FAILURE_OTHER".to_string()),
-        ]
-        .into_iter()
-        .collect();
+    fn extract_failures() {
+        let info = google_cloud_rpc::model::ErrorInfo::new()
+            .set_reason("reason")
+            .set_domain("domain")
+            .set_metadata([
+                ("ack_1", "TRANSIENT_FAILURE_UNORDERED_ACK_ID"),
+                ("ack_2", "GIBBERISH_IGNORE"),
+                ("ack_3", "TRANSIENT_FAILURE_OTHER"),
+                ("ack_4", "PERMANENT_FAILURE_INVALID_ACK_ID"),
+                ("ack_5", "PERMANENT_FAILURE_OTHER"),
+            ]);
 
-        let (transient, permanent) = DefaultLeaser::<MockStub>::extract_failures(&info);
-        let expected_transient: std::collections::HashSet<_> =
-            vec!["ack_1".to_string(), "ack_3".to_string()]
-                .into_iter()
-                .collect();
-        let expected_permanent: std::collections::HashMap<_, _> = [
-            (
-                "ack_4".to_string(),
-                "PERMANENT_FAILURE_INVALID_ACK_ID".to_string(),
-            ),
-            ("ack_5".to_string(), "PERMANENT_FAILURE_OTHER".to_string()),
-        ]
-        .into_iter()
-        .collect();
+        let status = Status::default()
+            .set_code(Code::FailedPrecondition)
+            .set_message("fail")
+            .set_details(vec![StatusDetails::ErrorInfo(info)]);
+        let err = Error::service(status);
+        let (transient, permanent) = DefaultLeaser::<MockStub>::extract_failures(&err);
 
-        assert_eq!(transient, expected_transient);
-        assert_eq!(permanent, expected_permanent);
+        assert_eq!(
+            transient,
+            HashSet::from(["ack_1".to_string(), "ack_3".to_string()])
+        );
+        assert_eq!(
+            permanent,
+            HashSet::from(["ack_4".to_string(), "ack_5".to_string()])
+        );
     }
 
     #[tokio::test]
@@ -502,7 +524,7 @@ pub(super) mod tests {
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
-            assert_eq!(r.ack_ids, test_ids(0..10));
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             verify_policies(o, 16);
             Ok(Response::from(()))
         });
@@ -541,7 +563,7 @@ pub(super) mod tests {
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
-            assert_eq!(r.ack_ids, test_ids(0..10));
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             verify_policies(o, 16);
             Err(Error::service(
                 Status::default()
@@ -580,192 +602,103 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
-    async fn confirmed_ack_attempt_success() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let mut mock = MockStub::new();
-        mock.expect_acknowledge()
-            .times(1)
-            .return_once(|_, _| Ok(Response::from(())));
+    async fn process_ack_attempt_success() -> anyhow::Result<()> {
+        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
+            Ok(Response::from(()));
+        let (confirmed_acks, remaining) =
+            DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            1_usize,
-        );
-        let ack_ids = leaser
-            .confirmed_ack_attempt(vec!["ack_1".to_string(), "ack_2".to_string()])
-            .await;
+        assert!(remaining.is_empty(), "{remaining:?}");
 
-        assert!(ack_ids.is_empty());
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        assert_eq!(confirmed_acks.len(), 2);
-        assert!(confirmed_acks.get("ack_1").unwrap().is_ok());
-        assert!(confirmed_acks.get("ack_2").unwrap().is_ok());
+        let expected = test_ids(1..3).into_iter().map(|id| (id, Ok(()))).collect();
+        assert_eq!(confirmed_acks, expected);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn confirmed_ack_attempt_failure_no_error_info() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let mut mock = MockStub::new();
-        mock.expect_acknowledge().times(1).return_once(|_, _| {
+    async fn process_ack_attempt_failure_no_error_info() -> anyhow::Result<()> {
+        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
             Err(Error::service(
                 Status::default()
                     .set_code(Code::Internal)
                     .set_message("internal error"),
-            ))
-        });
+            ));
+        let (confirmed_acks, remaining) =
+            DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            1_usize,
-        );
-        let ack_ids = leaser
-            .confirmed_ack_attempt(vec!["ack_1".to_string(), "ack_2".to_string()])
-            .await;
+        assert!(remaining.is_empty(), "{remaining:?}");
 
-        assert!(ack_ids.is_empty());
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        assert_eq!(confirmed_acks.len(), 2);
-
-        let result_1 = confirmed_acks.get("ack_1").unwrap();
-        match result_1 {
-            Err(AckError::Rpc { source }) => {
-                let status = source.status().expect("RPC source should have a status");
-                assert_eq!(status.code, Code::Internal);
-            }
-            _ => panic!("Expected AckError::Rpc, got {:?}", result_1),
-        }
-
-        let result_2 = confirmed_acks.get("ack_2").unwrap();
-        match result_2 {
-            Err(AckError::Rpc { source }) => {
-                let status = source.status().expect("RPC source should have a status");
-                assert_eq!(status.code, Code::Internal);
-            }
-            _ => panic!("Expected AckError::Rpc, got {:?}", result_2),
-        }
+        let expected = test_ids(1..3)
+            .into_iter()
+            .map(|id| {
+                let err = AckError::Rpc {
+                    source: Arc::new(Error::service(
+                        Status::default()
+                            .set_code(Code::Internal)
+                            .set_message("internal error"),
+                    )),
+                };
+                (id, Err(err))
+            })
+            .collect();
+        assert_eq!(confirmed_acks, expected);
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn confirmed_ack_attempt_permanent_failure() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let mut mock = MockStub::new();
+    async fn process_ack_attempt_permanent_failure() -> anyhow::Result<()> {
+        let info = google_cloud_rpc::model::ErrorInfo::new()
+            .set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID".to_string())]);
 
-        let mut info = google_cloud_rpc::model::ErrorInfo::default();
-        info.metadata = [(
-            "ack_1".to_string(),
-            "PERMANENT_FAILURE_INVALID_ACK_ID".to_string(),
-        )]
-        .into_iter()
-        .collect();
-
-        mock.expect_acknowledge().times(1).return_once(move |_, _| {
+        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
             Err(Error::service(
                 Status::default()
                     .set_code(Code::FailedPrecondition)
                     .set_message("fail")
-                    .set_details(vec![
-                        google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(info),
-                    ]),
-            ))
-        });
+                    .set_details(vec![StatusDetails::ErrorInfo(info.clone())]),
+            ));
+        let (confirmed_acks, remaining) =
+            DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            1_usize,
-        );
-        let ack_ids = leaser
-            .confirmed_ack_attempt(vec!["ack_1".to_string(), "ack_2".to_string()])
-            .await;
+        assert!(remaining.is_empty(), "{remaining:?}");
 
-        assert!(ack_ids.is_empty());
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        assert_eq!(confirmed_acks.len(), 2);
-
-        let result_1 = confirmed_acks
-            .get("ack_1")
-            .expect("ack_1 should be present");
-        match result_1 {
-            Err(AckError::Rpc { source }) => {
-                let status = source.status().expect("RPC source should have a status");
-                assert_eq!(status.code, Code::FailedPrecondition);
-            }
-            _ => panic!("Expected AckError::Rpc, got {:?}", result_1),
-        }
-
-        let result_2 = confirmed_acks
-            .get("ack_2")
-            .expect("ack_2 should be present");
-        assert!(
-            result_2.is_ok(),
-            "Expected Ok for ack_2, got {:?}",
-            result_2
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn confirmed_ack_attempt_transient_failure() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let mut mock = MockStub::new();
-
-        let mut info = google_cloud_rpc::model::ErrorInfo::default();
-        info.metadata = [("ack_1".to_string(), "TRANSIENT_FAILURE_OTHER".to_string())]
+        let err = AckError::Rpc {
+            source: Arc::new(Error::service(
+                Status::default()
+                    .set_code(Code::FailedPrecondition)
+                    .set_message("fail")
+                    .set_details(vec![StatusDetails::ErrorInfo(info)]),
+            )),
+        };
+        let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
             .into_iter()
             .collect();
+        assert_eq!(confirmed_acks, expected);
 
-        mock.expect_acknowledge().times(1).return_once(move |_, _| {
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn process_ack_attempt_transient_failure() -> anyhow::Result<()> {
+        let info = google_cloud_rpc::model::ErrorInfo::new()
+            .set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER".to_string())]);
+
+        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
             Err(Error::service(
                 Status::default()
                     .set_code(Code::FailedPrecondition)
                     .set_message("fail")
-                    .set_details(vec![
-                        google_cloud_gax::error::rpc::StatusDetails::ErrorInfo(info),
-                    ]),
-            ))
-        });
+                    .set_details(vec![StatusDetails::ErrorInfo(info)]),
+            ));
+        let (confirmed_acks, remaining) =
+            DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            1_usize,
-        );
-        let ack_ids = leaser
-            .confirmed_ack_attempt(vec!["ack_1".to_string(), "ack_2".to_string()])
-            .await;
+        assert_eq!(remaining, test_ids(1..2));
 
-        assert_eq!(ack_ids.len(), 1);
-        assert_eq!(ack_ids[0], "ack_1");
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        assert_eq!(confirmed_acks.len(), 1); // Only ack_2 should be sent
-
-        let result_2 = confirmed_acks
-            .get("ack_2")
-            .expect("ack_2 should be present");
-        assert!(
-            result_2.is_ok(),
-            "Expected Ok for ack_2, got {:?}",
-            result_2
-        );
+        let expected = [(test_id(2), Ok(()))].into_iter().collect();
+        assert_eq!(confirmed_acks, expected);
 
         Ok(())
     }
