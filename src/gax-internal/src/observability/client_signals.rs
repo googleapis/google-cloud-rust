@@ -18,10 +18,8 @@ mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
-#[cfg(feature = "_internal-http-client")]
 mod with_transport_logging;
 mod with_transport_metric;
-#[cfg(feature = "_internal-http-client")]
 mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
@@ -30,10 +28,8 @@ pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
-#[cfg(feature = "_internal-http-client")]
 pub use with_transport_logging::WithTransportLogging;
 pub use with_transport_metric::WithTransportMetric;
-#[cfg(feature = "_internal-http-client")]
 pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.

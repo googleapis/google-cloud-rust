@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#![cfg(google_cloud_unstable_tracing)]
-
 use gaxi::observability::RequestRecorder;
 use gaxi::options::InstrumentationClientInfo;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;

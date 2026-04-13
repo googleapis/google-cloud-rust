@@ -147,7 +147,6 @@ impl ObjectDescriptor {
         }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     pub(crate) fn into_parts(self) -> Arc<dyn ObjectDescriptorStub> {
         self.inner
     }
