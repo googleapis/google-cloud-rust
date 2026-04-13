@@ -380,12 +380,12 @@ pub(super) mod tests {
         }
     }
 
-    fn response_with_error_info(info: ErrorInfo) -> Result<Response<()>> {
+    fn response_with_error_info(infos: Vec<ErrorInfo>) -> Result<Response<()>> {
         Err(Error::service(
             Status::default()
                 .set_code(Code::FailedPrecondition)
                 .set_message("fail")
-                .set_details(vec![StatusDetails::ErrorInfo(info)]),
+                .set_details(infos.into_iter().map(StatusDetails::ErrorInfo)),
         ))
     }
 
@@ -420,7 +420,7 @@ pub(super) mod tests {
                 ("ack_5", "PERMANENT_FAILURE_OTHER"),
             ]);
 
-        let err = response_with_error_info(info).unwrap_err();
+        let err = response_with_error_info(vec![info]).unwrap_err();
         let (transient, permanent) = super::extract_failures(&err);
 
         assert_eq!(
@@ -439,14 +439,7 @@ pub(super) mod tests {
             ErrorInfo::new().set_metadata([("ack_1", "TRANSIENT_FAILURE_UNORDERED_ACK_ID")]);
         let info2 = ErrorInfo::new().set_metadata([("ack_2", "PERMANENT_FAILURE_INVALID_ACK_ID")]);
 
-        let status = Status::default()
-            .set_code(Code::FailedPrecondition)
-            .set_message("fail")
-            .set_details(vec![
-                StatusDetails::ErrorInfo(info1),
-                StatusDetails::ErrorInfo(info2),
-            ]);
-        let err = Error::service(status);
+        let err = response_with_error_info(vec![info1, info2]).unwrap_err();
         let (transient, permanent) = super::extract_failures(&err);
 
         assert_eq!(transient, HashSet::from(["ack_1".to_string()]));
@@ -664,13 +657,13 @@ pub(super) mod tests {
         let info =
             ErrorInfo::new().set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID")]);
 
-        let response = response_with_error_info(info.clone());
+        let response = response_with_error_info(vec![info.clone()]);
         let (confirmed_acks, remaining) = process_ack_attempt(test_ids(1..3), response);
 
         assert!(remaining.is_empty(), "{remaining:?}");
 
         let err = AckError::Rpc {
-            source: Arc::new(response_with_error_info(info).unwrap_err()),
+            source: Arc::new(response_with_error_info(vec![info]).unwrap_err()),
         };
         let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
             .into_iter()
@@ -684,7 +677,7 @@ pub(super) mod tests {
     async fn process_ack_attempt_transient_failure() -> anyhow::Result<()> {
         let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
 
-        let response = response_with_error_info(info);
+        let response = response_with_error_info(vec![info]);
         let (confirmed_acks, remaining) = process_ack_attempt(test_ids(1..3), response);
 
         assert_eq!(remaining, test_ids(1..2));
