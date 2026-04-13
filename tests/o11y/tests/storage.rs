@@ -16,7 +16,6 @@
 mod storage {
     use google_cloud_test_utils::errors::anydump;
 
-    #[ignore]
     #[tokio::test(flavor = "multi_thread")]
     async fn run() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::storage::run()

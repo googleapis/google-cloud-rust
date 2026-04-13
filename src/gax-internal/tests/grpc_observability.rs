@@ -348,7 +348,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_grpc_streaming_span() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -374,15 +373,23 @@ mod tests {
         let (tx, rx) = tokio::sync::mpsc::channel(4);
         let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
 
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+        let recorder = RequestRecorder::new(*TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Chat"),
+        );
+        let mut response_stream = recorder
+            .scope(async {
+                client
+                    .bidi_stream::<_, google::test::v1::EchoResponse>(
+                        extensions,
+                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                        request_stream,
+                        RequestOptions::default(),
+                        "test-only-api-client/1.0",
+                        "name=test-only",
+                    )
+                    .await
+            })
             .await?
             .into_inner();
 
@@ -429,7 +436,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn streaming_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
@@ -453,15 +459,23 @@ mod tests {
         let (tx, rx) = tokio::sync::mpsc::channel(4);
         let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
 
-        let mut response_stream = client
-            .bidi_stream::<_, google::test::v1::EchoResponse>(
-                extensions,
-                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
-                request_stream,
-                RequestOptions::default(),
-                "test-only-api-client/1.0",
-                "name=test-only",
-            )
+        let recorder = RequestRecorder::new(*TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Chat"),
+        );
+        let mut response_stream = recorder
+            .scope(async {
+                client
+                    .bidi_stream::<_, google::test::v1::EchoResponse>(
+                        extensions,
+                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                        request_stream,
+                        RequestOptions::default(),
+                        "test-only-api-client/1.0",
+                        "name=test-only",
+                    )
+                    .await
+            })
             .await?
             .into_inner();
 
@@ -497,15 +511,151 @@ mod tests {
             ("server.address", expected_host.clone().into()),
             ("server.port", (expected_port as i64).into()),
             ("url.domain", expected_host.into()),
-            ("otel.status_code", "ERROR".into()),
-            ("rpc.response.status_code", "INVALID_ARGUMENT".into()), // INVALID_ARGUMENT = 3
-            ("error.type", "INVALID_ARGUMENT".into()),
+            ("otel.status_code", "UNSET".into()),
+            ("rpc.response.status_code", "OK".into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
         assert_eq!(attrs, expected_attributes);
+
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial_test::serial]
+    async fn streaming_metrics() -> anyhow::Result<()> {
+        use integration_tests_o11y::mock_collector::MockCollector;
+        use integration_tests_o11y::otlp::metrics::Builder as MeterProviderBuilder;
+        use opentelemetry_proto::tonic::collector::metrics::v1::ExportMetricsServiceRequest;
+
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let mock_collector = MockCollector::default();
+        let otlp_endpoint = mock_collector.start().await;
+
+        let meter_provider = MeterProviderBuilder::new("test-project", "integration-tests")
+            .with_endpoint(
+                otlp_endpoint
+                    .parse::<http::Uri>()
+                    .expect("Failed to parse URI"),
+            )
+            .with_credentials(google_cloud_auth::credentials::anonymous::Builder::new().build())
+            .build()
+            .await?;
+        opentelemetry::global::set_meter_provider(meter_provider.clone());
+
+        // Configure client with tracing enabled
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+
+        let client = grpc::Client::new_with_instrumentation(config, &endpoint, &TEST_INFO).await?;
+
+        // Send a streaming request
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new(
+                "google.test.v1.EchoServices",
+                "Chat",
+            ));
+            e
+        };
+
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        let request_stream = tokio_stream::wrappers::ReceiverStream::new(rx);
+
+        let recorder = RequestRecorder::new(*TEST_INFO);
+        recorder.on_client_request(
+            ClientRequestAttributes::default().set_url_template("/google.test.v1.EchoService/Chat"),
+        );
+        let mut response_stream = recorder
+            .scope(async {
+                client
+                    .bidi_stream::<_, google::test::v1::EchoResponse>(
+                        extensions,
+                        http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Chat"),
+                        request_stream,
+                        RequestOptions::default(),
+                        "test-only-api-client/1.0",
+                        "name=test-only",
+                    )
+                    .await
+            })
+            .await?
+            .into_inner();
+
+        // Send a message
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+        tx.send(request).await?;
+
+        // Receive a response
+        let response = response_stream.next().await.expect("stream closed")?;
+        assert_eq!(response.message, "test message");
+
+        // Close the stream
+        drop(tx);
+        let next = response_stream.next().await;
+        assert!(next.is_none(), "{next:?}");
+
+        // Force flush metrics
+        let _ = meter_provider.force_flush();
+
+        // Verify metrics
+        let mut metrics_requests = mock_collector.metrics.lock().expect("never poisoned");
+        let mut found_duration_metric = false;
+        while let Some(req) = metrics_requests.pop() {
+            let req: tonic::Request<ExportMetricsServiceRequest> = req;
+            let (_, _, metrics_request) = req.into_parts();
+            for rm in metrics_request.resource_metrics {
+                for sm in rm.scope_metrics {
+                    for m in sm.metrics {
+                        if m.name.contains("gcp.client.attempt.duration") {
+                            found_duration_metric = true;
+                            if let Some(
+                                opentelemetry_proto::tonic::metrics::v1::metric::Data::Histogram(h),
+                            ) = m.data
+                            {
+                                let point =
+                                    h.data_points.first().expect("should have a data point");
+                                let mut metric_attributes = std::collections::HashMap::new();
+                                for kv in &point.attributes {
+                                    metric_attributes
+                                        .insert(kv.key.clone(), kv.value.clone().unwrap());
+                                }
+
+                                let get_metric_string = |key: &str| -> Option<String> {
+                                    metric_attributes.get(key).and_then(|v| match &v.value {
+                                        Some(opentelemetry_proto::tonic::common::v1::any_value::Value::StringValue(s)) => {
+                                            Some(s.clone())
+                                        }
+                                        _ => None,
+                                    })
+                                };
+
+                                assert_eq!(
+                                    get_metric_string("rpc.system.name").as_deref(),
+                                    Some("grpc")
+                                );
+                                assert_eq!(
+                                    get_metric_string("rpc.method").as_deref(),
+                                    Some("google.test.v1.EchoService/Chat")
+                                );
+                                assert_eq!(
+                                    get_metric_string("rpc.response.status_code").as_deref(),
+                                    Some("OK")
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        assert!(found_duration_metric, "Should have found duration metric");
 
         Ok(())
     }

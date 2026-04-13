@@ -134,8 +134,9 @@ bytes.workspace                   = true
 google-cloud-test-utils.workspace = true
 httptest.workspace                = true
 mockall.workspace                 = true
-opentelemetry_sdk                 = { workspace = true, features = ["logs", "metrics", "testing"] }
 opentelemetry-appender-tracing    = { workspace = true }
+opentelemetry-proto               = { workspace = true }
+opentelemetry_sdk                 = { workspace = true, features = ["logs", "metrics", "testing"] }
 pretty_assertions.workspace       = true
 scoped-env.workspace              = true
 serde_with.workspace              = true
@@ -146,8 +147,9 @@ tracing                           = { workspace = true, features = ["std"] }
 tracing-opentelemetry             = { workspace = true }
 tracing-subscriber                = { workspace = true, features = ["json", "registry", "std"] }
 # Local crates
-echo-server = { path = "echo-server" }
-grpc-server = { path = "grpc-server" }
+echo-server            = { path = "echo-server" }
+grpc-server            = { path = "grpc-server" }
+integration-tests-o11y = { path = "../../tests/o11y" }
 # reqwest panics if (1) configured to support TLS and (2) no default crypto
 # provider is configured via features or installed at runtime. Even if reqwest
 # is being used without TLS. Enabling the default provider in tests to
