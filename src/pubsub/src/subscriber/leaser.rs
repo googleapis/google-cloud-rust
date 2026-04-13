@@ -145,7 +145,7 @@ where
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
         let leaser = self.clone();
-        let mut remaining_ids: Vec<String> = ack_ids;
+        let mut remaining_ids = ack_ids;
 
         let attempt = async move |_| {
             let ids = std::mem::take(&mut remaining_ids);
@@ -603,8 +603,7 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn process_ack_attempt_success() -> anyhow::Result<()> {
-        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
-            Ok(Response::from(()));
+        let response = Ok(Response::from(()));
         let (confirmed_acks, remaining) =
             DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
@@ -618,12 +617,11 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn process_ack_attempt_failure_no_error_info() -> anyhow::Result<()> {
-        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
-            Err(Error::service(
-                Status::default()
-                    .set_code(Code::Internal)
-                    .set_message("internal error"),
-            ));
+        let response = Err(Error::service(
+            Status::default()
+                .set_code(Code::Internal)
+                .set_message("internal error"),
+        ));
         let (confirmed_acks, remaining) =
             DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
@@ -652,13 +650,12 @@ pub(super) mod tests {
         let info = google_cloud_rpc::model::ErrorInfo::new()
             .set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID".to_string())]);
 
-        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
-            Err(Error::service(
-                Status::default()
-                    .set_code(Code::FailedPrecondition)
-                    .set_message("fail")
-                    .set_details(vec![StatusDetails::ErrorInfo(info.clone())]),
-            ));
+        let response = Err(Error::service(
+            Status::default()
+                .set_code(Code::FailedPrecondition)
+                .set_message("fail")
+                .set_details(vec![StatusDetails::ErrorInfo(info.clone())]),
+        ));
         let (confirmed_acks, remaining) =
             DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
@@ -685,13 +682,12 @@ pub(super) mod tests {
         let info = google_cloud_rpc::model::ErrorInfo::new()
             .set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER".to_string())]);
 
-        let response: std::result::Result<crate::Response<()>, google_cloud_gax::error::Error> =
-            Err(Error::service(
-                Status::default()
-                    .set_code(Code::FailedPrecondition)
-                    .set_message("fail")
-                    .set_details(vec![StatusDetails::ErrorInfo(info)]),
-            ));
+        let response = Err(Error::service(
+            Status::default()
+                .set_code(Code::FailedPrecondition)
+                .set_message("fail")
+                .set_details(vec![StatusDetails::ErrorInfo(info)]),
+        ));
         let (confirmed_acks, remaining) =
             DefaultLeaser::<MockStub>::process_ack_attempt(test_ids(1..3), response);
 
