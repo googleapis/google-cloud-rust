@@ -15,6 +15,7 @@
 use crate::errors::CredentialsError;
 use crate::token::Token;
 use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::error::Error as GaxError;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicyArg};
@@ -131,10 +132,7 @@ impl Client {
                 let req = request
                     .try_clone()
                     .expect("client libraries only create builders where `try_clone()` succeeds");
-                let response = req
-                    .send()
-                    .await
-                    .map_err(google_cloud_gax::error::Error::io)?;
+                let response = req.send().await.map_err(GaxError::io)?;
 
                 let response =
                     Self::check_response_status(response, error_message_str.clone()).await?;
@@ -154,15 +152,15 @@ impl Client {
     async fn check_response_status(
         response: reqwest::Response,
         error_message: String,
-    ) -> Result<reqwest::Response, google_cloud_gax::error::Error> {
+    ) -> Result<reqwest::Response, GaxError> {
         let status = response.status();
         if !status.is_success() {
             let err_headers = response.headers().clone();
             let err_payload = response
                 .bytes()
                 .await
-                .map_err(|e| google_cloud_gax::error::Error::transport(err_headers.clone(), e))?;
-            return Err(google_cloud_gax::error::Error::http(
+                .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
+            return Err(GaxError::http(
                 status.as_u16(),
                 err_headers,
                 format!("{error_message} :{err_payload:?}").into(),
@@ -365,16 +363,19 @@ impl UniverseDomainRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::credentials::tests::{
+        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+    };
     use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
-    use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-    use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
 
+    type TestResult = anyhow::Result<()>;
+
     #[tokio::test]
     #[parallel]
-    async fn test_access_token_success() {
+    async fn test_access_token_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
         let response = MDSTokenResponse {
@@ -395,17 +396,18 @@ mod tests {
             .respond_with(
                 status_code(200)
                     .insert_header("Content-Type", "application/json")
-                    .body(serde_json::to_string(&response).unwrap()),
+                    .body(serde_json::to_string(&response)?),
             ),
         );
 
         let token = client
             .access_token(Some(vec!["scope1".to_string(), "scope2".to_string()]))
             .send()
-            .await
-            .unwrap();
+            .await?;
         assert_eq!(token.token, "test-token");
         assert_eq!(token.token_type, "Bearer");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -429,7 +431,7 @@ mod tests {
     #[tokio::test]
     #[parallel]
     #[cfg(feature = "idtoken")]
-    async fn test_id_token_success() {
+    async fn test_id_token_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -451,9 +453,10 @@ mod tests {
                 Some("TRUE".to_string()),
             )
             .send()
-            .await
-            .unwrap();
+            .await?;
         assert_eq!(token, "test-id-token");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -481,7 +484,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_email_success() {
+    async fn test_email_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -493,8 +496,10 @@ mod tests {
             .respond_with(status_code(200).body("test@example.com")),
         );
 
-        let email = client.email().send().await.unwrap();
+        let email = client.email().send().await?;
         assert_eq!(email, "test@example.com");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -517,7 +522,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_universe_domain_success() {
+    async fn test_universe_domain_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -529,8 +534,10 @@ mod tests {
             .respond_with(status_code(200).body("my-universe-domain.com")),
         );
 
-        let domain = client.universe_domain().send().await.unwrap();
+        let domain = client.universe_domain().send().await?;
         assert_eq!(domain, "my-universe-domain.com");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -584,7 +591,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_universe_domain_retry_success() {
+    async fn test_universe_domain_retry_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -602,27 +609,22 @@ mod tests {
             .respond_with(cycle(responses)),
         );
 
-        let retry_policy = AlwaysRetry.with_attempt_limit(2);
-        let backoff_policy = ExponentialBackoffBuilder::new()
-            .with_initial_delay(Duration::from_millis(1))
-            .with_maximum_delay(Duration::from_millis(1))
-            .build()
-            .unwrap();
-
         let domain = client
             .universe_domain()
-            .with_retry_policy(retry_policy.into())
-            .with_backoff_policy(backoff_policy.into())
+            .with_retry_policy(get_mock_auth_retry_policy(2).into())
+            .with_backoff_policy(get_mock_backoff_policy().into())
+            .with_retry_throttler(get_mock_retry_throttler().into())
             .send()
-            .await
-            .unwrap();
+            .await?;
 
         assert_eq!(domain, "my-universe-domain.com");
+
+        Ok(())
     }
 
     #[tokio::test]
     #[parallel]
-    async fn test_universe_domain_retry_failure() {
+    async fn test_universe_domain_retry_failure() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -636,21 +638,17 @@ mod tests {
             .respond_with(status_code(500)),
         );
 
-        let retry_policy = AlwaysRetry.with_attempt_limit(2);
-        let backoff_policy = ExponentialBackoffBuilder::new()
-            .with_initial_delay(Duration::from_millis(1))
-            .with_maximum_delay(Duration::from_millis(1))
-            .build()
-            .unwrap();
-
         let err = client
             .universe_domain()
-            .with_retry_policy(retry_policy.into())
-            .with_backoff_policy(backoff_policy.into())
+            .with_retry_policy(get_mock_auth_retry_policy(2).into())
+            .with_backoff_policy(get_mock_backoff_policy().into())
+            .with_retry_throttler(get_mock_retry_throttler().into())
             .send()
             .await
             .unwrap_err();
 
         assert!(err.to_string().contains("failed to fetch universe domain"));
+
+        Ok(())
     }
 }
