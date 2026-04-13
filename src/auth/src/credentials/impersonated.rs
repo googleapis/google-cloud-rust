@@ -904,7 +904,6 @@ struct GenerateAccessTokenResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::constants::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::service_account::ServiceAccountKey;
     use crate::credentials::tests::PKCS8_PK;
     use crate::credentials::tests::{
@@ -912,6 +911,7 @@ mod tests {
         get_mock_retry_throttler,
     };
     use crate::errors::CredentialsError;
+    use crate::universe_domain::is_default_universe_domain;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -1829,9 +1829,10 @@ mod tests {
             .with_target_principal("test-principal@example.iam.gserviceaccount.com")
             .build()?;
 
-        assert_eq!(
-            creds.universe_domain().await,
-            Some(DEFAULT_UNIVERSE_DOMAIN.to_string())
+        let universe_domain = creds.universe_domain().await;
+        assert!(
+            is_default_universe_domain(universe_domain.clone()),
+            "{universe_domain:?}"
         );
 
         Ok(())
