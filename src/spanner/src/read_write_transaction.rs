@@ -100,7 +100,11 @@ impl ReadWriteTransactionBuilder {
             .begin_transaction(request, RequestOptions::default())
             .await?;
 
-        let transaction_selector = TransactionSelector::default().set_id(response.id);
+        let transaction_selector =
+            crate::read_only_transaction::ReadContextTransactionSelector::Fixed(
+                TransactionSelector::default().set_id(response.id),
+                None,
+            );
         Ok(ReadWriteTransaction {
             context: ReadContext {
                 client: self.client.clone(),
@@ -144,7 +148,7 @@ impl ReadWriteTransaction {
             .into()
             .into_request()
             .set_session(self.context.client.session.name.clone())
-            .set_transaction(self.context.transaction_selector.clone())
+            .set_transaction(self.context.transaction_selector.selector())
             .set_seqno(seqno);
         request.request_options = self.context.amend_request_options(request.request_options);
 
@@ -245,7 +249,7 @@ impl ReadWriteTransaction {
 
         let request = ExecuteBatchDmlRequest::default()
             .set_session(self.context.client.session.name.clone())
-            .set_transaction(self.context.transaction_selector.clone())
+            .set_transaction(self.context.transaction_selector.selector())
             .set_seqno(seqno)
             .set_statements(statements)
             .set_or_clear_request_options(
@@ -271,7 +275,7 @@ impl ReadWriteTransaction {
     }
 
     pub(crate) fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
-        match &self.context.transaction_selector.selector {
+        match &self.context.transaction_selector.selector().selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
             _ => Err(internal_error("Transaction ID is missing")),
         }

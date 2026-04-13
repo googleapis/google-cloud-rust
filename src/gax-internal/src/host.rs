@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use google_cloud_gax::client_builder::Error as BuilderError;
+#[cfg(any(test, feature = "_internal-http-client"))]
 use google_cloud_gax::error::Error;
 use http::Uri;
 use std::str::FromStr;
@@ -106,6 +107,7 @@ impl HostError {
         }
     }
 
+    #[cfg(any(test, feature = "_internal-http-client"))]
     pub fn gax(self) -> Error {
         match self {
             Self::Uri(e) => Error::io(e),
@@ -204,12 +206,12 @@ mod tests {
 
     #[test_case(
         "https://language.another-universe.com",
-        "language.another-universe.com";
+        "https://language.another-universe.com";
         "custom endpoint takes priority on universe domain"
     )]
     #[test_case(
         "https://language.us-central1.rep.googleapis.com",
-        "language.us-central1.rep.googleapis.com";
+        "https://language.us-central1.rep.googleapis.com";
         "regional endpoint takes priority on universe domain"
     )]
     fn origin_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {

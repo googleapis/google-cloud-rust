@@ -4977,12 +4977,6 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Policy>>;
 
-    async fn get_partner_metadata(
-        &self,
-        req: crate::model::instances::GetPartnerMetadataRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PartnerMetadata>>;
-
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
@@ -5018,12 +5012,6 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         req: crate::model::instances::ListReferrersRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::InstanceListReferrers>>;
-
-    async fn patch_partner_metadata(
-        &self,
-        req: crate::model::instances::PatchPartnerMetadataRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Operation>>;
 
     async fn perform_maintenance(
         &self,
@@ -5359,15 +5347,6 @@ impl<T: super::Instances> Instances for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn get_partner_metadata(
-        &self,
-        req: crate::model::instances::GetPartnerMetadataRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::PartnerMetadata>> {
-        T::get_partner_metadata(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn get_screenshot(
         &self,
         req: crate::model::instances::GetScreenshotRequest,
@@ -5419,15 +5398,6 @@ impl<T: super::Instances> Instances for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::InstanceListReferrers>> {
         T::list_referrers(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn patch_partner_metadata(
-        &self,
-        req: crate::model::instances::PatchPartnerMetadataRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::Response<crate::model::Operation>> {
-        T::patch_partner_metadata(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -5707,6 +5677,160 @@ impl<T: super::Instances> Instances for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::update_shielded_instance_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::InstantSnapshotGroups].
+#[cfg(feature = "instant-snapshot-groups")]
+#[async_trait::async_trait]
+pub trait InstantSnapshotGroups: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::instant_snapshot_groups::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::instant_snapshot_groups::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstantSnapshotGroup>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::instant_snapshot_groups::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::instant_snapshot_groups::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::instant_snapshot_groups::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::instant_snapshot_groups::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::instant_snapshot_groups::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::InstantSnapshotGroups] also implement [InstantSnapshotGroups].
+#[cfg(feature = "instant-snapshot-groups")]
+#[async_trait::async_trait]
+impl<T: super::InstantSnapshotGroups> InstantSnapshotGroups for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::instant_snapshot_groups::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::instant_snapshot_groups::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstantSnapshotGroup>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::instant_snapshot_groups::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::instant_snapshot_groups::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::instant_snapshot_groups::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::instant_snapshot_groups::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::instant_snapshot_groups::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -12574,6 +12698,160 @@ impl<T: super::RegionInstances> RegionInstances for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::RegionInstantSnapshotGroups].
+#[cfg(feature = "region-instant-snapshot-groups")]
+#[async_trait::async_trait]
+pub trait RegionInstantSnapshotGroups: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstantSnapshotGroup>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionInstantSnapshotGroups] also implement [RegionInstantSnapshotGroups].
+#[cfg(feature = "region-instant-snapshot-groups")]
+#[async_trait::async_trait]
+impl<T: super::RegionInstantSnapshotGroups> RegionInstantSnapshotGroups for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::InstantSnapshotGroup>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListInstantSnapshotGroups>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_instant_snapshot_groups::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::RegionInstantSnapshots].
 #[cfg(feature = "region-instant-snapshots")]
 #[async_trait::async_trait]
@@ -13588,6 +13866,269 @@ impl<T: super::RegionSecurityPolicies> RegionSecurityPolicies for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::Operation>> {
         T::set_labels(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RegionSnapshotSettings].
+#[cfg(feature = "region-snapshot-settings")]
+#[async_trait::async_trait]
+pub trait RegionSnapshotSettings: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::region_snapshot_settings::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SnapshotSettings>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::region_snapshot_settings::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionSnapshotSettings] also implement [RegionSnapshotSettings].
+#[cfg(feature = "region-snapshot-settings")]
+#[async_trait::async_trait]
+impl<T: super::RegionSnapshotSettings> RegionSnapshotSettings for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_snapshot_settings::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SnapshotSettings>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::region_snapshot_settings::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::RegionSnapshots].
+#[cfg(feature = "region-snapshots")]
+#[async_trait::async_trait]
+pub trait RegionSnapshots: std::fmt::Debug + Send + Sync {
+    async fn delete(
+        &self,
+        req: crate::model::region_snapshots::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_snapshots::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_snapshots::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_snapshots::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_snapshots::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SnapshotList>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_snapshots::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>>;
+
+    async fn set_labels(
+        &self,
+        req: crate::model::region_snapshots::SetLabelsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_snapshots::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionSnapshots] also implement [RegionSnapshots].
+#[cfg(feature = "region-snapshots")]
+#[async_trait::async_trait]
+impl<T: super::RegionSnapshots> RegionSnapshots for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_snapshots::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_snapshots::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Snapshot>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: crate::model::region_snapshots::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_snapshots::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_snapshots::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::SnapshotList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: crate::model::region_snapshots::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_labels(
+        &self,
+        req: crate::model::region_snapshots::SetLabelsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::set_labels(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_snapshots::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_kms_key(
+        &self,
+        req: crate::model::region_snapshots::UpdateKmsKeyRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::update_kms_key(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

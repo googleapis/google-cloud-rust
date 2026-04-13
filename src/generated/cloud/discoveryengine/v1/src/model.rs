@@ -2233,7 +2233,7 @@ pub mod answer {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -2503,7 +2503,7 @@ pub mod answer {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -2675,7 +2675,7 @@ pub mod answer {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -2830,7 +2830,7 @@ pub mod answer {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3341,7 +3341,7 @@ pub mod assist_answer {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "assistant-service",
         feature = "conversational-search-service",
@@ -3532,7 +3532,7 @@ pub mod assist_answer {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "assistant-service",
         feature = "conversational-search-service",
@@ -4280,7 +4280,7 @@ pub mod assistant_content {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -6837,7 +6837,7 @@ pub mod chunk {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -7350,7 +7350,7 @@ pub mod cmek_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "cmek-config-service",
         feature = "data-store-service",
@@ -7571,7 +7571,7 @@ pub mod cmek_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "cmek-config-service",
         feature = "data-store-service",
@@ -9067,7 +9067,7 @@ pub mod suggestion_deny_list_entry {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "completion-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -10743,7 +10743,7 @@ pub mod control {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "control-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -10897,7 +10897,7 @@ pub mod control {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "control-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -11927,7 +11927,7 @@ pub mod conversation {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13895,7 +13895,7 @@ pub mod answer_query_request {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "conversational-search-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -14172,7 +14172,7 @@ pub mod answer_query_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "conversational-search-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -15878,7 +15878,7 @@ pub mod answer_query_request {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "conversational-search-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -16193,7 +16193,7 @@ pub mod answer_query_request {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(feature = "conversational-search-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
@@ -17478,7 +17478,7 @@ pub mod custom_tuning_model {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "search-tuning-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -18443,7 +18443,7 @@ pub mod data_store {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "data-store-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -18757,7 +18757,7 @@ pub mod natural_language_query_understanding_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "data-store-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -19006,7 +19006,7 @@ pub mod workspace_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "data-store-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -23065,7 +23065,7 @@ pub mod batch_get_documents_metadata_response {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -24277,7 +24277,7 @@ pub mod engine {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "engine-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -26332,7 +26332,7 @@ pub mod generate_grounded_content_request {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "grounded-generation-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -27478,7 +27478,7 @@ pub mod generate_grounded_content_response {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(feature = "grounded-generation-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
@@ -27776,7 +27776,7 @@ pub mod generate_grounded_content_response {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(feature = "grounded-generation-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
@@ -31475,7 +31475,7 @@ pub mod bigtable_options {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31651,7 +31651,7 @@ pub mod bigtable_options {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -33917,7 +33917,7 @@ pub mod import_documents_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -35426,7 +35426,7 @@ pub mod project {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "project-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -37924,7 +37924,7 @@ pub mod safety_rating {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -38079,7 +38079,7 @@ pub mod safety_rating {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -41403,7 +41403,7 @@ pub mod search_request {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(any(
                     feature = "assistant-service",
                     feature = "conversational-search-service",
@@ -41602,7 +41602,7 @@ pub mod search_request {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(any(
                     feature = "assistant-service",
                     feature = "conversational-search-service",
@@ -41880,7 +41880,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -42152,7 +42152,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -43375,7 +43375,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -43719,7 +43719,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -43909,7 +43909,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -44181,7 +44181,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -44455,7 +44455,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -44763,7 +44763,7 @@ pub mod search_request {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(
             feature = "assistant-service",
             feature = "conversational-search-service",
@@ -45136,7 +45136,7 @@ pub mod search_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "assistant-service",
         feature = "conversational-search-service",
@@ -45350,7 +45350,7 @@ pub mod search_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "assistant-service",
         feature = "conversational-search-service",
@@ -47416,7 +47416,7 @@ pub mod search_response {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -48097,7 +48097,7 @@ pub mod search_response {
                 /// Please consult the [Working with enums] section in the user guide for some
                 /// guidelines.
                 ///
-                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
                 #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
@@ -48787,7 +48787,7 @@ pub mod search_response {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -51023,7 +51023,7 @@ pub mod session {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -51734,7 +51734,7 @@ pub mod target_site {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -51878,7 +51878,7 @@ pub mod target_site {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -52140,7 +52140,7 @@ pub mod site_verification_info {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -54808,7 +54808,7 @@ pub mod recrawl_uris_response {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "site-search-engine-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -57918,7 +57918,7 @@ pub mod user_license {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "user-license-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -58722,7 +58722,7 @@ impl wkt::message::Message for BatchUpdateUserLicensesResponse {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -58871,7 +58871,7 @@ impl<'de> serde::de::Deserialize<'de> for IndustryVertical {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "control-service",
     feature = "data-store-service",
@@ -59077,7 +59077,7 @@ impl<'de> serde::de::Deserialize<'de> for SolutionType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "control-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -59225,7 +59225,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchUseCase {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "engine-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -59366,7 +59366,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchTier {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "engine-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -59500,7 +59500,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchAddOn {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "conversational-search-service", feature = "session-service",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]

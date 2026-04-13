@@ -37,18 +37,18 @@ pub struct WithTransportLogging<F> {
     inner: F,
 }
 
-impl<F> WithTransportLogging<F>
+impl<F, R> WithTransportLogging<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     pub fn new(inner: F) -> Self {
         Self { inner }
     }
 }
 
-impl<F> Future for WithTransportLogging<F>
+impl<F, R> Future for WithTransportLogging<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     type Output = <F as Future>::Output;
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
@@ -93,8 +93,7 @@ where
                     { HTTP_RESPONSE_STATUS_CODE } = error.http_status_code().map(|v| v as i64),
                     { GCP_ERRORS_DOMAIN } = error_domain,
                     { GCP_ERRORS_METADATA } = error_metadata,
-                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64),
-                    { URL_SCHEME } = snapshot.url_scheme()
+                    { HTTP_REQUEST_RESEND_COUNT } = snapshot.http_resend_count().map(|v| v as i64)
                 );
             }
         }

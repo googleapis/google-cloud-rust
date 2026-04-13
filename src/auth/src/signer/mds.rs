@@ -94,6 +94,7 @@ mod tests {
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
     use serde_json::json;
+    use serial_test::serial;
 
     type TestResult = anyhow::Result<()>;
 
@@ -131,6 +132,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
     async fn test_sign() -> TestResult {
         let server = Server::run();
         server.expect(

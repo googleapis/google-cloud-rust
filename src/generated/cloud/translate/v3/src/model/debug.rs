@@ -100,6 +100,7 @@ impl std::fmt::Debug for super::AdaptiveMtTranslateRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("dataset", &self.dataset);
         debug_struct.field("content", &self.content);
+        debug_struct.field("mime_type", &self.mime_type);
         debug_struct.field("reference_sentence_config", &self.reference_sentence_config);
         debug_struct.field("glossary_config", &self.glossary_config);
         if !self._unknown_fields.is_empty() {

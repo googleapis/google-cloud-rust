@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,30 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
-
-import (
-	"os"
-	"path/filepath"
-
-	"github.com/cbroglie/mustache"
-)
-
-func renderMetadata(c *crate, outDir string) error {
-	m, err := newDocfxMetadata(c)
-	if err != nil {
-		return err
-	}
-	contents, err := templatesProvider("docs.metadata.mustache")
-	if err != nil {
-		return err
-	}
-	output, err := mustache.RenderPartials(contents, &mustacheProvider{}, m)
-	if err != nil {
-		return err
-	}
-	if err := os.WriteFile(filepath.Join(outDir, "docs.metadata"), []byte(output), 0644); err != nil {
-		return err
-	}
-	return nil
-}
+pub(crate) mod gapic_storage;

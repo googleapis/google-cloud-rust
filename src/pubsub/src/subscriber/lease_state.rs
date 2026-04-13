@@ -15,6 +15,8 @@
 mod at_least_once;
 mod exactly_once;
 
+pub(super) use exactly_once::NACK_SHUTDOWN_ERROR;
+
 use super::handler::AckResult;
 use super::handler::Action;
 use super::leaser::ConfirmedAcks;
@@ -104,17 +106,30 @@ impl AtLeastOnceInfo {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub(super) enum MessageStatus {
+    Leased,
+    /// We are currently trying to ack this message.
+    ///
+    /// We need to continue to extend these leases because the exactly-once
+    /// confirmed ack retry loop can take arbitrarily long.
+    ///
+    /// The client will not expire leases in this state. The server will
+    /// report if a lease has expired. We do not want to mask a success with
+    /// a `LeaseExpired` error.
+    Acking,
+    /// We are currently trying to nack this message.
+    ///
+    /// We keep it in `under_lease` to hold onto `result_tx` until the nack is confirmed,
+    /// but we do not want to extend its lease while we wait.
+    Nacking,
+}
+
 #[derive(Debug)]
 pub(super) struct ExactlyOnceInfo {
     receive_time: Instant,
     result_tx: Sender<AckResult>,
-    // If true, we are currently trying to ack this message.
-    // We need to continue to extend these leases because the exactly-once
-    // confirmed ack retry loop can take arbitrarily long.
-    // The client will not expire leases in this state. The server will
-    // report if a lease has expired. We do not want to mask a success with
-    // a `LeaseExpired` error.
-    pending: bool,
+    status: MessageStatus,
 }
 
 impl ExactlyOnceInfo {
@@ -122,7 +137,7 @@ impl ExactlyOnceInfo {
         ExactlyOnceInfo {
             receive_time: Instant::now(),
             result_tx,
-            pending: false,
+            status: MessageStatus::Leased,
         }
     }
 }
@@ -260,7 +275,7 @@ where
         if !to_nack.is_empty() {
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
-                .spawn(async move { leaser.nack(to_nack).await });
+                .spawn(async move { leaser.confirmed_nack(to_nack).await });
         }
     }
 
@@ -313,7 +328,7 @@ where
         for to_nack in to_nack {
             let leaser = self.leaser.clone();
             self.pending_acks_nacks
-                .spawn(async move { leaser.nack(to_nack).await });
+                .spawn(async move { leaser.confirmed_nack(to_nack).await });
         }
 
         // Wait for pending acks/nacks to complete.
@@ -556,7 +571,7 @@ pub(super) mod tests {
         state.process(ExactlyOnceNack(test_id(2)));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -566,7 +581,7 @@ pub(super) mod tests {
         state.add(test_id(4), exactly_once_info());
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
@@ -576,7 +591,7 @@ pub(super) mod tests {
         state.process(ExactlyOnceAck(test_id(4)));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(3), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2)],
             },
@@ -586,7 +601,7 @@ pub(super) mod tests {
         state.process(ExactlyOnceNack(test_id(3)));
         assert_eq!(
             TestLeases {
-                under_lease: vec![test_id(1), test_id(4)],
+                under_lease: vec![test_id(1), test_id(2), test_id(3), test_id(4)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2), test_id(3)],
             },
@@ -620,7 +635,7 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(110..120))
             .returning(|_| ());
-        mock.expect_nack()
+        mock.expect_confirmed_nack()
             .times(1)
             .withf(|v| sorted(v) == test_ids(100..110))
             .returning(|_| ());
@@ -653,7 +668,7 @@ pub(super) mod tests {
         );
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(110..200),
+                under_lease: test_ids(100..200),
                 to_ack: test_ids(110..120),
                 to_nack: test_ids(100..110),
             },
@@ -671,7 +686,7 @@ pub(super) mod tests {
         );
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(110..200),
+                under_lease: test_ids(100..200),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
@@ -683,9 +698,11 @@ pub(super) mod tests {
             ack_results.insert(test_id(i), Ok(()));
         }
         state.confirm(ack_results);
+        let mut expected_under_lease = test_ids(100..110);
+        expected_under_lease.extend(test_ids(115..200));
         assert_eq!(
             TestLeases {
-                under_lease: test_ids(115..200),
+                under_lease: expected_under_lease,
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
@@ -895,8 +912,12 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(0..10))
             .returning(|_| ());
         mock.expect_nack()
-            .times(2)
-            .withf(|v| sorted(v) == test_ids(10..30) || sorted(v) == test_ids(30..60))
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(10..30))
+            .returning(|_| ());
+        mock.expect_confirmed_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(30..60))
             .returning(|_| ());
 
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
@@ -1084,7 +1105,7 @@ pub(super) mod tests {
         const FLUSH_START: Duration = Duration::from_secs(1);
 
         let mut mock = MockLeaser::new();
-        mock.expect_nack()
+        mock.expect_confirmed_nack()
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
