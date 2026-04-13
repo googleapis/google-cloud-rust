@@ -48,7 +48,7 @@ pub use with_transport_span::WithTransportSpan;
 /// This is typically used in the body of the `Tracing` stub, to simplify the
 /// code. The body of the tracing function would be:
 ///
-/// ```ignore
+/// ```no_rust
 /// # struct Client;
 /// # impl Client {
 /// #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

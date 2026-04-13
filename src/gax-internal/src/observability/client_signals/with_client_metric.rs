@@ -28,7 +28,7 @@ use std::task::{Context, Poll};
 /// Decorates the `F` future, which represents a pending client request,
 /// to emit record the request duration. Typically this is used in the tracing layer:
 ///
-/// ```ignore
+/// ```no_rust
 /// # struct Client;
 /// # impl Client {
 /// #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
