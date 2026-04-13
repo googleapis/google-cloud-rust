@@ -33,6 +33,7 @@ pub(crate) struct Client {
     endpoint: String,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
+    retry_config: RetryConfig,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -52,6 +53,7 @@ impl Client {
         Self {
             endpoint,
             is_default_endpoint,
+            retry_config: Default::default(),
         }
     }
 
@@ -114,7 +116,6 @@ impl Client {
     pub(crate) fn universe_domain(&self) -> UniverseDomainRequest {
         UniverseDomainRequest {
             client: self.clone(),
-            retry_config: RetryConfig::default(),
         }
     }
 
@@ -122,9 +123,9 @@ impl Client {
         &self,
         request: reqwest::RequestBuilder,
         error_message: &'static str,
-        retry_config: RetryConfig,
     ) -> crate::Result<reqwest::Response> {
         let sleep = async |d| tokio::time::sleep(d).await;
+        let retry_config = self.retry_config.clone();
 
         let error_message_str = error_message.to_string().clone();
         retry_loop(
@@ -169,7 +170,7 @@ impl Client {
         Ok(response)
     }
 }
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct RetryConfig {
     retry_policy: RetryPolicyArg,
     backoff_policy: BackoffPolicyArg,
@@ -227,10 +228,7 @@ impl AccessTokenRequest {
         // running on MDS environments and not useful if there is no MDS. We will mark the error
         // as retryable and let the retry policy determine whether to retry or not. Whenever we
         // define a default retry policy, we can skip retrying this case.
-        let response = self
-            .client
-            .send(request, error_message, RetryConfig::default())
-            .await?;
+        let response = self.client.send(request, error_message).await?;
 
         let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
             // Decoding errors are not transient. Typically they indicate a badly
@@ -275,10 +273,7 @@ impl IdTokenRequest {
         });
 
         let error_message = "failed to fetch id token";
-        let response = self
-            .client
-            .send(request, error_message, RetryConfig::default())
-            .await?;
+        let response = self.client.send(request, error_message).await?;
 
         let token = response
             .text()
@@ -300,10 +295,7 @@ impl EmailRequest {
         let request = self.client.get(&path);
         let error_message = "failed to fetch email";
 
-        let response = self
-            .client
-            .send(request, error_message, RetryConfig::default())
-            .await?;
+        let response = self.client.send(request, error_message).await?;
 
         let email = response
             .text()
@@ -318,25 +310,27 @@ impl EmailRequest {
 #[allow(dead_code)]
 pub(crate) struct UniverseDomainRequest {
     client: Client,
-    retry_config: RetryConfig,
 }
 
 impl UniverseDomainRequest {
     #[allow(dead_code)]
     pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
-        self.retry_config = self.retry_config.with_retry_policy(retry_policy);
+        self.client.retry_config = self.client.retry_config.with_retry_policy(retry_policy);
         self
     }
 
     #[allow(dead_code)]
     pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
-        self.retry_config = self.retry_config.with_backoff_policy(backoff_policy);
+        self.client.retry_config = self.client.retry_config.with_backoff_policy(backoff_policy);
         self
     }
 
     #[allow(dead_code)]
     pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
-        self.retry_config = self.retry_config.with_retry_throttler(retry_throttler);
+        self.client.retry_config = self
+            .client
+            .retry_config
+            .with_retry_throttler(retry_throttler);
         self
     }
 
@@ -346,10 +340,7 @@ impl UniverseDomainRequest {
         let request = self.client.get(path);
         let error_message = "failed to fetch universe domain";
 
-        let response = self
-            .client
-            .send(request, error_message, self.retry_config)
-            .await?;
+        let response = self.client.send(request, error_message).await?;
 
         let universe_domain = response
             .text()
