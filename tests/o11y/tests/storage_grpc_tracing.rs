@@ -18,7 +18,7 @@ use gaxi::observability::RequestRecorder;
 use gaxi::options::InstrumentationClientInfo;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_gax::options::RequestOptionsBuilder;
-use google_cloud_storage::client::{Storage, StorageControl};
+use google_cloud_storage::client::StorageControl;
 use integration_tests_o11y::mock_collector::MockCollector;
 use integration_tests_o11y::otlp::logs::Builder as LoggerProviderBuilder;
 use integration_tests_o11y::otlp::metrics::Builder as MeterProviderBuilder;
