@@ -389,7 +389,7 @@ pin-project           = { default-features = false, version = "1.1.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.41.0", features = ["std"] }
-rustls                = { default-features = false, version = "0.23.37" }
+rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
