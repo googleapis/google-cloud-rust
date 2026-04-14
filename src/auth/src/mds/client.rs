@@ -120,12 +120,11 @@ impl Client {
     }
 
     async fn send(
-        &self,
+        self,
         request: reqwest::RequestBuilder,
         error_message: &'static str,
     ) -> crate::Result<reqwest::Response> {
         let sleep = async |d| tokio::time::sleep(d).await;
-        let retry_config = self.retry_config.clone();
 
         let error_message_str = error_message.to_string().clone();
         retry_loop(
@@ -142,9 +141,9 @@ impl Client {
             },
             sleep,
             true, // GET requests are idempotent
-            retry_config.retry_throttler,
-            retry_config.retry_policy.into(),
-            retry_config.backoff_policy.into(),
+            self.retry_config.retry_throttler,
+            self.retry_config.retry_policy.into(),
+            self.retry_config.backoff_policy.into(),
         )
         .await
         .map_err(|e| crate::errors::from_gax_error(e, error_message))
@@ -170,6 +169,7 @@ impl Client {
         Ok(response)
     }
 }
+
 #[derive(Clone, Debug)]
 struct RetryConfig {
     retry_policy: RetryPolicyArg,
