@@ -219,6 +219,9 @@ impl serde::ser::Serialize for super::AdaptiveMtTranslateRequest {
         if !self.content.is_empty() {
             state.serialize_entry("content", &self.content)?;
         }
+        if !self.mime_type.is_empty() {
+            state.serialize_entry("mimeType", &self.mime_type)?;
+        }
         if self.reference_sentence_config.is_some() {
             state.serialize_entry("referenceSentenceConfig", &self.reference_sentence_config)?;
         }

@@ -43,7 +43,7 @@ impl LaunchStage {
         }
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct CommonLanguageSettings {
     #[deprecated]
     #[prost(string, tag = "1")]
@@ -155,7 +155,7 @@ impl ::prost::Name for JavaSettings {
         "type.googleapis.com/google.api.JavaSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct CppSettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
@@ -170,7 +170,7 @@ impl ::prost::Name for CppSettings {
         "type.googleapis.com/google.api.CppSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PhpSettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
@@ -187,7 +187,7 @@ impl ::prost::Name for PhpSettings {
         "type.googleapis.com/google.api.PhpSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PythonSettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
@@ -198,7 +198,7 @@ pub struct PythonSettings {
 }
 /// Nested message and enum types in `PythonSettings`.
 pub mod python_settings {
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ExperimentalFeatures {
         #[prost(bool, tag = "1")]
         pub rest_async_io_enabled: bool,
@@ -228,7 +228,7 @@ impl ::prost::Name for PythonSettings {
         "type.googleapis.com/google.api.PythonSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct NodeSettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
@@ -276,7 +276,7 @@ impl ::prost::Name for DotnetSettings {
         "type.googleapis.com/google.api.DotnetSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RubySettings {
     #[prost(message, optional, tag = "1")]
     pub common: ::core::option::Option<CommonLanguageSettings>,
@@ -356,7 +356,7 @@ impl ::prost::Name for MethodSettings {
         "type.googleapis.com/google.api.MethodSettings".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct SelectiveGapicGeneration {
     #[prost(string, repeated, tag = "1")]
     pub methods: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -373,7 +373,7 @@ impl ::prost::Name for SelectiveGapicGeneration {
         "type.googleapis.com/google.api.SelectiveGapicGeneration".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BatchingConfigProto {
     #[prost(message, optional, tag = "1")]
     pub thresholds: ::core::option::Option<BatchingSettingsProto>,
@@ -390,7 +390,7 @@ impl ::prost::Name for BatchingConfigProto {
         "type.googleapis.com/google.api.BatchingConfigProto".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BatchingSettingsProto {
     #[prost(int32, tag = "1")]
     pub element_count_threshold: i32,
@@ -419,7 +419,7 @@ impl ::prost::Name for BatchingSettingsProto {
         "type.googleapis.com/google.api.BatchingSettingsProto".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BatchingDescriptorProto {
     #[prost(string, tag = "1")]
     pub batched_field: ::prost::alloc::string::String,
@@ -590,7 +590,7 @@ impl FieldBehavior {
         }
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ResourceDescriptor {
     #[prost(string, tag = "1")]
     pub r#type: ::prost::alloc::string::String,
@@ -695,7 +695,7 @@ impl ::prost::Name for ResourceDescriptor {
         "type.googleapis.com/google.api.ResourceDescriptor".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ResourceReference {
     #[prost(string, tag = "1")]
     pub r#type: ::prost::alloc::string::String,
@@ -727,7 +727,7 @@ impl ::prost::Name for RoutingRule {
         "type.googleapis.com/google.api.RoutingRule".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RoutingParameter {
     #[prost(string, tag = "1")]
     pub field: ::prost::alloc::string::String,
@@ -776,7 +776,7 @@ pub struct HttpRule {
 }
 /// Nested message and enum types in `HttpRule`.
 pub mod http_rule {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Pattern {
         #[prost(string, tag = "2")]
         Get(::prost::alloc::string::String),
@@ -802,7 +802,7 @@ impl ::prost::Name for HttpRule {
         "type.googleapis.com/google.api.HttpRule".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct CustomHttpPattern {
     #[prost(string, tag = "1")]
     pub kind: ::prost::alloc::string::String,

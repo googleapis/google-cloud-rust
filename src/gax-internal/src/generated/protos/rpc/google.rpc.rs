@@ -92,7 +92,7 @@ impl ::prost::Name for ErrorInfo {
         "type.googleapis.com/google.rpc.ErrorInfo".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RetryInfo {
     #[prost(message, optional, tag = "1")]
     pub retry_delay: ::core::option::Option<::prost_types::Duration>,
@@ -107,7 +107,7 @@ impl ::prost::Name for RetryInfo {
         "type.googleapis.com/google.rpc.RetryInfo".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DebugInfo {
     #[prost(string, repeated, tag = "1")]
     pub stack_entries: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -181,7 +181,7 @@ pub struct PreconditionFailure {
 }
 /// Nested message and enum types in `PreconditionFailure`.
 pub mod precondition_failure {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct Violation {
         #[prost(string, tag = "1")]
         pub r#type: ::prost::alloc::string::String,
@@ -218,7 +218,7 @@ pub struct BadRequest {
 }
 /// Nested message and enum types in `BadRequest`.
 pub mod bad_request {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct FieldViolation {
         #[prost(string, tag = "1")]
         pub field: ::prost::alloc::string::String,
@@ -250,7 +250,7 @@ impl ::prost::Name for BadRequest {
         "type.googleapis.com/google.rpc.BadRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RequestInfo {
     #[prost(string, tag = "1")]
     pub request_id: ::prost::alloc::string::String,
@@ -267,7 +267,7 @@ impl ::prost::Name for RequestInfo {
         "type.googleapis.com/google.rpc.RequestInfo".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ResourceInfo {
     #[prost(string, tag = "1")]
     pub resource_type: ::prost::alloc::string::String,
@@ -295,7 +295,7 @@ pub struct Help {
 }
 /// Nested message and enum types in `Help`.
 pub mod help {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct Link {
         #[prost(string, tag = "1")]
         pub description: ::prost::alloc::string::String,
@@ -323,7 +323,7 @@ impl ::prost::Name for Help {
         "type.googleapis.com/google.rpc.Help".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct LocalizedMessage {
     #[prost(string, tag = "1")]
     pub locale: ::prost::alloc::string::String,
@@ -382,7 +382,7 @@ impl ::prost::Name for HttpResponse {
         "type.googleapis.com/google.rpc.HttpResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct HttpHeader {
     #[prost(string, tag = "1")]
     pub key: ::prost::alloc::string::String,

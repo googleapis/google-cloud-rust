@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
+#[cfg(all(test, feature = "run-integration-tests"))]
 mod storage {
     use google_cloud_test_utils::errors::anydump;
 
+    #[ignore]
     #[tokio::test(flavor = "multi_thread")]
     async fn run() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::storage::run()

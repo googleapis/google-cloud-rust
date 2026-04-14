@@ -17,7 +17,6 @@ use crate::credentials::EntityTag;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
-use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::universe_domain::is_default_universe_domain;
 use crate::{Result, errors};
@@ -31,7 +30,6 @@ use google_cloud_gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg};
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
-use std::error::Error;
 use std::fmt::Debug;
 use std::sync::{Arc, OnceLock};
 use tokio::sync::{Mutex, watch};
@@ -504,13 +502,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + Send + Sync + 'static,
 {
     async fn fetch(self) -> Result<Option<String>> {
-        let resp = self.fetch_with_retry().await.map_err(|e| {
-            let is_transient = e
-                .source()
-                .and_then(|s| s.downcast_ref::<CredentialsError>())
-                .is_some_and(|cred_error| cred_error.is_transient());
-            CredentialsError::new(is_transient, "failed to fetch access boundary", e)
-        })?;
+        let resp = self
+            .fetch_with_retry()
+            .await
+            .map_err(|e| crate::errors::from_gax_error(e, "failed to fetch access boundary"))?;
 
         if !resp.encoded_locations.is_empty() {
             return Ok(Some(resp.encoded_locations));
@@ -662,6 +657,7 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
+    use crate::errors::CredentialsError;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -900,7 +896,7 @@ pub(crate) mod tests {
 
         let result = client.fetch().await;
         let err = result.unwrap_err();
-        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]

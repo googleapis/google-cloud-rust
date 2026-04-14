@@ -367,7 +367,7 @@ impl Builder {
         let creds = ServiceAccountCredentials {
             quota_project_id,
             token_provider: TokenCache::new(token_provider),
-            universe_domain: universe_domain.clone(),
+            universe_domain,
         };
 
         Ok(CredentialsWithAccessBoundary::new(

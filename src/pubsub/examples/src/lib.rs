@@ -85,7 +85,9 @@ pub async fn run_publisher_samples(topic_names: &mut Vec<String>) -> anyhow::Res
     topic::create_topic::sample(&topic_admin, &project, &topic_id).await?;
 
     publisher::quickstart_publisher::sample(&project, &topic_id).await?;
+    publisher::publish_with_batch_settings::sample(&project, &topic_id).await?;
     publisher::publish_with_ordering_keys::sample(&project, &topic_id).await?;
+    publisher::publish_with_retry_settings::sample(&project, &topic_id).await?;
     publisher::resume_publish_with_ordering_keys::sample(&project, &topic_id).await?;
 
     Ok(())

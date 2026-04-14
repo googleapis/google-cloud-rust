@@ -194,17 +194,40 @@ pub async fn result_set_metadata(db_client: &DatabaseClient) -> anyhow::Result<(
 }
 
 pub async fn multi_use_read_only_transaction(db_client: &DatabaseClient) -> anyhow::Result<()> {
-    // Start a multi-use read-only transaction.
-    let tx = db_client.read_only_transaction().build().await?;
+    for explicit_begin in [false, true] {
+        test_multi_use_read_only_transaction(db_client, explicit_begin).await?;
+    }
+    Ok(())
+}
 
-    // Expect a read timestamp to have been chosen.
-    assert!(tx.read_timestamp().is_some());
+async fn test_multi_use_read_only_transaction(
+    db_client: &DatabaseClient,
+    explicit_begin: bool,
+) -> anyhow::Result<()> {
+    // Start a multi-use read-only transaction.
+    let tx = db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(explicit_begin)
+        .build()
+        .await?;
+
+    if explicit_begin {
+        // Expect a read timestamp to have been chosen immediately.
+        assert!(tx.read_timestamp().is_some());
+    } else {
+        // Expect a read timestamp to NOT have been chosen yet.
+        assert!(tx.read_timestamp().is_none());
+    }
 
     // Execute the first query.
     let mut rs1 = tx
         .execute_query(Statement::builder("SELECT 1 AS col_int").build())
         .await?;
     let row1 = rs1.next().await.transpose()?.expect("should yield a row");
+
+    // The read timestamp is now always available.
+    assert!(tx.read_timestamp().is_some());
+
     let val1 = row1.raw_values()[0].as_string();
     assert_eq!(val1, "1");
     let next1 = rs1.next().await.transpose()?;
@@ -219,6 +242,45 @@ pub async fn multi_use_read_only_transaction(db_client: &DatabaseClient) -> anyh
     assert_eq!(val2, "2");
     let next2 = rs2.next().await.transpose()?;
     assert!(next2.is_none(), "{next2:?}");
+
+    Ok(())
+}
+
+pub async fn multi_use_read_only_transaction_invalid_query_fallback(
+    db_client: &DatabaseClient,
+) -> anyhow::Result<()> {
+    // Start a multi-use read-only transaction with implicit begin.
+    let tx = db_client
+        .read_only_transaction()
+        .with_explicit_begin_transaction(false)
+        .build()
+        .await?;
+
+    // Expect a read timestamp to NOT have been chosen yet.
+    assert!(tx.read_timestamp().is_none());
+
+    // Execute the first query with invalid syntax.
+    let rs_result = tx
+        .execute_query(Statement::builder("SELECT * FROM NonExistentTable").build())
+        .await;
+
+    assert!(
+        rs_result.is_err(),
+        "Expected an error from an invalid query"
+    );
+
+    // The read timestamp should now be available because the transaction
+    // fell back to an explicit BeginTransaction.
+    assert!(tx.read_timestamp().is_some());
+
+    // It should be possible to use the transaction.
+    let mut rs2 = tx
+        .execute_query(Statement::builder("SELECT 2 AS col_int").build())
+        .await?;
+
+    let row2 = rs2.next().await.transpose()?.expect("should yield a row");
+    let val2 = row2.raw_values()[0].as_string();
+    assert_eq!(val2, "2");
 
     Ok(())
 }

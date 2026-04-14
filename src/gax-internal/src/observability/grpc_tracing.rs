@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::observability::RequestRecorder;
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
 use crate::observability::errors::ErrorType;
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -23,8 +24,10 @@ use tower::{Layer, Service};
 
 /// A wrapper for the attempt count to be stored in request extensions.
 #[derive(Clone, Copy, Debug)]
+#[allow(dead_code)]
 pub struct AttemptCount(i64);
 
+#[allow(dead_code)]
 impl AttemptCount {
     pub fn new(value: i64) -> Self {
         Self(value)
@@ -36,14 +39,16 @@ impl AttemptCount {
 
 /// A wrapper for the resource name to be stored in request extensions.
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub struct ResourceName(String);
 
+#[allow(dead_code)]
 impl ResourceName {
     pub fn new(value: String) -> Self {
         Self(value)
     }
     pub fn as_str(&self) -> &str {
-        self.0.as_str()
+        &self.0
     }
 }
 
@@ -108,11 +113,13 @@ impl<B> InstrumentedBody<B> {
 /// It is typically used with [`tower::ServiceBuilder`] to add tracing middleware
 /// to a gRPC client.
 #[derive(Clone, Debug, Default)]
+#[allow(dead_code)]
 pub struct TracingTowerLayer {
     inner: Arc<TracingTowerLayerInner>,
 }
 
 #[derive(Debug, Default)]
+#[allow(dead_code)]
 struct TracingTowerLayerInner {
     server_address: String,
     server_port: Option<i64>,
@@ -120,6 +127,7 @@ struct TracingTowerLayerInner {
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
 }
 
+#[allow(dead_code)]
 impl TracingTowerLayer {
     /// Creates a new `TracingTowerLayer`.
     pub fn new(
@@ -133,11 +141,16 @@ impl TracingTowerLayer {
             Some("http") => Some(80),
             _ => None,
         });
+        let extracted_domain = default_domain
+            .parse::<http::Uri>()
+            .ok()
+            .and_then(|u| u.host().map(|h| h.to_string()))
+            .unwrap_or(default_domain);
         Self {
             inner: Arc::new(TracingTowerLayerInner {
                 server_address: host,
                 server_port: port.map(|p| p as i64),
-                url_domain: default_domain,
+                url_domain: extracted_domain,
                 instrumentation,
             }),
         }
@@ -161,6 +174,7 @@ impl<S> Layer<S> for TracingTowerLayer {
 /// a tracing span. The span is named "grpc.request" and is created at the `INFO`
 /// level.
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub struct TracingTowerService<S> {
     inner: S,
     layer: TracingTowerLayer,
@@ -185,8 +199,21 @@ where
 
     fn call(&mut self, mut req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
-        let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
-        let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
+        let resource_name = req
+            .extensions()
+            .get::<ResourceName>()
+            .map(|r| r.as_str().to_string())
+            .or_else(|| {
+                RequestRecorder::current()
+                    .map(|r| r.client_snapshot())
+                    .and_then(|s| s.resource_name().map(|n| n.to_string()))
+            });
+        let span = create_grpc_span(
+            req.uri(),
+            &self.layer.inner,
+            attempt_count,
+            resource_name.as_deref(),
+        );
         crate::observability::propagation::inject_context(&span, req.headers_mut());
         let future = self.inner.call(req);
         ResponseFuture {
@@ -200,6 +227,7 @@ where
 /// A service that wraps the response body in `Either::Right` to match the `OptionallyTracedBody` type.
 /// Used to unify the response type with `TracingTowerService` when tracing is disabled.
 #[derive(Clone, Debug, Default)]
+#[allow(dead_code)]
 pub struct NoTracingTowerLayer;
 
 impl<S> Layer<S> for NoTracingTowerLayer {
@@ -211,10 +239,12 @@ impl<S> Layer<S> for NoTracingTowerLayer {
 }
 
 #[derive(Clone, Debug)]
+#[allow(dead_code)]
 pub struct NoTracingTowerService<S> {
     inner: S,
 }
 
+#[allow(dead_code)]
 impl<S> NoTracingTowerService<S> {
     pub fn new(inner: S) -> Self {
         Self { inner }
@@ -370,6 +400,7 @@ fn record_error_status<Error: std::fmt::Display>(span: &tracing::Span, error: &E
     crate::observability::errors::emit_error_log(span, &gax_error);
 }
 
+#[allow(dead_code)]
 fn create_grpc_span(
     uri: &http::Uri,
     layer_inner: &TracingTowerLayerInner,

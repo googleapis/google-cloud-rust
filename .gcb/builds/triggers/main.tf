@@ -35,7 +35,6 @@ locals {
   gcb_secret_name = "projects/${var.project}/secrets/github-github-oauthtoken-319d75/versions/latest"
 
   unstable_flags = join(" ", [
-    "--cfg google_cloud_unstable_tracing",
     "--cfg google_cloud_unstable_trust_boundaries",
     "--cfg google_cloud_unstable_storage_bidi",
     "--cfg google_cloud_unstable_grpc_server_streaming"
@@ -117,9 +116,6 @@ locals {
       config = "complex.yaml"
       script = "regenerate"
     }
-    rustdocfx = {
-      config = "rustdocfx.yaml"
-    }
     semver-checks = {
       config = "complex.yaml"
       script = "semver-checks"
@@ -156,10 +152,6 @@ locals {
 
   # There are builds that only run Post Merge.
   pm_build_overrides = {
-    # Uploads the reference docs, too expensive for PR builds.
-    referenceupload = {
-      config = "referenceupload.yaml"
-    }
     # Builds and tests all the crates. This is too slow for a PR build.
     workspace = {
       config = "complex.yaml"

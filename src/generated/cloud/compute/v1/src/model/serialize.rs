@@ -1744,6 +1744,7 @@ impl serde::ser::Serialize for super::AttachedDiskInitializeParams {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -1756,8 +1757,10 @@ impl serde::ser::Serialize for super::AttachedDiskInitializeParams {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -1800,6 +1803,7 @@ impl serde::ser::Serialize for super::AuditConfig {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -1812,8 +1816,10 @@ impl serde::ser::Serialize for super::AuditConfig {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -5405,6 +5411,7 @@ impl serde::ser::Serialize for super::BgpRouteNetworkLayerReachabilityInformatio
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -5417,8 +5424,10 @@ impl serde::ser::Serialize for super::BgpRouteNetworkLayerReachabilityInformatio
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -5467,6 +5476,15 @@ impl serde::ser::Serialize for super::BulkInsertDiskResource {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.instant_snapshot_group_parameters.is_some() {
+            state.serialize_entry(
+                "instantSnapshotGroupParameters",
+                &self.instant_snapshot_group_parameters,
+            )?;
+        }
+        if self.snapshot_group_parameters.is_some() {
+            state.serialize_entry("snapshotGroupParameters", &self.snapshot_group_parameters)?;
+        }
         if self.source_consistency_group_policy.is_some() {
             state.serialize_entry(
                 "sourceConsistencyGroupPolicy",
@@ -5605,6 +5623,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -5640,12 +5659,15 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -7338,6 +7360,7 @@ impl serde::ser::Serialize for super::CustomErrorResponsePolicyCustomErrorRespon
     feature = "region-disks",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-snapshots",
     feature = "snapshots",
 ))]
 #[doc(hidden)]
@@ -8903,6 +8926,7 @@ impl serde::ser::Serialize for super::Duration {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -8938,12 +8962,15 @@ impl serde::ser::Serialize for super::Duration {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -9155,6 +9182,7 @@ impl serde::ser::Serialize for super::exchanged_peering_routes_list::warning::Da
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -9168,9 +9196,11 @@ impl serde::ser::Serialize for super::exchanged_peering_routes_list::warning::Da
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-security-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -12158,6 +12188,7 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -12193,12 +12224,15 @@ impl serde::ser::Serialize for super::GRPCTLSHealthCheck {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -12285,6 +12319,7 @@ impl serde::ser::Serialize for super::GetVersionOperationMetadata {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -12320,12 +12355,15 @@ impl serde::ser::Serialize for super::GetVersionOperationMetadata {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -12835,6 +12873,7 @@ impl serde::ser::Serialize for super::GuestAttributesValue {
     feature = "region-disks",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-snapshots",
     feature = "snapshots",
 ))]
 #[doc(hidden)]
@@ -14832,6 +14871,7 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14867,12 +14907,15 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -14959,6 +15002,7 @@ impl serde::ser::Serialize for super::Help {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -14994,12 +15038,15 @@ impl serde::ser::Serialize for super::Help {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -16534,9 +16581,6 @@ impl serde::ser::Serialize for super::Instance {
         }
         if self.params.is_some() {
             state.serialize_entry("params", &self.params)?;
-        }
-        if !self.partner_metadata.is_empty() {
-            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
         }
         if self.private_ipv_6_google_access.is_some() {
             state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
@@ -20447,9 +20491,6 @@ impl serde::ser::Serialize for super::InstanceProperties {
         if self.network_performance_config.is_some() {
             state.serialize_entry("networkPerformanceConfig", &self.network_performance_config)?;
         }
-        if !self.partner_metadata.is_empty() {
-            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
-        }
         if self.private_ipv_6_google_access.is_some() {
             state.serialize_entry("privateIpv6GoogleAccess", &self.private_ipv_6_google_access)?;
         }
@@ -21017,6 +21058,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -21052,12 +21094,15 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -21661,6 +21706,18 @@ impl serde::ser::Serialize for super::InstantSnapshot {
         if self.source_disk_id.is_some() {
             state.serialize_entry("sourceDiskId", &self.source_disk_id)?;
         }
+        if self.source_instant_snapshot_group.is_some() {
+            state.serialize_entry(
+                "sourceInstantSnapshotGroup",
+                &self.source_instant_snapshot_group,
+            )?;
+        }
+        if self.source_instant_snapshot_group_id.is_some() {
+            state.serialize_entry(
+                "sourceInstantSnapshotGroupId",
+                &self.source_instant_snapshot_group_id,
+            )?;
+        }
         if self.status.is_some() {
             state.serialize_entry("status", &self.status)?;
         }
@@ -21762,6 +21819,163 @@ impl serde::ser::Serialize for super::instant_snapshot_aggregated_list::warning:
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstantSnapshotGroup {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.creation_timestamp.is_some() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if self.resource_status.is_some() {
+            state.serialize_entry("resourceStatus", &self.resource_status)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.self_link_with_id.is_some() {
+            state.serialize_entry("selfLinkWithId", &self.self_link_with_id)?;
+        }
+        if self.source_consistency_group.is_some() {
+            state.serialize_entry("sourceConsistencyGroup", &self.source_consistency_group)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if self.zone.is_some() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "disks", feature = "region-disks",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstantSnapshotGroupParameters {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.source_instant_snapshot_group.is_some() {
+            state.serialize_entry(
+                "sourceInstantSnapshotGroup",
+                &self.source_instant_snapshot_group,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstantSnapshotGroupResourceStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.consistency_membership_resolution_time.is_some() {
+            state.serialize_entry(
+                "consistencyMembershipResolutionTime",
+                &self.consistency_membership_resolution_time,
+            )?;
+        }
+        if self.source_info.is_some() {
+            state.serialize_entry("sourceInfo", &self.source_info)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstantSnapshotGroupSourceInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.consistency_group.is_some() {
+            state.serialize_entry("consistencyGroup", &self.consistency_group)?;
+        }
+        if self.consistency_group_id.is_some() {
+            state.serialize_entry("consistencyGroupId", &self.consistency_group_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -25874,6 +26088,114 @@ impl serde::ser::Serialize for super::licenses_list_response::warning::Data {
     }
 }
 
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListInstantSnapshotGroups {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.etag.is_some() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::list_instant_snapshot_groups::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(
+    feature = "instant-snapshot-groups",
+    feature = "region-instant-snapshot-groups",
+))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::list_instant_snapshot_groups::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "node-groups", feature = "node-templates",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::LocalDisk {
@@ -25953,6 +26275,7 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -25988,12 +26311,15 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32074,6 +32400,7 @@ impl serde::ser::Serialize for super::notification_endpoints_scoped_list::warnin
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32109,12 +32436,15 @@ impl serde::ser::Serialize for super::notification_endpoints_scoped_list::warnin
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32335,6 +32665,7 @@ impl serde::ser::Serialize for super::Operation {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32370,12 +32701,15 @@ impl serde::ser::Serialize for super::Operation {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32462,6 +32796,7 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32497,12 +32832,15 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32598,6 +32936,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32633,12 +32972,15 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32734,6 +33076,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32769,12 +33112,15 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -32867,6 +33213,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -32902,12 +33249,15 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -34048,45 +34398,6 @@ impl serde::ser::Serialize for super::packet_mirrorings_scoped_list::warning::Da
     }
 }
 
-#[cfg(feature = "instances")]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::PartnerMetadata {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.fingerprint.is_some() {
-            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<
-                        std::option::Option<
-                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
-                        >,
-                    >::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
-        }
-        if !self.partner_metadata.is_empty() {
-            state.serialize_entry("partnerMetadata", &self.partner_metadata)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
 #[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::PathMatcher {
@@ -34231,6 +34542,7 @@ impl serde::ser::Serialize for super::PerInstanceConfig {
     feature = "images",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -34243,8 +34555,10 @@ impl serde::ser::Serialize for super::PerInstanceConfig {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -35710,6 +36024,7 @@ impl serde::ser::Serialize for super::Quota {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -35745,12 +36060,15 @@ impl serde::ser::Serialize for super::Quota {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -37510,6 +37828,7 @@ impl serde::ser::Serialize
     feature = "region-disks",
     feature = "region-instant-snapshots",
     feature = "region-security-policies",
+    feature = "region-snapshots",
     feature = "target-vpn-gateways",
     feature = "vpn-gateways",
     feature = "vpn-tunnels",
@@ -37558,8 +37877,10 @@ impl serde::ser::Serialize for super::RegionSetLabelsRequest {
     feature = "region-backend-buckets",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-snapshots",
     feature = "resource-policies",
     feature = "service-attachments",
     feature = "subnetworks",
@@ -37595,6 +37916,29 @@ impl serde::ser::Serialize for super::RegionSetPolicyRequest {
         }
         if self.policy.is_some() {
             state.serialize_entry("policy", &self.policy)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-snapshots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RegionSnapshotUpdateKmsKeyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.kms_key_name.is_some() {
+            state.serialize_entry("kmsKeyName", &self.kms_key_name)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -45209,6 +45553,7 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -45244,12 +45589,15 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -45339,6 +45687,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -45374,12 +45723,15 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -45652,7 +46004,12 @@ impl serde::ser::Serialize for super::SignedUrlKey {
     }
 }
 
-#[cfg(any(feature = "disks", feature = "region-disks", feature = "snapshots",))]
+#[cfg(any(
+    feature = "disks",
+    feature = "region-disks",
+    feature = "region-snapshots",
+    feature = "snapshots",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Snapshot {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45794,6 +46151,9 @@ impl serde::ser::Serialize for super::Snapshot {
         if self.params.is_some() {
             state.serialize_entry("params", &self.params)?;
         }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
         if self.satisfies_pzi.is_some() {
             state.serialize_entry("satisfiesPzi", &self.satisfies_pzi)?;
         }
@@ -45805,6 +46165,12 @@ impl serde::ser::Serialize for super::Snapshot {
         }
         if self.snapshot_encryption_key.is_some() {
             state.serialize_entry("snapshotEncryptionKey", &self.snapshot_encryption_key)?;
+        }
+        if self.snapshot_group_id.is_some() {
+            state.serialize_entry("snapshotGroupId", &self.snapshot_group_id)?;
+        }
+        if self.snapshot_group_name.is_some() {
+            state.serialize_entry("snapshotGroupName", &self.snapshot_group_name)?;
         }
         if self.snapshot_type.is_some() {
             state.serialize_entry("snapshotType", &self.snapshot_type)?;
@@ -45880,7 +46246,36 @@ impl serde::ser::Serialize for super::Snapshot {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "disks", feature = "region-disks",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SnapshotGroupParameters {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.replica_zones.is_empty() {
+            state.serialize_entry("replicaZones", &self.replica_zones)?;
+        }
+        if self.source_snapshot_group.is_some() {
+            state.serialize_entry("sourceSnapshotGroup", &self.source_snapshot_group)?;
+        }
+        if self.r#type.is_some() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SnapshotList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45918,7 +46313,7 @@ impl serde::ser::Serialize for super::SnapshotList {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::snapshot_list::Warning {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45947,7 +46342,7 @@ impl serde::ser::Serialize for super::snapshot_list::Warning {
     }
 }
 
-#[cfg(feature = "snapshots")]
+#[cfg(any(feature = "region-snapshots", feature = "snapshots",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::snapshot_list::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45973,7 +46368,12 @@ impl serde::ser::Serialize for super::snapshot_list::warning::Data {
     }
 }
 
-#[cfg(any(feature = "disks", feature = "region-disks", feature = "snapshots",))]
+#[cfg(any(
+    feature = "disks",
+    feature = "region-disks",
+    feature = "region-snapshots",
+    feature = "snapshots",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SnapshotParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45996,7 +46396,7 @@ impl serde::ser::Serialize for super::SnapshotParams {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SnapshotSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -46007,6 +46407,9 @@ impl serde::ser::Serialize for super::SnapshotSettings {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.access_location.is_some() {
+            state.serialize_entry("accessLocation", &self.access_location)?;
+        }
         if self.storage_location.is_some() {
             state.serialize_entry("storageLocation", &self.storage_location)?;
         }
@@ -46019,7 +46422,56 @@ impl serde::ser::Serialize for super::SnapshotSettings {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SnapshotSettingsAccessLocation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.locations.is_empty() {
+            state.serialize_entry("locations", &self.locations)?;
+        }
+        if self.policy.is_some() {
+            state.serialize_entry("policy", &self.policy)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SnapshotSettingsAccessLocationAccessLocationPreference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SnapshotSettingsStorageLocationSettings {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -46045,7 +46497,7 @@ impl serde::ser::Serialize for super::SnapshotSettingsStorageLocationSettings {
     }
 }
 
-#[cfg(feature = "snapshot-settings")]
+#[cfg(any(feature = "region-snapshot-settings", feature = "snapshot-settings",))]
 #[doc(hidden)]
 impl serde::ser::Serialize
     for super::SnapshotSettingsStorageLocationSettingsStorageLocationPreference
@@ -47203,6 +47655,7 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "instance-settings",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-attachments",
@@ -47238,12 +47691,15 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-instance-groups",
     feature = "region-instance-templates",
     feature = "region-instances",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-endpoint-groups",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
     feature = "region-operations",
     feature = "region-security-policies",
+    feature = "region-snapshot-settings",
+    feature = "region-snapshots",
     feature = "region-ssl-certificates",
     feature = "region-ssl-policies",
     feature = "region-target-http-proxies",
@@ -48697,35 +49153,6 @@ impl serde::ser::Serialize for super::storage_pools_scoped_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[cfg(any(
-    feature = "instance-templates",
-    feature = "instances",
-    feature = "machine-images",
-    feature = "region-instance-templates",
-    feature = "region-instances",
-))]
-#[doc(hidden)]
-impl serde::ser::Serialize for super::StructuredEntries {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.entries.is_empty() {
-            state.serialize_entry("entries", &self.entries)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -52490,6 +52917,7 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "instance-groups",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -52512,9 +52940,11 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "region-health-checks",
     feature = "region-health-sources",
     feature = "region-instance-groups",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -52570,6 +53000,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "instance-groups",
     feature = "instance-templates",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "interconnect-attachment-groups",
     feature = "interconnect-groups",
@@ -52592,9 +53023,11 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "region-health-checks",
     feature = "region-health-sources",
     feature = "region-instance-groups",
+    feature = "region-instant-snapshot-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
     feature = "region-notification-endpoints",
+    feature = "region-snapshots",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
@@ -56040,6 +56473,7 @@ impl serde::ser::Serialize for super::ZoneSetNestedPolicyRequest {
 #[cfg(any(
     feature = "disks",
     feature = "instances",
+    feature = "instant-snapshot-groups",
     feature = "instant-snapshots",
     feature = "node-groups",
     feature = "reservations",
