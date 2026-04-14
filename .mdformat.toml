@@ -17,7 +17,4 @@
 # Possible values: {"keep", "no", INTEGER}
 wrap = 80
 
-exclude = [
-    "**/generated/**",
-    "**/grpc-mock/**",
-]
+exclude = ["**/generated/**", "**/grpc-mock/**"]
