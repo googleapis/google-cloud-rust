@@ -1545,8 +1545,7 @@ libraries:
         - output: src/storage/src/generated/protos/storage
           api_path: google/storage/v2
           template: prost
-        - language: rust_storage
-          output: src/storage/src/control/generated
+        - output: src/storage/src/control/generated
           specification_format: none
           api_path: google/storage/v2
           template: storage
@@ -1739,11 +1738,11 @@ libraries:
     skip_release: true
     rust:
       modules:
-        - output: src/storage/grpc-mock
-          api_path: google/storage/v2
-          service_config: google/storage/v2/storage_v2.yaml
-          include_grpc_only_methods: true
+        - include_grpc_only_methods: true
           include_streaming_methods: true
+          output: src/storage/grpc-mock
+          service_config: google/storage/v2/storage_v2.yaml
+          api_path: google/storage/v2
           template: grpc-mock
         - output: src/storage/grpc-mock/src/generated/protos
           api_path: google/storage/v2
