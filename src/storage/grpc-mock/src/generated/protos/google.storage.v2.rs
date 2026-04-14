@@ -2260,36 +2260,6 @@ pub mod storage_client {
     )]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /// ## API Overview and Naming Syntax
-    ///
-    /// The Cloud Storage gRPC API allows applications to read and write data through
-    /// the abstractions of buckets and objects. For a description of these
-    /// abstractions please see [Cloud Storage
-    /// documentation](https://cloud.google.com/storage/docs).
-    ///
-    /// Resources are named as follows:
-    ///
-    /// * Projects are referred to as they are defined by the Resource Manager API,
-    ///  using strings like `projects/123456` or `projects/my-string-id`.
-    ///
-    /// * Buckets are named using string names of the form:
-    ///  `projects/{project}/buckets/{bucket}`.
-    ///  For globally unique buckets, `_` might be substituted for the project.
-    ///
-    /// * Objects are uniquely identified by their name along with the name of the
-    ///  bucket they belong to, as separate strings in this API. For example:
-    ///
-    ///  ```text
-    ///  ```
-    ///  ReadObjectRequest {
-    ///  bucket: 'projects/_/buckets/my-bucket'
-    ///  object: 'my-object'
-    ///  }
-    ///  ```
-    ///  ```
-    ///
-    /// Note that object names can contain `/` characters, which are treated as
-    /// any other character (no special directory semantics).
     #[derive(Debug, Clone)]
     pub struct StorageClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -2370,30 +2340,6 @@ pub mod storage_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /// Permanently deletes an empty bucket.
-        /// The request fails if there are any live or
-        /// noncurrent objects in the bucket, but the request succeeds if the
-        /// bucket only contains soft-deleted objects or incomplete uploads, such
-        /// as ongoing XML API multipart uploads. Does not permanently delete
-        /// soft-deleted objects.
-        ///
-        /// When this API is used to delete a bucket containing an object that has a
-        /// soft delete policy
-        /// enabled, the object becomes soft deleted, and the
-        /// `softDeleteTime` and `hardDeleteTime` properties are set on the
-        /// object.
-        ///
-        /// Objects and multipart uploads that were in the bucket at the time of
-        /// deletion are also retained for the specified retention duration. When
-        /// a soft-deleted bucket reaches the end of its retention duration, it
-        /// is permanently deleted. The `hardDeleteTime` of the bucket always
-        /// equals
-        /// or exceeds the expiration time of the last soft-deleted object in the
-        /// bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.delete` IAM permission on the bucket.
         pub async fn delete_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteBucketRequest>,
@@ -2415,17 +2361,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteBucket"));
             self.inner.unary(req, path, codec).await
         }
-        /// Returns metadata for the specified bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.get`
-        /// IAM permission on
-        /// the bucket. Additionally, to return specific bucket metadata, the
-        /// authenticated user must have the following permissions:
-        ///
-        /// * To return the IAM policies: `storage.buckets.getIamPolicy`
-        /// * To return the bucket IP filtering rules: `storage.buckets.getIpFilter`
         pub async fn get_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::GetBucketRequest>,
@@ -2447,17 +2382,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "GetBucket"));
             self.inner.unary(req, path, codec).await
         }
-        /// Creates a new bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.create` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated user
-        /// must have the following permissions:
-        ///
-        /// * To enable object retention using the `enableObjectRetention` query
-        ///  parameter: `storage.buckets.enableObjectRetention`
-        /// * To set the bucket IP filtering rules: `storage.buckets.setIpFilter`
         pub async fn create_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::CreateBucketRequest>,
@@ -2479,17 +2403,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "CreateBucket"));
             self.inner.unary(req, path, codec).await
         }
-        /// Retrieves a list of buckets for a given project, ordered
-        /// lexicographically by name.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.list` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated
-        /// user must have the following permissions:
-        ///
-        /// * To list the IAM policies: `storage.buckets.getIamPolicy`
-        /// * To list the bucket IP filtering rules: `storage.buckets.getIpFilter`
         pub async fn list_buckets(
             &mut self,
             request: impl tonic::IntoRequest<super::ListBucketsRequest>,
@@ -2514,25 +2427,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "ListBuckets"));
             self.inner.unary(req, path, codec).await
         }
-        /// Permanently locks the retention
-        /// policy that is
-        /// currently applied to the specified bucket.
-        ///
-        /// Caution: Locking a bucket is an
-        /// irreversible action. Once you lock a bucket:
-        ///
-        /// * You cannot remove the retention policy from the bucket.
-        /// * You cannot decrease the retention period for the policy.
-        ///
-        /// Once locked, you must delete the entire bucket in order to remove the
-        /// bucket's retention policy. However, before you can delete the bucket, you
-        /// must delete all the objects in the bucket, which is only
-        /// possible if all the objects have reached the retention period set by the
-        /// retention policy.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.update` IAM permission on the bucket.
         pub async fn lock_bucket_retention_policy(
             &mut self,
             request: impl tonic::IntoRequest<super::LockBucketRetentionPolicyRequest>,
@@ -2559,17 +2453,6 @@ pub mod storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// Gets the IAM policy for a specified bucket or managed folder.
-        /// The `resource` field in the request should be
-        /// `projects/_/buckets/{bucket}` for a bucket, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.getIamPolicy` on the bucket or
-        /// `storage.managedFolders.getIamPolicy` IAM permission on the
-        /// managed folder.
         pub async fn get_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<
@@ -2596,11 +2479,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "GetIamPolicy"));
             self.inner.unary(req, path, codec).await
         }
-        /// Updates an IAM policy for the specified bucket or managed folder.
-        /// The `resource` field in the request should be
-        /// `projects/_/buckets/{bucket}` for a bucket, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
         pub async fn set_iam_policy(
             &mut self,
             request: impl tonic::IntoRequest<
@@ -2627,12 +2505,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "SetIamPolicy"));
             self.inner.unary(req, path, codec).await
         }
-        /// Tests a set of permissions on the given bucket, object, or managed folder
-        /// to see which, if any, are held by the caller. The `resource` field in the
-        /// request should be `projects/_/buckets/{bucket}` for a bucket,
-        /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
         pub async fn test_iam_permissions(
             &mut self,
             request: impl tonic::IntoRequest<
@@ -2661,19 +2533,6 @@ pub mod storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// Updates a bucket. Changes to the bucket are readable immediately after
-        /// writing, but configuration changes might take time to propagate. This
-        /// method supports `patch` semantics.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.update` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated user
-        /// must have the following permissions:
-        ///
-        /// * To set bucket IP filtering rules: `storage.buckets.setIpFilter`
-        /// * To update public access prevention policies or access control lists
-        ///  (ACLs): `storage.buckets.setIamPolicy`
         pub async fn update_bucket(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateBucketRequest>,
@@ -2695,17 +2554,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateBucket"));
             self.inner.unary(req, path, codec).await
         }
-        /// Concatenates a list of existing objects into a new object in the same
-        /// bucket. The existing source objects are unaffected by this operation.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the `storage.objects.create` and `storage.objects.get` IAM
-        /// permissions to use this method. If the new composite object
-        /// overwrites an existing object, the authenticated user must also have
-        /// the `storage.objects.delete` permission. If the request body includes
-        /// the retention property, the authenticated user must also have the
-        /// `storage.objects.setRetention` IAM permission.
         pub async fn compose_object(
             &mut self,
             request: impl tonic::IntoRequest<super::ComposeObjectRequest>,
@@ -2727,24 +2575,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "ComposeObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Deletes an object and its metadata. Deletions are permanent if versioning
-        /// is not enabled for the bucket, or if the generation parameter is used, or
-        /// if soft delete is not
-        /// enabled for the bucket.
-        /// When this API is used to delete an object from a bucket that has soft
-        /// delete policy enabled, the object becomes soft deleted, and the
-        /// `softDeleteTime` and `hardDeleteTime` properties are set on the object.
-        /// This API cannot be used to permanently delete soft-deleted objects.
-        /// Soft-deleted objects are permanently deleted according to their
-        /// `hardDeleteTime`.
-        ///
-        /// You can use the \[`RestoreObject`\]\[google.storage.v2.Storage.RestoreObject\]
-        /// API to restore soft-deleted objects until the soft delete retention period
-        /// has passed.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.delete` IAM permission on the bucket.
         pub async fn delete_object(
             &mut self,
             request: impl tonic::IntoRequest<super::DeleteObjectRequest>,
@@ -2766,43 +2596,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "DeleteObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Restores a
-        /// soft-deleted object.
-        /// When a soft-deleted object is restored, a new copy of that object is
-        /// created in the same bucket and inherits the same metadata as the
-        /// soft-deleted object. The inherited metadata is the metadata that existed
-        /// when the original object became soft deleted, with the following
-        /// exceptions:
-        ///
-        /// * The `createTime` of the new object is set to the time at which the
-        ///  soft-deleted object was restored.
-        /// * The `softDeleteTime` and `hardDeleteTime` values are cleared.
-        /// * A new generation is assigned and the metageneration is reset to 1.
-        /// * If the soft-deleted object was in a bucket that had Autoclass enabled,
-        ///  the new object is
-        ///  restored to Standard storage.
-        /// * The restored object inherits the bucket's default object ACL, unless
-        ///  `copySourceAcl` is `true`.
-        ///
-        /// If a live object using the same name already exists in the bucket and
-        /// becomes overwritten, the live object becomes a noncurrent object if Object
-        /// Versioning is enabled on the bucket. If Object Versioning is not enabled,
-        /// the live object becomes soft deleted.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the following IAM permissions to use this method:
-        ///
-        /// * `storage.objects.restore`
-        /// * `storage.objects.create`
-        /// * `storage.objects.delete` (only required if overwriting an existing
-        ///  object)
-        /// * `storage.objects.getIamPolicy` (only required if `projection` is `full`
-        ///  and the relevant bucket
-        ///  has uniform bucket-level access disabled)
-        /// * `storage.objects.setIamPolicy` (only required if `copySourceAcl` is
-        ///  `true` and the relevant
-        ///  bucket has uniform bucket-level access disabled)
         pub async fn restore_object(
             &mut self,
             request: impl tonic::IntoRequest<super::RestoreObjectRequest>,
@@ -2824,14 +2617,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "RestoreObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Cancels an in-progress resumable upload.
-        ///
-        /// Any attempts to write to the resumable upload after cancelling the upload
-        /// fail.
-        ///
-        /// The behavior for any in-progress write operations is not guaranteed;
-        /// they could either complete before the cancellation or fail if the
-        /// cancellation completes first.
         pub async fn cancel_resumable_write(
             &mut self,
             request: impl tonic::IntoRequest<super::CancelResumableWriteRequest>,
@@ -2858,13 +2643,6 @@ pub mod storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// Retrieves object metadata.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
-        /// To return object ACLs, the authenticated user must also have
-        /// the `storage.objects.getIamPolicy` permission.
         pub async fn get_object(
             &mut self,
             request: impl tonic::IntoRequest<super::GetObjectRequest>,
@@ -2886,11 +2664,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "GetObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Retrieves object data.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
         pub async fn read_object(
             &mut self,
             request: impl tonic::IntoRequest<super::ReadObjectRequest>,
@@ -2915,18 +2688,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "ReadObject"));
             self.inner.server_streaming(req, path, codec).await
         }
-        /// Reads an object's data.
-        ///
-        /// This bi-directional API reads data from an object, allowing you to request
-        /// multiple data ranges within a single stream, even across several messages.
-        /// If an error occurs with any request, the stream closes with a relevant
-        /// error code. Since you can have multiple outstanding requests, the error
-        /// response includes a `BidiReadObjectError` proto in its `details` field,
-        /// reporting the specific error, if any, for each pending `read_id`.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
         pub async fn bidi_read_object(
             &mut self,
             request: impl tonic::IntoStreamingRequest<
@@ -2953,12 +2714,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "BidiReadObject"));
             self.inner.streaming(req, path, codec).await
         }
-        /// Updates an object's metadata.
-        /// Equivalent to JSON API's `storage.objects.patch` method.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.update` IAM permission on the bucket.
         pub async fn update_object(
             &mut self,
             request: impl tonic::IntoRequest<super::UpdateObjectRequest>,
@@ -2980,72 +2735,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Stores a new object and metadata.
-        ///
-        /// An object can be written either in a single message stream or in a
-        /// resumable sequence of message streams. To write using a single stream,
-        /// the client should include in the first message of the stream an
-        /// `WriteObjectSpec` describing the destination bucket, object, and any
-        /// preconditions. Additionally, the final message must set 'finish_write' to
-        /// true, or else it is an error.
-        ///
-        /// For a resumable write, the client should instead call
-        /// `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
-        /// They should then attach the returned `upload_id` to the first message of
-        /// each following call to `WriteObject`. If the stream is closed before
-        /// finishing the upload (either explicitly by the client or due to a network
-        /// error or an error response from the server), the client should do as
-        /// follows:
-        ///
-        /// * Check the result Status of the stream, to determine if writing can be
-        ///  resumed on this stream or must be restarted from scratch (by calling
-        ///  `StartResumableWrite()`). The resumable errors are `DEADLINE_EXCEEDED`,
-        ///  `INTERNAL`, and `UNAVAILABLE`. For each case, the client should use
-        ///  binary exponential backoff before retrying.  Additionally, writes can
-        ///  be resumed after `RESOURCE_EXHAUSTED` errors, but only after taking
-        ///  appropriate measures, which might include reducing aggregate send rate
-        ///  across clients and/or requesting a quota increase for your project.
-        /// * If the call to `WriteObject` returns `ABORTED`, that indicates
-        ///  concurrent attempts to update the resumable write, caused either by
-        ///  multiple racing clients or by a single client where the previous
-        ///  request was timed out on the client side but nonetheless reached the
-        ///  server. In this case the client should take steps to prevent further
-        ///  concurrent writes. For example, increase the timeouts and stop using
-        ///  more than one process to perform the upload. Follow the steps below for
-        ///  resuming the upload.
-        /// * For resumable errors, the client should call `QueryWriteStatus()` and
-        ///  then continue writing from the returned `persisted_size`. This might be
-        ///  less than the amount of data the client previously sent. Note also that
-        ///  it is acceptable to send data starting at an offset earlier than the
-        ///  returned `persisted_size`; in this case, the service skips data at
-        ///  offsets that were already persisted (without checking that it matches
-        ///  the previously written data), and write only the data starting from the
-        ///  persisted offset. Even though the data isn't written, it might still
-        ///  incur a performance cost over resuming at the correct write offset.
-        ///  This behavior can make client-side handling simpler in some cases.
-        /// * Clients must only send data that is a multiple of 256 KiB per message,
-        ///  unless the object is being finished with `finish_write` set to `true`.
-        ///
-        /// The service does not view the object as complete until the client has
-        /// sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
-        /// requests on a stream after sending a request with `finish_write` set to
-        /// `true` causes an error. The client must check the response it
-        /// receives to determine how much data the service is able to commit and
-        /// whether the service views the object as complete.
-        ///
-        /// Attempting to resume an already finalized object results in an `OK`
-        /// status, with a `WriteObjectResponse` containing the finalized object's
-        /// metadata.
-        ///
-        /// Alternatively, you can use the `BidiWriteObject` operation to write an
-        /// object with controls over flushing and the ability to fetch the ability to
-        /// determine the current persisted size.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.create`
-        /// IAM permission on
-        /// the bucket.
         pub async fn write_object(
             &mut self,
             request: impl tonic::IntoStreamingRequest<
@@ -3072,21 +2761,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "WriteObject"));
             self.inner.client_streaming(req, path, codec).await
         }
-        /// Stores a new object and metadata.
-        ///
-        /// This is similar to the `WriteObject` call with the added support for
-        /// manual flushing of persisted state, and the ability to determine current
-        /// persisted size without closing the stream.
-        ///
-        /// The client might specify one or both of the `state_lookup` and `flush`
-        /// fields in each `BidiWriteObjectRequest`. If `flush` is specified, the data
-        /// written so far is persisted to storage. If `state_lookup` is specified, the
-        /// service responds with a `BidiWriteObjectResponse` that contains the
-        /// persisted size. If both `flush` and `state_lookup` are specified, the flush
-        /// always occurs before a `state_lookup`, so that both might be set in the
-        /// same request and the returned state is the state of the object
-        /// post-flush. When the stream is closed, a `BidiWriteObjectResponse`
-        /// is always sent to the client, regardless of the value of `state_lookup`.
         pub async fn bidi_write_object(
             &mut self,
             request: impl tonic::IntoStreamingRequest<
@@ -3113,14 +2787,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "BidiWriteObject"));
             self.inner.streaming(req, path, codec).await
         }
-        /// Retrieves a list of objects matching the criteria.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// The authenticated user requires `storage.objects.list`
-        /// IAM permission to use this method. To return object ACLs, the
-        /// authenticated user must also
-        /// have the `storage.objects.getIamPolicy` permission.
         pub async fn list_objects(
             &mut self,
             request: impl tonic::IntoRequest<super::ListObjectsRequest>,
@@ -3145,8 +2811,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "ListObjects"));
             self.inner.unary(req, path, codec).await
         }
-        /// Rewrites a source object to a destination object. Optionally overrides
-        /// metadata.
         pub async fn rewrite_object(
             &mut self,
             request: impl tonic::IntoRequest<super::RewriteObjectRequest>,
@@ -3171,17 +2835,6 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "RewriteObject"));
             self.inner.unary(req, path, codec).await
         }
-        /// Starts a resumable write operation. This
-        /// method is part of the Resumable
-        /// upload feature.
-        /// This allows you to upload large objects in multiple chunks, which is more
-        /// resilient to network interruptions than a single upload. The validity
-        /// duration of the write operation, and the consequences of it becoming
-        /// invalid, are service-dependent.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.create` IAM permission on the bucket.
         pub async fn start_resumable_write(
             &mut self,
             request: impl tonic::IntoRequest<super::StartResumableWriteRequest>,
@@ -3208,23 +2861,6 @@ pub mod storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// Determines the `persisted_size` of an object that is being written. This
-        /// method is part of the resumable
-        /// upload feature.
-        /// The returned value is the size of the object that has been persisted so
-        /// far. The value can be used as the `write_offset` for the next `Write()`
-        /// call.
-        ///
-        /// If the object does not exist, meaning if it was deleted, or the
-        /// first `Write()` has not yet reached the service, this method returns the
-        /// error `NOT_FOUND`.
-        ///
-        /// This method is useful for clients that buffer data and need to know which
-        /// data can be safely evicted. The client can call `QueryWriteStatus()` at any
-        /// time to determine how much data has been logged for this object.
-        /// For any sequence of `QueryWriteStatus()` calls for a given
-        /// object name, the sequence of returned `persisted_size` values are
-        /// non-decreasing.
         pub async fn query_write_status(
             &mut self,
             request: impl tonic::IntoRequest<super::QueryWriteStatusRequest>,
@@ -3251,20 +2887,6 @@ pub mod storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /// Moves the source object to the destination object in the same bucket.
-        /// This operation moves a source object to a destination object in the
-        /// same bucket by renaming the object. The move itself is an atomic
-        /// transaction, ensuring all steps either complete successfully or no
-        /// changes are made.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the following IAM permissions to use this method:
-        ///
-        /// * `storage.objects.move`
-        /// * `storage.objects.create`
-        /// * `storage.objects.delete` (only required if overwriting an existing
-        ///  object)
         pub async fn move_object(
             &mut self,
             request: impl tonic::IntoRequest<super::MoveObjectRequest>,
@@ -3301,75 +2923,18 @@ pub mod storage_server {
     /// Generated trait containing gRPC methods that should be implemented for use with StorageServer.
     #[async_trait]
     pub trait Storage: std::marker::Send + std::marker::Sync + 'static {
-        /// Permanently deletes an empty bucket.
-        /// The request fails if there are any live or
-        /// noncurrent objects in the bucket, but the request succeeds if the
-        /// bucket only contains soft-deleted objects or incomplete uploads, such
-        /// as ongoing XML API multipart uploads. Does not permanently delete
-        /// soft-deleted objects.
-        ///
-        /// When this API is used to delete a bucket containing an object that has a
-        /// soft delete policy
-        /// enabled, the object becomes soft deleted, and the
-        /// `softDeleteTime` and `hardDeleteTime` properties are set on the
-        /// object.
-        ///
-        /// Objects and multipart uploads that were in the bucket at the time of
-        /// deletion are also retained for the specified retention duration. When
-        /// a soft-deleted bucket reaches the end of its retention duration, it
-        /// is permanently deleted. The `hardDeleteTime` of the bucket always
-        /// equals
-        /// or exceeds the expiration time of the last soft-deleted object in the
-        /// bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.delete` IAM permission on the bucket.
         async fn delete_bucket(
             &self,
             request: tonic::Request<super::DeleteBucketRequest>,
         ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
-        /// Returns metadata for the specified bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.get`
-        /// IAM permission on
-        /// the bucket. Additionally, to return specific bucket metadata, the
-        /// authenticated user must have the following permissions:
-        ///
-        /// * To return the IAM policies: `storage.buckets.getIamPolicy`
-        /// * To return the bucket IP filtering rules: `storage.buckets.getIpFilter`
         async fn get_bucket(
             &self,
             request: tonic::Request<super::GetBucketRequest>,
         ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
-        /// Creates a new bucket.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.create` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated user
-        /// must have the following permissions:
-        ///
-        /// * To enable object retention using the `enableObjectRetention` query
-        ///  parameter: `storage.buckets.enableObjectRetention`
-        /// * To set the bucket IP filtering rules: `storage.buckets.setIpFilter`
         async fn create_bucket(
             &self,
             request: tonic::Request<super::CreateBucketRequest>,
         ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
-        /// Retrieves a list of buckets for a given project, ordered
-        /// lexicographically by name.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.list` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated
-        /// user must have the following permissions:
-        ///
-        /// * To list the IAM policies: `storage.buckets.getIamPolicy`
-        /// * To list the bucket IP filtering rules: `storage.buckets.getIpFilter`
         async fn list_buckets(
             &self,
             request: tonic::Request<super::ListBucketsRequest>,
@@ -3377,40 +2942,10 @@ pub mod storage_server {
             tonic::Response<super::ListBucketsResponse>,
             tonic::Status,
         >;
-        /// Permanently locks the retention
-        /// policy that is
-        /// currently applied to the specified bucket.
-        ///
-        /// Caution: Locking a bucket is an
-        /// irreversible action. Once you lock a bucket:
-        ///
-        /// * You cannot remove the retention policy from the bucket.
-        /// * You cannot decrease the retention period for the policy.
-        ///
-        /// Once locked, you must delete the entire bucket in order to remove the
-        /// bucket's retention policy. However, before you can delete the bucket, you
-        /// must delete all the objects in the bucket, which is only
-        /// possible if all the objects have reached the retention period set by the
-        /// retention policy.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.update` IAM permission on the bucket.
         async fn lock_bucket_retention_policy(
             &self,
             request: tonic::Request<super::LockBucketRetentionPolicyRequest>,
         ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
-        /// Gets the IAM policy for a specified bucket or managed folder.
-        /// The `resource` field in the request should be
-        /// `projects/_/buckets/{bucket}` for a bucket, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.getIamPolicy` on the bucket or
-        /// `storage.managedFolders.getIamPolicy` IAM permission on the
-        /// managed folder.
         async fn get_iam_policy(
             &self,
             request: tonic::Request<super::super::super::iam::v1::GetIamPolicyRequest>,
@@ -3418,11 +2953,6 @@ pub mod storage_server {
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         >;
-        /// Updates an IAM policy for the specified bucket or managed folder.
-        /// The `resource` field in the request should be
-        /// `projects/_/buckets/{bucket}` for a bucket, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
         async fn set_iam_policy(
             &self,
             request: tonic::Request<super::super::super::iam::v1::SetIamPolicyRequest>,
@@ -3430,12 +2960,6 @@ pub mod storage_server {
             tonic::Response<super::super::super::iam::v1::Policy>,
             tonic::Status,
         >;
-        /// Tests a set of permissions on the given bucket, object, or managed folder
-        /// to see which, if any, are held by the caller. The `resource` field in the
-        /// request should be `projects/_/buckets/{bucket}` for a bucket,
-        /// `projects/_/buckets/{bucket}/objects/{object}` for an object, or
-        /// `projects/_/buckets/{bucket}/managedFolders/{managedFolder}`
-        /// for a managed folder.
         async fn test_iam_permissions(
             &self,
             request: tonic::Request<
@@ -3445,109 +2969,22 @@ pub mod storage_server {
             tonic::Response<super::super::super::iam::v1::TestIamPermissionsResponse>,
             tonic::Status,
         >;
-        /// Updates a bucket. Changes to the bucket are readable immediately after
-        /// writing, but configuration changes might take time to propagate. This
-        /// method supports `patch` semantics.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.buckets.update` IAM permission on the bucket.
-        /// Additionally, to enable specific bucket features, the authenticated user
-        /// must have the following permissions:
-        ///
-        /// * To set bucket IP filtering rules: `storage.buckets.setIpFilter`
-        /// * To update public access prevention policies or access control lists
-        ///  (ACLs): `storage.buckets.setIamPolicy`
         async fn update_bucket(
             &self,
             request: tonic::Request<super::UpdateBucketRequest>,
         ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
-        /// Concatenates a list of existing objects into a new object in the same
-        /// bucket. The existing source objects are unaffected by this operation.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the `storage.objects.create` and `storage.objects.get` IAM
-        /// permissions to use this method. If the new composite object
-        /// overwrites an existing object, the authenticated user must also have
-        /// the `storage.objects.delete` permission. If the request body includes
-        /// the retention property, the authenticated user must also have the
-        /// `storage.objects.setRetention` IAM permission.
         async fn compose_object(
             &self,
             request: tonic::Request<super::ComposeObjectRequest>,
         ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
-        /// Deletes an object and its metadata. Deletions are permanent if versioning
-        /// is not enabled for the bucket, or if the generation parameter is used, or
-        /// if soft delete is not
-        /// enabled for the bucket.
-        /// When this API is used to delete an object from a bucket that has soft
-        /// delete policy enabled, the object becomes soft deleted, and the
-        /// `softDeleteTime` and `hardDeleteTime` properties are set on the object.
-        /// This API cannot be used to permanently delete soft-deleted objects.
-        /// Soft-deleted objects are permanently deleted according to their
-        /// `hardDeleteTime`.
-        ///
-        /// You can use the \[`RestoreObject`\]\[google.storage.v2.Storage.RestoreObject\]
-        /// API to restore soft-deleted objects until the soft delete retention period
-        /// has passed.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.delete` IAM permission on the bucket.
         async fn delete_object(
             &self,
             request: tonic::Request<super::DeleteObjectRequest>,
         ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
-        /// Restores a
-        /// soft-deleted object.
-        /// When a soft-deleted object is restored, a new copy of that object is
-        /// created in the same bucket and inherits the same metadata as the
-        /// soft-deleted object. The inherited metadata is the metadata that existed
-        /// when the original object became soft deleted, with the following
-        /// exceptions:
-        ///
-        /// * The `createTime` of the new object is set to the time at which the
-        ///  soft-deleted object was restored.
-        /// * The `softDeleteTime` and `hardDeleteTime` values are cleared.
-        /// * A new generation is assigned and the metageneration is reset to 1.
-        /// * If the soft-deleted object was in a bucket that had Autoclass enabled,
-        ///  the new object is
-        ///  restored to Standard storage.
-        /// * The restored object inherits the bucket's default object ACL, unless
-        ///  `copySourceAcl` is `true`.
-        ///
-        /// If a live object using the same name already exists in the bucket and
-        /// becomes overwritten, the live object becomes a noncurrent object if Object
-        /// Versioning is enabled on the bucket. If Object Versioning is not enabled,
-        /// the live object becomes soft deleted.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the following IAM permissions to use this method:
-        ///
-        /// * `storage.objects.restore`
-        /// * `storage.objects.create`
-        /// * `storage.objects.delete` (only required if overwriting an existing
-        ///  object)
-        /// * `storage.objects.getIamPolicy` (only required if `projection` is `full`
-        ///  and the relevant bucket
-        ///  has uniform bucket-level access disabled)
-        /// * `storage.objects.setIamPolicy` (only required if `copySourceAcl` is
-        ///  `true` and the relevant
-        ///  bucket has uniform bucket-level access disabled)
         async fn restore_object(
             &self,
             request: tonic::Request<super::RestoreObjectRequest>,
         ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
-        /// Cancels an in-progress resumable upload.
-        ///
-        /// Any attempts to write to the resumable upload after cancelling the upload
-        /// fail.
-        ///
-        /// The behavior for any in-progress write operations is not guaranteed;
-        /// they could either complete before the cancellation or fail if the
-        /// cancellation completes first.
         async fn cancel_resumable_write(
             &self,
             request: tonic::Request<super::CancelResumableWriteRequest>,
@@ -3555,13 +2992,6 @@ pub mod storage_server {
             tonic::Response<super::CancelResumableWriteResponse>,
             tonic::Status,
         >;
-        /// Retrieves object metadata.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
-        /// To return object ACLs, the authenticated user must also have
-        /// the `storage.objects.getIamPolicy` permission.
         async fn get_object(
             &self,
             request: tonic::Request<super::GetObjectRequest>,
@@ -3572,11 +3002,6 @@ pub mod storage_server {
             >
             + std::marker::Send
             + 'static;
-        /// Retrieves object data.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
         async fn read_object(
             &self,
             request: tonic::Request<super::ReadObjectRequest>,
@@ -3587,18 +3012,6 @@ pub mod storage_server {
             >
             + std::marker::Send
             + 'static;
-        /// Reads an object's data.
-        ///
-        /// This bi-directional API reads data from an object, allowing you to request
-        /// multiple data ranges within a single stream, even across several messages.
-        /// If an error occurs with any request, the stream closes with a relevant
-        /// error code. Since you can have multiple outstanding requests, the error
-        /// response includes a `BidiReadObjectError` proto in its `details` field,
-        /// reporting the specific error, if any, for each pending `read_id`.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.get` IAM permission on the bucket.
         async fn bidi_read_object(
             &self,
             request: tonic::Request<tonic::Streaming<super::BidiReadObjectRequest>>,
@@ -3606,82 +3019,10 @@ pub mod storage_server {
             tonic::Response<Self::BidiReadObjectStream>,
             tonic::Status,
         >;
-        /// Updates an object's metadata.
-        /// Equivalent to JSON API's `storage.objects.patch` method.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.update` IAM permission on the bucket.
         async fn update_object(
             &self,
             request: tonic::Request<super::UpdateObjectRequest>,
         ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
-        /// Stores a new object and metadata.
-        ///
-        /// An object can be written either in a single message stream or in a
-        /// resumable sequence of message streams. To write using a single stream,
-        /// the client should include in the first message of the stream an
-        /// `WriteObjectSpec` describing the destination bucket, object, and any
-        /// preconditions. Additionally, the final message must set 'finish_write' to
-        /// true, or else it is an error.
-        ///
-        /// For a resumable write, the client should instead call
-        /// `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
-        /// They should then attach the returned `upload_id` to the first message of
-        /// each following call to `WriteObject`. If the stream is closed before
-        /// finishing the upload (either explicitly by the client or due to a network
-        /// error or an error response from the server), the client should do as
-        /// follows:
-        ///
-        /// * Check the result Status of the stream, to determine if writing can be
-        ///  resumed on this stream or must be restarted from scratch (by calling
-        ///  `StartResumableWrite()`). The resumable errors are `DEADLINE_EXCEEDED`,
-        ///  `INTERNAL`, and `UNAVAILABLE`. For each case, the client should use
-        ///  binary exponential backoff before retrying.  Additionally, writes can
-        ///  be resumed after `RESOURCE_EXHAUSTED` errors, but only after taking
-        ///  appropriate measures, which might include reducing aggregate send rate
-        ///  across clients and/or requesting a quota increase for your project.
-        /// * If the call to `WriteObject` returns `ABORTED`, that indicates
-        ///  concurrent attempts to update the resumable write, caused either by
-        ///  multiple racing clients or by a single client where the previous
-        ///  request was timed out on the client side but nonetheless reached the
-        ///  server. In this case the client should take steps to prevent further
-        ///  concurrent writes. For example, increase the timeouts and stop using
-        ///  more than one process to perform the upload. Follow the steps below for
-        ///  resuming the upload.
-        /// * For resumable errors, the client should call `QueryWriteStatus()` and
-        ///  then continue writing from the returned `persisted_size`. This might be
-        ///  less than the amount of data the client previously sent. Note also that
-        ///  it is acceptable to send data starting at an offset earlier than the
-        ///  returned `persisted_size`; in this case, the service skips data at
-        ///  offsets that were already persisted (without checking that it matches
-        ///  the previously written data), and write only the data starting from the
-        ///  persisted offset. Even though the data isn't written, it might still
-        ///  incur a performance cost over resuming at the correct write offset.
-        ///  This behavior can make client-side handling simpler in some cases.
-        /// * Clients must only send data that is a multiple of 256 KiB per message,
-        ///  unless the object is being finished with `finish_write` set to `true`.
-        ///
-        /// The service does not view the object as complete until the client has
-        /// sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
-        /// requests on a stream after sending a request with `finish_write` set to
-        /// `true` causes an error. The client must check the response it
-        /// receives to determine how much data the service is able to commit and
-        /// whether the service views the object as complete.
-        ///
-        /// Attempting to resume an already finalized object results in an `OK`
-        /// status, with a `WriteObjectResponse` containing the finalized object's
-        /// metadata.
-        ///
-        /// Alternatively, you can use the `BidiWriteObject` operation to write an
-        /// object with controls over flushing and the ability to fetch the ability to
-        /// determine the current persisted size.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.create`
-        /// IAM permission on
-        /// the bucket.
         async fn write_object(
             &self,
             request: tonic::Request<tonic::Streaming<super::WriteObjectRequest>>,
@@ -3695,21 +3036,6 @@ pub mod storage_server {
             >
             + std::marker::Send
             + 'static;
-        /// Stores a new object and metadata.
-        ///
-        /// This is similar to the `WriteObject` call with the added support for
-        /// manual flushing of persisted state, and the ability to determine current
-        /// persisted size without closing the stream.
-        ///
-        /// The client might specify one or both of the `state_lookup` and `flush`
-        /// fields in each `BidiWriteObjectRequest`. If `flush` is specified, the data
-        /// written so far is persisted to storage. If `state_lookup` is specified, the
-        /// service responds with a `BidiWriteObjectResponse` that contains the
-        /// persisted size. If both `flush` and `state_lookup` are specified, the flush
-        /// always occurs before a `state_lookup`, so that both might be set in the
-        /// same request and the returned state is the state of the object
-        /// post-flush. When the stream is closed, a `BidiWriteObjectResponse`
-        /// is always sent to the client, regardless of the value of `state_lookup`.
         async fn bidi_write_object(
             &self,
             request: tonic::Request<tonic::Streaming<super::BidiWriteObjectRequest>>,
@@ -3717,14 +3043,6 @@ pub mod storage_server {
             tonic::Response<Self::BidiWriteObjectStream>,
             tonic::Status,
         >;
-        /// Retrieves a list of objects matching the criteria.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// The authenticated user requires `storage.objects.list`
-        /// IAM permission to use this method. To return object ACLs, the
-        /// authenticated user must also
-        /// have the `storage.objects.getIamPolicy` permission.
         async fn list_objects(
             &self,
             request: tonic::Request<super::ListObjectsRequest>,
@@ -3732,23 +3050,10 @@ pub mod storage_server {
             tonic::Response<super::ListObjectsResponse>,
             tonic::Status,
         >;
-        /// Rewrites a source object to a destination object. Optionally overrides
-        /// metadata.
         async fn rewrite_object(
             &self,
             request: tonic::Request<super::RewriteObjectRequest>,
         ) -> std::result::Result<tonic::Response<super::RewriteResponse>, tonic::Status>;
-        /// Starts a resumable write operation. This
-        /// method is part of the Resumable
-        /// upload feature.
-        /// This allows you to upload large objects in multiple chunks, which is more
-        /// resilient to network interruptions than a single upload. The validity
-        /// duration of the write operation, and the consequences of it becoming
-        /// invalid, are service-dependent.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires `storage.objects.create` IAM permission on the bucket.
         async fn start_resumable_write(
             &self,
             request: tonic::Request<super::StartResumableWriteRequest>,
@@ -3756,23 +3061,6 @@ pub mod storage_server {
             tonic::Response<super::StartResumableWriteResponse>,
             tonic::Status,
         >;
-        /// Determines the `persisted_size` of an object that is being written. This
-        /// method is part of the resumable
-        /// upload feature.
-        /// The returned value is the size of the object that has been persisted so
-        /// far. The value can be used as the `write_offset` for the next `Write()`
-        /// call.
-        ///
-        /// If the object does not exist, meaning if it was deleted, or the
-        /// first `Write()` has not yet reached the service, this method returns the
-        /// error `NOT_FOUND`.
-        ///
-        /// This method is useful for clients that buffer data and need to know which
-        /// data can be safely evicted. The client can call `QueryWriteStatus()` at any
-        /// time to determine how much data has been logged for this object.
-        /// For any sequence of `QueryWriteStatus()` calls for a given
-        /// object name, the sequence of returned `persisted_size` values are
-        /// non-decreasing.
         async fn query_write_status(
             &self,
             request: tonic::Request<super::QueryWriteStatusRequest>,
@@ -3780,55 +3068,11 @@ pub mod storage_server {
             tonic::Response<super::QueryWriteStatusResponse>,
             tonic::Status,
         >;
-        /// Moves the source object to the destination object in the same bucket.
-        /// This operation moves a source object to a destination object in the
-        /// same bucket by renaming the object. The move itself is an atomic
-        /// transaction, ensuring all steps either complete successfully or no
-        /// changes are made.
-        ///
-        /// **IAM Permissions**:
-        ///
-        /// Requires the following IAM permissions to use this method:
-        ///
-        /// * `storage.objects.move`
-        /// * `storage.objects.create`
-        /// * `storage.objects.delete` (only required if overwriting an existing
-        ///  object)
         async fn move_object(
             &self,
             request: tonic::Request<super::MoveObjectRequest>,
         ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
     }
-    /// ## API Overview and Naming Syntax
-    ///
-    /// The Cloud Storage gRPC API allows applications to read and write data through
-    /// the abstractions of buckets and objects. For a description of these
-    /// abstractions please see [Cloud Storage
-    /// documentation](https://cloud.google.com/storage/docs).
-    ///
-    /// Resources are named as follows:
-    ///
-    /// * Projects are referred to as they are defined by the Resource Manager API,
-    ///  using strings like `projects/123456` or `projects/my-string-id`.
-    ///
-    /// * Buckets are named using string names of the form:
-    ///  `projects/{project}/buckets/{bucket}`.
-    ///  For globally unique buckets, `_` might be substituted for the project.
-    ///
-    /// * Objects are uniquely identified by their name along with the name of the
-    ///  bucket they belong to, as separate strings in this API. For example:
-    ///
-    ///  ```text
-    ///  ```
-    ///  ReadObjectRequest {
-    ///  bucket: 'projects/_/buckets/my-bucket'
-    ///  object: 'my-object'
-    ///  }
-    ///  ```
-    ///  ```
-    ///
-    /// Note that object names can contain `/` characters, which are treated as
-    /// any other character (no special directory semantics).
     #[derive(Debug)]
     pub struct StorageServer<T> {
         inner: Arc<T>,
