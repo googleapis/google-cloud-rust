@@ -115,6 +115,7 @@ wrappers = [
   # Use in tests is fine.
   "grpc-server",
   "integration-tests-o11y",
+  "integration-tests-grpc-mock",
   "pubsub-grpc-mock",
   "spanner-grpc-mock",
   "storage-grpc-mock",
