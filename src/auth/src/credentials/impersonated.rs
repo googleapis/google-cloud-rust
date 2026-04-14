@@ -918,6 +918,7 @@ mod tests {
     use serde_json::Value;
     use serde_json::json;
     use serial_test::parallel;
+    use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
 
@@ -1784,91 +1785,82 @@ mod tests {
         );
     }
 
-    #[tokio::test]
-    #[parallel]
-    async fn test_with_universe_domain() -> TestResult {
-        let source_credentials =
-            crate::credentials::service_account::Builder::new(serde_json::json!({
-                "type": "service_account",
-                "client_email": "test-client-email",
-                "private_key_id": "test-private-key-id",
-                "private_key": Value::from(PKCS8_PK.clone()),
-                "project_id": "test-project-id",
-                "universe_domain": "my-custom-universe.com",
-            }))
-            .build()?;
-
-        let creds = Builder::from_source_credentials(source_credentials.clone())
-            .with_target_principal("test-principal@example.iam.gserviceaccount.com")
-            .build()?;
-
-        assert_eq!(
-            creds.universe_domain().await,
-            Some("my-custom-universe.com".to_string())
-        );
-
-        let creds = Builder::from_source_credentials(source_credentials)
-            .with_target_principal("test-principal@example.iam.gserviceaccount.com")
-            .with_universe_domain("another-universe.com")
-            .build()?;
-
-        assert_eq!(
-            creds.universe_domain().await,
-            Some("another-universe.com".to_string())
-        );
-
-        Ok(())
+    fn source_creds_with_universe_domain(source_universe_domain: &str) -> Value {
+        serde_json::json!({
+            "type": "service_account",
+            "client_email": "test-client-email",
+            "private_key_id": "test-private-key-id",
+            "private_key": Value::from(PKCS8_PK.clone()),
+            "project_id": "test-project-id",
+            "universe_domain": source_universe_domain,
+        })
     }
 
-    #[tokio::test]
-    #[parallel]
-    async fn test_with_universe_domain_mds_source() -> TestResult {
-        let source_credentials = crate::credentials::mds::Builder::default().build()?;
-
-        let creds = Builder::from_source_credentials(source_credentials.clone())
+    fn service_account_builder_with_universe(source_universe_domain: &str) -> Builder {
+        let source_creds = source_creds_with_universe_domain(source_universe_domain);
+        let source_credentials = crate::credentials::service_account::Builder::new(source_creds)
+            .build()
+            .expect("Failed to build service account credentials");
+        Builder::from_source_credentials(source_credentials)
             .with_target_principal("test-principal@example.iam.gserviceaccount.com")
-            .build()?;
-
-        let universe_domain = creds.universe_domain().await;
-        assert!(
-            is_default_universe_domain(universe_domain.clone()),
-            "{universe_domain:?}"
-        );
-
-        Ok(())
     }
 
-    #[tokio::test]
-    #[parallel]
-    async fn test_with_universe_domain_from_json() -> TestResult {
+    fn mds_builder() -> Builder {
+        let source_credentials = crate::credentials::mds::Builder::default()
+            .build()
+            .expect("Failed to build MDS credentials");
+        Builder::from_source_credentials(source_credentials)
+            .with_target_principal("test-principal@example.iam.gserviceaccount.com")
+    }
+
+    fn json_builder_with_universe(source_universe_domain: &str) -> Builder {
+        let source_creds = source_creds_with_universe_domain(source_universe_domain);
         let impersonated_credential = serde_json::json!({
             "type": "impersonated_service_account",
             "service_account_impersonation_url": "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
-            "source_credentials": {
-                "type": "service_account",
-                "client_email": "test-client-email",
-                "private_key_id": "test-private-key-id",
-                "private_key": Value::from(PKCS8_PK.clone()),
-                "project_id": "test-project-id",
-                "universe_domain": "my-custom-universe.com",
-            }
+            "source_credentials": source_creds,
         });
+        Builder::new(impersonated_credential)
+    }
 
-        let creds = Builder::new(impersonated_credential.clone()).build()?;
+    #[test_case(service_account_builder_with_universe("my-custom-universe.com"); "service account as source")]
+    #[test_case(json_builder_with_universe("my-custom-universe.com"); "credentials from json")]
+    #[parallel]
+    #[tokio::test]
+    async fn universe_domain_from_source(builder: Builder) -> TestResult {
+        let creds = builder.build()?;
+        let universe_domain = creds.universe_domain().await;
 
-        assert_eq!(
-            creds.universe_domain().await,
-            Some("my-custom-universe.com".to_string())
-        );
+        assert_eq!(universe_domain.as_deref(), Some("my-custom-universe.com"));
 
-        let creds = Builder::new(impersonated_credential)
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn universe_domain_mds_source() -> TestResult {
+        let builder = mds_builder();
+        let creds = builder.build()?;
+        let universe_domain = creds.universe_domain().await;
+
+        assert!(is_default_universe_domain(universe_domain.clone()));
+
+        Ok(())
+    }
+
+    #[test_case(service_account_builder_with_universe("my-custom-universe.com"); "service account as source")]
+    #[test_case(json_builder_with_universe("my-custom-universe.com"); "credentials from json")]
+    #[test_case(mds_builder(); "mds as source")]
+    #[tokio::test]
+    #[parallel]
+    async fn universe_domain_override(builder: Builder) -> TestResult {
+        let creds = builder
             .with_universe_domain("another-universe.com")
             .build()?;
 
-        assert_eq!(
-            creds.universe_domain().await,
-            Some("another-universe.com".to_string())
-        );
+        let universe_domain = creds.universe_domain().await;
+
+        assert_eq!(universe_domain.as_deref(), Some("another-universe.com"));
 
         Ok(())
     }
