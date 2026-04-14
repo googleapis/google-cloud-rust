@@ -234,23 +234,14 @@ impl<T> CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    pub(crate) fn new(
-        credentials: T,
-        access_boundary_url: Option<String>,
-        universe_domain: Option<String>,
-    ) -> Self {
+    pub(crate) fn new(credentials: T, access_boundary_url: Option<String>) -> Self {
         let credentials = Arc::new(credentials);
 
-        // Only enable access boundary for default universe domain
-        let access_boundary = if is_default_universe_domain(universe_domain) {
-            let provider = IAMAccessBoundaryProvider {
-                credentials: credentials.clone(),
-                url: access_boundary_url,
-            };
-            Arc::new(AccessBoundary::new(provider))
-        } else {
-            Arc::new(AccessBoundary::new_no_op())
+        let provider = IAMAccessBoundaryProvider {
+            credentials: credentials.clone(),
+            url: access_boundary_url,
         };
+        let access_boundary = Arc::new(AccessBoundary::new(provider));
         Self {
             credentials,
             access_boundary,
@@ -420,6 +411,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
+        let universe_domain = self.credentials.universe_domain().await;
+        if !is_default_universe_domain(universe_domain) {
+            return Ok(None);
+        }
         match self.url.as_ref() {
             Some(url) => {
                 let client = AccessBoundaryClient::new(self.credentials.clone(), url.clone());
@@ -760,9 +755,11 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+        mock.expect_universe_domain().returning(|| None);
+
         let url = server.url("/allowedLocations").to_string();
 
-        let creds = CredentialsWithAccessBoundary::new(mock, Some(url), None);
+        let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
 
         // wait for the background task to fetch the access boundary.
         creds.wait_for_boundary().await;
@@ -932,7 +929,7 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = CredentialsWithAccessBoundary::new(mock, None, None);
+        let creds = CredentialsWithAccessBoundary::new(mock, None);
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
@@ -1277,12 +1274,10 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+        mock.expect_universe_domain()
+            .returning(|| Some("my-universe-domain.com".to_string()));
 
-        let creds = CredentialsWithAccessBoundary::new(
-            mock,
-            Some("http://localhost".to_string()),
-            Some("my-universe-domain.com".to_string()),
-        );
+        let creds = CredentialsWithAccessBoundary::new(mock, Some("http://localhost".to_string()));
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
