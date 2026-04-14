@@ -564,7 +564,7 @@ pub mod ai_model {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DeploymentPlatform {
@@ -937,7 +937,7 @@ pub mod attack_exposure {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -1496,7 +1496,7 @@ pub mod attack_path {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum NodeType {
@@ -2773,7 +2773,7 @@ pub mod cloud_dlp_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ParentType {
@@ -3169,7 +3169,7 @@ pub mod connection {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Protocol {
@@ -3641,7 +3641,7 @@ pub mod data_access_event {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Operation {
@@ -3913,7 +3913,7 @@ pub mod data_flow_event {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Operation {
@@ -4201,7 +4201,7 @@ pub mod data_retention_deletion_event {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum EventType {
@@ -5375,7 +5375,7 @@ pub mod file {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum OperationType {
@@ -7634,7 +7634,7 @@ pub mod finding {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -7767,7 +7767,7 @@ pub mod finding {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Severity {
@@ -7955,7 +7955,7 @@ pub mod finding {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Mute {
@@ -8094,7 +8094,7 @@ pub mod finding {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FindingClass {
@@ -8396,7 +8396,7 @@ pub mod group_membership {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum GroupType {
@@ -8606,7 +8606,7 @@ pub mod iam_binding {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Action {
@@ -9185,7 +9185,7 @@ pub mod indicator {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum SignatureType {
@@ -9537,7 +9537,7 @@ pub mod ip_rules {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Direction {
@@ -10621,7 +10621,7 @@ pub mod kubernetes {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -10943,7 +10943,7 @@ pub mod kubernetes {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum AuthType {
@@ -11760,7 +11760,7 @@ pub mod mitre_attack {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Tactic {
@@ -11977,7 +11977,7 @@ pub mod mitre_attack {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Technique {
@@ -13475,7 +13475,7 @@ pub mod mute_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MuteConfigType {
@@ -15733,7 +15733,7 @@ pub mod resource_path {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourcePathNodeType {
@@ -16856,7 +16856,7 @@ pub mod bulk_mute_findings_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MuteState {
@@ -21694,7 +21694,7 @@ pub mod valued_resource {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceValue {
@@ -22555,7 +22555,7 @@ pub mod cve {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RiskRating {
@@ -22706,7 +22706,7 @@ pub mod cve {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ExploitationActivity {
@@ -23128,7 +23128,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackVector {
@@ -23280,7 +23280,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackComplexity {
@@ -23419,7 +23419,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PrivilegesRequired {
@@ -23567,7 +23567,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserInteraction {
@@ -23701,7 +23701,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
@@ -23837,7 +23837,7 @@ pub mod cvssv_3 {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Impact {
@@ -24206,7 +24206,7 @@ impl wkt::message::Message for Cwe {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum JobState {
@@ -24352,7 +24352,7 @@ impl<'de> serde::de::Deserialize<'de> for JobState {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum CloudProvider {
@@ -24491,7 +24491,7 @@ impl<'de> serde::de::Deserialize<'de> for CloudProvider {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ResourceValue {

@@ -34,10 +34,8 @@ impl std::fmt::Debug for ApiHub {
 
 impl ApiHub {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -97,7 +95,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -170,7 +167,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -242,7 +238,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -332,7 +327,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -405,7 +399,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -485,7 +478,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -562,7 +554,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -638,7 +629,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -732,7 +722,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -809,7 +798,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -893,7 +881,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -974,7 +961,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1055,7 +1041,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1135,7 +1120,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1233,7 +1217,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1313,7 +1296,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1397,7 +1379,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1478,7 +1459,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1558,7 +1538,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1656,7 +1635,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1736,7 +1714,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1823,7 +1800,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1893,7 +1869,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -1966,7 +1941,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2038,7 +2012,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2128,7 +2101,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2200,7 +2172,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2276,7 +2247,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2349,7 +2319,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2439,7 +2408,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2511,7 +2479,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2589,7 +2556,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2658,7 +2624,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2728,7 +2693,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2801,7 +2765,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2891,7 +2854,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -2963,7 +2925,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3040,7 +3001,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3101,7 +3061,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3168,7 +3127,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3240,7 +3198,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3311,7 +3268,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3382,7 +3338,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3459,7 +3414,6 @@ impl super::stub::ApiHub for ApiHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3502,10 +3456,8 @@ impl std::fmt::Debug for ApiHubDependencies {
 
 impl ApiHubDependencies {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -3565,7 +3517,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3638,7 +3589,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3728,7 +3678,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3800,7 +3749,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3878,7 +3826,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -3939,7 +3886,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4006,7 +3952,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4078,7 +4023,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4149,7 +4093,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4220,7 +4163,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4297,7 +4239,6 @@ impl super::stub::ApiHubDependencies for ApiHubDependencies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4340,10 +4281,8 @@ impl std::fmt::Debug for ApiHubCollect {
 
 impl ApiHubCollect {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -4402,7 +4341,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4463,7 +4401,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4530,7 +4467,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4602,7 +4538,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4673,7 +4608,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4744,7 +4678,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4821,7 +4754,6 @@ impl super::stub::ApiHubCollect for ApiHubCollect {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -4878,10 +4810,8 @@ impl std::fmt::Debug for ApiHubCurate {
 
 impl ApiHubCurate {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -4941,7 +4871,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5014,7 +4943,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5086,7 +5014,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5176,7 +5103,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5248,7 +5174,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5315,7 +5240,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5382,7 +5306,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5454,7 +5377,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5525,7 +5447,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5596,7 +5517,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5673,7 +5593,6 @@ impl super::stub::ApiHubCurate for ApiHubCurate {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5716,10 +5635,8 @@ impl std::fmt::Debug for ApiHubDiscovery {
 
 impl ApiHubDiscovery {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -5780,7 +5697,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5855,7 +5771,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5932,7 +5847,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -5995,7 +5909,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6058,7 +5971,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6125,7 +6037,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6197,7 +6108,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6268,7 +6178,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6339,7 +6248,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6416,7 +6324,6 @@ impl super::stub::ApiHubDiscovery for ApiHubDiscovery {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6459,10 +6366,8 @@ impl std::fmt::Debug for HostProjectRegistrationService {
 
 impl HostProjectRegistrationService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -6525,7 +6430,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6598,7 +6502,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6671,7 +6574,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6732,7 +6634,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6799,7 +6700,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6871,7 +6771,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -6942,7 +6841,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7013,7 +6911,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7090,7 +6987,6 @@ impl super::stub::HostProjectRegistrationService for HostProjectRegistrationServ
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7133,10 +7029,8 @@ impl std::fmt::Debug for LintingService {
 
 impl LintingService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -7201,7 +7095,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7293,7 +7186,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7367,7 +7259,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7448,7 +7339,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7515,7 +7405,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7582,7 +7471,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7654,7 +7542,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7725,7 +7612,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7796,7 +7682,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7873,7 +7758,6 @@ impl super::stub::LintingService for LintingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -7916,10 +7800,8 @@ impl std::fmt::Debug for ApiHubPlugin {
 
 impl ApiHubPlugin {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -7982,7 +7864,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8055,7 +7936,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8128,7 +8008,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8198,7 +8077,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8270,7 +8148,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8343,7 +8220,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8417,7 +8293,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8494,7 +8369,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8573,7 +8447,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8649,7 +8522,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8726,7 +8598,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8805,7 +8676,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8901,7 +8771,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -8977,7 +8846,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9038,7 +8906,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9105,7 +8972,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9177,7 +9043,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9248,7 +9113,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9319,7 +9183,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9396,7 +9259,6 @@ impl super::stub::ApiHubPlugin for ApiHubPlugin {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9453,10 +9315,8 @@ impl std::fmt::Debug for Provisioning {
 
 impl Provisioning {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -9516,7 +9376,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9589,7 +9448,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9662,7 +9520,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9731,7 +9588,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9792,7 +9648,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9859,7 +9714,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -9931,7 +9785,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10002,7 +9855,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10073,7 +9925,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10150,7 +10001,6 @@ impl super::stub::Provisioning for Provisioning {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10207,10 +10057,8 @@ impl std::fmt::Debug for RuntimeProjectAttachmentService {
 
 impl RuntimeProjectAttachmentService {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if tracing_is_enabled {
             inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
         } else {
@@ -10273,7 +10121,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10346,7 +10193,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10419,7 +10265,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10492,7 +10337,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10567,7 +10411,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10628,7 +10471,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10695,7 +10537,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10767,7 +10608,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10838,7 +10678,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10909,7 +10748,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()
@@ -10986,7 +10824,6 @@ impl super::stub::RuntimeProjectAttachmentService for RuntimeProjectAttachmentSe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             recorder.on_client_request(
                 gaxi::observability::ClientRequestAttributes::default()

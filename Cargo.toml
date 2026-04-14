@@ -389,7 +389,7 @@ pin-project           = { default-features = false, version = "1.1.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
 rust_decimal          = { default-features = false, version = "1.41.0", features = ["std"] }
-rustls                = { default-features = false, version = "0.23.37" }
+rustls                = { default-features = false, version = "0.23.38" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.28" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
@@ -399,7 +399,7 @@ sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.48.0" }
-tokio-metrics         = { default-features = false, version = "0.4.9" }
+tokio-metrics         = { default-features = false, version = "0.5.0" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
@@ -468,8 +468,8 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 google-cloud-auth        = { default-features = false, version = "1.9.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.9.1", path = "src/gax" }
 gaxi                     = { default-features = false, version = "0.7.12", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+wkt                      = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt         = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.5.0", path = "src/generated/api/types" }
 google-cloud-iam-v1      = { default-features = false, version = "1.8.0", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1.8.0", path = "src/generated/cloud/location" }
@@ -534,7 +534,6 @@ storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
-  'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trusted_boundaries)',
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.

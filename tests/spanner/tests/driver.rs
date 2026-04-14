@@ -26,6 +26,10 @@ mod spanner {
         integration_tests_spanner::query::query_with_parameters(&db_client).await?;
         integration_tests_spanner::query::result_set_metadata(&db_client).await?;
         integration_tests_spanner::query::multi_use_read_only_transaction(&db_client).await?;
+        integration_tests_spanner::query::multi_use_read_only_transaction_invalid_query_fallback(
+            &db_client,
+        )
+        .await?;
 
         Ok(())
     }

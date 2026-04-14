@@ -37,7 +37,6 @@ impl ReadObjectResponse {
         Self { inner }
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     pub(crate) fn into_parts(self) -> Box<dyn dynamic::ReadObjectResponse + Send + 'static> {
         self.inner
     }

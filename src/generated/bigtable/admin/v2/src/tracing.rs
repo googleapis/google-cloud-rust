@@ -22,7 +22,6 @@ where
     T: super::stub::BigtableInstanceAdmin + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -33,7 +32,6 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             inner,
-            #[cfg(google_cloud_unstable_tracing)]
             duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
         }
     }
@@ -49,17 +47,12 @@ where
         req: crate::model::CreateInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::create_instance",
-                self.inner.create_instance(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_instance(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::create_instance",
+            self.inner.create_instance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -68,17 +61,12 @@ where
         req: crate::model::GetInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Instance>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_instance",
-                self.inner.get_instance(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_instance(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_instance",
+            self.inner.get_instance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -87,17 +75,12 @@ where
         req: crate::model::ListInstancesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListInstancesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_instances",
-                self.inner.list_instances(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_instances(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_instances",
+            self.inner.list_instances(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -106,17 +89,12 @@ where
         req: crate::model::Instance,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Instance>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::update_instance",
-                self.inner.update_instance(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_instance(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_instance",
+            self.inner.update_instance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -125,17 +103,12 @@ where
         req: crate::model::PartialUpdateInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::partial_update_instance",
-                self.inner.partial_update_instance(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.partial_update_instance(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::partial_update_instance",
+            self.inner.partial_update_instance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -144,17 +117,12 @@ where
         req: crate::model::DeleteInstanceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_instance",
-                self.inner.delete_instance(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_instance(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_instance",
+            self.inner.delete_instance(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -163,17 +131,12 @@ where
         req: crate::model::CreateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::create_cluster",
-                self.inner.create_cluster(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_cluster(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::create_cluster",
+            self.inner.create_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -182,17 +145,12 @@ where
         req: crate::model::GetClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Cluster>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_cluster",
-                self.inner.get_cluster(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_cluster(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_cluster",
+            self.inner.get_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -201,17 +159,12 @@ where
         req: crate::model::ListClustersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListClustersResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_clusters",
-                self.inner.list_clusters(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_clusters(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_clusters",
+            self.inner.list_clusters(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -220,17 +173,12 @@ where
         req: crate::model::Cluster,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::update_cluster",
-                self.inner.update_cluster(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_cluster(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_cluster",
+            self.inner.update_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,17 +187,12 @@ where
         req: crate::model::PartialUpdateClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::partial_update_cluster",
-                self.inner.partial_update_cluster(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.partial_update_cluster(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::partial_update_cluster",
+            self.inner.partial_update_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -258,17 +201,12 @@ where
         req: crate::model::DeleteClusterRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_cluster",
-                self.inner.delete_cluster(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_cluster(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_cluster",
+            self.inner.delete_cluster(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -277,17 +215,12 @@ where
         req: crate::model::CreateAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AppProfile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::create_app_profile",
-                self.inner.create_app_profile(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_app_profile(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::create_app_profile",
+            self.inner.create_app_profile(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -296,17 +229,12 @@ where
         req: crate::model::GetAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AppProfile>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_app_profile",
-                self.inner.get_app_profile(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_app_profile(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_app_profile",
+            self.inner.get_app_profile(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -315,17 +243,12 @@ where
         req: crate::model::ListAppProfilesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAppProfilesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_app_profiles",
-                self.inner.list_app_profiles(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_app_profiles(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_app_profiles",
+            self.inner.list_app_profiles(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -334,17 +257,12 @@ where
         req: crate::model::UpdateAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::update_app_profile",
-                self.inner.update_app_profile(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_app_profile(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_app_profile",
+            self.inner.update_app_profile(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -353,17 +271,12 @@ where
         req: crate::model::DeleteAppProfileRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_app_profile",
-                self.inner.delete_app_profile(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_app_profile(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_app_profile",
+            self.inner.delete_app_profile(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -372,17 +285,12 @@ where
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_iam_policy",
-                self.inner.get_iam_policy(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_iam_policy(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -391,17 +299,12 @@ where
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::set_iam_policy",
-                self.inner.set_iam_policy(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.set_iam_policy(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -410,17 +313,12 @@ where
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::test_iam_permissions",
-                self.inner.test_iam_permissions(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.test_iam_permissions(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -429,17 +327,12 @@ where
         req: crate::model::ListHotTabletsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListHotTabletsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_hot_tablets",
-                self.inner.list_hot_tablets(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_hot_tablets(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_hot_tablets",
+            self.inner.list_hot_tablets(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -448,17 +341,12 @@ where
         req: crate::model::CreateLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::create_logical_view",
-                self.inner.create_logical_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_logical_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::create_logical_view",
+            self.inner.create_logical_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -467,17 +355,12 @@ where
         req: crate::model::GetLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LogicalView>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_logical_view",
-                self.inner.get_logical_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_logical_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_logical_view",
+            self.inner.get_logical_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -486,17 +369,12 @@ where
         req: crate::model::ListLogicalViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListLogicalViewsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_logical_views",
-                self.inner.list_logical_views(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_logical_views(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_logical_views",
+            self.inner.list_logical_views(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -505,17 +383,12 @@ where
         req: crate::model::UpdateLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::update_logical_view",
-                self.inner.update_logical_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_logical_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_logical_view",
+            self.inner.update_logical_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -524,17 +397,12 @@ where
         req: crate::model::DeleteLogicalViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_logical_view",
-                self.inner.delete_logical_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_logical_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_logical_view",
+            self.inner.delete_logical_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -543,17 +411,12 @@ where
         req: crate::model::CreateMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::create_materialized_view",
-                self.inner.create_materialized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_materialized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::create_materialized_view",
+            self.inner.create_materialized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -562,17 +425,12 @@ where
         req: crate::model::GetMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::MaterializedView>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_materialized_view",
-                self.inner.get_materialized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_materialized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_materialized_view",
+            self.inner.get_materialized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -581,17 +439,12 @@ where
         req: crate::model::ListMaterializedViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListMaterializedViewsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_materialized_views",
-                self.inner.list_materialized_views(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_materialized_views(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_materialized_views",
+            self.inner.list_materialized_views(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -600,17 +453,12 @@ where
         req: crate::model::UpdateMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::update_materialized_view",
-                self.inner.update_materialized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_materialized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::update_materialized_view",
+            self.inner.update_materialized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -619,17 +467,12 @@ where
         req: crate::model::DeleteMaterializedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_materialized_view",
-                self.inner.delete_materialized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_materialized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_materialized_view",
+            self.inner.delete_materialized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -638,17 +481,12 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::list_operations",
-                self.inner.list_operations(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_operations(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -657,17 +495,12 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::get_operation",
-                self.inner.get_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -676,17 +509,12 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::delete_operation",
-                self.inner.delete_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -695,17 +523,12 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableInstanceAdmin::cancel_operation",
-                self.inner.cancel_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.cancel_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableInstanceAdmin::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
     }
 
     fn get_polling_error_policy(
@@ -730,7 +553,6 @@ where
     T: super::stub::BigtableTableAdmin + std::fmt::Debug + Send + Sync,
 {
     inner: T,
-    #[cfg(google_cloud_unstable_tracing)]
     duration: gaxi::observability::DurationMetric,
 }
 
@@ -741,7 +563,6 @@ where
     pub fn new(inner: T) -> Self {
         Self {
             inner,
-            #[cfg(google_cloud_unstable_tracing)]
             duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
         }
     }
@@ -757,17 +578,12 @@ where
         req: crate::model::CreateTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::create_table",
-                self.inner.create_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::create_table",
+            self.inner.create_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -776,17 +592,12 @@ where
         req: crate::model::CreateTableFromSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::create_table_from_snapshot",
-                self.inner.create_table_from_snapshot(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_table_from_snapshot(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::create_table_from_snapshot",
+            self.inner.create_table_from_snapshot(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -795,17 +606,12 @@ where
         req: crate::model::ListTablesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTablesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_tables",
-                self.inner.list_tables(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_tables(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_tables",
+            self.inner.list_tables(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -814,17 +620,12 @@ where
         req: crate::model::GetTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_table",
-                self.inner.get_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_table",
+            self.inner.get_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -833,17 +634,12 @@ where
         req: crate::model::UpdateTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::update_table",
-                self.inner.update_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::update_table",
+            self.inner.update_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -852,17 +648,12 @@ where
         req: crate::model::DeleteTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_table",
-                self.inner.delete_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_table",
+            self.inner.delete_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -871,17 +662,12 @@ where
         req: crate::model::UndeleteTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::undelete_table",
-                self.inner.undelete_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.undelete_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::undelete_table",
+            self.inner.undelete_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -890,17 +676,12 @@ where
         req: crate::model::CreateAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::create_authorized_view",
-                self.inner.create_authorized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_authorized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::create_authorized_view",
+            self.inner.create_authorized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -909,17 +690,12 @@ where
         req: crate::model::ListAuthorizedViewsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListAuthorizedViewsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_authorized_views",
-                self.inner.list_authorized_views(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_authorized_views(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_authorized_views",
+            self.inner.list_authorized_views(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -928,17 +704,12 @@ where
         req: crate::model::GetAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::AuthorizedView>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_authorized_view",
-                self.inner.get_authorized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_authorized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_authorized_view",
+            self.inner.get_authorized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -947,17 +718,12 @@ where
         req: crate::model::UpdateAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::update_authorized_view",
-                self.inner.update_authorized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_authorized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::update_authorized_view",
+            self.inner.update_authorized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -966,17 +732,12 @@ where
         req: crate::model::DeleteAuthorizedViewRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_authorized_view",
-                self.inner.delete_authorized_view(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_authorized_view(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_authorized_view",
+            self.inner.delete_authorized_view(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -985,17 +746,12 @@ where
         req: crate::model::ModifyColumnFamiliesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Table>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::modify_column_families",
-                self.inner.modify_column_families(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.modify_column_families(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::modify_column_families",
+            self.inner.modify_column_families(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1004,17 +760,12 @@ where
         req: crate::model::DropRowRangeRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::drop_row_range",
-                self.inner.drop_row_range(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.drop_row_range(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::drop_row_range",
+            self.inner.drop_row_range(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1023,17 +774,12 @@ where
         req: crate::model::GenerateConsistencyTokenRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateConsistencyTokenResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::generate_consistency_token",
-                self.inner.generate_consistency_token(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.generate_consistency_token(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::generate_consistency_token",
+            self.inner.generate_consistency_token(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1042,17 +788,12 @@ where
         req: crate::model::CheckConsistencyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CheckConsistencyResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::check_consistency",
-                self.inner.check_consistency(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.check_consistency(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::check_consistency",
+            self.inner.check_consistency(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1061,17 +802,12 @@ where
         req: crate::model::SnapshotTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::snapshot_table",
-                self.inner.snapshot_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.snapshot_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::snapshot_table",
+            self.inner.snapshot_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1080,17 +816,12 @@ where
         req: crate::model::GetSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Snapshot>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_snapshot",
-                self.inner.get_snapshot(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_snapshot(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_snapshot",
+            self.inner.get_snapshot(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1099,17 +830,12 @@ where
         req: crate::model::ListSnapshotsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSnapshotsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_snapshots",
-                self.inner.list_snapshots(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_snapshots(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_snapshots",
+            self.inner.list_snapshots(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1118,17 +844,12 @@ where
         req: crate::model::DeleteSnapshotRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_snapshot",
-                self.inner.delete_snapshot(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_snapshot(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_snapshot",
+            self.inner.delete_snapshot(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1137,17 +858,12 @@ where
         req: crate::model::CreateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::create_backup",
-                self.inner.create_backup(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_backup(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::create_backup",
+            self.inner.create_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1156,17 +872,12 @@ where
         req: crate::model::GetBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_backup",
-                self.inner.get_backup(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_backup(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_backup",
+            self.inner.get_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1175,17 +886,12 @@ where
         req: crate::model::UpdateBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Backup>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::update_backup",
-                self.inner.update_backup(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_backup(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::update_backup",
+            self.inner.update_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1194,17 +900,12 @@ where
         req: crate::model::DeleteBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_backup",
-                self.inner.delete_backup(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_backup(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_backup",
+            self.inner.delete_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1213,17 +914,12 @@ where
         req: crate::model::ListBackupsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBackupsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_backups",
-                self.inner.list_backups(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_backups(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_backups",
+            self.inner.list_backups(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1232,17 +928,12 @@ where
         req: crate::model::RestoreTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::restore_table",
-                self.inner.restore_table(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.restore_table(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::restore_table",
+            self.inner.restore_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1251,17 +942,12 @@ where
         req: crate::model::CopyBackupRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::copy_backup",
-                self.inner.copy_backup(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.copy_backup(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::copy_backup",
+            self.inner.copy_backup(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1270,17 +956,12 @@ where
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_iam_policy",
-                self.inner.get_iam_policy(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_iam_policy(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_iam_policy",
+            self.inner.get_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1289,17 +970,12 @@ where
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::set_iam_policy",
-                self.inner.set_iam_policy(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.set_iam_policy(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::set_iam_policy",
+            self.inner.set_iam_policy(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1308,17 +984,12 @@ where
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::test_iam_permissions",
-                self.inner.test_iam_permissions(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.test_iam_permissions(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::test_iam_permissions",
+            self.inner.test_iam_permissions(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1327,17 +998,12 @@ where
         req: crate::model::CreateSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::create_schema_bundle",
-                self.inner.create_schema_bundle(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.create_schema_bundle(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::create_schema_bundle",
+            self.inner.create_schema_bundle(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1346,17 +1012,12 @@ where
         req: crate::model::UpdateSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::update_schema_bundle",
-                self.inner.update_schema_bundle(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.update_schema_bundle(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::update_schema_bundle",
+            self.inner.update_schema_bundle(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1365,17 +1026,12 @@ where
         req: crate::model::GetSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SchemaBundle>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_schema_bundle",
-                self.inner.get_schema_bundle(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_schema_bundle(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_schema_bundle",
+            self.inner.get_schema_bundle(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1384,17 +1040,12 @@ where
         req: crate::model::ListSchemaBundlesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSchemaBundlesResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_schema_bundles",
-                self.inner.list_schema_bundles(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_schema_bundles(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_schema_bundles",
+            self.inner.list_schema_bundles(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1403,17 +1054,12 @@ where
         req: crate::model::DeleteSchemaBundleRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_schema_bundle",
-                self.inner.delete_schema_bundle(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_schema_bundle(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_schema_bundle",
+            self.inner.delete_schema_bundle(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1422,17 +1068,12 @@ where
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::list_operations",
-                self.inner.list_operations(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.list_operations(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1441,17 +1082,12 @@ where
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::get_operation",
-                self.inner.get_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.get_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1460,17 +1096,12 @@ where
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::delete_operation",
-                self.inner.delete_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.delete_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -1479,17 +1110,12 @@ where
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        #[cfg(google_cloud_unstable_tracing)]
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::BigtableTableAdmin::cancel_operation",
-                self.inner.cancel_operation(req, options));
-            pending.await
-        }
-        #[cfg(not(google_cloud_unstable_tracing))]
-        self.inner.cancel_operation(req, options).await
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::BigtableTableAdmin::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
     }
 
     fn get_polling_error_policy(
@@ -1507,7 +1133,6 @@ where
     }
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");

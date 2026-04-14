@@ -808,7 +808,6 @@ impl Builder {
             ));
         }
 
-        let universe_domain = file.universe_domain.clone();
         let config: ExternalAccountConfig = file.into();
 
         let access_boundary_url =
@@ -819,7 +818,6 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             access_boundary_url,
-            universe_domain,
         ))
     }
 }

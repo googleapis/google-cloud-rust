@@ -23,7 +23,6 @@ pub mod request_options;
 pub(crate) mod signed_url;
 pub mod streaming_source;
 pub mod stub;
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod tracing;
 pub(crate) mod transport;
 pub(crate) mod v1;
@@ -50,7 +49,6 @@ pub(crate) mod info {
         ac.grpc_header_value()
     });
 
-    #[cfg(google_cloud_unstable_tracing)]
     pub(crate) static INSTRUMENTATION: LazyLock<gaxi::options::InstrumentationClientInfo> =
         LazyLock::new(|| {
             let mut info = gaxi::options::InstrumentationClientInfo::default();

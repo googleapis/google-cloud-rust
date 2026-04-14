@@ -43,7 +43,7 @@ pub const TARGET: &str = "experimental.client.request";
 /// Decorates the `F` future, which represents a pending client request,
 /// to emit the error logs. Typically this is used in the tracing layer:
 ///
-/// ```ignore
+/// ```no_rust
 /// # struct Client;
 /// # impl Client {
 /// #[tracing::instrument(level = tracing::Level::DEBUG, ret)]

@@ -798,7 +798,7 @@ pub mod certificate_issuance_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum KeyAlgorithm {
@@ -3544,7 +3544,7 @@ pub mod certificate {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Reason {
@@ -3780,7 +3780,7 @@ pub mod certificate {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum State {
@@ -3924,7 +3924,7 @@ pub mod certificate {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum FailureReason {
@@ -4071,7 +4071,7 @@ pub mod certificate {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum State {
@@ -4220,7 +4220,7 @@ pub mod certificate {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
@@ -5048,7 +5048,7 @@ pub mod certificate_map_entry {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Matcher {
@@ -5486,7 +5486,7 @@ pub mod dns_authorization {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -6543,7 +6543,7 @@ pub mod trust_config {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ServingState {

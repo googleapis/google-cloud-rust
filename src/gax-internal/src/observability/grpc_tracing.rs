@@ -37,6 +37,21 @@ impl AttemptCount {
     }
 }
 
+/// A wrapper for the resource name to be stored in request extensions.
+#[derive(Clone, Debug)]
+#[allow(dead_code)]
+pub struct ResourceName(String);
+
+#[allow(dead_code)]
+impl ResourceName {
+    pub fn new(value: String) -> Self {
+        Self(value)
+    }
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+
 /// A type alias for the response body that can be either an instrumented body or a raw body.
 ///
 /// This allows us to return a single type from both the tracing and non-tracing paths
@@ -126,11 +141,16 @@ impl TracingTowerLayer {
             Some("http") => Some(80),
             _ => None,
         });
+        let extracted_domain = default_domain
+            .parse::<http::Uri>()
+            .ok()
+            .and_then(|u| u.host().map(|h| h.to_string()))
+            .unwrap_or(default_domain);
         Self {
             inner: Arc::new(TracingTowerLayerInner {
                 server_address: host,
                 server_port: port.map(|p| p as i64),
-                url_domain: default_domain,
+                url_domain: extracted_domain,
                 instrumentation,
             }),
         }
@@ -179,9 +199,15 @@ where
 
     fn call(&mut self, mut req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
-        let resource_name = RequestRecorder::current()
-            .map(|r| r.client_snapshot())
-            .and_then(|s| s.resource_name().map(|n| n.to_string()));
+        let resource_name = req
+            .extensions()
+            .get::<ResourceName>()
+            .map(|r| r.as_str().to_string())
+            .or_else(|| {
+                RequestRecorder::current()
+                    .map(|r| r.client_snapshot())
+                    .and_then(|s| s.resource_name().map(|n| n.to_string()))
+            });
         let span = create_grpc_span(
             req.uri(),
             &self.layer.inner,

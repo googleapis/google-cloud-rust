@@ -17,42 +17,30 @@
 //! This module and its sub-modules contain types and functions for emitting
 //! tracing spans and metrics.
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod propagation;
 
-#[cfg(google_cloud_unstable_tracing)]
 pub(crate) mod attributes;
 
-#[cfg(all(
-    google_cloud_unstable_tracing,
-    any(feature = "_internal-http-client", feature = "_internal-grpc-client")
-))]
+#[cfg(any(feature = "_internal-http-client", feature = "_internal-grpc-client"))]
 mod errors;
 
-#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+#[cfg(feature = "_internal-http-client")]
 pub(crate) mod http_tracing;
 
-#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
+#[cfg(feature = "_internal-http-client")]
 pub(crate) use http_tracing::{ResultExt as HttpResultExt, create_http_attempt_span};
 
-#[cfg(all(google_cloud_unstable_tracing, feature = "_internal-grpc-client"))]
+#[cfg(feature = "_internal-grpc-client")]
 pub(crate) mod grpc_tracing;
 
-#[cfg(google_cloud_unstable_tracing)]
 mod client_signals;
 
-#[cfg(google_cloud_unstable_tracing)]
 pub use client_signals::{
     ClientRequestAttributes, DurationMetric, RequestRecorder, TransportMetric, WithClientLogging,
     WithClientMetric, WithClientSpan, WithTransportMetric,
 };
 
-#[cfg(all(
-    google_cloud_unstable_tracing,
-    any(feature = "_internal-http-client", feature = "_internal-grpc-client")
-))]
 pub use client_signals::{WithTransportLogging, WithTransportSpan};
 
 #[doc(hidden)]
-#[cfg(google_cloud_unstable_tracing)]
 pub use attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, SCHEMA_URL_VALUE};

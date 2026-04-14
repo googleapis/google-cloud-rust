@@ -46,7 +46,7 @@ const METRIC_UNIT: &str = "s";
 ///
 /// Typically client libraries will use this as:
 ///
-/// ```ignore
+/// ```no_rust
 /// #[derive(Clone, Debug)]
 /// struct TracingLayer<T> {
 ///     inner: T /* where T implements the client trait */

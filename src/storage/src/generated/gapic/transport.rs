@@ -50,7 +50,6 @@ impl std::fmt::Debug for StorageControl {
 
 impl StorageControl {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if gaxi::options::tracing_enabled(&config) {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -61,8 +60,6 @@ impl StorageControl {
         } else {
             gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
         };
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -118,7 +115,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/DeleteBucket");
@@ -187,7 +183,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Bucket;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/GetBucket");
@@ -280,7 +275,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Bucket;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/CreateBucket");
@@ -349,7 +343,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::ListBucketsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ListBuckets");
@@ -423,7 +416,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Bucket;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/LockBucketRetentionPolicy");
@@ -498,7 +490,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Bucket;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/UpdateBucket");
@@ -576,7 +567,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Object;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ComposeObject");
@@ -645,7 +635,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/DeleteObject");
@@ -717,7 +706,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Object;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/RestoreObject");
@@ -786,7 +774,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Object;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/GetObject");
@@ -861,7 +848,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Object;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/UpdateObject");
@@ -930,7 +916,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::ListObjectsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/ListObjects");
@@ -1022,7 +1007,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::RewriteResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/RewriteObject");
@@ -1091,7 +1075,6 @@ impl super::stub::StorageControl for StorageControl {
         }
 
         type TR = crate::google::storage::v2::Object;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.storage.v2.Storage/MoveObject");

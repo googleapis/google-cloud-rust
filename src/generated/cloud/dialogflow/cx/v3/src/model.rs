@@ -2585,7 +2585,7 @@ pub mod export_agent_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -3149,7 +3149,7 @@ pub mod restore_agent_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -5806,7 +5806,7 @@ pub mod data_store_connection_signals {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -5951,7 +5951,7 @@ pub mod data_store_connection_signals {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -6216,7 +6216,7 @@ pub mod data_store_connection_signals {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -6363,7 +6363,7 @@ pub mod data_store_connection_signals {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -6772,7 +6772,7 @@ pub mod deployment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "deployments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -7499,7 +7499,7 @@ pub mod entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "entity-types",
         feature = "session-entity-types",
@@ -7689,7 +7689,7 @@ pub mod entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "entity-types",
         feature = "session-entity-types",
@@ -8076,7 +8076,7 @@ pub mod export_entity_types_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "entity-types")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -8626,7 +8626,7 @@ pub mod import_entity_types_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "entity-types")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -10647,7 +10647,7 @@ pub mod continuous_test_result {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "environments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -13091,7 +13091,7 @@ pub mod experiment {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "experiments")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -13263,7 +13263,7 @@ pub mod experiment {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "experiments")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -13415,7 +13415,7 @@ pub mod experiment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "experiments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -14736,7 +14736,7 @@ pub mod nlu_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "flows",
         feature = "sessions",
@@ -14922,7 +14922,7 @@ pub mod nlu_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "flows",
         feature = "sessions",
@@ -16598,7 +16598,7 @@ pub mod import_flow_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "flows")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -20809,7 +20809,7 @@ pub mod import_intents_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "intents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -21373,7 +21373,7 @@ pub mod export_intents_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "intents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -24064,7 +24064,7 @@ pub mod parameter_definition {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "flows",
         feature = "playbooks",
@@ -25662,7 +25662,7 @@ pub mod playbook {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "playbooks")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -26471,7 +26471,7 @@ pub mod export_playbook_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "playbooks")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -29290,7 +29290,7 @@ pub mod response_message {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(
         feature = "flows",
         feature = "pages",
@@ -29937,7 +29937,7 @@ pub mod safety_settings {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "agents")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -30097,7 +30097,7 @@ pub mod safety_settings {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "agents")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -30295,7 +30295,7 @@ pub mod safety_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31378,7 +31378,7 @@ pub mod security_settings {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "security-settings-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -31568,7 +31568,7 @@ pub mod security_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31702,7 +31702,7 @@ pub mod security_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31838,7 +31838,7 @@ pub mod security_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -31976,7 +31976,7 @@ pub mod security_settings {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -32297,7 +32297,7 @@ pub mod answer_feedback {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -32933,7 +32933,7 @@ pub mod detect_intent_response {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -34298,7 +34298,7 @@ pub mod streaming_recognition_result {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -35482,7 +35482,7 @@ pub mod boost_spec {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "sessions")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -35636,7 +35636,7 @@ pub mod boost_spec {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "sessions")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -37503,7 +37503,7 @@ pub mod r#match {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -38547,7 +38547,7 @@ pub mod session_entity_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -40158,7 +40158,7 @@ pub mod test_run_difference {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -41239,7 +41239,7 @@ pub mod calculate_coverage_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -41701,7 +41701,7 @@ pub mod list_test_cases_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -43150,7 +43150,7 @@ pub mod export_test_cases_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -45351,7 +45351,7 @@ pub mod tool {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "tools")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -45542,7 +45542,7 @@ pub mod tool {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(feature = "tools")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
@@ -45807,7 +45807,7 @@ pub mod tool {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(feature = "tools")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -46142,7 +46142,7 @@ pub mod tool {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "tools")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -49536,7 +49536,7 @@ pub mod validation_message {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "agents", feature = "flows",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -49763,7 +49763,7 @@ pub mod validation_message {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(any(feature = "agents", feature = "flows",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -50174,7 +50174,7 @@ pub mod version {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[cfg(feature = "versions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
@@ -51823,7 +51823,7 @@ pub mod webhook {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -51984,7 +51984,7 @@ pub mod webhook {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -52128,7 +52128,7 @@ pub mod webhook {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
@@ -54591,7 +54591,7 @@ pub mod webhook_response {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[cfg(all(
             feature = "agents",
             feature = "changelogs",
@@ -55546,7 +55546,7 @@ pub mod page_info {
             /// Please consult the [Working with enums] section in the user guide for some
             /// guidelines.
             ///
-            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
             #[cfg(all(
                 feature = "agents",
                 feature = "changelogs",
@@ -56185,7 +56185,7 @@ impl wkt::message::Message for LanguageInfo {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -56398,7 +56398,7 @@ impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -56565,7 +56565,7 @@ impl<'de> serde::de::Deserialize<'de> for SpeechModelVariant {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "agents", feature = "sessions",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -56714,7 +56714,7 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "sessions")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -56890,7 +56890,7 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "flows",
     feature = "pages",
@@ -57093,7 +57093,7 @@ impl<'de> serde::de::Deserialize<'de> for DataStoreType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "flows",
     feature = "pages",
@@ -57292,7 +57292,7 @@ impl<'de> serde::de::Deserialize<'de> for DocumentProcessingMode {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "flows", feature = "playbooks",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -57459,7 +57459,7 @@ impl<'de> serde::de::Deserialize<'de> for ImportStrategy {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "intents")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -57603,7 +57603,7 @@ impl<'de> serde::de::Deserialize<'de> for IntentView {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(
     feature = "flows",
     feature = "playbooks",
@@ -57806,7 +57806,7 @@ impl<'de> serde::de::Deserialize<'de> for DataType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "sessions")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -57964,7 +57964,7 @@ impl<'de> serde::de::Deserialize<'de> for DetectIntentResponseView {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(feature = "test-cases")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -58105,7 +58105,7 @@ impl<'de> serde::de::Deserialize<'de> for TestResult {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]

@@ -542,7 +542,6 @@ impl Builder {
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
-            universe_domain,
         ))
     }
 
