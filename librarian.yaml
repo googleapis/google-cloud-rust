@@ -1549,7 +1549,7 @@ libraries:
           output: src/storage/src/control/generated
           specification_format: none
           api_path: google/storage/v2
-          template: prost
+          template: storage
   - name: google-cloud-storagebatchoperations-v1
     version: 1.9.0
     copyright_year: "2025"
