@@ -85,23 +85,37 @@ pub trait Storage {
     async fn read_object(
         &self,
         request: tonic::Request<google::storage::v2::ReadObjectRequest>,
-    ) -> tonic::Result<tonic::Response<mpsc::Receiver<tonic::Result<google::storage::v2::ReadObjectResponse>>>>;
+    ) -> tonic::Result<
+        tonic::Response<mpsc::Receiver<tonic::Result<google::storage::v2::ReadObjectResponse>>>,
+    >;
     async fn bidi_read_object(
         &self,
-        request: tonic::Request<mpsc::Receiver<tonic::Result<google::storage::v2::BidiReadObjectRequest>>>,
-    ) -> tonic::Result<tonic::Response<mpsc::Receiver<tonic::Result<google::storage::v2::BidiReadObjectResponse>>>>;
+        request: tonic::Request<
+            mpsc::Receiver<tonic::Result<google::storage::v2::BidiReadObjectRequest>>,
+        >,
+    ) -> tonic::Result<
+        tonic::Response<mpsc::Receiver<tonic::Result<google::storage::v2::BidiReadObjectResponse>>>,
+    >;
     async fn update_object(
         &self,
         request: tonic::Request<google::storage::v2::UpdateObjectRequest>,
     ) -> tonic::Result<tonic::Response<google::storage::v2::Object>>;
     async fn write_object(
         &self,
-        request: tonic::Request<mpsc::Receiver<tonic::Result<google::storage::v2::WriteObjectRequest>>>,
+        request: tonic::Request<
+            mpsc::Receiver<tonic::Result<google::storage::v2::WriteObjectRequest>>,
+        >,
     ) -> tonic::Result<tonic::Response<google::storage::v2::WriteObjectResponse>>;
     async fn bidi_write_object(
         &self,
-        request: tonic::Request<mpsc::Receiver<tonic::Result<google::storage::v2::BidiWriteObjectRequest>>>,
-    ) -> tonic::Result<tonic::Response<mpsc::Receiver<tonic::Result<google::storage::v2::BidiWriteObjectResponse>>>>;
+        request: tonic::Request<
+            mpsc::Receiver<tonic::Result<google::storage::v2::BidiWriteObjectRequest>>,
+        >,
+    ) -> tonic::Result<
+        tonic::Response<
+            mpsc::Receiver<tonic::Result<google::storage::v2::BidiWriteObjectResponse>>,
+        >,
+    >;
     async fn list_objects(
         &self,
         request: tonic::Request<google::storage::v2::ListObjectsRequest>,
@@ -223,7 +237,8 @@ impl google::storage::v2::storage_server::Storage for MockStorage {
             extensions,
         ))
     }
-    type BidiReadObjectStream = ReceiverStream<tonic::Result<google::storage::v2::BidiReadObjectResponse>>;
+    type BidiReadObjectStream =
+        ReceiverStream<tonic::Result<google::storage::v2::BidiReadObjectResponse>>;
     async fn bidi_read_object(
         &self,
         request: tonic::Request<tonic::Streaming<google::storage::v2::BidiReadObjectRequest>>,
@@ -250,7 +265,8 @@ impl google::storage::v2::storage_server::Storage for MockStorage {
         let request = adapt_streaming_request(request);
         self::Storage::write_object(self, request).await
     }
-    type BidiWriteObjectStream = ReceiverStream<tonic::Result<google::storage::v2::BidiWriteObjectResponse>>;
+    type BidiWriteObjectStream =
+        ReceiverStream<tonic::Result<google::storage::v2::BidiWriteObjectResponse>>;
     async fn bidi_write_object(
         &self,
         request: tonic::Request<tonic::Streaming<google::storage::v2::BidiWriteObjectRequest>>,

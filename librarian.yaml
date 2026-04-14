@@ -1741,7 +1741,7 @@ libraries:
           include_grpc_only_methods: true
           include_streaming_methods: true
           template: grpc-mock
-        - output: src/storage/grpc-mock/src/protos
+        - output: src/storage/grpc-mock/src/generated/protos
           api_path: google/storage/v2
           template: tonic
   - name: storage-random

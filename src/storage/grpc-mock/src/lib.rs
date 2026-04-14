@@ -107,4 +107,4 @@ pub fn to_uri(addr: SocketAddr) -> String {
     }
 }
 
-include!("protos/includes.rs");
+include!("generated/protos/includes.rs");
