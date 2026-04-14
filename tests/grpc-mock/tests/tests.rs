@@ -14,12 +14,12 @@
 
 #[cfg(test)]
 mod tests {
-    use storage_grpc_mock::*;
     use google::storage::v2::storage_client::StorageClient;
     use pastey::paste;
     use std::net::SocketAddr;
     use std::str::FromStr;
     use std::sync::{Arc, Mutex};
+    use storage_grpc_mock::*;
     use test_case::test_case;
     use tonic::transport::Channel;
 
