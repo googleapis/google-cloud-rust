@@ -36,6 +36,10 @@ release:
     - .repo-metadata.json
   tools:
     cargo:
+      - name: cargo-hack
+        version: 0.6.44
+      - name: cargo-minimal-versions
+        version: 0.1.37
       - name: cargo-semver-checks
         version: 0.46.0
       - name: cargo-workspaces
