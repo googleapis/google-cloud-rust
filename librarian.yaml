@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.10.2-0.20260413201001-f1215bd28dbc
+version: v0.10.2-0.20260414160305-64e0099f9a99
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -1545,8 +1545,7 @@ libraries:
         - output: src/storage/src/generated/protos/storage
           api_path: google/storage/v2
           template: prost
-        - language: rust_storage
-          output: src/storage/src/control/generated
+        - output: src/storage/src/control/generated
           specification_format: none
           api_path: google/storage/v2
           template: storage
@@ -1737,6 +1736,17 @@ libraries:
     copyright_year: "2025"
     output: src/storage/grpc-mock
     skip_release: true
+    rust:
+      modules:
+        - include_grpc_only_methods: true
+          include_streaming_methods: true
+          output: src/storage/grpc-mock
+          service_config: google/storage/v2/storage_v2.yaml
+          api_path: google/storage/v2
+          template: grpc-mock
+        - output: src/storage/grpc-mock/src/generated/protos
+          api_path: google/storage/v2
+          template: tonic
   - name: storage-random
     copyright_year: "2025"
     output: src/storage/benchmarks/random
