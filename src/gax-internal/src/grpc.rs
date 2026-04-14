@@ -421,24 +421,17 @@ impl Client {
 
         let pending = inner.unary(request, path, codec).map_err(to_gax_error);
 
-        let result = {
-            use crate::observability::{
-                WithTransportLogging, WithTransportMetric, WithTransportSpan,
-            };
+        use crate::observability::{WithTransportLogging, WithTransportMetric, WithTransportSpan};
 
-            let pending =
-                WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
-            let pending = WithTransportLogging::new(pending);
-            let pending = WithTransportSpan::new(span, pending);
-
-            if let Some(recorder) = crate::observability::RequestRecorder::current() {
-                recorder.scope(pending).await
-            } else {
-                pending.await
-            }
-        };
-
-        result
+        let pending =
+            WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
+        let pending = WithTransportLogging::new(pending);
+        let pending = WithTransportSpan::new(span, pending);
+        if let Some(recorder) = crate::observability::RequestRecorder::current() {
+            recorder.scope(pending).await
+        } else {
+            pending.await
+        }
     }
 
     async fn make_inner(
