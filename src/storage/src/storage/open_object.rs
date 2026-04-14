@@ -659,7 +659,7 @@ mod tests {
                 }),
                 range_end: true,
                 checksummed_data: Some(ChecksummedData {
-                    content: payload.clone(),
+                    content: payload.clone().into(),
                     crc32c: None,
                 }),
             }],

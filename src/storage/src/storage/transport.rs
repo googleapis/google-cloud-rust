@@ -569,7 +569,7 @@ mod tests {
                 }),
                 range_end: true,
                 checksummed_data: Some(ChecksummedData {
-                    content: PAYLOAD.as_bytes().to_vec(),
+                    content: PAYLOAD.as_bytes().into(),
                     crc32c: None,
                 }),
             }],

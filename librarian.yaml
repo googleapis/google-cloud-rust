@@ -1733,6 +1733,17 @@ libraries:
     copyright_year: "2025"
     output: src/storage/grpc-mock
     skip_release: true
+    rust:
+      modules:
+        - output: src/storage/grpc-mock
+          api_path: google/storage/v2
+          service_config: google/storage/v2/storage_v2.yaml
+          include_grpc_only_methods: true
+          include_streaming_methods: true
+          template: grpc-mock
+        - output: src/storage/grpc-mock/src/protos
+          api_path: google/storage/v2
+          template: tonic
   - name: storage-random
     copyright_year: "2025"
     output: src/storage/benchmarks/random
