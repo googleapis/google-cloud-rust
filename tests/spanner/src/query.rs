@@ -420,6 +420,11 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
     );
 }
 
+/// A test proxy that intercepts and delays `BeginTransaction` requests.
+///
+/// It notifies `begin_transaction_entered_latch` when a `BeginTransaction` request is received,
+/// and blocks the request execution until `latch` is notified. This allows tests to
+/// synchronize the order of execution of `BeginTransaction` with other operations.
 struct DelayedBeginProxy {
     emulator_client: SpannerClient<Channel>,
     latch: Arc<Notify>,
