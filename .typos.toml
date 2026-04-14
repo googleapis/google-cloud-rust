@@ -17,7 +17,6 @@ extend-exclude = [
   # The test data have typos, or at least uncommon spelling. We do not care
   # about them as they are not customer visible.
   "testdata/**",
-  "tools/cmd/docfx/testdata/**",
   # Generated libraries often contain typos coming from upstream protos.
   "/go.work.sum",
   "src/*/src/generated/**",

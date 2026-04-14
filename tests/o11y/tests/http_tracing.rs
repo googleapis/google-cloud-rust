@@ -12,42 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(google_cloud_unstable_tracing)]
 mod http_tracing {
     use google_cloud_test_utils::errors::anydump;
+    use serial_test::serial;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
     async fn to_otlp() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::to_otlp()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
     async fn to_otlp_debug_event() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::to_otlp_debug_event()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
     async fn success_testlayer() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::success_testlayer()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
     async fn parse_error() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::parse_error()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
     async fn api_error() -> anyhow::Result<()> {
         integration_tests_o11y::http_tracing::api_error()
             .await
-            .inspect_err(anydump)
+            .inspect_err(anydump)?;
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[serial]
+    async fn to_otlp_retries() -> anyhow::Result<()> {
+        integration_tests_o11y::http_tracing::to_otlp_retries()
+            .await
+            .inspect_err(anydump)?;
+        Ok(())
     }
 }

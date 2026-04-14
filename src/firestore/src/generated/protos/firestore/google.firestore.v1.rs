@@ -181,7 +181,7 @@ impl ::prost::Name for AggregationResult {
         "type.googleapis.com/google.firestore.v1.AggregationResult".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BitSequence {
     #[prost(bytes = "bytes", tag = "1")]
     pub bitmap: ::prost::bytes::Bytes,
@@ -198,7 +198,7 @@ impl ::prost::Name for BitSequence {
         "type.googleapis.com/google.firestore.v1.BitSequence".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BloomFilter {
     #[prost(message, optional, tag = "1")]
     pub bits: ::core::option::Option<BitSequence>,
@@ -215,7 +215,7 @@ impl ::prost::Name for BloomFilter {
         "type.googleapis.com/google.firestore.v1.BloomFilter".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DocumentMask {
     #[prost(string, repeated, tag = "1")]
     pub field_paths: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -230,14 +230,14 @@ impl ::prost::Name for DocumentMask {
         "type.googleapis.com/google.firestore.v1.DocumentMask".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Precondition {
     #[prost(oneof = "precondition::ConditionType", tags = "1, 2")]
     pub condition_type: ::core::option::Option<precondition::ConditionType>,
 }
 /// Nested message and enum types in `Precondition`.
 pub mod precondition {
-    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConditionType {
         #[prost(bool, tag = "1")]
         Exists(bool),
@@ -255,14 +255,14 @@ impl ::prost::Name for Precondition {
         "type.googleapis.com/google.firestore.v1.Precondition".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct TransactionOptions {
     #[prost(oneof = "transaction_options::Mode", tags = "2, 3")]
     pub mode: ::core::option::Option<transaction_options::Mode>,
 }
 /// Nested message and enum types in `TransactionOptions`.
 pub mod transaction_options {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ReadWrite {
         #[prost(bytes = "bytes", tag = "1")]
         pub retry_transaction: ::prost::bytes::Bytes,
@@ -277,14 +277,14 @@ pub mod transaction_options {
             "type.googleapis.com/google.firestore.v1.TransactionOptions.ReadWrite".into()
         }
     }
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct ReadOnly {
         #[prost(oneof = "read_only::ConsistencySelector", tags = "2")]
         pub consistency_selector: ::core::option::Option<read_only::ConsistencySelector>,
     }
     /// Nested message and enum types in `ReadOnly`.
     pub mod read_only {
-        #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
         pub enum ConsistencySelector {
             #[prost(message, tag = "2")]
             ReadTime(::prost_types::Timestamp),
@@ -300,7 +300,7 @@ pub mod transaction_options {
             "type.googleapis.com/google.firestore.v1.TransactionOptions.ReadOnly".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Mode {
         #[prost(message, tag = "2")]
         ReadOnly(ReadOnly),
@@ -318,7 +318,7 @@ impl ::prost::Name for TransactionOptions {
         "type.googleapis.com/google.firestore.v1.TransactionOptions".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ExplainStats {
     #[prost(message, optional, tag = "1")]
     pub data: ::core::option::Option<::prost_types::Any>,
@@ -373,7 +373,7 @@ pub struct StructuredQuery {
 }
 /// Nested message and enum types in `StructuredQuery`.
 pub mod structured_query {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct CollectionSelector {
         #[prost(string, tag = "2")]
         pub collection_id: ::prost::alloc::string::String,
@@ -563,7 +563,7 @@ pub mod structured_query {
             "type.googleapis.com/google.firestore.v1.StructuredQuery.FieldFilter".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct UnaryFilter {
         #[prost(enumeration = "unary_filter::Operator", tag = "1")]
         pub op: i32,
@@ -617,7 +617,7 @@ pub mod structured_query {
                 }
             }
         }
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
         pub enum OperandType {
             #[prost(message, tag = "2")]
             Field(super::FieldReference),
@@ -633,7 +633,7 @@ pub mod structured_query {
             "type.googleapis.com/google.firestore.v1.StructuredQuery.UnaryFilter".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct Order {
         #[prost(message, optional, tag = "1")]
         pub field: ::core::option::Option<FieldReference>,
@@ -650,7 +650,7 @@ pub mod structured_query {
             "type.googleapis.com/google.firestore.v1.StructuredQuery.Order".into()
         }
     }
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct FieldReference {
         #[prost(string, tag = "2")]
         pub field_path: ::prost::alloc::string::String,
@@ -812,7 +812,7 @@ pub struct StructuredAggregationQuery {
 }
 /// Nested message and enum types in `StructuredAggregationQuery`.
 pub mod structured_aggregation_query {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct Aggregation {
         #[prost(string, tag = "7")]
         pub alias: ::prost::alloc::string::String,
@@ -821,7 +821,7 @@ pub mod structured_aggregation_query {
     }
     /// Nested message and enum types in `Aggregation`.
     pub mod aggregation {
-        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct Count {
             #[prost(message, optional, tag = "1")]
             pub up_to: ::core::option::Option<i64>,
@@ -837,7 +837,7 @@ pub mod structured_aggregation_query {
                     .into()
             }
         }
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct Sum {
             #[prost(message, optional, tag = "1")]
             pub field: ::core::option::Option<
@@ -855,7 +855,7 @@ pub mod structured_aggregation_query {
                     .into()
             }
         }
-        #[derive(Clone, PartialEq, ::prost::Message)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
         pub struct Avg {
             #[prost(message, optional, tag = "1")]
             pub field: ::core::option::Option<
@@ -873,7 +873,7 @@ pub mod structured_aggregation_query {
                     .into()
             }
         }
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
         pub enum Operator {
             #[prost(message, tag = "1")]
             Count(Count),
@@ -927,7 +927,7 @@ impl ::prost::Name for Cursor {
         "type.googleapis.com/google.firestore.v1.Cursor".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ExplainOptions {
     #[prost(bool, tag = "1")]
     pub analyze: bool,
@@ -1156,7 +1156,7 @@ impl ::prost::Name for DocumentChange {
         "type.googleapis.com/google.firestore.v1.DocumentChange".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DocumentDelete {
     #[prost(string, tag = "1")]
     pub document: ::prost::alloc::string::String,
@@ -1175,7 +1175,7 @@ impl ::prost::Name for DocumentDelete {
         "type.googleapis.com/google.firestore.v1.DocumentDelete".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DocumentRemove {
     #[prost(string, tag = "1")]
     pub document: ::prost::alloc::string::String,
@@ -1194,7 +1194,7 @@ impl ::prost::Name for DocumentRemove {
         "type.googleapis.com/google.firestore.v1.DocumentRemove".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ExistenceFilter {
     #[prost(int32, tag = "1")]
     pub target_id: i32,
@@ -1213,7 +1213,7 @@ impl ::prost::Name for ExistenceFilter {
         "type.googleapis.com/google.firestore.v1.ExistenceFilter".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct GetDocumentRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1226,7 +1226,7 @@ pub struct GetDocumentRequest {
 }
 /// Nested message and enum types in `GetDocumentRequest`.
 pub mod get_document_request {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "3")]
         Transaction(::prost::bytes::Bytes),
@@ -1244,7 +1244,7 @@ impl ::prost::Name for GetDocumentRequest {
         "type.googleapis.com/google.firestore.v1.GetDocumentRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListDocumentsRequest {
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -1267,7 +1267,7 @@ pub struct ListDocumentsRequest {
 }
 /// Nested message and enum types in `ListDocumentsRequest`.
 pub mod list_documents_request {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "8")]
         Transaction(::prost::bytes::Bytes),
@@ -1346,7 +1346,7 @@ impl ::prost::Name for UpdateDocumentRequest {
         "type.googleapis.com/google.firestore.v1.UpdateDocumentRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DeleteDocumentRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -1363,7 +1363,7 @@ impl ::prost::Name for DeleteDocumentRequest {
         "type.googleapis.com/google.firestore.v1.DeleteDocumentRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BatchGetDocumentsRequest {
     #[prost(string, tag = "1")]
     pub database: ::prost::alloc::string::String,
@@ -1381,7 +1381,7 @@ pub struct BatchGetDocumentsRequest {
 }
 /// Nested message and enum types in `BatchGetDocumentsRequest`.
 pub mod batch_get_documents_request {
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "4")]
         Transaction(::prost::bytes::Bytes),
@@ -1430,7 +1430,7 @@ impl ::prost::Name for BatchGetDocumentsResponse {
         "type.googleapis.com/google.firestore.v1.BatchGetDocumentsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BeginTransactionRequest {
     #[prost(string, tag = "1")]
     pub database: ::prost::alloc::string::String,
@@ -1447,7 +1447,7 @@ impl ::prost::Name for BeginTransactionRequest {
         "type.googleapis.com/google.firestore.v1.BeginTransactionRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BeginTransactionResponse {
     #[prost(bytes = "bytes", tag = "1")]
     pub transaction: ::prost::bytes::Bytes,
@@ -1498,7 +1498,7 @@ impl ::prost::Name for CommitResponse {
         "type.googleapis.com/google.firestore.v1.CommitResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RollbackRequest {
     #[prost(string, tag = "1")]
     pub database: ::prost::alloc::string::String,
@@ -1535,7 +1535,7 @@ pub mod run_query_request {
         #[prost(message, tag = "2")]
         StructuredQuery(super::StructuredQuery),
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "5")]
         Transaction(::prost::bytes::Bytes),
@@ -1574,7 +1574,7 @@ pub struct RunQueryResponse {
 }
 /// Nested message and enum types in `RunQueryResponse`.
 pub mod run_query_response {
-    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ContinuationSelector {
         #[prost(bool, tag = "6")]
         Done(bool),
@@ -1608,7 +1608,7 @@ pub mod execute_pipeline_request {
         #[prost(message, tag = "2")]
         StructuredPipeline(super::StructuredPipeline),
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "5")]
         Transaction(::prost::bytes::Bytes),
@@ -1672,7 +1672,7 @@ pub mod run_aggregation_query_request {
         #[prost(message, tag = "2")]
         StructuredAggregationQuery(super::StructuredAggregationQuery),
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(bytes, tag = "4")]
         Transaction(::prost::bytes::Bytes),
@@ -1737,7 +1737,7 @@ pub mod partition_query_request {
         #[prost(message, tag = "2")]
         StructuredQuery(super::StructuredQuery),
     }
-    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(message, tag = "6")]
         ReadTime(::prost_types::Timestamp),
@@ -1895,7 +1895,7 @@ pub struct Target {
 }
 /// Nested message and enum types in `Target`.
 pub mod target {
-    #[derive(Clone, PartialEq, ::prost::Message)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
     pub struct DocumentsTarget {
         #[prost(string, repeated, tag = "2")]
         pub documents: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -1942,7 +1942,7 @@ pub mod target {
         #[prost(message, tag = "3")]
         Documents(DocumentsTarget),
     }
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ResumeType {
         #[prost(bytes, tag = "4")]
         ResumeToken(::prost::bytes::Bytes),
@@ -2031,7 +2031,7 @@ impl ::prost::Name for TargetChange {
         "type.googleapis.com/google.firestore.v1.TargetChange".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListCollectionIdsRequest {
     #[prost(string, tag = "1")]
     pub parent: ::prost::alloc::string::String,
@@ -2046,7 +2046,7 @@ pub struct ListCollectionIdsRequest {
 }
 /// Nested message and enum types in `ListCollectionIdsRequest`.
 pub mod list_collection_ids_request {
-    #[derive(Clone, Copy, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum ConsistencySelector {
         #[prost(message, tag = "4")]
         ReadTime(::prost_types::Timestamp),
@@ -2062,7 +2062,7 @@ impl ::prost::Name for ListCollectionIdsRequest {
         "type.googleapis.com/google.firestore.v1.ListCollectionIdsRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListCollectionIdsResponse {
     #[prost(string, repeated, tag = "1")]
     pub collection_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,

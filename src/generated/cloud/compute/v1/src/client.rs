@@ -5255,11 +5255,6 @@ impl Instances {
         super::builder::instances::GetIamPolicy::new(self.inner.clone())
     }
 
-    /// Gets partner metadata of the specified instance and namespaces.
-    pub fn get_partner_metadata(&self) -> super::builder::instances::GetPartnerMetadata {
-        super::builder::instances::GetPartnerMetadata::new(self.inner.clone())
-    }
-
     /// Returns the screenshot from the specified instance.
     pub fn get_screenshot(&self) -> super::builder::instances::GetScreenshot {
         super::builder::instances::GetScreenshot::new(self.inner.clone())
@@ -5296,11 +5291,6 @@ impl Instances {
     /// referrers to VM instances.
     pub fn list_referrers(&self) -> super::builder::instances::ListReferrers {
         super::builder::instances::ListReferrers::new(self.inner.clone())
-    }
-
-    /// Patches partner metadata of the specified instance.
-    pub fn patch_partner_metadata(&self) -> super::builder::instances::PatchPartnerMetadata {
-        super::builder::instances::PatchPartnerMetadata::new(self.inner.clone())
     }
 
     /// Perform a manual maintenance on the instance.
@@ -5524,6 +5514,158 @@ impl Instances {
     /// Retrieves the specified zone-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::instances::GetOperation {
         super::builder::instances::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::InstantSnapshotGroups;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = InstantSnapshotGroups::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `instantSnapshotGroups` resource.
+///
+/// # Configuration
+///
+/// To configure `InstantSnapshotGroups` use the `with_*` methods in the type returned
+/// by [builder()][InstantSnapshotGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instant_snapshot_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instant_snapshot_groups::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InstantSnapshotGroups` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `InstantSnapshotGroups` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "instant-snapshot-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "instant-snapshot-groups")))]
+#[derive(Clone, Debug)]
+pub struct InstantSnapshotGroups {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InstantSnapshotGroups>,
+}
+
+#[cfg(feature = "instant-snapshot-groups")]
+impl InstantSnapshotGroups {
+    /// Returns a builder for [InstantSnapshotGroups].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::InstantSnapshotGroups;
+    /// let client = InstantSnapshotGroups::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::instant_snapshot_groups::ClientBuilder {
+        crate::new_client_builder(super::builder::instant_snapshot_groups::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InstantSnapshotGroups + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::InstantSnapshotGroups>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::InstantSnapshotGroups> {
+        super::transport::InstantSnapshotGroups::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::InstantSnapshotGroups> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InstantSnapshotGroups::new)
+    }
+
+    /// deletes a Zonal InstantSnapshotGroup resource
+    pub fn delete(&self) -> super::builder::instant_snapshot_groups::Delete {
+        super::builder::instant_snapshot_groups::Delete::new(self.inner.clone())
+    }
+
+    /// returns the specified InstantSnapshotGroup resource in the specified zone.
+    pub fn get(&self) -> super::builder::instant_snapshot_groups::Get {
+        super::builder::instant_snapshot_groups::Get::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::instant_snapshot_groups::GetIamPolicy {
+        super::builder::instant_snapshot_groups::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// inserts a Zonal InstantSnapshotGroup resource
+    pub fn insert(&self) -> super::builder::instant_snapshot_groups::Insert {
+        super::builder::instant_snapshot_groups::Insert::new(self.inner.clone())
+    }
+
+    /// retrieves the list of InstantSnapshotGroup resources contained within
+    /// the specified zone.
+    pub fn list(&self) -> super::builder::instant_snapshot_groups::List {
+        super::builder::instant_snapshot_groups::List::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::instant_snapshot_groups::SetIamPolicy {
+        super::builder::instant_snapshot_groups::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::instant_snapshot_groups::TestIamPermissions {
+        super::builder::instant_snapshot_groups::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::instant_snapshot_groups::GetOperation {
+        super::builder::instant_snapshot_groups::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -12612,6 +12754,160 @@ impl RegionInstances {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_compute_v1::client::RegionInstantSnapshotGroups;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionInstantSnapshotGroups::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionInstantSnapshotGroups` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionInstantSnapshotGroups` use the `with_*` methods in the type returned
+/// by [builder()][RegionInstantSnapshotGroups::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_instant_snapshot_groups::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_instant_snapshot_groups::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionInstantSnapshotGroups` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionInstantSnapshotGroups` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-instant-snapshot-groups")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-instant-snapshot-groups")))]
+#[derive(Clone, Debug)]
+pub struct RegionInstantSnapshotGroups {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionInstantSnapshotGroups>,
+}
+
+#[cfg(feature = "region-instant-snapshot-groups")]
+impl RegionInstantSnapshotGroups {
+    /// Returns a builder for [RegionInstantSnapshotGroups].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionInstantSnapshotGroups;
+    /// let client = RegionInstantSnapshotGroups::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_instant_snapshot_groups::ClientBuilder {
+        crate::new_client_builder(super::builder::region_instant_snapshot_groups::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionInstantSnapshotGroups + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::RegionInstantSnapshotGroups>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionInstantSnapshotGroups> {
+        super::transport::RegionInstantSnapshotGroups::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionInstantSnapshotGroups> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionInstantSnapshotGroups::new)
+    }
+
+    /// deletes a Regional InstantSnapshotGroup resource
+    pub fn delete(&self) -> super::builder::region_instant_snapshot_groups::Delete {
+        super::builder::region_instant_snapshot_groups::Delete::new(self.inner.clone())
+    }
+
+    /// returns the specified InstantSnapshotGroup resource in the specified
+    /// region.
+    pub fn get(&self) -> super::builder::region_instant_snapshot_groups::Get {
+        super::builder::region_instant_snapshot_groups::Get::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::region_instant_snapshot_groups::GetIamPolicy {
+        super::builder::region_instant_snapshot_groups::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// creates a Regional InstantSnapshotGroup resource
+    pub fn insert(&self) -> super::builder::region_instant_snapshot_groups::Insert {
+        super::builder::region_instant_snapshot_groups::Insert::new(self.inner.clone())
+    }
+
+    /// retrieves the list of InstantSnapshotGroup resources contained within
+    /// the specified region.
+    pub fn list(&self) -> super::builder::region_instant_snapshot_groups::List {
+        super::builder::region_instant_snapshot_groups::List::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::region_instant_snapshot_groups::SetIamPolicy {
+        super::builder::region_instant_snapshot_groups::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_instant_snapshot_groups::TestIamPermissions {
+        super::builder::region_instant_snapshot_groups::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_instant_snapshot_groups::GetOperation {
+        super::builder::region_instant_snapshot_groups::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = RegionInstantSnapshots::builder().build().await?;
@@ -13623,6 +13919,298 @@ impl RegionSecurityPolicies {
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_security_policies::GetOperation {
         super::builder::region_security_policies::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::RegionSnapshotSettings;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionSnapshotSettings::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionSnapshotSettings` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionSnapshotSettings` use the `with_*` methods in the type returned
+/// by [builder()][RegionSnapshotSettings::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_snapshot_settings::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_snapshot_settings::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionSnapshotSettings` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionSnapshotSettings` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-snapshot-settings")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-snapshot-settings")))]
+#[derive(Clone, Debug)]
+pub struct RegionSnapshotSettings {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionSnapshotSettings>,
+}
+
+#[cfg(feature = "region-snapshot-settings")]
+impl RegionSnapshotSettings {
+    /// Returns a builder for [RegionSnapshotSettings].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionSnapshotSettings;
+    /// let client = RegionSnapshotSettings::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_snapshot_settings::ClientBuilder {
+        crate::new_client_builder(super::builder::region_snapshot_settings::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionSnapshotSettings + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RegionSnapshotSettings>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionSnapshotSettings> {
+        super::transport::RegionSnapshotSettings::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionSnapshotSettings> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionSnapshotSettings::new)
+    }
+
+    /// Get region snapshot settings.
+    pub fn get(&self) -> super::builder::region_snapshot_settings::Get {
+        super::builder::region_snapshot_settings::Get::new(self.inner.clone())
+    }
+
+    /// Patch region snapshot settings.
+    pub fn patch(&self) -> super::builder::region_snapshot_settings::Patch {
+        super::builder::region_snapshot_settings::Patch::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_snapshot_settings::GetOperation {
+        super::builder::region_snapshot_settings::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # use google_cloud_compute_v1::client::RegionSnapshots;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RegionSnapshots::builder().build().await?;
+///     // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionSnapshots` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionSnapshots` use the `with_*` methods in the type returned
+/// by [builder()][RegionSnapshots::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_snapshots::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_snapshots::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionSnapshots` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `RegionSnapshots` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-snapshots")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-snapshots")))]
+#[derive(Clone, Debug)]
+pub struct RegionSnapshots {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionSnapshots>,
+}
+
+#[cfg(feature = "region-snapshots")]
+impl RegionSnapshots {
+    /// Returns a builder for [RegionSnapshots].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionSnapshots;
+    /// let client = RegionSnapshots::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_snapshots::ClientBuilder {
+        crate::new_client_builder(super::builder::region_snapshots::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionSnapshots + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::RegionSnapshots>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionSnapshots> {
+        super::transport::RegionSnapshots::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionSnapshots> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionSnapshots::new)
+    }
+
+    /// Deletes the specified Snapshot resource. Keep in mind that deleting
+    /// a single snapshot might not necessarily delete all the data on that
+    /// snapshot. If any data on the snapshot that is marked for deletion is
+    /// needed for subsequent snapshots, the data will be moved to the next
+    /// corresponding snapshot.
+    ///
+    /// For more information, seeDeleting
+    /// snapshots.
+    pub fn delete(&self) -> super::builder::region_snapshots::Delete {
+        super::builder::region_snapshots::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified Snapshot resource.
+    pub fn get(&self) -> super::builder::region_snapshots::Get {
+        super::builder::region_snapshots::Get::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. May be empty if no such
+    /// policy or resource exists.
+    pub fn get_iam_policy(&self) -> super::builder::region_snapshots::GetIamPolicy {
+        super::builder::region_snapshots::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a snapshot in the specified region using the data included
+    /// in the request.
+    pub fn insert(&self) -> super::builder::region_snapshots::Insert {
+        super::builder::region_snapshots::Insert::new(self.inner.clone())
+    }
+
+    /// Retrieves the list of Snapshot resources contained within
+    /// the specified region.
+    pub fn list(&self) -> super::builder::region_snapshots::List {
+        super::builder::region_snapshots::List::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource.
+    /// Replaces any existing policy.
+    pub fn set_iam_policy(&self) -> super::builder::region_snapshots::SetIamPolicy {
+        super::builder::region_snapshots::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Sets the labels on a regional snapshot. To learn more about labels, read
+    /// the Labeling Resources
+    /// documentation.
+    pub fn set_labels(&self) -> super::builder::region_snapshots::SetLabels {
+        super::builder::region_snapshots::SetLabels::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_snapshots::TestIamPermissions {
+        super::builder::region_snapshots::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Rotates the customer-managed
+    /// encryption key to the latest version for the specified snapshot.
+    pub fn update_kms_key(&self) -> super::builder::region_snapshots::UpdateKmsKey {
+        super::builder::region_snapshots::UpdateKmsKey::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::region_snapshots::GetOperation {
+        super::builder::region_snapshots::GetOperation::new(self.inner.clone())
     }
 }
 

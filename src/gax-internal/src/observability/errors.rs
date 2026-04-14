@@ -104,7 +104,6 @@ pub(crate) fn emit_error_log(span: &tracing::Span, err: &Error) {
     let rpc_status_code = err.status().map(|s| s.code.name());
     let http_status_code = err.http_status_code();
 
-    #[cfg(google_cloud_unstable_tracing)]
     {
         let (domain, metadata) = match &error_type {
             ErrorType::HttpError {
@@ -246,7 +245,6 @@ pub(crate) mod tests {
 
     #[test]
     fn test_emit_error_log() {
-        #[cfg(google_cloud_unstable_tracing)]
         {
             use std::sync::{Arc, Mutex};
             use tracing_subscriber::fmt::MakeWriter;

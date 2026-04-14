@@ -1873,7 +1873,7 @@ pub mod byte_content_item {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum BytesType {
@@ -2101,6 +2101,9 @@ pub mod byte_content_item {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ContentItem {
+    /// User provided metadata for the content.
+    pub content_metadata: std::option::Option<crate::model::ContentMetadata>,
+
     /// Data of the item either in the byte array or UTF-8 string form, or table.
     pub data_item: std::option::Option<crate::model::content_item::DataItem>,
 
@@ -2110,6 +2113,39 @@ pub struct ContentItem {
 impl ContentItem {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [content_metadata][crate::model::ContentItem::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// let x = ContentItem::new().set_content_metadata(ContentMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_content_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentMetadata>,
+    {
+        self.content_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [content_metadata][crate::model::ContentItem::content_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentItem;
+    /// use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// let x = ContentItem::new().set_or_clear_content_metadata(Some(ContentMetadata::default()/* use setters */));
+    /// let x = ContentItem::new().set_or_clear_content_metadata(None::<ContentMetadata>);
+    /// ```
+    pub fn set_or_clear_content_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ContentMetadata>,
+    {
+        self.content_metadata = v.map(|x| x.into());
+        self
     }
 
     /// Sets the value of [data_item][crate::model::ContentItem::data_item].
@@ -2263,6 +2299,50 @@ pub mod content_item {
     }
 }
 
+/// Metadata on content to be scanned.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ContentMetadata {
+    /// User provided key-value pairs of content metadata.
+    pub properties: std::vec::Vec<crate::model::KeyValueMetadataProperty>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ContentMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [properties][crate::model::ContentMetadata::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::ContentMetadata;
+    /// use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = ContentMetadata::new()
+    ///     .set_properties([
+    ///         KeyValueMetadataProperty::default()/* use setters */,
+    ///         KeyValueMetadataProperty::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_properties<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::KeyValueMetadataProperty>,
+    {
+        use std::iter::Iterator;
+        self.properties = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ContentMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.ContentMetadata"
+    }
+}
+
 /// Structured content to inspect. Up to 50,000 `Value`s per request allowed. See
 /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-structured-text#inspecting_a_table>
 /// to learn more.
@@ -2381,6 +2461,55 @@ pub mod table {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.Table.Row"
         }
+    }
+}
+
+/// A key-value pair in the Metadata.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct KeyValueMetadataProperty {
+    /// The key of the property.
+    pub key: std::string::String,
+
+    /// The value of the property.
+    pub value: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl KeyValueMetadataProperty {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::KeyValueMetadataProperty::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = KeyValueMetadataProperty::new().set_key("example");
+    /// ```
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::KeyValueMetadataProperty::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_privacy_dlp_v2::model::KeyValueMetadataProperty;
+    /// let x = KeyValueMetadataProperty::new().set_value("example");
+    /// ```
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for KeyValueMetadataProperty {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.KeyValueMetadataProperty"
     }
 }
 
@@ -3306,6 +3435,7 @@ impl MetadataLocation {
     /// use google_cloud_privacy_dlp_v2::model::MetadataType;
     /// let x0 = MetadataLocation::new().set_type(MetadataType::StorageMetadata);
     /// let x1 = MetadataLocation::new().set_type(MetadataType::ContentMetadata);
+    /// let x2 = MetadataLocation::new().set_type(MetadataType::ClientProvidedMetadata);
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::MetadataType>>(mut self, v: T) -> Self {
         self.r#type = v.into();
@@ -5647,7 +5777,7 @@ pub mod output_storage_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OutputSchema {
@@ -6973,7 +7103,7 @@ pub mod location_support {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RegionalizationScope {
@@ -7384,7 +7514,7 @@ pub mod info_type_description {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InfoTypeLaunchStatus {
@@ -7731,7 +7861,7 @@ pub mod info_type_category {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LocationCategory {
@@ -8215,7 +8345,7 @@ pub mod info_type_category {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum IndustryCategory {
@@ -8355,7 +8485,7 @@ pub mod info_type_category {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TypeCategory {
@@ -14638,7 +14768,7 @@ pub mod time_part_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TimePart {
@@ -15368,7 +15498,7 @@ pub mod chars_to_ignore {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CommonCharsToIgnore {
@@ -16317,7 +16447,7 @@ pub mod crypto_replace_ffx_fpe_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FfxCommonNativeAlphabet {
@@ -17809,7 +17939,7 @@ pub mod record_condition {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum LogicalOperator {
@@ -18316,7 +18446,7 @@ pub mod transformation_summary {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TransformationResultCode {
@@ -19784,7 +19914,7 @@ pub mod error {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ErrorExtraInfo {
@@ -20375,7 +20505,7 @@ pub mod job_trigger {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Status {
@@ -24047,7 +24177,7 @@ pub mod data_profile_action {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum DetailLevel {
@@ -24621,7 +24751,7 @@ pub mod data_profile_action {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum EventType {
@@ -26252,7 +26382,7 @@ pub mod discovery_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Status {
@@ -28761,7 +28891,7 @@ pub mod discovery_cloud_sql_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DatabaseEngine {
@@ -28902,7 +29032,7 @@ pub mod discovery_cloud_sql_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DatabaseResourceType {
@@ -29247,7 +29377,7 @@ pub mod discovery_cloud_sql_generation_cadence {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum CloudSqlSchemaModification {
@@ -30414,7 +30544,7 @@ pub mod discovery_cloud_storage_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageObjectAttribute {
@@ -30595,7 +30725,7 @@ pub mod discovery_cloud_storage_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageBucketAttribute {
@@ -32156,7 +32286,7 @@ pub mod amazon_s_3_bucket_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum BucketType {
@@ -32289,7 +32419,7 @@ pub mod amazon_s_3_bucket_conditions {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ObjectStorageClass {
@@ -34129,7 +34259,7 @@ pub mod dlp_job {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum JobState {
@@ -37907,7 +38037,7 @@ pub mod data_risk_level {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataRiskLevelScore {
@@ -39253,7 +39383,7 @@ pub mod table_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -40134,7 +40264,7 @@ pub mod column_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -40269,7 +40399,7 @@ pub mod column_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ColumnDataType {
@@ -40514,7 +40644,7 @@ pub mod column_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ColumnPolicyState {
@@ -41381,7 +41511,7 @@ pub mod file_store_data_profile {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -42841,7 +42971,7 @@ pub mod data_profile_pub_sub_condition {
         /// Please consult the [Working with enums] section in the user guide for some
         /// guidelines.
         ///
-        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum PubSubLogicalOperator {
@@ -42978,7 +43108,7 @@ pub mod data_profile_pub_sub_condition {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ProfileScoreBucket {
@@ -44231,7 +44361,7 @@ pub mod cloud_sql_properties {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DatabaseEngine {
@@ -44542,7 +44672,7 @@ pub mod file_cluster_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Cluster {
@@ -45187,7 +45317,7 @@ pub mod domain {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Category {
@@ -45322,7 +45452,7 @@ pub mod domain {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Signal {
@@ -45637,7 +45767,7 @@ pub mod sensitivity_score {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SensitivityScoreLevel {
@@ -47081,7 +47211,7 @@ pub mod custom_info_type {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ExclusionType {
@@ -47816,7 +47946,7 @@ pub mod cloud_storage_options {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SampleMethod {
@@ -48232,7 +48362,7 @@ pub mod big_query_options {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SampleMethod {
@@ -49823,7 +49953,7 @@ impl wkt::message::Message for TableOptions {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TransformationResultStatusType {
@@ -49978,7 +50108,7 @@ impl<'de> serde::de::Deserialize<'de> for TransformationResultStatusType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TransformationContainerType {
@@ -50123,7 +50253,7 @@ impl<'de> serde::de::Deserialize<'de> for TransformationContainerType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TransformationType {
@@ -50341,7 +50471,7 @@ impl<'de> serde::de::Deserialize<'de> for TransformationType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ProfileGeneration {
@@ -50474,7 +50604,7 @@ impl<'de> serde::de::Deserialize<'de> for ProfileGeneration {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum BigQueryTableTypeCollection {
@@ -50623,7 +50753,7 @@ impl<'de> serde::de::Deserialize<'de> for BigQueryTableTypeCollection {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum BigQueryTableType {
@@ -50765,7 +50895,7 @@ impl<'de> serde::de::Deserialize<'de> for BigQueryTableType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DataProfileUpdateFrequency {
@@ -50909,7 +51039,7 @@ impl<'de> serde::de::Deserialize<'de> for DataProfileUpdateFrequency {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum BigQueryTableModification {
@@ -51040,7 +51170,7 @@ impl<'de> serde::de::Deserialize<'de> for BigQueryTableModification {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum BigQuerySchemaModification {
@@ -51177,7 +51307,7 @@ impl<'de> serde::de::Deserialize<'de> for BigQuerySchemaModification {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum RelationalOperator {
@@ -51346,7 +51476,7 @@ impl<'de> serde::de::Deserialize<'de> for RelationalOperator {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum MatchingType {
@@ -51513,7 +51643,7 @@ impl<'de> serde::de::Deserialize<'de> for MatchingType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ContentOption {
@@ -51645,7 +51775,7 @@ impl<'de> serde::de::Deserialize<'de> for ContentOption {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum MetadataType {
@@ -51655,6 +51785,8 @@ pub enum MetadataType {
     StorageMetadata,
     /// Metadata extracted from the files.
     ContentMetadata,
+    /// Metadata provided by the client.
+    ClientProvidedMetadata,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [MetadataType::value] or
@@ -51680,6 +51812,7 @@ impl MetadataType {
             Self::MetadatatypeUnspecified => std::option::Option::Some(0),
             Self::StorageMetadata => std::option::Option::Some(2),
             Self::ContentMetadata => std::option::Option::Some(3),
+            Self::ClientProvidedMetadata => std::option::Option::Some(4),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -51693,6 +51826,7 @@ impl MetadataType {
             Self::MetadatatypeUnspecified => std::option::Option::Some("METADATATYPE_UNSPECIFIED"),
             Self::StorageMetadata => std::option::Option::Some("STORAGE_METADATA"),
             Self::ContentMetadata => std::option::Option::Some("CONTENT_METADATA"),
+            Self::ClientProvidedMetadata => std::option::Option::Some("CLIENT_PROVIDED_METADATA"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -51717,6 +51851,7 @@ impl std::convert::From<i32> for MetadataType {
             0 => Self::MetadatatypeUnspecified,
             2 => Self::StorageMetadata,
             3 => Self::ContentMetadata,
+            4 => Self::ClientProvidedMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -51731,6 +51866,7 @@ impl std::convert::From<&str> for MetadataType {
             "METADATATYPE_UNSPECIFIED" => Self::MetadatatypeUnspecified,
             "STORAGE_METADATA" => Self::StorageMetadata,
             "CONTENT_METADATA" => Self::ContentMetadata,
+            "CLIENT_PROVIDED_METADATA" => Self::ClientProvidedMetadata,
             _ => Self::UnknownValue(metadata_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -51747,6 +51883,7 @@ impl serde::ser::Serialize for MetadataType {
             Self::MetadatatypeUnspecified => serializer.serialize_i32(0),
             Self::StorageMetadata => serializer.serialize_i32(2),
             Self::ContentMetadata => serializer.serialize_i32(3),
+            Self::ClientProvidedMetadata => serializer.serialize_i32(4),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -51777,7 +51914,7 @@ impl<'de> serde::de::Deserialize<'de> for MetadataType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum InfoTypeSupportedBy {
@@ -51909,7 +52046,7 @@ impl<'de> serde::de::Deserialize<'de> for InfoTypeSupportedBy {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DlpJobType {
@@ -52041,7 +52178,7 @@ impl<'de> serde::de::Deserialize<'de> for DlpJobType {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum StoredInfoTypeState {
@@ -52191,7 +52328,7 @@ impl<'de> serde::de::Deserialize<'de> for StoredInfoTypeState {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ResourceVisibility {
@@ -52332,7 +52469,7 @@ impl<'de> serde::de::Deserialize<'de> for ResourceVisibility {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum EncryptionStatus {
@@ -52467,7 +52604,7 @@ impl<'de> serde::de::Deserialize<'de> for EncryptionStatus {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum NullPercentageLevel {
@@ -52616,7 +52753,7 @@ impl<'de> serde::de::Deserialize<'de> for NullPercentageLevel {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum UniquenessScoreLevel {
@@ -52757,7 +52894,7 @@ impl<'de> serde::de::Deserialize<'de> for UniquenessScoreLevel {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ConnectionState {
@@ -52917,7 +53054,7 @@ impl<'de> serde::de::Deserialize<'de> for ConnectionState {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum Likelihood {
@@ -53071,7 +53208,7 @@ impl<'de> serde::de::Deserialize<'de> for Likelihood {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum FileType {

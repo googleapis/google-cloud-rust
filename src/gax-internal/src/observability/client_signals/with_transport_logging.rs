@@ -37,18 +37,18 @@ pub struct WithTransportLogging<F> {
     inner: F,
 }
 
-impl<F> WithTransportLogging<F>
+impl<F, R> WithTransportLogging<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     pub fn new(inner: F) -> Self {
         Self { inner }
     }
 }
 
-impl<F> Future for WithTransportLogging<F>
+impl<F, R> Future for WithTransportLogging<F>
 where
-    F: Future<Output = Result<reqwest::Response, Error>>,
+    F: Future<Output = Result<R, Error>>,
 {
     type Output = <F as Future>::Output;
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {

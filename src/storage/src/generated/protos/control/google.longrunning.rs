@@ -30,7 +30,7 @@ impl ::prost::Name for Operation {
         "type.googleapis.com/google.longrunning.Operation".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct GetOperationRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -45,7 +45,7 @@ impl ::prost::Name for GetOperationRequest {
         "type.googleapis.com/google.longrunning.GetOperationRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ListOperationsRequest {
     #[prost(string, tag = "4")]
     pub name: ::prost::alloc::string::String,
@@ -87,7 +87,7 @@ impl ::prost::Name for ListOperationsResponse {
         "type.googleapis.com/google.longrunning.ListOperationsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct CancelOperationRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -102,7 +102,7 @@ impl ::prost::Name for CancelOperationRequest {
         "type.googleapis.com/google.longrunning.CancelOperationRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct DeleteOperationRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -117,7 +117,7 @@ impl ::prost::Name for DeleteOperationRequest {
         "type.googleapis.com/google.longrunning.DeleteOperationRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct WaitOperationRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
@@ -134,7 +134,7 @@ impl ::prost::Name for WaitOperationRequest {
         "type.googleapis.com/google.longrunning.WaitOperationRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct OperationInfo {
     #[prost(string, tag = "1")]
     pub response_type: ::prost::alloc::string::String,
