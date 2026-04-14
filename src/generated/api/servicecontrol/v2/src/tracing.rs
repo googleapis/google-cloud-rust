@@ -47,14 +47,12 @@ where
         req: crate::model::CheckRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CheckResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ServiceController::check",
-                self.inner.check(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ServiceController::check",
+            self.inner.check(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::ReportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReportResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::ServiceController::report",
-                self.inner.report(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::ServiceController::report",
+            self.inner.report(req, options));
+        pending.await
     }
 }
 

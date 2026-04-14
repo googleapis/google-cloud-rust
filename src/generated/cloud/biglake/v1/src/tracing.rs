@@ -47,14 +47,12 @@ where
         req: crate::model::GetIcebergCatalogConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalogConfig>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::get_iceberg_catalog_config",
-                self.inner.get_iceberg_catalog_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::get_iceberg_catalog_config",
+            self.inner.get_iceberg_catalog_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::ListIcebergNamespacesRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergNamespacesResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::list_iceberg_namespaces",
-                self.inner.list_iceberg_namespaces(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::list_iceberg_namespaces",
+            self.inner.list_iceberg_namespaces(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::GetIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::get_iceberg_namespace",
-                self.inner.get_iceberg_namespace(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::get_iceberg_namespace",
+            self.inner.get_iceberg_namespace(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::CreateIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergNamespace>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::create_iceberg_namespace",
-                self.inner.create_iceberg_namespace(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::create_iceberg_namespace",
+            self.inner.create_iceberg_namespace(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::DeleteIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::delete_iceberg_namespace",
-                self.inner.delete_iceberg_namespace(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::delete_iceberg_namespace",
+            self.inner.delete_iceberg_namespace(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::UpdateIcebergNamespaceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::UpdateIcebergNamespaceResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::update_iceberg_namespace",
-                self.inner.update_iceberg_namespace(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::update_iceberg_namespace",
+            self.inner.update_iceberg_namespace(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::ListIcebergTableIdentifiersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergTableIdentifiersResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::list_iceberg_table_identifiers",
-                self.inner.list_iceberg_table_identifiers(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::list_iceberg_table_identifiers",
+            self.inner.list_iceberg_table_identifiers(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::CreateIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::create_iceberg_table",
-                self.inner.create_iceberg_table(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::create_iceberg_table",
+            self.inner.create_iceberg_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::DeleteIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::delete_iceberg_table",
-                self.inner.delete_iceberg_table(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::delete_iceberg_table",
+            self.inner.delete_iceberg_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::GetIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::get_iceberg_table",
-                self.inner.get_iceberg_table(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::get_iceberg_table",
+            self.inner.get_iceberg_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::GetIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::LoadIcebergTableCredentialsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::load_iceberg_table_credentials",
-                self.inner.load_iceberg_table_credentials(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::load_iceberg_table_credentials",
+            self.inner.load_iceberg_table_credentials(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::UpdateIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::update_iceberg_table",
-                self.inner.update_iceberg_table(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::update_iceberg_table",
+            self.inner.update_iceberg_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::RegisterIcebergTableRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_api::model::HttpBody>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::register_iceberg_table",
-                self.inner.register_iceberg_table(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::register_iceberg_table",
+            self.inner.register_iceberg_table(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -255,14 +229,12 @@ where
         req: crate::model::GetIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::get_iceberg_catalog",
-                self.inner.get_iceberg_catalog(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::get_iceberg_catalog",
+            self.inner.get_iceberg_catalog(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -271,14 +243,12 @@ where
         req: crate::model::ListIcebergCatalogsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListIcebergCatalogsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::list_iceberg_catalogs",
-                self.inner.list_iceberg_catalogs(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::list_iceberg_catalogs",
+            self.inner.list_iceberg_catalogs(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -287,14 +257,12 @@ where
         req: crate::model::DeleteIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::delete_iceberg_catalog",
-                self.inner.delete_iceberg_catalog(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::delete_iceberg_catalog",
+            self.inner.delete_iceberg_catalog(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -303,14 +271,12 @@ where
         req: crate::model::UpdateIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::update_iceberg_catalog",
-                self.inner.update_iceberg_catalog(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::update_iceberg_catalog",
+            self.inner.update_iceberg_catalog(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -319,14 +285,12 @@ where
         req: crate::model::CreateIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::IcebergCatalog>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::create_iceberg_catalog",
-                self.inner.create_iceberg_catalog(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::create_iceberg_catalog",
+            self.inner.create_iceberg_catalog(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -335,14 +299,12 @@ where
         req: crate::model::FailoverIcebergCatalogRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FailoverIcebergCatalogResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::IcebergCatalogService::failover_iceberg_catalog",
-                self.inner.failover_iceberg_catalog(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::IcebergCatalogService::failover_iceberg_catalog",
+            self.inner.failover_iceberg_catalog(req, options));
+        pending.await
     }
 }
 

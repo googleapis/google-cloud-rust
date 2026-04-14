@@ -47,14 +47,12 @@ where
         req: crate::model::GenerateCredentialsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::GenerateCredentialsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::GatewayControl::generate_credentials",
-                self.inner.generate_credentials(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::GatewayControl::generate_credentials",
+            self.inner.generate_credentials(req, options));
+        pending.await
     }
 }
 

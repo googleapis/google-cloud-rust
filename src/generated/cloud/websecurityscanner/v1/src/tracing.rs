@@ -47,14 +47,12 @@ where
         req: crate::model::CreateScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::create_scan_config",
-                self.inner.create_scan_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::create_scan_config",
+            self.inner.create_scan_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -63,14 +61,12 @@ where
         req: crate::model::DeleteScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::delete_scan_config",
-                self.inner.delete_scan_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::delete_scan_config",
+            self.inner.delete_scan_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -79,14 +75,12 @@ where
         req: crate::model::GetScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::get_scan_config",
-                self.inner.get_scan_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::get_scan_config",
+            self.inner.get_scan_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -95,14 +89,12 @@ where
         req: crate::model::ListScanConfigsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListScanConfigsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::list_scan_configs",
-                self.inner.list_scan_configs(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::list_scan_configs",
+            self.inner.list_scan_configs(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -111,14 +103,12 @@ where
         req: crate::model::UpdateScanConfigRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanConfig>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::update_scan_config",
-                self.inner.update_scan_config(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::update_scan_config",
+            self.inner.update_scan_config(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -127,14 +117,12 @@ where
         req: crate::model::StartScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::start_scan_run",
-                self.inner.start_scan_run(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::start_scan_run",
+            self.inner.start_scan_run(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -143,14 +131,12 @@ where
         req: crate::model::GetScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::get_scan_run",
-                self.inner.get_scan_run(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::get_scan_run",
+            self.inner.get_scan_run(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -159,14 +145,12 @@ where
         req: crate::model::ListScanRunsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListScanRunsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::list_scan_runs",
-                self.inner.list_scan_runs(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::list_scan_runs",
+            self.inner.list_scan_runs(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -175,14 +159,12 @@ where
         req: crate::model::StopScanRunRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ScanRun>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::stop_scan_run",
-                self.inner.stop_scan_run(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::stop_scan_run",
+            self.inner.stop_scan_run(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -191,14 +173,12 @@ where
         req: crate::model::ListCrawledUrlsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListCrawledUrlsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::list_crawled_urls",
-                self.inner.list_crawled_urls(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::list_crawled_urls",
+            self.inner.list_crawled_urls(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -207,14 +187,12 @@ where
         req: crate::model::GetFindingRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Finding>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::get_finding",
-                self.inner.get_finding(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::get_finding",
+            self.inner.get_finding(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -223,14 +201,12 @@ where
         req: crate::model::ListFindingsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFindingsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::list_findings",
-                self.inner.list_findings(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::list_findings",
+            self.inner.list_findings(req, options));
+        pending.await
     }
 
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -239,14 +215,12 @@ where
         req: crate::model::ListFindingTypeStatsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListFindingTypeStatsResponse>> {
-        {
-            let (_span, pending) = gaxi::client_request_signals!(
-                metric: self.duration.clone(),
-                info: *info::INSTRUMENTATION_CLIENT_INFO,
-                method: "client::WebSecurityScanner::list_finding_type_stats",
-                self.inner.list_finding_type_stats(req, options));
-            pending.await
-        }
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::WebSecurityScanner::list_finding_type_stats",
+            self.inner.list_finding_type_stats(req, options));
+        pending.await
     }
 }
 

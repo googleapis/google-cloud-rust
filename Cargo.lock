@@ -4013,6 +4013,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-pubsub",
+ "google-cloud-rpc",
  "google-cloud-test-macros",
  "google-cloud-wkt",
  "http",
@@ -5077,7 +5078,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-wkt"
-version = "1.2.1"
+version = "1.3.0"
 dependencies = [
  "anyhow",
  "base64",
