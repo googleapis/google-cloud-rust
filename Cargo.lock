@@ -5754,6 +5754,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-grpc-mock"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-gax",
+ "google-cloud-storage",
+ "mockall",
+ "pastey",
+ "storage-grpc-mock",
+ "test-case",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+]
+
+[[package]]
 name = "integration-tests-locational-endpoints"
 version = "0.0.0"
 dependencies = [
@@ -7812,17 +7828,13 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
- "pastey",
  "prost",
- "prost-build",
  "prost-types",
  "serde_json",
- "test-case",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]
