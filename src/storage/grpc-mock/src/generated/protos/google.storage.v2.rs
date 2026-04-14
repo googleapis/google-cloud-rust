@@ -613,8 +613,8 @@ impl ::prost::Name for ObjectRangeData {
 #[allow(clippy::large_enum_variant)]
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BidiReadHandle {
-    #[prost(bytes = "bytes", tag = "1")]
-    pub handle: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "1")]
+    pub handle: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for BidiReadHandle {
     const NAME: &'static str = "BidiReadHandle";
@@ -629,8 +629,8 @@ impl ::prost::Name for BidiReadHandle {
 #[allow(clippy::large_enum_variant)]
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct BidiWriteHandle {
-    #[prost(bytes = "bytes", tag = "1")]
-    pub handle: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "1")]
+    pub handle: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for BidiWriteHandle {
     const NAME: &'static str = "BidiWriteHandle";
@@ -982,10 +982,10 @@ pub struct RewriteObjectRequest {
     pub max_bytes_rewritten_per_call: i64,
     #[prost(string, tag = "16")]
     pub copy_source_encryption_algorithm: ::prost::alloc::string::String,
-    #[prost(bytes = "bytes", tag = "21")]
-    pub copy_source_encryption_key_bytes: ::prost::bytes::Bytes,
-    #[prost(bytes = "bytes", tag = "22")]
-    pub copy_source_encryption_key_sha256_bytes: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "21")]
+    pub copy_source_encryption_key_bytes: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "22")]
+    pub copy_source_encryption_key_sha256_bytes: ::prost::alloc::vec::Vec<u8>,
     #[prost(message, optional, tag = "19")]
     pub common_object_request_params: ::core::option::Option<CommonObjectRequestParams>,
     #[prost(message, optional, tag = "29")]
@@ -1134,10 +1134,10 @@ impl ::prost::Name for UpdateObjectRequest {
 pub struct CommonObjectRequestParams {
     #[prost(string, tag = "1")]
     pub encryption_algorithm: ::prost::alloc::string::String,
-    #[prost(bytes = "bytes", tag = "4")]
-    pub encryption_key_bytes: ::prost::bytes::Bytes,
-    #[prost(bytes = "bytes", tag = "5")]
-    pub encryption_key_sha256_bytes: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "4")]
+    pub encryption_key_bytes: ::prost::alloc::vec::Vec<u8>,
+    #[prost(bytes = "vec", tag = "5")]
+    pub encryption_key_sha256_bytes: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for CommonObjectRequestParams {
     const NAME: &'static str = "CommonObjectRequestParams";
@@ -1904,8 +1904,8 @@ impl ::prost::Name for BucketAccessControl {
 #[allow(clippy::large_enum_variant)]
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ChecksummedData {
-    #[prost(bytes = "bytes", tag = "1")]
-    pub content: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "1")]
+    pub content: ::prost::alloc::vec::Vec<u8>,
     #[prost(fixed32, optional, tag = "2")]
     pub crc32c: ::core::option::Option<u32>,
 }
@@ -1924,8 +1924,8 @@ impl ::prost::Name for ChecksummedData {
 pub struct ObjectChecksums {
     #[prost(fixed32, optional, tag = "1")]
     pub crc32c: ::core::option::Option<u32>,
-    #[prost(bytes = "bytes", tag = "2")]
-    pub md5_hash: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "2")]
+    pub md5_hash: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for ObjectChecksums {
     const NAME: &'static str = "ObjectChecksums";
@@ -1981,8 +1981,8 @@ impl ::prost::Name for ObjectContexts {
 pub struct CustomerEncryption {
     #[prost(string, tag = "1")]
     pub encryption_algorithm: ::prost::alloc::string::String,
-    #[prost(bytes = "bytes", tag = "3")]
-    pub key_sha256_bytes: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "3")]
+    pub key_sha256_bytes: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for CustomerEncryption {
     const NAME: &'static str = "CustomerEncryption";

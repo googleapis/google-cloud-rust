@@ -24,8 +24,8 @@ pub struct Policy {
     pub bindings: ::prost::alloc::vec::Vec<Binding>,
     #[prost(message, repeated, tag = "6")]
     pub audit_configs: ::prost::alloc::vec::Vec<AuditConfig>,
-    #[prost(bytes = "bytes", tag = "3")]
-    pub etag: ::prost::bytes::Bytes,
+    #[prost(bytes = "vec", tag = "3")]
+    pub etag: ::prost::alloc::vec::Vec<u8>,
 }
 impl ::prost::Name for Policy {
     const NAME: &'static str = "Policy";
