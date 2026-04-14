@@ -4013,6 +4013,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-pubsub",
+ "google-cloud-rpc",
  "google-cloud-test-macros",
  "google-cloud-wkt",
  "http",
