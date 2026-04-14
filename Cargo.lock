@@ -6832,17 +6832,13 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
- "pastey",
  "prost",
- "prost-build",
  "prost-types",
  "serde_json",
- "test-case",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]
