@@ -1718,6 +1718,19 @@ libraries:
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
     skip_release: true
+    rust:
+      modules:
+        - output: src/pubsub/grpc-mock
+          api_path: google/pubsub/v1
+          include_grpc_only_methods: true
+          include_streaming_methods: true
+          template: grpc-mock
+          included_ids:
+            - .google.pubsub.v1.Subscriber
+          quickstart_service_override: Subscriber
+        - output: src/pubsub/grpc-mock/src/generated/protos
+          api_path: google/pubsub/v1
+          template: tonic
   - name: pubsub-samples
     copyright_year: "2025"
     output: src/pubsub/examples
