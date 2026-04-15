@@ -342,6 +342,8 @@ mod tests {
     #[test_case(vec![], ""; "Serialize empty")]
     #[test_case(vec!["field1"], "field1"; "Serialize single")]
     #[test_case(vec!["field1", "field2", "field3"], "field1,field2,field3"; "Serialize multiple")]
+    #[test_case(vec!["field_one"], "fieldOne"; "Serialize snake to camel")]
+    #[test_case(vec!["user.display_name"], "user.displayName"; "Serialize path snake to camel")]
     fn test_serialize(paths: Vec<&str>, want: &str) -> Result {
         let value = serde_json::to_value(FieldMask::default().set_paths(paths))?;
         assert!(matches!(&value, Value::String(s) if s == want), "{value:?}");
@@ -351,6 +353,8 @@ mod tests {
     #[test_case("", vec![]; "Deserialize empty")]
     #[test_case("field1", vec!["field1"]; "Deserialize single")]
     #[test_case("field1,field2,field3", vec!["field1" ,"field2", "field3"]; "Deserialize multiple")]
+    #[test_case("fieldOne", vec!["field_one"]; "Deserialize camel to snake")]
+    #[test_case("user.displayName", vec!["user.display_name"]; "Deserialize path camel to snake")]
     fn test_deserialize(paths: &str, mut want: Vec<&str>) -> Result {
         let value = json!(paths);
         let mut got = serde_json::from_value::<FieldMask>(value)?;

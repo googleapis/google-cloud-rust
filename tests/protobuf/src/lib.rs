@@ -80,9 +80,14 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
                 .set_name(&get.name)
                 .set_etag(get.etag)
                 .set_labels(tag(get.labels.clone(), "test-1"))
-                .set_annotations(tag(get.annotations.clone(), "test-1")),
+                .set_annotations(tag(get.annotations.clone(), "test-1"))
+                .set_version_aliases([("test-alias".to_string(), 1i64)]),
         )
-        .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
+        .set_update_mask(FieldMask::default().set_paths([
+            "annotations",
+            "labels",
+            "version_aliases",
+        ]))
         // Avoid flakes, safe to retry because of the etag.
         .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
         .send()
@@ -96,6 +101,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
         update.annotations.get("updated").map(String::as_str),
         Some("test-1")
     );
+    assert_eq!(update.version_aliases.get("test-alias"), Some(&1i64));
 
     println!("\nTesting update_secret() [2]");
     let update = client
