@@ -634,6 +634,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::options::InstrumentationClientInfo;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -679,8 +680,6 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread")]
     async fn test_new_with_instrumentation() {
-        use crate::options::InstrumentationClientInfo;
-
         let config = crate::options::ClientConfig::default();
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
             service_name: "test-service",
