@@ -1761,6 +1761,20 @@ libraries:
     specification_format: openapi
     rust:
       package_name_override: secretmanager-openapi-v1
+  - name: spanner-grpc-mock
+    copyright_year: "2026"
+    output: src/spanner/grpc-mock
+    skip_release: true
+    rust:
+      modules:
+        - include_grpc_only_methods: true
+          include_streaming_methods: true
+          output: src/spanner/grpc-mock
+          api_path: google/spanner/v1
+          template: grpc-mock
+        - output: src/spanner/grpc-mock/src/generated/protos
+          api_path: google/spanner/v1
+          template: tonic
   - name: storage-grpc-mock
     copyright_year: "2025"
     output: src/storage/grpc-mock
