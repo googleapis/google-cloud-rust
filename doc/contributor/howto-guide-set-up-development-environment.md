@@ -253,6 +253,9 @@ gcloud storage service-agent --project=${GOOGLE_CLOUD_PROJECT} \
     --authorize-cmek=projects/${GOOGLE_CLOUD_PROJECT}/locations/us-central1/keyRings/us-central1/cryptoKeys/storage-examples
 ```
 
+> [!NOTE]
+> Alternatively, if you prefer to use Terraform to automate this setup in your own project, see the instructions in [.gcb/builds/README.md](../../.gcb/builds/README.md) for a safe way to do this without affecting the shared project.
+
 ### Running tests
 
 Use `cargo test` to run the tests. The `run-integration-tests` features enables
