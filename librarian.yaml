@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.10.2-0.20260413201001-f1215bd28dbc
+version: v0.10.2-0.20260414160305-64e0099f9a99
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -31,19 +31,19 @@ sources:
   showcase:
     commit: 3fd9cb2f682d5f8263d913eaba8b78e045acc4d2
     sha256: ed1e698886cb4ab9b90ca98cfee38023d813e9729fca7297578c81c4af3e1e9e
+tools:
+  cargo:
+    - name: cargo-hack
+      version: 0.6.44
+    - name: cargo-minimal-versions
+      version: 0.1.37
+    - name: cargo-semver-checks
+      version: 0.46.0
+    - name: cargo-workspaces
+      version: 0.4.0
 release:
   ignored_changes:
     - .repo-metadata.json
-  tools:
-    cargo:
-      - name: cargo-hack
-        version: 0.6.44
-      - name: cargo-minimal-versions
-        version: 0.1.37
-      - name: cargo-semver-checks
-        version: 0.46.0
-      - name: cargo-workspaces
-        version: 0.4.0
 default:
   output: src/generated/
   rust:
@@ -1545,8 +1545,7 @@ libraries:
         - output: src/storage/src/generated/protos/storage
           api_path: google/storage/v2
           template: prost
-        - language: rust_storage
-          output: src/storage/src/control/generated
+        - output: src/storage/src/control/generated
           specification_format: none
           api_path: google/storage/v2
           template: storage
@@ -1737,6 +1736,17 @@ libraries:
     copyright_year: "2025"
     output: src/storage/grpc-mock
     skip_release: true
+    rust:
+      modules:
+        - include_grpc_only_methods: true
+          include_streaming_methods: true
+          output: src/storage/grpc-mock
+          service_config: google/storage/v2/storage_v2.yaml
+          api_path: google/storage/v2
+          template: grpc-mock
+        - output: src/storage/grpc-mock/src/generated/protos
+          api_path: google/storage/v2
+          template: tonic
   - name: storage-random
     copyright_year: "2025"
     output: src/storage/benchmarks/random
