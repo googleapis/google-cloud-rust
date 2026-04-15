@@ -120,6 +120,23 @@ default:
     generate_rpc_samples: "true"
     detailed_tracing_attributes: true
 libraries:
+  - name: bigquery-grpc-mock
+    copyright_year: "2026"
+    output: src/bigquery/grpc-mock
+    skip_release: true
+    rust:
+      modules:
+        - included_ids:
+            - .google.cloud.bigquery.storage.v1.BigQueryWrite
+          include_grpc_only_methods: true
+          include_streaming_methods: true
+          output: src/bigquery/grpc-mock
+          service_config: google/cloud/bigquery/storage/v1/bigquerystorage_v1.yaml
+          api_path: google/cloud/bigquery/storage/v1
+          template: grpc-mock
+        - output: src/bigquery/grpc-mock/src/generated/protos
+          api_path: google/cloud/bigquery/storage/v1
+          template: tonic
   - name: common
     copyright_year: "2025"
     output: src/wkt/tests/common
