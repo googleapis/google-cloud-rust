@@ -129,10 +129,42 @@ where
 }
 
 impl Credentials {
+    /// Asynchronously constructs the auth headers.
+    ///
+    /// Different auth tokens are sent via different headers. The
+    /// [Credentials] constructs the headers (and header values) that should be
+    /// sent with a request.
+    ///
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
     pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
     }
 
+    /// Retrieves the universe domain associated with the credentials, if any.
+    ///
+    /// A "universe" is an isolated Google Cloud environment, such as the public
+    /// cloud or a sovereign/air-gapped deployment (e.g., Google Distributed Cloud).
+    /// The universe domain acts as the base URL for constructing API endpoints
+    /// within that environment.
+    ///
+    /// By default, this returns `None`, which means the default universe domain of
+    /// `googleapis.com`. You should only override this if your application is operating
+    /// within a custom Cloud universe and needs to direct authentication and service
+    /// requests to a different base endpoint.
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
@@ -170,6 +202,7 @@ where
 }
 
 impl AccessTokenCredentials {
+    /// Asynchronously retrieves an access token.
     pub async fn access_token(&self) -> Result<AccessToken> {
         self.inner.access_token().await
     }
