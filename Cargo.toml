@@ -325,6 +325,7 @@ members = [
   "tests/dns",
   "tests/endurance",
   "tests/enums-query-parameters",
+  "tests/grpc-mock",
   "tests/integration",
   "tests/integration-auth",
   "tests/locational-endpoints",

@@ -114,6 +114,7 @@ wrappers = [
   "google-cloud-gax-internal",
   # Use in tests is fine.
   "grpc-server",
+  "integration-tests-grpc-mock",
   "integration-tests-o11y",
   "integration-tests-spanner",
   "pubsub-grpc-mock",

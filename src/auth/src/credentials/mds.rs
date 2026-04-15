@@ -1059,9 +1059,9 @@ mod tests {
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
-        let source = find_source_error::<reqwest::Error>(&err);
+        let source = find_source_error::<google_cloud_gax::error::Error>(&err);
         assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::SERVICE_UNAVAILABLE)),
+            matches!(source, Some(e) if e.http_status_code() == Some(StatusCode::SERVICE_UNAVAILABLE.into())),
             "{err:?}"
         );
 
@@ -1090,9 +1090,9 @@ mod tests {
         let err = mdsc.headers(Extensions::new()).await.unwrap_err();
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(!original_err.is_transient());
-        let source = find_source_error::<reqwest::Error>(&err);
+        let source = find_source_error::<google_cloud_gax::error::Error>(&err);
         assert!(
-            matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
+            matches!(source, Some(e) if e.http_status_code() == Some(StatusCode::UNAUTHORIZED.into())),
             "{err:?}"
         );
 

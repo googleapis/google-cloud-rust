@@ -12,9 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::errors::{self, CredentialsError};
+use crate::errors::CredentialsError;
 use crate::token::Token;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicyArg};
+use google_cloud_gax::retry_throttler::{
+    AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler,
+};
 use reqwest::{Client as ReqwestClient, RequestBuilder};
+use std::sync::{Arc, Mutex};
 use std::time::Duration;
 use tokio::time::Instant;
 
@@ -24,6 +33,7 @@ pub(crate) struct Client {
     endpoint: String,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
+    retry_config: RetryConfig,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -43,6 +53,7 @@ impl Client {
         Self {
             endpoint,
             is_default_endpoint,
+            retry_config: Default::default(),
         }
     }
 
@@ -109,30 +120,87 @@ impl Client {
     }
 
     async fn send(
-        &self,
+        self,
         request: reqwest::RequestBuilder,
         error_message: &'static str,
     ) -> crate::Result<reqwest::Response> {
-        let response = request
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, error_message))?;
+        let sleep = async |d| tokio::time::sleep(d).await;
 
-        let response = Self::check_response_status(response, error_message).await?;
+        let error_message_str = error_message.to_string().clone();
+        retry_loop(
+            async move |_| {
+                let req = request
+                    .try_clone()
+                    .expect("client libraries only create builders where `try_clone()` succeeds");
+                let response = req.send().await.map_err(GaxError::io)?;
 
-        Ok(response)
+                let response =
+                    Self::check_response_status(response, error_message_str.clone()).await?;
+
+                Ok(response)
+            },
+            sleep,
+            true, // GET requests are idempotent
+            self.retry_config.retry_throttler,
+            self.retry_config.retry_policy.into(),
+            self.retry_config.backoff_policy.into(),
+        )
+        .await
+        .map_err(|e| crate::errors::from_gax_error(e, error_message))
     }
 
     async fn check_response_status(
         response: reqwest::Response,
-        error_message: &str,
-    ) -> crate::Result<reqwest::Response> {
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, error_message).await;
-            Err(err)
-        } else {
-            Ok(response)
+        error_message: String,
+    ) -> Result<reqwest::Response, GaxError> {
+        let status = response.status();
+        if !status.is_success() {
+            let err_headers = response.headers().clone();
+            let err_payload = response
+                .bytes()
+                .await
+                .map_err(|e| GaxError::transport(err_headers.clone(), e))?;
+            return Err(GaxError::http(
+                status.as_u16(),
+                err_headers,
+                format!("{error_message} :{err_payload:?}").into(),
+            ));
         }
+        Ok(response)
+    }
+}
+
+#[derive(Clone, Debug)]
+struct RetryConfig {
+    retry_policy: RetryPolicyArg,
+    backoff_policy: BackoffPolicyArg,
+    retry_throttler: SharedRetryThrottler,
+}
+
+impl Default for RetryConfig {
+    fn default() -> Self {
+        Self {
+            retry_policy: NeverRetry.into(),
+            backoff_policy: ExponentialBackoff::default().into(),
+            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+        }
+    }
+}
+
+impl RetryConfig {
+    fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
+        self.retry_policy = retry_policy;
+        self
+    }
+
+    fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
+        self.backoff_policy = backoff_policy;
+        self
+    }
+
+    fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
+        self.retry_throttler = retry_throttler.into();
+        self
     }
 }
 
@@ -246,6 +314,27 @@ pub(crate) struct UniverseDomainRequest {
 
 impl UniverseDomainRequest {
     #[allow(dead_code)]
+    pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
+        self.client.retry_config = self.client.retry_config.with_retry_policy(retry_policy);
+        self
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
+        self.client.retry_config = self.client.retry_config.with_backoff_policy(backoff_policy);
+        self
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
+        self.client.retry_config = self
+            .client
+            .retry_config
+            .with_retry_throttler(retry_throttler);
+        self
+    }
+
+    #[allow(dead_code)]
     pub(crate) async fn send(self) -> crate::Result<String> {
         let path = super::MDS_UNIVERSE_DOMAIN_URI;
         let request = self.client.get(path);
@@ -265,14 +354,19 @@ impl UniverseDomainRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::credentials::tests::{
+        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+    };
     use crate::mds::{MDS_DEFAULT_URI, MDS_UNIVERSE_DOMAIN_URI};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
 
+    type TestResult = anyhow::Result<()>;
+
     #[tokio::test]
     #[parallel]
-    async fn test_access_token_success() {
+    async fn test_access_token_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
         let response = MDSTokenResponse {
@@ -293,17 +387,18 @@ mod tests {
             .respond_with(
                 status_code(200)
                     .insert_header("Content-Type", "application/json")
-                    .body(serde_json::to_string(&response).unwrap()),
+                    .body(serde_json::to_string(&response)?),
             ),
         );
 
         let token = client
             .access_token(Some(vec!["scope1".to_string(), "scope2".to_string()]))
             .send()
-            .await
-            .unwrap();
+            .await?;
         assert_eq!(token.token, "test-token");
         assert_eq!(token.token_type, "Bearer");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -327,7 +422,7 @@ mod tests {
     #[tokio::test]
     #[parallel]
     #[cfg(feature = "idtoken")]
-    async fn test_id_token_success() {
+    async fn test_id_token_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -349,9 +444,10 @@ mod tests {
                 Some("TRUE".to_string()),
             )
             .send()
-            .await
-            .unwrap();
+            .await?;
         assert_eq!(token, "test-id-token");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -379,7 +475,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_email_success() {
+    async fn test_email_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -391,8 +487,10 @@ mod tests {
             .respond_with(status_code(200).body("test@example.com")),
         );
 
-        let email = client.email().send().await.unwrap();
+        let email = client.email().send().await?;
         assert_eq!(email, "test@example.com");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -415,7 +513,7 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_universe_domain_success() {
+    async fn test_universe_domain_success() -> TestResult {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
 
@@ -427,8 +525,10 @@ mod tests {
             .respond_with(status_code(200).body("my-universe-domain.com")),
         );
 
-        let domain = client.universe_domain().send().await.unwrap();
+        let domain = client.universe_domain().send().await?;
         assert_eq!(domain, "my-universe-domain.com");
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -478,5 +578,68 @@ mod tests {
         // Env var should take precedence over constructor argument
         let client = Client::new(Some("http://custom.endpoint".to_string()));
         assert_eq!(client.endpoint, "http://env.priority.host");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_retry_success() -> TestResult {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        // First request fails, second succeeds
+        let responses: Vec<Box<dyn Responder>> = vec![
+            Box::new(status_code(500)),
+            Box::new(status_code(200).body("my-universe-domain.com")),
+        ];
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .times(2)
+            .respond_with(cycle(responses)),
+        );
+
+        let domain = client
+            .universe_domain()
+            .with_retry_policy(get_mock_auth_retry_policy(2).into())
+            .with_backoff_policy(get_mock_backoff_policy().into())
+            .with_retry_throttler(get_mock_retry_throttler().into())
+            .send()
+            .await?;
+
+        assert_eq!(domain, "my-universe-domain.com");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_universe_domain_retry_failure() -> TestResult {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        // All requests fail
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(MDS_UNIVERSE_DOMAIN_URI),
+            ])
+            .times(2)
+            .respond_with(status_code(500)),
+        );
+
+        let err = client
+            .universe_domain()
+            .with_retry_policy(get_mock_auth_retry_policy(2).into())
+            .with_backoff_policy(get_mock_backoff_policy().into())
+            .with_retry_throttler(get_mock_retry_throttler().into())
+            .send()
+            .await
+            .unwrap_err();
+
+        assert!(err.to_string().contains("failed to fetch universe domain"));
+
+        Ok(())
     }
 }
