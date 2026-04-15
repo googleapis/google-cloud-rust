@@ -133,14 +133,22 @@ impl Credentials {
     ///
     /// Different auth tokens are sent via different headers. The
     /// [Credentials] constructs the headers (and header values) that should be
-    /// sent with a request.
+    /// sent with a request. Headers are cached in a background task and refreshed
+    /// periodically as the tokens expire.
     ///
     /// # Parameters
     /// * `extensions` - An `http::Extensions` map that can be used to pass additional
-    ///   context to the credential provider. For caching purposes, this can include
-    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].
-    ///   If a valid `EntityTag` is provided and the underlying authentication data
-    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///   context to the credential provider. If the caller does not need to compute derived values
+    ///   from the headers then do not provide an `EntityTag`. The credentials will either return
+    ///   `Err(...)` or `Ok(CacheableResource::New {})` in this case. Since the credentials
+    ///   already cache the headers, then it can use the results directly. Some applications need
+    ///   to compute values derived from the result, and want to avoid that computation if the
+    ///   headers have not changed. In that case, provide the `EntityTag` returned from a previous
+    ///   call. If the underlying authentication data has not changed, this method returns
+    ///   `Ok(CacheableResource::NotModified)` and you can use the same derived data. If the
+    ///   caller provides an `EntityTag` and the underlying authentication data has changed, this
+    ///   function returns `Ok(CacheableResource::New { ... })`. That result invalidates the
+    ///   tag, and provides new values for the headers.
     ///
     /// # Returns
     /// A `Result` containing:
