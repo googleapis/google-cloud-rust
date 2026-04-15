@@ -129,10 +129,42 @@ where
 }
 
 impl Credentials {
+    /// Asynchronously constructs the auth headers.
+    ///
+    /// Different auth tokens are sent via different headers. The
+    /// [Credentials] constructs the headers (and header values) that should be
+    /// sent with a request.
+    ///
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Future` that resolves to a `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
     pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
     }
 
+    /// Retrieves the universe domain associated with the credentials, if any.
+    ///
+    /// A "universe" is an isolated Google Cloud environment, such as the public
+    /// cloud or a sovereign/air-gapped deployment (e.g., Google Distributed Cloud).
+    /// The universe domain acts as the base URL for constructing API endpoints
+    /// within that environment.
+    ///
+    /// By default, this returns `None`, which means the default universe domain of
+    /// `googleapis.com`. You should only override this if your application is operating
+    /// within a custom Cloud universe and needs to direct authentication and service
+    /// requests to a different base endpoint.
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
@@ -170,6 +202,7 @@ where
 }
 
 impl AccessTokenCredentials {
+    /// Asynchronously retrieves an access token.
     pub async fn access_token(&self) -> Result<AccessToken> {
         self.inner.access_token().await
     }
@@ -426,6 +459,7 @@ pub(crate) mod dynamic {
 pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    universe_domain: Option<String>,
 }
 
 impl Default for Builder {
@@ -444,6 +478,7 @@ impl Default for Builder {
         Self {
             quota_project_id: None,
             scopes: None,
+            universe_domain: None,
         }
     }
 }
@@ -503,6 +538,16 @@ impl Builder {
         self
     }
 
+    /// Sets the Google Cloud universe domain for these credentials.
+    ///
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
+    // TODO(#3646): Make this public and let example run when universe domain support is done.
+    #[allow(dead_code)]
+    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+        self.universe_domain = Some(universe_domain.into());
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -552,7 +597,12 @@ impl Builder {
         let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
             .ok()
             .or(self.quota_project_id);
-        build_credentials(json_data, quota_project_id, self.scopes)
+        build_credentials(
+            json_data,
+            quota_project_id,
+            self.scopes,
+            self.universe_domain,
+        )
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -582,7 +632,12 @@ impl Builder {
         let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
             .ok()
             .or(self.quota_project_id);
-        build_signer(json_data, quota_project_id, self.scopes)
+        build_signer(
+            json_data,
+            quota_project_id,
+            self.scopes,
+            self.universe_domain,
+        )
     }
 }
 
@@ -613,11 +668,12 @@ fn extract_credential_type(json: &Value) -> BuildResult<&str> {
 /// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
 /// It helps avoid repetitive code in the `build_credentials` function.
 macro_rules! config_builder {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $universe_domain_option:expr, $apply_scopes_closure:expr) => {{
         let builder = config_common_builder!(
             $builder_instance,
             $quota_project_id_option,
             $scopes_option,
+            $universe_domain_option,
             $apply_scopes_closure
         );
         builder.build_access_token_credentials()
@@ -627,11 +683,12 @@ macro_rules! config_builder {
 /// Applies common optional configurations (quota project ID, scopes) to a
 /// specific credential builder instance and then return a signer for it.
 macro_rules! config_signer {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $universe_domain_option:expr, $apply_scopes_closure:expr) => {{
         let builder = config_common_builder!(
             $builder_instance,
             $quota_project_id_option,
             $scopes_option,
+            $universe_domain_option,
             $apply_scopes_closure
         );
         builder.build_signer()
@@ -639,11 +696,15 @@ macro_rules! config_signer {
 }
 
 macro_rules! config_common_builder {
-    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $universe_domain_option:expr, $apply_scopes_closure:expr) => {{
         let builder = $builder_instance;
         let builder = $quota_project_id_option
             .into_iter()
             .fold(builder, |b, qp| b.with_quota_project_id(qp));
+
+        let builder = $universe_domain_option
+            .into_iter()
+            .fold(builder, |b, ud| b.with_universe_domain(ud));
 
         let builder = $scopes_option
             .into_iter()
@@ -657,12 +718,14 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    universe_domain: Option<String>,
 ) -> BuildResult<AccessTokenCredentials> {
     match json {
         None => config_builder!(
             mds::Builder::from_adc(),
             quota_project_id,
             scopes,
+            universe_domain.clone(),
             |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
         ),
         Some(json) => {
@@ -673,6 +736,7 @@ fn build_credentials(
                         user_account::Builder::new(json),
                         quota_project_id,
                         scopes,
+                        universe_domain.clone(),
                         |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
                     )
                 }
@@ -680,6 +744,7 @@ fn build_credentials(
                     service_account::Builder::new(json),
                     quota_project_id,
                     scopes,
+                    universe_domain.clone(),
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
@@ -688,6 +753,7 @@ fn build_credentials(
                         impersonated::Builder::new(json),
                         quota_project_id,
                         scopes,
+                        universe_domain.clone(),
                         |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
                     )
                 }
@@ -695,6 +761,7 @@ fn build_credentials(
                     external_account::Builder::new(json),
                     quota_project_id,
                     scopes,
+                    universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
                 _ => Err(BuilderError::unknown_type(cred_type)),
@@ -707,12 +774,14 @@ fn build_signer(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
+    universe_domain: Option<String>,
 ) -> BuildResult<crate::signer::Signer> {
     match json {
         None => config_signer!(
             mds::Builder::from_adc(),
             quota_project_id,
             scopes,
+            universe_domain.clone(),
             |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
         ),
         Some(json) => {
@@ -725,6 +794,7 @@ fn build_signer(
                     service_account::Builder::new(json),
                     quota_project_id,
                     scopes,
+                    universe_domain.clone(),
                     |b: service_account::Builder, s: Vec<String>| b
                         .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
@@ -733,6 +803,7 @@ fn build_signer(
                         impersonated::Builder::new(json),
                         quota_project_id,
                         scopes,
+                        universe_domain.clone(),
                         |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
                     )
                 }
@@ -1210,6 +1281,23 @@ pub(crate) mod tests {
             fmt.contains("test-quota-project"),
             "Expected 'test-quota-project', got: {fmt}"
         );
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credentials_with_universe_domain_from_builder() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
+
+        let creds = Builder::default()
+            .with_universe_domain("my-custom-universe.com")
+            .build()
+            .unwrap();
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain, Some("my-custom-universe.com".to_string()));
     }
 
     #[tokio::test]
