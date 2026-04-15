@@ -347,7 +347,6 @@ impl Builder {
         let mds_client = MDSClient::new(self.endpoint.clone());
         let retry_builder = self.retry_builder.clone();
         let (backoff_policy, retry_throttler, retry_policy) = retry_builder.resolve();
-
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             universe_domain_override: self.universe_domain.clone(),
@@ -1291,6 +1290,10 @@ mod tests {
 
         let universe_domain = creds.universe_domain().await;
         assert_eq!(universe_domain, None);
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+
         let universe_domain = creds.universe_domain().await;
         assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
 
