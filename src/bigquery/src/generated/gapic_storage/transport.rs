@@ -50,7 +50,6 @@ impl std::fmt::Debug for BigQueryWrite {
 
 impl BigQueryWrite {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if gaxi::options::tracing_enabled(&config) {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -61,8 +60,6 @@ impl BigQueryWrite {
         } else {
             gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
         };
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -98,7 +95,6 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::cloud::bigquery::storage::v1::WriteStream;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryWrite/CreateWriteStream");
@@ -158,7 +154,6 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::cloud::bigquery::storage::v1::WriteStream;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryWrite/GetWriteStream");
@@ -218,7 +213,6 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::cloud::bigquery::storage::v1::FinalizeWriteStreamResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method(
@@ -280,7 +274,6 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::cloud::bigquery::storage::v1::BatchCommitWriteStreamsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method(
@@ -344,7 +337,6 @@ impl super::stub::BigQueryWrite for BigQueryWrite {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::cloud::bigquery::storage::v1::FlushRowsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.cloud.bigquery.storage.v1.BigQueryWrite/FlushRows");

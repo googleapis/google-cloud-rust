@@ -310,13 +310,11 @@ impl StorageInner {
         config.disable_follow_redirects = true;
 
         let client = gaxi::http::ReqwestClient::new(config.clone(), super::DEFAULT_HOST).await?;
-        #[cfg(google_cloud_unstable_tracing)]
         let client = if gaxi::options::tracing_enabled(&config) {
             client.with_instrumentation(&super::info::INSTRUMENTATION)
         } else {
             client
         };
-        #[cfg(google_cloud_unstable_tracing)]
         let grpc = if gaxi::options::tracing_enabled(&config) {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -327,8 +325,6 @@ impl StorageInner {
         } else {
             gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?
         };
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let grpc = gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?;
 
         let inner = StorageInner::new(client, options, grpc);
         Ok(inner)

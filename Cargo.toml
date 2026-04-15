@@ -325,6 +325,7 @@ members = [
   "tests/dns",
   "tests/endurance",
   "tests/enums-query-parameters",
+  "tests/grpc-mock",
   "tests/integration",
   "tests/integration-auth",
   "tests/locational-endpoints",
@@ -468,8 +469,8 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 google-cloud-auth        = { default-features = false, version = "1.9.0", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.9.1", path = "src/gax" }
 gaxi                     = { default-features = false, version = "0.7.12", path = "src/gax-internal", package = "google-cloud-gax-internal" }
-wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
+wkt                      = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
+google-cloud-wkt         = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.5.0", path = "src/generated/api/types" }
 google-cloud-iam-v1      = { default-features = false, version = "1.8.0", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1.8.0", path = "src/generated/cloud/location" }
@@ -534,7 +535,6 @@ storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',
-  'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trusted_boundaries)',
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.

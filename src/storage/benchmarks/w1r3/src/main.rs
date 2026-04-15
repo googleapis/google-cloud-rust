@@ -684,7 +684,6 @@ async fn enable_tracing(
 
     let registry = tracing_subscriber::Registry::default().with(fmt_layer);
 
-    #[cfg(google_cloud_unstable_tracing)]
     if let Some(project_id) = &_args.project_id {
         let tracer_provider =
             integration_tests_o11y::otlp::trace::Builder::new(project_id, "storage-w1r3")
@@ -772,7 +771,6 @@ struct Args {
     ///
     /// When set, enables OpenTelemetry export to Cloud Trace via
     /// telemetry.googleapis.com.
-    #[cfg(google_cloud_unstable_tracing)]
     #[arg(long)]
     project_id: Option<String>,
 }

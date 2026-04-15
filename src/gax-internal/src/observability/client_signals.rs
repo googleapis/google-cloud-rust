@@ -18,10 +18,8 @@ mod transport_metric;
 mod with_client_logging;
 mod with_client_metric;
 mod with_client_span;
-#[cfg(feature = "_internal-http-client")]
 mod with_transport_logging;
 mod with_transport_metric;
-#[cfg(feature = "_internal-http-client")]
 mod with_transport_span;
 
 pub use duration_metric::DurationMetric;
@@ -30,10 +28,8 @@ pub use transport_metric::TransportMetric;
 pub use with_client_logging::WithClientLogging;
 pub use with_client_metric::WithClientMetric;
 pub use with_client_span::WithClientSpan;
-#[cfg(feature = "_internal-http-client")]
 pub use with_transport_logging::WithTransportLogging;
 pub use with_transport_metric::WithTransportMetric;
-#[cfg(feature = "_internal-http-client")]
 pub use with_transport_span::WithTransportSpan;
 
 /// Creates a [Span] and decorated future for a client request.
@@ -52,7 +48,7 @@ pub use with_transport_span::WithTransportSpan;
 /// This is typically used in the body of the `Tracing` stub, to simplify the
 /// code. The body of the tracing function would be:
 ///
-/// ```ignore
+/// ```no_rust
 /// # struct Client;
 /// # impl Client {
 /// #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
@@ -145,11 +141,11 @@ mod tests {
     use opentelemetry::{InstrumentationScope, KeyValue};
     use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
     use opentelemetry_sdk::logs::{
-        BatchLogProcessor, InMemoryLogExporter, SdkLogRecord, SdkLoggerProvider,
+        InMemoryLogExporter, SdkLogRecord, SdkLoggerProvider, SimpleLogProcessor,
     };
     use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
-    use opentelemetry_sdk::trace::{BatchSpanProcessor, InMemorySpanExporter, SdkTracerProvider};
+    use opentelemetry_sdk::trace::{InMemorySpanExporter, SdkTracerProvider, SimpleSpanProcessor};
     use pretty_assertions::assert_eq;
     use std::collections::BTreeSet;
     use std::sync::Arc;
@@ -510,8 +506,9 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn grpc_client_request() -> anyhow::Result<()> {
+        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_echo_server().await?;
         let signals = SignalProviders::new();
 
@@ -603,8 +600,9 @@ mod tests {
     }
 
     #[cfg(feature = "_internal-grpc-client")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    #[tokio::test]
     async fn grpc_client_request_retry() -> anyhow::Result<()> {
+        tokio::time::pause();
         let (endpoint, _server) = grpc_server::start_fixed_responses(vec![
             Err(tonic::Status::unavailable("try again")),
             Ok(tonic::Response::new(EchoResponse {
@@ -765,14 +763,14 @@ mod tests {
             // We need a tracing exporter and provider or the traces get no trace ids.
             let trace_exporter = InMemorySpanExporter::default();
             let trace_provider = SdkTracerProvider::builder()
-                .with_span_processor(BatchSpanProcessor::builder(trace_exporter.clone()).build())
+                .with_span_processor(SimpleSpanProcessor::new(trace_exporter.clone()))
                 .build();
 
             // We also need a logging exporter to capture the `tracing::event!()` logs
             // as they are forwarded to OpenTelemetry logs.
             let logs_exporter = InMemoryLogExporter::default();
             let logs_provider = SdkLoggerProvider::builder()
-                .with_log_processor(BatchLogProcessor::builder(logs_exporter.clone()).build())
+                .with_log_processor(SimpleLogProcessor::new(logs_exporter.clone()))
                 .build();
             // Using a per-thread guard is Okay because all the tests in this module are single-threaded.
             let guard = tracing::subscriber::set_default(

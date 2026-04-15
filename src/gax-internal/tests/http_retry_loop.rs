@@ -31,7 +31,6 @@ mod tests {
     use google_cloud_gax_internal::options::ClientConfig;
     use http::StatusCode;
     use httptest::{Expectation, Server, matchers::*, responders::*};
-    #[cfg(google_cloud_unstable_tracing)]
     use opentelemetry_semantic_conventions::attribute::{
         HTTP_REQUEST_RESEND_COUNT, HTTP_RESPONSE_STATUS_CODE, OTEL_STATUS_CODE,
         OTEL_STATUS_DESCRIPTION,
@@ -39,7 +38,6 @@ mod tests {
     use serde_json::json;
     use std::time::Duration;
 
-    #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -114,7 +112,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn retry_loop_retry_success_with_tracing_on() -> Result<()> {
         let guard = TestLayer::initialize();
