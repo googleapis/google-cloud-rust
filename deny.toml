@@ -132,6 +132,7 @@ wrappers = [
   # Uses `tonic-prost` in its implementation.
   "google-cloud-gax-internal",
   # Use in tests is fine.
+  "bigquery-grpc-mock",
   "grpc-server",
   "opentelemetry-proto",
   "pubsub-grpc-mock",
