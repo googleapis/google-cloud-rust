@@ -290,6 +290,7 @@ members = [
   "src/pubsub",
   "src/pubsub/benchmarks/throughput",
   "src/pubsub/examples",
+  "src/pubsub/grpc-mock",
   "src/spanner",
   "src/spanner/grpc-mock",
   "src/storage",
