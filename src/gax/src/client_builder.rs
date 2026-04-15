@@ -94,6 +94,11 @@ impl Error {
         matches!(&self.0, ErrorKind::Transport(_))
     }
 
+    /// If true, the client universe domain does not match the credentials.
+    pub fn is_universe_domain_mismatch(&self) -> bool {
+        matches!(&self.0, ErrorKind::UniverseDomainMismatch(_))
+    }
+
     /// Not part of the public API, subject to change without notice.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn cred<T: Into<BoxError>>(source: T) -> Self {
@@ -105,6 +110,12 @@ impl Error {
     pub fn transport<T: Into<BoxError>>(source: T) -> Self {
         Self(ErrorKind::Transport(source.into()))
     }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn universe_domain_mismatch<T: Into<BoxError>>(source: T) -> Self {
+        Self(ErrorKind::UniverseDomainMismatch(source.into()))
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -113,6 +124,8 @@ enum ErrorKind {
     DefaultCredentials(#[source] BoxError),
     #[error("could not initialize transport client")]
     Transport(#[source] BoxError),
+    #[error("universe domain mismatch")]
+    UniverseDomainMismatch(#[source] BoxError),
 }
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -785,6 +798,7 @@ pub mod examples {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::error::CredentialsError;
     use std::error::Error as _;
 
     #[test]
@@ -815,5 +829,23 @@ mod tests {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+    }
+
+    #[test]
+    fn universe_domain_mismatch() {
+        let source = CredentialsError::from_msg(
+            false,
+            "universe domain between client and credentials don't match",
+        );
+        let error = Error::universe_domain_mismatch(source);
+        assert!(error.is_universe_domain_mismatch(), "{error:?}");
+        assert!(
+            error.to_string().contains("universe domain mismatch"),
+            "{error}"
+        );
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(got.is_some(), "{error:?}");
     }
 }
