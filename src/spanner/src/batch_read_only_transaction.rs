@@ -148,7 +148,7 @@ impl BatchReadOnlyTransaction {
         let request = statement
             .clone()
             .into_partition_query_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -167,7 +167,7 @@ impl BatchReadOnlyTransaction {
                 inner: PartitionedOperation::Query {
                     partition_token: p.partition_token,
                     transaction_selector: self.inner.context.transaction_selector.selector(),
-                    session_name: self.inner.context.client.session.name.clone(),
+                    session_name: self.inner.context.session_name.clone(),
                     statement: statement.clone(),
                 },
             })
@@ -203,7 +203,7 @@ impl BatchReadOnlyTransaction {
         let request = read
             .clone()
             .into_partition_read_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -222,7 +222,7 @@ impl BatchReadOnlyTransaction {
                 inner: PartitionedOperation::Read {
                     partition_token: p.partition_token,
                     transaction_selector: self.inner.context.transaction_selector.selector(),
-                    session_name: self.inner.context.client.session.name.clone(),
+                    session_name: self.inner.context.session_name.clone(),
                     read_request: read.clone(),
                 },
             })
@@ -351,6 +351,7 @@ impl Partition {
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
+            session_name.to_string(),
             StreamOperation::Query(request),
         ))
     }
@@ -384,6 +385,7 @@ impl Partition {
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
+            session_name.to_string(),
             StreamOperation::Read(request),
         ))
     }
