@@ -90,9 +90,7 @@ impl ReqwestClient {
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let universe_domain =
-            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
-                .await
-                .map_err(BuilderError::universe_domain_mismatch)?;
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
         let host = crate::host::header(config.endpoint.as_deref(), &service_endpoint)
             .map_err(|e| e.client_builder())?;

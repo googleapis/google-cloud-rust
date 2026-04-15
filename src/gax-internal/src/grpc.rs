@@ -105,8 +105,7 @@ impl Client {
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
-                .await
-                .map_err(BuilderError::universe_domain_mismatch)?;
+                .await?;
 
         let (inner, tracing_attributes) = Self::make_inner(
             &config,

@@ -82,10 +82,10 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::backoff_policy::{BackoffPolicy, BackoffPolicyArg};
 use google_cloud_gax::error::CredentialsError;
-use google_cloud_gax::retry_policy::RetryPolicyArg;
-use google_cloud_gax::retry_throttler::RetryThrottlerArg;
+use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyArg};
+use google_cloud_gax::retry_throttler::{RetryThrottlerArg, SharedRetryThrottler};
 use http::{Extensions, HeaderMap};
 use std::default::Default;
 use std::sync::{Arc, OnceLock};
@@ -109,6 +109,9 @@ where
     universe_domain: OnceLock<Option<String>>,
     token_provider: T,
     mds_client: MDSClient,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
+    retry_throttler: SharedRetryThrottler,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -331,12 +334,17 @@ impl Builder {
         let iam_endpoint = self.iam_endpoint_override.clone();
         let is_access_boundary_enabled = self.is_access_boundary_enabled;
         let mds_client = MDSClient::new(self.endpoint.clone());
+        let retry_builder = self.retry_builder.clone();
+        let (backoff_policy, retry_throttler, retry_policy) = retry_builder.resolve();
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             universe_domain_override: self.universe_domain.clone(),
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(self.build_token_provider()),
             mds_client: mds_client.clone(),
+            backoff_policy,
+            retry_throttler,
+            retry_policy,
         };
         if !is_access_boundary_enabled {
             return Ok(CredentialsWithAccessBoundary::new_no_op(mdsc));
@@ -402,7 +410,14 @@ where
         }
 
         // No overrides and no cache. Try to fetch from MDS.
-        let response = self.mds_client.universe_domain().send().await;
+        let response = self
+            .mds_client
+            .universe_domain()
+            .with_backoff_policy(self.backoff_policy.clone().into())
+            .with_retry_policy(self.retry_policy.clone().into())
+            .with_retry_throttler(self.retry_throttler.clone().into())
+            .send()
+            .await;
         match response {
             Ok(universe_domain) => {
                 let _ = self.universe_domain.set(Some(universe_domain.clone()));
@@ -660,6 +675,9 @@ mod tests {
             universe_domain_override: None,
             universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
 
         let mut extensions = Extensions::new();
@@ -724,6 +742,9 @@ mod tests {
             universe_domain_override: None,
             universe_domain: OnceLock::new(),
             mds_client: MDSClient::new(None),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -1143,6 +1164,9 @@ mod tests {
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(mock),
             mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
 
         let universe_domain = creds.universe_domain().await;
@@ -1181,9 +1205,47 @@ mod tests {
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(mock),
             mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
         let universe_domain = creds.universe_domain().await;
         assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn get_universe_domain_retries_on_transient_failures() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(MDS_UNIVERSE_DOMAIN_URI),])
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("transient error"),
+                    status_code(503).body("transient error"),
+                    status_code(200).body("my-universe-domain.com"),
+                ]),
+        );
+
+        let mut mock = MockTokenProvider::new();
+        mock.expect_token()
+            .returning(|| Err(crate::errors::non_retryable_from_str("fail")));
+
+        let creds = MDSCredentials {
+            quota_project_id: None,
+            universe_domain_override: None,
+            universe_domain: OnceLock::new(),
+            token_provider: TokenCache::new(mock),
+            mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(3)),
+        };
+
+        let universe_domain = creds.universe_domain().await;
+        assert_eq!(universe_domain.as_deref(), Some("my-universe-domain.com"));
+
         Ok(())
     }
 
@@ -1210,6 +1272,9 @@ mod tests {
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(mock),
             mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
 
         let universe_domain = creds.universe_domain().await;
@@ -1244,6 +1309,9 @@ mod tests {
             universe_domain: OnceLock::new(),
             token_provider: TokenCache::new(mock),
             mds_client: crate::mds::client::Client::new(Some(format!("http://{}", server.addr()))),
+            backoff_policy: Arc::new(get_mock_backoff_policy()),
+            retry_throttler: Arc::new(std::sync::Mutex::new(get_mock_retry_throttler())),
+            retry_policy: Arc::new(get_mock_auth_retry_policy(1)),
         };
 
         let universe_domain = creds.universe_domain().await;

@@ -2818,7 +2818,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.9.1"
+version = "1.10.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -6831,17 +6831,13 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
- "pastey",
  "prost",
- "prost-build",
  "prost-types",
  "serde_json",
- "test-case",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]
