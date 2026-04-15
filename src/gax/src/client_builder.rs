@@ -96,7 +96,7 @@ impl Error {
 
     /// If true, the client universe domain does not match the credentials.
     pub fn is_universe_domain_mismatch(&self) -> bool {
-        matches!(&self.0, ErrorKind::UniverseDomainMismatch(_))
+        matches!(&self.0, ErrorKind::UniverseDomainMismatch { .. })
     }
 
     /// Not part of the public API, subject to change without notice.
@@ -113,8 +113,14 @@ impl Error {
 
     /// Not part of the public API, subject to change without notice.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn universe_domain_mismatch<T: Into<BoxError>>(source: T) -> Self {
-        Self(ErrorKind::UniverseDomainMismatch(source.into()))
+    pub fn universe_domain_mismatch(
+        client_universe_domain: &str,
+        credential_universe_domain: &str,
+    ) -> Self {
+        Self(ErrorKind::UniverseDomainMismatch {
+            client_universe_domain: client_universe_domain.to_string(),
+            credential_universe_domain: credential_universe_domain.to_string(),
+        })
     }
 }
 
@@ -124,8 +130,13 @@ enum ErrorKind {
     DefaultCredentials(#[source] BoxError),
     #[error("could not initialize transport client")]
     Transport(#[source] BoxError),
-    #[error("universe domain mismatch")]
-    UniverseDomainMismatch(#[source] BoxError),
+    #[error(
+        "the client configured universe domain ({client_universe_domain}) does not match the universe domain found in the credentials ({credential_universe_domain}). If you haven't configured the universe domain explicitly, `googleapis.com` is the default. Use `ClientBuilder::with_universe_domain()` to set the universe domain."
+    )]
+    UniverseDomainMismatch {
+        client_universe_domain: String,
+        credential_universe_domain: String,
+    },
 }
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -798,7 +809,6 @@ pub mod examples {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::CredentialsError;
     use std::error::Error as _;
 
     #[test]
@@ -833,19 +843,12 @@ mod tests {
 
     #[test]
     fn universe_domain_mismatch() {
-        let source = CredentialsError::from_msg(
-            false,
-            "universe domain between client and credentials don't match",
-        );
-        let error = Error::universe_domain_mismatch(source);
+        let error = Error::universe_domain_mismatch("my-universe.com", "googleapis.com");
         assert!(error.is_universe_domain_mismatch(), "{error:?}");
-        assert!(
-            error.to_string().contains("universe domain mismatch"),
-            "{error}"
-        );
-        let got = error
-            .source()
-            .and_then(|e| e.downcast_ref::<CredentialsError>());
-        assert!(got.is_some(), "{error:?}");
+        let fmt = format!("{error:?}");
+        assert!(fmt.contains("my-universe.com"), "{fmt}");
+        assert!(fmt.contains("googleapis.com"), "{fmt}");
+        let got = error.source();
+        assert!(got.is_none(), "{got:?}");
     }
 }
