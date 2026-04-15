@@ -95,7 +95,6 @@ impl Storage {
             if let Some(recorder) = RequestRecorder::current() {
                 recorder.on_client_request(
                     ClientRequestAttributes::default()
-                        .set_rpc_method("google.storage.v2.Storage/ReadObject")
                         .set_url_template("/storage/v1/b/{bucket}/o/{object}")
                         .set_resource_name(resource_name),
                 );
@@ -155,7 +154,6 @@ impl Storage {
                 if let Some(recorder) = RequestRecorder::current() {
                     recorder.on_client_request(
                         ClientRequestAttributes::default()
-                            .set_rpc_method("google.storage.v2.Storage/WriteObject")
                             .set_url_template("/upload/storage/v1/b/{bucket}/o")
                             .set_resource_name(resource_name),
                     );
@@ -213,7 +211,6 @@ impl Storage {
                 if let Some(recorder) = RequestRecorder::current() {
                     recorder.on_client_request(
                         ClientRequestAttributes::default()
-                            .set_rpc_method("google.storage.v2.Storage/WriteObject")
                             .set_url_template("/upload/storage/v1/b/{bucket}/o")
                             .set_resource_name(resource_name),
                     );

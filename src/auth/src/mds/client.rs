@@ -305,6 +305,7 @@ impl EmailRequest {
     }
 }
 
+#[derive(Clone)]
 pub(crate) struct UniverseDomainRequest {
     client: Client,
 }

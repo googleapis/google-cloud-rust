@@ -22,6 +22,7 @@ ignore:
   # Ignore generated code.
   - "**/generated/**"
   # Ignore tools and test helpers.
+  - "**/grpc-mock/**"
   - "src/gax-internal/echo-server"
   - "src/gax-internal/grpc-server"
   - "src/test-utils"

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use google_cloud_auth::credentials::Credentials;
-use google_cloud_auth::errors::CredentialsError;
+use google_cloud_gax::client_builder::{Error, Result};
 
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 const UNIVERSE_DOMAIN_VAR: &str = "GOOGLE_CLOUD_UNIVERSE_DOMAIN";
@@ -21,7 +21,7 @@ const UNIVERSE_DOMAIN_VAR: &str = "GOOGLE_CLOUD_UNIVERSE_DOMAIN";
 pub(crate) async fn resolve(
     universe_domain_client_override: Option<&str>,
     cred: &Credentials,
-) -> Result<String, CredentialsError> {
+) -> Result<String> {
     let env_universe = std::env::var(UNIVERSE_DOMAIN_VAR).ok();
     let cred_universe = cred.universe_domain().await;
     let cred_universe = cred_universe.as_deref().unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
@@ -31,12 +31,9 @@ pub(crate) async fn resolve(
         .unwrap_or(DEFAULT_UNIVERSE_DOMAIN);
 
     if !cred_universe.eq(client_universe) {
-        return Err(CredentialsError::from_msg(
-            false,
-            format!(
-                "The configured universe domain ({}) does not match the universe domain found in the credentials ({}). If you haven't configured the universe domain explicitly, `googleapis.com` is the default.",
-                client_universe, cred_universe
-            ),
+        return Err(Error::universe_domain_mismatch(
+            client_universe,
+            cred_universe,
         ));
     }
 
@@ -47,6 +44,7 @@ pub(crate) async fn resolve(
 mod tests {
     use super::*;
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
+    use google_cloud_auth::errors::CredentialsError;
     use http::{Extensions, HeaderMap};
     use scoped_env::ScopedEnv;
     use serial_test::serial;
@@ -116,7 +114,7 @@ mod tests {
         let cred = mock_credentials(cred_domain);
 
         let err = resolve(client_override, &cred).await.unwrap_err();
-        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
 
         Ok(())
     }

@@ -80,9 +80,7 @@ impl ReqwestClient {
         let cred = Self::make_credentials(&config).await?;
 
         let universe_domain =
-            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred)
-                .await
-                .map_err(BuilderError::transport)?;
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
 
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
