@@ -133,8 +133,9 @@ impl Credentials {
     ///
     /// Different auth tokens are sent via different headers. The
     /// [Credentials] constructs the headers (and header values) that should be
-    /// sent with a request. Headers are cached in a background task and refreshed
-    /// periodically as the tokens expire.
+    /// sent with a request. If the authentication provider requires it, headers
+    /// are cached, and a background task periodically refreshes any expired
+    /// tokens.
     ///
     /// # Parameters
     /// * `extensions` - An `http::Extensions` map that can be used to pass additional
@@ -165,14 +166,13 @@ impl Credentials {
     /// Retrieves the universe domain associated with the credentials, if any.
     ///
     /// A "universe" is an isolated Google Cloud environment, such as the public
-    /// cloud or a sovereign/air-gapped deployment (e.g., Google Distributed Cloud).
-    /// The universe domain acts as the base URL for constructing API endpoints
-    /// within that environment.
+    /// cloud or a sovereign/air-gapped deployment. The universe domain is used to
+    /// construct base URLs for API endpoints within that environment.
     ///
     /// By default, this returns `None`, which means the default universe domain of
     /// `googleapis.com`. You should only override this if your application is operating
     /// within a custom Cloud universe and needs to direct authentication and service
-    /// requests to a different base endpoint.
+    /// requests to a different base endpoint.    
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
