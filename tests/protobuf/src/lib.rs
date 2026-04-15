@@ -68,6 +68,20 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     // - The mask has the desired effect, only the fields in the mask are set
     // This test assumes the service works correctly, we are not trying to write
     // service tests.
+    println!("\nTesting create_secret_version() for alias");
+    let data = "The quick brown fox jumps over the lazy dog".as_bytes();
+    let checksum = crc32c::crc32c(data);
+    let _version = client
+        .add_secret_version()
+        .set_parent(&get.name)
+        .set_payload(
+            SecretPayload::new()
+                .set_data(bytes::Bytes::from(data))
+                .set_data_crc32c(checksum as i64),
+        )
+        .send()
+        .await?;
+
     println!("\nTesting update_secret() [1]");
     let tag = |mut map: std::collections::HashMap<String, String>, msg: &str| {
         map.insert("updated".to_string(), msg.to_string());
