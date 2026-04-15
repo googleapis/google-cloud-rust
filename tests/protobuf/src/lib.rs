@@ -62,12 +62,6 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     println!("GET = {get:?}");
     assert_eq!(get, create);
 
-    // We need to verify that FieldMask as query parameters are sent correctly
-    // by the client library. This involves:
-    // - Setting the mask does not result in a RPC error
-    // - The mask has the desired effect, only the fields in the mask are set
-    // This test assumes the service works correctly, we are not trying to write
-    // service tests.
     println!("\nTesting create_secret_version() for alias");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
@@ -82,6 +76,12 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
         .send()
         .await?;
 
+    // We need to verify that FieldMask as query parameters are sent correctly
+    // by the client library. This involves:
+    // - Setting the mask does not result in a RPC error
+    // - The mask has the desired effect, only the fields in the mask are set
+    // This test assumes the service works correctly, we are not trying to write
+    // service tests.
     println!("\nTesting update_secret() [1]");
     let tag = |mut map: std::collections::HashMap<String, String>, msg: &str| {
         map.insert("updated".to_string(), msg.to_string());
