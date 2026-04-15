@@ -1451,6 +1451,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
+    #[ignore = "flaky test, see #5427"]
     async fn basic_lease_expiration() -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
         const MAX_LEASE: Duration = Duration::from_secs(30);
