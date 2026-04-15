@@ -433,16 +433,23 @@ mod tests {
     #[test]
     fn test_exhaustive_roundtrip() {
         let chars = b"abcdefghijklmnopqrstuvwxyz_";
+        let mut buf = [0u8; 4];
         for &c1 in chars {
+            buf[0] = c1;
             for &c2 in chars {
+                buf[1] = c2;
                 for &c3 in chars {
-                    let s = String::from_utf8(vec![c1, c2, c3]).unwrap();
-                    if s.starts_with('_') || s.ends_with('_') || s.contains("__") {
-                        continue;
+                    buf[2] = c3;
+                    for &c4 in chars {
+                        buf[3] = c4;
+                        let s = std::str::from_utf8(&buf).unwrap();
+                        if s.starts_with('_') || s.ends_with('_') || s.contains("__") {
+                            continue;
+                        }
+                        let camel = to_camel_case(s);
+                        let snake = to_snake_case(&camel);
+                        assert_eq!(snake, s, "Failed for s='{}', camel='{}'", s, camel);
                     }
-                    let camel = to_camel_case(&s);
-                    let snake = to_snake_case(&camel);
-                    assert_eq!(snake, s, "Failed for s='{}', camel='{}'", s, camel);
                 }
             }
         }
