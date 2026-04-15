@@ -18,6 +18,10 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 6.0.0"
     }
+    time = {
+      source  = "hashicorp/time"
+      version = "~> 0.11.0"
+    }
   }
 }
 
@@ -33,12 +37,19 @@ module "services" {
   project = var.project
 }
 
+# Wait for services to be fully active before creating resources.
+# Service enablement can take time to propagate.
+resource "time_sleep" "wait_for_services" {
+  create_duration = "60s"
+  depends_on      = [module.services]
+}
+
 # Create the resources we will need to run integration tests on.
 module "resources" {
   source     = "./resources"
   project    = var.project
   region     = var.region
-  depends_on = [module.services]
+  depends_on = [time_sleep.wait_for_services]
 }
 
 # Create the service account needed for GCB and grant it the necessary
