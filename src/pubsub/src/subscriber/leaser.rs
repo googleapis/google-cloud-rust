@@ -272,15 +272,25 @@ fn process_ack_attempt_error(
     ack_ids: Vec<String>,
     shared_err: Arc<crate::Error>,
 ) -> (HashMap<String, AckResult>, Vec<String>) {
-    // TODO(#4804): For the following error codes:
-    // [DeadlineExceeded, ResourceExhausted, Aborted, Internal, Unavailable],
-    // retry the entire RPC.
-
     let (transient_failures, permanent_failures) = extract_failures(&shared_err);
 
     // If the response lacks specific per ack_id failure info, we treat the
     // response as all sharing the same RPC error.
     if transient_failures.is_empty() && permanent_failures.is_empty() {
+        // The error is transient, retry.
+        if let Some(status) = shared_err.status() {
+            match status.code {
+                google_cloud_gax::error::rpc::Code::DeadlineExceeded
+                | google_cloud_gax::error::rpc::Code::ResourceExhausted
+                | google_cloud_gax::error::rpc::Code::Aborted
+                | google_cloud_gax::error::rpc::Code::Internal
+                | google_cloud_gax::error::rpc::Code::Unavailable => {
+                    return (HashMap::new(), ack_ids);
+                }
+                _ => {}
+            }
+        }
+
         let to_confirm = ack_ids
             .into_iter()
             .map(|id| {
@@ -724,11 +734,56 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
+    async fn process_ack_attempt_error_retryable_code_without_error_info() -> anyhow::Result<()> {
+        let err_val = Arc::new(Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("unavailable"),
+        ));
+        let (confirmed_acks, remaining) =
+            process_ack_attempt_error(test_ids(1..3), err_val.clone());
+
+        assert_eq!(remaining, test_ids(1..3));
+        assert!(confirmed_acks.is_empty(), "{confirmed_acks:?}");
+
+        Ok(())
+    }
+
+
+    #[tokio::test]
+    async fn process_ack_attempt_error_retryable_code_with_error_info() -> anyhow::Result<()> {
+        let info = ErrorInfo::new().set_metadata([
+            (test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID"),
+            (test_id(2), "TRANSIENT_FAILURE_OTHER"),
+        ]);
+        let err_val = Arc::new(Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("unavailable")
+                .set_details(vec![StatusDetails::ErrorInfo(info.clone())]),
+        ));
+        let (confirmed_acks, remaining) =
+            process_ack_attempt_error(test_ids(1..4), err_val.clone());
+
+        assert_eq!(remaining, vec![test_id(2)]);
+
+        let err = AckError::Rpc {
+            source: err_val.clone(),
+        };
+        let expected = [(test_id(1), Err(err)), (test_id(3), Ok(()))]
+            .into_iter()
+            .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn process_ack_attempt_error_without_error_info() -> anyhow::Result<()> {
         let err_val = Arc::new(Error::service(
             Status::default()
-                .set_code(Code::Internal)
-                .set_message("internal error"),
+                .set_code(Code::FailedPrecondition)
+                .set_message("failed precondition"),
         ));
         let (confirmed_acks, remaining) =
             process_ack_attempt_error(test_ids(1..3), err_val.clone());
@@ -741,8 +796,8 @@ pub(super) mod tests {
                 let err = AckError::Rpc {
                     source: Arc::new(Error::service(
                         Status::default()
-                            .set_code(Code::Internal)
-                            .set_message("internal error"),
+                            .set_code(Code::FailedPrecondition)
+                            .set_message("failed precondition"),
                     )),
                 };
                 (id, Err(err))
