@@ -294,7 +294,13 @@ impl serde::ser::Serialize for FieldMask {
     where
         S: serde::ser::Serializer,
     {
-        serializer.serialize_str(&self.paths.join(","))
+        let paths = self
+            .paths
+            .iter()
+            .map(|p| to_camel_case(p))
+            .collect::<Vec<_>>()
+            .join(",");
+        serializer.serialize_str(&paths)
     }
 }
 
@@ -326,9 +332,38 @@ impl serde::de::Visitor<'_> for PathVisitor {
         if value.is_empty() {
             Ok(Vec::new())
         } else {
-            Ok(value.split(',').map(str::to_string).collect())
+            Ok(value.split(',').map(to_snake_case).collect())
         }
     }
+}
+
+fn to_camel_case(snake: &str) -> String {
+    let mut camel = String::with_capacity(snake.len());
+    let mut capitalize_next = false;
+    for c in snake.chars() {
+        if c == '_' {
+            capitalize_next = true;
+        } else if capitalize_next {
+            camel.push(c.to_ascii_uppercase());
+            capitalize_next = false;
+        } else {
+            camel.push(c);
+        }
+    }
+    camel
+}
+
+fn to_snake_case(camel: &str) -> String {
+    let mut snake = String::with_capacity(camel.len() + 5);
+    for c in camel.chars() {
+        if c.is_ascii_uppercase() {
+            snake.push('_');
+            snake.push(c.to_ascii_lowercase());
+        } else {
+            snake.push(c);
+        }
+    }
+    snake
 }
 
 #[cfg(test)]
@@ -374,5 +409,42 @@ mod tests {
             "message={msg}, debug={err:?}"
         );
         Ok(())
+    }
+
+    #[test_case("field_one", "fieldOne")]
+    #[test_case("user.display_name", "user.displayName")]
+    #[test_case("field_1", "field1")]
+    #[test_case("active__user", "activeUser")]
+    #[test_case("field", "field")]
+    #[test_case("alreadyCamel", "alreadyCamel")]
+    #[test_case("a_b_c", "aBC")]
+    fn test_to_camel_case_fn(input: &str, expected: &str) {
+        assert_eq!(to_camel_case(input), expected);
+    }
+
+    #[test_case("fieldOne", "field_one")]
+    #[test_case("user.displayName", "user.display_name")]
+    #[test_case("field", "field")]
+    #[test_case("already_snake", "already_snake")]
+    fn test_to_snake_case_fn(input: &str, expected: &str) {
+        assert_eq!(to_snake_case(input), expected);
+    }
+
+    #[test]
+    fn test_exhaustive_roundtrip() {
+        let chars = b"abcdefghijklmnopqrstuvwxyz_";
+        for &c1 in chars {
+            for &c2 in chars {
+                for &c3 in chars {
+                    let s = String::from_utf8(vec![c1, c2, c3]).unwrap();
+                    if s.starts_with('_') || s.ends_with('_') || s.contains("__") {
+                        continue;
+                    }
+                    let camel = to_camel_case(&s);
+                    let snake = to_snake_case(&camel);
+                    assert_eq!(snake, s, "Failed for s='{}', camel='{}'", s, camel);
+                }
+            }
+        }
     }
 }
