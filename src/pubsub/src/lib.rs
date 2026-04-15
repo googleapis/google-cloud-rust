@@ -166,6 +166,7 @@ pub mod client {
 }
 
 pub mod error;
+pub mod retry_policy;
 
 /// Traits to mock the clients in this library.
 pub mod stub {

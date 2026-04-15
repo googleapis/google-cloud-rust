@@ -139,9 +139,10 @@ impl BasePublisherBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// use google_cloud_gax::retry_policy::RetryPolicyExt;
+    /// use google_cloud_pubsub::retry_policy::RetryableErrors;
     /// let client = BasePublisher::builder()
-    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .with_retry_policy(RetryableErrors.with_attempt_limit(3))
     ///     .build()
     ///     .await?;
     /// # Ok(()) };
