@@ -854,7 +854,7 @@ pub(super) mod tests {
                 .set_message("non-retryable error")
                 .set_details([StatusDetails::ErrorInfo(info.clone())]),
         ));
-        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err.clone());
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err);
 
         assert!(remaining.is_empty(), "{remaining:?}");
 
