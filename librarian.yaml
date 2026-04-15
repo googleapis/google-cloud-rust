@@ -31,19 +31,19 @@ sources:
   showcase:
     commit: 3fd9cb2f682d5f8263d913eaba8b78e045acc4d2
     sha256: ed1e698886cb4ab9b90ca98cfee38023d813e9729fca7297578c81c4af3e1e9e
+tools:
+  cargo:
+    - name: cargo-hack
+      version: 0.6.44
+    - name: cargo-minimal-versions
+      version: 0.1.37
+    - name: cargo-semver-checks
+      version: 0.46.0
+    - name: cargo-workspaces
+      version: 0.4.0
 release:
   ignored_changes:
     - .repo-metadata.json
-  tools:
-    cargo:
-      - name: cargo-hack
-        version: 0.6.44
-      - name: cargo-minimal-versions
-        version: 0.1.37
-      - name: cargo-semver-checks
-        version: 0.46.0
-      - name: cargo-workspaces
-        version: 0.4.0
 default:
   output: src/generated/
   rust:
