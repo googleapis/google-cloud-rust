@@ -129,10 +129,50 @@ where
 }
 
 impl Credentials {
+    /// Asynchronously constructs the auth headers.
+    ///
+    /// Different auth tokens are sent via different headers. The
+    /// [Credentials] constructs the headers (and header values) that should be
+    /// sent with a request. If the authentication provider requires it, headers
+    /// are cached, and a background task periodically refreshes any expired
+    /// tokens.
+    ///
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. If the caller does not need to compute derived values
+    ///   from the headers then do not provide an `EntityTag`. The credentials will either return
+    ///   `Err(...)` or `Ok(CacheableResource::New {})` in this case. Since the credentials
+    ///   already cache the headers, then it can use the results directly. Some applications need
+    ///   to compute values derived from the result, and want to avoid that computation if the
+    ///   headers have not changed. In that case, provide the `EntityTag` returned from a previous
+    ///   call. If the underlying authentication data has not changed, this method returns
+    ///   `Ok(CacheableResource::NotModified)` and you can use the same derived data. If the
+    ///   caller provides an `EntityTag` and the underlying authentication data has changed, this
+    ///   function returns `Ok(CacheableResource::New { ... })`. That result invalidates the
+    ///   tag, and provides new values for the headers.
+    ///
+    /// # Returns
+    /// A `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
     pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         self.inner.headers(extensions).await
     }
 
+    /// Retrieves the universe domain associated with the credentials, if any.
+    ///
+    /// A "universe" is an isolated Google Cloud environment, such as the public
+    /// cloud or a sovereign/air-gapped deployment. The universe domain is used to
+    /// construct base URLs for API endpoints within that environment.
+    ///
+    /// By default, this returns `None`, which means the default universe domain of
+    /// `googleapis.com`. You should only override this if your application is operating
+    /// within a custom Cloud universe and needs to direct authentication and service
+    /// requests to a different base endpoint.    
     pub async fn universe_domain(&self) -> Option<String> {
         self.inner.universe_domain().await
     }
@@ -170,6 +210,7 @@ where
 }
 
 impl AccessTokenCredentials {
+    /// Asynchronously retrieves an access token.
     pub async fn access_token(&self) -> Result<AccessToken> {
         self.inner.access_token().await
     }
