@@ -597,7 +597,6 @@ mod tests {
                 commit_timestamp: Some(prost_types::Timestamp {
                     seconds: 12345,
                     nanos: 0,
-                    ..Default::default()
                 }),
                 commit_stats: None,
                 multiplexed_session_retry: None,
