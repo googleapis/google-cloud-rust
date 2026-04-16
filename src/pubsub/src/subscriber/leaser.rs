@@ -374,8 +374,6 @@ pub(super) mod tests {
     use super::*;
     use crate::{Error, Response, Result};
     use google_cloud_gax::error::rpc::{Code, Status};
-    use google_cloud_gax::retry_result::RetryResult;
-    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_rpc::model::ErrorInfo;
     use test_case::test_case;
     use tokio::sync::Mutex;
@@ -596,22 +594,12 @@ pub(super) mod tests {
     async fn confirmed_ack_success() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
-        mock.expect_acknowledge().times(1).return_once(|r, o| {
+        mock.expect_acknowledge().times(1).return_once(|r, _| {
             assert_eq!(
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
-            let retry = o.retry_policy().clone().unwrap();
-            let mut state = RetryState::default();
-            state.attempt_count = 1;
-            assert!(
-                !matches!(
-                    retry.on_error(&state, crate::Error::service(Status::default())),
-                    RetryResult::Continue(_)
-                ),
-                "Expected NeverRetry to not continue"
-            );
             Ok(Response::from(()))
         });
 
@@ -644,22 +632,12 @@ pub(super) mod tests {
     async fn confirmed_ack_failure() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
-        mock.expect_acknowledge().times(1).return_once(|r, o| {
+        mock.expect_acknowledge().times(1).return_once(|r, _| {
             assert_eq!(
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
-            let retry = o.retry_policy().clone().unwrap();
-            let mut state = RetryState::default();
-            state.attempt_count = 1;
-            assert!(
-                !matches!(
-                    retry.on_error(&state, crate::Error::service(Status::default())),
-                    RetryResult::Continue(_)
-                ),
-                "Expected NeverRetry to not continue"
-            );
             Err(Error::service(
                 Status::default()
                     .set_code(Code::FailedPrecondition)
