@@ -325,8 +325,8 @@ impl Spanner {
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
+    use crate::result_set::tests::adapt;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    extern crate spanner_grpc_mock;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
@@ -563,6 +563,7 @@ mod tests {
                 id: vec![1, 2, 3],
                 read_timestamp: None,
                 precommit_token: None,
+                ..Default::default()
             }))
         });
 
@@ -596,10 +597,12 @@ mod tests {
                 commit_timestamp: Some(prost_types::Timestamp {
                     seconds: 12345,
                     nanos: 0,
+                    ..Default::default()
                 }),
                 commit_stats: None,
                 multiplexed_session_retry: None,
                 snapshot_timestamp: None,
+                ..Default::default()
             }))
         });
 
@@ -671,9 +674,7 @@ mod tests {
                 cache_update: None,
                 last: false,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(result_set)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::new(adapt([Ok(result_set)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -720,9 +721,7 @@ mod tests {
                 cache_update: None,
                 last: false,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(result_set)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(result_set)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -761,9 +760,7 @@ mod tests {
                 status: None,
                 commit_timestamp: None,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(response)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(response)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -796,11 +793,10 @@ mod tests {
 
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Err(gaxi::grpc::tonic::Status::internal(
-                    "unexpected internal error",
-                ))]),
-            )))
+            let stream = adapt([Err(gaxi::grpc::tonic::Status::internal(
+                "unexpected internal error",
+            ))]);
+            Ok(gaxi::grpc::tonic::Response::from(stream))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
