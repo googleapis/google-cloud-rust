@@ -41,15 +41,15 @@ defaults in your `settings.json` file:
 
 ```json
 {
-    "rust-analyzer.cargo.buildScripts.overrideCommand": [
-        "cargo",
-        "check",
-        "--quiet",
-        "--profile=test",
-        "--message-format=json",
-        "--keep-going"
-    ],
-    "rust-analyzer.check.workspace": false
+  "rust-analyzer.cargo.buildScripts.overrideCommand": [
+    "cargo",
+    "check",
+    "--quiet",
+    "--profile=test",
+    "--message-format=json",
+    "--keep-going"
+  ],
+  "rust-analyzer.check.workspace": false
 }
 ```
 
