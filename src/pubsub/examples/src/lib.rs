@@ -57,6 +57,12 @@ pub async fn run_subscription_samples(
 
     subscription::delete_subscription::sample(&client, &project_id, &id).await?;
 
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    subscription::create_subscription_exactly_once::sample(&client, &project_id, topic_id, &id)
+        .await?;
+    subscriber::exactly_once::sample(&project_id, &id).await?;
+
     Ok(())
 }
 
