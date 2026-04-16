@@ -6,27 +6,33 @@ contributors making changes and additions to this specific library.
 
 ## Overview
 
-The `pubsub` crate provides a client for interacting with Google Cloud Pub/Sub.
+The `pubsub` crate provides clients for interacting with Google Cloud Pub/Sub.
 Unlike many other libraries in this repository which are purely generated, the
 Pub/Sub library features hand-crafted layers to handle client-side logic such
 as:
 
 - High-performance asynchronous batching for publishing.
-- Automatic lease management for received messages.
-- Support for Exactly-Once Delivery semantics.
+- Starting and resuming a message stream.
+- Managing leases for received messages.
+- Graceful subscriber shutdown.
+- Support for at-least-once and exactly-once delivery semantics.
 
 ## Hand-Crafted vs Generated Code
 
 The library contains both generated and hand-crafted code.
 
 - **Fully Generated Clients**: There are 3 fully generated clients in the crate
-  (SchemaService, TopicAdmin, and SubscriptionAdmin). The data-plane operations
-  are not generated for these clients.
+  (SchemaService, TopicAdmin, and SubscriptionAdmin). While the service definitions
+  in protobuf combine administrative and data-plane operations on the same gRPC
+  service, we split them and do some renaming in the librarian config. Thus,
+  data-plane operations are not generated for these administrative clients.
 - **Hand-Crafted Clients**: The `Publisher` and `Subscriber` are hand-crafted to
   provide features like batching and lease management.
 - **Private Dependencies**: The hand-crafted `Publisher` and `Subscriber` depend
-  on **private** generated GAPIC clients to perform the actual gRPC calls. These
-  clients only include the RPCs necessary for data-plane operations.
+  on **private** generated GAPIC clients to perform the actual gRPC calls. The
+  fully generated administrative clients are located in `src/generated/gapic`,
+  while the data-plane specific clients used by the hand-crafted layers are
+  in `src/generated/gapic_dataplane`.
 
 ## Core Concepts
 
@@ -38,16 +44,20 @@ operations like batch flushing and lease extending.
 
 ### Task Communication via Channels
 
-Communication between the public API (frontend) and background tasks, as well as
-between different background loops, is handled via channels.
+The clients use channels to handle communication between tasks.
 
 - **Message Passing**: The `Publisher` uses an MPSC (Multi-Producer,
   Single-Consumer) channel to send messages to the background worker.
 - **Ack/Nack Coordination**: The `Subscriber` uses channels to coordinate Ack
   and Nack operations between the user-facing handles and the background lease
   management loop.
-- **One-shot Notifications**: Completion signals (like notifying a
-  `PublishFuture` that a message has been sent) use oneshot channels.
+- **One-shot Notifications**: We use oneshot channels to communicate the result
+  of publishing a message or performing a confirmed acknowledgement (e.g., notifying
+  a `PublishFuture` that a message has been sent).
+- **Cancellation**: The `Subscriber` also uses a `CancellationToken` to signal
+  between tasks:
+  - To initiate shutdown when the application cancels a stream.
+  - To clean up the keepalive task when a gRPC stream fails with a transient error.
 
 ## Publisher Architecture
 
@@ -82,19 +92,21 @@ The subscriber manages continuous stream connections and lease extensions.
 The subscriber maintains a bidirectional streaming pull connection with the
 Pub/Sub service. This stream yields messages as they become available.
 
+#### The gRPC Stream
+
+The `Stream` (in `src/subscriber/stream.rs`) wraps the raw gRPC streaming pull RPC. It handles retries and backoffs for attempts to open the stream. It also spawns a keepalive task to send heartbeats to the server to keep idle streams alive.
+
 #### The Message Stream
 
-The `MessageStream` (in `src/subscriber/message_stream.rs`) wraps the raw gRPC
-streaming pull response and provides a `Stream` of messages. It handles:
+The `MessageStream` (in `src/subscriber/message_stream.rs`) is a stream-like interface. Applications ask it for messages.
 
-- Establishing and maintaining the bidirectional stream.
-- Pushing incoming messages to the user.
-- Interacting with `LeaseState` to ensure all received messages are tracked
-  immediately.
-- **Lifecycle**: The `LeaseLoop` task is spawned when the `MessageStream` is
-  constructed. The underlying gRPC stream is lazily initialized when the
-  application first requests a message. Once opened, a background keepalive task
-  is also spawned to prevent the stream from timing out.
+Under the surface, it handles:
+
+- Opening new streams (either initially, or after a transient failure).
+- Pulling messages from the stream and...
+  - Forwarding the messages to the lease management task.
+  - Storing the messages in a pool to give to the application.
+- Shutting down gracefully if signaled by the application.
 
 ### Lease Management
 
@@ -103,10 +115,14 @@ prevent messages from expiring while the application is still processing them,
 the library implements automatic lease management:
 
 - **`LeaseState`** (in `src/subscriber/lease_state.rs`): Tracks all messages
-  currently outstanding (leased) by the client.
-- **`LeaseLoop`** (in `src/subscriber/lease_loop.rs`): A background loop that
-  periodically sends `modifyAckDeadline` requests to the server to extend the
-  lease of all active messages.
+  currently under lease by the client.
+- **`LeaseLoop`** (in `src/subscriber/lease_loop.rs`): A background lease event
+  loop that:
+  - Forwards messages from the stream into lease management.
+  - Periodically sends `modifyAckDeadline` requests to the server to extend the
+    lease of all active messages.
+  - Processes actions from the application (acks/nacks) and periodically flushes them.
+  - Processes the results of confirmed acks.
 
 ### Exactly-Once Delivery
 
@@ -151,7 +167,17 @@ same ordering key are delivered in the order they were published.
     pull loop.
   - [`lease_state.rs`](src/subscriber/lease_state.rs): State tracking for active
     leases.
-  - [`lease_loop.rs`](src/subscriber/lease_loop.rs): The background lease
-    extension loop.
-  - [`handler.rs`](src/subscriber/handler.rs): Implementation of Ack/Nack
-    handlers.
+  - [`lease_loop.rs`](src/subscriber/lease_loop.rs): The background lease event
+    loop.
+  - [`handler.rs`](src/subscriber/handler.rs): APIs that let the application
+    ack/nack messages. They forward actions (acks/nacks) from the application
+    to the lease loop. They are opaque wrappers over a message's ack ID.
+  - [`transport.rs`](src/subscriber/transport.rs): An extension of the generated
+    gRPC stub to handle bidi-streaming RPC.
+  - [`stub.rs`](src/subscriber/stub.rs): An abstraction of the `service Subscriber`
+    (for testing purposes).
+  - [`leaser.rs`](src/subscriber/leaser.rs): A thing that knows how to perform
+    lease actions. This is abstracted for testing purposes. The default
+    implementation is a thin wrapper over a transport stub.
+  - [`stream.rs`](src/subscriber/stream.rs): A wrapper over the gRPC stream that
+    adds retries and keepalives.
