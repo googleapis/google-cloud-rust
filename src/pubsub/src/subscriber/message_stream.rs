@@ -1451,7 +1451,6 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    #[ignore = "flaky test, see #5427"]
     async fn basic_lease_expiration() -> anyhow::Result<()> {
         const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
         const MAX_LEASE: Duration = Duration::from_secs(30);
@@ -1459,7 +1458,6 @@ mod tests {
         // default (600s) to verify that an application's configuration
         // overrides the default.
 
-        let start_time = Instant::now();
         let (response_tx, response_rx) = channel(10);
         let (extend_tx, mut extend_rx) = unbounded_channel();
 
@@ -1491,6 +1489,7 @@ mod tests {
 
         // Advance the clock well past the expected message expiration,
         // recording the time at which we sent the last lease extension.
+        let start_time = Instant::now();
         let mut latest = None;
         for _ in 0..MAX_LEASE.as_secs() * 2 {
             while let Ok(r) = extend_rx.try_recv() {
