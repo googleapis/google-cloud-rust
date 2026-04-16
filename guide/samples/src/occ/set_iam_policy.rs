@@ -32,6 +32,7 @@ use google_cloud_wkt::FieldMask;
 /// # Returns
 /// The new IAM policy.
 pub async fn sample(project_id: &str, secret_id: &str, member: &str) -> anyhow::Result<Policy> {
+    // ANCHOR: occ-loop
     const ROLE: &str = "roles/secretmanager.secretAccessor";
     const ATTEMPTS: u32 = 5;
 
@@ -75,5 +76,6 @@ pub async fn sample(project_id: &str, secret_id: &str, member: &str) -> anyhow::
         }
     }
     anyhow::bail!("could not set IAM policy after {ATTEMPTS} attempts")
+    // ANCHOR_END: occ-loop
 }
 // [END rust_occ_loop]
