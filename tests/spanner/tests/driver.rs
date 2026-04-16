@@ -30,6 +30,7 @@ mod spanner {
             &db_client,
         )
         .await?;
+        integration_tests_spanner::query::query_with_options(&db_client).await?;
 
         Ok(())
     }
