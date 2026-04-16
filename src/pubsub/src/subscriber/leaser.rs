@@ -19,12 +19,12 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
-use google_cloud_gax::error::rpc::Code;
-use google_cloud_gax::error::rpc::StatusDetails;
+use google_cloud_gax::backoff_policy::BackoffPolicy;
+use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::NeverRetry;
-use google_cloud_gax::retry_throttler::CircuitBreaker;
+use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicy};
+use google_cloud_gax::retry_throttler::{CircuitBreaker, SharedRetryThrottler};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::UnboundedSender;
@@ -263,25 +263,21 @@ where
     }
 }
 
-fn retry_policy(options: &RequestOptions) -> Arc<dyn google_cloud_gax::retry_policy::RetryPolicy> {
+fn retry_policy(options: &RequestOptions) -> Arc<dyn RetryPolicy> {
     options
         .retry_policy()
         .clone()
         .unwrap_or_else(|| Arc::new(StreamRetryPolicy))
 }
 
-fn backoff_policy(
-    options: &RequestOptions,
-) -> Arc<dyn google_cloud_gax::backoff_policy::BackoffPolicy> {
+fn backoff_policy(options: &RequestOptions) -> Arc<dyn BackoffPolicy> {
     options
         .backoff_policy()
         .clone()
         .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
 }
 
-fn retry_throttler(
-    options: &RequestOptions,
-) -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+fn retry_throttler(options: &RequestOptions) -> SharedRetryThrottler {
     options.retry_throttler().clone().unwrap_or_else(|| {
         // Effectively disable throttling. The stub throttles.
         Arc::new(Mutex::new(
@@ -378,6 +374,8 @@ pub(super) mod tests {
     use super::*;
     use crate::{Error, Response, Result};
     use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_result::RetryResult;
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_rpc::model::ErrorInfo;
     use test_case::test_case;
     use tokio::sync::Mutex;
@@ -605,15 +603,12 @@ pub(super) mod tests {
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             let retry = o.retry_policy().clone().unwrap();
-            let mut state = google_cloud_gax::retry_state::RetryState::default();
+            let mut state = RetryState::default();
             state.attempt_count = 1;
             assert!(
                 !matches!(
-                    retry.on_error(
-                        &state,
-                        crate::Error::service(google_cloud_gax::error::rpc::Status::default())
-                    ),
-                    google_cloud_gax::retry_result::RetryResult::Continue(_)
+                    retry.on_error(&state, crate::Error::service(Status::default())),
+                    RetryResult::Continue(_)
                 ),
                 "Expected NeverRetry to not continue"
             );
@@ -656,15 +651,12 @@ pub(super) mod tests {
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             let retry = o.retry_policy().clone().unwrap();
-            let mut state = google_cloud_gax::retry_state::RetryState::default();
+            let mut state = RetryState::default();
             state.attempt_count = 1;
             assert!(
                 !matches!(
-                    retry.on_error(
-                        &state,
-                        crate::Error::service(google_cloud_gax::error::rpc::Status::default())
-                    ),
-                    google_cloud_gax::retry_result::RetryResult::Continue(_)
+                    retry.on_error(&state, crate::Error::service(Status::default())),
+                    RetryResult::Continue(_)
                 ),
                 "Expected NeverRetry to not continue"
             );
@@ -724,7 +716,7 @@ pub(super) mod tests {
             .return_once(move |r, _o| {
                 assert_eq!(r.ack_ids, vec![test_id(1)]);
                 Err(crate::Error::service(
-                    google_cloud_gax::error::rpc::Status::default()
+                    Status::default()
                         .set_code(Code::FailedPrecondition)
                         .set_message("non-retryable failure"),
                 ))
@@ -746,7 +738,7 @@ pub(super) mod tests {
         let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
         let err = AckError::Rpc {
             source: Arc::new(crate::Error::service(
-                google_cloud_gax::error::rpc::Status::default()
+                Status::default()
                     .set_code(Code::FailedPrecondition)
                     .set_message("non-retryable failure"),
             )),
