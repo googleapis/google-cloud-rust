@@ -13,11 +13,13 @@
 // limitations under the License.
 
 use super::handler::AckResult;
-use super::retry_policy::at_least_once_options;
+use super::retry_policy::StreamRetryPolicy;
+use super::retry_policy::{at_least_once_options, exactly_once_options};
 use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_gax::error::rpc::StatusDetails;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
@@ -58,6 +60,7 @@ where
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
     options: RequestOptions,
+    exactly_once_options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
 }
@@ -71,6 +74,7 @@ where
             inner: self.inner.clone(),
             confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
+            exactly_once_options: self.exactly_once_options.clone(),
             subscription: self.subscription.clone(),
             ack_deadline_seconds: self.ack_deadline_seconds,
         }
@@ -92,6 +96,7 @@ where
             inner,
             confirmed_tx,
             options: at_least_once_options(grpc_subchannel_count),
+            exactly_once_options: exactly_once_options(grpc_subchannel_count),
             subscription,
             ack_deadline_seconds,
         }
@@ -148,10 +153,14 @@ where
         let remaining_ids = Arc::new(Mutex::new(ack_ids));
         let last_error = Arc::new(Mutex::new(None));
 
+        let mut never_retry_options = self.exactly_once_options.clone();
+        never_retry_options.set_retry_policy(NeverRetry);
+
         let attempt = {
             let remaining_ids = remaining_ids.clone();
             let last_error = last_error.clone();
             let leaser = self.clone();
+            let never_retry_options = never_retry_options.clone();
             async move |_| {
                 let ids = {
                     let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
@@ -161,7 +170,10 @@ where
                 let req = AcknowledgeRequest::new()
                     .set_subscription(leaser.subscription.clone())
                     .set_ack_ids(ids.clone());
-                let response = leaser.inner.acknowledge(req, leaser.options.clone()).await;
+                let response = leaser
+                    .inner
+                    .acknowledge(req, never_retry_options.clone())
+                    .await;
 
                 let (to_confirm, remaining) = match response {
                     Ok(_) => (ids.into_iter().map(|id| (id, Ok(()))).collect(), Vec::new()),
@@ -186,19 +198,21 @@ where
                     let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
                     *ids_guard = remaining;
                     // Return a synthetic error to indicate that we should retry.
-                    Err(crate::Error::timeout("retry me"))
+                    Err(crate::Error::transport(http::HeaderMap::new(), "retry me"))
                 }
             }
         };
 
         let sleep = async |d| tokio::time::sleep(d).await;
+        // Note: the retry policy is not directly used as attempt explicitly decides
+        // the retry logic by returning a synthetic error.
         let _ = retry_loop(
             attempt,
             sleep,
             true,
-            retry_throttler(&self.options),
-            retry_policy(),
-            backoff_policy(),
+            retry_throttler(&self.exactly_once_options),
+            retry_policy(&self.exactly_once_options),
+            backoff_policy(&self.exactly_once_options),
         )
         .await;
 
@@ -249,12 +263,20 @@ where
     }
 }
 
-fn retry_policy() -> Arc<NeverRetry> {
-    Arc::new(NeverRetry)
+fn retry_policy(options: &RequestOptions) -> Arc<dyn google_cloud_gax::retry_policy::RetryPolicy> {
+    options
+        .retry_policy()
+        .clone()
+        .unwrap_or_else(|| Arc::new(StreamRetryPolicy))
 }
 
-fn backoff_policy() -> Arc<ExponentialBackoff> {
-    Arc::new(ExponentialBackoff::default())
+fn backoff_policy(
+    options: &RequestOptions,
+) -> Arc<dyn google_cloud_gax::backoff_policy::BackoffPolicy> {
+    options
+        .backoff_policy()
+        .clone()
+        .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()))
 }
 
 fn retry_throttler(
@@ -280,11 +302,11 @@ fn process_ack_attempt_error(
         // The error is transient, retry.
         if let Some(status) = shared_err.status() {
             match status.code {
-                google_cloud_gax::error::rpc::Code::DeadlineExceeded
-                | google_cloud_gax::error::rpc::Code::ResourceExhausted
-                | google_cloud_gax::error::rpc::Code::Aborted
-                | google_cloud_gax::error::rpc::Code::Internal
-                | google_cloud_gax::error::rpc::Code::Unavailable => {
+                Code::DeadlineExceeded
+                | Code::ResourceExhausted
+                | Code::Aborted
+                | Code::Internal
+                | Code::Unavailable => {
                     return (HashMap::new(), ack_ids);
                 }
                 _ => {}
@@ -582,7 +604,19 @@ pub(super) mod tests {
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
-            verify_policies(o, 16);
+            let retry = o.retry_policy().clone().unwrap();
+            let mut state = google_cloud_gax::retry_state::RetryState::default();
+            state.attempt_count = 1;
+            assert!(
+                !matches!(
+                    retry.on_error(
+                        &state,
+                        crate::Error::service(google_cloud_gax::error::rpc::Status::default())
+                    ),
+                    google_cloud_gax::retry_result::RetryResult::Continue(_)
+                ),
+                "Expected NeverRetry to not continue"
+            );
             Ok(Response::from(()))
         });
 
@@ -621,7 +655,19 @@ pub(super) mod tests {
                 "projects/my-project/subscriptions/my-subscription"
             );
             assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
-            verify_policies(o, 16);
+            let retry = o.retry_policy().clone().unwrap();
+            let mut state = google_cloud_gax::retry_state::RetryState::default();
+            state.attempt_count = 1;
+            assert!(
+                !matches!(
+                    retry.on_error(
+                        &state,
+                        crate::Error::service(google_cloud_gax::error::rpc::Status::default())
+                    ),
+                    google_cloud_gax::retry_result::RetryResult::Continue(_)
+                ),
+                "Expected NeverRetry to not continue"
+            );
             Err(Error::service(
                 Status::default()
                     .set_code(Code::FailedPrecondition)
@@ -659,7 +705,7 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
-    async fn confirmed_ack_partial_transient_failure() -> anyhow::Result<()> {
+    async fn confirmed_ack_partial_transient_failure_retry_failure() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
 
@@ -671,6 +717,17 @@ pub(super) mod tests {
             .return_once(move |r, _o| {
                 assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
                 Err(err)
+            });
+
+        mock.expect_acknowledge()
+            .times(1)
+            .return_once(move |r, _o| {
+                assert_eq!(r.ack_ids, vec![test_id(1)]);
+                Err(crate::Error::service(
+                    google_cloud_gax::error::rpc::Status::default()
+                        .set_code(Code::FailedPrecondition)
+                        .set_message("non-retryable failure"),
+                ))
             });
 
         let leaser = DefaultLeaser::new(
@@ -688,9 +745,55 @@ pub(super) mod tests {
 
         let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
         let err = AckError::Rpc {
-            source: Arc::new(response_with_error_info(vec![info]).unwrap_err()),
+            source: Arc::new(crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(Code::FailedPrecondition)
+                    .set_message("non-retryable failure"),
+            )),
         };
         let expected_final = [(test_id(1), Err(err))].into_iter().collect();
+        assert_eq!(confirmed_acks_final, expected_final);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_ack_partial_transient_failure_retry_success() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+
+        let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
+        let err = response_with_error_info(vec![info]).unwrap_err();
+
+        mock.expect_acknowledge()
+            .times(1)
+            .return_once(move |r, _o| {
+                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
+                Err(err)
+            });
+
+        mock.expect_acknowledge()
+            .times(1)
+            .return_once(move |r, _o| {
+                assert_eq!(r.ack_ids, vec![test_id(1)]);
+                Ok(Response::from(()))
+            });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_ack(test_ids(1..3)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+        let expected = [(test_id(2), Ok(()))].into_iter().collect();
+        assert_eq!(confirmed_acks, expected);
+
+        let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
+        let expected_final = [(test_id(1), Ok(()))].into_iter().collect();
         assert_eq!(confirmed_acks_final, expected_final);
 
         Ok(())
