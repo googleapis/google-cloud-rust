@@ -507,14 +507,21 @@ impl StorageControl {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T, U>(stub: U) -> Self
     where
         T: crate::stub::StorageControl + 'static,
+        U: Into<std::sync::Arc<T>>,
     {
-        let stub = std::sync::Arc::new(stub);
+        let stub: std::sync::Arc<T> = stub.into();
         Self {
-            storage: crate::generated::gapic::client::StorageControl::from_stub(stub.clone()),
-            control: crate::generated::gapic_control::client::StorageControl::from_stub(stub),
+            storage: crate::generated::gapic::client::StorageControl::from_stub::<
+                std::sync::Arc<T>,
+                std::sync::Arc<T>,
+            >(stub.clone()),
+            control: crate::generated::gapic_control::client::StorageControl::from_stub::<
+                std::sync::Arc<T>,
+                std::sync::Arc<T>,
+            >(stub),
         }
     }
 
