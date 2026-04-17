@@ -24,7 +24,7 @@ pub use crate::model::PartitionOptions;
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{
-    BatchReadOnlyTransaction, BatchReadOnlyTransactionBuilder, Partition,
+    BatchReadOnlyTransaction, BatchReadOnlyTransactionBuilder, Partition, PartitionExecuteOptions,
 };
 pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
