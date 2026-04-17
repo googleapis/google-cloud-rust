@@ -127,11 +127,11 @@ impl ManagedSessionMaintainer {
         options: &RequestOptions,
     ) -> Result<Session> {
         let request = CreateSessionRequest::new()
-            .set_database(database_name.to_string())
+            .set_database(database_name)
             .set_session(
                 Session::new()
                     .set_multiplexed(true)
-                    .set_creator_role(database_role.to_string()),
+                    .set_creator_role(database_role),
             );
 
         spanner.create_session(request, options.clone()).await
@@ -142,23 +142,15 @@ impl ManagedSessionMaintainer {
         interval: Duration,
         age: Duration,
     ) {
-        loop {
+        sleep(interval).await;
+        while let Some(m) = maintainer.upgrade() {
+            Self::maintain(m, age).await;
             sleep(interval).await;
-            if !Self::maintain(&maintainer, age).await {
-                break;
-            }
         }
     }
 
     /// Performs a single maintenance iteration.
-    /// Returns `true` if the maintainer is still alive and maintenance should continue,
-    /// or `false` if the maintainer has been dropped and the loop should terminate.
-    async fn maintain(maintainer: &Weak<ManagedSessionMaintainer>, age: Duration) -> bool {
-        let maintainer = match maintainer.upgrade() {
-            Some(i) => i,
-            None => return false,
-        };
-
+    async fn maintain(maintainer: Arc<ManagedSessionMaintainer>, age: Duration) {
         if let Err(e) = maintainer.check_and_replace_session(age).await {
             tracing::warn!(
                 "Failed to check and replace session for {}: {}. Retrying in 1 hour.",
@@ -166,7 +158,6 @@ impl ManagedSessionMaintainer {
                 e
             );
         }
-        true
     }
 }
 
@@ -299,13 +290,14 @@ mod tests {
         .expect("Failed to create ManagedSessionMaintainer");
 
         let weak = Arc::downgrade(&maintainer);
-        assert!(ManagedSessionMaintainer::maintain(&weak, SESSION_MAINTENANCE_AGE).await);
+        let m = weak.upgrade().expect("should be alive");
+        ManagedSessionMaintainer::maintain(m, SESSION_MAINTENANCE_AGE).await;
     }
 
     #[tokio::test]
     async fn maintain_dropped() {
         let weak = Weak::<ManagedSessionMaintainer>::new();
-        assert!(!ManagedSessionMaintainer::maintain(&weak, SESSION_MAINTENANCE_AGE).await);
+        assert!(weak.upgrade().is_none());
     }
 
     #[tokio::test]
@@ -410,8 +402,8 @@ mod tests {
         }
 
         let weak = Arc::downgrade(&maintainer);
-        // maintain should return true (handles error)
-        assert!(ManagedSessionMaintainer::maintain(&weak, SESSION_MAINTENANCE_AGE).await);
+        let m = weak.upgrade().expect("should be alive");
+        ManagedSessionMaintainer::maintain(m, SESSION_MAINTENANCE_AGE).await;
 
         // Verify session is still the old one!
         let session = maintainer
