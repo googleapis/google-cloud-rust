@@ -82,10 +82,9 @@ impl Applications {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Applications + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -370,10 +369,9 @@ impl Services {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Services + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -629,10 +627,9 @@ impl Versions {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Versions + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -957,10 +954,9 @@ impl Instances {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Instances + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1246,10 +1242,9 @@ impl Firewall {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Firewall + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1529,10 +1524,9 @@ impl AuthorizedDomains {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AuthorizedDomains + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1711,10 +1705,9 @@ impl AuthorizedCertificates {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AuthorizedCertificates + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1989,10 +1982,9 @@ impl DomainMappings {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::DomainMappings + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }

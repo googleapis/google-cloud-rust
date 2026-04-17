@@ -87,10 +87,9 @@ impl AutoscalingPolicyService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AutoscalingPolicyService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -483,10 +482,9 @@ impl BatchController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::BatchController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -849,10 +847,9 @@ impl ClusterController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ClusterController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1368,10 +1365,9 @@ impl JobController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::JobController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1793,10 +1789,9 @@ impl NodeGroupController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::NodeGroupController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2160,10 +2155,9 @@ impl SessionTemplateController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::SessionTemplateController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2552,10 +2546,9 @@ impl SessionController {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::SessionController + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2965,10 +2958,9 @@ impl WorkflowTemplateService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::WorkflowTemplateService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }

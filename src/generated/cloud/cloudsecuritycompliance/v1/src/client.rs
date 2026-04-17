@@ -86,10 +86,9 @@ impl Audit {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Audit + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -431,10 +430,9 @@ impl CmEnrollmentService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::CmEnrollmentService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -732,10 +730,9 @@ impl Config {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Config + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1255,10 +1252,9 @@ impl Deployment {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Deployment + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1660,10 +1656,9 @@ impl Monitoring {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Monitoring + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }

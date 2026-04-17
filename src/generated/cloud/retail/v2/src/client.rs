@@ -84,10 +84,9 @@ impl AnalyticsService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AnalyticsService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -277,10 +276,9 @@ impl CatalogService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::CatalogService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -770,10 +768,9 @@ impl CompletionService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::CompletionService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -991,10 +988,9 @@ impl ControlService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ControlService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1283,10 +1279,9 @@ impl ConversationalSearchService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ConversationalSearchService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1437,10 +1432,9 @@ impl GenerativeQuestionService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::GenerativeQuestionService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -1728,10 +1722,9 @@ impl ModelService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ModelService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2077,10 +2070,9 @@ impl PredictionService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::PredictionService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2257,10 +2249,9 @@ impl ProductService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ProductService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -2993,10 +2984,9 @@ impl SearchService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::SearchService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -3175,10 +3165,9 @@ impl ServingConfigService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ServingConfigService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
@@ -3508,10 +3497,9 @@ impl UserEventService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T, U>(stub: U) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::UserEventService + 'static,
-        U: Into<std::sync::Arc<T>>,
     {
         Self { inner: stub.into() }
     }
