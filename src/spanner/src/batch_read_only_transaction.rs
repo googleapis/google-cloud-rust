@@ -371,18 +371,16 @@ pub(crate) mod tests {
 
     #[test]
     fn serialize_partition_query() -> anyhow::Result<()> {
-        let req = crate::model::ExecuteSqlRequest {
-            session: "projects/p/instances/i/databases/d/sessions/123".into(),
-            transaction: Some(crate::model::TransactionSelector {
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
                 selector: Some(crate::model::transaction_selector::Selector::Id(
                     b"tx_id_1".to_vec().into(),
                 )),
                 ..Default::default()
-            }),
-            sql: "SELECT * FROM Users".into(),
-            partition_token: b"partition_token_123".to_vec().into(),
-            ..Default::default()
-        };
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
 
         let partition = Partition {
             inner: PartitionedOperation::Query(req),
@@ -404,19 +402,17 @@ pub(crate) mod tests {
 
     #[test]
     fn serialize_partition_read() -> anyhow::Result<()> {
-        let req = crate::model::ReadRequest {
-            session: "projects/p/instances/i/databases/d/sessions/456".into(),
-            transaction: Some(crate::model::TransactionSelector {
+        let req = crate::model::ReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/456")
+            .set_transaction(crate::model::TransactionSelector {
                 selector: Some(crate::model::transaction_selector::Selector::Id(
                     b"tx_id_2".to_vec().into(),
                 )),
                 ..Default::default()
-            }),
-            table: "Users".into(),
-            columns: vec!["Id".into()],
-            partition_token: b"partition_token_456".to_vec().into(),
-            ..Default::default()
-        };
+            })
+            .set_table("Users")
+            .set_columns(vec!["Id"])
+            .set_partition_token(b"partition_token_456".to_vec());
 
         let partition = Partition {
             inner: PartitionedOperation::Read(req),
@@ -457,18 +453,16 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ExecuteSqlRequest {
-            session: "projects/p/instances/i/databases/d/sessions/123".into(),
-            transaction: Some(crate::model::TransactionSelector {
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
                 selector: Some(crate::model::transaction_selector::Selector::Id(
                     b"tx_id_1".to_vec().into(),
                 )),
                 ..Default::default()
-            }),
-            sql: "SELECT * FROM Users".into(),
-            partition_token: b"partition_token_123".to_vec().into(),
-            ..Default::default()
-        };
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
 
         let partition = Partition {
             inner: PartitionedOperation::Query(req),
@@ -500,19 +494,17 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ReadRequest {
-            session: "projects/p/instances/i/databases/d/sessions/456".into(),
-            transaction: Some(crate::model::TransactionSelector {
+        let req = crate::model::ReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/456")
+            .set_transaction(crate::model::TransactionSelector {
                 selector: Some(crate::model::transaction_selector::Selector::Id(
                     b"tx_id_2".to_vec().into(),
                 )),
                 ..Default::default()
-            }),
-            table: "Users".into(),
-            columns: vec!["Id".into()],
-            partition_token: b"partition_token_456".to_vec().into(),
-            ..Default::default()
-        };
+            })
+            .set_table("Users")
+            .set_columns(vec!["Id"])
+            .set_partition_token(b"partition_token_456".to_vec());
 
         let partition = Partition {
             inner: PartitionedOperation::Read(req),
