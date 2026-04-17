@@ -14,11 +14,13 @@
 
 use crate::database_client::DatabaseClient;
 use crate::model::TransactionOptions;
+use crate::model::TransactionSelector;
 use crate::model::transaction_options::ReadOnly;
 use crate::precommit::PrecommitTokenTracker;
 use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
+use std::mem::replace;
 use std::sync::{Arc, Mutex};
 use tokio::sync::Notify;
 
@@ -488,13 +490,16 @@ impl ReadContextTransactionSelector {
             return Ok(SelectorStatus::Ready(selector.clone()));
         }
 
-        // If the transaction has not started, extract options and proceed to transition.
+        // If the transaction has not started, extract options and transition the state to Starting.
         let pending_options = if let TransactionState::NotStarted(options) = &*guard {
             Some(options.clone())
         } else {
+            // The state is either Starting or Failed. Concurrent threads will yield None here
+            // and fall through to either wait for the leader or fail immediately.
             None
         };
         if let Some(options) = pending_options {
+            // This thread becomes the "leader" and will start the transaction.
             let notify = Arc::new(Notify::new());
             *guard = TransactionState::Starting(options.clone(), Arc::clone(&notify));
             return Ok(SelectorStatus::Ready(
@@ -537,19 +542,30 @@ impl ReadContextTransactionSelector {
         let (options, notify_opt) = {
             let guard = lazy.lock().expect("transaction state mutex poisoned");
             match &*guard {
-                // This should never happen in the current implementation.
+                // This should never happen.
                 TransactionState::NotStarted(_) => {
                     return Err(crate::error::internal_error(
                         "explicit begin with NotStarted state is currently unsupported",
                     ));
                 }
                 TransactionState::Starting(options, notify) => {
+                    // The transaction is already in the process of starting. Only the "leader"
+                    // thread (the one that initiated the start) can reach here while the state is
+                    // Starting, and it does so if its initial query failed. We extract the options
+                    // to proceed with an explicit BeginTransaction RPC.
                     (options.clone(), Some(Arc::clone(notify)))
                 }
-                TransactionState::Started(_, _) | TransactionState::Failed(_) => return Ok(()),
+                TransactionState::Started(_, _) | TransactionState::Failed(_) => {
+                    // The transaction has already reached a terminal state (Started or Failed).
+                    // No further action is needed in this explicit begin attempt.
+                    return Ok(());
+                }
             }
         };
 
+        // Only the leader thread will reach this point to perform the explicit begin.
+        // Waiters are blocked in `poll_selector_status` waiting for the result,
+        // and already completed states return early above.
         let response = match execute_begin_transaction(client, session_name.clone(), options).await
         {
             Ok(r) => r,
@@ -578,6 +594,14 @@ impl ReadContextTransactionSelector {
         Ok(())
     }
 
+    /// Updates the transaction state to `Started` with the given transaction ID and optional
+    /// read timestamp.
+    ///
+    /// This method is called when a transaction has successfully been initiated (either via
+    /// an inline begin in a query or an explicit `BeginTransaction` RPC).
+    ///
+    /// If the previous state was `Starting`, it will notify all concurrent threads that were
+    /// waiting for the transaction to start.
     pub(crate) fn update(
         &self,
         id: bytes::Bytes,
@@ -592,12 +616,12 @@ impl ReadContextTransactionSelector {
             &*guard,
             TransactionState::NotStarted(_) | TransactionState::Starting(_, _)
         ) {
-            let previous_state = std::mem::replace(
+            // Atomically transition the state to Started and extract the previous state.
+            // We do this to take ownership of the Notify handle (if it was Starting)
+            // so we can notify waiters after dropping the lock.
+            let previous_state = replace(
                 &mut *guard,
-                TransactionState::Started(
-                    crate::model::TransactionSelector::default().set_id(id),
-                    timestamp,
-                ),
+                TransactionState::Started(TransactionSelector::default().set_id(id), timestamp),
             );
             drop(guard);
 
@@ -607,6 +631,7 @@ impl ReadContextTransactionSelector {
             }
             Ok(())
         } else {
+            // This should never happen.
             Err(crate::error::internal_error(
                 "got a transaction id for an already Started or Failed transaction",
             ))
@@ -618,6 +643,8 @@ impl ReadContextTransactionSelector {
     /// This is used during stream resume fallbacks when the first query stream
     /// fails before yielding a transaction ID. It unlocks any parked waiters
     /// allowing them (or the retry attempt) to include the begin option again.
+    /// Only one of the waiters will win that 'race' and include a new
+    /// BeginTransaction option. All the others will continue to wait.
     pub(crate) fn maybe_reset_starting(&self) {
         let Self::Lazy(lazy) = self else {
             return;
@@ -633,6 +660,11 @@ impl ReadContextTransactionSelector {
         }
     }
 
+    /// Returns the read timestamp of the transaction, if available.
+    ///
+    /// For `Fixed` transactions, this returns the timestamp stored in the variant.
+    /// For `Lazy` transactions, this returns the timestamp once the transaction has successfully started
+    /// and yielded a timestamp. Returns `None` if the transaction has not started or did not yield a timestamp.
     pub(crate) fn read_timestamp(&self) -> Option<wkt::Timestamp> {
         match self {
             Self::Fixed(_, timestamp) => *timestamp,
@@ -1563,8 +1595,6 @@ pub(crate) mod tests {
         Ok(())
     }
 
-
-
     #[tokio::test]
     async fn execute_concurrent_queries_inline_begin() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
@@ -1666,7 +1696,10 @@ pub(crate) mod tests {
         // Provide the first result (including the transaction ID) to Task 1.
         // This transitions the selector to 'Started' and unblocks Tasks 2 and 3.
         let mut rs = setup_select1();
-        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+        rs.metadata
+            .as_mut()
+            .expect("metadata should be present")
+            .transaction = Some(mock_v1::Transaction {
             id: vec![4, 5, 6],
             read_timestamp: Some(prost_types::Timestamp {
                 seconds: 987654321,
@@ -1694,7 +1727,12 @@ pub(crate) mod tests {
         assert!(rs3.next().await.is_none());
 
         // Verify that the read timestamp was populated
-        assert_eq!(tx.read_timestamp().unwrap().seconds(), 987654321);
+        assert_eq!(
+            tx.read_timestamp()
+                .expect("read timestamp should be populated")
+                .seconds(),
+            987654321
+        );
 
         Ok(())
     }
@@ -1722,7 +1760,7 @@ pub(crate) mod tests {
                     .try_lock()
                     .expect("mutex poisoned")
                     .take()
-                    .unwrap();
+                    .expect("receiver should be present");
                 Ok(tonic::Response::from(rx))
             });
 
@@ -1798,9 +1836,18 @@ pub(crate) mod tests {
         drop(tx_sender);
 
         // Collect all results - all should fail with identical cached error!
-        let err1 = handle1.await?.unwrap_err().to_string();
-        let err2 = handle2.await?.unwrap_err().to_string();
-        let err3 = handle3.await?.unwrap_err().to_string();
+        let err1 = handle1
+            .await?
+            .expect_err("task 1 should have failed")
+            .to_string();
+        let err2 = handle2
+            .await?
+            .expect_err("task 2 should have failed")
+            .to_string();
+        let err3 = handle3
+            .await?
+            .expect_err("task 3 should have failed")
+            .to_string();
 
         assert!(
             err1.contains("Fallback BeginTransaction failed"),
@@ -1845,7 +1892,12 @@ pub(crate) mod tests {
                 // Return a stream connected to tx_sender.
                 // We will use tx_sender later in the test to inject a transient error.
                 task1_ready_clone.notify_one();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     Selector::Begin(_) => {}
                     _ => panic!("Expected Selector::Begin for first query"),
                 }
@@ -1853,7 +1905,7 @@ pub(crate) mod tests {
                     .try_lock()
                     .expect("mutex poisoned")
                     .take()
-                    .unwrap();
+                    .expect("receiver should be present");
                 Ok(Response::from(rx))
             });
 
@@ -1864,10 +1916,18 @@ pub(crate) mod tests {
             .in_sequence(&mut seq)
             .returning(move |req| {
                 let req = req.into_inner();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     Selector::Begin(_) => {
                         let mut rs = setup_select1();
-                        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+                        rs.metadata
+                            .as_mut()
+                            .expect("metadata should be present")
+                            .transaction = Some(mock_v1::Transaction {
                             id: vec![4, 5, 6],
                             ..Default::default()
                         });
@@ -1885,7 +1945,12 @@ pub(crate) mod tests {
             .in_sequence(&mut seq)
             .returning(move |req| {
                 let req = req.into_inner();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     Selector::Id(id) => {
                         assert_eq!(id, vec![4, 5, 6]);
                         let (tx, rx) = mpsc::channel(1);
@@ -1985,7 +2050,12 @@ pub(crate) mod tests {
             .in_sequence(&mut seq)
             .returning(|req| {
                 let req = req.into_inner();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     Selector::Begin(_) => {}
                     _ => panic!("Expected Selector::Begin for first query"),
                 }
@@ -2053,7 +2123,12 @@ pub(crate) mod tests {
             .returning(move |req| {
                 task1_ready_clone.notify_one();
                 let req = req.into_inner();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     mock_v1::transaction_selector::Selector::Begin(_) => {}
                     _ => panic!("Expected Selector::Begin for first read"),
                 }
@@ -2062,7 +2137,7 @@ pub(crate) mod tests {
                     .try_lock()
                     .expect("mutex poisoned")
                     .take()
-                    .unwrap();
+                    .expect("receiver should be present");
                 Ok(Response::from(rx))
             });
 
@@ -2072,7 +2147,12 @@ pub(crate) mod tests {
             .in_sequence(&mut seq)
             .returning(move |req| {
                 let req = req.into_inner();
-                match req.transaction.unwrap().selector.unwrap() {
+                match req
+                    .transaction
+                    .expect("transaction should be present")
+                    .selector
+                    .expect("selector should be present")
+                {
                     mock_v1::transaction_selector::Selector::Id(id) => {
                         assert_eq!(id, vec![4, 5, 6]);
                     }
@@ -2133,7 +2213,10 @@ pub(crate) mod tests {
 
         // Provide the transaction ID.
         let mut rs = setup_select1();
-        rs.metadata.as_mut().unwrap().transaction = Some(mock_v1::Transaction {
+        rs.metadata
+            .as_mut()
+            .expect("metadata should be present")
+            .transaction = Some(mock_v1::Transaction {
             id: vec![4, 5, 6],
             ..Default::default()
         });
@@ -2172,7 +2255,7 @@ pub(crate) mod tests {
                 .selector()
                 .await?
                 .id()
-                .unwrap(),
+                .expect("ID should be present"),
             &id1
         );
 

@@ -371,6 +371,9 @@ impl ResultSet {
     }
 
     async fn restart_stream(&mut self) -> crate::Result<()> {
+        // If we are restarting the stream (due to a failure), and the transaction
+        // was in the process of starting (but failed before yielding an ID),
+        // reset the state so the retry attempt can include the begin option again.
         if let Some(s) = &self.transaction_selector {
             s.maybe_reset_starting();
         }

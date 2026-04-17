@@ -14,7 +14,7 @@
 
 use crate::client::{get_database_id, get_emulator_host, provision_emulator, update_database_ddl};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
-use futures::stream::{self, StreamExt};
+use futures::stream::StreamExt;
 use google_cloud_spanner::client::{ResultSet, Row, Spanner, TimestampBound};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
@@ -28,7 +28,8 @@ use tokio_stream::wrappers::TcpListenerStream;
 use tonic::transport::{Channel, Server};
 
 /// An interceptor that injects transient (Unavailable) and permanent (Internal) failures
-/// into streaming SQL responses for specific query patterns.
+/// into streaming SQL responses when the query matches specific test strings
+/// (e.g., starting with "SELECT 'Transient-" or equal to "SELECT 'Permanent'").
 pub struct ConcurrentFaultInterceptor {
     emulator_client: SpannerClient<Channel>,
     /// Tracks failure counts to allow transient recovery.
@@ -97,6 +98,21 @@ impl SpannerInterceptor for ConcurrentFaultInterceptor {
     }
 }
 
+/// Verifies that concurrent queries using "inline begin" (lazy transaction initialization)
+/// maintain snapshot consistency and handle stream failures correctly.
+///
+/// This test:
+/// 1. Captures a snapshot timestamp.
+/// 2. Creates a table after that timestamp (so it doesn't exist at the snapshot time).
+/// 3. Spawns 20 concurrent tasks with mixed workloads:
+///    - Queries against a table existing at snapshot time (should succeed).
+///    - Queries against a table NOT existing at snapshot time (should fail with NotFound).
+///    - Queries that trigger transient stream failures (should be retried and succeed).
+///    - Queries that trigger permanent failures (should fail as expected).
+///
+/// This ensures that even though the transaction ID is acquired lazily by whatever query
+/// happens to win the race, all concurrent queries share that same transaction ID and
+/// see the database state as of the original snapshot timestamp.
 pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow::Result<()> {
     let emulator_host = match get_emulator_host() {
         Some(host) => host,
@@ -178,6 +194,7 @@ pub async fn test_concurrent_inline_begin_with_snapshot_consistency() -> anyhow:
     let mut handles = Vec::new();
 
     for i in 0..20 {
+        // Each thread is assigned a random workload.
         let role = rand::random_range(0..4);
         let tx = Arc::clone(&tx);
         let barrier = Arc::clone(&barrier);

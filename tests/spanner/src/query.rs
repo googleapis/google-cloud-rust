@@ -18,12 +18,9 @@ use google_cloud_spanner::client::{DatabaseClient, Kind, QueryOptions, Spanner, 
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
-use spanner_grpc_mock::google::spanner::v1::spanner_server::SpannerServer;
 use std::sync::Arc;
-use tokio::net::TcpListener;
 use tokio::sync::Notify;
-use tokio_stream::wrappers::TcpListenerStream;
-use tonic::transport::{Channel, Server};
+use tonic::transport::Channel;
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();

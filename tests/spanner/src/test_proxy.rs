@@ -15,10 +15,8 @@
 use futures::stream::{BoxStream, StreamExt};
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
-pub type ExecuteStreamingSqlStream = futures::stream::BoxStream<
-    'static,
-    std::result::Result<spanner_v1::PartialResultSet, tonic::Status>,
->;
+pub type ExecuteStreamingSqlStream =
+    BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
 
 #[tonic::async_trait]
 pub trait SpannerInterceptor: Send + Sync + 'static {
