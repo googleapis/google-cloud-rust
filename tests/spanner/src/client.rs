@@ -14,7 +14,9 @@
 
 use google_cloud_spanner::client::{KeySet, Mutation, Spanner};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner as MockSpannerTrait;
 use std::time::Duration;
+use tokio::task::JoinHandle;
 use tokio::time::sleep;
 
 const PROJECT_ID: &str = "test-project";
@@ -253,4 +255,25 @@ pub async fn update_database_ddl(statement: String) -> anyhow::Result<()> {
 
         anyhow::bail!("Failed to update DDL: status={}, body={}", status, text);
     }
+}
+
+/// A guard that aborts the server task when dropped.
+pub struct ServerGuard(JoinHandle<()>);
+
+impl Drop for ServerGuard {
+    fn drop(&mut self) {
+        self.0.abort();
+    }
+}
+
+/// Helper to start a mock server and return a drop guard.
+pub async fn start_guarded_server<T>(
+    address: &str,
+    service: T,
+) -> anyhow::Result<(String, ServerGuard)>
+where
+    T: MockSpannerTrait + Send + 'static,
+{
+    let (uri, handle) = spanner_grpc_mock::start(address, service).await?;
+    Ok((uri, ServerGuard(handle)))
 }

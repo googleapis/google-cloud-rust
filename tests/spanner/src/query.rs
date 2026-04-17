@@ -18,12 +18,9 @@ use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
-use spanner_grpc_mock::google::spanner::v1::spanner_server::SpannerServer;
 use std::sync::Arc;
-use tokio::net::TcpListener;
 use tokio::sync::Notify;
-use tokio_stream::wrappers::TcpListenerStream;
-use tonic::transport::{Channel, Server};
+use tonic::transport::Channel;
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();
@@ -477,29 +474,18 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         .await?;
     let raw_client = SpannerClient::new(endpoint);
 
-    // Create a local TCP listener to bind our proxy server to.
-    let listener = TcpListener::bind("127.0.0.1:0").await?;
-    let local_addr = listener.local_addr()?;
-    let proxy_address = format!("{}:{}", local_addr.ip(), local_addr.port());
-
     let proxy = DelayedBeginProxy {
         emulator_client: raw_client,
         latch: Arc::clone(&latch),
         begin_transaction_entered_latch: Arc::clone(&begin_transaction_entered_latch),
     };
 
-    let _server_handle = tokio::spawn(async move {
-        let stream = TcpListenerStream::new(listener);
-        Server::builder()
-            .add_service(SpannerServer::new(InterceptedSpanner(proxy)))
-            .serve_with_incoming(stream)
-            .await
-            .expect("Proxy server failed");
-    });
+    let (proxy_uri, _guard) =
+        crate::client::start_guarded_server("127.0.0.1:0", InterceptedSpanner(proxy)).await?;
 
     // We build the Spanner DatabaseClient pointing directly to our proxy address over HTTP.
     let proxy_db_client = Spanner::builder()
-        .with_endpoint(format!("http://{}", proxy_address))
+        .with_endpoint(proxy_uri)
         .build()
         .await?
         .database_client(format!(
