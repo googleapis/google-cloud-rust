@@ -12,11 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-<<<<<<< update-librarian-config
 version: v0.10.2-0.20260416210108-06a9ea6564ef
-=======
-version: v0.10.2-0.20260414164605-183260a6d037
->>>>>>> main
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
