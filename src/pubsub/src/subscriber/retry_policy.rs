@@ -81,7 +81,7 @@ impl BackoffPolicy for NoBackoff {
     }
 }
 
-/// The policies for lease management RPCs in at-least-once delivery.
+/// The policies for lease management RPCs.
 ///
 /// Specifically, these are the `Acknowledge` and `ModifyAckDeadline` RPCs.
 ///
@@ -95,21 +95,17 @@ impl BackoffPolicy for NoBackoff {
 /// Note that an RPC attempt that fails because a channel is closed may be
 /// retried on another channel that is closed. That is why we retry up to N
 /// times where N is the number of channels in the client.
-pub(super) fn at_least_once_options(grpc_subchannel_count: usize) -> RequestOptions {
+pub(super) fn rpc_options(grpc_subchannel_count: usize) -> RequestOptions {
     let mut o = RequestOptions::default();
     o.set_retry_policy(OnlyTransportErrors.with_attempt_limit(grpc_subchannel_count as u32 + 1));
     o.set_backoff_policy(NoBackoff);
     o
 }
 
-/// The policies for lease management RPCs in exactly-once delivery.
-pub(super) fn exactly_once_options(grpc_subchannel_count: usize) -> RequestOptions {
+/// The policies for retrying RPCs in exactly-once delivery.
+pub(super) fn exactly_once_options() -> RequestOptions {
     let mut o = RequestOptions::default();
-    o.set_retry_policy(
-        OnlyTransportErrors
-            .with_attempt_limit(grpc_subchannel_count as u32 + 1)
-            .with_time_limit(Duration::from_secs(600)),
-    );
+    o.set_retry_policy(OnlyTransportErrors.with_time_limit(Duration::from_secs(600)));
     o.set_backoff_policy(
         ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
@@ -263,15 +259,15 @@ pub(super) mod tests {
     }
 
     #[test]
-    fn at_least_once_options() {
-        let o = super::at_least_once_options(42);
+    fn rpc_options() {
+        let o = super::rpc_options(42);
         verify_policies(o, 42);
     }
 
     #[test]
     fn exactly_once_options() {
-        let o = super::exactly_once_options(42);
-        verify_exactly_once_policies(o, 42);
+        let o = super::exactly_once_options();
+        verify_exactly_once_policies(o);
     }
 
     #[track_caller]
@@ -345,10 +341,7 @@ pub(super) mod tests {
     }
 
     #[track_caller]
-    pub(in super::super) fn verify_exactly_once_policies(
-        o: RequestOptions,
-        grpc_subchannel_count: u32,
-    ) {
+    pub(in super::super) fn verify_exactly_once_policies(o: RequestOptions) {
         let retry = o.retry_policy().clone().unwrap();
         let backoff = o.backoff_policy().clone().unwrap();
 
@@ -369,13 +362,13 @@ pub(super) mod tests {
             "non-transport error should not be retried"
         );
 
-        state.attempt_count = grpc_subchannel_count;
+        state.attempt_count = 42;
         assert!(
             matches!(
                 retry.on_error(&state, transport_err()),
                 RetryResult::Continue(_)
             ),
-            "we should retry transport errors up to once for each gRPC channel"
+            "we should retry transport errors"
         );
         assert!(
             matches!(
@@ -385,13 +378,13 @@ pub(super) mod tests {
             "non-transport error should not be retried"
         );
 
-        state.attempt_count = grpc_subchannel_count + 1;
+        state.attempt_count = 43;
         assert!(
             matches!(
                 retry.on_error(&state, transport_err()),
-                RetryResult::Exhausted(_)
+                RetryResult::Continue(_)
             ),
-            "the retry policy should be exhausted after trying once for each gRPC channel"
+            "the retry policy should not be exhausted based on attempt count"
         );
         assert!(
             matches!(

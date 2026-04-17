@@ -14,7 +14,7 @@
 
 use super::handler::AckResult;
 use super::retry_policy::StreamRetryPolicy;
-use super::retry_policy::{at_least_once_options, exactly_once_options};
+use super::retry_policy::{exactly_once_options, rpc_options};
 use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
@@ -23,7 +23,7 @@ use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::retry_loop_internal::retry_loop;
-use google_cloud_gax::retry_policy::{NeverRetry, RetryPolicy};
+use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_throttler::{CircuitBreaker, SharedRetryThrottler};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
@@ -63,6 +63,7 @@ where
     exactly_once_options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
+    backoff: Arc<dyn BackoffPolicy>,
 }
 
 impl<T> Clone for DefaultLeaser<T>
@@ -77,6 +78,7 @@ where
             exactly_once_options: self.exactly_once_options.clone(),
             subscription: self.subscription.clone(),
             ack_deadline_seconds: self.ack_deadline_seconds,
+            backoff: self.backoff.clone(),
         }
     }
 }
@@ -92,13 +94,36 @@ where
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
     ) -> Self {
+        let eo_options = exactly_once_options();
+        let backoff = backoff_policy(&eo_options);
+        Self::new_with_backoff(
+            inner,
+            confirmed_tx,
+            subscription,
+            ack_deadline_seconds,
+            grpc_subchannel_count,
+            backoff,
+        )
+    }
+
+    pub(super) fn new_with_backoff(
+        inner: Arc<T>,
+        confirmed_tx: UnboundedSender<ConfirmedAcks>,
+        subscription: String,
+        ack_deadline_seconds: i32,
+        grpc_subchannel_count: usize,
+        // The default backoff policy is non-deterministic. Exposing the backoff
+        // policy in this interface helps us set better test expectations.
+        backoff: Arc<dyn BackoffPolicy>,
+    ) -> Self {
         DefaultLeaser {
             inner,
             confirmed_tx,
-            options: at_least_once_options(grpc_subchannel_count),
-            exactly_once_options: exactly_once_options(grpc_subchannel_count),
+            options: rpc_options(grpc_subchannel_count),
+            exactly_once_options: exactly_once_options(),
             subscription,
             ack_deadline_seconds,
+            backoff,
         }
     }
 }
@@ -153,14 +178,11 @@ where
         let remaining_ids = Arc::new(Mutex::new(ack_ids));
         let last_error = Arc::new(Mutex::new(None));
 
-        let mut never_retry_options = self.exactly_once_options.clone();
-        never_retry_options.set_retry_policy(NeverRetry);
-
         let attempt = {
             let remaining_ids = remaining_ids.clone();
             let last_error = last_error.clone();
             let leaser = self.clone();
-            let never_retry_options = never_retry_options.clone();
+            let options = self.options.clone();
             async move |_| {
                 let ids = {
                     let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
@@ -170,10 +192,7 @@ where
                 let req = AcknowledgeRequest::new()
                     .set_subscription(leaser.subscription.clone())
                     .set_ack_ids(ids.clone());
-                let response = leaser
-                    .inner
-                    .acknowledge(req, never_retry_options.clone())
-                    .await;
+                let response = leaser.inner.acknowledge(req, options.clone()).await;
 
                 let (to_confirm, remaining) = match response {
                     Ok(_) => (ids.into_iter().map(|id| (id, Ok(()))).collect(), Vec::new()),
@@ -212,7 +231,7 @@ where
             true,
             retry_throttler(&self.exactly_once_options),
             retry_policy(&self.exactly_once_options),
-            backoff_policy(&self.exactly_once_options),
+            self.backoff.clone(),
         )
         .await;
 
@@ -374,7 +393,10 @@ pub(super) mod tests {
     use super::*;
     use crate::{Error, Response, Result};
     use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_rpc::model::ErrorInfo;
+    use mockall::Sequence;
+    use std::time::Duration;
     use test_case::test_case;
     use tokio::sync::Mutex;
     use tokio::sync::mpsc::unbounded_channel;
@@ -427,6 +449,14 @@ pub(super) mod tests {
         }
         async fn confirmed_nack(&self, ack_ids: Vec<String>) {
             self.lock().await.confirmed_nack(ack_ids).await
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub(in super::super) BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
         }
     }
 
@@ -678,12 +708,14 @@ pub(super) mod tests {
     async fn confirmed_ack_partial_transient_failure_retry_failure() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
+        let mut seq = Sequence::new();
 
         let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
         let err = response_with_error_info(vec![info.clone()]).unwrap_err();
 
         mock.expect_acknowledge()
             .times(1)
+            .in_sequence(&mut seq)
             .return_once(move |r, _o| {
                 assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
                 Err(err)
@@ -691,6 +723,7 @@ pub(super) mod tests {
 
         mock.expect_acknowledge()
             .times(1)
+            .in_sequence(&mut seq)
             .return_once(move |r, _o| {
                 assert_eq!(r.ack_ids, vec![test_id(1)]);
                 Err(crate::Error::service(
@@ -700,12 +733,19 @@ pub(super) mod tests {
                 ))
             });
 
-        let leaser = DefaultLeaser::new(
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(std::time::Duration::ZERO);
+
+        let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
+            Arc::new(mock_backoff),
         );
         leaser.confirmed_ack(test_ids(1..3)).await;
 
@@ -731,12 +771,14 @@ pub(super) mod tests {
     async fn confirmed_ack_partial_transient_failure_retry_success() -> anyhow::Result<()> {
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
+        let mut seq = Sequence::new();
 
         let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
         let err = response_with_error_info(vec![info]).unwrap_err();
 
         mock.expect_acknowledge()
             .times(1)
+            .in_sequence(&mut seq)
             .return_once(move |r, _o| {
                 assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
                 Err(err)
@@ -744,17 +786,25 @@ pub(super) mod tests {
 
         mock.expect_acknowledge()
             .times(1)
+            .in_sequence(&mut seq)
             .return_once(move |r, _o| {
                 assert_eq!(r.ack_ids, vec![test_id(1)]);
                 Ok(Response::from(()))
             });
 
-        let leaser = DefaultLeaser::new(
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .return_const(Duration::ZERO);
+
+        let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
+            Arc::new(mock_backoff),
         );
         leaser.confirmed_ack(test_ids(1..3)).await;
 
