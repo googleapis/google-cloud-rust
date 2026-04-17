@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::key::KeySet;
+use crate::model::DirectedReadOptions;
 
 /// Represents an incomplete read operation that requires specifying keys.
 ///
@@ -61,6 +62,7 @@ impl ReadRequestBuilder {
             columns: self.columns,
             limit: None,
             request_options: None,
+            directed_read_options: None,
         }
     }
 
@@ -87,6 +89,7 @@ impl ReadRequestBuilder {
             columns: self.columns,
             limit: None,
             request_options: None,
+            directed_read_options: None,
         }
     }
 }
@@ -100,6 +103,7 @@ pub struct ConfiguredReadRequestBuilder {
     columns: Vec<String>,
     limit: Option<i64>,
     request_options: Option<crate::model::RequestOptions>,
+    directed_read_options: Option<DirectedReadOptions>,
 }
 
 impl ConfiguredReadRequestBuilder {
@@ -139,6 +143,26 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
+    /// Sets the directed read options for this request.
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::ReadRequest;
+    /// # use google_cloud_spanner::client::KeySet;
+    /// # use google_cloud_spanner::client::DirectedReadOptions;
+    /// let dro = DirectedReadOptions::default();
+    /// let req = ReadRequest::builder("MyTable", vec!["col1"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_directed_read_options(dro)
+    ///     .build();
+    /// ```
+    ///
+    /// DirectedReadOptions can only be specified for a read-only transaction,
+    /// otherwise Spanner returns an INVALID_ARGUMENT error.
+    pub fn with_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
+        self.directed_read_options = Some(options);
+        self
+    }
+
     /// Builds the configured `ReadRequest`.
     pub fn build(self) -> ReadRequest {
         ReadRequest {
@@ -148,6 +172,7 @@ impl ConfiguredReadRequestBuilder {
             columns: self.columns,
             limit: self.limit,
             request_options: self.request_options,
+            directed_read_options: self.directed_read_options,
         }
     }
 }
@@ -164,6 +189,7 @@ pub struct ReadRequest {
     pub(crate) columns: Vec<String>,
     pub(crate) limit: Option<i64>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
+    pub(crate) directed_read_options: Option<DirectedReadOptions>,
 }
 
 impl ReadRequest {
@@ -186,44 +212,23 @@ impl ReadRequest {
         }
     }
 
-    fn into_parts(
-        self,
-    ) -> (
-        String,
-        Option<String>,
-        crate::model::KeySet,
-        Vec<String>,
-        Option<i64>,
-        Option<crate::model::RequestOptions>,
-    ) {
-        (
-            self.table,
-            self.index,
-            self.keys.into_proto(),
-            self.columns,
-            self.limit,
-            self.request_options,
-        )
-    }
-
     pub(crate) fn into_request(self) -> crate::model::ReadRequest {
-        let (table, index, keys, columns, limit, request_options) = self.into_parts();
         crate::model::ReadRequest::default()
-            .set_table(table)
-            .set_columns(columns)
-            .set_key_set(keys)
-            .set_index(index.unwrap_or_default())
-            .set_limit(limit.unwrap_or_default())
-            .set_or_clear_request_options(request_options)
+            .set_table(self.table)
+            .set_columns(self.columns)
+            .set_key_set(self.keys.into_proto())
+            .set_index(self.index.unwrap_or_default())
+            .set_limit(self.limit.unwrap_or_default())
+            .set_or_clear_request_options(self.request_options)
+            .set_or_clear_directed_read_options(self.directed_read_options)
     }
 
     pub(crate) fn into_partition_read_request(self) -> crate::model::PartitionReadRequest {
-        let (table, index, keys, columns, _limit, _request_options) = self.into_parts();
         crate::model::PartitionReadRequest::default()
-            .set_table(table)
-            .set_columns(columns)
-            .set_key_set(keys)
-            .set_index(index.unwrap_or_default())
+            .set_table(self.table)
+            .set_columns(self.columns)
+            .set_key_set(self.keys.into_proto())
+            .set_index(self.index.unwrap_or_default())
     }
 }
 
@@ -285,5 +290,15 @@ mod tests {
                 .request_tag,
             "tag1"
         );
+    }
+
+    #[test]
+    fn with_directed_read_options() {
+        let dro = DirectedReadOptions::default();
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_directed_read_options(dro.clone())
+            .build();
+        assert_eq!(req.directed_read_options, Some(dro));
     }
 }

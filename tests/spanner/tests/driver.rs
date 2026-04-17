@@ -114,4 +114,18 @@ mod spanner {
 
         Ok(())
     }
+
+    #[tokio::test]
+    async fn run_directed_read_tests() -> anyhow::Result<()> {
+        let db_client = match integration_tests_spanner::client::create_database_client().await {
+            Some(c) => c,
+            None => return Ok(()),
+        };
+
+        integration_tests_spanner::directed_read::read_only_with_directed_read(&db_client).await?;
+        integration_tests_spanner::directed_read::read_write_with_directed_read_error(&db_client)
+            .await?;
+
+        Ok(())
+    }
 }

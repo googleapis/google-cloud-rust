@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::model::DirectedReadOptions;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
@@ -32,6 +33,7 @@ pub struct StatementBuilder {
     params: BTreeMap<String, Value>,
     param_types: BTreeMap<String, Type>,
     request_options: Option<crate::model::RequestOptions>,
+    directed_read_options: Option<DirectedReadOptions>,
 }
 
 impl StatementBuilder {
@@ -41,6 +43,7 @@ impl StatementBuilder {
             params: BTreeMap::new(),
             param_types: BTreeMap::new(),
             request_options: None,
+            directed_read_options: None,
         }
     }
 
@@ -90,6 +93,24 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the directed read options for this statement.
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::client::DirectedReadOptions;
+    /// let dro = DirectedReadOptions::default();
+    /// let stmt = Statement::builder("SELECT * FROM users")
+    ///     .with_directed_read_options(dro)
+    ///     .build();
+    /// ```
+    ///
+    /// DirectedReadOptions can only be specified for a read-only transaction,
+    /// otherwise Spanner returns an INVALID_ARGUMENT error.
+    pub fn with_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
+        self.directed_read_options = Some(options);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -97,6 +118,7 @@ impl StatementBuilder {
             params: self.params,
             param_types: self.param_types,
             request_options: self.request_options,
+            directed_read_options: self.directed_read_options,
         }
     }
 }
@@ -130,6 +152,7 @@ pub struct Statement {
     pub(crate) params: BTreeMap<String, Value>,
     pub(crate) param_types: BTreeMap<String, Type>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
+    pub(crate) directed_read_options: Option<DirectedReadOptions>,
 }
 
 impl Statement {
@@ -165,12 +188,14 @@ impl Statement {
 
     pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
         let request_options = self.request_options.clone();
+        let directed_read_options = self.directed_read_options.clone();
         let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
             .set_sql(sql)
             .set_or_clear_params(params)
             .set_param_types(param_types)
             .set_or_clear_request_options(request_options)
+            .set_or_clear_directed_read_options(directed_read_options)
     }
 
     pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
@@ -323,5 +348,14 @@ mod tests {
                 .request_tag,
             "tag1"
         );
+    }
+
+    #[test]
+    fn with_directed_read_options() {
+        let dro = DirectedReadOptions::default();
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_directed_read_options(dro.clone())
+            .build();
+        assert_eq!(stmt.directed_read_options, Some(dro));
     }
 }

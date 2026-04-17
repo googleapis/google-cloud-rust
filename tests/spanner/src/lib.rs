@@ -14,6 +14,7 @@
 
 pub mod batch_read_only_transaction;
 pub mod client;
+pub mod directed_read;
 pub mod partitioned_dml;
 pub mod query;
 pub mod read;
