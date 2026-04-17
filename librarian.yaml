@@ -1127,7 +1127,7 @@ libraries:
     rust:
       documentation_overrides:
         - id: .google.cloud.orgpolicy.v1.Policy.ListPolicy
-          match: "Ancestry subtrees must be in one of the following formats:"
+          match: 'Ancestry subtrees must be in one of the following formats:'
           replace: " \nAncestry subtrees must be in one of the following formats:"
         - id: .google.cloud.orgpolicy.v1.Policy.ListPolicy
           match: The `supports_under` field of the associated `Constraint`  defines whether
