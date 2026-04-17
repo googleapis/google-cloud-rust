@@ -64,9 +64,9 @@ async fn test_execute_query() -> anyhow::Result<()> {
             cache_update: None,
             last: true,
         };
-        Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-            tokio_stream::iter(vec![Ok(result_set)]),
-        )))
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
+        tx.try_send(Ok(result_set)).expect("always succeeds");
+        Ok(gaxi::grpc::tonic::Response::from(rx))
     });
 
     let (address, _server) = start("0.0.0.0:0", mock)

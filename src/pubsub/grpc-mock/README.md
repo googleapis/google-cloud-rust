@@ -1,10 +1,23 @@
-# A mockable Pub/Sub service implementation
+# A mockable Cloud Pub/Sub API service implementation
 
-A fake gRPC server for the Pub/Sub service. This is specifically helpful for
-testing the handwritten code for the bidirectional `StreamingPull` RPC.
+This crate provides a mockable implementation of the Cloud Pub/Sub API service over
+gRPC, analogous to the `httptest` crate but specific to this service. It is used
+in the client library tests, and not intended for any other use.
 
-This is analogous to the [mockable GCS+gRPC service][gcs], which you should read
-for more details on the design. Apologies for the redirect, but I would rather
-not maintain separate documents.
+## On streaming RPCs
 
-[gcs]: /src/storage/grpc-mock/README.md
+Streaming RPCs in Tonic use generics for the output (server-side) streams. To
+simplify the mocks, this crate only supports `tokio::sync::mpsc::Receiver<>` as
+the output type. These are easy to create in tests and good enough for that
+purpose.
+
+Streaming RPCs in Tonic use `tonic::Streaming<>` as the input (client-side)
+streams. It seemed easier to reason about the mock if it always used
+`Receiver<>`. If this proves to be a bad decision we can change the code.
+
+## Usage
+
+Create a `mocks::MockPublisher` and call `start()` to launch a (local) server
+using the mock. Then connect your test to this mock server.
+
+The types have comments with trivial examples.

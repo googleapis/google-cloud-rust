@@ -94,6 +94,11 @@ impl Error {
         matches!(&self.0, ErrorKind::Transport(_))
     }
 
+    /// If true, the client universe domain does not match the credentials.
+    pub fn is_universe_domain_mismatch(&self) -> bool {
+        matches!(&self.0, ErrorKind::UniverseDomainMismatch { .. })
+    }
+
     /// Not part of the public API, subject to change without notice.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn cred<T: Into<BoxError>>(source: T) -> Self {
@@ -105,6 +110,18 @@ impl Error {
     pub fn transport<T: Into<BoxError>>(source: T) -> Self {
         Self(ErrorKind::Transport(source.into()))
     }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn universe_domain_mismatch(
+        client_universe_domain: &str,
+        credential_universe_domain: &str,
+    ) -> Self {
+        Self(ErrorKind::UniverseDomainMismatch {
+            client_universe_domain: client_universe_domain.to_string(),
+            credential_universe_domain: credential_universe_domain.to_string(),
+        })
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -113,6 +130,13 @@ enum ErrorKind {
     DefaultCredentials(#[source] BoxError),
     #[error("could not initialize transport client")]
     Transport(#[source] BoxError),
+    #[error(
+        "the client configured universe domain ({client_universe_domain}) does not match the universe domain found in the credentials ({credential_universe_domain}). If you haven't configured the universe domain explicitly, `googleapis.com` is the default. Use `ClientBuilder::with_universe_domain()` to set the universe domain."
+    )]
+    UniverseDomainMismatch {
+        client_universe_domain: String,
+        credential_universe_domain: String,
+    },
 }
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -815,5 +839,16 @@ mod tests {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+    }
+
+    #[test]
+    fn universe_domain_mismatch() {
+        let error = Error::universe_domain_mismatch("my-universe.com", "googleapis.com");
+        assert!(error.is_universe_domain_mismatch(), "{error:?}");
+        let fmt = format!("{error:?}");
+        assert!(fmt.contains("my-universe.com"), "{fmt}");
+        assert!(fmt.contains("googleapis.com"), "{fmt}");
+        let got = error.source();
+        assert!(got.is_none(), "{got:?}");
     }
 }
