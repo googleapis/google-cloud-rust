@@ -66,7 +66,7 @@ impl SpannerInterceptor for ConcurrentFaultInterceptor {
             if *count == 0 {
                 *count += 1;
                 // Return a stream that fails immediately with Unavailable.
-                let stream = stream::once(async {
+                let stream = futures::stream::once(async {
                     Err(tonic::Status::unavailable("Transient stream failure"))
                 });
                 return Ok(tonic::Response::new(stream.boxed()));
@@ -77,8 +77,9 @@ impl SpannerInterceptor for ConcurrentFaultInterceptor {
         // Emulates a permanent stream failure.
         if sql == "SELECT 'Permanent'" {
             // Returns a stream that always fails with an Internal error.
-            let stream =
-                stream::once(async { Err(tonic::Status::internal("Permanent stream failure")) });
+            let stream = futures::stream::once(async {
+                Err(tonic::Status::internal("Permanent stream failure"))
+            });
             return Ok(tonic::Response::new(stream.boxed()));
         }
 

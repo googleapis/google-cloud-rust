@@ -672,6 +672,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslateRequest {
             __parent,
             __dataset,
             __content,
+            __mime_type,
             __reference_sentence_config,
             __glossary_config,
             Unknown(std::string::String),
@@ -697,6 +698,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslateRequest {
                             "parent" => Ok(__FieldTag::__parent),
                             "dataset" => Ok(__FieldTag::__dataset),
                             "content" => Ok(__FieldTag::__content),
+                            "mimeType" => Ok(__FieldTag::__mime_type),
+                            "mime_type" => Ok(__FieldTag::__mime_type),
                             "referenceSentenceConfig" => {
                                 Ok(__FieldTag::__reference_sentence_config)
                             }
@@ -757,6 +760,16 @@ impl<'de> serde::de::Deserialize<'de> for super::AdaptiveMtTranslateRequest {
                                 ));
                             }
                             result.content = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__mime_type => {
+                            if !fields.insert(__FieldTag::__mime_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mime_type",
+                                ));
+                            }
+                            result.mime_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__reference_sentence_config => {
                             if !fields.insert(__FieldTag::__reference_sentence_config) {

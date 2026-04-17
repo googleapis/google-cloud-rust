@@ -752,7 +752,7 @@ pub mod deployment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -920,7 +920,7 @@ pub mod deployment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ErrorCode {
@@ -1096,7 +1096,7 @@ pub mod deployment {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LockState {
@@ -1261,6 +1261,11 @@ pub struct TerraformBlueprint {
     pub input_values:
         std::collections::HashMap<std::string::String, crate::model::TerraformVariable>,
 
+    /// Optional. Map of input variable names in this blueprint to configurations
+    /// for importing values from external sources.
+    pub external_values:
+        std::collections::HashMap<std::string::String, crate::model::ExternalValueSource>,
+
     /// Location of the source configs.
     /// Required.
     pub source: std::option::Option<crate::model::terraform_blueprint::Source>,
@@ -1292,6 +1297,28 @@ impl TerraformBlueprint {
     {
         use std::iter::Iterator;
         self.input_values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [external_values][crate::model::TerraformBlueprint::external_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::TerraformBlueprint;
+    /// use google_cloud_config_v1::model::ExternalValueSource;
+    /// let x = TerraformBlueprint::new().set_external_values([
+    ///     ("key0", ExternalValueSource::default()/* use setters */),
+    ///     ("key1", ExternalValueSource::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_external_values<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ExternalValueSource>,
+    {
+        use std::iter::Iterator;
+        self.external_values = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 
@@ -1462,6 +1489,157 @@ impl TerraformVariable {
 impl wkt::message::Message for TerraformVariable {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.config.v1.TerraformVariable"
+    }
+}
+
+/// Configuration for a source of an external value.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExternalValueSource {
+    /// The source of the external value.
+    pub source: std::option::Option<crate::model::external_value_source::Source>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExternalValueSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source][crate::model::ExternalValueSource::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ExternalValueSource;
+    /// use google_cloud_config_v1::model::DeploymentSource;
+    /// let x = ExternalValueSource::new().set_source(Some(
+    ///     google_cloud_config_v1::model::external_value_source::Source::DeploymentSource(DeploymentSource::default().into())));
+    /// ```
+    pub fn set_source<
+        T: std::convert::Into<std::option::Option<crate::model::external_value_source::Source>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::ExternalValueSource::source]
+    /// if it holds a `DeploymentSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn deployment_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeploymentSource>> {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::external_value_source::Source::DeploymentSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::ExternalValueSource::source]
+    /// to hold a `DeploymentSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ExternalValueSource;
+    /// use google_cloud_config_v1::model::DeploymentSource;
+    /// let x = ExternalValueSource::new().set_deployment_source(DeploymentSource::default()/* use setters */);
+    /// assert!(x.deployment_source().is_some());
+    /// ```
+    pub fn set_deployment_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::DeploymentSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::external_value_source::Source::DeploymentSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ExternalValueSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ExternalValueSource"
+    }
+}
+
+/// Defines additional types related to [ExternalValueSource].
+pub mod external_value_source {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The source of the external value.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Source {
+        /// A source from a Deployment.
+        DeploymentSource(std::boxed::Box<crate::model::DeploymentSource>),
+    }
+}
+
+/// Configuration for a value sourced from a Deployment.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentSource {
+    /// Required. The resource name of the source Deployment to import the output
+    /// from. Format:
+    /// projects/{project}/locations/{location}/deployments/{deployment} The source
+    /// deployment must be in the same project and location.
+    pub deployment: std::string::String,
+
+    /// Required. The name of the output variable in the source deployment's latest
+    /// successfully applied revision.
+    pub output_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentSource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment][crate::model::DeploymentSource::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentSource;
+    /// let x = DeploymentSource::new().set_deployment("example");
+    /// ```
+    pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.deployment = v.into();
+        self
+    }
+
+    /// Sets the value of [output_name][crate::model::DeploymentSource::output_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentSource;
+    /// let x = DeploymentSource::new().set_output_name("example");
+    /// ```
+    pub fn set_output_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.output_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentSource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentSource"
     }
 }
 
@@ -2229,6 +2407,521 @@ impl wkt::message::Message for CreateDeploymentRequest {
     }
 }
 
+/// A request to create a deployment group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDeploymentGroupRequest {
+    /// Required. The parent in whose context the Deployment Group is created. The
+    /// parent value is in the format: 'projects/{project_id}/locations/{location}'
+    pub parent: std::string::String,
+
+    /// Required. The deployment group ID.
+    pub deployment_group_id: std::string::String,
+
+    /// Required. [Deployment Group][] resource to create
+    pub deployment_group: std::option::Option<crate::model::DeploymentGroup>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDeploymentGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::CreateDeploymentGroupRequest;
+    /// let x = CreateDeploymentGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_group_id][crate::model::CreateDeploymentGroupRequest::deployment_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::CreateDeploymentGroupRequest;
+    /// let x = CreateDeploymentGroupRequest::new().set_deployment_group_id("example");
+    /// ```
+    pub fn set_deployment_group_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_group_id = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_group][crate::model::CreateDeploymentGroupRequest::deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::CreateDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = CreateDeploymentGroupRequest::new().set_deployment_group(DeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_group][crate::model::CreateDeploymentGroupRequest::deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::CreateDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = CreateDeploymentGroupRequest::new().set_or_clear_deployment_group(Some(DeploymentGroup::default()/* use setters */));
+    /// let x = CreateDeploymentGroupRequest::new().set_or_clear_deployment_group(None::<DeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::CreateDeploymentGroupRequest;
+    /// let x = CreateDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.CreateDeploymentGroupRequest"
+    }
+}
+
+/// A request message for updating a deployment group
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDeploymentGroupRequest {
+    /// Optional. Field mask used to specify the fields to be overwritten in the
+    /// Deployment Group resource by the update.
+    ///
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. [DeploymentGroup][google.cloud.config.v1.DeploymentGroup] to
+    /// update.
+    ///
+    /// The deployment group's `name` field is used to identify the resource to be
+    /// updated. Format:
+    /// `projects/{project}/locations/{location}/deploymentGroups/{deployment_group_id}`
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    pub deployment_group: std::option::Option<crate::model::DeploymentGroup>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeploymentGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateDeploymentGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeploymentGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeploymentGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [deployment_group][crate::model::UpdateDeploymentGroupRequest::deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = UpdateDeploymentGroupRequest::new().set_deployment_group(DeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_deployment_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.deployment_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_group][crate::model::UpdateDeploymentGroupRequest::deployment_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = UpdateDeploymentGroupRequest::new().set_or_clear_deployment_group(Some(DeploymentGroup::default()/* use setters */));
+    /// let x = UpdateDeploymentGroupRequest::new().set_or_clear_deployment_group(None::<DeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_deployment_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.deployment_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateDeploymentGroupRequest;
+    /// let x = UpdateDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.UpdateDeploymentGroupRequest"
+    }
+}
+
+/// Request message for Delete DeploymentGroup
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDeploymentGroupRequest {
+    /// Required. The name of DeploymentGroup in the format
+    /// projects/{project_id}/locations/{location_id}/deploymentGroups/{deploymentGroup}
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request ID,
+    /// the server can check if original operation with the same request ID was
+    /// received, and if so, will ignore the second request. This prevents clients
+    /// from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    /// Optional. If set to true, any revisions for this deployment group will also
+    /// be deleted. (Otherwise, the request will only work if the deployment group
+    /// has no revisions.)
+    pub force: bool,
+
+    /// Optional. Policy on how to handle referenced deployments when deleting the
+    /// DeploymentGroup.
+    /// If unspecified, the default behavior is to fail the deletion if any
+    /// deployments currently referenced in the `deployment_units` of the
+    /// DeploymentGroup or in the latest revision are not deleted.
+    pub deployment_reference_policy:
+        crate::model::delete_deployment_group_request::DeploymentReferencePolicy,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeleteDeploymentGroupRequest;
+    /// let x = DeleteDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteDeploymentGroupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeleteDeploymentGroupRequest;
+    /// let x = DeleteDeploymentGroupRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteDeploymentGroupRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeleteDeploymentGroupRequest;
+    /// let x = DeleteDeploymentGroupRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_reference_policy][crate::model::DeleteDeploymentGroupRequest::deployment_reference_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeleteDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::delete_deployment_group_request::DeploymentReferencePolicy;
+    /// let x0 = DeleteDeploymentGroupRequest::new().set_deployment_reference_policy(DeploymentReferencePolicy::FailIfAnyReferencesExist);
+    /// let x1 = DeleteDeploymentGroupRequest::new().set_deployment_reference_policy(DeploymentReferencePolicy::FailIfMetadataReferencesExist);
+    /// let x2 = DeleteDeploymentGroupRequest::new().set_deployment_reference_policy(DeploymentReferencePolicy::IgnoreDeploymentReferences);
+    /// ```
+    pub fn set_deployment_reference_policy<
+        T: std::convert::Into<
+                crate::model::delete_deployment_group_request::DeploymentReferencePolicy,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_reference_policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeleteDeploymentGroupRequest"
+    }
+}
+
+/// Defines additional types related to [DeleteDeploymentGroupRequest].
+pub mod delete_deployment_group_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Policy on how to handle referenced deployments when deleting the
+    /// DeploymentGroup.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DeploymentReferencePolicy {
+        /// The default behavior. If unspecified, the system will act as if
+        /// `FAIL_IF_ANY_REFERENCES_EXIST` is specified.
+        Unspecified,
+        /// Fail the deletion if any deployments currently referenced in the
+        /// `deployment_units` of the DeploymentGroup or in the latest revision
+        /// are not deleted.
+        FailIfAnyReferencesExist,
+        /// Fail the deletion only if any deployments currently referenced in the
+        /// `deployment_units` of the DeploymentGroup are not deleted.
+        /// The deletion will proceed even if the deployments in the latest revision
+        /// of the DeploymentGroup are not deleted.
+        FailIfMetadataReferencesExist,
+        /// Ignore any deployments currently referenced in the
+        /// `deployment_units` of the DeploymentGroup or in the latest revision.
+        IgnoreDeploymentReferences,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DeploymentReferencePolicy::value] or
+        /// [DeploymentReferencePolicy::name].
+        UnknownValue(deployment_reference_policy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod deployment_reference_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DeploymentReferencePolicy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::FailIfAnyReferencesExist => std::option::Option::Some(1),
+                Self::FailIfMetadataReferencesExist => std::option::Option::Some(2),
+                Self::IgnoreDeploymentReferences => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("DEPLOYMENT_REFERENCE_POLICY_UNSPECIFIED")
+                }
+                Self::FailIfAnyReferencesExist => {
+                    std::option::Option::Some("FAIL_IF_ANY_REFERENCES_EXIST")
+                }
+                Self::FailIfMetadataReferencesExist => {
+                    std::option::Option::Some("FAIL_IF_METADATA_REFERENCES_EXIST")
+                }
+                Self::IgnoreDeploymentReferences => {
+                    std::option::Option::Some("IGNORE_DEPLOYMENT_REFERENCES")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DeploymentReferencePolicy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DeploymentReferencePolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DeploymentReferencePolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::FailIfAnyReferencesExist,
+                2 => Self::FailIfMetadataReferencesExist,
+                3 => Self::IgnoreDeploymentReferences,
+                _ => Self::UnknownValue(deployment_reference_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DeploymentReferencePolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DEPLOYMENT_REFERENCE_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "FAIL_IF_ANY_REFERENCES_EXIST" => Self::FailIfAnyReferencesExist,
+                "FAIL_IF_METADATA_REFERENCES_EXIST" => Self::FailIfMetadataReferencesExist,
+                "IGNORE_DEPLOYMENT_REFERENCES" => Self::IgnoreDeploymentReferences,
+                _ => Self::UnknownValue(deployment_reference_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DeploymentReferencePolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::FailIfAnyReferencesExist => serializer.serialize_i32(1),
+                Self::FailIfMetadataReferencesExist => serializer.serialize_i32(2),
+                Self::IgnoreDeploymentReferences => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DeploymentReferencePolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DeploymentReferencePolicy>::new(
+                ".google.cloud.config.v1.DeleteDeploymentGroupRequest.DeploymentReferencePolicy"))
+        }
+    }
+}
+
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeploymentRequest {
@@ -2478,7 +3171,7 @@ pub mod delete_deployment_request {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DeletePolicy {
@@ -2817,6 +3510,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_deployment_metadata(DeploymentOperationMetadata::default()/* use setters */);
     /// assert!(x.deployment_metadata().is_some());
     /// assert!(x.preview_metadata().is_none());
+    /// assert!(x.provision_deployment_group_metadata().is_none());
     /// ```
     pub fn set_deployment_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::DeploymentOperationMetadata>>,
@@ -2858,6 +3552,7 @@ impl OperationMetadata {
     /// let x = OperationMetadata::new().set_preview_metadata(PreviewOperationMetadata::default()/* use setters */);
     /// assert!(x.preview_metadata().is_some());
     /// assert!(x.deployment_metadata().is_none());
+    /// assert!(x.provision_deployment_group_metadata().is_none());
     /// ```
     pub fn set_preview_metadata<
         T: std::convert::Into<std::boxed::Box<crate::model::PreviewOperationMetadata>>,
@@ -2867,6 +3562,52 @@ impl OperationMetadata {
     ) -> Self {
         self.resource_metadata = std::option::Option::Some(
             crate::model::operation_metadata::ResourceMetadata::PreviewMetadata(v.into()),
+        );
+        self
+    }
+
+    /// The value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
+    /// if it holds a `ProvisionDeploymentGroupMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn provision_deployment_group_metadata(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::ProvisionDeploymentGroupOperationMetadata>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.resource_metadata.as_ref().and_then(|v| match v {
+            crate::model::operation_metadata::ResourceMetadata::ProvisionDeploymentGroupMetadata(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [resource_metadata][crate::model::OperationMetadata::resource_metadata]
+    /// to hold a `ProvisionDeploymentGroupMetadata`.
+    ///
+    /// Note that all the setters affecting `resource_metadata` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::OperationMetadata;
+    /// use google_cloud_config_v1::model::ProvisionDeploymentGroupOperationMetadata;
+    /// let x = OperationMetadata::new().set_provision_deployment_group_metadata(ProvisionDeploymentGroupOperationMetadata::default()/* use setters */);
+    /// assert!(x.provision_deployment_group_metadata().is_some());
+    /// assert!(x.deployment_metadata().is_none());
+    /// assert!(x.preview_metadata().is_none());
+    /// ```
+    pub fn set_provision_deployment_group_metadata<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::ProvisionDeploymentGroupOperationMetadata>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.resource_metadata = std::option::Option::Some(
+            crate::model::operation_metadata::ResourceMetadata::ProvisionDeploymentGroupMetadata(
+                v.into(),
+            ),
         );
         self
     }
@@ -2892,6 +3633,10 @@ pub mod operation_metadata {
         DeploymentMetadata(std::boxed::Box<crate::model::DeploymentOperationMetadata>),
         /// Output only. Metadata about the preview operation state.
         PreviewMetadata(std::boxed::Box<crate::model::PreviewOperationMetadata>),
+        /// Output only. Metadata about ProvisionDeploymentGroup operation state.
+        ProvisionDeploymentGroupMetadata(
+            std::boxed::Box<crate::model::ProvisionDeploymentGroupOperationMetadata>,
+        ),
     }
 }
 
@@ -3444,7 +4189,7 @@ pub mod revision {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Action {
@@ -3583,7 +4328,7 @@ pub mod revision {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -3722,7 +4467,7 @@ pub mod revision {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ErrorCode {
@@ -4239,7 +4984,7 @@ pub mod deployment_operation_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DeploymentStep {
@@ -4592,7 +5337,7 @@ pub mod resource {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Intent {
@@ -4745,7 +5490,7 @@ pub mod resource {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -6335,7 +7080,7 @@ pub mod preview {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -6503,7 +7248,7 @@ pub mod preview {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PreviewMode {
@@ -6636,7 +7381,7 @@ pub mod preview {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ErrorCode {
@@ -6937,7 +7682,7 @@ pub mod preview_operation_metadata {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PreviewStep {
@@ -8160,7 +8905,7 @@ pub mod terraform_version {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -8522,7 +9267,7 @@ pub mod resource_change {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Intent {
@@ -9699,7 +10444,7 @@ pub mod provider_config {
     /// Please consult the [Working with enums] section in the user guide for some
     /// guidelines.
     ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ProviderSource {
@@ -10028,6 +10773,2431 @@ impl wkt::message::Message for UpdateAutoMigrationConfigRequest {
     }
 }
 
+/// A DeploymentGroup is a collection of DeploymentUnits that in a DAG-like
+/// structure.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentGroup {
+    /// Identifier. The name of the deployment group.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}'.
+    pub name: std::string::String,
+
+    /// Output only. Time when the deployment group was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Time when the deployment group was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-defined metadata for the deployment group.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Arbitrary key-value metadata storage e.g. to help client tools
+    /// identify deployment group during automation. See
+    /// <https://google.aip.dev/148#annotations> for details on format and size
+    /// limitations.
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. Current state of the deployment group.
+    pub state: crate::model::deployment_group::State,
+
+    /// Output only. Additional information regarding the current state.
+    pub state_description: std::string::String,
+
+    /// The deployment units of the deployment group in a DAG like structure.
+    /// When a deployment group is being provisioned, the deployment units are
+    /// deployed in a DAG order.
+    /// The provided units must be in a DAG order, otherwise an error will be
+    /// returned.
+    pub deployment_units: std::vec::Vec<crate::model::DeploymentUnit>,
+
+    /// Output only. The provisioning state of the deployment group.
+    pub provisioning_state: crate::model::deployment_group::ProvisioningState,
+
+    /// Output only. Additional information regarding the current provisioning
+    /// state.
+    pub provisioning_state_description: std::string::String,
+
+    /// Output only. The error status of the deployment group provisioning or
+    /// deprovisioning.
+    pub provisioning_error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeploymentGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeploymentGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroup::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DeploymentGroup::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroup::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentGroup::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::DeploymentGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::DeploymentGroup::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroup::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DeploymentGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_config_v1::model::deployment_group::State;
+    /// let x0 = DeploymentGroup::new().set_state(State::Creating);
+    /// let x1 = DeploymentGroup::new().set_state(State::Active);
+    /// let x2 = DeploymentGroup::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::deployment_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [state_description][crate::model::DeploymentGroup::state_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroup::new().set_state_description("example");
+    /// ```
+    pub fn set_state_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state_description = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_units][crate::model::DeploymentGroup::deployment_units].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_config_v1::model::DeploymentUnit;
+    /// let x = DeploymentGroup::new()
+    ///     .set_deployment_units([
+    ///         DeploymentUnit::default()/* use setters */,
+    ///         DeploymentUnit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_units<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DeploymentUnit>,
+    {
+        use std::iter::Iterator;
+        self.deployment_units = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [provisioning_state][crate::model::DeploymentGroup::provisioning_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_config_v1::model::deployment_group::ProvisioningState;
+    /// let x0 = DeploymentGroup::new().set_provisioning_state(ProvisioningState::Provisioning);
+    /// let x1 = DeploymentGroup::new().set_provisioning_state(ProvisioningState::Provisioned);
+    /// let x2 = DeploymentGroup::new().set_provisioning_state(ProvisioningState::FailedToProvision);
+    /// ```
+    pub fn set_provisioning_state<
+        T: std::convert::Into<crate::model::deployment_group::ProvisioningState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.provisioning_state = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioning_state_description][crate::model::DeploymentGroup::provisioning_state_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroup::new().set_provisioning_state_description("example");
+    /// ```
+    pub fn set_provisioning_state_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.provisioning_state_description = v.into();
+        self
+    }
+
+    /// Sets the value of [provisioning_error][crate::model::DeploymentGroup::provisioning_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DeploymentGroup::new().set_provisioning_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_provisioning_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.provisioning_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [provisioning_error][crate::model::DeploymentGroup::provisioning_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DeploymentGroup::new().set_or_clear_provisioning_error(Some(Status::default()/* use setters */));
+    /// let x = DeploymentGroup::new().set_or_clear_provisioning_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_provisioning_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.provisioning_error = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentGroup"
+    }
+}
+
+/// Defines additional types related to [DeploymentGroup].
+pub mod deployment_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible states of a deployment group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is used if the state is omitted.
+        Unspecified,
+        /// The deployment group is being created.
+        Creating,
+        /// The deployment group is healthy.
+        Active,
+        /// The deployment group is being updated.
+        Updating,
+        /// The deployment group is being deleted.
+        Deleting,
+        /// The deployment group has encountered an unexpected error.
+        Failed,
+        /// The deployment group is no longer being actively reconciled.
+        /// This may be the result of recovering the project after deletion.
+        Suspended,
+        /// The deployment group has been deleted.
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::Suspended => std::option::Option::Some(6),
+                Self::Deleted => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Suspended => std::option::Option::Some("SUSPENDED"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                5 => Self::Failed,
+                6 => Self::Suspended,
+                7 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                "FAILED" => Self::Failed,
+                "SUSPENDED" => Self::Suspended,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::Suspended => serializer.serialize_i32(6),
+                Self::Deleted => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.config.v1.DeploymentGroup.State",
+            ))
+        }
+    }
+
+    /// Possible provisioning states of a deployment group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProvisioningState {
+        /// Unspecified provisioning state.
+        Unspecified,
+        /// The deployment group is being provisioned.
+        Provisioning,
+        /// The deployment group is provisioned.
+        Provisioned,
+        /// The deployment group failed to be provisioned.
+        FailedToProvision,
+        /// The deployment group is being deprovisioned.
+        Deprovisioning,
+        /// The deployment group is deprovisioned.
+        Deprovisioned,
+        /// The deployment group failed to be deprovisioned.
+        FailedToDeprovision,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProvisioningState::value] or
+        /// [ProvisioningState::name].
+        UnknownValue(provisioning_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod provisioning_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ProvisioningState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Provisioning => std::option::Option::Some(1),
+                Self::Provisioned => std::option::Option::Some(2),
+                Self::FailedToProvision => std::option::Option::Some(3),
+                Self::Deprovisioning => std::option::Option::Some(4),
+                Self::Deprovisioned => std::option::Option::Some(5),
+                Self::FailedToDeprovision => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PROVISIONING_STATE_UNSPECIFIED"),
+                Self::Provisioning => std::option::Option::Some("PROVISIONING"),
+                Self::Provisioned => std::option::Option::Some("PROVISIONED"),
+                Self::FailedToProvision => std::option::Option::Some("FAILED_TO_PROVISION"),
+                Self::Deprovisioning => std::option::Option::Some("DEPROVISIONING"),
+                Self::Deprovisioned => std::option::Option::Some("DEPROVISIONED"),
+                Self::FailedToDeprovision => std::option::Option::Some("FAILED_TO_DEPROVISION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ProvisioningState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProvisioningState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProvisioningState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Provisioning,
+                2 => Self::Provisioned,
+                3 => Self::FailedToProvision,
+                4 => Self::Deprovisioning,
+                5 => Self::Deprovisioned,
+                6 => Self::FailedToDeprovision,
+                _ => Self::UnknownValue(provisioning_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProvisioningState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROVISIONING_STATE_UNSPECIFIED" => Self::Unspecified,
+                "PROVISIONING" => Self::Provisioning,
+                "PROVISIONED" => Self::Provisioned,
+                "FAILED_TO_PROVISION" => Self::FailedToProvision,
+                "DEPROVISIONING" => Self::Deprovisioning,
+                "DEPROVISIONED" => Self::Deprovisioned,
+                "FAILED_TO_DEPROVISION" => Self::FailedToDeprovision,
+                _ => Self::UnknownValue(provisioning_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProvisioningState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Provisioning => serializer.serialize_i32(1),
+                Self::Provisioned => serializer.serialize_i32(2),
+                Self::FailedToProvision => serializer.serialize_i32(3),
+                Self::Deprovisioning => serializer.serialize_i32(4),
+                Self::Deprovisioned => serializer.serialize_i32(5),
+                Self::FailedToDeprovision => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProvisioningState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProvisioningState>::new(
+                ".google.cloud.config.v1.DeploymentGroup.ProvisioningState",
+            ))
+        }
+    }
+}
+
+/// A DeploymentUnit is a container for a deployment and its dependencies.
+/// An existing deployment can be provided directly in the unit, or the unit
+/// can act as a placeholder to define the DAG, with the deployment specs
+/// supplied in a `provisionDeploymentRequest`.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentUnit {
+    /// The id of the deployment unit. Must be unique within the deployment group.
+    pub id: std::string::String,
+
+    /// Optional. The name of the deployment to be provisioned.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deployments/{deployment}'.
+    pub deployment: std::option::Option<std::string::String>,
+
+    /// Required. The IDs of the deployment units within the deployment group that
+    /// this unit depends on.
+    pub dependencies: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentUnit {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::DeploymentUnit::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnit;
+    /// let x = DeploymentUnit::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment][crate::model::DeploymentUnit::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnit;
+    /// let x = DeploymentUnit::new().set_deployment("example");
+    /// ```
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment][crate::model::DeploymentUnit::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnit;
+    /// let x = DeploymentUnit::new().set_or_clear_deployment(Some("example"));
+    /// let x = DeploymentUnit::new().set_or_clear_deployment(None::<String>);
+    /// ```
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.deployment = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [dependencies][crate::model::DeploymentUnit::dependencies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnit;
+    /// let x = DeploymentUnit::new().set_dependencies(["a", "b", "c"]);
+    /// ```
+    pub fn set_dependencies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.dependencies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentUnit {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentUnit"
+    }
+}
+
+/// Spec for a deployment to be created.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentSpec {
+    /// Required. The id of the deployment to be created which doesn't include the
+    /// project id and location.
+    pub deployment_id: std::string::String,
+
+    /// Required. The deployment to be created.
+    pub deployment: std::option::Option<crate::model::Deployment>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_id][crate::model::DeploymentSpec::deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentSpec;
+    /// let x = DeploymentSpec::new().set_deployment_id("example");
+    /// ```
+    pub fn set_deployment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.deployment_id = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment][crate::model::DeploymentSpec::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentSpec;
+    /// use google_cloud_config_v1::model::Deployment;
+    /// let x = DeploymentSpec::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
+    pub fn set_deployment<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment][crate::model::DeploymentSpec::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentSpec;
+    /// use google_cloud_config_v1::model::Deployment;
+    /// let x = DeploymentSpec::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = DeploymentSpec::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
+    pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Deployment>,
+    {
+        self.deployment = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentSpec {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentSpec"
+    }
+}
+
+/// The request message for the GetDeploymentGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDeploymentGroupRequest {
+    /// Required. The name of the deployment group to retrieve.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}'.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::GetDeploymentGroupRequest;
+    /// let x = GetDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.GetDeploymentGroupRequest"
+    }
+}
+
+/// The request message for the ListDeploymentGroups method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentGroupsRequest {
+    /// Required. The parent, which owns this collection of deployment groups.
+    /// Format: 'projects/{project_id}/locations/{location}'.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a page of resources, 'page_size' specifies number
+    /// of resources to return. If unspecified, at most 500 will be returned. The
+    /// maximum value is 1000.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to 'ListDeploymentGroups' which
+    /// specifies the position in the list from where to continue listing the
+    /// deployment groups.
+    pub page_token: std::string::String,
+
+    /// Optional. Lists the DeploymentGroups that match the filter expression. A
+    /// filter expression filters the deployment groups listed in the response. The
+    /// expression must be of the form '{field} {operator} {value}' where
+    /// operators: '<', '>',
+    /// '<=', '>=', '!=', '=', ':' are supported (colon ':' represents a HAS
+    /// operator which is roughly synonymous with equality). {field} can refer to a
+    /// proto or JSON field, or a synthetic field. Field names can be camelCase or
+    /// snake_case.
+    ///
+    /// Examples:
+    ///
+    /// - Filter by name:
+    ///   name = "projects/foo/locations/us-central1/deploymentGroups/bar"
+    ///
+    /// - Filter by labels:
+    ///
+    ///   - Resources that have a key called 'foo'
+    ///     labels.foo:*
+    ///   - Resources that have a key called 'foo' whose value is 'bar'
+    ///     labels.foo = bar
+    /// - Filter by state:
+    ///
+    ///   - DeploymentGroups in CREATING state.
+    ///     state=CREATING
+    pub filter: std::string::String,
+
+    /// Optional. Field to use to sort the list.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDeploymentGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsRequest;
+    /// let x = ListDeploymentGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDeploymentGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsRequest;
+    /// let x = ListDeploymentGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDeploymentGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsRequest;
+    /// let x = ListDeploymentGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDeploymentGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsRequest;
+    /// let x = ListDeploymentGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDeploymentGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsRequest;
+    /// let x = ListDeploymentGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ListDeploymentGroupsRequest"
+    }
+}
+
+/// The response message for the ListDeploymentGroups method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentGroupsResponse {
+    /// The deployment groups from the specified collection.
+    pub deployment_groups: std::vec::Vec<crate::model::DeploymentGroup>,
+
+    /// Token to be supplied to the next ListDeploymentGroups request via
+    /// `page_token` to obtain the next set of results.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_groups][crate::model::ListDeploymentGroupsResponse::deployment_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsResponse;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = ListDeploymentGroupsResponse::new()
+    ///     .set_deployment_groups([
+    ///         DeploymentGroup::default()/* use setters */,
+    ///         DeploymentGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        use std::iter::Iterator;
+        self.deployment_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsResponse;
+    /// let x = ListDeploymentGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDeploymentGroupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupsResponse;
+    /// let x = ListDeploymentGroupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ListDeploymentGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentGroupsResponse {
+    type PageItem = crate::model::DeploymentGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.deployment_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for the ProvisionDeploymentGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProvisionDeploymentGroupRequest {
+    /// Required. The name of the deployment group to provision.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}'.
+    pub name: std::string::String,
+
+    /// Optional. The deployment specs of the deployment units to be created within
+    /// the same project and location of the deployment group. The key is the unit
+    /// ID, and the value is the `DeploymentSpec`. Provisioning will fail if a
+    /// `deployment_spec` has a `deployment_id` that matches an existing deployment
+    /// in the same project and location. If an existing deployment was part of the
+    /// last successful revision but is no longer in the current DeploymentGroup's
+    /// `deployment_units`, it will be recreated if included in `deployment_specs`.
+    pub deployment_specs:
+        std::collections::HashMap<std::string::String, crate::model::DeploymentSpec>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ProvisionDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ProvisionDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ProvisionDeploymentGroupRequest;
+    /// let x = ProvisionDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_specs][crate::model::ProvisionDeploymentGroupRequest::deployment_specs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ProvisionDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::DeploymentSpec;
+    /// let x = ProvisionDeploymentGroupRequest::new().set_deployment_specs([
+    ///     ("key0", DeploymentSpec::default()/* use setters */),
+    ///     ("key1", DeploymentSpec::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_deployment_specs<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::DeploymentSpec>,
+    {
+        use std::iter::Iterator;
+        self.deployment_specs = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ProvisionDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ProvisionDeploymentGroupRequest"
+    }
+}
+
+/// The request message for the DeprovisionDeploymentGroup method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeprovisionDeploymentGroupRequest {
+    /// Required. The name of the deployment group to deprovision.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}'.
+    pub name: std::string::String,
+
+    /// Optional. If set to true, this option is propagated to the deletion of each
+    /// deployment in the group. This corresponds to the 'force' field
+    /// in DeleteDeploymentRequest.
+    pub force: bool,
+
+    /// Optional. Policy on how resources within each deployment should be handled
+    /// during deletion. This policy is applied globally to the deletion of all
+    /// deployments in this group. This corresponds to the 'delete_policy' field
+    /// in DeleteDeploymentRequest.
+    pub delete_policy: crate::model::delete_deployment_request::DeletePolicy,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeprovisionDeploymentGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeprovisionDeploymentGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeprovisionDeploymentGroupRequest;
+    /// let x = DeprovisionDeploymentGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeprovisionDeploymentGroupRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeprovisionDeploymentGroupRequest;
+    /// let x = DeprovisionDeploymentGroupRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_policy][crate::model::DeprovisionDeploymentGroupRequest::delete_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeprovisionDeploymentGroupRequest;
+    /// use google_cloud_config_v1::model::delete_deployment_request::DeletePolicy;
+    /// let x0 = DeprovisionDeploymentGroupRequest::new().set_delete_policy(DeletePolicy::Delete);
+    /// let x1 = DeprovisionDeploymentGroupRequest::new().set_delete_policy(DeletePolicy::Abandon);
+    /// ```
+    pub fn set_delete_policy<
+        T: std::convert::Into<crate::model::delete_deployment_request::DeletePolicy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.delete_policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeprovisionDeploymentGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeprovisionDeploymentGroupRequest"
+    }
+}
+
+/// The summary of the deployment operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentOperationSummary {
+    /// Output only. The current step the deployment operation is running.
+    pub deployment_step: crate::model::deployment_operation_metadata::DeploymentStep,
+
+    /// Output only. Cloud Build instance UUID associated with this operation.
+    pub build: std::string::String,
+
+    /// Output only. Location of Deployment operations logs in
+    /// `gs://{bucket}/{object}` format.
+    pub logs: std::string::String,
+
+    /// Output only. Location of Deployment operations content in
+    /// `gs://{bucket}/{object}` format.
+    pub content: std::string::String,
+
+    /// Output only. Location of Deployment operations artifacts in
+    /// `gs://{bucket}/{object}` format.
+    pub artifacts: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentOperationSummary {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_step][crate::model::DeploymentOperationSummary::deployment_step].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// use google_cloud_config_v1::model::deployment_operation_metadata::DeploymentStep;
+    /// let x0 = DeploymentOperationSummary::new().set_deployment_step(DeploymentStep::PreparingStorageBucket);
+    /// let x1 = DeploymentOperationSummary::new().set_deployment_step(DeploymentStep::DownloadingBlueprint);
+    /// let x2 = DeploymentOperationSummary::new().set_deployment_step(DeploymentStep::RunningTfInit);
+    /// ```
+    pub fn set_deployment_step<
+        T: std::convert::Into<crate::model::deployment_operation_metadata::DeploymentStep>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.deployment_step = v.into();
+        self
+    }
+
+    /// Sets the value of [build][crate::model::DeploymentOperationSummary::build].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentOperationSummary::new().set_build("example");
+    /// ```
+    pub fn set_build<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.build = v.into();
+        self
+    }
+
+    /// Sets the value of [logs][crate::model::DeploymentOperationSummary::logs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentOperationSummary::new().set_logs("example");
+    /// ```
+    pub fn set_logs<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.logs = v.into();
+        self
+    }
+
+    /// Sets the value of [content][crate::model::DeploymentOperationSummary::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentOperationSummary::new().set_content("example");
+    /// ```
+    pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [artifacts][crate::model::DeploymentOperationSummary::artifacts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentOperationSummary::new().set_artifacts("example");
+    /// ```
+    pub fn set_artifacts<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.artifacts = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentOperationSummary {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentOperationSummary"
+    }
+}
+
+/// The progress of a deployment unit provisioning or deprovisioning.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentUnitProgress {
+    /// Output only. The unit id of the deployment unit to be provisioned.
+    pub unit_id: std::string::String,
+
+    /// Output only. The name of the deployment to be provisioned.
+    /// Format:
+    /// 'projects/{project}/locations/{location}/deployments/{deployment}'.
+    pub deployment: std::string::String,
+
+    /// Output only. The current step of the deployment unit provisioning.
+    pub state: crate::model::deployment_unit_progress::State,
+
+    /// Output only. Additional information regarding the current state.
+    pub state_description: std::string::String,
+
+    /// Output only. The summary of the deployment operation.
+    pub deployment_operation_summary: std::option::Option<crate::model::DeploymentOperationSummary>,
+
+    /// Output only. Holds the error status of the deployment unit provisioning.
+    pub error: std::option::Option<google_cloud_rpc::model::Status>,
+
+    /// Output only. The intent of the deployment unit.
+    pub intent: crate::model::deployment_unit_progress::Intent,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentUnitProgress {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [unit_id][crate::model::DeploymentUnitProgress::unit_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// let x = DeploymentUnitProgress::new().set_unit_id("example");
+    /// ```
+    pub fn set_unit_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.unit_id = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment][crate::model::DeploymentUnitProgress::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// let x = DeploymentUnitProgress::new().set_deployment("example");
+    /// ```
+    pub fn set_deployment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.deployment = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DeploymentUnitProgress::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_config_v1::model::deployment_unit_progress::State;
+    /// let x0 = DeploymentUnitProgress::new().set_state(State::Queued);
+    /// let x1 = DeploymentUnitProgress::new().set_state(State::ApplyingDeployment);
+    /// let x2 = DeploymentUnitProgress::new().set_state(State::Succeeded);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::deployment_unit_progress::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [state_description][crate::model::DeploymentUnitProgress::state_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// let x = DeploymentUnitProgress::new().set_state_description("example");
+    /// ```
+    pub fn set_state_description<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state_description = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_operation_summary][crate::model::DeploymentUnitProgress::deployment_operation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentUnitProgress::new().set_deployment_operation_summary(DeploymentOperationSummary::default()/* use setters */);
+    /// ```
+    pub fn set_deployment_operation_summary<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentOperationSummary>,
+    {
+        self.deployment_operation_summary = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deployment_operation_summary][crate::model::DeploymentUnitProgress::deployment_operation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_config_v1::model::DeploymentOperationSummary;
+    /// let x = DeploymentUnitProgress::new().set_or_clear_deployment_operation_summary(Some(DeploymentOperationSummary::default()/* use setters */));
+    /// let x = DeploymentUnitProgress::new().set_or_clear_deployment_operation_summary(None::<DeploymentOperationSummary>);
+    /// ```
+    pub fn set_or_clear_deployment_operation_summary<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentOperationSummary>,
+    {
+        self.deployment_operation_summary = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error][crate::model::DeploymentUnitProgress::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DeploymentUnitProgress::new().set_error(Status::default()/* use setters */);
+    /// ```
+    pub fn set_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error][crate::model::DeploymentUnitProgress::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DeploymentUnitProgress::new().set_or_clear_error(Some(Status::default()/* use setters */));
+    /// let x = DeploymentUnitProgress::new().set_or_clear_error(None::<Status>);
+    /// ```
+    pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        self.error = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [intent][crate::model::DeploymentUnitProgress::intent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// use google_cloud_config_v1::model::deployment_unit_progress::Intent;
+    /// let x0 = DeploymentUnitProgress::new().set_intent(Intent::CreateDeployment);
+    /// let x1 = DeploymentUnitProgress::new().set_intent(Intent::UpdateDeployment);
+    /// let x2 = DeploymentUnitProgress::new().set_intent(Intent::DeleteDeployment);
+    /// ```
+    pub fn set_intent<T: std::convert::Into<crate::model::deployment_unit_progress::Intent>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.intent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentUnitProgress {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentUnitProgress"
+    }
+}
+
+/// Defines additional types related to [DeploymentUnitProgress].
+pub mod deployment_unit_progress {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The possible steps a deployment unit provisioning may be running.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The default value. This value is unused.
+        Unspecified,
+        /// The deployment unit is queued for deployment creation or update.
+        Queued,
+        /// The underlying deployment of the unit is being created or updated.
+        ApplyingDeployment,
+        /// The underlying deployment operation of the unit has succeeded.
+        Succeeded,
+        /// The underlying deployment operation of the unit has failed.
+        Failed,
+        /// The deployment unit was aborted, likely due to failures in other
+        /// dependent deployment units.
+        Aborted,
+        /// The deployment unit was skipped because there were no changes to apply.
+        Skipped,
+        /// The deployment is being deleted.
+        DeletingDeployment,
+        /// The deployment is being previewed.
+        PreviewingDeployment,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Queued => std::option::Option::Some(1),
+                Self::ApplyingDeployment => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::Aborted => std::option::Option::Some(6),
+                Self::Skipped => std::option::Option::Some(7),
+                Self::DeletingDeployment => std::option::Option::Some(8),
+                Self::PreviewingDeployment => std::option::Option::Some(9),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Queued => std::option::Option::Some("QUEUED"),
+                Self::ApplyingDeployment => std::option::Option::Some("APPLYING_DEPLOYMENT"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Aborted => std::option::Option::Some("ABORTED"),
+                Self::Skipped => std::option::Option::Some("SKIPPED"),
+                Self::DeletingDeployment => std::option::Option::Some("DELETING_DEPLOYMENT"),
+                Self::PreviewingDeployment => std::option::Option::Some("PREVIEWING_DEPLOYMENT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Queued,
+                2 => Self::ApplyingDeployment,
+                4 => Self::Succeeded,
+                5 => Self::Failed,
+                6 => Self::Aborted,
+                7 => Self::Skipped,
+                8 => Self::DeletingDeployment,
+                9 => Self::PreviewingDeployment,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "QUEUED" => Self::Queued,
+                "APPLYING_DEPLOYMENT" => Self::ApplyingDeployment,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "ABORTED" => Self::Aborted,
+                "SKIPPED" => Self::Skipped,
+                "DELETING_DEPLOYMENT" => Self::DeletingDeployment,
+                "PREVIEWING_DEPLOYMENT" => Self::PreviewingDeployment,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Queued => serializer.serialize_i32(1),
+                Self::ApplyingDeployment => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::Aborted => serializer.serialize_i32(6),
+                Self::Skipped => serializer.serialize_i32(7),
+                Self::DeletingDeployment => serializer.serialize_i32(8),
+                Self::PreviewingDeployment => serializer.serialize_i32(9),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.config.v1.DeploymentUnitProgress.State",
+            ))
+        }
+    }
+
+    /// The possible intents of a deployment unit.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Intent {
+        /// Unspecified intent.
+        Unspecified,
+        /// Create deployment in the unit from the deployment spec.
+        CreateDeployment,
+        /// Update deployment in the unit.
+        UpdateDeployment,
+        /// Delete deployment in the unit.
+        DeleteDeployment,
+        /// Recreate deployment in the unit.
+        RecreateDeployment,
+        /// Delete deployment in latest successful revision while no longer
+        /// referenced in any deployment unit in the current deployment group.
+        CleanUp,
+        /// Expected to be unchanged.
+        Unchanged,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Intent::value] or
+        /// [Intent::name].
+        UnknownValue(intent::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod intent {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Intent {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CreateDeployment => std::option::Option::Some(1),
+                Self::UpdateDeployment => std::option::Option::Some(2),
+                Self::DeleteDeployment => std::option::Option::Some(3),
+                Self::RecreateDeployment => std::option::Option::Some(4),
+                Self::CleanUp => std::option::Option::Some(5),
+                Self::Unchanged => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("INTENT_UNSPECIFIED"),
+                Self::CreateDeployment => std::option::Option::Some("CREATE_DEPLOYMENT"),
+                Self::UpdateDeployment => std::option::Option::Some("UPDATE_DEPLOYMENT"),
+                Self::DeleteDeployment => std::option::Option::Some("DELETE_DEPLOYMENT"),
+                Self::RecreateDeployment => std::option::Option::Some("RECREATE_DEPLOYMENT"),
+                Self::CleanUp => std::option::Option::Some("CLEAN_UP"),
+                Self::Unchanged => std::option::Option::Some("UNCHANGED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Intent {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Intent {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Intent {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CreateDeployment,
+                2 => Self::UpdateDeployment,
+                3 => Self::DeleteDeployment,
+                4 => Self::RecreateDeployment,
+                5 => Self::CleanUp,
+                6 => Self::Unchanged,
+                _ => Self::UnknownValue(intent::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Intent {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "INTENT_UNSPECIFIED" => Self::Unspecified,
+                "CREATE_DEPLOYMENT" => Self::CreateDeployment,
+                "UPDATE_DEPLOYMENT" => Self::UpdateDeployment,
+                "DELETE_DEPLOYMENT" => Self::DeleteDeployment,
+                "RECREATE_DEPLOYMENT" => Self::RecreateDeployment,
+                "CLEAN_UP" => Self::CleanUp,
+                "UNCHANGED" => Self::Unchanged,
+                _ => Self::UnknownValue(intent::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Intent {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CreateDeployment => serializer.serialize_i32(1),
+                Self::UpdateDeployment => serializer.serialize_i32(2),
+                Self::DeleteDeployment => serializer.serialize_i32(3),
+                Self::RecreateDeployment => serializer.serialize_i32(4),
+                Self::CleanUp => serializer.serialize_i32(5),
+                Self::Unchanged => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Intent {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Intent>::new(
+                ".google.cloud.config.v1.DeploymentUnitProgress.Intent",
+            ))
+        }
+    }
+}
+
+/// Operation metadata for `ProvisionDeploymentGroup` and
+/// `DeprovisionDeploymentGroup` long-running operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProvisionDeploymentGroupOperationMetadata {
+    /// Output only. The current step of the deployment group operation.
+    pub step:
+        crate::model::provision_deployment_group_operation_metadata::ProvisionDeploymentGroupStep,
+
+    /// Output only. Progress information for each deployment unit within the
+    /// operation.
+    pub deployment_unit_progresses: std::vec::Vec<crate::model::DeploymentUnitProgress>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ProvisionDeploymentGroupOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [step][crate::model::ProvisionDeploymentGroupOperationMetadata::step].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ProvisionDeploymentGroupOperationMetadata;
+    /// use google_cloud_config_v1::model::provision_deployment_group_operation_metadata::ProvisionDeploymentGroupStep;
+    /// let x0 = ProvisionDeploymentGroupOperationMetadata::new().set_step(ProvisionDeploymentGroupStep::ValidatingDeploymentGroup);
+    /// let x1 = ProvisionDeploymentGroupOperationMetadata::new().set_step(ProvisionDeploymentGroupStep::AssociatingDeploymentsToDeploymentGroup);
+    /// let x2 = ProvisionDeploymentGroupOperationMetadata::new().set_step(ProvisionDeploymentGroupStep::ProvisioningDeploymentUnits);
+    /// ```
+    pub fn set_step<T: std::convert::Into<crate::model::provision_deployment_group_operation_metadata::ProvisionDeploymentGroupStep>>(mut self, v: T) -> Self{
+        self.step = v.into();
+        self
+    }
+
+    /// Sets the value of [deployment_unit_progresses][crate::model::ProvisionDeploymentGroupOperationMetadata::deployment_unit_progresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ProvisionDeploymentGroupOperationMetadata;
+    /// use google_cloud_config_v1::model::DeploymentUnitProgress;
+    /// let x = ProvisionDeploymentGroupOperationMetadata::new()
+    ///     .set_deployment_unit_progresses([
+    ///         DeploymentUnitProgress::default()/* use setters */,
+    ///         DeploymentUnitProgress::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_unit_progresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DeploymentUnitProgress>,
+    {
+        use std::iter::Iterator;
+        self.deployment_unit_progresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ProvisionDeploymentGroupOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ProvisionDeploymentGroupOperationMetadata"
+    }
+}
+
+/// Defines additional types related to [ProvisionDeploymentGroupOperationMetadata].
+pub mod provision_deployment_group_operation_metadata {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible steps during a deployment group provisioning or deprovisioning
+    /// operation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ProvisionDeploymentGroupStep {
+        /// Unspecified step.
+        Unspecified,
+        /// Validating the deployment group.
+        ValidatingDeploymentGroup,
+        /// Locking the deployments to the deployment group for atomic actuation.
+        AssociatingDeploymentsToDeploymentGroup,
+        /// Provisioning the deployment units.
+        ProvisioningDeploymentUnits,
+        /// Unlocking the deployments from the deployment group after actuation.
+        DisassociatingDeploymentsFromDeploymentGroup,
+        /// The operation has succeeded.
+        Succeeded,
+        /// The operation has failed.
+        Failed,
+        /// Deprovisioning the deployment units.
+        DeprovisioningDeploymentUnits,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ProvisionDeploymentGroupStep::value] or
+        /// [ProvisionDeploymentGroupStep::name].
+        UnknownValue(provision_deployment_group_step::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod provision_deployment_group_step {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ProvisionDeploymentGroupStep {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ValidatingDeploymentGroup => std::option::Option::Some(1),
+                Self::AssociatingDeploymentsToDeploymentGroup => std::option::Option::Some(2),
+                Self::ProvisioningDeploymentUnits => std::option::Option::Some(3),
+                Self::DisassociatingDeploymentsFromDeploymentGroup => std::option::Option::Some(4),
+                Self::Succeeded => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::DeprovisioningDeploymentUnits => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("PROVISION_DEPLOYMENT_GROUP_STEP_UNSPECIFIED")
+                }
+                Self::ValidatingDeploymentGroup => {
+                    std::option::Option::Some("VALIDATING_DEPLOYMENT_GROUP")
+                }
+                Self::AssociatingDeploymentsToDeploymentGroup => {
+                    std::option::Option::Some("ASSOCIATING_DEPLOYMENTS_TO_DEPLOYMENT_GROUP")
+                }
+                Self::ProvisioningDeploymentUnits => {
+                    std::option::Option::Some("PROVISIONING_DEPLOYMENT_UNITS")
+                }
+                Self::DisassociatingDeploymentsFromDeploymentGroup => {
+                    std::option::Option::Some("DISASSOCIATING_DEPLOYMENTS_FROM_DEPLOYMENT_GROUP")
+                }
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::DeprovisioningDeploymentUnits => {
+                    std::option::Option::Some("DEPROVISIONING_DEPLOYMENT_UNITS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ProvisionDeploymentGroupStep {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ProvisionDeploymentGroupStep {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ProvisionDeploymentGroupStep {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ValidatingDeploymentGroup,
+                2 => Self::AssociatingDeploymentsToDeploymentGroup,
+                3 => Self::ProvisioningDeploymentUnits,
+                4 => Self::DisassociatingDeploymentsFromDeploymentGroup,
+                5 => Self::Succeeded,
+                6 => Self::Failed,
+                7 => Self::DeprovisioningDeploymentUnits,
+                _ => Self::UnknownValue(provision_deployment_group_step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ProvisionDeploymentGroupStep {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PROVISION_DEPLOYMENT_GROUP_STEP_UNSPECIFIED" => Self::Unspecified,
+                "VALIDATING_DEPLOYMENT_GROUP" => Self::ValidatingDeploymentGroup,
+                "ASSOCIATING_DEPLOYMENTS_TO_DEPLOYMENT_GROUP" => {
+                    Self::AssociatingDeploymentsToDeploymentGroup
+                }
+                "PROVISIONING_DEPLOYMENT_UNITS" => Self::ProvisioningDeploymentUnits,
+                "DISASSOCIATING_DEPLOYMENTS_FROM_DEPLOYMENT_GROUP" => {
+                    Self::DisassociatingDeploymentsFromDeploymentGroup
+                }
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DEPROVISIONING_DEPLOYMENT_UNITS" => Self::DeprovisioningDeploymentUnits,
+                _ => Self::UnknownValue(provision_deployment_group_step::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ProvisionDeploymentGroupStep {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ValidatingDeploymentGroup => serializer.serialize_i32(1),
+                Self::AssociatingDeploymentsToDeploymentGroup => serializer.serialize_i32(2),
+                Self::ProvisioningDeploymentUnits => serializer.serialize_i32(3),
+                Self::DisassociatingDeploymentsFromDeploymentGroup => serializer.serialize_i32(4),
+                Self::Succeeded => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::DeprovisioningDeploymentUnits => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ProvisionDeploymentGroupStep {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ProvisionDeploymentGroupStep>::new(
+                ".google.cloud.config.v1.ProvisionDeploymentGroupOperationMetadata.ProvisionDeploymentGroupStep"))
+        }
+    }
+}
+
+/// A DeploymentGroupRevision represents a snapshot of a
+/// [DeploymentGroup][google.cloud.config.v1.DeploymentGroup] at a given point in
+/// time, created when a DeploymentGroup is provisioned or deprovisioned.
+///
+/// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentGroupRevision {
+    /// Identifier. The name of the deployment group revision.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}/revisions/{revision}'.
+    pub name: std::string::String,
+
+    /// Output only. The snapshot of the deployment group at this revision.
+    pub snapshot: std::option::Option<crate::model::DeploymentGroup>,
+
+    /// Output only. Time when the deployment group revision was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The alternative IDs of the deployment group revision.
+    pub alternative_ids: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentGroupRevision {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeploymentGroupRevision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// let x = DeploymentGroupRevision::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [snapshot][crate::model::DeploymentGroupRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroupRevision::new().set_snapshot(DeploymentGroup::default()/* use setters */);
+    /// ```
+    pub fn set_snapshot<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.snapshot = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [snapshot][crate::model::DeploymentGroupRevision::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// let x = DeploymentGroupRevision::new().set_or_clear_snapshot(Some(DeploymentGroup::default()/* use setters */));
+    /// let x = DeploymentGroupRevision::new().set_or_clear_snapshot(None::<DeploymentGroup>);
+    /// ```
+    pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DeploymentGroup>,
+    {
+        self.snapshot = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DeploymentGroupRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroupRevision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeploymentGroupRevision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentGroupRevision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentGroupRevision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [alternative_ids][crate::model::DeploymentGroupRevision::alternative_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// let x = DeploymentGroupRevision::new().set_alternative_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_alternative_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.alternative_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentGroupRevision {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.DeploymentGroupRevision"
+    }
+}
+
+/// The request message for the GetDeploymentGroupRevision method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDeploymentGroupRevisionRequest {
+    /// Required. The name of the deployment group revision to retrieve.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}/revisions/{revision}'.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDeploymentGroupRevisionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDeploymentGroupRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::GetDeploymentGroupRevisionRequest;
+    /// let x = GetDeploymentGroupRevisionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDeploymentGroupRevisionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.GetDeploymentGroupRevisionRequest"
+    }
+}
+
+/// The request message for the ListDeploymentGroupRevisions method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentGroupRevisionsRequest {
+    /// Required. The parent, which owns this collection of deployment group
+    /// revisions. Format:
+    /// 'projects/{project_id}/locations/{location}/deploymentGroups/{deployment_group}'.
+    pub parent: std::string::String,
+
+    /// Optional. When requesting a page of resources, 'page_size' specifies number
+    /// of resources to return. If unspecified, a sensible default will be used by
+    /// the server. The maximum value is 1000; values above 1000 will be coerced to
+    /// 1000.
+    pub page_size: i32,
+
+    /// Optional. Token returned by previous call to 'ListDeploymentGroupRevisions'
+    /// which specifies the position in the list from where to continue listing the
+    /// deployment group revisions. All other parameters provided to
+    /// `ListDeploymentGroupRevisions` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentGroupRevisionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDeploymentGroupRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsRequest;
+    /// let x = ListDeploymentGroupRevisionsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDeploymentGroupRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsRequest;
+    /// let x = ListDeploymentGroupRevisionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDeploymentGroupRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsRequest;
+    /// let x = ListDeploymentGroupRevisionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentGroupRevisionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ListDeploymentGroupRevisionsRequest"
+    }
+}
+
+/// The response message for the ListDeploymentGroupRevisions method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentGroupRevisionsResponse {
+    /// The deployment group revisions from the specified collection.
+    pub deployment_group_revisions: std::vec::Vec<crate::model::DeploymentGroupRevision>,
+
+    /// Token to be supplied to the next ListDeploymentGroupRevisions request via
+    /// `page_token` to obtain the next set of results.
+    pub next_page_token: std::string::String,
+
+    /// Unordered list. Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentGroupRevisionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_group_revisions][crate::model::ListDeploymentGroupRevisionsResponse::deployment_group_revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsResponse;
+    /// use google_cloud_config_v1::model::DeploymentGroupRevision;
+    /// let x = ListDeploymentGroupRevisionsResponse::new()
+    ///     .set_deployment_group_revisions([
+    ///         DeploymentGroupRevision::default()/* use setters */,
+    ///         DeploymentGroupRevision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_group_revisions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DeploymentGroupRevision>,
+    {
+        use std::iter::Iterator;
+        self.deployment_group_revisions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentGroupRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsResponse;
+    /// let x = ListDeploymentGroupRevisionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListDeploymentGroupRevisionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::ListDeploymentGroupRevisionsResponse;
+    /// let x = ListDeploymentGroupRevisionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentGroupRevisionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.ListDeploymentGroupRevisionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse
+    for ListDeploymentGroupRevisionsResponse
+{
+    type PageItem = crate::model::DeploymentGroupRevision;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.deployment_group_revisions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Enum values to control quota checks for resources in terraform
 /// configuration files.
 ///
@@ -10043,7 +13213,7 @@ impl wkt::message::Message for UpdateAutoMigrationConfigRequest {
 /// Please consult the [Working with enums] section in the user guide for some
 /// guidelines.
 ///
-/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum QuotaValidation {

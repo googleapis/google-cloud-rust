@@ -270,6 +270,7 @@ impl Builder {
     /// Sets the Google Cloud universe domain for these credentials.
     ///
     /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
+    // TODO(#3646): Make this public and let example run when universe domain support is done.
     #[allow(dead_code)]
     pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
@@ -366,13 +367,12 @@ impl Builder {
         let creds = ServiceAccountCredentials {
             quota_project_id,
             token_provider: TokenCache::new(token_provider),
-            universe_domain: universe_domain.clone(),
+            universe_domain,
         };
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
             Some(access_boundary_url),
-            universe_domain,
         ))
     }
 

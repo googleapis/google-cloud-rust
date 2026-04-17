@@ -42,14 +42,17 @@ pub(crate) struct ReadWriteTransactionBuilder {
     client: DatabaseClient,
     options: TransactionOptions,
     transaction_tag: Option<String>,
+    pub(crate) session_name: String,
 }
 
 impl ReadWriteTransactionBuilder {
     pub(crate) fn new(client: DatabaseClient) -> Self {
+        let session_name = client.session_name();
         Self {
             client,
             options: TransactionOptions::default().set_read_write(ReadWrite::default()),
             transaction_tag: None,
+            session_name,
         }
     }
 
@@ -84,8 +87,9 @@ impl ReadWriteTransactionBuilder {
     }
 
     pub(crate) async fn begin_transaction(&self) -> crate::Result<ReadWriteTransaction> {
+        let session_name = self.session_name.clone();
         let mut request = BeginTransactionRequest::default()
-            .set_session(self.client.session.name.clone())
+            .set_session(session_name.clone())
             .set_options(self.options.clone());
         if let Some(tag) = &self.transaction_tag {
             request = request.set_request_options(
@@ -107,6 +111,7 @@ impl ReadWriteTransactionBuilder {
             );
         Ok(ReadWriteTransaction {
             context: ReadContext {
+                session_name,
                 client: self.client.clone(),
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
@@ -147,7 +152,7 @@ impl ReadWriteTransaction {
         let mut request = statement
             .into()
             .into_request()
-            .set_session(self.context.client.session.name.clone())
+            .set_session(self.context.session_name.clone())
             .set_transaction(self.context.transaction_selector.selector().await?)
             .set_seqno(seqno);
         request.request_options = self.context.amend_request_options(request.request_options);
@@ -248,7 +253,7 @@ impl ReadWriteTransaction {
             .collect();
 
         let request = ExecuteBatchDmlRequest::default()
-            .set_session(self.context.client.session.name.clone())
+            .set_session(self.context.session_name.clone())
             .set_transaction(self.context.transaction_selector.selector().await?)
             .set_seqno(seqno)
             .set_statements(statements)
@@ -286,7 +291,7 @@ impl ReadWriteTransaction {
         let transaction_id = self.transaction_id().await?;
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
-            .set_session(self.context.client.session.name.clone())
+            .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id.clone())
             .set_or_clear_precommit_token(precommit_token)
             .set_or_clear_request_options(self.context.amend_request_options(None));
@@ -301,7 +306,7 @@ impl ReadWriteTransaction {
         let response =
             if let Some(new_precommit_token) = response.precommit_token().map(|b| (*b).clone()) {
                 let retry_commit_req = CommitRequest::default()
-                    .set_session(self.context.client.session.name.clone())
+                    .set_session(self.context.session_name.clone())
                     .set_transaction_id(transaction_id)
                     .set_precommit_token(*new_precommit_token)
                     .set_or_clear_request_options(self.context.amend_request_options(None));
@@ -326,7 +331,7 @@ impl ReadWriteTransaction {
         let transaction_id = self.transaction_id().await?;
 
         let request = RollbackRequest::default()
-            .set_session(self.context.client.session.name.clone())
+            .set_session(self.context.session_name.clone())
             .set_transaction_id(transaction_id);
 
         self.context
@@ -792,9 +797,8 @@ mod tests {
                 })
             );
 
-            type StreamType = <spanner_grpc_mock::MockSpanner as v1::spanner_server::Spanner>::ExecuteStreamingSqlStream;
-            let stream: tokio_stream::Empty<Result<v1::PartialResultSet, tonic::Status>> = tokio_stream::empty();
-            Ok(tonic::Response::new(Box::pin(stream) as StreamType))
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(rx))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;

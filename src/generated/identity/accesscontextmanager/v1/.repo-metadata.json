@@ -4,7 +4,6 @@
     "api_shortname": "accesscontextmanager",
     "client_documentation": "https://docs.rs/google-cloud-identity-accesscontextmanager-v1/latest",
     "distribution_name": "google-cloud-identity-accesscontextmanager-v1",
-    "issue_tracker": "https://github.com/googleapis/google-cloud-python/issues",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "accesscontextmanager",

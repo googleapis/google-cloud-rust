@@ -65,7 +65,7 @@ everything else works as normal:
 The same principle applies to unknown integer values:
 
 ```rust,ignore
-{{#include ../samples/tests/enums.rs:unknown_string}}
+{{#include ../samples/tests/enums.rs:unknown_integer}}
 ```
 
 ## Preparing for upgrades

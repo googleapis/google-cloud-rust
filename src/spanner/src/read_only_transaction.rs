@@ -90,8 +90,10 @@ impl SingleUseReadOnlyTransactionBuilder {
         let transaction_selector = crate::model::TransactionSelector::default()
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
+        let session_name = self.client.session_name();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
+                session_name,
                 client: self.client,
                 transaction_selector: ReadContextTransactionSelector::Fixed(
                     transaction_selector,
@@ -274,9 +276,10 @@ impl MultiUseReadOnlyTransactionBuilder {
 
     async fn begin(
         &self,
+        session_name: String,
         options: TransactionOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(&self.client, options).await?;
+        let response = execute_begin_transaction(&self.client, session_name, options).await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -306,8 +309,9 @@ impl MultiUseReadOnlyTransactionBuilder {
         };
         let options = TransactionOptions::default().set_read_only(read_only);
 
+        let session_name = self.client.session_name();
         let selector = if self.explicit_begin {
-            self.begin(options).await?
+            self.begin(session_name.clone(), options).await?
         } else {
             ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
                 TransactionState::NotStarted(options),
@@ -316,6 +320,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 
         Ok(MultiUseReadOnlyTransaction {
             context: ReadContext {
+                session_name,
                 client: self.client,
                 transaction_selector: selector,
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
@@ -424,10 +429,11 @@ impl MultiUseReadOnlyTransaction {
 /// Executes an explicit `BeginTransaction` RPC on Spanner.
 async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
+    session_name: String,
     options: crate::model::TransactionOptions,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
-        .set_session(client.session.name.clone())
+        .set_session(session_name)
         .set_options(options);
 
     // TODO(#4972): make request options configurable
@@ -522,6 +528,7 @@ impl ReadContextTransactionSelector {
     pub(crate) async fn begin_explicitly(
         &self,
         client: &crate::database_client::DatabaseClient,
+        session_name: String,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
@@ -543,7 +550,8 @@ impl ReadContextTransactionSelector {
             }
         };
 
-        let response = match execute_begin_transaction(client, options).await {
+        let response = match execute_begin_transaction(client, session_name.clone(), options).await
+        {
             Ok(r) => r,
             Err(e) => {
                 let mut guard = lazy.lock().expect("transaction state mutex poisoned");
@@ -642,6 +650,7 @@ impl ReadContextTransactionSelector {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
+    pub(crate) session_name: String,
     pub(crate) client: DatabaseClient,
     pub(crate) transaction_selector: ReadContextTransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
@@ -680,7 +689,7 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(&self.client)
+            .begin_explicitly(&self.client, self.session_name.clone())
             .await?;
         Ok(true)
     }
@@ -719,6 +728,7 @@ macro_rules! execute_stream_with_retry {
             Some($self.transaction_selector.clone()),
             $self.precommit_token_tracker.clone(),
             $self.client.clone(),
+            $self.session_name.clone(),
             $operation_variant($request),
         ))
     }};
@@ -732,7 +742,7 @@ impl ReadContext {
         let mut request = statement
             .into()
             .into_request()
-            .set_session(self.client.session.name.clone())
+            .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector().await?);
         request.request_options = self.amend_request_options(request.request_options);
 
@@ -746,7 +756,7 @@ impl ReadContext {
         let mut request = read
             .into()
             .into_request()
-            .set_session(self.client.session.name.clone())
+            .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector().await?);
         request.request_options = self.amend_request_options(request.request_options);
 
@@ -758,14 +768,13 @@ impl ReadContext {
 pub(crate) mod tests {
     use super::*;
     use crate::client::Statement;
+    use crate::result_set::tests::adapt;
     use crate::result_set::tests::string_val;
     use crate::value::Value;
     use gaxi::grpc::tonic::{self, Code, Response, Status};
     use mock_v1::transaction_selector::Selector;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
-    use std::pin::Pin;
     use std::sync::Arc;
-    use std::task::{Context, Poll};
     use tokio::sync::{Barrier, Mutex, Notify, mpsc};
 
     #[test]
@@ -895,9 +904,9 @@ pub(crate) mod tests {
             );
             assert_eq!(req.sql, "SELECT 1");
 
-            Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                Ok(setup_select1()),
-            ]))))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -956,9 +965,9 @@ pub(crate) mod tests {
                     mock_v1::transaction_selector::Selector::Id(vec![1, 2, 3])
                 );
 
-                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                    Ok(setup_select1()),
-                ]))))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1028,9 +1037,7 @@ pub(crate) mod tests {
                     }),
                     ..Default::default()
                 });
-                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                    Ok(rs),
-                ]))))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         mock.expect_execute_streaming_sql()
@@ -1045,9 +1052,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                    Ok(setup_select1()),
-                ]))))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1103,9 +1110,9 @@ pub(crate) mod tests {
             assert_eq!(req.table, "Users");
             assert_eq!(req.columns, vec!["Id".to_string(), "Name".to_string()]);
 
-            Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                Ok(setup_select1()),
-            ]))))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1160,9 +1167,7 @@ pub(crate) mod tests {
                     }),
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         mock.expect_streaming_read()
@@ -1177,9 +1182,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1268,9 +1273,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
                     setup_select1(),
-                )]))))
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1442,9 +1447,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
                     setup_select1(),
-                )]))))
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1523,9 +1528,7 @@ pub(crate) mod tests {
                     read_timestamp: None,
                     ..Default::default()
                 });
-                Ok(tonic::Response::new(Box::pin(tokio_stream::iter(vec![
-                    Ok(rs),
-                ]))))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         // 2. Second query fails immediately upon send()
@@ -1560,15 +1563,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    /// A wrapper that implements `tokio_stream::Stream` for a `mpsc::Receiver`.
-    /// Useful in mock setups to yield controlled streaming test responses.
-    struct ReceiverStream<T>(mpsc::Receiver<T>);
-    impl<T> tokio_stream::Stream for ReceiverStream<T> {
-        type Item = T;
-        fn poll_next(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Option<T>> {
-            self.0.poll_recv(cx)
-        }
-    }
+
 
     #[tokio::test]
     async fn execute_concurrent_queries_inline_begin() -> anyhow::Result<()> {
@@ -1599,7 +1594,7 @@ pub(crate) mod tests {
                     .expect("mutex poisoned")
                     .take()
                     .unwrap();
-                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+                Ok(Response::from(rx))
             });
 
         // 2. The other queries: should include populated Selector::Id
@@ -1615,9 +1610,10 @@ pub(crate) mod tests {
                     _ => panic!("Expected Selector::Id for other queries"),
                 }
 
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
-                    setup_select1(),
-                )]))))
+                let (tx, rx) = mpsc::channel(1);
+                tx.try_send(Ok(setup_select1()))
+                    .expect("send should succeed");
+                Ok(Response::from(rx))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1727,7 +1723,7 @@ pub(crate) mod tests {
                     .expect("mutex poisoned")
                     .take()
                     .unwrap();
-                Ok(tonic::Response::new(Box::pin(ReceiverStream(rx))))
+                Ok(tonic::Response::from(rx))
             });
 
         // 2. Fallback BeginTransaction RPC fails
@@ -1858,7 +1854,7 @@ pub(crate) mod tests {
                     .expect("mutex poisoned")
                     .take()
                     .unwrap();
-                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+                Ok(Response::from(rx))
             });
 
         // 2. Task 1 restart query: should include Selector::Begin, since
@@ -1875,7 +1871,9 @@ pub(crate) mod tests {
                             id: vec![4, 5, 6],
                             ..Default::default()
                         });
-                        Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(rs)]))))
+                        let (tx, rx) = mpsc::channel(1);
+                        tx.try_send(Ok(rs)).expect("send should succeed");
+                        Ok(Response::from(rx))
                     }
                     _ => panic!("Expected Selector::Begin for stream restart query"),
                 }
@@ -1890,9 +1888,10 @@ pub(crate) mod tests {
                 match req.transaction.unwrap().selector.unwrap() {
                     Selector::Id(id) => {
                         assert_eq!(id, vec![4, 5, 6]);
-                        Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
-                            setup_select1(),
-                        )]))))
+                        let (tx, rx) = mpsc::channel(1);
+                        tx.try_send(Ok(setup_select1()))
+                            .expect("send should succeed");
+                        Ok(Response::from(rx))
                     }
                     _ => panic!("Expected Selector::Id for concurrent queries"),
                 }
@@ -2064,7 +2063,7 @@ pub(crate) mod tests {
                     .expect("mutex poisoned")
                     .take()
                     .unwrap();
-                Ok(Response::new(Box::pin(ReceiverStream(rx))))
+                Ok(Response::from(rx))
             });
 
         // 2. The other reads: should include populated Selector::Id
@@ -2080,9 +2079,10 @@ pub(crate) mod tests {
                     _ => panic!("Expected Selector::Id for other reads"),
                 }
 
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
-                    setup_select1(),
-                )]))))
+                let (tx, rx) = mpsc::channel(1);
+                tx.try_send(Ok(setup_select1()))
+                    .expect("send should succeed");
+                Ok(Response::from(rx))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -2223,9 +2223,10 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_| {
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
-                    setup_select1(),
-                )]))))
+                let (tx, rx) = mpsc::channel(1);
+                tx.try_send(Ok(setup_select1()))
+                    .expect("send should succeed");
+                Ok(Response::from(rx))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;

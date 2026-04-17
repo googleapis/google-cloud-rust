@@ -18,8 +18,13 @@ use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
-use std::collections::HashMap;
-use std::sync::Arc;
+use google_cloud_gax::error::rpc::StatusDetails;
+use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+use google_cloud_gax::retry_loop_internal::retry_loop;
+use google_cloud_gax::retry_policy::NeverRetry;
+use google_cloud_gax::retry_throttler::CircuitBreaker;
+use std::collections::{HashMap, HashSet};
+use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
@@ -39,6 +44,8 @@ pub(super) trait Leaser {
     /// The caller should spawn a task for this operation, as retries can take
     /// arbitrarily long.
     async fn confirmed_ack(&self, ack_ids: Vec<String>);
+    /// Negatively acknowledge a batch of messages and confirm the result.
+    async fn confirmed_nack(&self, ack_ids: Vec<String>);
 }
 
 /// A map of exactly-once ack IDs to their final result.
@@ -46,7 +53,7 @@ pub(super) type ConfirmedAcks = HashMap<String, AckResult>;
 
 pub(super) struct DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
@@ -57,7 +64,7 @@ where
 
 impl<T> Clone for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     fn clone(&self) -> Self {
         Self {
@@ -72,7 +79,7 @@ where
 
 impl<T> DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     pub(super) fn new(
         inner: Arc<T>,
@@ -94,7 +101,7 @@ where
 #[async_trait::async_trait]
 impl<T> Leaser for DefaultLeaser<T>
 where
-    T: Stub,
+    T: Stub + 'static,
 {
     async fn ack(&self, ack_ids: Vec<String>) {
         let req = AcknowledgeRequest::new()
@@ -137,11 +144,95 @@ where
     /// keep the retry logic in the leaser, while allowing for partial results
     /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
-        // TODO(#4804): implement retries
-        let req = AcknowledgeRequest::new()
+        // TODO(#5408): Investigate solutions that avoid using Arc/Mutex.
+        let remaining_ids = Arc::new(Mutex::new(ack_ids));
+        let last_error = Arc::new(Mutex::new(None));
+
+        let attempt = {
+            let remaining_ids = remaining_ids.clone();
+            let last_error = last_error.clone();
+            let leaser = self.clone();
+            async move |_| {
+                let ids = {
+                    let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
+                    std::mem::take(&mut *ids_guard)
+                };
+
+                let req = AcknowledgeRequest::new()
+                    .set_subscription(leaser.subscription.clone())
+                    .set_ack_ids(ids.clone());
+                let response = leaser.inner.acknowledge(req, leaser.options.clone()).await;
+
+                let (to_confirm, remaining) = match response {
+                    Ok(_) => (ids.into_iter().map(|id| (id, Ok(()))).collect(), Vec::new()),
+                    Err(e) => {
+                        let shared_err = Arc::new(e);
+                        let (to_confirm, remaining) =
+                            process_ack_attempt_error(ids, shared_err.clone());
+
+                        if !remaining.is_empty() {
+                            let mut err_guard =
+                                last_error.lock().expect("mutex should not be poisoned");
+                            *err_guard = Some(shared_err);
+                        }
+
+                        (to_confirm, remaining)
+                    }
+                };
+                let _ = leaser.confirmed_tx.send(to_confirm);
+                if remaining.is_empty() {
+                    Ok(())
+                } else {
+                    let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
+                    *ids_guard = remaining;
+                    // Return a synthetic error to indicate that we should retry.
+                    Err(crate::Error::timeout("retry me"))
+                }
+            }
+        };
+
+        let sleep = async |d| tokio::time::sleep(d).await;
+        let _ = retry_loop(
+            attempt,
+            sleep,
+            true,
+            retry_throttler(&self.options),
+            retry_policy(),
+            backoff_policy(),
+        )
+        .await;
+
+        let final_remaining =
+            std::mem::take(&mut *remaining_ids.lock().expect("mutex should not be poisoned"));
+        if !final_remaining.is_empty() {
+            let err =
+                std::mem::take(&mut *last_error.lock().expect("mutex should not be poisoned"));
+            if let Some(shared_err) = err {
+                let confirmed_acks = final_remaining
+                    .into_iter()
+                    .map(|id| {
+                        (
+                            id,
+                            Err(AckError::Rpc {
+                                source: shared_err.clone(),
+                            }),
+                        )
+                    })
+                    .collect();
+                let _ = self.confirmed_tx.send(confirmed_acks);
+            }
+        }
+    }
+
+    async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+        let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids.clone());
-        let response = self.inner.acknowledge(req, self.options.clone()).await;
+            .set_ack_ids(ack_ids.clone())
+            .set_ack_deadline_seconds(0);
+        let response = self
+            .inner
+            .modify_ack_deadline(req, self.options.clone())
+            .await;
         let shared_result = response.map(|_| ()).map_err(Arc::new);
         let confirmed_acks = ack_ids
             .into_iter()
@@ -158,15 +249,115 @@ where
     }
 }
 
+fn retry_policy() -> Arc<NeverRetry> {
+    Arc::new(NeverRetry)
+}
+
+fn backoff_policy() -> Arc<ExponentialBackoff> {
+    Arc::new(ExponentialBackoff::default())
+}
+
+fn retry_throttler(
+    options: &RequestOptions,
+) -> google_cloud_gax::retry_throttler::SharedRetryThrottler {
+    options.retry_throttler().clone().unwrap_or_else(|| {
+        // Effectively disable throttling. The stub throttles.
+        Arc::new(Mutex::new(
+            CircuitBreaker::new(1000, 0, 0).expect("This is a valid configuration"),
+        ))
+    })
+}
+
+fn process_ack_attempt_error(
+    ack_ids: Vec<String>,
+    shared_err: Arc<crate::Error>,
+) -> (HashMap<String, AckResult>, Vec<String>) {
+    let (transient_failures, permanent_failures) = extract_failures(&shared_err);
+
+    // If the response lacks specific per ack_id failure info, we treat the
+    // response as all sharing the same RPC error.
+    if transient_failures.is_empty() && permanent_failures.is_empty() {
+        // The error is transient, retry.
+        if let Some(status) = shared_err.status() {
+            match status.code {
+                google_cloud_gax::error::rpc::Code::DeadlineExceeded
+                | google_cloud_gax::error::rpc::Code::ResourceExhausted
+                | google_cloud_gax::error::rpc::Code::Aborted
+                | google_cloud_gax::error::rpc::Code::Internal
+                | google_cloud_gax::error::rpc::Code::Unavailable => {
+                    return (HashMap::new(), ack_ids);
+                }
+                _ => {}
+            }
+        }
+
+        let to_confirm = ack_ids
+            .into_iter()
+            .map(|id| {
+                (
+                    id,
+                    Err(AckError::Rpc {
+                        source: shared_err.clone(),
+                    }),
+                )
+            })
+            .collect();
+        return (to_confirm, Vec::new());
+    }
+
+    // Otherwise, we extract specific failures:
+    // - ack_ids with transient failures are to be retried.
+    // - ack_ids with permanent failures are resolved with the RPC error.
+    // - Unlisted ack_ids are considered successfully acknowledged.
+    let mut transient = Vec::new();
+    let mut to_confirm = HashMap::new();
+    for id in ack_ids {
+        if transient_failures.contains(&id) {
+            transient.push(id);
+        } else if permanent_failures.contains(&id) {
+            to_confirm.insert(
+                id,
+                Err(AckError::Rpc {
+                    source: shared_err.clone(),
+                }),
+            );
+        } else {
+            to_confirm.insert(id, Ok(()));
+        }
+    }
+
+    (to_confirm, transient)
+}
+
+fn extract_failures(e: &crate::Error) -> (HashSet<String>, HashSet<String>) {
+    let mut transient = HashSet::new();
+    let mut permanent = HashSet::new();
+    if let Some(status) = e.status() {
+        for detail in &status.details {
+            if let StatusDetails::ErrorInfo(info) = detail {
+                for (k, v) in &info.metadata {
+                    if v.starts_with("TRANSIENT_FAILURE_") {
+                        transient.insert(k.clone());
+                    } else if v.starts_with("PERMANENT_FAILURE_") {
+                        permanent.insert(k.clone());
+                    }
+                }
+            }
+        }
+    }
+    (transient, permanent)
+}
+
 #[cfg(test)]
 pub(super) mod tests {
-    use super::super::lease_state::tests::{sorted, test_ids};
+    use super::super::lease_state::tests::{sorted, test_id, test_ids};
     use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
-    use crate::{Error, Response};
+    use crate::{Error, Response, Result};
     use google_cloud_gax::error::rpc::{Code, Status};
-    use std::sync::Arc;
+    use google_cloud_rpc::model::ErrorInfo;
+    use test_case::test_case;
     use tokio::sync::Mutex;
     use tokio::sync::mpsc::unbounded_channel;
 
@@ -179,6 +370,7 @@ pub(super) mod tests {
             async fn nack(&self, ack_ids: Vec<String>);
             async fn extend(&self, ack_ids: Vec<String>);
             async fn confirmed_ack(&self, ack_ids: Vec<String>);
+            async fn confirmed_nack(&self, ack_ids: Vec<String>);
         }
     }
 
@@ -196,6 +388,9 @@ pub(super) mod tests {
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
             MockLeaser::confirmed_ack(self, ack_ids).await
         }
+        async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+            MockLeaser::confirmed_nack(self, ack_ids).await
+        }
     }
 
     #[async_trait::async_trait]
@@ -212,6 +407,34 @@ pub(super) mod tests {
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
             self.lock().await.confirmed_ack(ack_ids).await
         }
+        async fn confirmed_nack(&self, ack_ids: Vec<String>) {
+            self.lock().await.confirmed_nack(ack_ids).await
+        }
+    }
+
+    impl PartialEq for AckError {
+        fn eq(&self, other: &Self) -> bool {
+            match (self, other) {
+                (AckError::LeaseExpired, AckError::LeaseExpired) => true,
+                (AckError::ShutdownBeforeAck, AckError::ShutdownBeforeAck) => true,
+                (AckError::Rpc { source: s1 }, AckError::Rpc { source: s2 }) => {
+                    format!("{:?}", s1) == format!("{:?}", s2)
+                }
+                (AckError::Shutdown(e1), AckError::Shutdown(e2)) => {
+                    format!("{:?}", e1) == format!("{:?}", e2)
+                }
+                _ => false,
+            }
+        }
+    }
+
+    fn response_with_error_info(infos: Vec<ErrorInfo>) -> Result<Response<()>> {
+        Err(Error::service(
+            Status::default()
+                .set_code(Code::FailedPrecondition)
+                .set_message("fail")
+                .set_details(infos.into_iter().map(StatusDetails::ErrorInfo)),
+        ))
     }
 
     #[test]
@@ -230,6 +453,45 @@ pub(super) mod tests {
         assert!(leaser.confirmed_tx.same_channel(&clone.confirmed_tx));
         assert_eq!(leaser.subscription, clone.subscription);
         assert_eq!(leaser.ack_deadline_seconds, clone.ack_deadline_seconds);
+    }
+
+    #[test]
+    fn extract_failures() {
+        let info = ErrorInfo::new()
+            .set_reason("reason")
+            .set_domain("domain")
+            .set_metadata([
+                ("ack_1", "TRANSIENT_FAILURE_UNORDERED_ACK_ID"),
+                ("ack_2", "GIBBERISH_IGNORE"),
+                ("ack_3", "TRANSIENT_FAILURE_OTHER"),
+                ("ack_4", "PERMANENT_FAILURE_INVALID_ACK_ID"),
+                ("ack_5", "PERMANENT_FAILURE_OTHER"),
+            ]);
+
+        let err = response_with_error_info(vec![info]).unwrap_err();
+        let (transient, permanent) = super::extract_failures(&err);
+
+        assert_eq!(
+            transient,
+            HashSet::from(["ack_1".to_string(), "ack_3".to_string()])
+        );
+        assert_eq!(
+            permanent,
+            HashSet::from(["ack_4".to_string(), "ack_5".to_string()])
+        );
+    }
+
+    #[test]
+    fn extract_failures_multiple_error_info() {
+        let info1 =
+            ErrorInfo::new().set_metadata([("ack_1", "TRANSIENT_FAILURE_UNORDERED_ACK_ID")]);
+        let info2 = ErrorInfo::new().set_metadata([("ack_2", "PERMANENT_FAILURE_INVALID_ACK_ID")]);
+
+        let err = response_with_error_info(vec![info1, info2]).unwrap_err();
+        let (transient, permanent) = super::extract_failures(&err);
+
+        assert_eq!(transient, HashSet::from(["ack_1".to_string()]));
+        assert_eq!(permanent, HashSet::from(["ack_2".to_string()]));
     }
 
     #[tokio::test]
@@ -319,7 +581,7 @@ pub(super) mod tests {
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
-            assert_eq!(r.ack_ids, test_ids(0..10));
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             verify_policies(o, 16);
             Ok(Response::from(()))
         });
@@ -358,7 +620,7 @@ pub(super) mod tests {
                 r.subscription,
                 "projects/my-project/subscriptions/my-subscription"
             );
-            assert_eq!(r.ack_ids, test_ids(0..10));
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
             verify_policies(o, 16);
             Err(Error::service(
                 Status::default()
@@ -393,6 +655,255 @@ pub(super) mod tests {
                 _ => panic!("Expected RPC error for {ack_id}, got {result:?}"),
             }
         }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_ack_partial_transient_failure() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+
+        let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
+        let err = response_with_error_info(vec![info.clone()]).unwrap_err();
+
+        mock.expect_acknowledge()
+            .times(1)
+            .return_once(move |r, _o| {
+                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
+                Err(err)
+            });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_ack(test_ids(1..3)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+        let expected = [(test_id(2), Ok(()))].into_iter().collect();
+        assert_eq!(confirmed_acks, expected);
+
+        let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
+        let err = AckError::Rpc {
+            source: Arc::new(response_with_error_info(vec![info]).unwrap_err()),
+        };
+        let expected_final = [(test_id(1), Err(err))].into_iter().collect();
+        assert_eq!(confirmed_acks_final, expected_final);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_ack_partial_permanent_failure() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+
+        let info =
+            ErrorInfo::new().set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID")]);
+        let err = response_with_error_info(vec![info.clone()]).unwrap_err();
+
+        mock.expect_acknowledge()
+            .times(1)
+            .return_once(move |r, _o| {
+                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
+                Err(err)
+            });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_ack(test_ids(1..3)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+
+        let err = AckError::Rpc {
+            source: Arc::new(response_with_error_info(vec![info]).unwrap_err()),
+        };
+        let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
+            .into_iter()
+            .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[test_case(Code::DeadlineExceeded)]
+    #[test_case(Code::ResourceExhausted)]
+    #[test_case(Code::Aborted)]
+    #[test_case(Code::Internal)]
+    #[test_case(Code::Unavailable)]
+    #[tokio::test]
+    async fn process_ack_attempt_error_retryable_code_without_error_info(
+        code: Code,
+    ) -> anyhow::Result<()> {
+        let err = Arc::new(Error::service(
+            Status::default()
+                .set_code(code)
+                .set_message("retryable error"),
+        ));
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err);
+
+        assert_eq!(remaining, test_ids(1..3));
+        assert!(confirmed_acks.is_empty(), "{confirmed_acks:?}");
+
+        Ok(())
+    }
+
+    #[test_case(Code::DeadlineExceeded)]
+    #[test_case(Code::ResourceExhausted)]
+    #[test_case(Code::Aborted)]
+    #[test_case(Code::Internal)]
+    #[test_case(Code::Unavailable)]
+    #[tokio::test]
+    async fn process_ack_attempt_error_retryable_code_with_error_info(
+        code: Code,
+    ) -> anyhow::Result<()> {
+        let info = ErrorInfo::new().set_metadata([
+            (test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID"),
+            (test_id(2), "TRANSIENT_FAILURE_OTHER"),
+        ]);
+        let err = Arc::new(Error::service(
+            Status::default()
+                .set_code(code)
+                .set_message("retryable error")
+                .set_details([StatusDetails::ErrorInfo(info)]),
+        ));
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..4), err.clone());
+
+        assert_eq!(remaining, vec![test_id(2)]);
+
+        let err = AckError::Rpc { source: err };
+        let expected = [(test_id(1), Err(err)), (test_id(3), Ok(()))]
+            .into_iter()
+            .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[test_case(Code::Cancelled)]
+    #[test_case(Code::Unknown)]
+    #[test_case(Code::InvalidArgument)]
+    #[test_case(Code::NotFound)]
+    #[test_case(Code::AlreadyExists)]
+    #[test_case(Code::PermissionDenied)]
+    #[test_case(Code::Unauthenticated)]
+    #[test_case(Code::FailedPrecondition)]
+    #[test_case(Code::OutOfRange)]
+    #[test_case(Code::Unimplemented)]
+    #[test_case(Code::DataLoss)]
+    #[tokio::test]
+    async fn process_ack_attempt_error_non_retryable_code_without_error_info(
+        code: Code,
+    ) -> anyhow::Result<()> {
+        let err = Arc::new(Error::service(
+            Status::default()
+                .set_code(code)
+                .set_message("non-retryable error"),
+        ));
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err);
+
+        assert!(remaining.is_empty(), "{remaining:?}");
+
+        let expected = test_ids(1..3)
+            .into_iter()
+            .map(|id| {
+                let err = AckError::Rpc {
+                    source: Arc::new(Error::service(
+                        Status::default()
+                            .set_code(code)
+                            .set_message("non-retryable error"),
+                    )),
+                };
+                (id, Err(err))
+            })
+            .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[test_case(Code::Cancelled)]
+    #[test_case(Code::Unknown)]
+    #[test_case(Code::InvalidArgument)]
+    #[test_case(Code::NotFound)]
+    #[test_case(Code::AlreadyExists)]
+    #[test_case(Code::PermissionDenied)]
+    #[test_case(Code::Unauthenticated)]
+    #[test_case(Code::FailedPrecondition)]
+    #[test_case(Code::OutOfRange)]
+    #[test_case(Code::Unimplemented)]
+    #[test_case(Code::DataLoss)]
+    #[tokio::test]
+    async fn process_ack_attempt_error_non_retryable_code_permanent_failure(
+        code: Code,
+    ) -> anyhow::Result<()> {
+        let info =
+            ErrorInfo::new().set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID")]);
+
+        let err = Arc::new(Error::service(
+            Status::default()
+                .set_code(code)
+                .set_message("non-retryable error")
+                .set_details([StatusDetails::ErrorInfo(info.clone())]),
+        ));
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err);
+
+        assert!(remaining.is_empty(), "{remaining:?}");
+
+        let err = AckError::Rpc {
+            source: Arc::new(Error::service(
+                Status::default()
+                    .set_code(code)
+                    .set_message("non-retryable error")
+                    .set_details([StatusDetails::ErrorInfo(info)]),
+            )),
+        };
+        let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
+            .into_iter()
+            .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[test_case(Code::Cancelled)]
+    #[test_case(Code::Unknown)]
+    #[test_case(Code::InvalidArgument)]
+    #[test_case(Code::NotFound)]
+    #[test_case(Code::AlreadyExists)]
+    #[test_case(Code::PermissionDenied)]
+    #[test_case(Code::Unauthenticated)]
+    #[test_case(Code::FailedPrecondition)]
+    #[test_case(Code::OutOfRange)]
+    #[test_case(Code::Unimplemented)]
+    #[test_case(Code::DataLoss)]
+    #[tokio::test]
+    async fn process_ack_attempt_error_non_retryable_code_transient_failure(
+        code: Code,
+    ) -> anyhow::Result<()> {
+        let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
+
+        let err = Arc::new(Error::service(
+            Status::default()
+                .set_code(code)
+                .set_message("non-retryable error")
+                .set_details([StatusDetails::ErrorInfo(info)]),
+        ));
+        let (confirmed_acks, remaining) = process_ack_attempt_error(test_ids(1..3), err);
+
+        assert_eq!(remaining, test_ids(1..2));
+
+        let expected = [(test_id(2), Ok(()))].into_iter().collect();
+        assert_eq!(confirmed_acks, expected);
+
         Ok(())
     }
 }

@@ -14,7 +14,7 @@
 
 use crate::client::{get_database_id, get_emulator_host};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
-use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
+use google_cloud_spanner::client::{DatabaseClient, Kind, QueryOptions, Spanner, Statement};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
@@ -420,6 +420,11 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
     );
 }
 
+/// A test proxy that intercepts and delays `BeginTransaction` requests.
+///
+/// It notifies `begin_transaction_entered_latch` when a `BeginTransaction` request is received,
+/// and blocks the request execution until `latch` is notified. This allows tests to
+/// synchronize the order of execution of `BeginTransaction` with other operations.
 struct DelayedBeginProxy {
     emulator_client: SpannerClient<Channel>,
     latch: Arc<Notify>,
@@ -472,29 +477,18 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         .await?;
     let raw_client = SpannerClient::new(endpoint);
 
-    // Create a local TCP listener to bind our proxy server to.
-    let listener = TcpListener::bind("127.0.0.1:0").await?;
-    let local_addr = listener.local_addr()?;
-    let proxy_address = format!("{}:{}", local_addr.ip(), local_addr.port());
-
     let proxy = DelayedBeginProxy {
         emulator_client: raw_client,
         latch: Arc::clone(&latch),
         begin_transaction_entered_latch: Arc::clone(&begin_transaction_entered_latch),
     };
 
-    let _server_handle = tokio::spawn(async move {
-        let stream = TcpListenerStream::new(listener);
-        Server::builder()
-            .add_service(SpannerServer::new(InterceptedSpanner(proxy)))
-            .serve_with_incoming(stream)
-            .await
-            .expect("Proxy server failed");
-    });
+    let (proxy_uri, _guard) =
+        crate::client::start_guarded_server("127.0.0.1:0", InterceptedSpanner(proxy)).await?;
 
     // We build the Spanner DatabaseClient pointing directly to our proxy address over HTTP.
     let proxy_db_client = Spanner::builder()
-        .with_endpoint(format!("http://{}", proxy_address))
+        .with_endpoint(proxy_uri)
         .build()
         .await?
         .database_client(format!(
@@ -551,6 +545,23 @@ pub async fn inline_begin_fallback(_db_client: &DatabaseClient) -> anyhow::Resul
         tx.read_timestamp().is_some(),
         "The transaction should have a read timestamp"
     );
+
+    Ok(())
+}
+
+pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let rot = db_client.single_use().build();
+
+    let sql = "SELECT 1";
+    let query_options = QueryOptions::default().set_optimizer_version("1");
+    let stmt = Statement::builder(sql)
+        .with_query_options(query_options)
+        .build();
+
+    let mut rs = rot.execute_query(stmt).await?;
+    let row = rs.next().await.transpose()?.expect("should yield a row");
+    let val: i64 = row.get(0);
+    assert_eq!(val, 1);
 
     Ok(())
 }

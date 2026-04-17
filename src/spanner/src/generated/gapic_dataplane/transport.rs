@@ -50,7 +50,6 @@ impl std::fmt::Debug for Spanner {
 
 impl Spanner {
     pub async fn new(config: gaxi::options::ClientConfig) -> crate::ClientBuilderResult<Self> {
-        #[cfg(google_cloud_unstable_tracing)]
         let inner = if gaxi::options::tracing_enabled(&config) {
             gaxi::grpc::Client::new_with_instrumentation(
                 config,
@@ -61,8 +60,6 @@ impl Spanner {
         } else {
             gaxi::grpc::Client::new(config, DEFAULT_HOST).await?
         };
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
@@ -96,7 +93,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/CreateSession");
@@ -155,7 +151,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::BatchCreateSessionsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/BatchCreateSessions");
@@ -210,7 +205,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Session;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/GetSession");
@@ -265,7 +259,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ListSessionsResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/ListSessions");
@@ -323,7 +316,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/DeleteSession");
@@ -378,7 +370,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/ExecuteSql");
@@ -437,7 +428,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ExecuteBatchDmlResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/ExecuteBatchDml");
@@ -492,7 +482,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::ResultSet;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/Read");
@@ -551,7 +540,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::Transaction;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/BeginTransaction");
@@ -606,7 +594,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::CommitResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/Commit");
@@ -661,7 +648,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/Rollback");
@@ -720,7 +706,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/PartitionQuery");
@@ -778,7 +763,6 @@ impl super::stub::Spanner for Spanner {
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::spanner::v1::PartitionResponse;
-        #[cfg(google_cloud_unstable_tracing)]
         if let Some(recorder) = gaxi::observability::RequestRecorder::current() {
             let attributes = gaxi::observability::ClientRequestAttributes::default()
                 .set_rpc_method("google.spanner.v1.Spanner/PartitionRead");

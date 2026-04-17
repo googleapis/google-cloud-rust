@@ -17,7 +17,6 @@ use crate::credentials::EntityTag;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
-use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::universe_domain::is_default_universe_domain;
 use crate::{Result, errors};
@@ -31,7 +30,6 @@ use google_cloud_gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg};
 use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
-use std::error::Error;
 use std::fmt::Debug;
 use std::sync::{Arc, OnceLock};
 use tokio::sync::{Mutex, watch};
@@ -236,23 +234,14 @@ impl<T> CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    pub(crate) fn new(
-        credentials: T,
-        access_boundary_url: Option<String>,
-        universe_domain: Option<String>,
-    ) -> Self {
+    pub(crate) fn new(credentials: T, access_boundary_url: Option<String>) -> Self {
         let credentials = Arc::new(credentials);
 
-        // Only enable access boundary for default universe domain
-        let access_boundary = if is_default_universe_domain(universe_domain) {
-            let provider = IAMAccessBoundaryProvider {
-                credentials: credentials.clone(),
-                url: access_boundary_url,
-            };
-            Arc::new(AccessBoundary::new(provider))
-        } else {
-            Arc::new(AccessBoundary::new_no_op())
+        let provider = IAMAccessBoundaryProvider {
+            credentials: credentials.clone(),
+            url: access_boundary_url,
         };
+        let access_boundary = Arc::new(AccessBoundary::new(provider));
         Self {
             credentials,
             access_boundary,
@@ -422,6 +411,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
+        let universe_domain = self.credentials.universe_domain().await;
+        if !is_default_universe_domain(universe_domain) {
+            return Ok(None);
+        }
         match self.url.as_ref() {
             Some(url) => {
                 let client = AccessBoundaryClient::new(self.credentials.clone(), url.clone());
@@ -509,13 +502,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + Send + Sync + 'static,
 {
     async fn fetch(self) -> Result<Option<String>> {
-        let resp = self.fetch_with_retry().await.map_err(|e| {
-            let is_transient = e
-                .source()
-                .and_then(|s| s.downcast_ref::<CredentialsError>())
-                .is_some_and(|cred_error| cred_error.is_transient());
-            CredentialsError::new(is_transient, "failed to fetch access boundary", e)
-        })?;
+        let resp = self
+            .fetch_with_retry()
+            .await
+            .map_err(|e| crate::errors::from_gax_error(e, "failed to fetch access boundary"))?;
 
         if !resp.encoded_locations.is_empty() {
             return Ok(Some(resp.encoded_locations));
@@ -667,6 +657,7 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
+    use crate::errors::CredentialsError;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -764,9 +755,11 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+        mock.expect_universe_domain().returning(|| None);
+
         let url = server.url("/allowedLocations").to_string();
 
-        let creds = CredentialsWithAccessBoundary::new(mock, Some(url), None);
+        let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
 
         // wait for the background task to fetch the access boundary.
         creds.wait_for_boundary().await;
@@ -903,7 +896,7 @@ pub(crate) mod tests {
 
         let result = client.fetch().await;
         let err = result.unwrap_err();
-        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
@@ -936,7 +929,7 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = CredentialsWithAccessBoundary::new(mock, None, None);
+        let creds = CredentialsWithAccessBoundary::new(mock, None);
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
@@ -1281,12 +1274,10 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+        mock.expect_universe_domain()
+            .returning(|| Some("my-universe-domain.com".to_string()));
 
-        let creds = CredentialsWithAccessBoundary::new(
-            mock,
-            Some("http://localhost".to_string()),
-            Some("my-universe-domain.com".to_string()),
-        );
+        let creds = CredentialsWithAccessBoundary::new(mock, Some("http://localhost".to_string()));
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());

@@ -876,7 +876,320 @@ impl Config {
         super::builder::config::UpdateAutoMigrationConfig::new(self.inner.clone())
     }
 
+    /// Get a DeploymentGroup for a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment_group()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_deployment_group(&self) -> super::builder::config::GetDeploymentGroup {
+        super::builder::config::GetDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Creates a [DeploymentGroup][google.cloud.config.v1.DeploymentGroup]
+    /// The newly created DeploymentGroup will be in the `CREATING` state
+    /// and can be retrieved via Get and List calls.
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_deployment_group()
+    ///         .set_parent(parent)
+    ///         .set_deployment_group(
+    ///             DeploymentGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_deployment_group(&self) -> super::builder::config::CreateDeploymentGroup {
+        super::builder::config::CreateDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Updates a [DeploymentGroup][google.cloud.config.v1.DeploymentGroup]
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_config_v1::model::DeploymentGroup;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_deployment_group()
+    ///         .set_deployment_group(
+    ///             DeploymentGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_deployment_group(&self) -> super::builder::config::UpdateDeploymentGroup {
+        super::builder::config::UpdateDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Deletes a [DeploymentGroup][google.cloud.config.v1.DeploymentGroup]
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_deployment_group()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_deployment_group(&self) -> super::builder::config::DeleteDeploymentGroup {
+        super::builder::config::DeleteDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// List DeploymentGroups for a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployment_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_deployment_groups(&self) -> super::builder::config::ListDeploymentGroups {
+        super::builder::config::ListDeploymentGroups::new(self.inner.clone())
+    }
+
+    /// Provisions a deployment group.
+    ///
+    /// NOTE: As a first step of this operation, Infra Manager will
+    /// automatically delete any Deployments that were part of the
+    /// *last successful*
+    /// [DeploymentGroupRevision][google.cloud.config.v1.DeploymentGroupRevision]
+    /// but are *no longer* included in the *current*
+    /// [DeploymentGroup][google.cloud.config.v1.DeploymentGroup] definition (e.g.,
+    /// following an `UpdateDeploymentGroup` call), along with their actuated
+    /// resources.
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    /// [google.cloud.config.v1.DeploymentGroupRevision]: crate::model::DeploymentGroupRevision
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let response = client.provision_deployment_group()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn provision_deployment_group(&self) -> super::builder::config::ProvisionDeploymentGroup {
+        super::builder::config::ProvisionDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Deprovisions a deployment group.
+    ///
+    /// NOTE: As a first step of this operation, Infra Manager will
+    /// automatically delete any Deployments that were part of the
+    /// *last successful*
+    /// [DeploymentGroupRevision][google.cloud.config.v1.DeploymentGroupRevision]
+    /// but are *no longer* included in the *current*
+    /// [DeploymentGroup][google.cloud.config.v1.DeploymentGroup] definition (e.g.,
+    /// following an `UpdateDeploymentGroup` call), along with their actuated
+    /// resources.
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    /// [google.cloud.config.v1.DeploymentGroupRevision]: crate::model::DeploymentGroupRevision
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let response = client.deprovision_deployment_group()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn deprovision_deployment_group(
+        &self,
+    ) -> super::builder::config::DeprovisionDeploymentGroup {
+        super::builder::config::DeprovisionDeploymentGroup::new(self.inner.clone())
+    }
+
+    /// Gets details about a
+    /// [DeploymentGroupRevision][google.cloud.config.v1.DeploymentGroupRevision].
+    ///
+    /// [google.cloud.config.v1.DeploymentGroupRevision]: crate::model::DeploymentGroupRevision
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment_group_revision()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_deployment_group_revision(
+        &self,
+    ) -> super::builder::config::GetDeploymentGroupRevision {
+        super::builder::config::GetDeploymentGroupRevision::new(self.inner.clone())
+    }
+
+    /// Lists
+    /// [DeploymentGroupRevision][google.cloud.config.v1.DeploymentGroupRevision]s
+    /// in a given [DeploymentGroup][google.cloud.config.v1.DeploymentGroup].
+    ///
+    /// [google.cloud.config.v1.DeploymentGroup]: crate::model::DeploymentGroup
+    /// [google.cloud.config.v1.DeploymentGroupRevision]: crate::model::DeploymentGroupRevision
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_config_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployment_group_revisions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_deployment_group_revisions(
+        &self,
+    ) -> super::builder::config::ListDeploymentGroupRevisions {
+        super::builder::config::ListDeploymentGroupRevisions::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    ///
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```

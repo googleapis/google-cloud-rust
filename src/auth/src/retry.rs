@@ -36,7 +36,7 @@ pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
     retry_throttler: SharedRetryThrottler,
 }
 
-#[derive(Debug, Default)]
+#[derive(Clone, Debug, Default)]
 pub(crate) struct Builder {
     retry_policy: Option<RetryPolicyArg>,
     backoff_policy: Option<BackoffPolicyArg>,
@@ -70,7 +70,13 @@ impl Builder {
         self
     }
 
-    pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
+    pub(crate) fn resolve(
+        self,
+    ) -> (
+        Arc<dyn BackoffPolicy>,
+        SharedRetryThrottler,
+        Arc<dyn RetryPolicy>,
+    ) {
         let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
             Some(p) => p.into(),
             None => Arc::new(ExponentialBackoff::default()),
@@ -84,6 +90,12 @@ impl Builder {
             .retry_policy
             .unwrap_or_else(|| AlwaysRetry.with_attempt_limit(1).into())
             .into();
+
+        (backoff_policy, retry_throttler, retry_policy)
+    }
+
+    pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
+        let (backoff_policy, retry_throttler, retry_policy) = self.resolve();
 
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),

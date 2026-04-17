@@ -15,9 +15,10 @@
 use futures::stream::{BoxStream, StreamExt};
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
-
-pub type ExecuteStreamingSqlStream =
-    BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
+pub type ExecuteStreamingSqlStream = futures::stream::BoxStream<
+    'static,
+    std::result::Result<spanner_v1::PartialResultSet, tonic::Status>,
+>;
 
 #[tonic::async_trait]
 pub trait SpannerInterceptor: Send + Sync + 'static {
@@ -69,12 +70,7 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
     async fn execute_streaming_sql(
         &self,
         request: tonic::Request<spanner_v1::ExecuteSqlRequest>,
-    ) -> std::result::Result<
-        tonic::Response<
-            BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>,
-        >,
-        tonic::Status,
-    > {
+    ) -> std::result::Result<tonic::Response<ExecuteStreamingSqlStream>, tonic::Status> {
         let res = self
             .emulator_client()
             .execute_streaming_sql(request)
@@ -106,18 +102,10 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
         &self,
         request: tonic::Request<spanner_v1::ReadRequest>,
     ) -> std::result::Result<
-        tonic::Response<
-            BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>,
-        >,
+        tonic::Response<tonic::codec::Streaming<spanner_v1::PartialResultSet>>,
         tonic::Status,
     > {
-        let res = self.emulator_client().streaming_read(request).await?;
-        let (metadata, stream, extensions) = res.into_parts();
-        Ok(tonic::Response::from_parts(
-            metadata,
-            stream.boxed(),
-            extensions,
-        ))
+        self.emulator_client().streaming_read(request).await
     }
 
     async fn begin_transaction(
@@ -159,18 +147,10 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
         &self,
         request: tonic::Request<spanner_v1::BatchWriteRequest>,
     ) -> std::result::Result<
-        tonic::Response<
-            BoxStream<'static, std::result::Result<spanner_v1::BatchWriteResponse, tonic::Status>>,
-        >,
+        tonic::Response<tonic::codec::Streaming<spanner_v1::BatchWriteResponse>>,
         tonic::Status,
     > {
-        let res = self.emulator_client().batch_write(request).await?;
-        let (metadata, stream, extensions) = res.into_parts();
-        Ok(tonic::Response::from_parts(
-            metadata,
-            stream.boxed(),
-            extensions,
-        ))
+        self.emulator_client().batch_write(request).await
     }
 }
 
@@ -221,8 +201,7 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.execute_sql(request).await
     }
 
-    type ExecuteStreamingSqlStream =
-        BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
+    type ExecuteStreamingSqlStream = ExecuteStreamingSqlStream;
 
     async fn execute_streaming_sql(
         &self,
@@ -246,8 +225,7 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.read(request).await
     }
 
-    type StreamingReadStream =
-        BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
+    type StreamingReadStream = tonic::codec::Streaming<spanner_v1::PartialResultSet>;
 
     async fn streaming_read(
         &self,
@@ -291,8 +269,7 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.partition_read(request).await
     }
 
-    type BatchWriteStream =
-        BoxStream<'static, std::result::Result<spanner_v1::BatchWriteResponse, tonic::Status>>;
+    type BatchWriteStream = tonic::codec::Streaming<spanner_v1::BatchWriteResponse>;
 
     async fn batch_write(
         &self,

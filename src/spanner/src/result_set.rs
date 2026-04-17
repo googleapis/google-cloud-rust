@@ -53,6 +53,7 @@ pub struct ResultSet {
 
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
+    session_name: String,
     operation: StreamOperation,
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
@@ -89,6 +90,7 @@ impl ResultSet {
         transaction_selector: Option<ReadContextTransactionSelector>,
         precommit_token_tracker: PrecommitTokenTracker,
         client: DatabaseClient,
+        session_name: String,
         operation: StreamOperation,
     ) -> Self {
         Self {
@@ -99,6 +101,7 @@ impl ResultSet {
             metadata: None,
             precommit_token_tracker,
             client,
+            session_name,
             operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
@@ -250,7 +253,7 @@ impl ResultSet {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client)
+            .begin_explicitly(&self.client, self.session_name.clone())
             .await?;
 
         self.partial_result_sets_buffer.clear();
@@ -517,7 +520,6 @@ pub(crate) mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use prost_types::Value;
     use spanner_grpc_mock::MockSpanner;
-    use spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner as SpannerTrait;
     use spanner_grpc_mock::google::spanner::v1::struct_type::Field;
     use spanner_grpc_mock::google::spanner::v1::{
         PartialResultSet, ResultSetMetadata, Session, StructType,
@@ -553,16 +555,25 @@ pub(crate) mod tests {
         })
     }
 
+    pub(crate) fn adapt<I, T>(items: I) -> tokio::sync::mpsc::Receiver<T>
+    where
+        I: IntoIterator<Item = T>,
+        I::IntoIter: ExactSizeIterator,
+    {
+        let items = items.into_iter();
+        let (tx, rx) = tokio::sync::mpsc::channel(items.len().max(1));
+        for i in items {
+            tx.try_send(i)
+                .expect("can't fail, we allocated enough capacity.");
+        }
+        rx
+    }
+
     async fn run_mock_query(results: Vec<PartialResultSet>) -> ResultSet {
         let mut mock = MockSpanner::new();
+        let rx = adapt(results.into_iter().map(Ok));
         mock.expect_execute_streaming_sql()
-            .returning(move |_request| {
-                let res = results.clone();
-                let stream = tokio_stream::iter(res.into_iter().map(Ok));
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
-            });
+            .return_once(move |_request| Ok(Response::from(rx)));
 
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(Session {
@@ -795,7 +806,7 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(2),
                         values: vec![string_val("row1"), string_val("b")],
@@ -804,24 +815,20 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Unavailable error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::StreamingReadStream
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_streaming_read()
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     values: vec![string_val("row2"), string_val("d")],
                     resume_token: b"token2".to_vec(),
                     last: true,
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::StreamingReadStream
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1151,7 +1158,7 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(1),
                         values: vec![string_val("row1")],
@@ -1160,24 +1167,20 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Transient error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_execute_streaming_sql()
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     values: vec![string_val("row2")],
                     resume_token: b"token2".to_vec(),
                     last: true,
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1222,7 +1225,7 @@ pub(crate) mod tests {
         mock.expect_execute_streaming_sql()
             .times(1)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(1),
                         values: vec![string_val("row1")],
@@ -1231,9 +1234,7 @@ pub(crate) mod tests {
                     }),
                     Err(Status::invalid_argument("Non-retriable error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1285,7 +1286,7 @@ pub(crate) mod tests {
             // Should only be called once, as it is not retried due to missing resume tokens.
             .times(1)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(1),
                         values: vec![string_val("row1")],
@@ -1301,9 +1302,7 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Unavailable error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1366,7 +1365,7 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(1),
                         values: vec![string_val("row1")],
@@ -1375,24 +1374,20 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Unavailable error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_execute_streaming_sql()
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     metadata: metadata(1),
                     values: vec![string_val("row1_retry")],
                     resume_token: b"token_retry".to_vec(),
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1436,7 +1431,7 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: metadata(1),
                         values: vec![string_val("row1")],
@@ -1448,9 +1443,7 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Unavailable error")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         // Second stream: Retried from the start as the initial stream
@@ -1463,15 +1456,13 @@ pub(crate) mod tests {
                     request.get_ref().resume_token.is_empty(),
                     "Expected empty resume token for retry"
                 );
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     metadata: metadata(1),
                     values: vec![string_val("row1_retry")],
                     resume_token: b"token_retry".to_vec(),
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1519,11 +1510,8 @@ pub(crate) mod tests {
         mock.expect_execute_streaming_sql()
             .times(11) // 1 initial + 10 retries
             .returning(|_request| {
-                let stream =
-                    tokio_stream::iter(vec![Err(Status::unavailable("Unavailable error"))]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                let stream = adapt([Err(Status::unavailable("Unavailable error"))]);
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1577,11 +1565,8 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream =
-                    tokio_stream::iter(vec![Err(Status::invalid_argument("Invalid query"))]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                let stream = adapt([Err(Status::invalid_argument("Invalid query"))]);
+                Ok(Response::from(stream))
             });
 
         // 2. The explicit BeginTransaction fallback gets triggered.
@@ -1613,14 +1598,12 @@ pub(crate) mod tests {
                     _ => panic!("Expected Selector::Id"),
                 }
 
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     metadata: metadata(1),
                     values: vec![string_val("1")],
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1676,11 +1659,8 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream =
-                    tokio_stream::iter(vec![Err(Status::unavailable("Transient network issue"))]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                let stream = adapt([Err(Status::unavailable("Transient network issue"))]);
+                Ok(Response::from(stream))
             });
 
         // 2. We retry the stream since it was a transient error.
@@ -1702,14 +1682,12 @@ pub(crate) mod tests {
                     ..Default::default()
                 });
 
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     metadata: Some(meta),
                     values: vec![string_val("1")],
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1772,7 +1750,7 @@ pub(crate) mod tests {
                     read_timestamp: None,
                     ..Default::default()
                 });
-                let stream = tokio_stream::iter(vec![
+                let stream = adapt([
                     Ok(PartialResultSet {
                         metadata: Some(meta),
                         values: vec![string_val("1")],
@@ -1781,9 +1759,7 @@ pub(crate) mod tests {
                     }),
                     Err(Status::unavailable("Transient mid-stream network issue")),
                 ]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         // 2. Stream resumes using Selector::Id.
@@ -1799,13 +1775,11 @@ pub(crate) mod tests {
                     _ => panic!("Expected Selector::Id on stream retry"),
                 }
 
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     values: vec![string_val("2")],
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {
@@ -1869,14 +1843,12 @@ pub(crate) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning(|_request| {
-                let stream = tokio_stream::iter(vec![Ok(PartialResultSet {
+                let stream = adapt([Ok(PartialResultSet {
                     metadata: metadata(1), // Missing `.transaction` natively
                     values: vec![string_val("1")],
                     ..Default::default()
                 })]);
-                Ok(Response::new(
-                    Box::pin(stream) as <MockSpanner as SpannerTrait>::ExecuteStreamingSqlStream,
-                ))
+                Ok(Response::from(stream))
             });
 
         mock.expect_create_session().returning(|_| {

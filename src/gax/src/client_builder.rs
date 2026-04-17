@@ -94,6 +94,11 @@ impl Error {
         matches!(&self.0, ErrorKind::Transport(_))
     }
 
+    /// If true, the client universe domain does not match the credentials.
+    pub fn is_universe_domain_mismatch(&self) -> bool {
+        matches!(&self.0, ErrorKind::UniverseDomainMismatch { .. })
+    }
+
     /// Not part of the public API, subject to change without notice.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn cred<T: Into<BoxError>>(source: T) -> Self {
@@ -105,6 +110,18 @@ impl Error {
     pub fn transport<T: Into<BoxError>>(source: T) -> Self {
         Self(ErrorKind::Transport(source.into()))
     }
+
+    /// Not part of the public API, subject to change without notice.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn universe_domain_mismatch(
+        client_universe_domain: &str,
+        credential_universe_domain: &str,
+    ) -> Self {
+        Self(ErrorKind::UniverseDomainMismatch {
+            client_universe_domain: client_universe_domain.to_string(),
+            credential_universe_domain: credential_universe_domain.to_string(),
+        })
+    }
 }
 
 #[derive(thiserror::Error, Debug)]
@@ -113,6 +130,13 @@ enum ErrorKind {
     DefaultCredentials(#[source] BoxError),
     #[error("could not initialize transport client")]
     Transport(#[source] BoxError),
+    #[error(
+        "the client configured universe domain ({client_universe_domain}) does not match the universe domain found in the credentials ({credential_universe_domain}). If you haven't configured the universe domain explicitly, `googleapis.com` is the default. Use `ClientBuilder::with_universe_domain()` to set the universe domain."
+    )]
+    UniverseDomainMismatch {
+        client_universe_domain: String,
+        credential_universe_domain: String,
+    },
 }
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -199,11 +223,9 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self
     }
 
-    /// Enables tracing.
+    /// Enables observability signals for the client.
     ///
-    /// The client libraries can be dynamically instrumented with the Tokio
-    /// [tracing] framework. Setting this flag enables this instrumentation.
-    ///
+    /// # Example
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
     /// # use google_cloud_gax::client_builder::Result;
@@ -212,10 +234,57 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// let client = Client::builder()
     ///     .with_tracing()
     ///     .build().await?;
+    /// // For observing traces and logs, you must also enable a tracing subscriber in your `main` function,
+    /// // for example:
+    /// //     tracing_subscriber::fmt::init();
+    /// // For observing metrics, you must also install an OpenTelemetry meter provider in your `main` function,
+    /// // for example:
+    /// //     opentelemetry::global::set_meter_provider(provider.clone());
     /// # Ok(()) }
     /// ```
     ///
+    /// <div class="warning">
+    ///
+    /// Observability signals at any level may contain sensitive data such as resource names, full
+    /// URLs, and error messages.
+    ///
+    /// Before configuring subscribers or exporters for traces and logs, review the contents of the
+    /// spans and consult the [tracing] framework documentation to set up filters and formatters to
+    /// prevent leaking sensitive information, depending on your intended use case.
+    ///
+    /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
+    ///
+    /// </div>
+    ///
+    /// The libraries are instrumented to generate the following signals:
+    ///
+    /// 1. `INFO` spans for each logical client request. Typically a single method call in the client
+    ///    struct gets such a span.
+    /// 1. A histogram metric measuring the elapsed time for each logical client request.
+    /// 1. `WARN` logs for each logical client requests that fail.
+    /// 1. `INFO` spans for each low-level attempt RPC attempt. Typically a single method in the client
+    ///    struct gets one such span, but there may be more if the library had to retry the RPC.
+    /// 1. `DEBUG` logs for each low-level attempt that fails.
+    ///
+    /// These spans and logs follow [OpenTelemetry Semantic Conventions] with additional Google
+    /// Cloud attributes. Both the spans and logs and are should be suitable for production
+    /// monitoring.
+    ///
+    /// The libraries also have `DEBUG` spans for each request, these include the full request body,
+    /// and the full response body for successful requests, and the full error message, with
+    /// details, for failed requests. Consider the contents of these requests and responses before
+    /// enabling them in production environments, as the request or responses may include sensitive
+    /// data. These `DEBUG` spans use the client library crate followed by `::tracing` as their
+    /// target and the method name as the span name. You can use the name and/or target to set up
+    /// your filters.
+    ///
+    /// # More information
+    ///
+    /// The [Enable logging] guide shows you how to initialize a subscriber to
+    /// log events to the console.
+    ///
+    /// [Enable logging]: https://docs.cloud.google.com/rust/enable-logging
     pub fn with_tracing(mut self) -> Self {
         self.config.tracing = true;
         self
@@ -770,5 +839,16 @@ mod tests {
             matches!(got, Some(wkt::TimestampError::OutOfRange)),
             "{error:?}"
         );
+    }
+
+    #[test]
+    fn universe_domain_mismatch() {
+        let error = Error::universe_domain_mismatch("my-universe.com", "googleapis.com");
+        assert!(error.is_universe_domain_mismatch(), "{error:?}");
+        let fmt = format!("{error:?}");
+        assert!(fmt.contains("my-universe.com"), "{fmt}");
+        assert!(fmt.contains("googleapis.com"), "{fmt}");
+        let got = error.source();
+        assert!(got.is_none(), "{got:?}");
     }
 }
