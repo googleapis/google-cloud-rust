@@ -496,7 +496,7 @@ impl Client {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
-        let origin = crate::host::origin(endpoint.as_deref(), &service_endpoint)
+        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
         let target_endpoint = endpoint.unwrap_or(service_endpoint);
         let endpoint = Endpoint::from_shared(target_endpoint).map_err(BuilderError::transport)?;

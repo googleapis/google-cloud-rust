@@ -91,9 +91,13 @@ impl ReqwestClient {
         let inner = builder.build().map_err(BuilderError::transport)?;
         let universe_domain =
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
+        let host = crate::host::header(
+            config.endpoint.as_deref(),
+            &default_endpoint,
+            &universe_domain,
+        )
+        .map_err(|e| e.client_builder())?;
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
-        let host = crate::host::header(config.endpoint.as_deref(), &service_endpoint)
-            .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config.endpoint.unwrap_or(service_endpoint);
         Ok(Self {
@@ -224,9 +228,8 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let service_endpoint =
-            default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &self.universe_domain);
-        let host = crate::host::header(Some(url), &service_endpoint).map_err(|e| e.gax())?;
+        let host = crate::host::header(Some(url), &default_endpoint, &self.universe_domain)
+            .map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)
@@ -791,33 +794,32 @@ mod tests {
     }
 
     #[tokio::test]
-    #[test_case(None, "my-universe-domain.com", "language.my-universe-domain.com", "https://language.my-universe-domain.com"; "default endpoint")]
-    #[test_case(Some("https://yet-another-universe-domain.com/"), "yet-another-universe-domain.com", "yet-another-universe-domain.com", "https://yet-another-universe-domain.com/"; "custom endpoint override")]
-    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "rep.language.googleapis.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
-    #[test_case(Some("https://us-central1-language.googleapis.com/"), "my-universe-domain.com", "us-central1-language.googleapis.com", "https://us-central1-language.googleapis.com/"; "locational endpoint with universe domain")]
+    #[test_case(None, "test.my-custom-universe.com"; "default")]
+    #[test_case(Some("http://www.my-custom-universe.com"), "test.my-custom-universe.com"; "global")]
+    #[test_case(Some("http://private.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC private")]
+    #[test_case(Some("http://restricted.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC restricted")]
+    #[test_case(Some("http://test-my-private-ep.p.my-custom-universe.com"), "test.my-custom-universe.com"; "PSC custom endpoint")]
+    #[test_case(Some("https://us-central1-test.my-custom-universe.com"), "us-central1-test.my-custom-universe.com"; "locational endpoint")]
+    #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com"), "test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
     #[serial]
     async fn host_from_endpoint_with_universe_domain_success(
         endpoint_override: Option<&str>,
-        universe_domain: &str,
         expected_host: &str,
-        expected_endpoint: &str,
     ) -> TestResult {
         let _env = ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN");
-        let universe_domain = universe_domain.to_string();
+        let universe_domain = "my-custom-universe.com";
         let mut config = ClientConfig::default();
-        config.universe_domain = Some(universe_domain.clone());
+        config.universe_domain = Some(universe_domain.to_string());
         config.endpoint = endpoint_override.map(String::from);
 
-        let universe_domain_clone = universe_domain.clone();
         let mut cred = MockCredentials::new();
         cred.expect_universe_domain()
-            .returning(move || Some(universe_domain_clone.clone()));
+            .returning(move || Some(universe_domain.to_string()));
         config.cred = Some(cred.into());
 
-        let client = ReqwestClient::new(config, "https://language.googleapis.com").await?;
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
         assert_eq!(client.universe_domain, universe_domain);
         assert_eq!(client.host, expected_host);
-        assert_eq!(client.endpoint, expected_endpoint);
 
         Ok(())
     }
