@@ -53,7 +53,7 @@ fingerprint).
 
 3. If the server finds that the stored `etag` does **not** match the `etag` you
 sent (meaning someone else modified the resource since you read it), the write
-operation fails with an `ABORTED` or `FAILED_PR1ECONDITION` error.
+operation fails with an `ABORTED` or `FAILED_PRECONDITION` error.
 
 This failure forces the client to **retry** the entire process—re-read the *new*
 state, re-apply the changes, and try the write again with the new `etag`.
