@@ -78,7 +78,7 @@ async fn create(
     client: &Storage,
 ) -> anyhow::Result<Object> {
     tokio::time::sleep(args.dataset_rampup_period * (task as u32)).await;
-    if task % 128 == 0 {
+    if task.is_multiple_of(128) {
         tracing::info!("create({})", task);
     }
     let name = random_object_name();
