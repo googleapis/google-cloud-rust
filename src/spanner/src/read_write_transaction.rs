@@ -792,9 +792,8 @@ mod tests {
                 })
             );
 
-            type StreamType = <spanner_grpc_mock::MockSpanner as v1::spanner_server::Spanner>::ExecuteStreamingSqlStream;
-            let stream: tokio_stream::Empty<Result<v1::PartialResultSet, tonic::Status>> = tokio_stream::empty();
-            Ok(tonic::Response::new(Box::pin(stream) as StreamType))
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(tonic::Response::from(rx))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;

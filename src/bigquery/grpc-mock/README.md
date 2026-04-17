@@ -1,6 +1,6 @@
-# A mockable Cloud Pub/Sub API service implementation
+# A mockable BigQuery Storage API service implementation
 
-This crate provides a mockable implementation of the Cloud Pub/Sub API service over
+This crate provides a mockable implementation of the BigQuery Storage API service over
 gRPC, analogous to the `httptest` crate but specific to this service. It is used
 in the client library tests, and not intended for any other use.
 
@@ -17,7 +17,7 @@ streams. It seemed easier to reason about the mock if it always used
 
 ## Usage
 
-Create a `mocks::MockPublisher` and call `start()` to launch a (local) server
+Create a `mocks::MockBigQueryWrite` and call `start()` to launch a (local) server
 using the mock. Then connect your test to this mock server.
 
 The types have comments with trivial examples.

@@ -640,7 +640,7 @@ impl ReadContext {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::result_set::tests::string_val;
+    use crate::result_set::tests::{adapt, string_val};
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
 
     #[test]
@@ -761,9 +761,9 @@ pub(crate) mod tests {
             );
             assert_eq!(req.sql, "SELECT 1");
 
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(setup_select1())]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -822,9 +822,9 @@ pub(crate) mod tests {
                     mock_v1::transaction_selector::Selector::Id(vec![1, 2, 3])
                 );
 
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -894,9 +894,7 @@ pub(crate) mod tests {
                     }),
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         mock.expect_execute_streaming_sql()
@@ -911,9 +909,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -969,9 +967,9 @@ pub(crate) mod tests {
             assert_eq!(req.table, "Users");
             assert_eq!(req.columns, vec!["Id".to_string(), "Name".to_string()]);
 
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(setup_select1())]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                setup_select1(),
+            )])))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1026,9 +1024,7 @@ pub(crate) mod tests {
                     }),
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         mock.expect_streaming_read()
@@ -1043,9 +1039,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(setup_select1())]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
+                    setup_select1(),
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1134,9 +1130,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
                     setup_select1(),
-                )]))))
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1308,9 +1304,9 @@ pub(crate) mod tests {
                     }
                     _ => panic!("Expected Selector::Id"),
                 }
-                Ok(Response::new(Box::pin(tokio_stream::iter(vec![Ok(
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(
                     setup_select1(),
-                )]))))
+                )])))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -1389,9 +1385,7 @@ pub(crate) mod tests {
                     read_timestamp: None,
                     ..Default::default()
                 });
-                Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                    tokio_stream::iter(vec![Ok(rs)]),
-                )))
+                Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(rs)])))
             });
 
         // 2. Second query fails immediately upon send()
