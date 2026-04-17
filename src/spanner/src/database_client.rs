@@ -14,11 +14,11 @@
 
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
 use crate::client::Spanner;
-use crate::model::Session;
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
     MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
 };
+use crate::session_maintainer::ManagedSessionMaintainer;
 use std::sync::Arc;
 
 /// A client for interacting with a specific Spanner database.
@@ -47,10 +47,8 @@ use std::sync::Arc;
 /// Cloning a `DatabaseClient` is cheap, as it shares the underlying session and channel.
 #[derive(Clone, Debug)]
 pub struct DatabaseClient {
-    #[allow(dead_code)]
     pub(crate) spanner: Spanner,
-    #[allow(dead_code)]
-    pub(crate) session: Arc<Session>,
+    pub(crate) session_maintainer: Arc<ManagedSessionMaintainer>,
 }
 
 impl DatabaseClient {
@@ -194,6 +192,10 @@ impl DatabaseClient {
     ) -> crate::write_only_transaction::WriteOnlyTransactionBuilder {
         crate::write_only_transaction::WriteOnlyTransactionBuilder::new(self.clone())
     }
+
+    pub(crate) fn session_name(&self) -> String {
+        self.session_maintainer.session_name()
+    }
 }
 
 /// A builder for [DatabaseClient].
@@ -266,22 +268,18 @@ impl DatabaseClientBuilder {
     /// Builds the [DatabaseClient] and creates a single multiplexed session that
     /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
-        let request = crate::model::CreateSessionRequest::new()
-            .set_database(self.database_name)
-            .set_session(
-                Session::new()
-                    .set_multiplexed(true)
-                    .set_creator_role(self.database_role.unwrap_or_default()),
-            );
-
-        let session = self
-            .spanner
-            .create_session(request, self.options.unwrap_or_default())
-            .await?;
+        let spanner_clone = self.spanner.clone();
+        let session_maintainer = ManagedSessionMaintainer::create_and_start_maintenance(
+            self.spanner,
+            self.database_name,
+            self.database_role.unwrap_or_default(),
+            self.options.unwrap_or_default(),
+        )
+        .await?;
 
         Ok(DatabaseClient {
-            spanner: self.spanner,
-            session: Arc::new(session),
+            spanner: spanner_clone,
+            session_maintainer,
         })
     }
 }
@@ -334,12 +332,19 @@ mod tests {
             .await
             .expect("Failed to create DatabaseClient");
 
+        let session = db_client
+            .session_maintainer
+            .session
+            .read()
+            .expect("failed to read session")
+            .session
+            .clone();
         assert_eq!(
-            db_client.session.name,
+            session.name,
             "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
         );
-        assert!(db_client.session.multiplexed);
-        assert_eq!(db_client.session.creator_role, "test-role");
+        assert!(session.multiplexed);
+        assert_eq!(session.creator_role, "test-role");
     }
 
     #[tokio::test]
@@ -387,8 +392,15 @@ mod tests {
             .await
             .expect("Failed to create DatabaseClient");
 
+        let session = db_client
+            .session_maintainer
+            .session
+            .read()
+            .expect("failed to read session")
+            .session
+            .clone();
         assert_eq!(
-            db_client.session.name,
+            session.name,
             "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
         );
     }

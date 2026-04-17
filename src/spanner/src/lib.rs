@@ -44,6 +44,7 @@ pub mod builder {
 }
 pub mod batch_read_only_transaction;
 pub(crate) mod database_client;
+pub(crate) mod session_maintainer;
 pub(crate) mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }

@@ -89,8 +89,10 @@ impl SingleUseReadOnlyTransactionBuilder {
         let transaction_selector = crate::model::TransactionSelector::default()
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
+        let session_name = self.client.session_name();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
+                session_name,
                 client: self.client,
                 transaction_selector: ReadContextTransactionSelector::Fixed(
                     transaction_selector,
@@ -273,9 +275,10 @@ impl MultiUseReadOnlyTransactionBuilder {
 
     async fn begin(
         &self,
+        session_name: String,
         options: TransactionOptions,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(&self.client, options).await?;
+        let response = execute_begin_transaction(&self.client, session_name, options).await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -305,8 +308,9 @@ impl MultiUseReadOnlyTransactionBuilder {
         };
         let options = TransactionOptions::default().set_read_only(read_only);
 
+        let session_name = self.client.session_name();
         let selector = if self.explicit_begin {
-            self.begin(options).await?
+            self.begin(session_name.clone(), options).await?
         } else {
             ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
                 TransactionState::NotStarted(options),
@@ -315,6 +319,7 @@ impl MultiUseReadOnlyTransactionBuilder {
 
         Ok(MultiUseReadOnlyTransaction {
             context: ReadContext {
+                session_name,
                 client: self.client,
                 transaction_selector: selector,
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
@@ -423,10 +428,11 @@ impl MultiUseReadOnlyTransaction {
 /// Executes an explicit `BeginTransaction` RPC on Spanner.
 async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
+    session_name: String,
     options: crate::model::TransactionOptions,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
-        .set_session(client.session.name.clone())
+        .set_session(session_name)
         .set_options(options);
 
     // TODO(#4972): make request options configurable
@@ -477,6 +483,7 @@ impl ReadContextTransactionSelector {
     pub(crate) async fn begin_explicitly(
         &self,
         client: &crate::database_client::DatabaseClient,
+        session_name: String,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
@@ -490,7 +497,7 @@ impl ReadContextTransactionSelector {
             options.clone()
         };
 
-        let response = execute_begin_transaction(client, options).await?;
+        let response = execute_begin_transaction(client, session_name, options).await?;
         self.update(response.id, response.read_timestamp);
 
         Ok(())
@@ -525,6 +532,7 @@ impl ReadContextTransactionSelector {
 
 #[derive(Clone, Debug)]
 pub(crate) struct ReadContext {
+    pub(crate) session_name: String,
     pub(crate) client: DatabaseClient,
     pub(crate) transaction_selector: ReadContextTransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
@@ -563,7 +571,7 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(&self.client)
+            .begin_explicitly(&self.client, self.session_name.clone())
             .await?;
         Ok(true)
     }
@@ -602,6 +610,7 @@ macro_rules! execute_stream_with_retry {
             Some($self.transaction_selector.clone()),
             $self.precommit_token_tracker.clone(),
             $self.client.clone(),
+            $self.session_name.clone(),
             $operation_variant($request),
         ))
     }};
@@ -615,7 +624,7 @@ impl ReadContext {
         let mut request = statement
             .into()
             .into_request()
-            .set_session(self.client.session.name.clone())
+            .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector());
         request.request_options = self.amend_request_options(request.request_options);
 
@@ -629,7 +638,7 @@ impl ReadContext {
         let mut request = read
             .into()
             .into_request()
-            .set_session(self.client.session.name.clone())
+            .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector());
         request.request_options = self.amend_request_options(request.request_options);
 

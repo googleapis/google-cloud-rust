@@ -100,7 +100,9 @@ impl WriteOnlyTransactionBuilder {
     /// # }
     /// ```
     pub fn build(self) -> WriteOnlyTransaction {
+        let session_name = self.client.session_name();
         WriteOnlyTransaction {
+            session_name,
             client: self.client,
             transaction_tag: self.transaction_tag,
             retry_policy: self.retry_policy,
@@ -112,6 +114,7 @@ impl WriteOnlyTransactionBuilder {
 ///
 /// A write-only transaction can be used to execute blind writes.
 pub struct WriteOnlyTransaction {
+    pub(crate) session_name: String,
     client: DatabaseClient,
     transaction_tag: Option<String>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
@@ -156,10 +159,12 @@ impl WriteOnlyTransaction {
         let mutations_proto: Vec<_> = mutations.into_iter().map(|m| m.build_proto()).collect();
         let mutation_key = Mutation::select_mutation_key(&mutations_proto);
         let client = self.client;
+        let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
 
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
+            let session_name = session_name.clone();
             let req_options = req_options.clone();
             let mutations_proto = mutations_proto.clone();
             let mutation_key = mutation_key.clone();
@@ -169,7 +174,7 @@ impl WriteOnlyTransaction {
                 let previous_id: Bytes = previous_transaction_id.lock().unwrap().clone();
 
                 let begin_req = BeginTransactionRequest::default()
-                    .set_session(client.session.name.clone())
+                    .set_session(session_name.clone())
                     .set_options(
                         TransactionOptions::default().set_read_write(Box::new(
                             ReadWrite::default()
@@ -186,7 +191,7 @@ impl WriteOnlyTransaction {
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
                 let commit_req = CommitRequest::default()
-                    .set_session(client.session.name.clone())
+                    .set_session(session_name.clone())
                     .set_mutations(mutations_proto)
                     .set_transaction_id(tx.id.clone())
                     .set_request_options(req_options.clone())
@@ -201,7 +206,7 @@ impl WriteOnlyTransaction {
                 // retry the commit with the new precommit_token and without any mutations.
                 if let Some(new_token) = response.precommit_token().map(|b| *b.clone()) {
                     let retry_commit_req = CommitRequest::default()
-                        .set_session(client.session.name.clone())
+                        .set_session(session_name.clone())
                         .set_transaction_id(tx.id)
                         .set_request_options(req_options)
                         .set_precommit_token(new_token);
@@ -258,7 +263,7 @@ impl WriteOnlyTransaction {
             RequestOptions::new().set_transaction_tag(self.transaction_tag.unwrap_or_default());
 
         let request = CommitRequest::new()
-            .set_session(self.client.session.name.clone())
+            .set_session(self.session_name.clone())
             .set_mutations(mutations.into_iter().map(|m| m.build_proto()))
             .set_single_use_transaction(Box::new(single_use))
             .set_request_options(req_options);
