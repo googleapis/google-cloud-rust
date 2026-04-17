@@ -127,10 +127,7 @@ where
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<U>(stub: U) -> Self
-    where
-        U: Into<std::sync::Arc<S>>,
-    {
+    pub fn from_stub(stub: impl Into<std::sync::Arc<S>>) -> Self {
         Self {
             stub: stub.into(),
             options: RequestOptions::new(),
@@ -823,6 +820,20 @@ pub(crate) mod tests {
             config.grpc_subchannel_count.is_some_and(|v| v == 42),
             "{config:?}"
         );
+    }
+
+    #[derive(Debug)]
+    struct DummyStorage;
+
+    impl crate::storage::stub::Storage for DummyStorage {}
+
+    #[test]
+    fn from_stub_accepts_both_raw_and_arc() {
+        let stub = DummyStorage;
+        let _client = Storage::from_stub(stub);
+
+        let stub_arc = std::sync::Arc::new(DummyStorage);
+        let _client_arc = Storage::from_stub(stub_arc);
     }
 
     pub(crate) fn test_builder() -> ClientBuilder {
