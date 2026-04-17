@@ -127,12 +127,12 @@ where
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub(stub: S) -> Self
+    pub fn from_stub<U>(stub: U) -> Self
     where
-        S: super::stub::Storage + 'static,
+        U: Into<std::sync::Arc<S>>,
     {
         Self {
-            stub: std::sync::Arc::new(stub),
+            stub: stub.into(),
             options: RequestOptions::new(),
         }
     }
