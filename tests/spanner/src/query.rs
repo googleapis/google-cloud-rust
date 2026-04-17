@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_spanner::client::{DatabaseClient, Kind, Statement};
+use google_cloud_spanner::client::{DatabaseClient, Kind, QueryOptions, Statement};
 
 pub async fn simple_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let rot = db_client.single_use().build();
@@ -407,4 +407,21 @@ fn verify_row_2(row: &google_cloud_spanner::client::Row) {
         raw_values[19].as_list().get(1).unwrap().as_string(),
         "2026-03-11T16:20:00Z"
     );
+}
+
+pub async fn query_with_options(db_client: &DatabaseClient) -> anyhow::Result<()> {
+    let rot = db_client.single_use().build();
+
+    let sql = "SELECT 1";
+    let query_options = QueryOptions::default().set_optimizer_version("1");
+    let stmt = Statement::builder(sql)
+        .with_query_options(query_options)
+        .build();
+
+    let mut rs = rot.execute_query(stmt).await?;
+    let row = rs.next().await.transpose()?.expect("should yield a row");
+    let val: i64 = row.get(0);
+    assert_eq!(val, 1);
+
+    Ok(())
 }
