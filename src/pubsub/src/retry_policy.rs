@@ -21,7 +21,6 @@
 //! - [Resource Exhausted][Code::ResourceExhausted]
 //! - [Aborted][Code::Aborted]
 //! - [Deadline Exceeded][Code::DeadlineExceeded]
-//! - [Cancelled][Code::Cancelled]
 //! - [Unknown][Code::Unknown]
 //!
 //! [recommends]: https://docs.cloud.google.com/pubsub/docs/reference/error-codes
@@ -30,7 +29,6 @@
 //! [Code::ResourceExhausted]: google_cloud_gax::error::rpc::Code::ResourceExhausted
 //! [Code::Aborted]: google_cloud_gax::error::rpc::Code::Aborted
 //! [Code::DeadlineExceeded]: google_cloud_gax::error::rpc::Code::DeadlineExceeded
-//! [Code::Cancelled]: google_cloud_gax::error::rpc::Code::Cancelled
 //! [Code::Unknown]: google_cloud_gax::error::rpc::Code::Unknown
 
 use crate::Error;
@@ -65,11 +63,12 @@ impl RetryPolicy for RetryableErrors {
         }
 
         // Catch raw HTTP errors that may not have been mapped to a gRPC status.
-        // - 408: Request Timeout
         // - 429: Resource Exhausted
-        // - 499: Cancelled Request
-        // - 5xx: Internal Server Error, Bad Gateway, etc.
-        if let Some(408 | 429 | 499 | 500..600) = error.http_status_code() {
+        // - 500: Unknown
+        // - 502: Bad Gateway
+        // - 503: Service Unavailable
+        // - 504: Gateway Timeout
+        if let Some(429 | 500 | 502 | 503 | 504) = error.http_status_code() {
             return RetryResult::Continue(error);
         }
 
@@ -77,7 +76,6 @@ impl RetryPolicy for RetryableErrors {
             use google_cloud_gax::error::rpc::Code;
             return match status.code {
                 Code::Aborted
-                | Code::Cancelled
                 | Code::DeadlineExceeded
                 | Code::Internal
                 | Code::ResourceExhausted
@@ -108,9 +106,7 @@ mod tests {
         );
     }
 
-    #[test_case(408)]
     #[test_case(429)]
-    #[test_case(499)]
     #[test_case(500)]
     #[test_case(502)]
     #[test_case(503)]
@@ -123,9 +119,13 @@ mod tests {
         );
     }
 
-    #[test_case(409)]
     #[test_case(400)]
     #[test_case(404)]
+    #[test_case(408)]
+    #[test_case(409)]
+    #[test_case(499)]
+    #[test_case(501)]
+    #[test_case(505)]
     fn permanent_http(code: u16) {
         let p = RetryableErrors;
         assert!(
@@ -139,7 +139,6 @@ mod tests {
     #[test_case(Code::Aborted)]
     #[test_case(Code::ResourceExhausted)]
     #[test_case(Code::DeadlineExceeded)]
-    #[test_case(Code::Cancelled)]
     #[test_case(Code::Unknown)]
     fn retryable_grpc(code: Code) {
         let p = RetryableErrors;
@@ -152,6 +151,7 @@ mod tests {
     #[test_case(Code::NotFound)]
     #[test_case(Code::PermissionDenied)]
     #[test_case(Code::InvalidArgument)]
+    #[test_case(Code::Cancelled)]
     fn permanent_grpc(code: Code) {
         let p = RetryableErrors;
         assert!(
