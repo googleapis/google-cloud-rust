@@ -192,11 +192,10 @@ async fn extract_lower_bound_update_count_from_stream(
 mod tests {
     use super::*;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
+    use crate::result_set::tests::adapt;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
-    type MockExecuteStreamingSqlStream =
-        <spanner_grpc_mock::MockSpanner as v1::spanner_server::Spanner>::ExecuteStreamingSqlStream;
 
     #[test]
     fn auto_traits() {
@@ -224,17 +223,14 @@ mod tests {
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET active = true");
 
-            let res = vec![v1::PartialResultSet {
+            let stream = adapt([Ok(v1::PartialResultSet {
                 stats: Some(v1::ResultSetStats {
                     row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(500)),
                     ..Default::default()
                 }),
                 ..Default::default()
-            }];
-            let stream = tokio_stream::iter(res.into_iter().map(Ok));
-            Ok(tonic::Response::new(
-                Box::pin(stream) as MockExecuteStreamingSqlStream
-            ))
+            })]);
+            Ok(tonic::Response::from(stream))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -259,34 +255,29 @@ mod tests {
             }))
         });
 
-        let mut attempt = 0;
+        let mut seq = mockall::Sequence::new();
         mock.expect_execute_streaming_sql()
-            .times(2)
+            .times(1)
+            .in_sequence(&mut seq)
             .returning(move |_req| {
-                attempt += 1;
-                if attempt == 1 {
-                    // Return an error stream on first try
-                    let stream = tokio_stream::iter(vec![Err(create_aborted_status(
-                        std::time::Duration::from_nanos(1),
-                    ))]);
-                    Ok(tonic::Response::new(
-                        Box::pin(stream) as MockExecuteStreamingSqlStream
-                    ))
-                } else {
-                    let res = vec![v1::PartialResultSet {
-                        stats: Some(v1::ResultSetStats {
-                            row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(
-                                100,
-                            )),
-                            ..Default::default()
-                        }),
+                // Return an error stream on first try
+                let stream = adapt([Err(create_aborted_status(std::time::Duration::from_nanos(
+                    1,
+                )))]);
+                Ok(tonic::Response::from(stream))
+            });
+        mock.expect_execute_streaming_sql()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(move |_req| {
+                let stream = adapt([Ok(v1::PartialResultSet {
+                    stats: Some(v1::ResultSetStats {
+                        row_count: Some(v1::result_set_stats::RowCount::RowCountLowerBound(100)),
                         ..Default::default()
-                    }];
-                    let stream = tokio_stream::iter(res.into_iter().map(Ok));
-                    Ok(tonic::Response::new(
-                        Box::pin(stream) as MockExecuteStreamingSqlStream
-                    ))
-                }
+                    }),
+                    ..Default::default()
+                })]);
+                Ok(tonic::Response::from(stream))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -334,18 +325,15 @@ mod tests {
         mock.expect_execute_streaming_sql()
             .once()
             .returning(|_req| {
-                let res = vec![v1::PartialResultSet {
+                let stream = adapt([Ok(v1::PartialResultSet {
                     stats: Some(v1::ResultSetStats {
                         // Provide a RowCountExact instead of RowCountLowerBound
                         row_count: Some(v1::result_set_stats::RowCount::RowCountExact(100)),
                         ..Default::default()
                     }),
                     ..Default::default()
-                }];
-                let stream = tokio_stream::iter(res.into_iter().map(Ok));
-                Ok(tonic::Response::new(
-                    Box::pin(stream) as MockExecuteStreamingSqlStream
-                ))
+                })]);
+                Ok(tonic::Response::from(stream))
             });
 
         let (db_client, _server) = setup_db_client(mock).await;

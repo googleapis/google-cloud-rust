@@ -664,7 +664,8 @@ pub(crate) fn build_components_from_json(
     // the quota project and they typically need different scopes.
     // If user does want some specific scopes or quota, they can build using the
     // from_source_credentials method.
-    let source_credentials = build_credentials(Some(config.source_credentials), None, None)?.into();
+    let source_credentials =
+        build_credentials(Some(config.source_credentials), None, None, None)?.into();
 
     Ok(ImpersonatedCredentialComponents {
         source_credentials,
