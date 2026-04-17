@@ -191,6 +191,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2af50177e190e07a26ab74f8b1efbfe2ef87da2116221318cb1c2e82baf7de06"
 
 [[package]]
+name = "bigquery-grpc-mock"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "http",
+ "mockall",
+ "prost",
+ "prost-types",
+ "serde_json",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-prost",
+]
+
+[[package]]
 name = "bitflags"
 version = "2.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2818,7 +2835,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.9.1"
+version = "1.10.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -6831,17 +6848,13 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
- "pastey",
  "prost",
- "prost-build",
  "prost-types",
  "serde_json",
- "test-case",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]
@@ -7779,17 +7792,13 @@ dependencies = [
  "async-trait",
  "http",
  "mockall",
- "pastey",
  "prost",
- "prost-build",
  "prost-types",
  "serde_json",
- "test-case",
  "tokio",
  "tokio-stream",
  "tonic",
  "tonic-prost",
- "tonic-prost-build",
 ]
 
 [[package]]

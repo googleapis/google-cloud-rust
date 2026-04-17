@@ -165,6 +165,11 @@ impl Builder {
         self
     }
 
+    // Only to satisfy ADC credential builder.
+    pub(crate) fn with_universe_domain<S: Into<String>>(self, _universe_domain: S) -> Self {
+        self
+    }
+
     /// Sets the [scopes] for these credentials.
     ///
     /// `scopes` define the *permissions being requested* for this specific access token

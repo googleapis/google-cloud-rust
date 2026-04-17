@@ -112,7 +112,6 @@ impl Client {
     }
 
     /// Fetches the universe domain from the Metadata Service.
-    #[allow(dead_code)]
     pub(crate) fn universe_domain(&self) -> UniverseDomainRequest {
         UniverseDomainRequest {
             client: self.clone(),
@@ -307,25 +306,21 @@ impl EmailRequest {
 }
 
 #[derive(Clone)]
-#[allow(dead_code)]
 pub(crate) struct UniverseDomainRequest {
     client: Client,
 }
 
 impl UniverseDomainRequest {
-    #[allow(dead_code)]
     pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
         self.client.retry_config = self.client.retry_config.with_retry_policy(retry_policy);
         self
     }
 
-    #[allow(dead_code)]
     pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
         self.client.retry_config = self.client.retry_config.with_backoff_policy(backoff_policy);
         self
     }
 
-    #[allow(dead_code)]
     pub(crate) fn with_retry_throttler(mut self, retry_throttler: RetryThrottlerArg) -> Self {
         self.client.retry_config = self
             .client
@@ -334,7 +329,6 @@ impl UniverseDomainRequest {
         self
     }
 
-    #[allow(dead_code)]
     pub(crate) async fn send(self) -> crate::Result<String> {
         let path = super::MDS_UNIVERSE_DOMAIN_URI;
         let request = self.client.get(path);

@@ -443,7 +443,8 @@ pub(crate) mod tests {
             assert!(req.transaction.is_some());
             assert_eq!(req.sql, "SELECT * FROM Users");
 
-            Ok(Response::new(Box::pin(tokio_stream::iter(vec![]))))
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(rx))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;
@@ -480,7 +481,8 @@ pub(crate) mod tests {
             assert!(req.transaction.is_some());
             assert_eq!(req.table, "Users");
 
-            Ok(Response::new(Box::pin(tokio_stream::iter(vec![]))))
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(rx))
         });
 
         let (db_client, _server) = setup_db_client(mock).await;

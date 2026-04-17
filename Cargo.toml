@@ -64,6 +64,7 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery/grpc-mock",
   "src/bigtable",
   "src/datastore",
   "src/firestore",
@@ -290,6 +291,7 @@ members = [
   "src/pubsub",
   "src/pubsub/benchmarks/throughput",
   "src/pubsub/examples",
+  "src/pubsub/grpc-mock",
   "src/spanner",
   "src/spanner/grpc-mock",
   "src/storage",
@@ -467,7 +469,7 @@ tokio-stream      = { default-features = false, version = "0.1.16" }
 
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.9.0", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.9.1", path = "src/gax" }
+google-cloud-gax         = { default-features = false, version = "1.10.0", path = "src/gax" }
 gaxi                     = { default-features = false, version = "0.7.12", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1.3.0", path = "src/wkt", package = "google-cloud-wkt" }
