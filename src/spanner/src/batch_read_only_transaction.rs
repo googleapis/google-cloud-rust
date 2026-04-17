@@ -149,7 +149,7 @@ impl BatchReadOnlyTransaction {
         let request = statement
             .clone()
             .into_partition_query_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -166,7 +166,7 @@ impl BatchReadOnlyTransaction {
             .into_iter()
             .map(|p| {
                 let mut req = statement.clone().into_request();
-                req.session = self.inner.context.client.session.name.clone();
+                req.session = self.inner.context.session_name.clone();
                 req.transaction = Some(self.inner.context.transaction_selector.selector());
                 req.partition_token = p.partition_token;
 
@@ -206,7 +206,7 @@ impl BatchReadOnlyTransaction {
         let request = read
             .clone()
             .into_partition_read_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -223,7 +223,7 @@ impl BatchReadOnlyTransaction {
             .into_iter()
             .map(|p| {
                 let mut req = read.clone().into_request();
-                req.session = self.inner.context.client.session.name.clone();
+                req.session = self.inner.context.session_name.clone();
                 req.transaction = Some(self.inner.context.transaction_selector.selector());
                 req.partition_token = p.partition_token;
 
@@ -317,6 +317,7 @@ impl Partition {
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
+            req.session.clone(),
             StreamOperation::Query(req.clone()),
         ))
     }
@@ -339,6 +340,7 @@ impl Partition {
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
+            req.session.clone(),
             StreamOperation::Read(req.clone()),
         ))
     }
