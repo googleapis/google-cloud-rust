@@ -74,6 +74,10 @@ pub async fn run_subscription_samples(
         async move { subscriber::exactly_once::sample(&project_id, &id).await }
     });
 
+    let id = random_subscription_id();
+    subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
+    subscription::enable_subscription_ordering::sample(&client, &project_id, topic_id, &id).await?;
+
     // Await the result of the slow subscriber examples.
     while let Some(task) = slow_tasks.join_next().await {
         task??;
