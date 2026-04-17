@@ -264,12 +264,6 @@ pub(super) mod tests {
         verify_policies(o, 42);
     }
 
-    #[test]
-    fn exactly_once_options() {
-        let o = super::exactly_once_options();
-        verify_exactly_once_policies(o);
-    }
-
     #[track_caller]
     pub(in super::super) fn verify_policies(o: RequestOptions, grpc_subchannel_count: u32) {
         let retry = o.retry_policy().clone().unwrap();
@@ -340,8 +334,9 @@ pub(super) mod tests {
         );
     }
 
-    #[track_caller]
-    pub(in super::super) fn verify_exactly_once_policies(o: RequestOptions) {
+    #[tokio::test(start_paused = true)]
+    async fn exactly_once_options() {
+        let o = super::exactly_once_options();
         let retry = o.retry_policy().clone().unwrap();
         let backoff = o.backoff_policy().clone().unwrap();
 
@@ -395,10 +390,12 @@ pub(super) mod tests {
         );
 
         // Verify time limit
-        let r = retry.remaining_time(&RetryState::default()).unwrap();
-        assert!(
-            r > Duration::from_secs(599) && r <= Duration::from_secs(600),
-            "Expected remaining time ~600s, got {:?}",
+        let state = RetryState::default().set_start(tokio::time::Instant::now());
+        let r = retry.remaining_time(&state).unwrap();
+        assert_eq!(
+            r,
+            Duration::from_secs(600),
+            "Expected time limit of exactly 600s, got {:?}",
             r
         );
 
