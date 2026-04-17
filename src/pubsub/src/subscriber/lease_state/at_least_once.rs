@@ -465,7 +465,7 @@ mod tests {
         let mut got = HashSet::new();
         for batch in batches {
             assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
-            got.extend(batch.into_iter());
+            got.extend(batch);
         }
 
         // Make sure all ack IDs are included.

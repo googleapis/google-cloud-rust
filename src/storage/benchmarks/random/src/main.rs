@@ -108,7 +108,7 @@ async fn runner(
     objects: Vec<String>,
 ) -> anyhow::Result<()> {
     let _guard = enable_tracing(&args);
-    if task % 128 == 0 {
+    if task.is_multiple_of(128) {
         tracing::info!("Task::run({})", task);
     }
 

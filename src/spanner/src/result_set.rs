@@ -53,6 +53,7 @@ pub struct ResultSet {
 
     // Fields for retries and buffering of a stream of PartialResultSets.
     client: DatabaseClient,
+    session_name: String,
     operation: StreamOperation,
     last_resume_token: Bytes,
     partial_result_sets_buffer: VecDeque<PartialResultSet>,
@@ -89,6 +90,7 @@ impl ResultSet {
         transaction_selector: Option<ReadContextTransactionSelector>,
         precommit_token_tracker: PrecommitTokenTracker,
         client: DatabaseClient,
+        session_name: String,
         operation: StreamOperation,
     ) -> Self {
         Self {
@@ -99,6 +101,7 @@ impl ResultSet {
             metadata: None,
             precommit_token_tracker,
             client,
+            session_name,
             operation,
             last_resume_token: Bytes::new(),
             partial_result_sets_buffer: VecDeque::new(),
@@ -250,7 +253,7 @@ impl ResultSet {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client)
+            .begin_explicitly(&self.client, self.session_name.clone())
             .await?;
 
         self.partial_result_sets_buffer.clear();

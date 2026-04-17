@@ -5966,7 +5966,10 @@ dependencies = [
  "prost-types",
  "reqwest 0.13.2",
  "serde_json",
+ "spanner-grpc-mock",
  "tokio",
+ "tokio-stream",
+ "tonic",
  "tracing",
 ]
 

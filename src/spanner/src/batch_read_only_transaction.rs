@@ -21,6 +21,7 @@ use crate::read_only_transaction::{
 use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
+use serde::{Deserialize, Serialize};
 
 /// A builder for [BatchReadOnlyTransaction].
 ///
@@ -148,7 +149,7 @@ impl BatchReadOnlyTransaction {
         let request = statement
             .clone()
             .into_partition_query_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -163,13 +164,15 @@ impl BatchReadOnlyTransaction {
         Ok(response
             .partitions
             .into_iter()
-            .map(|p| Partition {
-                inner: PartitionedOperation::Query {
-                    partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.selector(),
-                    session_name: self.inner.context.client.session.name.clone(),
-                    statement: statement.clone(),
-                },
+            .map(|p| {
+                let mut req = statement.clone().into_request();
+                req.session = self.inner.context.session_name.clone();
+                req.transaction = Some(self.inner.context.transaction_selector.selector());
+                req.partition_token = p.partition_token;
+
+                Partition {
+                    inner: PartitionedOperation::Query(req),
+                }
             })
             .collect())
     }
@@ -203,7 +206,7 @@ impl BatchReadOnlyTransaction {
         let request = read
             .clone()
             .into_partition_read_request()
-            .set_session(self.inner.context.client.session.name.clone())
+            .set_session(self.inner.context.session_name.clone())
             .set_transaction(self.inner.context.transaction_selector.selector())
             .set_partition_options(options);
 
@@ -218,13 +221,15 @@ impl BatchReadOnlyTransaction {
         Ok(response
             .partitions
             .into_iter()
-            .map(|p| Partition {
-                inner: PartitionedOperation::Read {
-                    partition_token: p.partition_token,
-                    transaction_selector: self.inner.context.transaction_selector.selector(),
-                    session_name: self.inner.context.client.session.name.clone(),
-                    read_request: read.clone(),
-                },
+            .map(|p| {
+                let mut req = read.clone().into_request();
+                req.session = self.inner.context.session_name.clone();
+                req.transaction = Some(self.inner.context.transaction_selector.selector());
+                req.partition_token = p.partition_token;
+
+                Partition {
+                    inner: PartitionedOperation::Read(req),
+                }
             })
             .collect())
     }
@@ -233,7 +238,7 @@ impl BatchReadOnlyTransaction {
 /// Defines the segments of data to be read in a partitioned read or query.
 /// These partitions can be serialized and processed across several
 /// different machines or processes.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Partition {
     pub(crate) inner: PartitionedOperation,
 }
@@ -289,120 +294,62 @@ impl Partition {
     /// the database that the partitions belong to.
     pub async fn execute(&self, client: &DatabaseClient) -> crate::Result<ResultSet> {
         match &self.inner {
-            PartitionedOperation::Query {
-                partition_token,
-                transaction_selector,
-                session_name,
-                statement,
-            } => {
-                Self::execute_query(
-                    client,
-                    partition_token,
-                    transaction_selector,
-                    session_name,
-                    statement,
-                )
-                .await
-            }
-            PartitionedOperation::Read {
-                partition_token,
-                transaction_selector,
-                session_name,
-                read_request,
-            } => {
-                Self::execute_read(
-                    client,
-                    partition_token,
-                    transaction_selector,
-                    session_name,
-                    read_request,
-                )
-                .await
-            }
+            PartitionedOperation::Query(req) => Self::execute_query(client, req).await,
+            PartitionedOperation::Read(req) => Self::execute_read(client, req).await,
         }
     }
 
     async fn execute_query(
         client: &DatabaseClient,
-        partition_token: &prost::bytes::Bytes,
-        transaction_selector: &crate::model::TransactionSelector,
-        session_name: &str,
-        statement: &Statement,
+        req: &crate::model::ExecuteSqlRequest,
     ) -> crate::Result<ResultSet> {
-        let request = statement
-            .clone()
-            .into_request()
-            .set_session(session_name.to_string())
-            .set_transaction(transaction_selector.clone())
-            .set_partition_token(partition_token.clone());
-
         let stream = client
             .spanner
-            // TODO(#4972): make request options configurable
-            .execute_streaming_sql(request.clone(), crate::RequestOptions::default())
+            .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
             .send()
             .await?;
 
         Ok(ResultSet::new(
             stream,
             Some(ReadContextTransactionSelector::Fixed(
-                transaction_selector.clone(),
+                req.transaction.clone().unwrap_or_default(),
                 None,
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
-            StreamOperation::Query(request),
+            req.session.clone(),
+            StreamOperation::Query(req.clone()),
         ))
     }
 
     async fn execute_read(
         client: &DatabaseClient,
-        partition_token: &prost::bytes::Bytes,
-        transaction_selector: &crate::model::TransactionSelector,
-        session_name: &str,
-        read_request: &crate::read::ReadRequest,
+        req: &crate::model::ReadRequest,
     ) -> crate::Result<ResultSet> {
-        let request = read_request
-            .clone()
-            .into_request()
-            .set_session(session_name.to_string())
-            .set_transaction(transaction_selector.clone())
-            .set_partition_token(partition_token.clone());
-
         let stream = client
             .spanner
-            // TODO(#4972): make request options configurable
-            .streaming_read(request.clone(), crate::RequestOptions::default())
+            .streaming_read(req.clone(), crate::RequestOptions::default())
             .send()
             .await?;
 
         Ok(ResultSet::new(
             stream,
             Some(ReadContextTransactionSelector::Fixed(
-                transaction_selector.clone(),
+                req.transaction.clone().unwrap_or_default(),
                 None,
             )),
             PrecommitTokenTracker::new_noop(),
             client.clone(),
-            StreamOperation::Read(request),
+            req.session.clone(),
+            StreamOperation::Read(req.clone()),
         ))
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub(crate) enum PartitionedOperation {
-    Query {
-        partition_token: prost::bytes::Bytes,
-        transaction_selector: crate::model::TransactionSelector,
-        session_name: String,
-        statement: Statement,
-    },
-    Read {
-        partition_token: prost::bytes::Bytes,
-        transaction_selector: crate::model::TransactionSelector,
-        session_name: String,
-        read_request: crate::read::ReadRequest,
-    },
+    Query(crate::model::ExecuteSqlRequest),
+    Read(crate::model::ReadRequest),
 }
 
 #[cfg(test)]
@@ -410,8 +357,6 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Statement;
     use crate::client::{KeySet, ReadRequest as SpannerReadRequest, TimestampBound};
-    use crate::model::TransactionSelector;
-    use crate::model::transaction_selector::Selector;
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::Response;
     use prost_types::Timestamp;
@@ -423,7 +368,70 @@ pub(crate) mod tests {
     fn auto_traits() {
         static_assertions::assert_impl_all!(BatchReadOnlyTransactionBuilder: Send, Sync);
         static_assertions::assert_impl_all!(BatchReadOnlyTransaction: Send, Sync, std::fmt::Debug);
-        static_assertions::assert_impl_all!(Partition: Send, Sync, std::fmt::Debug);
+        static_assertions::assert_impl_all!(Partition: Send, Sync, std::fmt::Debug, Clone, serde::Serialize, serde::Deserialize<'static>);
+    }
+
+    #[test]
+    fn serialize_partition_query() -> anyhow::Result<()> {
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_1".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Query(req),
+        };
+
+        let serialized = serde_json::to_string(&partition)?;
+        let deserialized: Partition = serde_json::from_str(&serialized)?;
+
+        match &deserialized.inner {
+            PartitionedOperation::Query(r) => {
+                assert_eq!(r.partition_token.as_ref(), b"partition_token_123");
+                assert_eq!(r.sql, "SELECT * FROM Users");
+                assert_eq!(r.session, "projects/p/instances/i/databases/d/sessions/123");
+            }
+            _ => panic!("Expected Query partition"),
+        }
+        Ok(())
+    }
+
+    #[test]
+    fn serialize_partition_read() -> anyhow::Result<()> {
+        let req = crate::model::ReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/456")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_2".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_table("Users")
+            .set_columns(vec!["Id"])
+            .set_partition_token(b"partition_token_456".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Read(req),
+        };
+
+        let serialized = serde_json::to_string(&partition)?;
+        let deserialized: Partition = serde_json::from_str(&serialized)?;
+
+        match &deserialized.inner {
+            PartitionedOperation::Read(r) => {
+                assert_eq!(r.partition_token.as_ref(), b"partition_token_456");
+                assert_eq!(r.table, "Users");
+                assert_eq!(r.session, "projects/p/instances/i/databases/d/sessions/456");
+            }
+            _ => panic!("Expected Read partition"),
+        }
+        Ok(())
     }
 
     #[tokio::test]
@@ -447,16 +455,19 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
+        let req = crate::model::ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_1".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
+
         let partition = Partition {
-            inner: PartitionedOperation::Query {
-                partition_token: b"partition_token_123".to_vec().into(),
-                transaction_selector: TransactionSelector {
-                    selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
-                    ..Default::default()
-                },
-                session_name: "projects/p/instances/i/databases/d/sessions/123".into(),
-                statement: Statement::builder("SELECT * FROM Users").build(),
-            },
+            inner: PartitionedOperation::Query(req),
         };
 
         let _result_set = partition.execute(&db_client).await?;
@@ -485,18 +496,20 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
+        let req = crate::model::ReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/456")
+            .set_transaction(crate::model::TransactionSelector {
+                selector: Some(crate::model::transaction_selector::Selector::Id(
+                    b"tx_id_2".to_vec().into(),
+                )),
+                ..Default::default()
+            })
+            .set_table("Users")
+            .set_columns(vec!["Id"])
+            .set_partition_token(b"partition_token_456".to_vec());
+
         let partition = Partition {
-            inner: PartitionedOperation::Read {
-                partition_token: b"partition_token_456".to_vec().into(),
-                transaction_selector: TransactionSelector {
-                    selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
-                    ..Default::default()
-                },
-                session_name: "projects/p/instances/i/databases/d/sessions/456".into(),
-                read_request: SpannerReadRequest::builder("Users", vec!["Id"])
-                    .with_keys(KeySet::all())
-                    .build(),
-            },
+            inner: PartitionedOperation::Read(req),
         };
 
         let _result_set = partition.execute(&db_client).await?;
@@ -566,13 +579,9 @@ pub(crate) mod tests {
         assert_eq!(partitions.len(), 2);
 
         match &partitions[0].inner {
-            PartitionedOperation::Query {
-                partition_token,
-                statement,
-                ..
-            } => {
-                assert_eq!(partition_token.as_ref(), &[10]);
-                assert_eq!(statement.sql, "SELECT 1");
+            PartitionedOperation::Query(req) => {
+                assert_eq!(req.partition_token.as_ref(), &[10]);
+                assert_eq!(req.sql, "SELECT 1");
             }
             _ => panic!("Expected Query partition"),
         }
@@ -628,13 +637,9 @@ pub(crate) mod tests {
         assert_eq!(partitions.len(), 1);
 
         match &partitions[0].inner {
-            PartitionedOperation::Read {
-                partition_token,
-                read_request,
-                ..
-            } => {
-                assert_eq!(partition_token.as_ref(), &[30]);
-                assert_eq!(read_request.table, "Users");
+            PartitionedOperation::Read(req) => {
+                assert_eq!(req.partition_token.as_ref(), &[30]);
+                assert_eq!(req.table, "Users");
             }
             _ => panic!("Expected Read partition"),
         }
