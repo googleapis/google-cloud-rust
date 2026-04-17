@@ -830,10 +830,18 @@ pub(crate) mod tests {
     #[test]
     fn from_stub_accepts_both_raw_and_arc() {
         let stub = DummyStorage;
-        let _client = Storage::from_stub(stub);
+        let _client = Storage::<DummyStorage>::from_stub(stub);
 
         let stub_arc = std::sync::Arc::new(DummyStorage);
-        let _client_arc = Storage::from_stub(stub_arc);
+        let _client_arc = Storage::<DummyStorage>::from_stub(stub_arc);
+    }
+
+    #[test]
+    fn from_stub_allows_sharing_stub() {
+        let stub_arc = std::sync::Arc::new(DummyStorage);
+
+        let _client1 = Storage::<DummyStorage>::from_stub(stub_arc.clone());
+        let _client2 = Storage::<DummyStorage>::from_stub(stub_arc);
     }
 
     pub(crate) fn test_builder() -> ClientBuilder {
