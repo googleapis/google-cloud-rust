@@ -27,6 +27,7 @@ pub mod reqwest;
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -87,8 +88,12 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
-        let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
-            .map_err(|e| e.client_builder())?;
+        let host = crate::host::header(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            DEFAULT_UNIVERSE_DOMAIN, // TODO(#3646): Pass in the actual universe domain
+        )
+        .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
@@ -220,7 +225,8 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), default_endpoint).map_err(|e| e.gax())?;
+        let host = crate::host::header(Some(url), default_endpoint, DEFAULT_UNIVERSE_DOMAIN)
+            .map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)
@@ -746,8 +752,8 @@ mod tests {
     #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
     #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
-    #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
+    #[test_case(Some("https://test.my-universe-domain.com"), "test.my-universe-domain.com"; "universe domain")]
+    #[test_case(Some("localhost:5678"), "localhost"; "emulator")]
     #[tokio::test]
     async fn host_from_endpoint(
         custom_endpoint: Option<&str>,

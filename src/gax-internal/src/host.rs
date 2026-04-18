@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_gax::client_builder::Error as BuilderError;
 #[cfg(any(test, feature = "_internal-http-client"))]
 use google_cloud_gax::error::Error;
@@ -23,8 +24,12 @@ use std::str::FromStr;
 /// Notably, locational and regional endpoints are detected and used as the
 /// host. For VIPs and private networks, we need to use the default host.
 #[cfg(any(test, feature = "_internal-http-client"))]
-pub(crate) fn header(endpoint: Option<&str>, default_endpoint: &str) -> Result<String, HostError> {
-    origin_and_header(endpoint, default_endpoint).map(|(_, header)| header)
+pub(crate) fn header(
+    endpoint: Option<&str>,
+    default_endpoint: &str,
+    universe_domain: &str,
+) -> Result<String, HostError> {
+    origin_and_header(endpoint, default_endpoint, universe_domain).map(|(_, header)| header)
 }
 
 /// Calculate the gRPC authority given the endpoint and default endpoint.
@@ -34,15 +39,21 @@ pub(crate) fn header(endpoint: Option<&str>, default_endpoint: &str) -> Result<S
 ///
 /// Tonic consumes the authority as a [http::Uri].
 #[cfg(any(test, feature = "_internal-grpc-client"))]
-pub(crate) fn origin(endpoint: Option<&str>, default_endpoint: &str) -> Result<Uri, HostError> {
-    origin_and_header(endpoint, default_endpoint).map(|(origin, _)| origin)
+pub(crate) fn origin(
+    endpoint: Option<&str>,
+    default_endpoint: &str,
+    universe_domain: &str,
+) -> Result<Uri, HostError> {
+    origin_and_header(endpoint, default_endpoint, universe_domain).map(|(origin, _)| origin)
 }
 
 fn origin_and_header(
     endpoint: Option<&str>,
     default_endpoint: &str,
+    universe_domain: &str,
 ) -> Result<(Uri, String), HostError> {
-    let default_origin = Uri::from_str(default_endpoint).map_err(HostError::Uri)?;
+    let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
+    let default_origin = Uri::from_str(&service_endpoint).map_err(HostError::Uri)?;
     let default_host = default_origin
         .authority()
         .expect("missing authority in default endpoint")
@@ -58,17 +69,30 @@ fn origin_and_header(
         .ok_or_else(|| HostError::MissingAuthority(endpoint.to_string()))?
         .host()
         .to_string();
-    let (Some(prefix), Some(service)) = (
-        custom_host.strip_suffix(".googleapis.com"),
-        default_host.strip_suffix(".googleapis.com"),
-    ) else {
+
+    let default_suffix = format!(".{DEFAULT_UNIVERSE_DOMAIN}");
+    let universe_suffix = format!(".{universe_domain}");
+
+    let service = default_host
+        .strip_suffix(&universe_suffix)
+        .or_else(|| default_host.strip_suffix(&default_suffix));
+
+    let Some(service) = service else {
         return Ok((default_origin, default_host));
+    };
+
+    let prefix = custom_host
+        .strip_suffix(&universe_suffix)
+        .or_else(|| custom_host.strip_suffix(&default_suffix));
+
+    let Some(prefix) = prefix else {
+        return Ok((custom_origin, custom_host));
     };
     let parts: Vec<&str> = prefix.split(".").collect();
     match &parts[..] {
-        // This is a regional endpoint. It should be used as the host.
+        // This is a global or regional endpoint. It should be used as the host.
         // `{service}.{region}.rep.googleapis.com`
-        [s, _, "rep"] if *s == service => Ok((custom_origin, custom_host)),
+        [s] | [s, _, "rep"] if *s == service => Ok((custom_origin, custom_host)),
         // This is a locational endpoint. It should be used as the host.
         // `{region}-{service}.googleapis.com`
         [location]
@@ -79,6 +103,7 @@ fn origin_and_header(
         {
             Ok((custom_origin, custom_host))
         }
+        // Fallback for VPC-SC/PSC
         _ => Ok((default_origin, default_host)),
     }
 }
@@ -115,6 +140,7 @@ impl HostError {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
     use std::error::Error as _;
     use test_case::test_case;
 
@@ -123,15 +149,16 @@ mod tests {
     #[test_case("http://restricted.googleapis.com", "test.googleapis.com"; "VPC-SC restricted")]
     #[test_case("http://test-my-private-ep.p.googleapis.com", "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case("https://us-central1-test.googleapis.com", "us-central1-test.googleapis.com"; "locational endpoint")]
-    #[test_case("https://us-central1-wrong.gooogleapis.com", "test.googleapis.com"; "locational but with bad service")]
-    #[test_case("https://us-central1test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing dash")]
-    #[test_case("https://-test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "test.googleapis.com"; "universe domain")]
-    #[test_case("localhost:5678", "test.googleapis.com"; "emulator")]
-    #[test_case("https://localhost:5678", "test.googleapis.com"; "emulator with scheme")]
+    #[test_case("https://test.my-universe-domain.com", "test.my-universe-domain.com"; "universe domain")]
+    #[test_case("localhost:5678", "localhost"; "emulator")]
+    #[test_case("https://localhost:5678", "localhost"; "emulator with scheme")]
     fn header_success(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = header(Some(input), "https://test.googleapis.com")?;
+        let got = header(
+            Some(input),
+            "https://test.googleapis.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+        )?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -144,7 +171,25 @@ mod tests {
     #[test_case("localhost:5678", "localhost"; "emulator")]
     #[test_case("https://localhost:5678", "localhost"; "emulator with scheme")]
     fn header_default(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = header(None, input)?;
+        let got = header(None, input, DEFAULT_UNIVERSE_DOMAIN)?;
+        assert_eq!(got, want, "input={input:?}");
+        Ok(())
+    }
+
+    #[test_case("http://www.my-custom-universe.com", "test.my-custom-universe.com"; "global")]
+    #[test_case("http://private.my-custom-universe.com", "test.my-custom-universe.com"; "VPC-SC private")]
+    #[test_case("http://restricted.my-custom-universe.com", "test.my-custom-universe.com"; "VPC-SC restricted")]
+    #[test_case("http://test-my-private-ep.p.my-custom-universe.com", "test.my-custom-universe.com"; "PSC custom endpoint")]
+    #[test_case("https://us-central1-test.my-custom-universe.com", "us-central1-test.my-custom-universe.com"; "locational endpoint")]
+    #[test_case("https://test.us-central1.rep.my-custom-universe.com", "test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
+    #[test_case("https://test.googleapis.com", "test.googleapis.com"; "GDU endpoint with universe domain") ]
+    #[test_case("https://test.another-universe.com", "test.another-universe.com"; "endpoint priority") ]
+    fn header_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {
+        let got = header(
+            Some(input),
+            "https://test.googleapis.com",
+            "my-custom-universe.com",
+        )?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -154,15 +199,16 @@ mod tests {
     #[test_case("http://restricted.googleapis.com", "https://test.googleapis.com"; "VPC-SC restricted")]
     #[test_case("http://test-my-private-ep.p.googleapis.com", "https://test.googleapis.com"; "PSC custom endpoint")]
     #[test_case("https://us-central1-test.googleapis.com", "https://us-central1-test.googleapis.com"; "locational endpoint")]
-    #[test_case("https://us-central1-wrong.gooogleapis.com", "https://test.googleapis.com"; "locational but with bad service")]
-    #[test_case("https://us-central1test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing dash")]
-    #[test_case("https://-test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "https://test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "https://test.googleapis.com"; "universe domain")]
-    #[test_case("localhost:5678", "https://test.googleapis.com"; "emulator")]
-    #[test_case("http://localhost:5678", "https://test.googleapis.com"; "emulator with scheme")]
+    #[test_case("https://test.my-universe-domain.com", "https://test.my-universe-domain.com"; "universe domain")]
+    #[test_case("localhost:5678", "localhost:5678"; "emulator")]
+    #[test_case("http://localhost:5678", "http://localhost:5678"; "emulator with scheme")]
     fn origin_success(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = origin(Some(input), "https://test.googleapis.com")?;
+        let got = origin(
+            Some(input),
+            "https://test.googleapis.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+        )?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
@@ -175,21 +221,45 @@ mod tests {
     #[test_case("https://localhost:5678", "https://localhost:5678")]
     #[test_case("http://localhost:5678", "http://localhost:5678")]
     fn origin_default(input: &str, want: &str) -> anyhow::Result<()> {
-        let got = origin(None, input)?;
+        let got = origin(None, input, DEFAULT_UNIVERSE_DOMAIN)?;
+        assert_eq!(got, want, "input={input:?}");
+        Ok(())
+    }
+
+    #[test_case("http://www.my-custom-universe.com", "https://test.my-custom-universe.com"; "global")]
+    #[test_case("http://private.my-custom-universe.com", "https://test.my-custom-universe.com"; "VPC-SC private")]
+    #[test_case("http://restricted.my-custom-universe.com", "https://test.my-custom-universe.com"; "VPC-SC restricted")]
+    #[test_case("http://test-my-private-ep.p.my-custom-universe.com", "https://test.my-custom-universe.com"; "PSC custom endpoint")]
+    #[test_case("https://us-central1-test.my-custom-universe.com", "https://us-central1-test.my-custom-universe.com"; "locational endpoint")]
+    #[test_case("https://test.us-central1.rep.my-custom-universe.com", "https://test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
+    fn origin_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {
+        let got = origin(
+            Some(input),
+            "https://test.googleapis.com",
+            "my-custom-universe.com",
+        )?;
         assert_eq!(got, want, "input={input:?}");
         Ok(())
     }
 
     #[test]
     fn errors() {
-        let got = origin_and_header(Some("https:///a/b/c"), "https://test.googleapis.com");
+        let got = origin_and_header(
+            Some("https:///a/b/c"),
+            "https://test.googleapis.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+        );
         assert!(matches!(got, Err(HostError::Uri(_))), "{got:?}");
-        let got = origin_and_header(Some("/a/b/c"), "https://test.googleapis.com");
+        let got = origin_and_header(
+            Some("/a/b/c"),
+            "https://test.googleapis.com",
+            DEFAULT_UNIVERSE_DOMAIN,
+        );
         assert!(
             matches!(got, Err(HostError::MissingAuthority(ref e)) if e == "/a/b/c"),
             "{got:?}"
         );
-        let got = origin_and_header(None, "https:///");
+        let got = origin_and_header(None, "https:///", DEFAULT_UNIVERSE_DOMAIN);
         assert!(matches!(got, Err(HostError::Uri(_))), "{got:?}");
     }
 
