@@ -66,10 +66,18 @@ pub use crate::storage::streaming_source;
 
 /// Re-export types from the `http` crate used in this module.
 pub mod http {
+    // Note: The empty doc lines below create a paragraph break in Markdown.
+    // This prevents rustdoc from appending the inlined external documentation
+    // to our short descriptions in the module summary list.
+
     /// HTTP method used by the [SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
+    ///
+    /// 
     pub use http::Method;
 
     /// Metadata attributes used by the [Client::open_object][crate::client::Storage::open_object].
+    ///
+    /// 
     pub use http::HeaderMap;
 }
 
