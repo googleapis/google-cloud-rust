@@ -341,6 +341,7 @@ impl RetryPolicy for NeverRetry {
 }
 
 #[derive(thiserror::Error, Debug)]
+/// Error indicating that the maximum elapsed time for retries has been exceeded.
 pub struct LimitedElapsedTimeError {
     maximum_duration: Duration,
     #[source]
@@ -585,7 +586,7 @@ where
 }
 
 #[cfg(test)]
-pub mod tests {
+pub(crate) mod tests {
     use super::*;
     use http::HeaderMap;
     use std::error::Error as StdError;

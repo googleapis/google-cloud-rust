@@ -28,16 +28,22 @@ use std::time::Duration;
 /// The error type for exponential backoff creation.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
+/// Errors that can occur when building an [ExponentialBackoffBuilder].
 pub enum Error {
+    /// The scaling factor is invalid (must be >= 1.0).
     #[error("the scaling value ({0}) should be >= 1.0")]
     InvalidScalingFactor(f64),
+    /// The initial delay is invalid (must be > 0).
     #[error("the initial delay ({0:?}) should be greater than zero")]
     InvalidInitialDelay(Duration),
+    /// The delay range is empty or invalid.
     #[error(
         "the maximum delay ({maximum:?}) should be greater than or equal to the initial delay ({initial:?})"
     )]
     EmptyRange {
+        /// The maximum delay.
         maximum: Duration,
+        /// The initial delay.
         initial: Duration,
     },
 }

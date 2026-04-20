@@ -231,6 +231,7 @@ pub enum Code {
 }
 
 impl Code {
+    /// Returns the string representation of the error code.
     pub fn name(&self) -> &'static str {
         match self {
             Code::Ok => "OK",
@@ -398,6 +399,7 @@ impl From<&google_cloud_rpc::model::Status> for Status {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 #[serde(tag = "@type")]
+#[allow(missing_docs)]
 pub enum StatusDetails {
     #[serde(rename = "type.googleapis.com/google.rpc.BadRequest")]
     BadRequest(google_cloud_rpc::model::BadRequest),
