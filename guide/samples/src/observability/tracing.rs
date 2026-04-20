@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START rust_observability_tracing] ANCHOR: rust_observability_tracing
+// [START rust_observability_tracing]
 use google_cloud_secretmanager_v1::client::SecretManagerService;
+use opentelemetry::trace::TracerProvider as _;
 use tracing_subscriber::Registry;
 use tracing_subscriber::layer::SubscriberExt;
 
 pub async fn sample() -> anyhow::Result<()> {
-    use opentelemetry::trace::TracerProvider as _;
     let exporter = opentelemetry_otlp::SpanExporter::builder()
         .with_tonic()
         .build()?;
@@ -41,4 +41,4 @@ pub async fn sample() -> anyhow::Result<()> {
 
     Ok(())
 }
-// [END rust_observability_tracing] ANCHOR_END: rust_observability_tracing
+// [END rust_observability_tracing]

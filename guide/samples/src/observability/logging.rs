@@ -12,15 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START rust_observability_logging] ANCHOR: rust_observability_logging
+// [START rust_observability_logging]
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
 pub async fn sample() -> anyhow::Result<()> {
-    // Output `WARN` logs for failed logical client requests, and `DEBUG` logs
-    // for failed low-level RPC attempts from the client library crate.
-    let filter = tracing_subscriber::EnvFilter::new("warn,google_cloud_secretmanager=debug");
+    // Enable all `WARN` logs to include failed client requests in all client libraries.
+    let filter = tracing_subscriber::EnvFilter::new("warn");
 
     tracing_subscriber::registry()
         .with(filter)
@@ -34,4 +33,4 @@ pub async fn sample() -> anyhow::Result<()> {
 
     Ok(())
 }
-// [END rust_observability_logging] ANCHOR_END: rust_observability_logging
+// [END rust_observability_logging]
