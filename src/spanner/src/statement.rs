@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::model::DirectedReadOptions;
+use crate::model::execute_sql_request::QueryOptions;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
@@ -34,6 +35,7 @@ pub struct StatementBuilder {
     param_types: BTreeMap<String, Type>,
     request_options: Option<crate::model::RequestOptions>,
     directed_read_options: Option<DirectedReadOptions>,
+    query_options: Option<QueryOptions>,
 }
 
 impl StatementBuilder {
@@ -44,6 +46,7 @@ impl StatementBuilder {
             param_types: BTreeMap::new(),
             request_options: None,
             directed_read_options: None,
+            query_options: None,
         }
     }
 
@@ -97,7 +100,7 @@ impl StatementBuilder {
     ///
     /// ```
     /// # use google_cloud_spanner::client::Statement;
-    /// # use google_cloud_spanner::client::DirectedReadOptions;
+    /// # use google_cloud_spanner::model::DirectedReadOptions;
     /// let dro = DirectedReadOptions::default();
     /// let stmt = Statement::builder("SELECT * FROM users")
     ///     .with_directed_read_options(dro)
@@ -111,6 +114,23 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the query options to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryOptions;
+    /// let options = QueryOptions::default()
+    ///     .set_optimizer_version("latest");
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_query_options(options)
+    ///     .build();
+    /// ```
+    pub fn with_query_options(mut self, options: QueryOptions) -> Self {
+        self.query_options = Some(options);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -119,6 +139,7 @@ impl StatementBuilder {
             param_types: self.param_types,
             request_options: self.request_options,
             directed_read_options: self.directed_read_options,
+            query_options: self.query_options,
         }
     }
 }
@@ -153,6 +174,7 @@ pub struct Statement {
     pub(crate) param_types: BTreeMap<String, Type>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
+    pub(crate) query_options: Option<QueryOptions>,
 }
 
 impl Statement {
@@ -189,6 +211,7 @@ impl Statement {
     pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
         let request_options = self.request_options.clone();
         let directed_read_options = self.directed_read_options.clone();
+        let query_options = self.query_options.clone();
         let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
             .set_sql(sql)
@@ -196,6 +219,7 @@ impl Statement {
             .set_param_types(param_types)
             .set_or_clear_request_options(request_options)
             .set_or_clear_directed_read_options(directed_read_options)
+            .set_or_clear_query_options(query_options)
     }
 
     pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
@@ -236,6 +260,7 @@ impl From<&str> for Statement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use anyhow::Context;
 
     #[test]
     fn test_auto_traits() {
@@ -357,5 +382,29 @@ mod tests {
             .with_directed_read_options(dro.clone())
             .build();
         assert_eq!(stmt.directed_read_options, Some(dro));
+    }
+
+    #[test]
+    fn with_query_options() -> anyhow::Result<()> {
+        let query_options = QueryOptions::default().set_optimizer_version("1");
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_query_options(query_options.clone())
+            .build();
+        assert_eq!(
+            stmt.query_options
+                .as_ref()
+                .context("query options missing")?
+                .optimizer_version,
+            "1"
+        );
+
+        let req = stmt.into_request();
+        assert_eq!(
+            req.query_options
+                .context("query options missing in request")?
+                .optimizer_version,
+            "1"
+        );
+        Ok(())
     }
 }

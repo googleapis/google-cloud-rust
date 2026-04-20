@@ -94,7 +94,7 @@ impl Leases {
 
         // We want to extract some values from `HashMap`, leaving the rest
         // unchanged.
-        // - `extract_if()` is not available as our MSRV is 1.86 and that appears
+        // - `extract_if()` is not available as our MSRV is 1.87 and that appears
         //   in 1.88.
         // - `retain` does not work because we need a *value* of `info` to
         //   change `tx` and that only gives us a `&mut ExactlyOnceInfo`.
@@ -520,7 +520,7 @@ mod tests {
         let mut got = HashSet::new();
         for batch in batches {
             assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
-            got.extend(batch.into_iter());
+            got.extend(batch);
         }
 
         // Make sure all ack IDs are included.

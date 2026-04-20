@@ -131,10 +131,11 @@ impl PartitionedDmlTransaction {
     pub async fn execute_update<T: Into<Statement>>(self, statement: T) -> crate::Result<i64> {
         let statement = statement.into();
 
+        let session_name = self.client.session_name();
         let transaction_options =
             TransactionOptions::default().set_partitioned_dml(PartitionedDml::default());
         let begin_request = BeginTransactionRequest {
-            session: self.client.session.name.clone(),
+            session: session_name.clone(),
             options: Some(transaction_options),
             ..Default::default()
         };
@@ -150,7 +151,7 @@ impl PartitionedDmlTransaction {
 
             let execute_request = base_request
                 .clone()
-                .set_session(self.client.session.name.clone())
+                .set_session(session_name.clone())
                 .set_transaction(TransactionSelector {
                     selector: Some(transaction_selector::Selector::Id(transaction.id.clone())),
                     ..Default::default()

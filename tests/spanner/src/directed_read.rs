@@ -12,10 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use directed_read_options::{IncludeReplicas, Replicas};
-use google_cloud_spanner::client::{
-    DatabaseClient, DirectedReadOptions, KeySet, ReadRequest, directed_read_options,
-};
+use google_cloud_spanner::client::{DatabaseClient, KeySet, ReadRequest};
+use google_cloud_spanner::model::DirectedReadOptions;
+use google_cloud_spanner::model::directed_read_options::{IncludeReplicas, Replicas};
 
 pub async fn read_only_with_directed_read(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let mut dro = DirectedReadOptions::default();

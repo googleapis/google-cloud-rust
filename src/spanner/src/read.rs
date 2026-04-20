@@ -148,7 +148,7 @@ impl ConfiguredReadRequestBuilder {
     /// ```
     /// # use google_cloud_spanner::client::ReadRequest;
     /// # use google_cloud_spanner::client::KeySet;
-    /// # use google_cloud_spanner::client::DirectedReadOptions;
+    /// # use google_cloud_spanner::model::DirectedReadOptions;
     /// let dro = DirectedReadOptions::default();
     /// let req = ReadRequest::builder("MyTable", vec!["col1"])
     ///     .with_keys(KeySet::all())
