@@ -108,7 +108,31 @@ pub(super) enum Action {
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
+    /// A handler for at-least-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, AtLeastOnce};
+    /// # fn on_message(h: Handler) {
+    /// if let Handler::AtLeastOnce(h) = h {
+    ///     h.ack();
+    /// }
+    /// # }
+    /// ```
     AtLeastOnce(AtLeastOnce),
+    /// A handler for exactly-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, ExactlyOnce};
+    /// # async fn on_message(h: Handler) -> Result<(), Box<dyn std::error::Error>> {
+    /// if let Handler::ExactlyOnce(h) = h {
+    ///     h.confirmed_ack().await?;
+    /// }
+    /// # Ok(()) }
+    /// ```
     ExactlyOnce(ExactlyOnce),
 }
 

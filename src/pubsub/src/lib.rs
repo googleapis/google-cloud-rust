@@ -50,8 +50,10 @@
 //! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs)]
 
 #[allow(rustdoc::broken_intra_doc_links)]
+#[allow(missing_docs)]
 pub(crate) mod generated;
 
 /// Types related to publishing messages with a [Publisher][client::Publisher]
