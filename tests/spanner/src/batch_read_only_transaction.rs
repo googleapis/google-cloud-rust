@@ -15,7 +15,7 @@
 use crate::client::create_database_client;
 use google_cloud_spanner::Partition;
 use google_cloud_spanner::client::{DatabaseClient, KeySet, Mutation, ReadRequest, Statement};
-use google_cloud_spanner::{PartitionExecuteOptions, PartitionOptions, key};
+use google_cloud_spanner::{PartitionOptions, key};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use serde_json;
 
@@ -82,9 +82,7 @@ pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()>
 
     let mut rows_received = 0;
     for partition in partitions {
-        let mut rs = partition
-            .execute(&execution_client, PartitionExecuteOptions::default())
-            .await?;
+        let mut rs = partition.execute(&execution_client).await?;
         while let Some(row) = rs.next().await.transpose()? {
             rows_received += 1;
 
@@ -180,9 +178,7 @@ pub async fn partitioned_read(db_client: &DatabaseClient) -> anyhow::Result<()> 
 
     let mut rows_received = 0;
     for partition in partitions {
-        let mut rs = partition
-            .execute(&execution_client, PartitionExecuteOptions::default())
-            .await?;
+        let mut rs = partition.execute(&execution_client).await?;
         while let Some(row) = rs.next().await.transpose()? {
             rows_received += 1;
 

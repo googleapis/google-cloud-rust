@@ -235,42 +235,6 @@ impl BatchReadOnlyTransaction {
     }
 }
 
-/// Options for executing a partition.
-#[derive(Clone, Debug, Default)]
-pub struct PartitionExecuteOptions {
-    /// If true, use separate server resources on Spanner to execute the query.
-    data_boost_enabled: bool,
-}
-
-impl PartitionExecuteOptions {
-    /// Sets whether Data Boost is enabled.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::{PartitionOptions, PartitionExecuteOptions};
-    /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
-    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
-    /// # let transaction = db_client.batch_read_only_transaction().build().await?;
-    /// # let partitions = transaction
-    /// #     .partition_query(
-    /// #         Statement::builder("SELECT * FROM Users").build(),
-    /// #         PartitionOptions::default(),
-    /// #     )
-    /// #     .await?;
-    /// // On a worker receiving a partition, execute it with Data Boost:
-    /// let options = PartitionExecuteOptions::default()
-    ///     .with_data_boost(true);
-    /// let mut result_set = partitions[0].execute(&db_client, options).await?;
-    /// # Ok(())
-    /// # }
-    /// ```
-    pub fn with_data_boost(mut self, enabled: bool) -> Self {
-        self.data_boost_enabled = enabled;
-        self
-    }
-}
-
 /// Defines the segments of data to be read in a partitioned read or query.
 /// These partitions can be serialized and processed across several
 /// different machines or processes.
@@ -280,13 +244,39 @@ pub struct Partition {
 }
 
 impl Partition {
+    /// Sets whether Data Boost is enabled for this partition.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::PartitionOptions;
+    /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// # let transaction = db_client.batch_read_only_transaction().build().await?;
+    /// # let partitions = transaction.partition_query(Statement::builder("SELECT * FROM Users").build(), PartitionOptions::default()).await?;
+    /// // On a worker receiving a partition, execute it with Data Boost:
+    /// let mut result_set = partitions[0].clone()
+    ///     .with_data_boost(true)
+    ///     .execute(&db_client)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_data_boost(mut self, enabled: bool) -> Self {
+        match &mut self.inner {
+            PartitionedOperation::Query(req) => req.data_boost_enabled = enabled,
+            PartitionedOperation::Read(req) => req.data_boost_enabled = enabled,
+        }
+        self
+    }
+
     /// Executes this partition and returns a [ResultSet] that
     /// contains the rows that belong to this partition.
     ///
     /// # Example: executing a query partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::{PartitionOptions, PartitionExecuteOptions};
+    /// # use google_cloud_spanner::PartitionOptions;
     /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -298,7 +288,7 @@ impl Partition {
     /// // ... send partitions to other workers ...
     ///
     /// // On a worker receiving a partition, execute it:
-    /// let mut result_set = partitions[0].execute(&db_client, PartitionExecuteOptions::default()).await?;
+    /// let mut result_set = partitions[0].execute(&db_client).await?;
     /// while let Some(row) = result_set.next().await.transpose()? {
     ///     // process row
     /// }
@@ -308,7 +298,7 @@ impl Partition {
     /// # Example: executing a read partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
-    /// # use google_cloud_spanner::{PartitionOptions, PartitionExecuteOptions};
+    /// # use google_cloud_spanner::PartitionOptions;
     /// # async fn run_read(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -318,7 +308,7 @@ impl Partition {
     /// // ... send partitions to other workers ...
     ///
     /// // On a worker receiving a partition, execute it:
-    /// let mut result_set = partitions[0].execute(&db_client, PartitionExecuteOptions::default()).await?;
+    /// let mut result_set = partitions[0].execute(&db_client).await?;
     /// while let Some(row) = result_set.next().await.transpose()? {
     ///     // process row
     /// }
@@ -328,24 +318,17 @@ impl Partition {
     ///
     /// A partition can be executed by any `DatabaseClient` that is connected to
     /// the database that the partitions belong to.
-    pub async fn execute(
-        &self,
-        client: &DatabaseClient,
-        options: PartitionExecuteOptions,
-    ) -> crate::Result<ResultSet> {
+    pub async fn execute(&self, client: &DatabaseClient) -> crate::Result<ResultSet> {
         match &self.inner {
-            PartitionedOperation::Query(req) => Self::execute_query(client, req, options).await,
-            PartitionedOperation::Read(req) => Self::execute_read(client, req, options).await,
+            PartitionedOperation::Query(req) => Self::execute_query(client, req).await,
+            PartitionedOperation::Read(req) => Self::execute_read(client, req).await,
         }
     }
 
     async fn execute_query(
         client: &DatabaseClient,
         req: &crate::model::ExecuteSqlRequest,
-        options: PartitionExecuteOptions,
     ) -> crate::Result<ResultSet> {
-        let mut req = req.clone();
-        req.data_boost_enabled = options.data_boost_enabled;
         let stream = client
             .spanner
             .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
@@ -368,10 +351,7 @@ impl Partition {
     async fn execute_read(
         client: &DatabaseClient,
         req: &crate::model::ReadRequest,
-        options: PartitionExecuteOptions,
     ) -> crate::Result<ResultSet> {
-        let mut req = req.clone();
-        req.data_boost_enabled = options.data_boost_enabled;
         let stream = client
             .spanner
             .streaming_read(req.clone(), crate::RequestOptions::default())
@@ -417,7 +397,6 @@ pub(crate) mod tests {
         assert_impl_all!(BatchReadOnlyTransactionBuilder: Send, Sync);
         assert_impl_all!(BatchReadOnlyTransaction: Send, Sync, Debug);
         assert_impl_all!(Partition: Send, Sync, Debug);
-        assert_impl_all!(PartitionExecuteOptions: Send, Sync, Debug, Default);
     }
 
     #[test]
@@ -519,9 +498,7 @@ pub(crate) mod tests {
             inner: PartitionedOperation::Query(req),
         };
 
-        let _result_set = partition
-            .execute(&db_client, PartitionExecuteOptions::default())
-            .await?;
+        let _result_set = partition.execute(&db_client).await?;
 
         Ok(())
     }
@@ -563,9 +540,7 @@ pub(crate) mod tests {
             inner: PartitionedOperation::Read(req),
         };
 
-        let _result_set = partition
-            .execute(&db_client, PartitionExecuteOptions::default())
-            .await?;
+        let _result_set = partition.execute(&db_client).await?;
 
         Ok(())
     }
@@ -727,8 +702,7 @@ pub(crate) mod tests {
             inner: PartitionedOperation::Query(req),
         };
 
-        let options = PartitionExecuteOptions::default().with_data_boost(true);
-        let _result_set = partition.execute(&db_client, options).await?;
+        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
 
         Ok(())
     }
@@ -762,8 +736,7 @@ pub(crate) mod tests {
             inner: PartitionedOperation::Read(req),
         };
 
-        let options = PartitionExecuteOptions::default().with_data_boost(true);
-        let _result_set = partition.execute(&db_client, options).await?;
+        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
 
         Ok(())
     }
