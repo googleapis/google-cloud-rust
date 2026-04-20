@@ -45,24 +45,43 @@ pub async fn run_subscription_samples(
 ) -> anyhow::Result<()> {
     let client = SubscriptionAdmin::builder().build().await?;
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
     let topic_id = topic_name.split("/").last().unwrap();
+
+    // Our subscriber examples each take 10 seconds to complete, so we run them
+    // in parallel.
+    let mut slow_tasks = JoinSet::new();
+
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::create_pull_subscription::sample(&client, &project_id, topic_id, &id).await?;
     subscription::list_subscriptions::sample(&client, &project_id).await?;
 
-    subscriber::quickstart_subscriber::sample(&project_id, &id).await?;
-    subscriber::subscriber_stream::sample(&project_id, &id).await?;
-
-    subscription::delete_subscription::sample(&client, &project_id, &id).await?;
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::quickstart_subscriber::sample(&project_id, &id).await }
+    });
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::subscriber_stream::sample(&project_id, &id).await }
+    });
 
     let id = random_subscription_id();
     subscription_names.push(format!("projects/{project_id}/subscriptions/{id}"));
     subscription::create_subscription_exactly_once::sample(&client, &project_id, topic_id, &id)
         .await?;
-    subscriber::exactly_once::sample(&project_id, &id).await?;
+    slow_tasks.spawn({
+        let (project_id, id) = (project_id.clone(), id.clone());
+        async move { subscriber::exactly_once::sample(&project_id, &id).await }
+    });
 
+    // Await the result of the slow subscriber examples.
+    while let Some(task) = slow_tasks.join_next().await {
+        task??;
+    }
+
+    // Test our delete subscription sample. Which ID we choose does not matter.
+    // The caller will clean up all the others.
+    subscription::delete_subscription::sample(&client, &project_id, &id).await?;
     Ok(())
 }
 
