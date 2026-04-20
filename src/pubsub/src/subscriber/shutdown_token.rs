@@ -48,11 +48,6 @@ impl ShutdownToken {
         self.inner.cancel();
         self.fut.clone().await
     }
-
-    #[cfg(test)]
-    pub(super) async fn wait_for_shutdown(&self) {
-        self.fut.clone().await
-    }
 }
 
 #[cfg(test)]
@@ -60,6 +55,12 @@ mod tests {
     use super::*;
     use futures::FutureExt;
     use tokio::sync::oneshot::channel;
+
+    impl ShutdownToken {
+        pub(crate) async fn wait_for_shutdown(&self) {
+            self.fut.clone().await
+        }
+    }
 
     #[tokio::test(start_paused = true)]
     async fn shutdown() -> anyhow::Result<()> {
