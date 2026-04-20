@@ -118,18 +118,6 @@ impl LeaseLoop {
             cancel,
         }
     }
-
-    #[cfg(test)]
-    #[track_caller]
-    fn strong_ack_tx(&self) -> UnboundedSender<Action> {
-        self.ack_tx.upgrade().expect("shutdown has not begun")
-    }
-
-    #[cfg(test)]
-    #[track_caller]
-    fn strong_message_tx(&self) -> UnboundedSender<NewMessage> {
-        self.message_tx.upgrade().expect("shutdown has not begun")
-    }
 }
 
 // Shuts down lease management.
@@ -168,6 +156,18 @@ mod tests {
         NewMessage {
             ack_id: test_id(id),
             lease_info: at_least_once_info(),
+        }
+    }
+
+    impl LeaseLoop {
+        #[track_caller]
+        fn strong_ack_tx(&self) -> UnboundedSender<Action> {
+            self.ack_tx.upgrade().expect("shutdown has not begun")
+        }
+
+        #[track_caller]
+        fn strong_message_tx(&self) -> UnboundedSender<NewMessage> {
+            self.message_tx.upgrade().expect("shutdown has not begun")
         }
     }
 
