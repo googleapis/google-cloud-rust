@@ -181,14 +181,6 @@ impl Handler {
             Handler::ExactlyOnce(h) => h.nack(),
         }
     }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        match self {
-            Handler::AtLeastOnce(h) => h.ack_id(),
-            Handler::ExactlyOnce(h) => h.ack_id(),
-        }
-    }
 }
 
 #[derive(Debug)]
@@ -249,14 +241,6 @@ impl AtLeastOnce {
         if let Some(inner) = self.inner.take() {
             inner.nack();
         }
-    }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
     }
 }
 
@@ -355,14 +339,6 @@ impl ExactlyOnce {
         let inner = self.inner.take().expect("handler impl is always some");
         inner.confirmed_nack().await
     }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
-    }
 }
 
 impl Drop for ExactlyOnce {
@@ -424,6 +400,33 @@ mod tests {
     use tokio::sync::mpsc::error::TryRecvError;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
+
+    impl Handler {
+        pub(crate) fn ack_id(&self) -> &str {
+            match self {
+                Handler::AtLeastOnce(h) => h.ack_id(),
+                Handler::ExactlyOnce(h) => h.ack_id(),
+            }
+        }
+    }
+
+    impl AtLeastOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
+
+    impl ExactlyOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
 
     #[test]
     fn handler_at_least_once_ack() -> anyhow::Result<()> {
