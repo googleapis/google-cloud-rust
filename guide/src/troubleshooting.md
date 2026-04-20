@@ -36,9 +36,6 @@ and HTTP/2 layers.
 RUST_LOG=debug,tonic=debug,h2=debug cargo run --example your_program
 ```
 
-If you are using a client that wraps the gRPC C-core, environment variables like
-`GRPC_TRACE` and `GRPC_VERBOSITY` may also be relevant.
-
 ## How can I diagnose proxy issues?
 
 See [Client Configuration: Configuring a Proxy][client-configuration].

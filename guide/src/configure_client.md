@@ -7,7 +7,7 @@ specific service crate.
 
 ## 1. Customizing the API endpoint
 
-See [Override the default endpoint][override-default-endpoint].
+See [Override the default endpoint][override-endpoint].
 
 ## 2. Authentication configuration
 
@@ -19,60 +19,7 @@ examples.
 
 ## 3. Logging
 
-Logging is handled through the `tracing` ecosystem. You can configure a
-subscriber to capture logs and traces from the client libraries.
-See [Troubleshooting](/troubleshooting.md) for a comprehensive guide.
-
-## 3. Configuring a proxy
-
-The configuration method depends on whether you are using a gRPC or REST-based
-transport.
-
-### Proxy with gRPC
-
-When using the gRPC transport (standard for most services), the client library
-respects the [standard environment variables][envvars]. You don't need to
-configure this in the Rust code itself.
-
-Set the following environment variables in your shell or container:
-
-```bash
-export http_proxy="http://proxy.example.com:3128"
-export https_proxy="http://proxy.example.com:3128"
-```
-
-**Handling self-signed certificates (gRPC):** If your proxy uses a self-signed
-certificate (Deep Packet Inspection), you cannot "ignore" verification in gRPC.
-You must provide the path to the proxy's CA certificate bundle.
-
-```bash
-# Point gRPC to a CA bundle that includes your proxy's certificate
-export GRPC_DEFAULT_SSL_ROOTS_FILE_PATH="/path/to/roots.pem"
-```
-
-### Proxy with REST
-
-If you're using a library that supports REST transport, you can configure the
-proxy by providing a custom `reqwest` or `hyper` client to the configuration,
-depending on the specific implementation of the crate.
-
-```rust
-use google_cloud_secret_manager::v1::client::{SecretManagerClient, ClientConfig};
-
-async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    // Configure a proxy using standard environment variables or a custom connector
-    let proxy = reqwest::Proxy::all("http://user:password@proxy.example.com")?;
-    let http_client = reqwest::Client::builder()
-        .proxy(proxy)
-        .build()?;
-
-    let config = ClientConfig::default()
-        .with_http_client(http_client);
-
-    let client = SecretManagerClient::new(config).await?;
-    Ok(())
-}
-```
+See [Enable logging][enable-logging].
 
 ## 4. Configuring retries
 
@@ -96,18 +43,17 @@ fn main() {
 
 ## 6. Other common configuration options
 
-The following options can be passed to the configuration builder of most
-clients.
+To override the default authentication, including using API keys, see
+[Override the default authentication method][overrride-authentication]. To
+override the default endpoint, see
+[Override the default endpoint][override-endpoint].
 
-| Option | Type | Description |
-| ----- | ----- | ----- |
-| `credentials` | `Option<Credentials>` | Explicit credentials object for authentication. |
-| `endpoint` | `String` | The address of the API remote host. Used for Regional Endpoints (e.g., `https://us-central1-pubsub.googleapis.com:443`) or Private Service Connect. |
-
-To use API Keys [override the default credentials with API keys][override-api-keys].
+**NOTE**: To use API keys, you can use the
 
 [adc]: https://cloud.google.com/docs/authentication/application-default-credentials
 [authentication]: https://docs.cloud.google.com/rust/override-default-authentication
+[enable-logging]: https://docs.cloud.google.com/rust/enable-logging
 [envvars]: https://grpc.github.io/grpc/core/md_doc_environment_variables.html
-[override-default-endpoint]: https://docs.cloud.google.com/rust/override-default-endpoint
+[override-endpoint]: https://docs.cloud.google.com/rust/override-default-endpoint
+[override-authentication]: https://docs.cloud.google.com/rust/override-default-authentication
 [override-api-keys]: https://docs.cloud.google.com/rust/override-default-authentication#override_the_default_credentials_api_keys
