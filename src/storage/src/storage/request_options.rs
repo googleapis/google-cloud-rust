@@ -80,34 +80,42 @@ impl RequestOptions {
         )
     }
 
+    /// Sets the read resume policy.
     pub fn set_read_resume_policy(&mut self, v: Arc<dyn ReadResumePolicy>) {
         self.common_options.read_resume_policy = v;
     }
 
+    /// Returns the read resume policy.
     pub fn read_resume_policy(&self) -> Arc<dyn ReadResumePolicy> {
         self.common_options.read_resume_policy.clone()
     }
 
+    /// Sets the threshold for resumable uploads.
     pub fn set_resumable_upload_threshold(&mut self, v: usize) {
         self.common_options.resumable_upload_threshold = v;
     }
 
+    /// Returns the threshold for resumable uploads.
     pub fn resumable_upload_threshold(&self) -> usize {
         self.common_options.resumable_upload_threshold
     }
 
+    /// Sets the buffer size for resumable uploads.
     pub fn set_resumable_upload_buffer_size(&mut self, v: usize) {
         self.common_options.resumable_upload_buffer_size = v;
     }
 
+    /// Sets the timeout for bidirectional streaming attempts.
     pub fn set_bidi_attempt_timeout(&mut self, v: Duration) {
         self.bidi_attempt_timeout = v;
     }
 
+    /// Returns the buffer size for resumable uploads.
     pub fn resumable_upload_buffer_size(&self) -> usize {
         self.common_options.resumable_upload_buffer_size
     }
 
+    /// Appends a user agent string to the request.
     pub fn with_user_agent(&mut self, v: impl Into<String>) {
         self.user_agent = Some(v.into());
     }
