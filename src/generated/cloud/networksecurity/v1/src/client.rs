@@ -88,13 +88,11 @@ impl AddressGroupService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AddressGroupService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -699,13 +697,11 @@ impl OrganizationAddressGroupService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::OrganizationAddressGroupService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1343,13 +1339,11 @@ impl DnsThreatDetectorService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::DnsThreatDetectorService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1804,13 +1798,11 @@ impl FirewallActivation {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::FirewallActivation + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -2453,13 +2445,11 @@ impl Intercept {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Intercept + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -3420,13 +3410,11 @@ impl Mirroring {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Mirroring + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -4389,13 +4377,11 @@ impl NetworkSecurity {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::NetworkSecurity + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -6094,13 +6080,11 @@ impl OrganizationSecurityProfileGroupService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::OrganizationSecurityProfileGroupService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(

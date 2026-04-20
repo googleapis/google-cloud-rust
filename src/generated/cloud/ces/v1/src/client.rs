@@ -87,13 +87,11 @@ impl AgentService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AgentService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1473,13 +1471,11 @@ impl SessionService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::SessionService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1747,13 +1743,11 @@ impl ToolService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ToolService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -2062,13 +2056,11 @@ impl WidgetService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::WidgetService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
