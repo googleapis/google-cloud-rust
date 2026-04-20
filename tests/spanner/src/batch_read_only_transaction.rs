@@ -13,9 +13,11 @@
 // limitations under the License.
 
 use crate::client::create_database_client;
+use google_cloud_spanner::Partition;
 use google_cloud_spanner::client::{DatabaseClient, KeySet, Mutation, ReadRequest, Statement};
 use google_cloud_spanner::{PartitionExecuteOptions, PartitionOptions, key};
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use serde_json;
 
 pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()> {
     let run_id = LowercaseAlphanumeric.random_string(10);
@@ -66,6 +68,10 @@ pub async fn partitioned_query(db_client: &DatabaseClient) -> anyhow::Result<()>
     let partitions = read_tx
         .partition_query(stmt, PartitionOptions::default())
         .await?;
+
+    // Serialize and deserialize the partitions to verify they can be passed around.
+    let serialized = serde_json::to_string(&partitions)?;
+    let partitions: Vec<Partition> = serde_json::from_str(&serialized)?;
 
     // 4. Create a new database client and execute the partitions using it.
     //    This shows that the partitions are independent from the client that
@@ -160,6 +166,10 @@ pub async fn partitioned_read(db_client: &DatabaseClient) -> anyhow::Result<()> 
     let partitions = read_tx
         .partition_read(req, PartitionOptions::default())
         .await?;
+
+    // Serialize and deserialize the partitions to verify they can be passed around.
+    let serialized = serde_json::to_string(&partitions)?;
+    let partitions: Vec<Partition> = serde_json::from_str(&serialized)?;
 
     // 4. Create a new database client and execute the partitions using it.
     //    This shows that the partitions are independent from the client that
