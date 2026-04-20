@@ -127,11 +127,11 @@ pub enum Handler {
     ///
     /// ```
     /// # use google_cloud_pubsub::subscriber::handler::{Handler, ExactlyOnce};
-    /// # async fn on_message(h: Handler) {
+    /// # async fn on_message(h: Handler) -> Result<(), Box<dyn std::error::Error>> {
     /// if let Handler::ExactlyOnce(h) = h {
-    ///     let _ = h.confirmed_ack().await;
+    ///     h.confirmed_ack().await?;
     /// }
-    /// # }
+    /// # Ok(()) }
     /// ```
     ExactlyOnce(ExactlyOnce),
 }
