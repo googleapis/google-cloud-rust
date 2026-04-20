@@ -151,24 +151,10 @@ impl MessageStream {
             handle,
             message_tx,
             ack_tx,
+            cancel: shutdown,
         } = LeaseLoop::new(leaser, confirmed_rx, options);
         let lease_loop = handle.map(|_| ()).boxed().shared();
-
-        let weak_message_tx = message_tx.downgrade();
-        let weak_ack_tx = ack_tx.downgrade();
-
-        let shutdown = CancellationToken::new();
-        let shutdown_clone = shutdown.clone();
         let _shutdown_guard = shutdown.clone().drop_guard();
-        tokio::spawn(async move {
-            // Hold the strong senders for the channels, dropping them when an
-            // application signals a shutdown. This lets us begin the shutdown
-            // procedure without requiring the application to `drop(stream)` or
-            // call `stream.next()`.
-            shutdown_clone.cancelled().await;
-            drop(message_tx);
-            drop(ack_tx);
-        });
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -187,8 +173,8 @@ impl MessageStream {
             initial_req,
             stream: None,
             pool: VecDeque::new(),
-            message_tx: weak_message_tx,
-            ack_tx: weak_ack_tx,
+            message_tx,
+            ack_tx,
             shutdown: shutdown.clone(),
         };
         Self {
