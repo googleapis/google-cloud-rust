@@ -43,6 +43,7 @@
 //! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs)]
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -106,7 +107,6 @@ pub mod builder {
     }
 }
 pub mod error;
-/// The messages and enums that are part of this client library.
 pub use crate::control::model;
 pub mod builder_ext;
 pub mod model_ext;
@@ -124,6 +124,7 @@ pub mod stub {
 }
 
 #[allow(dead_code)]
+#[allow(missing_docs)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]
