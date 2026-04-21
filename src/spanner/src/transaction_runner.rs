@@ -59,7 +59,7 @@ impl TransactionRunnerBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::IsolationLevel;
+    /// # use google_cloud_spanner::model::transaction_options::IsolationLevel;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client
@@ -82,7 +82,7 @@ impl TransactionRunnerBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
-    /// # use google_cloud_spanner::client::ReadLockMode;
+    /// # use google_cloud_spanner::model::transaction_options::read_write::ReadLockMode;
     /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let runner = db_client

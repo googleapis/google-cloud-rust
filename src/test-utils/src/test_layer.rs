@@ -174,16 +174,11 @@ impl CapturedSpanLog {
     /// Spans with the name "test_layer" are excluded.
     fn take_by_test_id(&self, test_id: &str) -> Vec<CapturedSpan> {
         let mut spans = self.spans.lock().unwrap();
-        let mut taken = Vec::new();
-        let mut i = 0;
-        while i < spans.len() {
-            if spans[i].test_id.as_deref() == Some(test_id) && spans[i].name != "test_layer" {
-                taken.push(spans.remove(i));
-            } else {
-                i += 1;
-            }
-        }
-        taken
+        spans
+            .extract_if(.., |span| {
+                span.test_id.as_deref() == Some(test_id) && span.name != "test_layer"
+            })
+            .collect()
     }
 
     /// Removes all spans associated with a given `test_id`.
