@@ -21,25 +21,21 @@ examples.
 
 See [Enable logging][enable-logging].
 
-## 4. Configuring retries
+## 4. Configuring a proxy
+
+To configure a proxy, you can take advantage of the
+[standard environment variables][envvars] supported by `reqwest`. You
+don't need to configure this in the Rust code itself. Set the following
+environment variables in your shell or container:
+
+```bash
+export http_proxy="http://proxy.example.com:3128"
+export https_proxy="http://proxy.example.com:3128"
+```
+
+## 5. Configuring retries
 
 See [Configuring retry policies](/configuring_retry_policies.md)
-
-## 5. Logging
-
-You can use the `tracing` crate to capture client logs. By initializing a
-subscriber, you can debug request metadata, status codes, and events.
-
-```rust
-use tracing_subscriber;
-
-fn main() {
-    // Initialize tracing subscriber to see debug output from the client
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .init();
-}
-```
 
 ## 6. Other common configuration options
 
