@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Request options for the storage service.
+
 use super::common_options::CommonOptions;
 use crate::{
     read_resume_policy::ReadResumePolicy,

@@ -19,7 +19,6 @@ pub(crate) mod common_options;
 pub(crate) mod open_object;
 pub(crate) mod perform_upload;
 pub(crate) mod read_object;
-/// Request options for the storage service.
 pub mod request_options;
 pub(crate) mod signed_url;
 pub mod streaming_source;
