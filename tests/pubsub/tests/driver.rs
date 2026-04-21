@@ -138,7 +138,6 @@ mod pubsub {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[ignore = "TODO(#5450) - enable once it is deflaked"]
     async fn run_ordered_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();
         let (topic_admin, topic) = pubsub_samples::create_test_topic()

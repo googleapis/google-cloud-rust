@@ -108,7 +108,31 @@ pub(super) enum Action {
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
+    /// A handler for at-least-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, AtLeastOnce};
+    /// # fn on_message(h: Handler) {
+    /// if let Handler::AtLeastOnce(h) = h {
+    ///     h.ack();
+    /// }
+    /// # }
+    /// ```
     AtLeastOnce(AtLeastOnce),
+    /// A handler for exactly-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, ExactlyOnce};
+    /// # async fn on_message(h: Handler) -> Result<(), Box<dyn std::error::Error>> {
+    /// if let Handler::ExactlyOnce(h) = h {
+    ///     h.confirmed_ack().await?;
+    /// }
+    /// # Ok(()) }
+    /// ```
     ExactlyOnce(ExactlyOnce),
 }
 
@@ -155,14 +179,6 @@ impl Handler {
         match self {
             Handler::AtLeastOnce(h) => h.nack(),
             Handler::ExactlyOnce(h) => h.nack(),
-        }
-    }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        match self {
-            Handler::AtLeastOnce(h) => h.ack_id(),
-            Handler::ExactlyOnce(h) => h.ack_id(),
         }
     }
 }
@@ -225,14 +241,6 @@ impl AtLeastOnce {
         if let Some(inner) = self.inner.take() {
             inner.nack();
         }
-    }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
     }
 }
 
@@ -331,14 +339,6 @@ impl ExactlyOnce {
         let inner = self.inner.take().expect("handler impl is always some");
         inner.confirmed_nack().await
     }
-
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
-    }
 }
 
 impl Drop for ExactlyOnce {
@@ -400,6 +400,33 @@ mod tests {
     use tokio::sync::mpsc::error::TryRecvError;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
+
+    impl Handler {
+        pub(crate) fn ack_id(&self) -> &str {
+            match self {
+                Handler::AtLeastOnce(h) => h.ack_id(),
+                Handler::ExactlyOnce(h) => h.ack_id(),
+            }
+        }
+    }
+
+    impl AtLeastOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
+
+    impl ExactlyOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
 
     #[test]
     fn handler_at_least_once_ack() -> anyhow::Result<()> {

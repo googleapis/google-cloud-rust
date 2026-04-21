@@ -24,6 +24,7 @@ pub mod examine_error_details;
 pub mod gemini;
 pub mod logging;
 pub mod occ;
+pub mod observability;
 pub mod pagination;
 pub mod retry_policies;
 pub mod update_resource;

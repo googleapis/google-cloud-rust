@@ -49,7 +49,12 @@ google-cloud-wkt.workspace    = true
 storage-samples.workspace     = true
 serde_json.workspace          = true
 tokio                         = { workspace = true, features = ["full", "macros"] }
-tracing-subscriber            = { workspace = true, default-features = true }
+tracing-subscriber            = { workspace = true, features = ["json"] }
+opentelemetry                 = { workspace = true }
+opentelemetry-otlp            = { workspace = true, features = ["grpc-tonic", "trace"] }
+opentelemetry_sdk             = { workspace = true, features = ["rt-tokio"] }
+tracing-opentelemetry         = { workspace = true }
+tracing                       = { workspace = true }
 # Formatting trick: this comment preserves formatting in the preceding block.
 google-cloud-compute-v1 = { workspace = true, default-features = false, features = [
   "default-rustls-provider",

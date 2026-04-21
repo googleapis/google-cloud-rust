@@ -33,7 +33,7 @@ mod tests {
         result
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 8)]
     async fn subscriptions_samples() -> anyhow::Result<()> {
         let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
 
