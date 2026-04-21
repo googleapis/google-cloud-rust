@@ -19,10 +19,12 @@ mod subscription;
 mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 use google_cloud_pubsub::client::SchemaService;
 use google_cloud_pubsub::{client::SubscriptionAdmin, model::Subscription};
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
 use rand::{RngExt, distr::Alphanumeric};
+use std::time::Duration;
 use tokio::task::JoinSet;
 
 pub async fn run_topic_samples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
@@ -238,7 +240,17 @@ async fn create_test_subscription_with_request(
     request: Subscription,
 ) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-    let client = SubscriptionAdmin::builder().with_tracing().build().await?;
+    let client = SubscriptionAdmin::builder()
+        .with_retry_policy(
+            // Use a more generous retry policy to avoid test flakes from
+            // timeouts. See #5450 for details.
+            Aip194Strict
+                .with_attempt_limit(10)
+                .with_time_limit(Duration::from_secs(300)),
+        )
+        .with_tracing()
+        .build()
+        .await?;
 
     let _ = cleanup_stale_subscriptions(&client, &project_id).await;
 
