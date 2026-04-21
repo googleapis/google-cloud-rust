@@ -2094,6 +2094,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
  "serde",

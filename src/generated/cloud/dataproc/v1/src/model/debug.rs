@@ -336,6 +336,7 @@ impl std::fmt::Debug for super::ClusterConfig {
         let mut debug_struct = f.debug_struct("ClusterConfig");
         debug_struct.field("cluster_type", &self.cluster_type);
         debug_struct.field("cluster_tier", &self.cluster_tier);
+        debug_struct.field("engine", &self.engine);
         debug_struct.field("config_bucket", &self.config_bucket);
         debug_struct.field("temp_bucket", &self.temp_bucket);
         debug_struct.field("gce_cluster_config", &self.gce_cluster_config);
@@ -784,8 +785,10 @@ impl std::fmt::Debug for super::LifecycleConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LifecycleConfig");
         debug_struct.field("idle_delete_ttl", &self.idle_delete_ttl);
+        debug_struct.field("idle_stop_ttl", &self.idle_stop_ttl);
         debug_struct.field("idle_start_time", &self.idle_start_time);
         debug_struct.field("ttl", &self.ttl);
+        debug_struct.field("stop_ttl", &self.stop_ttl);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
