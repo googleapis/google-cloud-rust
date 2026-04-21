@@ -15,6 +15,7 @@
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
@@ -50,8 +51,8 @@ pub use wkt::{DurationError, TimestampError};
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    inner: GapicSpanner,
-    grpc_client: Option<gaxi::grpc::Client>,
+    pub(crate) channels: Vec<Channel>,
+    pub(crate) counter: std::sync::Arc<AtomicUsize>,
 }
 
 pub struct Factory;
@@ -61,20 +62,19 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Credentials = Credentials;
 
     async fn build(self, config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
-        let transport =
-            crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
-        let grpc_client = transport.inner.clone();
+        let num_channels = std::env::var("SPANNER_NUM_CHANNELS")
+            .ok()
+            .and_then(|s| s.parse::<usize>().ok())
+            .unwrap_or(4);
 
-        let inner = if gaxi::options::tracing_enabled(&config) {
-            GapicSpanner::from_stub(crate::generated::gapic_dataplane::tracing::Spanner::new(
-                transport,
-            ))
-        } else {
-            GapicSpanner::from_stub(transport)
-        };
+        let mut channels = Vec::with_capacity(num_channels);
+        for _ in 0..num_channels {
+            channels.push(Channel::create(&config).await?);
+        }
+
         Ok(Spanner {
-            inner,
-            grpc_client: Some(grpc_client),
+            channels,
+            counter: std::sync::Arc::new(AtomicUsize::new(0)),
         })
     }
 }
@@ -146,17 +146,31 @@ impl Spanner {
         // This method is primarily for testing and doesn't fully initialize grpc_client.
         // For production use, prefer `Spanner::builder().build()`.
         Self {
-            inner: GapicSpanner::from_stub(stub),
-            grpc_client: None,
+            channels: vec![Channel {
+                inner: GapicSpanner::from_stub(stub),
+                grpc_client: None,
+            }],
+            counter: std::sync::Arc::new(AtomicUsize::new(0)),
         }
+    }
+
+    pub(crate) fn get_channel(&self, hint: usize) -> &Channel {
+        let idx = hint % self.channels.len();
+        &self.channels[idx]
+    }
+
+    pub(crate) fn next_channel_hint(&self) -> usize {
+        self.counter.fetch_add(1, Ordering::Relaxed)
     }
 
     pub(crate) async fn create_session(
         &self,
         request: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::Session> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .create_session()
             .with_request(request)
             .with_options(options)
@@ -168,8 +182,10 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .execute_sql()
             .with_request(request)
             .with_options(options)
@@ -181,8 +197,10 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteBatchDmlRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::ExecuteBatchDmlResponse> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .execute_batch_dml()
             .with_request(request)
             .with_options(options)
@@ -194,8 +212,10 @@ impl Spanner {
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .read()
             .with_request(request)
             .with_options(options)
@@ -207,8 +227,10 @@ impl Spanner {
         &self,
         request: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::Transaction> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .begin_transaction()
             .with_request(request)
             .with_options(options)
@@ -220,8 +242,10 @@ impl Spanner {
         &self,
         request: crate::model::CommitRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::CommitResponse> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .commit()
             .with_request(request)
             .with_options(options)
@@ -233,8 +257,10 @@ impl Spanner {
         &self,
         request: crate::model::RollbackRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<()> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .rollback()
             .with_request(request)
             .with_options(options)
@@ -246,8 +272,10 @@ impl Spanner {
         &self,
         request: crate::model::PartitionQueryRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .partition_query()
             .with_request(request)
             .with_options(options)
@@ -259,8 +287,10 @@ impl Spanner {
         &self,
         request: crate::model::PartitionReadRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
+        self.get_channel(channel_hint)
+            .inner
             .partition_read()
             .with_request(request)
             .with_options(options)
@@ -276,8 +306,10 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> builder::ExecuteStreamingSql {
-        let grpc = self
+        let channel = self.get_channel(channel_hint);
+        let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
@@ -294,8 +326,10 @@ impl Spanner {
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> builder::StreamingRead {
-        let grpc = self
+        let channel = self.get_channel(channel_hint);
+        let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
@@ -308,14 +342,42 @@ impl Spanner {
         &self,
         request: crate::model::BatchWriteRequest,
         options: crate::RequestOptions,
+        channel_hint: usize,
     ) -> builder::BatchWrite {
-        let grpc = self
+        let channel = self.get_channel(channel_hint);
+        let grpc = channel
             .grpc_client
             .as_ref()
             .expect("Streaming RPCs are not supported when using a stub client");
         builder::BatchWrite::new(grpc.clone())
             .with_request(request)
             .with_options(options)
+    }
+}
+
+#[derive(Clone, Debug)]
+pub(crate) struct Channel {
+    pub(crate) inner: GapicSpanner,
+    pub(crate) grpc_client: Option<gaxi::grpc::Client>,
+}
+
+impl Channel {
+    pub(crate) async fn create(config: &ClientConfig) -> crate::ClientBuilderResult<Self> {
+        let transport =
+            crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
+        let grpc_client = transport.inner.clone();
+
+        let inner = if gaxi::options::tracing_enabled(config) {
+            GapicSpanner::from_stub(crate::generated::gapic_dataplane::tracing::Spanner::new(
+                transport,
+            ))
+        } else {
+            GapicSpanner::from_stub(transport)
+        };
+        Ok(Self {
+            inner,
+            grpc_client: Some(grpc_client),
+        })
     }
 }
 
@@ -334,6 +396,50 @@ mod tests {
     fn auto_traits() {
         assert_impl_all!(Spanner: std::fmt::Debug, Clone, Send, Sync);
         assert_not_impl_any!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
+    }
+
+    #[tokio::test]
+    async fn channel_pool_default_size() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        assert_eq!(client.channels.len(), 4);
+    }
+
+    #[tokio::test]
+    async fn channel_selection() {
+        let mock = MockSpanner::new();
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let hint0 = client.next_channel_hint();
+        let hint1 = client.next_channel_hint();
+        let hint2 = client.next_channel_hint();
+        let hint3 = client.next_channel_hint();
+        let hint4 = client.next_channel_hint();
+
+        assert_eq!(hint0 % 4, 0);
+        assert_eq!(hint1 % 4, 1);
+        assert_eq!(hint2 % 4, 2);
+        assert_eq!(hint3 % 4, 3);
+        assert_eq!(hint4 % 4, 0);
     }
 
     #[tokio::test]
@@ -368,7 +474,11 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .create_session(req, crate::RequestOptions::default())
+            .create_session(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call create_session");
 
@@ -422,6 +532,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
+            .get_channel(client.next_channel_hint())
             .inner
             .create_session()
             .with_request(req)
@@ -471,7 +582,11 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let result_set = client
-            .execute_sql(req, crate::RequestOptions::default())
+            .execute_sql(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call execute_sql");
         assert!(result_set.metadata.is_some());
@@ -510,7 +625,11 @@ mod tests {
         req.session = "test_session".to_string();
 
         let response = client
-            .execute_batch_dml(req, crate::RequestOptions::default())
+            .execute_batch_dml(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call execute_batch_dml");
         assert!(response.status.is_some());
@@ -545,7 +664,11 @@ mod tests {
         req.table = "test_table".to_string();
 
         let result_set = client
-            .read(req, crate::RequestOptions::default())
+            .read(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call read");
         assert!(result_set.metadata.is_none());
@@ -579,7 +702,11 @@ mod tests {
         req.session = "test_session".to_string();
 
         let tx = client
-            .begin_transaction(req, crate::RequestOptions::default())
+            .begin_transaction(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call begin_transaction");
         assert_eq!(tx.id, vec![1, 2, 3]);
@@ -617,7 +744,11 @@ mod tests {
         req.session = "test_session".to_string();
 
         let response = client
-            .commit(req, crate::RequestOptions::default())
+            .commit(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call commit");
         assert!(response.commit_timestamp.is_some());
@@ -646,7 +777,11 @@ mod tests {
         req.session = "test_session".to_string();
 
         client
-            .rollback(req, crate::RequestOptions::default())
+            .rollback(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .await
             .expect("Failed to call rollback");
     }
@@ -688,7 +823,11 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(req, crate::RequestOptions::default())
+            .execute_streaming_sql(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
@@ -736,7 +875,11 @@ mod tests {
         req.columns = vec!["col1".to_string()];
 
         let mut stream = client
-            .streaming_read(req, crate::RequestOptions::default())
+            .streaming_read(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .send()
             .await
             .expect("Failed to call streaming_read");
@@ -774,7 +917,11 @@ mod tests {
         req.session = "test_session".to_string();
 
         let mut stream = client
-            .batch_write(req, crate::RequestOptions::default())
+            .batch_write(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .send()
             .await
             .expect("Failed to call batch_write");
@@ -810,7 +957,11 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let mut stream = client
-            .execute_streaming_sql(req, crate::RequestOptions::default())
+            .execute_streaming_sql(
+                req,
+                crate::RequestOptions::default(),
+                client.next_channel_hint(),
+            )
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");

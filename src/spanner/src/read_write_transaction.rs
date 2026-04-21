@@ -98,10 +98,11 @@ impl ReadWriteTransactionBuilder {
         }
 
         // TODO(#4972): make request options configurable
+        let channel_hint = self.client.spanner.next_channel_hint();
         let response = self
             .client
             .spanner
-            .begin_transaction(request, RequestOptions::default())
+            .begin_transaction(request, RequestOptions::default(), channel_hint)
             .await?;
 
         let transaction_selector =
@@ -116,6 +117,7 @@ impl ReadWriteTransactionBuilder {
                 transaction_selector,
                 precommit_token_tracker: PrecommitTokenTracker::new(),
                 transaction_tag: self.transaction_tag.clone(),
+                channel_hint,
             },
             seqno: Arc::new(AtomicI64::new(1)),
         })
@@ -161,7 +163,11 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_sql(request, RequestOptions::default())
+            .execute_sql(
+                request,
+                RequestOptions::default(),
+                self.context.channel_hint,
+            )
             .await?;
         self.context
             .precommit_token_tracker
@@ -265,7 +271,11 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_batch_dml(request, RequestOptions::default())
+            .execute_batch_dml(
+                request,
+                RequestOptions::default(),
+                self.context.channel_hint,
+            )
             .await;
 
         match response_result {
@@ -300,7 +310,11 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .commit(request, RequestOptions::default())
+            .commit(
+                request,
+                RequestOptions::default(),
+                self.context.channel_hint,
+            )
             .await?;
 
         let response =
@@ -314,7 +328,11 @@ impl ReadWriteTransaction {
                 self.context
                     .client
                     .spanner
-                    .commit(retry_commit_req, RequestOptions::default())
+                    .commit(
+                        retry_commit_req,
+                        RequestOptions::default(),
+                        self.context.channel_hint,
+                    )
                     .await?
             } else {
                 response
@@ -337,7 +355,11 @@ impl ReadWriteTransaction {
         self.context
             .client
             .spanner
-            .rollback(request, RequestOptions::default())
+            .rollback(
+                request,
+                RequestOptions::default(),
+                self.context.channel_hint,
+            )
             .await?;
 
         Ok(())
@@ -352,6 +374,7 @@ mod tests {
     use gaxi::grpc::tonic;
     use spanner_grpc_mock::google::spanner::v1;
     use std::fmt::Debug;
+    use std::sync::Mutex;
 
     #[test]
     fn auto_traits() {
@@ -360,23 +383,36 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn read_write_transaction_commit_retry() {
+    async fn read_write_transaction_commit_retry() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
+        let remotes = Arc::new(Mutex::new(Vec::new()));
 
-        mock.expect_begin_transaction().once().returning(|req| {
-            let req = req.into_inner();
-            assert_eq!(
-                req.session,
-                "projects/p/instances/i/databases/d/sessions/123"
-            );
-            Ok(tonic::Response::new(v1::Transaction {
-                id: vec![0, 0, 7],
-                ..Default::default()
-            }))
-        });
+        let remotes_clone = remotes.clone();
+        mock.expect_begin_transaction()
+            .once()
+            .returning(move |req| {
+                remotes_clone
+                    .lock()
+                    .unwrap()
+                    .push(req.remote_addr().expect("remote_addr should be available"));
+                let req = req.into_inner();
+                assert_eq!(
+                    req.session,
+                    "projects/p/instances/i/databases/d/sessions/123"
+                );
+                Ok(tonic::Response::new(v1::Transaction {
+                    id: vec![0, 0, 7],
+                    ..Default::default()
+                }))
+            });
 
         // execute_update returns a precommit token.
-        mock.expect_execute_sql().once().returning(|req| {
+        let remotes_clone = remotes.clone();
+        mock.expect_execute_sql().once().returning(move |req| {
+            remotes_clone
+                .lock()
+                .unwrap()
+                .push(req.remote_addr().expect("remote_addr should be available"));
             let req = req.into_inner();
             assert_eq!(req.sql, "UPDATE Users SET Name = 'Bob' WHERE Id = 1");
             Ok(tonic::Response::new(v1::ResultSet {
@@ -395,7 +431,12 @@ mod tests {
         // Simulate that commit returns a precommit token in the response.
         // This would normally not happen, but we test it here to verify
         // that the commit is retried.
-        mock.expect_commit().once().returning(|req| {
+        let remotes_clone = remotes.clone();
+        mock.expect_commit().once().returning(move |req| {
+            remotes_clone
+                .lock()
+                .unwrap()
+                .push(req.remote_addr().expect("remote_addr should be available"));
             let req = req.into_inner();
             assert_eq!(
                 req.precommit_token,
@@ -422,7 +463,12 @@ mod tests {
         });
 
         // Second commit retry is automatically issued with the new token
-        mock.expect_commit().once().returning(|req| {
+        let remotes_clone = remotes.clone();
+        mock.expect_commit().once().returning(move |req| {
+            remotes_clone
+                .lock()
+                .unwrap()
+                .push(req.remote_addr().expect("remote_addr should be available"));
             let req = req.into_inner();
             assert_eq!(
                 req.precommit_token,
@@ -444,17 +490,25 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .begin_transaction()
-            .await
-            .expect("Failed to build transaction");
+            .await?;
 
         let count = tx
             .execute_update("UPDATE Users SET Name = 'Bob' WHERE Id = 1")
-            .await
-            .unwrap();
+            .await?;
         assert_eq!(count, 1);
 
-        let timestamp = tx.commit().await.unwrap();
+        let timestamp = tx.commit().await?;
         assert_eq!(timestamp.seconds(), 1001);
+
+        // Verify that all RPCs used the same channel (same remote address)
+        let remotes = remotes.lock().unwrap();
+        assert_eq!(remotes.len(), 4, "Expected exactly 4 RPCs");
+        let first = remotes[0];
+        for addr in remotes.iter() {
+            assert_eq!(*addr, first, "All RPCs should use the same gRPC channel");
+        }
+
+        Ok(())
     }
 
     #[tokio::test]
