@@ -1261,6 +1261,7 @@ impl std::fmt::Debug for super::Instance {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("state", &self.state);
         debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("edition", &self.edition);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("create_time", &self.create_time);
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);

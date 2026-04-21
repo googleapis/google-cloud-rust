@@ -2807,6 +2807,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
         enum __FieldTag {
             __cluster_type,
             __cluster_tier,
+            __engine,
             __config_bucket,
             __temp_bucket,
             __gce_cluster_config,
@@ -2847,6 +2848,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
                             "cluster_type" => Ok(__FieldTag::__cluster_type),
                             "clusterTier" => Ok(__FieldTag::__cluster_tier),
                             "cluster_tier" => Ok(__FieldTag::__cluster_tier),
+                            "engine" => Ok(__FieldTag::__engine),
                             "configBucket" => Ok(__FieldTag::__config_bucket),
                             "config_bucket" => Ok(__FieldTag::__config_bucket),
                             "tempBucket" => Ok(__FieldTag::__temp_bucket),
@@ -2919,6 +2921,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
                                 ));
                             }
                             result.cluster_tier = map.next_value::<std::option::Option<crate::model::cluster_config::ClusterTier>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__engine => {
+                            if !fields.insert(__FieldTag::__engine) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for engine",
+                                ));
+                            }
+                            result.engine = map.next_value::<std::option::Option<crate::model::cluster_config::Engine>>()?.unwrap_or_default();
                         }
                         __FieldTag::__config_bucket => {
                             if !fields.insert(__FieldTag::__config_bucket) {
@@ -6438,6 +6448,9 @@ impl<'de> serde::de::Deserialize<'de> for super::LifecycleConfig {
             __idle_delete_ttl,
             __auto_delete_time,
             __auto_delete_ttl,
+            __idle_stop_ttl,
+            __auto_stop_time,
+            __auto_stop_ttl,
             __idle_start_time,
             Unknown(std::string::String),
         }
@@ -6465,6 +6478,12 @@ impl<'de> serde::de::Deserialize<'de> for super::LifecycleConfig {
                             "auto_delete_time" => Ok(__FieldTag::__auto_delete_time),
                             "autoDeleteTtl" => Ok(__FieldTag::__auto_delete_ttl),
                             "auto_delete_ttl" => Ok(__FieldTag::__auto_delete_ttl),
+                            "idleStopTtl" => Ok(__FieldTag::__idle_stop_ttl),
+                            "idle_stop_ttl" => Ok(__FieldTag::__idle_stop_ttl),
+                            "autoStopTime" => Ok(__FieldTag::__auto_stop_time),
+                            "auto_stop_time" => Ok(__FieldTag::__auto_stop_time),
+                            "autoStopTtl" => Ok(__FieldTag::__auto_stop_ttl),
+                            "auto_stop_ttl" => Ok(__FieldTag::__auto_stop_ttl),
                             "idleStartTime" => Ok(__FieldTag::__idle_start_time),
                             "idle_start_time" => Ok(__FieldTag::__idle_start_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -6531,6 +6550,49 @@ impl<'de> serde::de::Deserialize<'de> for super::LifecycleConfig {
                             }
                             result.ttl = std::option::Option::Some(
                                 crate::model::lifecycle_config::Ttl::AutoDeleteTtl(
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__idle_stop_ttl => {
+                            if !fields.insert(__FieldTag::__idle_stop_ttl) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for idle_stop_ttl",
+                                ));
+                            }
+                            result.idle_stop_ttl =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__auto_stop_time => {
+                            if !fields.insert(__FieldTag::__auto_stop_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for auto_stop_time",
+                                ));
+                            }
+                            if result.stop_ttl.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `stop_ttl`, a oneof with full ID .google.cloud.dataproc.v1.LifecycleConfig.auto_stop_time, latest field was autoStopTime",
+                                ));
+                            }
+                            result.stop_ttl = std::option::Option::Some(
+                                crate::model::lifecycle_config::StopTtl::AutoStopTime(
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Timestamp>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__auto_stop_ttl => {
+                            if !fields.insert(__FieldTag::__auto_stop_ttl) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for auto_stop_ttl",
+                                ));
+                            }
+                            if result.stop_ttl.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `stop_ttl`, a oneof with full ID .google.cloud.dataproc.v1.LifecycleConfig.auto_stop_ttl, latest field was autoStopTtl",
+                                ));
+                            }
+                            result.stop_ttl = std::option::Option::Some(
+                                crate::model::lifecycle_config::StopTtl::AutoStopTtl(
                                     map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
                                 ),
                             );
