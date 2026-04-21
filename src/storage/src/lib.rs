@@ -72,12 +72,12 @@ pub mod http {
 
     /// HTTP method used by the [SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
     ///
-    /// 
+    ///
     pub use http::Method;
 
     /// Metadata attributes used by the [Client::open_object][crate::client::Storage::open_object].
     ///
-    /// 
+    ///
     pub use http::HeaderMap;
 }
 
