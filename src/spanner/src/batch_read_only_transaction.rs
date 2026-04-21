@@ -249,7 +249,7 @@ impl Partition {
     /// # Example
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::PartitionOptions;
+    /// # use google_cloud_spanner::model::PartitionOptions;
     /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// # let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -383,6 +383,8 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Statement;
     use crate::client::{KeySet, ReadRequest as SpannerReadRequest, TimestampBound};
+    use crate::model::transaction_selector::Selector;
+    use crate::model::{ExecuteSqlRequest, ReadRequest as GrpcReadRequest, TransactionSelector};
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::Response;
     use prost_types::Timestamp;
@@ -687,12 +689,10 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ExecuteSqlRequest::new()
+        let req = ExecuteSqlRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/123")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_1".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
                 ..Default::default()
             })
             .set_sql("SELECT * FROM Users")
@@ -720,12 +720,10 @@ pub(crate) mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
 
-        let req = crate::model::ReadRequest::new()
+        let req = GrpcReadRequest::new()
             .set_session("projects/p/instances/i/databases/d/sessions/123")
-            .set_transaction(crate::model::TransactionSelector {
-                selector: Some(crate::model::transaction_selector::Selector::Id(
-                    b"tx_id_2".to_vec().into(),
-                )),
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
                 ..Default::default()
             })
             .set_table("Users")
