@@ -14,7 +14,8 @@
 
 use crate::client::{get_database_id, get_emulator_host};
 use crate::test_proxy::{InterceptedSpanner, SpannerInterceptor};
-use google_cloud_spanner::client::{DatabaseClient, Kind, QueryOptions, Spanner, Statement};
+use google_cloud_spanner::client::{DatabaseClient, Kind, Spanner, Statement};
+use google_cloud_spanner::model::execute_sql_request::QueryOptions;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
