@@ -21,9 +21,9 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     let client = Subscriber::builder().build().await?;
     let mut stream = client
         .subscribe(subscription_name)
-        // The server will stop yielding messages to the application while
-        // either this many messages, or this many bytes are outstanding. A
-        // message is outstanding until it has been acked or nacked.
+        // The server pauses message delivery to the application when either
+        // this many messages, or this many bytes are outstanding. A message is
+        // outstanding until it has been acked or nacked.
         .set_max_outstanding_messages(1000)
         .set_max_outstanding_bytes(10 * 1024 * 1024) // 10 MB
         .build();
