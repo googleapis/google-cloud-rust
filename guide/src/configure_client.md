@@ -40,7 +40,7 @@ See [Configuring retry policies](/configuring_retry_policies.md)
 ## 6. Other common configuration options
 
 To override the default authentication, including using API keys, see
-[Override the default authentication method][overrride-authentication]. To
+[Override the default authentication method][override-authentication]. To
 override the default endpoint, see
 [Override the default endpoint][override-endpoint].
 
