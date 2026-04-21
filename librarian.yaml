@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 language: rust
-version: v0.10.2-0.20260414164605-183260a6d037
+version: v0.10.2-0.20260417212934-1a6932227f88
 repo: googleapis/google-cloud-rust
 sources:
   conformance:
@@ -801,7 +801,8 @@ libraries:
             - .google.firestore.v1.ExplainStats
           api_path: google/firestore/v1
           template: convert-prost
-        - include_list: latlng.proto
+        - include_list:
+            - latlng.proto
           module_path: google_cloud_type::model
           output: src/firestore/src/generated/convert/type
           api_path: google/type
@@ -1490,7 +1491,9 @@ libraries:
           output: src/storage/src/generated/convert/storage
           api_path: google/storage/v2
           template: convert-prost
-        - include_list: date.proto,expr.proto
+        - include_list:
+            - date.proto
+            - expr.proto
           module_path: google_cloud_type::model
           output: src/storage/src/generated/convert/type
           api_path: google/type
@@ -1676,7 +1679,11 @@ libraries:
       - protobuf-src
     rust:
       modules:
-        - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
+        - include_list:
+            - api.proto
+            - source_context.proto
+            - type.proto
+            - descriptor.proto
           module_path: crate
           output: src/wkt/src/generated
           api_path: google/protobuf
@@ -1708,25 +1715,29 @@ libraries:
     skip_release: true
     rust:
       modules:
-        - include_list: conformance.proto
+        - include_list:
+            - conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/convert
           api_path: conformance
           template: convert-prost
         - generate_setter_samples: "false"
-          include_list: conformance.proto
+          include_list:
+            - conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/gapic
           api_path: conformance
           template: grpc-client
-        - include_list: conformance.proto
+        - include_list:
+            - conformance.proto
           module_path: crate::generated::gapic::model
           output: tests/protojson-conformance/src/generated/protos
           root_name: conformance
           api_path: conformance
           template: prost
         - generate_setter_samples: "false"
-          include_list: test_messages_proto3.proto
+          include_list:
+            - test_messages_proto3.proto
           module_path: crate::generated::test_protos
           output: tests/protojson-conformance/src/generated/test_protos
           api_path: src/google/protobuf

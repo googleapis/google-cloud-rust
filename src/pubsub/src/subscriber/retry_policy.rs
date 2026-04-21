@@ -49,9 +49,11 @@ impl RetryPolicy for StreamRetryPolicy {
         }
         if let Some(status) = error.status() {
             return match status.code {
-                Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
-                    RetryResult::Continue(error)
-                }
+                Code::DeadlineExceeded
+                | Code::ResourceExhausted
+                | Code::Aborted
+                | Code::Internal
+                | Code::Unavailable => RetryResult::Continue(error),
                 _ => RetryResult::Permanent(error),
             };
         }
@@ -174,6 +176,7 @@ pub(super) mod tests {
         ));
     }
 
+    #[test_case(Code::DeadlineExceeded)]
     #[test_case(Code::ResourceExhausted)]
     #[test_case(Code::Aborted)]
     #[test_case(Code::Internal)]

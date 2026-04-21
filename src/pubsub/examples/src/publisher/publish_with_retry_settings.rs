@@ -14,17 +14,18 @@
 
 // [START pubsub_publisher_retry_settings]
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
-use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_pubsub::client::Publisher;
 use google_cloud_pubsub::model::Message;
+use google_cloud_pubsub::retry_policy::RetryableErrors;
 use std::time::Duration;
 
 pub async fn sample(project_id: &str, topic_id: &str) -> anyhow::Result<()> {
     let topic_name = format!("projects/{project_id}/topics/{topic_id}");
 
     // Configure custom retry settings.
-    // In this example, we retry with a time limit of 10 minutes.
-    let retry_policy = AlwaysRetry.with_time_limit(Duration::from_secs(600));
+    // In this example, we retry with a time limit of 5 minutes.
+    let retry_policy = RetryableErrors.with_time_limit(Duration::from_secs(300));
 
     // Configure custom backoff settings.
     let backoff_policy = ExponentialBackoffBuilder::new()

@@ -93,7 +93,7 @@ impl BatchReadOnlyTransactionBuilder {
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # use google_cloud_spanner::client::Statement;
-/// # use google_cloud_spanner::PartitionOptions;
+/// # use google_cloud_spanner::model::PartitionOptions;
 ///
 /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
 /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
@@ -126,7 +126,7 @@ impl BatchReadOnlyTransaction {
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_spanner::client::Statement;
-    /// # use google_cloud_spanner::PartitionOptions;
+    /// # use google_cloud_spanner::model::PartitionOptions;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db.batch_read_only_transaction().build().await?;
@@ -183,7 +183,7 @@ impl BatchReadOnlyTransaction {
     /// ```
     /// # use google_cloud_spanner::client::{KeySet, Spanner};
     /// # use google_cloud_spanner::client::ReadRequest;
-    /// # use google_cloud_spanner::PartitionOptions;
+    /// # use google_cloud_spanner::model::PartitionOptions;
     /// # async fn run(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db.batch_read_only_transaction().build().await?;
@@ -250,7 +250,7 @@ impl Partition {
     /// # Example: executing a query partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, Statement};
-    /// # use google_cloud_spanner::PartitionOptions;
+    /// # use google_cloud_spanner::model::PartitionOptions;
     /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;
@@ -272,7 +272,7 @@ impl Partition {
     /// # Example: executing a read partition
     /// ```
     /// # use google_cloud_spanner::client::{Spanner, ReadRequest, KeySet};
-    /// # use google_cloud_spanner::PartitionOptions;
+    /// # use google_cloud_spanner::model::PartitionOptions;
     /// # async fn run_read(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
     /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
     /// let transaction = db_client.batch_read_only_transaction().build().await?;

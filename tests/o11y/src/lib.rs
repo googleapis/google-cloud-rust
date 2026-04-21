@@ -21,4 +21,5 @@ pub mod tracing;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 pub mod e2e;
 pub mod http_tracing;
+pub mod storage_grpc_tracing_common;
 pub mod storage_tracing;
