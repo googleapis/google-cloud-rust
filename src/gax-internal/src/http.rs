@@ -93,7 +93,7 @@ impl ReqwestClient {
             crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
         let host = crate::host::header(
             config.endpoint.as_deref(),
-            &default_endpoint,
+            default_endpoint,
             &universe_domain,
         )
         .map_err(|e| e.client_builder())?;
@@ -228,7 +228,7 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), &default_endpoint, &self.universe_domain)
+        let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
             .map_err(|e| e.gax())?;
         let builder = self
             .inner
