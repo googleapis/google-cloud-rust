@@ -22,11 +22,13 @@ use crate::transaction_retry_policy::{
 };
 use bytes::Bytes;
 use std::sync::{Arc, Mutex};
+use wkt::Duration;
 
 /// A builder for [WriteOnlyTransaction].
 pub struct WriteOnlyTransactionBuilder {
     client: DatabaseClient,
     transaction_tag: Option<String>,
+    max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
 }
 
@@ -35,6 +37,7 @@ impl WriteOnlyTransactionBuilder {
         Self {
             client,
             transaction_tag: None,
+            max_commit_delay: None,
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
         }
     }
@@ -56,6 +59,31 @@ impl WriteOnlyTransactionBuilder {
     /// See also: [Troubleshooting with tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags)
     pub fn with_transaction_tag(mut self, tag: impl Into<String>) -> Self {
         self.transaction_tag = Some(tag.into());
+        self
+    }
+
+    /// Sets the maximum commit delay for the transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use wkt::Duration;
+    /// # async fn sample(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let transaction = db_client.write_only_transaction()
+    ///     .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+    ///     .build();
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This option allows you to specify the maximum amount of time Spanner can
+    /// adjust the commit timestamp of the transaction to allow for commit batching.
+    /// Increasing this value can increase throughput at the expense of latency.
+    /// The value must be between 0 and 500 milliseconds. If not set, or set to 0,
+    /// Spanner does not delay the commit.
+    pub fn with_max_commit_delay(mut self, delay: Duration) -> Self {
+        self.max_commit_delay = Some(delay);
         self
     }
 
@@ -105,6 +133,7 @@ impl WriteOnlyTransactionBuilder {
             session_name,
             client: self.client,
             transaction_tag: self.transaction_tag,
+            max_commit_delay: self.max_commit_delay,
             retry_policy: self.retry_policy,
         }
     }
@@ -117,6 +146,7 @@ pub struct WriteOnlyTransaction {
     pub(crate) session_name: String,
     client: DatabaseClient,
     transaction_tag: Option<String>,
+    max_commit_delay: Option<Duration>,
     retry_policy: Box<dyn TransactionRetryPolicy>,
 }
 
@@ -195,7 +225,8 @@ impl WriteOnlyTransaction {
                     .set_mutations(mutations_proto)
                     .set_transaction_id(tx.id.clone())
                     .set_request_options(req_options.clone())
-                    .set_or_clear_precommit_token(tx.precommit_token);
+                    .set_or_clear_precommit_token(tx.precommit_token)
+                    .set_or_clear_max_commit_delay(self.max_commit_delay);
 
                 let response = client
                     .spanner
@@ -266,7 +297,8 @@ impl WriteOnlyTransaction {
             .set_session(self.session_name.clone())
             .set_mutations(mutations.into_iter().map(|m| m.build_proto()))
             .set_single_use_transaction(Box::new(single_use))
-            .set_request_options(req_options);
+            .set_request_options(req_options)
+            .set_or_clear_max_commit_delay(self.max_commit_delay);
         let client = self.client;
 
         retry_aborted(&*self.retry_policy, || {
@@ -290,12 +322,13 @@ mod tests {
     use crate::client::Spanner;
     use crate::transaction_retry_policy::tests::create_aborted_status;
     use gaxi::grpc::tonic::Response;
+    use prost_types::Duration as ProstDuration;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
     use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::google::spanner::v1::Transaction;
     use spanner_grpc_mock::google::spanner::v1::transaction_options::Mode;
-    use std::time::Duration;
+    use wkt::Duration;
 
     pub(crate) async fn setup_db_client(
         mock: spanner_grpc_mock::MockSpanner,
@@ -587,7 +620,7 @@ mod tests {
         mock.expect_commit()
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_req| Err(create_aborted_status(Duration::from_nanos(1))));
+            .returning(move |_req| Err(create_aborted_status(std::time::Duration::from_nanos(1))));
 
         mock.expect_begin_transaction()
             .once()
@@ -646,5 +679,55 @@ mod tests {
             "expected commit timestamp to match"
         );
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_at_least_once_with_max_commit_delay() {
+        let mut mock = spanner_grpc_mock::MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(
+                req.session,
+                "projects/p/instances/i/databases/d/sessions/123"
+            );
+            assert_eq!(
+                req.max_commit_delay,
+                Some(ProstDuration {
+                    seconds: 0,
+                    nanos: 100_000_000, // 100ms
+                })
+            );
+
+            Ok(Response::new(CommitResponse {
+                commit_timestamp: Some(Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let mutation = Mutation::new_insert_or_update_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+
+        let res = db_client
+            .write_only_transaction()
+            .with_max_commit_delay(Duration::try_from("0.1s").unwrap())
+            .build()
+            .write_at_least_once(vec![mutation])
+            .await;
+
+        assert!(res.is_ok());
     }
 }
