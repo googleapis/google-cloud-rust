@@ -711,7 +711,6 @@ mod tests {
                     ..Default::default()
                 }),
                 delivery_attempt: input,
-                ..Default::default()
             }],
             ..Default::default()
         };
