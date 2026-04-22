@@ -365,6 +365,8 @@ impl MessageStreamImpl {
                 continue;
             };
 
+            let delivery_attempt = (rm.delivery_attempt > 0).then_some(rm.delivery_attempt);
+
             let (lease_info, handler_info) = if exactly_once {
                 let (result_tx, result_rx) = tokio::sync::oneshot::channel();
                 (
@@ -372,6 +374,7 @@ impl MessageStreamImpl {
                     HandlerInfo::ExactlyOnce {
                         ack_id: rm.ack_id.clone(),
                         result_rx,
+                        delivery_attempt,
                     },
                 )
             } else {
@@ -379,6 +382,7 @@ impl MessageStreamImpl {
                     LeaseInfo::AtLeastOnce(AtLeastOnceInfo::new()),
                     HandlerInfo::AtLeastOnce {
                         ack_id: rm.ack_id.clone(),
+                        delivery_attempt,
                     },
                 )
             };
@@ -419,10 +423,12 @@ impl MessageStreamImpl {
 enum HandlerInfo {
     AtLeastOnce {
         ack_id: String,
+        delivery_attempt: Option<i32>,
     },
     ExactlyOnce {
         ack_id: String,
         result_rx: Receiver<AckResult>,
+        delivery_attempt: Option<i32>,
     },
 }
 
@@ -431,12 +437,20 @@ impl HandlerInfo {
     /// serving it to the application.
     fn into_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
         match self {
-            HandlerInfo::AtLeastOnce { ack_id } => {
-                Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx))
-            }
-            HandlerInfo::ExactlyOnce { ack_id, result_rx } => {
-                Handler::ExactlyOnce(ExactlyOnce::new(ack_id, ack_tx, result_rx))
-            }
+            HandlerInfo::AtLeastOnce {
+                ack_id,
+                delivery_attempt,
+            } => Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx, delivery_attempt)),
+            HandlerInfo::ExactlyOnce {
+                ack_id,
+                result_rx,
+                delivery_attempt,
+            } => Handler::ExactlyOnce(ExactlyOnce::new(
+                ack_id,
+                ack_tx,
+                result_rx,
+                delivery_attempt,
+            )),
         }
     }
 }
@@ -478,6 +492,7 @@ mod tests {
                         data: test_data(i).to_vec(),
                         ..Default::default()
                     }),
+                    delivery_attempt: i,
                     ..Default::default()
                 })
                 .collect(),
@@ -499,6 +514,7 @@ mod tests {
                         data: test_data(i).to_vec(),
                         ..Default::default()
                     }),
+                    delivery_attempt: i,
                     ..Default::default()
                 })
                 .collect(),
@@ -659,6 +675,71 @@ mod tests {
         Ok(())
     }
 
+    #[test_case(0, None, false; "at_least_once_zero_maps_to_none")]
+    #[test_case(5, Some(5), false; "at_least_once_positive_maps_to_some")]
+    #[test_case(-1, None, false; "at_least_once_negative_maps_to_none")]
+    #[test_case(1, Some(1), false; "at_least_once_one_maps_to_some")]
+    #[test_case(i32::MAX, Some(i32::MAX), false; "at_least_once_max_maps_to_some")]
+    #[test_case(0, None, true; "exactly_once_zero_maps_to_none")]
+    #[test_case(5, Some(5), true; "exactly_once_positive_maps_to_some")]
+    #[test_case(-1, None, true; "exactly_once_negative_maps_to_none")]
+    #[test_case(1, Some(1), true; "exactly_once_one_maps_to_some")]
+    #[test_case(i32::MAX, Some(i32::MAX), true; "exactly_once_max_maps_to_some")]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn delivery_attempt_mapping(
+        input: i32,
+        expected: Option<i32>,
+        exactly_once: bool,
+    ) -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+        mock.expect_acknowledge()
+            .returning(move |_| Ok(TonicResponse::from(())));
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        let resp = v1::StreamingPullResponse {
+            subscription_properties: exactly_once.then_some(
+                v1::streaming_pull_response::SubscriptionProperties {
+                    exactly_once_delivery_enabled: true,
+                    ..Default::default()
+                },
+            ),
+            received_messages: vec![v1::ReceivedMessage {
+                ack_id: test_id(0),
+                message: Some(v1::PubsubMessage {
+                    data: test_data(0).to_vec(),
+                    ..Default::default()
+                }),
+                delivery_attempt: input,
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+
+        response_tx.send(Ok(resp)).await?;
+        drop(response_tx);
+
+        let Some((_, h)) = stream.next().await.transpose()? else {
+            anyhow::bail!("expected message")
+        };
+        assert_eq!(h.delivery_attempt(), expected);
+
+        match h {
+            Handler::AtLeastOnce(_) => assert!(!exactly_once),
+            Handler::ExactlyOnce(_) => assert!(exactly_once),
+        }
+
+        Ok(())
+    }
+
     #[tokio_test_no_panics(start_paused = true)]
     async fn basic_success_exactly_once() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
@@ -700,6 +781,7 @@ mod tests {
             };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
+            assert_eq!(h.delivery_attempt(), Some(i));
             acks.spawn(h.confirmed_ack());
         }
         let end = stream.next().await.transpose()?;
