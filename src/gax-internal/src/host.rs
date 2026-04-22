@@ -52,8 +52,7 @@ fn origin_and_header(
     default_endpoint: &str,
     universe_domain: &str,
 ) -> Result<(Uri, String), HostError> {
-    let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
-    let default_origin = Uri::from_str(&service_endpoint).map_err(HostError::Uri)?;
+    let default_origin = Uri::from_str(default_endpoint).map_err(HostError::Uri)?;
     let default_host = default_origin
         .authority()
         .expect("missing authority in default endpoint")
