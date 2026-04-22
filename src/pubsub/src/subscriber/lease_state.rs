@@ -39,6 +39,10 @@ const MAX_IDS_PER_RPC: usize = 1000;
 // How often we extend deadlines for messages under lease
 const EXTEND_PERIOD: Duration = Duration::from_secs(3);
 
+/// The buffer applied to the lease extension period to account for network
+/// latency and processing time.
+const EXTEND_BUFFER: Duration = Duration::from_secs(2);
+
 // Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
 fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {
     ack_ids
@@ -130,6 +134,7 @@ pub(super) struct ExactlyOnceInfo {
     receive_time: Instant,
     result_tx: Sender<AckResult>,
     status: MessageStatus,
+    last_extension: Option<Instant>,
 }
 
 impl ExactlyOnceInfo {
@@ -138,6 +143,7 @@ impl ExactlyOnceInfo {
             receive_time: Instant::now(),
             result_tx,
             status: MessageStatus::Leased,
+            last_extension: None,
         }
     }
 }
@@ -290,7 +296,9 @@ where
                 .spawn(async move { leaser.extend(ack_ids).await });
         }
 
-        let batches = self.eo_leases.retain(self.max_lease);
+        let batches = self
+            .eo_leases
+            .retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
             self.pending_extends
@@ -833,7 +841,11 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(5..20))
             .returning(|_| ());
 
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+        let options = LeaseOptions {
+            max_lease_extension: Duration::ZERO,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         // Add 10 messages. These are now under lease management.
         for i in 0..10 {

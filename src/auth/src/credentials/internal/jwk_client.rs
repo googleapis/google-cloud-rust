@@ -46,14 +46,6 @@ impl JwkClient {
         }
     }
 
-    #[cfg(test)]
-    fn with_ttl(ttl: Duration) -> Self {
-        Self {
-            cache: Arc::new(RwLock::new(HashMap::new())),
-            ttl,
-        }
-    }
-
     pub async fn get_or_load_cert(
         &self,
         key_id: String,
@@ -140,6 +132,15 @@ pub(crate) mod tests {
     use serial_test::parallel;
 
     type TestResult = anyhow::Result<()>;
+
+    impl JwkClient {
+        fn with_ttl(ttl: Duration) -> Self {
+            Self {
+                cache: Arc::new(RwLock::new(HashMap::new())),
+                ttl,
+            }
+        }
+    }
 
     const TEST_KEY_ID: &str = "test-key-id";
 

@@ -173,12 +173,6 @@ impl Builder {
         }
     }
 
-    #[cfg(test)]
-    pub(crate) fn with_token_server_url<S: Into<String>>(mut self, url: S) -> Self {
-        self.token_server_url = url.into();
-        self
-    }
-
     fn build_token_provider(
         self,
         target_audience: String,
@@ -223,6 +217,13 @@ mod tests {
     use serde_json::json;
 
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    impl Builder {
+        fn with_token_server_url<S: Into<String>>(mut self, url: S) -> Self {
+            self.token_server_url = url.into();
+            self
+        }
+    }
 
     fn get_mock_service_key() -> Value {
         json!({
