@@ -340,8 +340,8 @@ impl RetryPolicy for NeverRetry {
     }
 }
 
-#[derive(thiserror::Error, Debug)]
 /// Error indicating that the maximum elapsed time for retries has been exceeded.
+#[derive(thiserror::Error, Debug)]
 pub struct LimitedElapsedTimeError {
     maximum_duration: Duration,
     #[source]

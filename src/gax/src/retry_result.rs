@@ -65,6 +65,7 @@ impl RetryResult {
             Self::Exhausted(_) | Self::Continue(_) => false,
         }
     }
+
     /// Returns `true` if the operation should not be retried because the retry policy is exhausted.
     pub fn is_exhausted(&self) -> bool {
         match &self {
@@ -72,6 +73,7 @@ impl RetryResult {
             Self::Permanent(_) | Self::Continue(_) => false,
         }
     }
+
     /// Returns `true` if the operation should be retried.
     pub fn is_continue(&self) -> bool {
         match &self {

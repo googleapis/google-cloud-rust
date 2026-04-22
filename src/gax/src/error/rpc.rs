@@ -399,28 +399,69 @@ impl From<&google_cloud_rpc::model::Status> for Status {
 #[serde(rename_all = "camelCase")]
 #[non_exhaustive]
 #[serde(tag = "@type")]
-#[allow(missing_docs)]
+/// Detailed information about the error.
 pub enum StatusDetails {
+    /// Describes violations in a client request.
+    ///
+    /// See [BadRequest][google_cloud_rpc::model::BadRequest] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.BadRequest")]
     BadRequest(google_cloud_rpc::model::BadRequest),
+
+    /// Describes additional debugging info.
+    ///
+    /// See [DebugInfo][google_cloud_rpc::model::DebugInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.DebugInfo")]
     DebugInfo(google_cloud_rpc::model::DebugInfo),
+
+    /// Describes the cause of the error with structured details.
+    ///
+    /// See [ErrorInfo][google_cloud_rpc::model::ErrorInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.ErrorInfo")]
     ErrorInfo(google_cloud_rpc::model::ErrorInfo),
+
+    /// Provides links to documentation or for performing an out of band action.
+    ///
+    /// See [Help][google_cloud_rpc::model::Help] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.Help")]
     Help(google_cloud_rpc::model::Help),
+
+    /// Provides a localized error message that is safe to return to the user.
+    ///
+    /// See [LocalizedMessage][google_cloud_rpc::model::LocalizedMessage] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.LocalizedMessage")]
     LocalizedMessage(google_cloud_rpc::model::LocalizedMessage),
+
+    /// Describes what preconditions have failed.
+    ///
+    /// See [PreconditionFailure][google_cloud_rpc::model::PreconditionFailure] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.PreconditionFailure")]
     PreconditionFailure(google_cloud_rpc::model::PreconditionFailure),
+
+    /// Describes a single quota violation.
+    ///
+    /// See [QuotaFailure][google_cloud_rpc::model::QuotaFailure] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.QuotaFailure")]
     QuotaFailure(google_cloud_rpc::model::QuotaFailure),
+
+    /// Contains metadata about the request that clients can attach when filing a bug.
+    ///
+    /// See [RequestInfo][google_cloud_rpc::model::RequestInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.RequestInfo")]
     RequestInfo(google_cloud_rpc::model::RequestInfo),
+
+    /// Describes the resource that is being accessed.
+    ///
+    /// See [ResourceInfo][google_cloud_rpc::model::ResourceInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.ResourceInfo")]
     ResourceInfo(google_cloud_rpc::model::ResourceInfo),
+
+    /// Describes when the clients can retry a failed request.
+    ///
+    /// See [RetryInfo][google_cloud_rpc::model::RetryInfo] for more information.
     #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
     RetryInfo(google_cloud_rpc::model::RetryInfo),
+
+    /// Other details (represented as Any).
     #[serde(untagged)]
     Other(wkt::Any),
 }
