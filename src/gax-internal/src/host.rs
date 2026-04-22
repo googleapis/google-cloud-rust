@@ -60,8 +60,8 @@ fn origin_and_header(
         .to_string();
     let scheme = default_origin.scheme().map(|s| s.as_str());
 
-    let default_suffix = format!(".{DEFAULT_UNIVERSE_DOMAIN}");
-    let service = default_host.strip_suffix(&default_suffix);
+    let default_suffix = ".googleapis.com";
+    let service = default_host.strip_suffix(default_suffix);
     let Some(service) = service else {
         // Emulators, endpoint showcase and/or test servers pass localhost and
         // should fallback to use the passed-in service host.
@@ -83,7 +83,7 @@ fn origin_and_header(
     let (prefix, universe_domain) = if let Some(prefix) = custom_host.strip_suffix(&universe_suffix)
     {
         (prefix, universe_domain)
-    } else if let Some(prefix) = custom_host.strip_suffix(&default_suffix) {
+    } else if let Some(prefix) = custom_host.strip_suffix(default_suffix) {
         (prefix, DEFAULT_UNIVERSE_DOMAIN)
     } else {
         // Not a GCP universe domain. Use the endpoint override.
