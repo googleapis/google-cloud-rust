@@ -80,11 +80,13 @@ fn origin_and_header(
         .to_string();
 
     let universe_suffix = format!(".{universe_domain}");
-    let (prefix, universe_domain) = if let Some(prefix) = custom_host.strip_suffix(&universe_suffix) {
+    let (prefix, universe_domain) = if let Some(prefix) = custom_host.strip_suffix(&universe_suffix)
+    {
         (prefix, universe_domain)
     } else if let Some(prefix) = custom_host.strip_suffix(&default_suffix) {
         (prefix, DEFAULT_UNIVERSE_DOMAIN)
     } else {
+        // Not a GCP universe domain. Use the endpoint override.
         return Ok((custom_origin, custom_host));
     };
     let parts: Vec<&str> = prefix.split(".").collect();
@@ -113,12 +115,13 @@ fn service_at_universe(
     universe_domain: &str,
 ) -> Result<(Uri, String), HostError> {
     let host = format!("{service}.{universe_domain}");
-    let origin_str = if let Some(s) = scheme {
-        format!("{s}://{host}")
+    let origin = if let Some(s) = scheme {
+        let o = format!("{s}://{host}");
+        Uri::from_str(&o)
     } else {
-        host.clone()
-    };
-    let origin = Uri::from_str(&origin_str).map_err(HostError::Uri)?;
+        Uri::from_str(&host)
+    }
+    .map_err(HostError::Uri)?;
     Ok((origin, host))
 }
 
