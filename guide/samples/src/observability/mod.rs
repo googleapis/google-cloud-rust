@@ -12,18 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-    #[cfg(google_cloud_generate_protos)]
-    {
-        let mut config = prost_build::Config::default();
-        config.disable_comments(["."]);
-        tonic_prost_build::configure()
-            .out_dir("src/generated/protos")
-            .compile_with_config(
-                config,
-                &["protos/google/spanner/v1/spanner.proto"],
-                &["protos"],
-            )
-            .expect("error compiling protos");
-    }
-}
+pub mod logging;
+pub mod tracing;

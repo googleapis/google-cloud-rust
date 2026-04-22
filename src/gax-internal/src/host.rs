@@ -59,9 +59,19 @@ fn origin_and_header(
         .expect("missing authority in default endpoint")
         .host()
         .to_string();
+    let scheme = default_origin.scheme().map(|s| s.as_str());
+
+    let default_suffix = ".googleapis.com";
+    let service = default_host.strip_suffix(default_suffix);
+    let Some(service) = service else {
+        // Emulators, endpoint showcase and/or test servers pass localhost and
+        // should fallback to use the passed-in service host.
+        return Ok((default_origin, default_host));
+    };
 
     let Some(endpoint) = endpoint else {
-        return Ok((default_origin, default_host));
+        // No endpoint provided, use the default service host.
+        return service_at_universe(scheme, service, universe_domain);
     };
     let custom_origin = Uri::from_str(endpoint).map_err(HostError::Uri)?;
     let custom_host = custom_origin
@@ -71,11 +81,14 @@ fn origin_and_header(
         .to_string();
 
     let universe_suffix = format!(".{universe_domain}");
-    let (Some(prefix), Some(service)) = (
-        custom_host.strip_suffix(&universe_suffix),
-        default_host.strip_suffix(&universe_suffix),
-    ) else {
-        return Ok((default_origin, default_host));
+    let (prefix, universe_domain) = if let Some(prefix) = custom_host.strip_suffix(&universe_suffix)
+    {
+        (prefix, universe_domain)
+    } else if let Some(prefix) = custom_host.strip_suffix(default_suffix) {
+        (prefix, DEFAULT_UNIVERSE_DOMAIN)
+    } else {
+        // Not a GCP universe domain. Use the endpoint override.
+        return Ok((custom_origin, custom_host));
     };
     let parts: Vec<&str> = prefix.split(".").collect();
     match &parts[..] {
@@ -92,8 +105,25 @@ fn origin_and_header(
         {
             Ok((custom_origin, custom_host))
         }
-        _ => Ok((default_origin, default_host)),
+        // Fallback for VPC-SC/PSC
+        _ => service_at_universe(scheme, service, universe_domain),
     }
+}
+
+fn service_at_universe(
+    scheme: Option<&str>,
+    service: &str,
+    universe_domain: &str,
+) -> Result<(Uri, String), HostError> {
+    let host = format!("{service}.{universe_domain}");
+    let origin = if let Some(s) = scheme {
+        let o = format!("{s}://{host}");
+        Uri::from_str(&o)
+    } else {
+        Uri::from_str(&host)
+    }
+    .map_err(HostError::Uri)?;
+    Ok((origin, host))
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -137,13 +167,13 @@ mod tests {
     #[test_case("http://restricted.googleapis.com", "test.googleapis.com"; "VPC-SC restricted")]
     #[test_case("http://test-my-private-ep.p.googleapis.com", "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case("https://us-central1-test.googleapis.com", "us-central1-test.googleapis.com"; "locational endpoint")]
-    #[test_case("https://us-central1-wrong.gooogleapis.com", "test.googleapis.com"; "locational but with bad service")]
-    #[test_case("https://us-central1test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing dash")]
-    #[test_case("https://-test.gooogleapis.com", "test.googleapis.com"; "maybe locational with missing location")]
+    #[test_case("https://us-central1-wrong.googleapis.com", "test.googleapis.com"; "locational but with bad service")]
+    #[test_case("https://us-central1test.googleapis.com", "test.googleapis.com"; "maybe locational with missing dash")]
+    #[test_case("https://-test.googleapis.com", "test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "test.googleapis.com"; "universe domain")]
-    #[test_case("localhost:5678", "test.googleapis.com"; "emulator")]
-    #[test_case("https://localhost:5678", "test.googleapis.com"; "emulator with scheme")]
+    #[test_case("https://test.my-universe-domain.com", "test.my-universe-domain.com"; "universe domain")]
+    #[test_case("localhost:5678", "localhost"; "emulator")]
+    #[test_case("https://localhost:5678", "localhost"; "emulator with scheme")]
     fn header_success(input: &str, want: &str) -> anyhow::Result<()> {
         let got = header(
             Some(input),
@@ -168,11 +198,17 @@ mod tests {
     }
 
     #[test_case("http://www.my-custom-universe.com", "test.my-custom-universe.com"; "global")]
+    #[test_case("https://test.my-custom-universe.com", "test.my-custom-universe.com"; "service endpoint with universe domain") ]
     #[test_case("http://private.my-custom-universe.com", "test.my-custom-universe.com"; "VPC-SC private")]
     #[test_case("http://restricted.my-custom-universe.com", "test.my-custom-universe.com"; "VPC-SC restricted")]
     #[test_case("http://test-my-private-ep.p.my-custom-universe.com", "test.my-custom-universe.com"; "PSC custom endpoint")]
     #[test_case("https://us-central1-test.my-custom-universe.com", "us-central1-test.my-custom-universe.com"; "locational endpoint")]
     #[test_case("https://test.us-central1.rep.my-custom-universe.com", "test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
+    #[test_case("https://www.googleapis.com", "test.googleapis.com"; "Global GDU endpoint with universe domain") ]
+    #[test_case("https://private.googleapis.com", "test.googleapis.com"; "VPC-SC private GDU endpoint with universe domain") ]
+    #[test_case("https://restricted.googleapis.com", "test.googleapis.com"; "VPC-SC restricted GDU endpoint with universe domain") ]
+    #[test_case("https://test.googleapis.com", "test.googleapis.com"; "GDU endpoint with universe domain") ]
+    #[test_case("https://us-central1-test.googleapis.com", "us-central1-test.googleapis.com"; "locational GDU endpoint with universe domain") ]
     fn header_universe_domain(input: &str, want: &str) -> anyhow::Result<()> {
         let got = header(
             Some(input),
@@ -188,13 +224,13 @@ mod tests {
     #[test_case("http://restricted.googleapis.com", "https://test.googleapis.com"; "VPC-SC restricted")]
     #[test_case("http://test-my-private-ep.p.googleapis.com", "https://test.googleapis.com"; "PSC custom endpoint")]
     #[test_case("https://us-central1-test.googleapis.com", "https://us-central1-test.googleapis.com"; "locational endpoint")]
-    #[test_case("https://us-central1-wrong.gooogleapis.com", "https://test.googleapis.com"; "locational but with bad service")]
-    #[test_case("https://us-central1test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing dash")]
-    #[test_case("https://-test.gooogleapis.com", "https://test.googleapis.com"; "maybe locational with missing location")]
+    #[test_case("https://us-central1-wrong.googleapis.com", "https://test.googleapis.com"; "locational but with bad service")]
+    #[test_case("https://us-central1test.googleapis.com", "https://test.googleapis.com"; "maybe locational with missing dash")]
+    #[test_case("https://-test.googleapis.com", "https://test.googleapis.com"; "maybe locational with missing location")]
     #[test_case("https://test.us-central1.rep.googleapis.com", "https://test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case("https://test.my-universe-domain.com", "https://test.googleapis.com"; "universe domain")]
-    #[test_case("localhost:5678", "https://test.googleapis.com"; "emulator")]
-    #[test_case("http://localhost:5678", "https://test.googleapis.com"; "emulator with scheme")]
+    #[test_case("https://test.my-universe-domain.com", "https://test.my-universe-domain.com"; "universe domain")]
+    #[test_case("localhost:5678", "localhost:5678"; "emulator")]
+    #[test_case("http://localhost:5678", "http://localhost:5678"; "emulator with scheme")]
     fn origin_success(input: &str, want: &str) -> anyhow::Result<()> {
         let got = origin(
             Some(input),

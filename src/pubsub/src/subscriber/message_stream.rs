@@ -151,24 +151,10 @@ impl MessageStream {
             handle,
             message_tx,
             ack_tx,
+            cancel: shutdown,
         } = LeaseLoop::new(leaser, confirmed_rx, options);
         let lease_loop = handle.map(|_| ()).boxed().shared();
-
-        let weak_message_tx = message_tx.downgrade();
-        let weak_ack_tx = ack_tx.downgrade();
-
-        let shutdown = CancellationToken::new();
-        let shutdown_clone = shutdown.clone();
         let _shutdown_guard = shutdown.clone().drop_guard();
-        tokio::spawn(async move {
-            // Hold the strong senders for the channels, dropping them when an
-            // application signals a shutdown. This lets us begin the shutdown
-            // procedure without requiring the application to `drop(stream)` or
-            // call `stream.next()`.
-            shutdown_clone.cancelled().await;
-            drop(message_tx);
-            drop(ack_tx);
-        });
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -187,8 +173,8 @@ impl MessageStream {
             initial_req,
             stream: None,
             pool: VecDeque::new(),
-            message_tx: weak_message_tx,
-            ack_tx: weak_ack_tx,
+            message_tx,
+            ack_tx,
             shutdown: shutdown.clone(),
         };
         Self {
@@ -1458,7 +1444,6 @@ mod tests {
         // default (600s) to verify that an application's configuration
         // overrides the default.
 
-        let start_time = Instant::now();
         let (response_tx, response_rx) = channel(10);
         let (extend_tx, mut extend_rx) = unbounded_channel();
 
@@ -1490,6 +1475,7 @@ mod tests {
 
         // Advance the clock well past the expected message expiration,
         // recording the time at which we sent the last lease extension.
+        let start_time = Instant::now();
         let mut latest = None;
         for _ in 0..MAX_LEASE.as_secs() * 2 {
             while let Ok(r) = extend_rx.try_recv() {

@@ -2476,6 +2476,7 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstance {
             __delete_time,
             __unrefreshed_duration_until_disable,
             __disable_time,
+            __key_portability_enabled,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2512,6 +2513,8 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstance {
                             }
                             "disableTime" => Ok(__FieldTag::__disable_time),
                             "disable_time" => Ok(__FieldTag::__disable_time),
+                            "keyPortabilityEnabled" => Ok(__FieldTag::__key_portability_enabled),
+                            "key_portability_enabled" => Ok(__FieldTag::__key_portability_enabled),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2604,6 +2607,16 @@ impl<'de> serde::de::Deserialize<'de> for super::SingleTenantHsmInstance {
                             }
                             result.disable_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__key_portability_enabled => {
+                            if !fields.insert(__FieldTag::__key_portability_enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_portability_enabled",
+                                ));
+                            }
+                            result.key_portability_enabled = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -13891,6 +13904,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Digest {
             __sha256,
             __sha384,
             __sha512,
+            __external_mu,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -13914,6 +13928,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Digest {
                             "sha256" => Ok(__FieldTag::__sha256),
                             "sha384" => Ok(__FieldTag::__sha384),
                             "sha512" => Ok(__FieldTag::__sha512),
+                            "externalMu" => Ok(__FieldTag::__external_mu),
+                            "external_mu" => Ok(__FieldTag::__external_mu),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -14019,6 +14035,34 @@ impl<'de> serde::de::Deserialize<'de> for super::Digest {
                                 std::option::Option::Some(crate::model::digest::Digest::Sha512(
                                     map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ));
+                        }
+                        __FieldTag::__external_mu => {
+                            if !fields.insert(__FieldTag::__external_mu) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for external_mu",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.digest.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `digest`, a oneof with full ID .google.cloud.kms.v1.Digest.external_mu, latest field was externalMu",
+                                ));
+                            }
+                            result.digest = std::option::Option::Some(
+                                crate::model::digest::Digest::ExternalMu(
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

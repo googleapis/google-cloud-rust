@@ -113,9 +113,11 @@ wrappers = [
   # accidental use of the crate in other crates.
   "google-cloud-gax-internal",
   # Use in tests is fine.
+  "bigquery-grpc-mock",
   "grpc-server",
   "integration-tests-grpc-mock",
   "integration-tests-o11y",
+  "integration-tests-spanner",
   "pubsub-grpc-mock",
   "spanner-grpc-mock",
   "storage-grpc-mock",
@@ -131,6 +133,7 @@ wrappers = [
   # Uses `tonic-prost` in its implementation.
   "google-cloud-gax-internal",
   # Use in tests is fine.
+  "bigquery-grpc-mock",
   "grpc-server",
   "opentelemetry-proto",
   "pubsub-grpc-mock",

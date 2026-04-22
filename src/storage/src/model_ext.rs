@@ -304,7 +304,9 @@ pub(crate) enum RequestedRange {
 #[non_exhaustive]
 #[allow(dead_code)]
 pub struct WriteObjectRequest {
+    /// The object attributes and pre-conditions for the write operation.
     pub spec: crate::model::WriteObjectSpec,
+    /// Additional request parameters that are not part of the object attributes.
     pub params: Option<crate::model::CommonObjectRequestParams>,
 }
 
