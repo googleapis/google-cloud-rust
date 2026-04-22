@@ -43,6 +43,7 @@
 //! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs)]
 
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -66,10 +67,18 @@ pub use crate::storage::streaming_source;
 
 /// Re-export types from the `http` crate used in this module.
 pub mod http {
+    // Note: The empty doc lines below create a paragraph break in Markdown.
+    // This prevents rustdoc from appending the inlined external documentation
+    // to our short descriptions in the module summary list.
+
     /// HTTP method used by the [SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
+    ///
+    ///
     pub use http::Method;
 
     /// Metadata attributes used by the [Client::open_object][crate::client::Storage::open_object].
+    ///
+    ///
     pub use http::HeaderMap;
 }
 
@@ -98,7 +107,6 @@ pub mod builder {
     }
 }
 pub mod error;
-/// The messages and enums that are part of this client library.
 pub use crate::control::model;
 pub mod builder_ext;
 pub mod model_ext;
@@ -116,6 +124,7 @@ pub mod stub {
 }
 
 #[allow(dead_code)]
+#[allow(missing_docs)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]

@@ -338,6 +338,7 @@ impl std::fmt::Debug for super::SingleTenantHsmInstance {
             &self.unrefreshed_duration_until_disable,
         );
         debug_struct.field("disable_time", &self.disable_time);
+        debug_struct.field("key_portability_enabled", &self.key_portability_enabled);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

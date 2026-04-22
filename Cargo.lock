@@ -2094,6 +2094,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-type",
  "google-cloud-wkt",
  "serde",
@@ -4019,7 +4020,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "0.33.2"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6329,15 +6330,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "nu-ansi-term"
-version = "0.50.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
-dependencies = [
- "windows-sys 0.61.2",
-]
-
-[[package]]
 name = "num-bigint-dig"
 version = "0.8.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7385,9 +7377,9 @@ checksum = "f87165f0995f63a9fbeea62b64d10b4d9d8e78ec6d7d51fb2125fda7bb36788f"
 
 [[package]]
 name = "rustls-webpki"
-version = "0.103.12"
+version = "0.103.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8279bb85272c9f10811ae6a6c547ff594d6a7f3c6c6b02ee9726d1d0dcfcdd06"
+checksum = "61c429a8649f110dddef65e2a5ad240f747e85f7758a6bccc7e5777bd33f756e"
 dependencies = [
  "aws-lc-rs",
  "ring",
@@ -8564,17 +8556,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cb7f578e5945fb242538965c2d0b04418d38ec25c79d160cd279bf0731c8d319"
 dependencies = [
  "matchers",
- "nu-ansi-term",
  "once_cell",
  "regex-automata",
  "serde",
  "serde_json",
  "sharded-slab",
- "smallvec",
  "thread_local",
  "tracing",
  "tracing-core",
- "tracing-log",
  "tracing-serde",
 ]
 
@@ -8662,12 +8651,17 @@ dependencies = [
  "google-cloud-wkt",
  "httptest",
  "mockall",
+ "opentelemetry",
+ "opentelemetry-otlp",
+ "opentelemetry_sdk",
  "reqwest 0.13.2",
  "serde_json",
  "storage-samples",
  "tempfile",
  "test-case",
  "tokio",
+ "tracing",
+ "tracing-opentelemetry",
  "tracing-subscriber",
 ]
 

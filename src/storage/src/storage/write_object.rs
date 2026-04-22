@@ -838,6 +838,7 @@ where
         self
     }
 
+    /// Sets the MD5 hash for the object being written.
     pub fn set_md5_hash<I, V>(mut self, i: I) -> Self
     where
         I: IntoIterator<Item = V>,

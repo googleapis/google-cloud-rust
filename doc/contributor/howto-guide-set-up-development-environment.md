@@ -41,15 +41,15 @@ defaults in your `settings.json` file:
 
 ```json
 {
-    "rust-analyzer.cargo.buildScripts.overrideCommand": [
-        "cargo",
-        "check",
-        "--quiet",
-        "--profile=test",
-        "--message-format=json",
-        "--keep-going"
-    ],
-    "rust-analyzer.check.workspace": false
+  "rust-analyzer.cargo.buildScripts.overrideCommand": [
+    "cargo",
+    "check",
+    "--quiet",
+    "--profile=test",
+    "--message-format=json",
+    "--keep-going"
+  ],
+  "rust-analyzer.check.workspace": false
 }
 ```
 
@@ -173,85 +173,13 @@ project.
 
 ### One time set up
 
-We use [Secret Manager], [Workflows], [Firestore], [Speech-to-Text], and [KMS]
-to run integration tests. Follow the [Enable the Secret Manager API] guide to,
-as it says, enable the API and make sure that billing is enabled in your
-projects. To enable the APIs you can run this command:
+To run integration tests, you need to set up resources like Firestore, KMS keys,
+and service accounts in a Google Cloud Project.
 
-```bash
-gcloud services enable workflows.googleapis.com firestore.googleapis.com speech.googleapis.com cloudkms.googleapis.com
-```
-
-Verify this is working with something like:
-
-```bash
-gcloud firestore databases list
-gcloud secrets list
-gcloud workflows list
-```
-
-It is fine if the list is empty, you just don't want an error.
-
-### Create a service account
-
-The integration tests need a service account (SA) in your project. This service
-account is used to:
-
-- Run tests that perform IAM operations, temporarily granting this service
-  account some permissions.
-- Configure the service account used for test workflows.
-
-For a test project, just create the SA using the CLI:
-
-```bash
-gcloud iam service-accounts create rust-sdk-test \
-    --display-name="Used in SA testing" \
-    --description="This SA gets assigned to roles on short-lived resources during integration tests"
-```
-
-For extra safety, disable the service account:
-
-```bash
-GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
-gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com
-```
-
-### Create a database
-
-The integration tests need the default Firestore database in your project. You
-can create this database using:
-
-```bash
-gcloud firestore databases create --location=us-central1
-```
-
-If the database already exists you should verify that this is a Firestore native
-database:
-
-```bash
-gcloud firestore databases describe --format='value(type)'
-# Expected output:
-# FIRESTORE_NATIVE
-```
-
-### Create a KMS key ring and a crypto key
-
-We use KMS keys with storage. The [Use customer-managed encryption keys] guide
-covers how to create and configure a crypto key for use with Cloud Storage. We
-recommend you name the key ring after its location, but feel free to use a
-different naming convention:
-
-```bash
-GOOGLE_CLOUD_PROJECT="$(gcloud config get project)"
-gcloud kms keyrings create us-central1 --location=us-central1
-gcloud kms keys create storage-examples \
-    --keyring=us-central1 \
-    --location=us-central1 \
-    --purpose=encryption \
-    --rotation-period=10d --next-rotation-time=+p10d
-gcloud storage service-agent --project=${GOOGLE_CLOUD_PROJECT} \
-    --authorize-cmek=projects/${GOOGLE_CLOUD_PROJECT}/locations/us-central1/keyRings/us-central1/cryptoKeys/storage-examples
-```
+We recommend using Terraform to automate this setup. See the instructions in
+[.gcb/builds/README.md](../../.gcb/builds/README.md) for a safe way to set up
+these resources in your personal test project without affecting the shared
+project.
 
 ### Running tests
 
@@ -356,15 +284,8 @@ git ls-files -z --
     xargs -0 terraform fmt
 ```
 
-[enable the secret manager api]: https://cloud.google.com/secret-manager/docs/configuring-secret-manager
-[firestore]: https://cloud.google.com/firestore/
 [getting-started-rust]: https://www.rust-lang.org/learn/get-started
 [golang-install]: https://go.dev/doc/install
 [google cloud cli]: https://cloud.google.com/cli
 [install terraform]: https://developer.hashicorp.com/terraform/install
-[kms]: https://cloud.google.com/kms/
 [mdbook]: https://rust-lang.github.io/mdBook/
-[secret manager]: https://cloud.google.com/secret-manager/
-[speech-to-text]: https://cloud.google.com/speech-to-text
-[use customer-managed encryption keys]: https://cloud.google.com/storage/docs/encryption/using-customer-managed-keys
-[workflows]: https://cloud.google.com/workflows/

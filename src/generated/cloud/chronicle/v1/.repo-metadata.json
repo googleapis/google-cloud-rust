@@ -1,5 +1,5 @@
 {
-    "api_description": "The Google Cloud Security Operations API, popularly known as the Chronicle\nAPI, serves endpoints that enable security analysts to analyze and\nmitigate a security threat throughout its lifecycle",
+    "api_description": "The Google Cloud Security Operations API (Chronicle API) provides endpoints\nthat help analysts investigate and mitigate security threats throughout\ntheir lifecycle.",
     "api_id": "chronicle.googleapis.com",
     "api_shortname": "chronicle",
     "client_documentation": "https://docs.rs/google-cloud-chronicle-v1/latest",

@@ -53,11 +53,6 @@ pub struct Storage {
 }
 
 impl Storage {
-    #[cfg(test)]
-    pub(crate) fn new_test(inner: Arc<StorageInner>) -> Arc<Self> {
-        Self::new(inner, false)
-    }
-
     pub(crate) fn new(inner: Arc<StorageInner>, tracing: bool) -> Arc<Self> {
         let metric = DurationMetric::new(&INSTRUMENTATION);
         Arc::new(Self {
@@ -334,12 +329,20 @@ impl super::stub::Storage for Storage {
 
 #[cfg(test)]
 mod tests {
+    use super::{Storage, StorageInner};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_test_utils::test_layer::AttributeValue;
     use google_cloud_test_utils::test_layer::{CapturedSpan, TestLayer};
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use pretty_assertions::assert_eq;
     use std::collections::BTreeMap;
+    use std::sync::Arc;
+
+    impl Storage {
+        pub(crate) fn new_test(inner: Arc<StorageInner>) -> Arc<Self> {
+            Self::new(inner, false)
+        }
+    }
 
     #[tokio::test]
     async fn read_object() -> anyhow::Result<()> {

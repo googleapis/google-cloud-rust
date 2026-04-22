@@ -936,6 +936,7 @@ pub struct VectorSearch {
     /// DOT_PRODUCT will be used as the default.
     pub distance_metric: crate::model::DistanceMetric,
 
+    /// Specifies the type of vector to use for the query.
     pub vector_type: std::option::Option<crate::model::vector_search::VectorType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1212,6 +1213,7 @@ pub mod vector_search {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Specifies the type of vector to use for the query.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum VectorType {
@@ -3384,6 +3386,45 @@ impl wkt::message::Message for VertexEmbeddingConfig {
     }
 }
 
+/// Represents a customer-managed encryption key specification that can be
+/// applied to a Vector Search collection.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct EncryptionSpec {
+    /// Required. Resource name of the Cloud KMS key used to protect the resource.
+    ///
+    /// The Cloud KMS key must be in the same region as the resource. It must have
+    /// the format
+    /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
+    pub crypto_key_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl EncryptionSpec {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [crypto_key_name][crate::model::EncryptionSpec::crypto_key_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::EncryptionSpec;
+    /// let x = EncryptionSpec::new().set_crypto_key_name("example");
+    /// ```
+    pub fn set_crypto_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.crypto_key_name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for EncryptionSpec {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.EncryptionSpec"
+    }
+}
+
 /// Message describing Collection object
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3414,7 +3455,14 @@ pub struct Collection {
     /// Optional. JSON Schema for data.
     /// Field names must contain only alphanumeric characters,
     /// underscores, and hyphens.
+    /// The schema must be compliant with
+    /// [JSON Schema Draft 7](https://json-schema.org/draft-07/schema).
     pub data_schema: std::option::Option<wkt::Struct>,
+
+    /// Optional. Immutable. Specifies the customer-managed encryption key spec for
+    /// a Collection. If set, this Collection and all sub-resources of this
+    /// Collection will be secured by this key.
+    pub encryption_spec: std::option::Option<crate::model::EncryptionSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3599,6 +3647,39 @@ impl Collection {
         T: std::convert::Into<wkt::Struct>,
     {
         self.data_schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [encryption_spec][crate::model::Collection::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::Collection;
+    /// use google_cloud_vectorsearch_v1::model::EncryptionSpec;
+    /// let x = Collection::new().set_encryption_spec(EncryptionSpec::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionSpec>,
+    {
+        self.encryption_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_spec][crate::model::Collection::encryption_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::Collection;
+    /// use google_cloud_vectorsearch_v1::model::EncryptionSpec;
+    /// let x = Collection::new().set_or_clear_encryption_spec(Some(EncryptionSpec::default()/* use setters */));
+    /// let x = Collection::new().set_or_clear_encryption_spec(None::<EncryptionSpec>);
+    /// ```
+    pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EncryptionSpec>,
+    {
+        self.encryption_spec = v.map(|x| x.into());
         self
     }
 }
@@ -4876,6 +4957,139 @@ impl CreateIndexRequest {
 impl wkt::message::Message for CreateIndexRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.vectorsearch.v1.CreateIndexRequest"
+    }
+}
+
+/// Message for updating an Index.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateIndexRequest {
+    /// Required. The resource being updated.
+    pub index: std::option::Option<crate::model::Index>,
+
+    /// Optional. Specifies the fields to be overwritten in the Index resource by
+    /// the update. The fields specified in the update_mask are relative to the
+    /// resource, not the full request. A field will be overwritten if it is in the
+    /// mask. If the user does not provide a mask then all fields present in the
+    /// request with non-empty values will be overwritten.
+    ///
+    /// The following fields support update:
+    ///
+    /// * `display_name`
+    /// * `description`
+    /// * `labels`
+    /// * `dedicated_infrastructure.autoscaling_spec.min_replica_count`
+    /// * `dedicated_infrastructure.autoscaling_spec.max_replica_count`
+    ///
+    /// If `*` is provided in the `update_mask`, full replacement of mutable fields
+    /// will be performed.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server will know to
+    /// ignore the request if it has already been completed. The server will
+    /// guarantee that for at least 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server can check if original operation with the same request ID
+    /// was received, and if so, will ignore the second request. This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateIndexRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [index][crate::model::UpdateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UpdateIndexRequest;
+    /// use google_cloud_vectorsearch_v1::model::Index;
+    /// let x = UpdateIndexRequest::new().set_index(Index::default()/* use setters */);
+    /// ```
+    pub fn set_index<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Index>,
+    {
+        self.index = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [index][crate::model::UpdateIndexRequest::index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UpdateIndexRequest;
+    /// use google_cloud_vectorsearch_v1::model::Index;
+    /// let x = UpdateIndexRequest::new().set_or_clear_index(Some(Index::default()/* use setters */));
+    /// let x = UpdateIndexRequest::new().set_or_clear_index(None::<Index>);
+    /// ```
+    pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Index>,
+    {
+        self.index = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateIndexRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UpdateIndexRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIndexRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateIndexRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UpdateIndexRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIndexRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIndexRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateIndexRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_vectorsearch_v1::model::UpdateIndexRequest;
+    /// let x = UpdateIndexRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateIndexRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.vectorsearch.v1.UpdateIndexRequest"
     }
 }
 

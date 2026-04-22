@@ -87,13 +87,11 @@ impl DataAccessControlService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::DataAccessControlService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -478,6 +476,538 @@ impl DataAccessControlService {
 ///
 /// # Example
 /// ```
+/// # use google_cloud_chronicle_v1::client::DataTableService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DataTableService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_data_tables()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// DataTableManager provides an interface for managing data tables.
+///
+/// # Configuration
+///
+/// To configure `DataTableService` use the `with_*` methods in the type returned
+/// by [builder()][DataTableService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://chronicle.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::data_table_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::data_table_service::ClientBuilder::with_credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `DataTableService` holds a connection pool internally, it is advised to
+/// create one and reuse it. You do not need to wrap `DataTableService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct DataTableService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataTableService>,
+}
+
+impl DataTableService {
+    /// Returns a builder for [DataTableService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// let client = DataTableService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::data_table_service::ClientBuilder {
+        crate::new_client_builder(super::builder::data_table_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
+    where
+        T: super::stub::DataTableService + 'static,
+    {
+        Self { inner: stub.into() }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::DataTableService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataTableService> {
+        super::transport::DataTableService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::DataTableService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::DataTableService::new)
+    }
+
+    /// Create a new data table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_table()
+    ///         .set_parent(parent)
+    ///         .set_data_table(
+    ///             DataTable::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_data_table(&self) -> super::builder::data_table_service::CreateDataTable {
+        super::builder::data_table_service::CreateDataTable::new(self.inner.clone())
+    }
+
+    /// List data tables.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_tables()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_data_tables(&self) -> super::builder::data_table_service::ListDataTables {
+        super::builder::data_table_service::ListDataTables::new(self.inner.clone())
+    }
+
+    /// Get data table info.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_table()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_table(&self) -> super::builder::data_table_service::GetDataTable {
+        super::builder::data_table_service::GetDataTable::new(self.inner.clone())
+    }
+
+    /// Update data table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_table()
+    ///         .set_data_table(
+    ///             DataTable::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_data_table(&self) -> super::builder::data_table_service::UpdateDataTable {
+        super::builder::data_table_service::UpdateDataTable::new(self.inner.clone())
+    }
+
+    /// Delete data table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_table()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_data_table(&self) -> super::builder::data_table_service::DeleteDataTable {
+        super::builder::data_table_service::DeleteDataTable::new(self.inner.clone())
+    }
+
+    /// Create a new data table row.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_table_row()
+    ///         .set_parent(parent)
+    ///         .set_data_table_row(
+    ///             DataTableRow::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_data_table_row(&self) -> super::builder::data_table_service::CreateDataTableRow {
+        super::builder::data_table_service::CreateDataTableRow::new(self.inner.clone())
+    }
+
+    /// Update data table row
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_table_row()
+    ///         .set_data_table_row(
+    ///             DataTableRow::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_data_table_row(&self) -> super::builder::data_table_service::UpdateDataTableRow {
+        super::builder::data_table_service::UpdateDataTableRow::new(self.inner.clone())
+    }
+
+    /// List data table rows.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_table_rows()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_data_table_rows(&self) -> super::builder::data_table_service::ListDataTableRows {
+        super::builder::data_table_service::ListDataTableRows::new(self.inner.clone())
+    }
+
+    /// Get data table row
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_table_row()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_table_row(&self) -> super::builder::data_table_service::GetDataTableRow {
+        super::builder::data_table_service::GetDataTableRow::new(self.inner.clone())
+    }
+
+    /// Delete data table row.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_table_row()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_data_table_row(&self) -> super::builder::data_table_service::DeleteDataTableRow {
+        super::builder::data_table_service::DeleteDataTableRow::new(self.inner.clone())
+    }
+
+    /// Create data table rows in bulk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_create_data_table_rows()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bulk_create_data_table_rows(
+        &self,
+    ) -> super::builder::data_table_service::BulkCreateDataTableRows {
+        super::builder::data_table_service::BulkCreateDataTableRows::new(self.inner.clone())
+    }
+
+    /// Get data table rows in bulk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_get_data_table_rows()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bulk_get_data_table_rows(
+        &self,
+    ) -> super::builder::data_table_service::BulkGetDataTableRows {
+        super::builder::data_table_service::BulkGetDataTableRows::new(self.inner.clone())
+    }
+
+    /// Replace all existing data table rows with new data table rows.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_replace_data_table_rows()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bulk_replace_data_table_rows(
+        &self,
+    ) -> super::builder::data_table_service::BulkReplaceDataTableRows {
+        super::builder::data_table_service::BulkReplaceDataTableRows::new(self.inner.clone())
+    }
+
+    /// Update data table rows in bulk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_update_data_table_rows()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn bulk_update_data_table_rows(
+        &self,
+    ) -> super::builder::data_table_service::BulkUpdateDataTableRows {
+        super::builder::data_table_service::BulkUpdateDataTableRows::new(self.inner.clone())
+    }
+
+    /// Get the error for a data table operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_table_operation_errors()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_data_table_operation_errors(
+        &self,
+    ) -> super::builder::data_table_service::GetDataTableOperationErrors {
+        super::builder::data_table_service::GetDataTableOperationErrors::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::data_table_service::ListOperations {
+        super::builder::data_table_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::data_table_service::GetOperation {
+        super::builder::data_table_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::data_table_service::DeleteOperation {
+        super::builder::data_table_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataTableService;
+    /// use google_cloud_chronicle_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTableService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::data_table_service::CancelOperation {
+        super::builder::data_table_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Chronicle API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_chronicle_v1::client::EntityService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
@@ -544,13 +1074,11 @@ impl EntityService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::EntityService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -854,13 +1382,11 @@ impl InstanceService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::InstanceService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1073,13 +1599,11 @@ impl ReferenceListService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::ReferenceListService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1372,13 +1896,11 @@ impl RuleService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::RuleService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(

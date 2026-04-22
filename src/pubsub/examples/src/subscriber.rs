@@ -13,5 +13,6 @@
 // limitations under the License.
 
 pub mod exactly_once;
+pub mod flow_settings;
 pub mod quickstart_subscriber;
 pub mod subscriber_stream;

@@ -48,6 +48,7 @@ impl<T> Payload<T>
 where
     T: StreamingSource,
 {
+    /// Creates a new `Payload` from a streaming source.
     pub fn from_stream(payload: T) -> Self {
         Self { payload }
     }
@@ -323,7 +324,7 @@ impl Seek for IterSource {
 }
 
 #[cfg(test)]
-pub mod tests {
+pub(crate) mod tests {
     use super::*;
     use std::io::Write;
     use tempfile::NamedTempFile;

@@ -108,13 +108,11 @@ impl Autokey {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::Autokey + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -239,13 +237,22 @@ impl Autokey {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -460,13 +467,11 @@ impl AutokeyAdmin {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::AutokeyAdmin + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -581,13 +586,22 @@ impl AutokeyAdmin {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -801,13 +815,11 @@ impl EkmService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::EkmService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1022,13 +1034,22 @@ impl EkmService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -1245,13 +1266,11 @@ impl HsmManagement {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::HsmManagement + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -1586,13 +1605,22 @@ impl HsmManagement {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
@@ -1815,13 +1843,11 @@ impl KeyManagementService {
     ///
     /// The most common case for calling this function is in tests mocking the
     /// client's behavior.
-    pub fn from_stub<T>(stub: T) -> Self
+    pub fn from_stub<T>(stub: impl Into<std::sync::Arc<T>>) -> Self
     where
         T: super::stub::KeyManagementService + 'static,
     {
-        Self {
-            inner: std::sync::Arc::new(stub),
-        }
+        Self { inner: stub.into() }
     }
 
     pub(crate) async fn new(
@@ -2846,13 +2872,22 @@ impl KeyManagementService {
     }
 
     /// Lists information about the supported locations for this service.
-    /// This method can be called in two ways:
     ///
-    /// * **List all public locations:** Use the path `GET /v1/locations`.
-    /// * **List project-visible locations:** Use the path
-    ///   `GET /v1/projects/{project_id}/locations`. This may include public
-    ///   locations as well as private or other locations specifically visible
-    ///   to the project.
+    /// This method lists locations based on the resource scope provided in
+    /// the [ListLocationsRequest.name] field:
+    ///
+    /// * **Global locations**: If `name` is empty, the method lists the
+    ///   public locations available to all projects. * **Project-specific
+    ///   locations**: If `name` follows the format
+    ///   `projects/{project}`, the method lists locations visible to that
+    ///   specific project. This includes public, private, or other
+    ///   project-specific locations enabled for the project.
+    ///
+    /// For gRPC and client library implementations, the resource name is
+    /// passed as the `name` field. For direct service calls, the resource
+    /// name is
+    /// incorporated into the request path based on the specific service
+    /// implementation and version.
     ///
     /// # Example
     /// ```
