@@ -96,8 +96,15 @@ executed.
 
 **When to use**:
 
-- When the code is valid and should compile, but running it would cause unwanted
-  side effects or requires a network connection that is not available.
+- When the code block contains statements that ARE executed (e.g., in a `main`
+  function or as top-level statements) and that code requires a network
+  connection or causes side effects.
+
+> [!NOTE]
+> It is NOT strictly necessary to add `no_run` to samples that are purely
+> function definitions (like `async fn sample(...) { ... }`) that are never
+> called, because `rustdoc` will not execute them anyway, and the overhead of
+> starting the process is negligible.
 
 **Implications**:
 
