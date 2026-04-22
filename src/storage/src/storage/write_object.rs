@@ -824,6 +824,30 @@ where
         self
     }
 
+    /// Sets the project that will be billed for this request.
+    ///
+    /// Required for [Requester Pays] buckets. The value overrides any
+    /// `quota_project_id` configured on the credentials; the credential-level
+    /// header is suppressed for this RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
+    ///     .with_user_project("my-billing-project")
+    ///     .send_buffered()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
+    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
+        self.options.with_user_project(project);
+        self
+    }
+
     fn mut_resource(&mut self) -> &mut crate::model::Object {
         self.request
             .spec
@@ -1643,6 +1667,55 @@ mod tests {
                 "hello world",
             )
             .with_user_agent(user_agent)
+            .send_unbuffered()
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_object_with_user_project() -> Result {
+        const PROJECT_NAME: &str = "project_lazy_dog";
+        let server = Server::run();
+        let session = server.url("/upload/session/test-only-001");
+        let path = session.path().to_string();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::headers(contains(("x-goog-user-project", PROJECT_NAME))),
+                request::query(url_decoded(contains(("uploadType", "resumable")))),
+            ])
+            .times(1)
+            .respond_with(status_code(200).append_header("location", session.to_string())),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("PUT", path),
+                request::headers(contains(("x-goog-user-project", PROJECT_NAME))),
+            ])
+            .times(1)
+            .respond_with(
+                status_code(200)
+                    .append_header(http::header::CONTENT_TYPE, "application/json")
+                    .body(serde_json::to_string(&crate::model::Object::new()).unwrap()),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let _ = client
+            .write_object(
+                "projects/_/buckets/test-bucket",
+                "test-object",
+                "hello world",
+            )
+            .with_user_project(PROJECT_NAME)
+            .with_resumable_upload_threshold(0_usize)
             .send_unbuffered()
             .await?;
 

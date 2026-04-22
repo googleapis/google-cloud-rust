@@ -416,6 +416,30 @@ impl<S> OpenObject<S> {
         self.options.user_agent = Some(user_agent.into());
         self
     }
+
+    /// Sets the project that will be billed for this request.
+    ///
+    /// Required for [Requester Pays] buckets. The value overrides any
+    /// `quota_project_id` configured on the credentials; the credential-level
+    /// header is suppressed for this RPC.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_user_project("my-billing-project")
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
+    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
+        self.options.with_user_project(project);
+        self
+    }
 }
 
 #[cfg(test)]
@@ -771,6 +795,47 @@ mod tests {
         let _descriptor = client
             .open_object(BUCKET_NAME, OBJECT_NAME)
             .with_user_agent(USER_AGENT)
+            .send()
+            .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn user_project() -> anyhow::Result<()> {
+        const PROJECT_NAME: &str = "project_lazy_dog";
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            ..BidiReadObjectResponse::default()
+        };
+        tx.send(Ok(initial)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(|request| {
+            let user_project = request
+                .metadata()
+                .get("x-goog-user-project")
+                .and_then(|v| v.to_str().ok())
+                .expect("x-goog-user-project should be set");
+            assert_eq!(user_project, PROJECT_NAME);
+            Ok(TonicResponse::from(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint)
+            .build()
+            .await?;
+
+        let _descriptor = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_user_project(PROJECT_NAME)
             .send()
             .await?;
         Ok(())

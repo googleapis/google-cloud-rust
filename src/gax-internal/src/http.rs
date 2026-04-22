@@ -38,6 +38,7 @@ use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::{Error, rpc::Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
@@ -54,6 +55,8 @@ use reqwest::Method;
 use std::sync::Arc;
 use std::time::Duration;
 use tracing::Instrument;
+
+const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
@@ -401,7 +404,12 @@ impl ReqwestClient {
 
         builder = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
-            Ok(CacheableResource::New { data, .. }) => builder.headers(data),
+            Ok(CacheableResource::New { mut data, .. }) => {
+                if let Some(up) = options.get_extension::<UserProject>() {
+                    data.insert(X_GOOG_USER_PROJECT, up.as_value().clone());
+                }
+                builder.headers(data)
+            }
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
         builder.build().map_err(map_send_error)

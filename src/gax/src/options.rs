@@ -237,6 +237,11 @@ pub mod internal {
         fn insert_extension<T>(self, value: T) -> Self
         where
             T: Clone + Send + Sync + 'static;
+
+        /// Sets an extension value in-place.
+        fn insert_extension_mut<T>(&mut self, value: T)
+        where
+            T: Clone + Send + Sync + 'static;
     }
 
     impl sealed::OptionsExt for RequestOptions {}
@@ -255,6 +260,13 @@ pub mod internal {
             let _ = self.extensions.insert(value);
             self
         }
+
+        fn insert_extension_mut<T>(&mut self, value: T)
+        where
+            T: Clone + Send + Sync + 'static,
+        {
+            self.extensions.insert(value);
+        }
     }
 
     #[derive(Debug, Clone, Default, PartialEq)]
@@ -262,6 +274,31 @@ pub mod internal {
 
     #[derive(Debug, Clone, Default, PartialEq)]
     pub struct ResourceName(pub String);
+
+    /// Per-request billing project. When present, `gax-internal`'s gRPC and
+    /// HTTP transports emit an `x-goog-user-project` header carrying this
+    /// value and drop any `x-goog-user-project` header the credentials
+    /// provider would have emitted from its configured `quota_project_id`,
+    /// so the wire carries exactly one `x-goog-user-project`.
+    #[derive(Debug, Clone, PartialEq)]
+    pub struct UserProject(http::HeaderValue);
+
+    impl UserProject {
+        /// Creates a new `UserProject` extension.
+        ///
+        /// # Panics
+        ///
+        /// Panics if the project ID contains non-visible ASCII characters.
+        pub fn new(project: impl Into<String>) -> Self {
+            let val = http::HeaderValue::from_str(&project.into()).expect("invalid project id");
+            Self(val)
+        }
+
+        /// Returns the underlying header value.
+        pub fn as_value(&self) -> &http::HeaderValue {
+            &self.0
+        }
+    }
 
     // Cannot remove this function, as that would break any client libraries
     // that are released and use this function.
@@ -480,5 +517,18 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test]
+    fn user_project() {
+        const PROJECT_NAME: &str = "project_lazy_dog";
+        let up = UserProject::new(PROJECT_NAME);
+        assert_eq!(up.as_value(), PROJECT_NAME);
+    }
+
+    #[test]
+    #[should_panic(expected = "invalid project id")]
+    fn user_project_invalid_project_id_panics() {
+        let _ = UserProject::new("invalid\nproject");
     }
 }
