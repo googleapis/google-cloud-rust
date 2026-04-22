@@ -12,14 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{AtLeastOnceInfo, EXTEND_PERIOD, MAX_IDS_PER_RPC};
+use super::{AtLeastOnceInfo, EXTEND_BUFFER, EXTEND_PERIOD, MAX_IDS_PER_RPC};
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
-
-/// The buffer applied to the lease extension period to account for network
-/// latency and processing time.
-const EXTEND_BUFFER: Duration = Duration::from_secs(2);
 
 /// Leases for messages with at-least-once delivery semantics.
 #[derive(Debug, Default)]
