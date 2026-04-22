@@ -466,6 +466,7 @@ pub struct Exhausted {
 }
 
 impl Exhausted {
+    /// Creates a new `Exhausted` error.
     pub fn new(
         operation_name: &str,
         limit_name: &'static str,
