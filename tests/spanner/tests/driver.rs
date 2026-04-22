@@ -32,6 +32,9 @@ mod spanner {
         .await?;
         integration_tests_spanner::query::inline_begin_fallback(&db_client).await?;
         integration_tests_spanner::query::query_with_options(&db_client).await?;
+        integration_tests_spanner::query::query_plan(&db_client).await?;
+        integration_tests_spanner::query::query_profile(&db_client).await?;
+        integration_tests_spanner::query::dml_plan(&db_client).await?;
 
         Ok(())
     }
