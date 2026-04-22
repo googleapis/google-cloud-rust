@@ -73,6 +73,7 @@ mod tests {
     use super::*;
     use crate::client::{Mutation, Spanner};
     use crate::result_set::tests::adapt;
+    use anyhow::Result;
     use gaxi::grpc::tonic::Response;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
@@ -101,7 +102,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_execute_streaming() {
+    async fn execute_streaming() -> Result<()> {
         let mut mock = MockSpanner::new();
         mock.expect_create_session().returning(|_| {
             Ok(Response::new(mock_v1::Session {
@@ -136,11 +137,14 @@ mod tests {
         let group = MutationGroup::new(vec![mutation]);
 
         let tx = db_client.batch_write_transaction().build();
-        let mut stream = tx.execute_streaming(vec![group]).await.unwrap();
+        let mut stream = tx.execute_streaming(vec![group]).await?;
 
-        let result = stream.next_message().await;
-        assert!(result.is_some());
-        let result = result.unwrap().unwrap();
+        let result = stream
+            .next_message()
+            .await
+            .expect("stream should have yielded a message")?;
         assert_eq!(result.indexes, vec![0]);
+
+        Ok(())
     }
 }
