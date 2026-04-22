@@ -269,7 +269,7 @@ impl ValueBinder {
     }
 }
 
-/// A group of mutations that are applied atomically in a [BatchWriteTransaction].
+/// A group of mutations that are applied atomically in a [crate::BatchWriteTransaction].
 #[derive(Clone, Debug, PartialEq)]
 pub struct MutationGroup {
     pub mutations: Vec<Mutation>,

@@ -14,11 +14,12 @@
 
 use crate::client::DatabaseClient;
 use crate::model::BatchWriteRequest;
+use crate::model::BatchWriteResponse;
 use crate::mutation::MutationGroup;
 use crate::server_streaming::stream::BatchWriteStream;
+use gaxi::prost::FromProto;
 
 /// A builder for [BatchWriteTransaction].
-#[allow(dead_code)]
 pub struct BatchWriteTransactionBuilder {
     client: DatabaseClient,
 }
@@ -29,7 +30,6 @@ impl BatchWriteTransactionBuilder {
     }
 
     /// Builds the [BatchWriteTransaction].
-    #[allow(dead_code)]
     pub fn build(self) -> BatchWriteTransaction {
         let session_name = self.client.session_name();
         BatchWriteTransaction {
@@ -43,7 +43,6 @@ impl BatchWriteTransactionBuilder {
 ///
 /// Batch writes are not guaranteed to be atomic across mutation groups.
 /// All mutations within a group are applied atomically.
-#[allow(dead_code)]
 pub struct BatchWriteTransaction {
     session_name: String,
     client: DatabaseClient,
@@ -51,8 +50,42 @@ pub struct BatchWriteTransaction {
 
 impl BatchWriteTransaction {
     /// Executes the batch write and returns a stream of responses.
-    #[allow(dead_code)]
-    pub(crate) async fn execute_streaming<I>(self, groups: I) -> crate::Result<BatchWriteStream>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Mutation, Spanner, MutationGroup};
+    /// # use google_cloud_gax::error::rpc::Code;
+    /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+    /// let client = Spanner::builder().build().await?;
+    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///
+    /// let mutation = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    /// let group = MutationGroup::new(vec![mutation]);
+    ///
+    /// let tx = db.batch_write_transaction().build();
+    /// let mut stream = tx.execute_streaming(vec![group]).await?;
+    ///
+    /// while let Some(response) = stream.next_message().await {
+    ///     let response = response?;
+    ///     if let Some(status) = response.status.as_ref().filter(|s| s.code != Code::Ok as i32) {
+    ///         eprintln!("Error applying groups {:?}: {}", response.indexes, status.message);
+    ///     } else {
+    ///         println!("Applied groups: {:?}", response.indexes);
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This method sends the mutation groups to Spanner and returns the responses as a stream.
+    /// Each response includes a status code that indicates whether the mutation groups that
+    /// it references were applied successfully.
+    /// The method does not handle any errors, including retryable errors like Aborted.
+    /// The caller is responsible for handling any errors and for retrying the transaction in
+    /// case it is aborted by Spanner.
+    pub async fn execute_streaming<I>(self, groups: I) -> crate::Result<BatchWriteResponseStream>
     where
         I: IntoIterator<Item = MutationGroup>,
     {
@@ -60,11 +93,35 @@ impl BatchWriteTransaction {
             .set_session(self.session_name.clone())
             .set_mutation_groups(groups.into_iter().map(|g| g.build_proto()));
 
-        self.client
+        let stream = self
+            .client
             .spanner
             .batch_write(req, crate::RequestOptions::default())
             .send()
-            .await
+            .await?;
+        Ok(BatchWriteResponseStream { inner: stream })
+    }
+}
+
+/// A stream of [BatchWriteResponse] messages.
+pub struct BatchWriteResponseStream {
+    pub(crate) inner: BatchWriteStream,
+}
+
+impl BatchWriteResponseStream {
+    /// Fetches the next [BatchWriteResponse] from the stream.
+    ///
+    /// Returns `Some(Ok(BatchWriteResponse))` when a message is successfully received,
+    /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
+    pub async fn next_message(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
+        let proto_opt = self.inner.next_message().await?;
+        match proto_opt {
+            Ok(proto) => match proto.cnv() {
+                Ok(model) => Some(Ok(model)),
+                Err(e) => Some(Err(crate::Error::deser(e))),
+            },
+            Err(e) => Some(Err(e)),
+        }
     }
 }
 

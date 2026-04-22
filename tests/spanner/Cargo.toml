@@ -34,6 +34,7 @@ google-cloud-lro        = { workspace = true }
 google-cloud-spanner    = { workspace = true, features = ["unstable-stream"] }
 google-cloud-test-utils = { workspace = true }
 prost-types.workspace   = true
+rand                    = { workspace = true }
 reqwest                 = { workspace = true, features = ["json"] }
 serde_json              = { workspace = true }
 spanner-grpc-mock       = { path = "../../src/spanner/grpc-mock" }
