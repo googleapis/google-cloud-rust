@@ -494,7 +494,7 @@ impl Client {
         grpc_max_header_list_size: Option<u32>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
-        
+
         let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
         let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
             .map_err(|e| e.client_builder())?;
@@ -639,16 +639,28 @@ mod tests {
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
-    #[test_case(None, "my-universe-domain.com", "https://language.my-universe-domain.com/"; "default endpoint")]
-    #[test_case(Some("https://yet-another-universe-domain.com/"), "yet-another-universe-domain.com", "https://yet-another-universe-domain.com/"; "custom endpoint override")]
-    #[test_case(Some("https://rep.language.googleapis.com/"), "my-universe-domain.com", "https://rep.language.googleapis.com/"; "regional endpoint with universe domain")]
-    #[test_case(Some("https://us-central1-language.googleapis.com/"), "my-universe-domain.com", "https://us-central1-language.googleapis.com/"; "locational endpoint with universe domain")]
+    #[test_case(None, DEFAULT_UNIVERSE_DOMAIN, "https://test.googleapis.com/"; "default GDU")]
+    #[test_case(None, "my-custom-universe.com", "https://test.my-custom-universe.com/"; "default custom universe domain")]
+    #[test_case(Some("https://test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.googleapis.com/"; "GDU override")]
+    #[test_case(Some("https://another-custom-universe.com/"), "my-custom-universe.com", "https://another-custom-universe.com/"; "custom endpoint override with universe domain")]
+    #[test_case(Some("https://rep.test.googleapis.com/"), "my-custom-universe.com", "https://rep.test.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("http://www.my-custom-universe.com/"), "my-custom-universe.com", "http://www.my-custom-universe.com/"; "global custom universe")]
+    #[test_case(Some("http://private.my-custom-universe.com/"), "my-custom-universe.com", "http://private.my-custom-universe.com/"; "VPC-SC private custom universe")]
+    #[test_case(Some("http://restricted.my-custom-universe.com/"), "my-custom-universe.com", "http://restricted.my-custom-universe.com/"; "VPC-SC restricted custom universe")]
+    #[test_case(Some("http://test-my-private-ep.p.my-custom-universe.com/"), "my-custom-universe.com", "http://test-my-private-ep.p.my-custom-universe.com/"; "PSC custom endpoint custom universe")]
+    #[test_case(Some("https://us-central1-test.my-custom-universe.com/"), "my-custom-universe.com", "https://us-central1-test.my-custom-universe.com/"; "locational custom universe")]
+    #[test_case(Some("https://us-central1-test.googleapis.com/"), "my-custom-universe.com", "https://us-central1-test.googleapis.com/"; "locational endpoint with universe domain")]
+    #[test_case(Some("https://us-central1-test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://us-central1-test.googleapis.com/"; "locational GDU")]
+    #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com/"), "my-custom-universe.com", "https://test.us-central1.rep.my-custom-universe.com/"; "regional custom universe")]
+
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.us-central1.rep.googleapis.com/"; "regional GDU")]
+
     async fn make_endpoint_with_universe_domain(
         endpoint_override: Option<&str>,
         universe_domain: &str,
         expected_uri: &str,
     ) -> TestResult {
-        let default_endpoint = "https://language.googleapis.com";
+        let default_endpoint = "https://test.googleapis.com";
         let endpoint = Client::make_endpoint(
             endpoint_override.map(String::from),
             default_endpoint,
@@ -665,7 +677,7 @@ mod tests {
     #[tokio::test]
     async fn make_endpoint_with_universe_domain_mismatch() -> TestResult {
         let mut config = crate::options::ClientConfig::default();
-        config.universe_domain = Some("my-universe-domain.com".to_string());
+        config.universe_domain = Some("my-custom-universe.com".to_string());
         config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
 
         let err = Client::new(config, "https://language.googleapis.com")
