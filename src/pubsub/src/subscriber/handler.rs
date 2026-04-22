@@ -92,10 +92,10 @@ pub(super) enum Action {
 /// ```
 /// # use google_cloud_pubsub::subscriber::handler::Handler;
 /// fn on_message(h: Handler) {
-///   if let Some(attempt) = h.delivery_attempt() {
-///       println!("Delivery attempt: {}", attempt);
-///   }
-///   h.ack();
+///     match h.delivery_attempt() {
+///         Some(i) => println!("Delivery attempt: {i}"),
+///         None => println!("Delivery attempt: unknown"),
+///     }
 /// }
 /// ```
 ///
@@ -206,10 +206,10 @@ impl Handler {
     /// ```
     /// # use google_cloud_pubsub::subscriber::handler::Handler;
     /// fn on_message(h: Handler) {
-    ///   if let Some(attempt) = h.delivery_attempt() {
-    ///       println!("Delivery attempt: {}", attempt);
-    ///   }
-    ///   h.ack();
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
     /// }
     /// ```
     ///
@@ -247,9 +247,17 @@ pub struct AtLeastOnce {
 }
 
 impl AtLeastOnce {
-    pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<Action>, delivery_attempt: Option<i32>) -> Self {
+    pub(super) fn new(
+        ack_id: String,
+        ack_tx: UnboundedSender<Action>,
+        delivery_attempt: Option<i32>,
+    ) -> Self {
         Self {
-            inner: Some(AtLeastOnceImpl { ack_id, ack_tx, delivery_attempt }),
+            inner: Some(AtLeastOnceImpl {
+                ack_id,
+                ack_tx,
+                delivery_attempt,
+            }),
         }
     }
 
@@ -291,10 +299,10 @@ impl AtLeastOnce {
     /// ```
     /// # use google_cloud_pubsub::subscriber::handler::AtLeastOnce;
     /// fn on_message(h: AtLeastOnce) {
-    ///   if let Some(attempt) = h.delivery_attempt() {
-    ///       println!("Delivery attempt: {}", attempt);
-    ///   }
-    ///   h.ack();
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
     /// }
     /// ```
     ///
@@ -409,11 +417,11 @@ impl ExactlyOnce {
     ///
     /// ```
     /// # use google_cloud_pubsub::subscriber::handler::ExactlyOnce;
-    /// async fn on_message(h: ExactlyOnce) {
-    ///   if let Some(attempt) = h.delivery_attempt() {
-    ///       println!("Delivery attempt: {}", attempt);
-    ///   }
-    ///   let _ = h.confirmed_ack().await;
+    /// fn on_message(h: ExactlyOnce) {
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
     /// }
     /// ```
     ///

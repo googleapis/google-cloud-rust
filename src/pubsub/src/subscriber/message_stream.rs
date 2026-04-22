@@ -492,7 +492,6 @@ mod tests {
                         data: test_data(i).to_vec(),
                         ..Default::default()
                     }),
-                    delivery_attempt: i,
                     ..Default::default()
                 })
                 .collect(),
@@ -514,7 +513,6 @@ mod tests {
                         data: test_data(i).to_vec(),
                         ..Default::default()
                     }),
-                    delivery_attempt: i,
                     ..Default::default()
                 })
                 .collect(),
@@ -696,22 +694,16 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
-        mock.expect_acknowledge()
-            .returning(move |_| Ok(TonicResponse::from(())));
-        mock.expect_modify_ack_deadline()
-            .returning(|_| Ok(TonicResponse::from(())));
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         let resp = v1::StreamingPullResponse {
-            subscription_properties: exactly_once.then_some(
-                v1::streaming_pull_response::SubscriptionProperties {
-                    exactly_once_delivery_enabled: true,
-                    ..Default::default()
-                },
-            ),
+            subscription_properties: Some(v1::streaming_pull_response::SubscriptionProperties {
+                exactly_once_delivery_enabled: exactly_once,
+                ..Default::default()
+            }),
             received_messages: vec![v1::ReceivedMessage {
                 ack_id: test_id(0),
                 message: Some(v1::PubsubMessage {
@@ -731,11 +723,6 @@ mod tests {
             anyhow::bail!("expected message")
         };
         assert_eq!(h.delivery_attempt(), expected);
-
-        match h {
-            Handler::AtLeastOnce(_) => assert!(!exactly_once),
-            Handler::ExactlyOnce(_) => assert!(exactly_once),
-        }
 
         Ok(())
     }
@@ -781,7 +768,6 @@ mod tests {
             };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
-            assert_eq!(h.delivery_attempt(), Some(i));
             acks.spawn(h.confirmed_ack());
         }
         let end = stream.next().await.transpose()?;
