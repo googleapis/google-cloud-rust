@@ -652,7 +652,6 @@ mod tests {
     #[test_case(Some("https://us-central1-test.googleapis.com/"), "my-custom-universe.com", "https://us-central1-test.googleapis.com/"; "locational endpoint with universe domain")]
     #[test_case(Some("https://us-central1-test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://us-central1-test.googleapis.com/"; "locational GDU")]
     #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com/"), "my-custom-universe.com", "https://test.us-central1.rep.my-custom-universe.com/"; "regional custom universe")]
-
     #[test_case(Some("https://test.us-central1.rep.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.us-central1.rep.googleapis.com/"; "regional GDU")]
 
     async fn make_endpoint_with_universe_domain(
