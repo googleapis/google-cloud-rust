@@ -86,6 +86,7 @@ use std::future::Future;
 use std::pin::Pin;
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+#[allow(missing_docs)]
 pub mod internal {
     //! This module contains implementation details. It is not part of the
     //! public API. Types and functions in this module may be changed or removed

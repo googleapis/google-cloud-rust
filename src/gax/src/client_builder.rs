@@ -463,6 +463,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+#[allow(missing_docs)]
 pub mod internal {
     use super::*;
 
