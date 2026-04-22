@@ -28,7 +28,6 @@ use std::time::Duration;
 /// The error type for exponential backoff creation.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-/// Errors that can occur when building an [ExponentialBackoffBuilder].
 pub enum Error {
     /// The scaling factor is invalid (must be >= 1.0).
     #[error("the scaling value ({0}) should be >= 1.0")]

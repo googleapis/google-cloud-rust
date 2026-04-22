@@ -58,21 +58,21 @@ pub enum RetryResult {
 }
 
 impl RetryResult {
-    /// Returns true if the result is Permanent.
+    /// Returns `true` if the operation should not be retried due to a permanent error.
     pub fn is_permanent(&self) -> bool {
         match &self {
             Self::Permanent(_) => true,
             Self::Exhausted(_) | Self::Continue(_) => false,
         }
     }
-    /// Returns true if the result is Exhausted.
+    /// Returns `true` if the operation should not be retried because the retry policy is exhausted.
     pub fn is_exhausted(&self) -> bool {
         match &self {
             Self::Exhausted(_) => true,
             Self::Permanent(_) | Self::Continue(_) => false,
         }
     }
-    /// Returns true if the result is Continue.
+    /// Returns `true` if the operation should be retried.
     pub fn is_continue(&self) -> bool {
         match &self {
             Self::Continue(_) => true,
