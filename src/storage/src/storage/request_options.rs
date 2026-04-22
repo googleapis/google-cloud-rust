@@ -22,6 +22,7 @@ use crate::{
 use gaxi::options::ClientConfig;
 use google_cloud_gax::{
     backoff_policy::BackoffPolicy,
+    options::internal::{RequestOptionsExt, UserProject},
     retry_policy::RetryPolicy,
     retry_throttler::{AdaptiveThrottler, SharedRetryThrottler},
 };
@@ -46,6 +47,7 @@ pub struct RequestOptions {
     pub(crate) common_options: CommonOptions,
     pub(crate) bidi_attempt_timeout: Duration,
     pub(crate) user_agent: Option<String>,
+    pub(crate) user_project: Option<UserProject>,
 }
 
 impl RequestOptions {
@@ -122,6 +124,11 @@ impl RequestOptions {
         self.user_agent = Some(v.into());
     }
 
+    /// Sets the project that will be billed for this request.
+    pub fn with_user_project(&mut self, v: impl Into<String>) {
+        self.user_project = Some(UserProject::new(v));
+    }
+
     fn new_with_policies(
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
@@ -141,6 +148,7 @@ impl RequestOptions {
             automatic_decompression: false,
             bidi_attempt_timeout: DEFAULT_BIDI_ATTEMPT_TIMEOUT,
             user_agent: None,
+            user_project: None,
         }
     }
 
@@ -154,6 +162,9 @@ impl RequestOptions {
         }
         if let Some(s) = &self.user_agent {
             options.set_user_agent(s);
+        }
+        if let Some(up) = &self.user_project {
+            options.insert_extension_mut(up.clone());
         }
         options
     }
@@ -198,5 +209,17 @@ mod tests {
         options.with_user_agent(user_agent);
         let got = options.gax();
         assert_eq!(got.user_agent().as_deref(), Some(user_agent));
+    }
+
+    #[test]
+    fn gax_user_project() {
+        const PROJECT_NAME: &str = "project_lazy_dog";
+        let mut options = RequestOptions::new();
+        options.with_user_project(PROJECT_NAME);
+        let got = options.gax();
+        assert_eq!(
+            got.get_extension::<UserProject>(),
+            Some(&UserProject::new(PROJECT_NAME))
+        );
     }
 }

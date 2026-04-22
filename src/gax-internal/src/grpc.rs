@@ -34,6 +34,7 @@ use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
@@ -51,6 +52,7 @@ use std::time::Duration;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
+const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 
 pub type GrpcService = Channel;
 
@@ -207,7 +209,7 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = self.add_auth_headers(headers, &options).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -272,7 +274,7 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers).await?;
+        let headers = self.add_auth_headers(headers, &options).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(attempt_timeout) = options.attempt_timeout() {
@@ -400,7 +402,7 @@ impl Client {
         };
 
         #[allow(unused_mut)]
-        let mut headers = self.add_auth_headers(headers).await?;
+        let mut headers = self.add_auth_headers(headers, options).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
 
@@ -529,17 +531,27 @@ impl Client {
             .map_err(BuilderError::cred)
     }
 
-    async fn add_auth_headers(&self, mut headers: http::HeaderMap) -> Result<http::HeaderMap> {
+    async fn add_auth_headers(
+        &self,
+        mut headers: http::HeaderMap,
+        options: &RequestOptions,
+    ) -> Result<http::HeaderMap> {
         let h = self
             .credentials
             .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
 
-        let CacheableResource::New { data, .. } = h else {
+        let CacheableResource::New { mut data, .. } = h else {
             unreachable!("headers are not cached");
         };
 
+        if let Some(up) = options.get_extension::<UserProject>() {
+            data.insert(
+                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                up.as_value().clone(),
+            );
+        }
         headers.extend(data);
         Ok(headers)
     }
