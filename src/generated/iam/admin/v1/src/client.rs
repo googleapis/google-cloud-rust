@@ -23,9 +23,12 @@
 /// # use google_cloud_iam_admin_v1::client::Iam;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Iam::builder().build().await?;
-///     let name = "name_value";
+
+///     let project_id = "project_id_value";
+///     let service_account_id = "service_account_id_value";
 ///     let response = client.get_service_account()
-///         .set_name(name)
+
+///         .set_name(format!("projects/{}/serviceAccounts/{}", project_id, service_account_id))
 ///         .send().await?;
 ///     println!("response {:?}", response);
 /// # Ok(()) }
@@ -182,10 +185,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, name: &str
+    ///    client: &Iam, project_id: &str, service_account_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_account()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/serviceAccounts/{}", project_id, service_account_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -291,10 +295,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, name: &str
+    ///    client: &Iam, project_id: &str, service_account_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_account()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/serviceAccounts/{}", project_id, service_account_id))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -430,10 +435,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, name: &str
+    ///    client: &Iam, project_id: &str, service_account_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_account_key()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/serviceAccounts/{}/keys/{}", project_id, service_account_id, key_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -502,10 +508,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, name: &str
+    ///    client: &Iam, project_id: &str, service_account_id: &str, key_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_account_key()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/serviceAccounts/{}/keys/{}", project_id, service_account_id, key_id))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -860,6 +867,7 @@ impl Iam {
     ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_role()
+
     ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -882,6 +890,7 @@ impl Iam {
     ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_role()
+
     ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);

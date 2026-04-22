@@ -24,8 +24,10 @@
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Folders::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_folders()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -136,10 +138,11 @@ impl Folders {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, name: &str
+    ///    client: &Folders, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_folder()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("folders/{}", folder_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -166,6 +169,7 @@ impl Folders {
     ///    client: &Folders, parent: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_folders()
+
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -302,11 +306,12 @@ impl Folders {
     /// use google_cloud_resourcemanager_v3::model::Folder;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, name: &str
+    ///    client: &Folders, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_folder()
+
     ///         .set_folder(
-    ///             Folder::new().set_name(name)/* set fields */
+    ///             Folder::new().set_name(format!("folders/{}", folder_id))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -398,10 +403,11 @@ impl Folders {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, name: &str
+    ///    client: &Folders, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_folder()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("folders/{}", folder_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -442,10 +448,11 @@ impl Folders {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, name: &str
+    ///    client: &Folders, folder_id: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_folder()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("folders/{}", folder_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -557,9 +564,11 @@ impl Folders {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Organizations::builder().build().await?;
-///     let name = "name_value";
+
+///     let organization_id = "organization_id_value";
 ///     let response = client.get_organization()
-///         .set_name(name)
+
+///         .set_name(format!("organizations/{}", organization_id))
 ///         .send().await?;
 ///     println!("response {:?}", response);
 /// # Ok(()) }
@@ -661,10 +670,11 @@ impl Organizations {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Organizations, name: &str
+    ///    client: &Organizations, organization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("organizations/{}", organization_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -808,8 +818,10 @@ impl Organizations {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Projects::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_projects()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -918,10 +930,11 @@ impl Projects {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, name: &str
+    ///    client: &Projects, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}", project_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -947,6 +960,7 @@ impl Projects {
     ///    client: &Projects, parent: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_projects()
+
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -1054,11 +1068,12 @@ impl Projects {
     /// use google_cloud_resourcemanager_v3::model::Project;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, name: &str
+    ///    client: &Projects, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_project()
+
     ///         .set_project(
-    ///             Project::new().set_name(name)/* set fields */
+    ///             Project::new().set_name(format!("projects/{}", project_id))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1168,10 +1183,11 @@ impl Projects {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, name: &str
+    ///    client: &Projects, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_project()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}", project_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1207,10 +1223,11 @@ impl Projects {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, name: &str
+    ///    client: &Projects, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_project()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}", project_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1355,8 +1372,10 @@ impl Projects {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = TagBindings::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_tag_bindings()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -1470,6 +1489,7 @@ impl TagBindings {
     ///    client: &TagBindings, parent: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tag_bindings()
+
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -1531,10 +1551,11 @@ impl TagBindings {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagBindings, name: &str
+    ///    client: &TagBindings, tag_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_binding()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagBindings/{}", tag_binding_id))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1598,9 +1619,11 @@ impl TagBindings {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = TagHolds::builder().build().await?;
-///     let parent = "parent_value";
+
+///     let tag_value_id = "tag_value_id_value";
 ///     let mut list = client.list_tag_holds()
-///         .set_parent(parent)
+
+///         .set_parent(format!("tagValues/{}", tag_value_id))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -1721,10 +1744,11 @@ impl TagHolds {
     /// use google_cloud_resourcemanager_v3::model::TagHold;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagHolds, parent: &str
+    ///    client: &TagHolds, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag_hold()
-    ///         .set_parent(parent)
+
+    ///         .set_parent(format!("tagValues/{}", tag_value_id))
     ///         .set_tag_hold(
     ///             TagHold::new()/* set fields */
     ///         )
@@ -1755,10 +1779,11 @@ impl TagHolds {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagHolds, name: &str
+    ///    client: &TagHolds, tag_value_id: &str, tag_hold_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_hold()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagValues/{}/tagHolds/{}", tag_value_id, tag_hold_id))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1775,10 +1800,11 @@ impl TagHolds {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagHolds, parent: &str
+    ///    client: &TagHolds, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tag_holds()
-    ///         .set_parent(parent)
+
+    ///         .set_parent(format!("tagValues/{}", tag_value_id))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1821,8 +1847,10 @@ impl TagHolds {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = TagKeys::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_tag_keys()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -1931,6 +1959,7 @@ impl TagKeys {
     ///    client: &TagKeys, parent: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tag_keys()
+
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -1951,10 +1980,11 @@ impl TagKeys {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, name: &str
+    ///    client: &TagKeys, tag_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_key()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagKeys/{}", tag_key_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1973,10 +2003,11 @@ impl TagKeys {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, name: &str
+    ///    client: &TagKeys, tag_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespaced_tag_key()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagKeys/{}", tag_key_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2041,11 +2072,12 @@ impl TagKeys {
     /// use google_cloud_resourcemanager_v3::model::TagKey;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, name: &str
+    ///    client: &TagKeys, tag_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag_key()
+
     ///         .set_tag_key(
-    ///             TagKey::new().set_name(name)/* set fields */
+    ///             TagKey::new().set_name(format!("tagKeys/{}", tag_key_id))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2076,10 +2108,11 @@ impl TagKeys {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, name: &str
+    ///    client: &TagKeys, tag_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_tag_key()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagKeys/{}", tag_key_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2193,8 +2226,10 @@ impl TagKeys {
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = TagValues::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_tag_values()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
@@ -2303,6 +2338,7 @@ impl TagValues {
     ///    client: &TagValues, parent: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tag_values()
+
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -2323,10 +2359,11 @@ impl TagValues {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, name: &str
+    ///    client: &TagValues, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_value()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagValues/{}", tag_value_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2345,10 +2382,11 @@ impl TagValues {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, name: &str
+    ///    client: &TagValues, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespaced_tag_value()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagValues/{}", tag_value_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2413,11 +2451,12 @@ impl TagValues {
     /// use google_cloud_resourcemanager_v3::model::TagValue;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, name: &str
+    ///    client: &TagValues, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag_value()
+
     ///         .set_tag_value(
-    ///             TagValue::new().set_name(name)/* set fields */
+    ///             TagValue::new().set_name(format!("tagValues/{}", tag_value_id))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2448,10 +2487,11 @@ impl TagValues {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, name: &str
+    ///    client: &TagValues, tag_value_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_tag_value()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("tagValues/{}", tag_value_id))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

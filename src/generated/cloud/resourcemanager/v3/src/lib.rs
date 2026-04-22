@@ -64,8 +64,10 @@ pub mod stub;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Folders::builder().build().await?;
+
 ///     let parent = "parent_value";
 ///     let mut list = client.list_folders()
+
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {

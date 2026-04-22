@@ -59,9 +59,12 @@ pub mod stub;
 /// # use google_cloud_iam_admin_v1::client::Iam;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = Iam::builder().build().await?;
-///     let name = "name_value";
+
+///     let project_id = "project_id_value";
+///     let service_account_id = "service_account_id_value";
 ///     let response = client.get_service_account()
-///         .set_name(name)
+
+///         .set_name(format!("projects/{}/serviceAccounts/{}", project_id, service_account_id))
 ///         .send().await?;
 ///     println!("response {:?}", response);
 /// # Ok(()) }

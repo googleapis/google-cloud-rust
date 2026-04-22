@@ -24,9 +24,11 @@
 /// use google_cloud_gax::paginator::ItemPaginator as _;
 /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
 ///     let client = SecretManagerService::builder().build().await?;
-///     let parent = "parent_value";
+
+///     let project_id = "project_id_value";
 ///     let mut list = client.list_secrets()
-///         .set_parent(parent)
+
+///         .set_parent(format!("projects/{}", project_id))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
@@ -143,10 +145,11 @@ impl SecretManagerService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, parent: &str
+    ///    client: &SecretManagerService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_secrets()
-    ///         .set_parent(parent)
+
+    ///         .set_parent(format!("projects/{}", project_id))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -170,10 +173,11 @@ impl SecretManagerService {
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, parent: &str
+    ///    client: &SecretManagerService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_secret()
-    ///         .set_parent(parent)
+
+    ///         .set_parent(format!("projects/{}", project_id))
     ///         .set_secret_id("secret_id_value")
     ///         .set_secret(
     ///             Secret::new()/* set fields */
@@ -221,10 +225,11 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, name: &str
+    ///    client: &SecretManagerService, project_id: &str, secret_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_secret()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/secrets/{}", project_id, secret_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -247,11 +252,12 @@ impl SecretManagerService {
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, name: &str
+    ///    client: &SecretManagerService, project_id: &str, secret_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_secret()
+
     ///         .set_secret(
-    ///             Secret::new().set_name(name)/* set fields */
+    ///             Secret::new().set_name(format!("projects/{}/secrets/{}", project_id, secret_id))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -272,10 +278,11 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, name: &str
+    ///    client: &SecretManagerService, project_id: &str, secret_id: &str
     /// ) -> Result<()> {
     ///     client.delete_secret()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/secrets/{}", project_id, secret_id))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -295,10 +302,11 @@ impl SecretManagerService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, parent: &str
+    ///    client: &SecretManagerService, project_id: &str, secret_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_secret_versions()
-    ///         .set_parent(parent)
+
+    ///         .set_parent(format!("projects/{}/secrets/{}", project_id, secret_id))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -325,10 +333,11 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, name: &str
+    ///    client: &SecretManagerService, project_id: &str, secret_id: &str, secret_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_secret_version()
-    ///         .set_name(name)
+
+    ///         .set_name(format!("projects/{}/secrets/{}/versions/{}", project_id, secret_id, secret_version_id))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
