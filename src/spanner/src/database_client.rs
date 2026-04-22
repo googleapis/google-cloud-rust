@@ -193,6 +193,14 @@ impl DatabaseClient {
         crate::write_only_transaction::WriteOnlyTransactionBuilder::new(self.clone())
     }
 
+    /// Returns a builder for a batch write transaction.
+    #[allow(dead_code)]
+    pub(crate) fn batch_write_transaction(
+        &self,
+    ) -> crate::batch_write_transaction::BatchWriteTransactionBuilder {
+        crate::batch_write_transaction::BatchWriteTransactionBuilder::new(self.clone())
+    }
+
     pub(crate) fn session_name(&self) -> String {
         self.session_maintainer.session_name()
     }

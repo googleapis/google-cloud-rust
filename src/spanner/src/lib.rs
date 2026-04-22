@@ -44,6 +44,7 @@ pub mod batch_read_only_transaction;
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
+pub(crate) mod batch_write_transaction;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
 pub(crate) mod key;
