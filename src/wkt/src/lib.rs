@@ -20,7 +20,6 @@
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
-
 mod any;
 pub use crate::any::*;
 mod duration;
