@@ -275,18 +275,6 @@ impl Builder {
         self
     }
 
-    #[cfg(test)]
-    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-        self.iam_endpoint_override = iam_endpoint_override;
-        self
-    }
-
-    #[cfg(test)]
-    fn without_access_boundary(mut self) -> Self {
-        self.is_access_boundary_enabled = false;
-        self
-    }
-
     // This method is used to build mds credentials from ADC
     pub(crate) fn from_adc() -> Self {
         Self {
@@ -560,6 +548,18 @@ mod tests {
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
+
+    impl Builder {
+        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+            self.iam_endpoint_override = iam_endpoint_override;
+            self
+        }
+
+        fn without_access_boundary(mut self) -> Self {
+            self.is_access_boundary_enabled = false;
+            self
+        }
+    }
 
     #[tokio::test]
     #[parallel]
