@@ -18,16 +18,13 @@ use google_cloud_pubsub::subscriber::MessageStream;
 use std::time::Duration;
 
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
-    // The available concurrency of your machine.
+    // Assume an available concurrency of 2 for this sample.
     const NCPU: usize = 2;
 
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder()
         // Configure the subscriber to use multiple gRPC channels. This lets the
         // client multiplex its open streams and its acknowledgement RPCs.
-        //
-        // Anecdotally, having one channel per CPU of your machine yields high
-        // throughput.
         .with_grpc_subchannel_count(NCPU)
         .build()
         .await?;
@@ -35,9 +32,6 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
         .map(|i| {
             // Pub/Sub caps the throughput of a single stream to 10 MB/s. To achieve
             // higher throughput, you should open multiple streams.
-            //
-            // Anecdotally, setting the number of streams to twice the available
-            // concurrency yields high throughput.
             let stream = client.subscribe(&subscription_name).build();
             tokio::spawn(subscribe_task(i, stream))
         })
