@@ -13,6 +13,11 @@
 // limitations under the License.
 
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::model::{
+    BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
+    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
+    PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
+};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 
@@ -89,6 +94,30 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
     }
 }
 
+macro_rules! define_idempotent_rpc {
+    ($method:ident, $request_type:ty, $response_type:ty) => {
+        pub(crate) async fn $method(
+            &self,
+            request: $request_type,
+            options: crate::RequestOptions,
+        ) -> crate::Result<$response_type> {
+            self.inner
+                .$method()
+                .with_request(request)
+                .with_options(with_default_idempotency(options))
+                .send()
+                .await
+        }
+    };
+}
+
+fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
+    if options.idempotent().is_none() {
+        options.set_idempotency(true);
+    }
+    options
+}
+
 #[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
@@ -151,122 +180,19 @@ impl Spanner {
         }
     }
 
-    pub(crate) async fn create_session(
-        &self,
-        request: crate::model::CreateSessionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::Session> {
-        self.inner
-            .create_session()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn execute_sql(
-        &self,
-        request: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
-            .execute_sql()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn execute_batch_dml(
-        &self,
-        request: crate::model::ExecuteBatchDmlRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ExecuteBatchDmlResponse> {
-        self.inner
-            .execute_batch_dml()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn read(
-        &self,
-        request: crate::model::ReadRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
-            .read()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn begin_transaction(
-        &self,
-        request: crate::model::BeginTransactionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::Transaction> {
-        self.inner
-            .begin_transaction()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn commit(
-        &self,
-        request: crate::model::CommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::CommitResponse> {
-        self.inner
-            .commit()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn rollback(
-        &self,
-        request: crate::model::RollbackRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<()> {
-        self.inner
-            .rollback()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn partition_query(
-        &self,
-        request: crate::model::PartitionQueryRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
-            .partition_query()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
-
-    pub(crate) async fn partition_read(
-        &self,
-        request: crate::model::PartitionReadRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
-            .partition_read()
-            .with_request(request)
-            .with_options(with_default_idempotency(options))
-            .send()
-            .await
-    }
+    define_idempotent_rpc!(create_session, CreateSessionRequest, Session);
+    define_idempotent_rpc!(execute_sql, ExecuteSqlRequest, crate::model::ResultSet);
+    define_idempotent_rpc!(
+        execute_batch_dml,
+        ExecuteBatchDmlRequest,
+        ExecuteBatchDmlResponse
+    );
+    define_idempotent_rpc!(read, crate::model::ReadRequest, crate::model::ResultSet);
+    define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
+    define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
+    define_idempotent_rpc!(rollback, RollbackRequest, ());
+    define_idempotent_rpc!(partition_query, PartitionQueryRequest, PartitionResponse);
+    define_idempotent_rpc!(partition_read, PartitionReadRequest, PartitionResponse);
 
     /// Executes an SQL statement, returning a stream of results.
     ///
@@ -317,13 +243,6 @@ impl Spanner {
             .with_request(request)
             .with_options(options)
     }
-}
-
-fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
-    if options.idempotent().is_none() {
-        options.set_idempotency(true);
-    }
-    options
 }
 
 #[cfg(test)]
