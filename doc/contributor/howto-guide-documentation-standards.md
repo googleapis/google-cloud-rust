@@ -130,5 +130,4 @@ remain valid.
   manage the volume of tests and keep presubmit times reasonable) but should be
   tested in post-submit.
 
-
-[developer documentation style guide]: https://developers.google.com/style/ 
+[developer documentation style guide]: https://developers.google.com/style/
