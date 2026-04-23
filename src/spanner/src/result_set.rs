@@ -15,6 +15,7 @@
 use crate::database_client::DatabaseClient;
 use crate::error::internal_error;
 use crate::google::spanner::v1::PartialResultSet;
+use crate::model::ResultSetStats;
 use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContextTransactionSelector;
 use crate::result_set_metadata::ResultSetMetadata;
@@ -44,11 +45,13 @@ use futures::Stream;
 /// ```
 #[derive(Debug)]
 pub struct ResultSet {
-    stream: PartialResultSetStream,
+    stream: Option<PartialResultSetStream>,
     buffered_values: Vec<prost_types::Value>,
     chunked: bool,
+    seen_last: bool,
     ready_rows: VecDeque<Row>,
     metadata: Option<ResultSetMetadata>,
+    stats: Option<crate::model::ResultSetStats>,
     precommit_token_tracker: PrecommitTokenTracker,
 
     // Fields for retries and buffering of a stream of PartialResultSets.
@@ -94,9 +97,10 @@ impl ResultSet {
         operation: StreamOperation,
     ) -> Self {
         Self {
-            stream,
+            stream: Some(stream),
             buffered_values: Vec::new(),
             chunked: false,
+            seen_last: false,
             ready_rows: VecDeque::new(),
             metadata: None,
             precommit_token_tracker,
@@ -109,6 +113,7 @@ impl ResultSet {
             max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
             retry_count: 0,
             transaction_selector,
+            stats: None,
         }
     }
 
@@ -136,6 +141,29 @@ impl ResultSet {
             .ok_or(ResultSetError::MetadataNotAvailable)
     }
 
+    /// Returns the stats of the result set, if available.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ResultSet, Row};
+    /// # async fn process_stats(mut rs: ResultSet) -> Result<(), google_cloud_spanner::Error> {
+    /// while let Some(row) = rs.next().await {
+    ///     let row = row?;
+    ///     // Process row
+    /// }
+    /// if let Some(stats) = rs.stats() {
+    ///     println!("Query plan: {:?}", stats.query_plan);
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// Stats are only available after the results have been fully consumed
+    /// and the query was run in PLAN or PROFILE mode.
+    pub fn stats(&self) -> Option<&ResultSetStats> {
+        self.stats.as_ref()
+    }
+
     /// Fetches the next row from the result set.
     ///
     /// # Example
@@ -155,6 +183,19 @@ impl ResultSet {
             return Some(Ok(row));
         }
 
+        if self.seen_last {
+            if let Some(mut stream) = self.stream.take() {
+                // Spawn a background task to drain the remaining messages and trailers.
+                // This prevents the stream from being marked as 'Cancelled' in monitoring
+                // tools when we end early. We ignore any results or errors returned by the
+                // stream as we only care about completing it normally on the wire.
+                // Note: Spanner guarantees that it will not return any more results after
+                // the one with `last == true`.
+                tokio::spawn(async move { while stream.next_message().await.is_some() {} });
+            }
+            return None;
+        }
+
         loop {
             // Check if we have any buffered rows.
             if let Some(row) = self.ready_rows.pop_front() {
@@ -162,7 +203,10 @@ impl ResultSet {
             }
 
             // Read the next PartialResultSet from the stream.
-            let stream_result = self.stream.next_message().await;
+            let stream_result = match &mut self.stream {
+                Some(s) => s.next_message().await,
+                None => return None,
+            };
             match stream_result {
                 Some(Ok(partial_result_set)) => {
                     // Consume the PartialResultSet and continue the loop.
@@ -198,6 +242,10 @@ impl ResultSet {
                 .map(|t| t.cnv().expect("failed to convert precommit token")),
         );
 
+        if partial_result_set.last {
+            self.seen_last = true;
+        }
+
         // Keep track of the last resume_token that we see to be able to resume the stream
         // in case of a transient error. Most PartialResultSets will have a resume token,
         // but the API contract is not explicitly guaranteeing that each of them will have
@@ -223,6 +271,16 @@ impl ResultSet {
         }
         self.partial_result_sets_buffer
             .push_back(partial_result_set);
+
+        if self.seen_last {
+            self.flush_buffer()?;
+            if self.chunked {
+                return Err(crate::error::internal_error(
+                    "Stream ended with chunked_value=true",
+                ));
+            }
+        }
+
         Ok(())
     }
 
@@ -293,7 +351,14 @@ impl ResultSet {
         &mut self,
         partial_result_set: PartialResultSet,
     ) -> crate::Result<()> {
-        match (self.metadata.as_ref(), partial_result_set.metadata) {
+        let PartialResultSet {
+            metadata,
+            stats,
+            values,
+            chunked_value,
+            ..
+        } = partial_result_set;
+        match (self.metadata.as_ref(), metadata) {
             (Some(_), None) => {}
             (None, None) => {
                 return Err(internal_error(
@@ -329,7 +394,20 @@ impl ResultSet {
             }
         }
 
-        if partial_result_set.values.is_empty() {
+        match (&self.stats, stats) {
+            (Some(_), Some(_)) => {
+                return Err(internal_error("Additional stats received after first"));
+            }
+            (None, Some(s)) => {
+                self.stats = Some(
+                    s.cnv()
+                        .map_err(|e| internal_error(format!("failed to convert stats: {}", e)))?,
+                );
+            }
+            _ => {}
+        }
+
+        if values.is_empty() {
             return Ok(());
         }
         let metadata = self.metadata.as_ref().unwrap();
@@ -339,7 +417,7 @@ impl ResultSet {
             ));
         }
 
-        let mut values_iter = partial_result_set.values.into_iter();
+        let mut values_iter = values.into_iter();
         if self.chunked {
             if let Some(last_val) = self.buffered_values.last_mut() {
                 if let Some(first_new) = values_iter.next() {
@@ -349,7 +427,7 @@ impl ResultSet {
         }
 
         self.buffered_values.extend(values_iter);
-        self.chunked = partial_result_set.chunked_value;
+        self.chunked = chunked_value;
 
         while self.buffered_values.len() >= metadata.column_types.len() {
             let column_count = metadata.column_types.len();
@@ -386,7 +464,7 @@ impl ResultSet {
                     .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
                     .send()
                     .await?;
-                self.stream = stream;
+                self.stream = Some(stream);
             }
             StreamOperation::Read(req) => {
                 req.resume_token = self.last_resume_token.clone();
@@ -399,7 +477,7 @@ impl ResultSet {
                     .streaming_read(req.clone(), crate::RequestOptions::default())
                     .send()
                     .await?;
-                self.stream = stream;
+                self.stream = Some(stream);
             }
         }
         Ok(())
@@ -512,6 +590,7 @@ pub(crate) mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use prost_types::Value;
     use spanner_grpc_mock::MockSpanner;
+    use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
     use spanner_grpc_mock::google::spanner::v1::struct_type::Field;
     use spanner_grpc_mock::google::spanner::v1::{
         PartialResultSet, ResultSetMetadata, Session, StructType,
@@ -877,6 +956,98 @@ pub(crate) mod tests {
         assert_eq!(row.raw_values()[1].0, string_val("b"));
 
         assert!(rs.next().await.is_none());
+    }
+
+    #[tokio::test]
+    async fn result_set_last_flag() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                last: true,
+                ..Default::default()
+            },
+            // Note: This is not something that would be returned by Spanner.
+            // Once a PartialResultSet with last == true is returned, no more
+            // PartialResultSets will be returned by Spanner.
+            PartialResultSet {
+                values: vec![string_val("c"), string_val("d")],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row = rs.next().await.expect("Expected a row")?;
+        assert_eq!(row.raw_values()[0].0, string_val("a"));
+
+        // Verify that the second PartialResultSet is ignored.
+        assert!(rs.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_early_termination_not_cancelled() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let (tx, rx) = tokio::sync::mpsc::channel(10);
+
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx_single = db_client.single_use().build();
+        let mut rs: ResultSet = tx_single.execute_query("SELECT 1").await?;
+
+        // 1. Send the first message with last: true
+        tx.send(Ok(PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            ..Default::default()
+        }))
+        .await
+        .expect("Failed to send first message");
+
+        // 2. Consume the first message
+        let row = rs.next().await.expect("Expected a row")?;
+        assert_eq!(row.raw_values()[0].0, string_val("a"));
+
+        // 3. Call next again. It should see seen_last and return None early,
+        // but it should NOT drop the receiver yet because it spawned the background task.
+        assert!(rs.next().await.is_none());
+
+        // 4. Now try to send another message.
+        // If the stream was cancelled (dropped), this would fail with a SendError.
+        // If the background task is running and holding the receiver, this will succeed.
+        let send_result = tx
+            .send(Ok(PartialResultSet {
+                values: vec![string_val("c"), string_val("d")],
+                ..Default::default()
+            }))
+            .await;
+
+        assert!(
+            send_result.is_ok(),
+            "Expected stream to be alive, but it was cancelled!"
+        );
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -1884,6 +2055,71 @@ pub(crate) mod tests {
             "Caught implicit gap boundary: {}",
             err_str
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_stats() -> anyhow::Result<()> {
+        let mock_stats = spanner_v1::ResultSetStats {
+            query_plan: Some(spanner_v1::QueryPlan::default()),
+            ..Default::default()
+        };
+
+        let mut rs = run_mock_query(vec![PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            stats: Some(mock_stats),
+            ..Default::default()
+        }])
+        .await;
+
+        rs.next().await.transpose()?;
+
+        let received_stats = rs.stats().expect("stats should be available");
+        assert!(received_stats.query_plan.is_some());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_duplicate_stats() -> anyhow::Result<()> {
+        let mock_stats = spanner_v1::ResultSetStats {
+            query_plan: Some(spanner_v1::QueryPlan::default()),
+            ..Default::default()
+        };
+
+        let mut rs = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                stats: Some(mock_stats.clone()),
+                resume_token: b"token1".to_vec(),
+                ..Default::default()
+            },
+            PartialResultSet {
+                values: vec![string_val("c"), string_val("d")],
+                stats: Some(mock_stats),
+                last: true,
+                resume_token: b"token2".to_vec(),
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        // First row should be processed and returned successfully
+        let next = rs.next().await;
+        assert!(next.is_some());
+        assert!(next.expect("should yield a row").is_ok());
+
+        // Second call should process the second message and fail due to duplicate stats
+        let res2 = rs.next().await;
+        assert!(res2.is_some());
+        let res2 = res2.expect("should yield an error");
+        assert!(res2.is_err());
+        let err_str = res2.expect_err("should be an error").to_string();
+        assert!(err_str.contains("Additional stats received after first"));
 
         Ok(())
     }

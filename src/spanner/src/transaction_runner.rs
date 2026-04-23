@@ -151,6 +151,33 @@ impl TransactionRunnerBuilder {
         self
     }
 
+    /// Sets whether to exclude the transaction from change streams.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn build_tx(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_exclude_txn_from_change_streams(true)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// When set to `true`, it prevents modifications from this transaction from being tracked in change streams.
+    /// Note that this only affects change streams that have been created with the DDL option `allow_txn_exclusion = true`.
+    /// If `allow_txn_exclusion` is not set or set to `false` for a change stream, updates made within this transaction
+    /// are recorded in that change stream regardless of this setting.
+    ///
+    /// When set to `false` or not specified, modifications from this transaction are recorded in all change streams
+    /// tracking columns modified by this transaction.
+    pub fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.builder = self.builder.with_exclude_txn_from_change_streams(exclude);
+        self
+    }
+
     /// Sets the retry policy for the transaction.
     ///
     /// # Example
@@ -729,6 +756,47 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn run_with_exclude_txn_from_change_streams() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            let options = req.options.expect("Missing transaction options");
+            assert!(options.exclude_txn_from_change_streams);
+
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![9, 9, 9],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_sql()
+            .once()
+            .returning(|_req| row_count_exact_response(5));
+        mock.expect_commit()
+            .once()
+            .returning(|_req| commit_response());
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let runner = TransactionRunnerBuilder::new(db_client)
+            .with_exclude_txn_from_change_streams(true)
+            .build()
+            .await?;
+
+        let res = runner
+            .run(async |tx| {
+                let count = tx.execute_update("UPDATE Users SET active = true").await?;
+                Ok(count)
+            })
+            .await?;
+
+        assert_eq!(res, 5);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn run_with_max_commit_delay() -> anyhow::Result<()> {
         let mut mock = create_session_mock();
 
@@ -762,7 +830,6 @@ mod tests {
                 Ok(count)
             })
             .await?;
-
         assert_eq!(res, 1);
         Ok(())
     }
