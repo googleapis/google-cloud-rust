@@ -45,9 +45,10 @@ use futures::Stream;
 /// ```
 #[derive(Debug)]
 pub struct ResultSet {
-    stream: PartialResultSetStream,
+    stream: Option<PartialResultSetStream>,
     buffered_values: Vec<prost_types::Value>,
     chunked: bool,
+    seen_last: bool,
     ready_rows: VecDeque<Row>,
     metadata: Option<ResultSetMetadata>,
     stats: Option<crate::model::ResultSetStats>,
@@ -96,9 +97,10 @@ impl ResultSet {
         operation: StreamOperation,
     ) -> Self {
         Self {
-            stream,
+            stream: Some(stream),
             buffered_values: Vec::new(),
             chunked: false,
+            seen_last: false,
             ready_rows: VecDeque::new(),
             metadata: None,
             precommit_token_tracker,
@@ -181,6 +183,19 @@ impl ResultSet {
             return Some(Ok(row));
         }
 
+        if self.seen_last {
+            if let Some(mut stream) = self.stream.take() {
+                // Spawn a background task to drain the remaining messages and trailers.
+                // This prevents the stream from being marked as 'Cancelled' in monitoring
+                // tools when we end early. We ignore any results or errors returned by the
+                // stream as we only care about completing it normally on the wire.
+                // Note: Spanner guarantees that it will not return any more results after
+                // the one with `last == true`.
+                tokio::spawn(async move { while stream.next_message().await.is_some() {} });
+            }
+            return None;
+        }
+
         loop {
             // Check if we have any buffered rows.
             if let Some(row) = self.ready_rows.pop_front() {
@@ -188,7 +203,10 @@ impl ResultSet {
             }
 
             // Read the next PartialResultSet from the stream.
-            let stream_result = self.stream.next_message().await;
+            let stream_result = match &mut self.stream {
+                Some(s) => s.next_message().await,
+                None => return None,
+            };
             match stream_result {
                 Some(Ok(partial_result_set)) => {
                     // Consume the PartialResultSet and continue the loop.
@@ -224,6 +242,10 @@ impl ResultSet {
                 .map(|t| t.cnv().expect("failed to convert precommit token")),
         );
 
+        if partial_result_set.last {
+            self.seen_last = true;
+        }
+
         // Keep track of the last resume_token that we see to be able to resume the stream
         // in case of a transient error. Most PartialResultSets will have a resume token,
         // but the API contract is not explicitly guaranteeing that each of them will have
@@ -249,6 +271,16 @@ impl ResultSet {
         }
         self.partial_result_sets_buffer
             .push_back(partial_result_set);
+
+        if self.seen_last {
+            self.flush_buffer()?;
+            if self.chunked {
+                return Err(crate::error::internal_error(
+                    "Stream ended with chunked_value=true",
+                ));
+            }
+        }
+
         Ok(())
     }
 
@@ -432,7 +464,7 @@ impl ResultSet {
                     .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
                     .send()
                     .await?;
-                self.stream = stream;
+                self.stream = Some(stream);
             }
             StreamOperation::Read(req) => {
                 req.resume_token = self.last_resume_token.clone();
@@ -445,7 +477,7 @@ impl ResultSet {
                     .streaming_read(req.clone(), crate::RequestOptions::default())
                     .send()
                     .await?;
-                self.stream = stream;
+                self.stream = Some(stream);
             }
         }
         Ok(())
@@ -924,6 +956,98 @@ pub(crate) mod tests {
         assert_eq!(row.raw_values()[1].0, string_val("b"));
 
         assert!(rs.next().await.is_none());
+    }
+
+    #[tokio::test]
+    async fn result_set_last_flag() -> anyhow::Result<()> {
+        let mut rs = run_mock_query(vec![
+            PartialResultSet {
+                metadata: metadata(2),
+                values: vec![string_val("a"), string_val("b")],
+                last: true,
+                ..Default::default()
+            },
+            // Note: This is not something that would be returned by Spanner.
+            // Once a PartialResultSet with last == true is returned, no more
+            // PartialResultSets will be returned by Spanner.
+            PartialResultSet {
+                values: vec![string_val("c"), string_val("d")],
+                ..Default::default()
+            },
+        ])
+        .await;
+
+        let row = rs.next().await.expect("Expected a row")?;
+        assert_eq!(row.raw_values()[0].0, string_val("a"));
+
+        // Verify that the second PartialResultSet is ignored.
+        assert!(rs.next().await.is_none());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn result_set_early_termination_not_cancelled() -> anyhow::Result<()> {
+        let mut mock = MockSpanner::new();
+        let (tx, rx) = tokio::sync::mpsc::channel(10);
+
+        mock.expect_execute_streaming_sql()
+            .return_once(move |_request| Ok(Response::from(rx)));
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "session".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("127.0.0.1:0", mock).await?;
+
+        let client: Spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db_client = client.database_client("db").build().await?;
+        let tx_single = db_client.single_use().build();
+        let mut rs: ResultSet = tx_single.execute_query("SELECT 1").await?;
+
+        // 1. Send the first message with last: true
+        tx.send(Ok(PartialResultSet {
+            metadata: metadata(2),
+            values: vec![string_val("a"), string_val("b")],
+            last: true,
+            ..Default::default()
+        }))
+        .await
+        .expect("Failed to send first message");
+
+        // 2. Consume the first message
+        let row = rs.next().await.expect("Expected a row")?;
+        assert_eq!(row.raw_values()[0].0, string_val("a"));
+
+        // 3. Call next again. It should see seen_last and return None early,
+        // but it should NOT drop the receiver yet because it spawned the background task.
+        assert!(rs.next().await.is_none());
+
+        // 4. Now try to send another message.
+        // If the stream was cancelled (dropped), this would fail with a SendError.
+        // If the background task is running and holding the receiver, this will succeed.
+        let send_result = tx
+            .send(Ok(PartialResultSet {
+                values: vec![string_val("c"), string_val("d")],
+                ..Default::default()
+            }))
+            .await;
+
+        assert!(
+            send_result.is_ok(),
+            "Expected stream to be alive, but it was cancelled!"
+        );
+
+        Ok(())
     }
 
     #[tokio::test]
