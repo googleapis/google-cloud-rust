@@ -24,13 +24,10 @@ Each item's documentation should follow this basic structure:
 1. **Error Handling**: Examples should use the `?` operator, not `unwrap()` or
    `expect()`.
 
-## Tone
+## Style
 
-Documentation and samples should be authoritative and clear.
-
-- **Avoid Passive Voice**: Prefer active voice to make the documentation more
-  direct and easier to read. For example, instead of "Messages are delivered by
-  the subscriber," use "The subscriber delivers messages."
+See the [Developer Documentation Style Guide] for additional guidance on writing
+documentation.
 
 ## Doc Sample Tags (`ignore`, `no_rust`, `no_run`)
 
@@ -132,3 +129,6 @@ remain valid.
 - Use `ignore` for valid Rust code that should not be run on presubmit (e.g., to
   manage the volume of tests and keep presubmit times reasonable) but should be
   tested in post-submit.
+
+
+[developer documentation style guide]: https://developers.google.com/style/ 
