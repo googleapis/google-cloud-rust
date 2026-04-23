@@ -38,18 +38,27 @@ use crate::model::{Object, ObjectChecksums};
 #[non_exhaustive]
 pub enum ChecksumMismatch {
     /// The CRC32C checksum sent by the service does not match the computed (or expected) value.
-    Crc32c { got: u32, want: u32 },
+    Crc32c {
+        /// The checksum computed by the client.
+        got: u32,
+        /// The checksum reported by the service.
+        want: u32,
+    },
 
     /// The MD5 hash sent by the service does not match the computed (or expected) value.
     Md5 {
+        /// The MD5 hash computed by the client.
         got: bytes::Bytes,
+        /// The MD5 hash reported by the service.
         want: bytes::Bytes,
     },
 
     /// The CRC32C checksum **and** the MD5 hash sent by the service do not
     /// match the computed (or expected) values.
     Both {
+        /// The checksums computed by the client.
         got: Box<ObjectChecksums>,
+        /// The checksums reported by the service.
         want: Box<ObjectChecksums>,
     },
 }
@@ -116,7 +125,12 @@ pub enum ReadError {
 
     /// The read received more bytes than expected.
     #[error("too many bytes received: expected {expected}, stopped read at {got}")]
-    LongRead { got: u64, expected: u64 },
+    LongRead {
+        /// The number of bytes actually received.
+        got: u64,
+        /// The number of bytes expected.
+        expected: u64,
+    },
 
     /// Only 200 and 206 status codes are expected in successful responses.
     #[error("unexpected success code {0} in read request, only 200 and 206 are expected")]
@@ -204,7 +218,12 @@ pub enum WriteError {
     #[error(
         "the service previously persisted {offset} bytes, but now reports only {persisted} as persisted"
     )]
-    UnexpectedRewind { offset: u64, persisted: u64 },
+    UnexpectedRewind {
+        /// The offset reported previously.
+        offset: u64,
+        /// The offset reported in the current message.
+        persisted: u64,
+    },
 
     /// The service reports more bytes persisted than sent.
     ///
@@ -217,7 +236,12 @@ pub enum WriteError {
     /// It is possible that this indicates a bug in the service, client, or
     /// messages corrupted in transit.
     #[error("the service reports {persisted} bytes as persisted, but we only sent {sent} bytes")]
-    TooMuchProgress { sent: u64, persisted: u64 },
+    TooMuchProgress {
+        /// The number of bytes sent by the client.
+        sent: u64,
+        /// The number of bytes reported as persisted by the service.
+        persisted: u64,
+    },
 
     /// The checksums reported by the service do not match the expected checksums.
     ///
@@ -239,7 +263,9 @@ pub enum WriteError {
     /// If possible, resend the data from a different machine.
     #[error("checksum mismatch {mismatch} when uploading {} to {}", object.name, object.bucket)]
     ChecksumMismatch {
+        /// The details of the checksum mismatch.
         mismatch: ChecksumMismatch,
+        /// The object metadata.
         object: Box<Object>,
     },
 }
@@ -252,10 +278,12 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 pub struct SigningError(SigningErrorKind);
 
 impl SigningError {
+    /// Returns true if the error was due to a problem signing the URL.
     pub fn is_signing(&self) -> bool {
         matches!(self.0, SigningErrorKind::Signing(_))
     }
 
+    /// Returns true if the error was due to an invalid parameter.
     pub fn is_invalid_parameter(&self) -> bool {
         matches!(self.0, SigningErrorKind::InvalidParameter(_, _))
     }

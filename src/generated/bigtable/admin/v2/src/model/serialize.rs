@@ -2796,6 +2796,9 @@ impl serde::ser::Serialize for super::Instance {
         if !wkt::internal::is_default(&self.r#type) {
             state.serialize_entry("type", &self.r#type)?;
         }
+        if !wkt::internal::is_default(&self.edition) {
+            state.serialize_entry("edition", &self.edition)?;
+        }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }

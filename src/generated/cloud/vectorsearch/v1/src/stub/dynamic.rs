@@ -428,6 +428,12 @@ pub trait VectorSearchService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn update_index(
+        &self,
+        req: crate::model::UpdateIndexRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn delete_index(
         &self,
         req: crate::model::DeleteIndexRequest,
@@ -566,6 +572,15 @@ impl<T: super::VectorSearchService> VectorSearchService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::create_index(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_index(
+        &self,
+        req: crate::model::UpdateIndexRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::update_index(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

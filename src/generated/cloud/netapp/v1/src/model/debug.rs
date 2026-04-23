@@ -1335,6 +1335,7 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         debug_struct.field("r#type", &self.r#type);
         debug_struct.field("mode", &self.mode);
+        debug_struct.field("scale_type", &self.scale_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1490,6 +1491,7 @@ impl std::fmt::Debug for super::Volume {
         debug_struct.field("cache_parameters", &self.cache_parameters);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
         debug_struct.field("block_devices", &self.block_devices);
+        debug_struct.field("large_capacity_config", &self.large_capacity_config);
         debug_struct.field("clone_details", &self.clone_details);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -1504,6 +1506,17 @@ impl std::fmt::Debug for super::volume::CloneDetails {
         debug_struct.field("source_snapshot", &self.source_snapshot);
         debug_struct.field("source_volume", &self.source_volume);
         debug_struct.field("shared_space_gib", &self.shared_space_gib);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::LargeCapacityConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LargeCapacityConfig");
+        debug_struct.field("constituent_count", &self.constituent_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

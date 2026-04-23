@@ -439,6 +439,17 @@ impl std::fmt::Debug for super::VertexEmbeddingConfig {
     }
 }
 
+impl std::fmt::Debug for super::EncryptionSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EncryptionSpec");
+        debug_struct.field("crypto_key_name", &self.crypto_key_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::Collection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Collection");
@@ -450,6 +461,7 @@ impl std::fmt::Debug for super::Collection {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("vector_schema", &self.vector_schema);
         debug_struct.field("data_schema", &self.data_schema);
+        debug_struct.field("encryption_spec", &self.encryption_spec);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -596,6 +608,19 @@ impl std::fmt::Debug for super::CreateIndexRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("index_id", &self.index_id);
         debug_struct.field("index", &self.index);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateIndexRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateIndexRequest");
+        debug_struct.field("index", &self.index);
+        debug_struct.field("update_mask", &self.update_mask);
         debug_struct.field("request_id", &self.request_id);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

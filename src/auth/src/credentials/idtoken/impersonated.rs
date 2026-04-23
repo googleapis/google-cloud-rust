@@ -176,15 +176,6 @@ impl Builder {
         }
     }
 
-    #[cfg(test)]
-    // just used for tests when from_source_credentials is used and we need to override the impersonation url.
-    pub(crate) fn with_impersonation_url_host<S: Into<String>>(mut self, host: S) -> Self {
-        self.service_account_impersonation_url = self
-            .service_account_impersonation_url
-            .map(|s| s.replace("https://iamcredentials.googleapis.com/", &host.into()));
-        self
-    }
-
     /// Should include email claims in the ID Token.
     ///
     /// # Example
@@ -476,6 +467,15 @@ mod tests {
     use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
+
+    impl Builder {
+        fn with_impersonation_url_host<S: Into<String>>(mut self, host: S) -> Self {
+            self.service_account_impersonation_url = self
+                .service_account_impersonation_url
+                .map(|s| s.replace("https://iamcredentials.googleapis.com/", &host.into()));
+            self
+        }
+    }
 
     #[tokio::test]
     async fn test_impersonated_service_account_id_token() -> TestResult {

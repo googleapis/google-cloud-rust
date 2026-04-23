@@ -19,6 +19,7 @@ pub mod status;
 pub mod tonic;
 
 use crate::observability::attributes::{self, keys::*, otel_status_codes};
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use ::tonic::client::Grpc;
 use ::tonic::transport::Channel;
 use from_status::to_gax_error;
@@ -482,8 +483,12 @@ impl Client {
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint)
-            .map_err(|e| e.client_builder())?;
+        let origin = crate::host::origin(
+            endpoint.as_deref(),
+            default_endpoint,
+            DEFAULT_UNIVERSE_DOMAIN, // TODO(#3646): Pass in the actual universe domain
+        )
+        .map_err(|e| e.client_builder())?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
                 .map_err(BuilderError::transport)?;
