@@ -159,7 +159,7 @@ impl Spanner {
         self.inner
             .create_session()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -172,7 +172,7 @@ impl Spanner {
         self.inner
             .execute_sql()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -185,7 +185,7 @@ impl Spanner {
         self.inner
             .execute_batch_dml()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -198,7 +198,7 @@ impl Spanner {
         self.inner
             .read()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -211,7 +211,7 @@ impl Spanner {
         self.inner
             .begin_transaction()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -224,7 +224,7 @@ impl Spanner {
         self.inner
             .commit()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -237,7 +237,7 @@ impl Spanner {
         self.inner
             .rollback()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -250,7 +250,7 @@ impl Spanner {
         self.inner
             .partition_query()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -263,7 +263,7 @@ impl Spanner {
         self.inner
             .partition_read()
             .with_request(request)
-            .with_options(options)
+            .with_options(with_default_idempotency(options))
             .send()
             .await
     }
@@ -319,14 +319,24 @@ impl Spanner {
     }
 }
 
+fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
+    if options.idempotent().is_none() {
+        options.set_idempotency(true);
+    }
+    options
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
     use crate::result_set::tests::adapt;
+    use gaxi::grpc::tonic::{Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::error::rpc::Code;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
 
@@ -822,6 +832,91 @@ mod tests {
             err.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Internal
         );
+    }
+
+    #[tokio::test]
+    async fn default_retry_respected() -> anyhow::Result<()> {
+        use crate::model::CreateSessionRequest;
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::unavailable("server is unavailable")));
+        mock.expect_create_session().once().in_sequence(&mut seq).returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/456".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // 4. Call CreateSession using the hand-written wrapper
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let session = client
+            .create_session(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call create_session");
+
+        // 5. Verify Response
+        assert_eq!(
+            session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/456"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn override_idempotency_to_false() -> anyhow::Result<()> {
+        use crate::model::CreateSessionRequest;
+
+        // 1. Setup Mock Server to fail with UNAVAILABLE
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session()
+            .once()
+            .returning(|_| Err(Status::unavailable("server is unavailable")));
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // 4. Call CreateSession with explicit idempotency = false
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let mut options = crate::RequestOptions::default();
+        options.set_idempotency(false);
+
+        let result = client.create_session(req, options).await;
+
+        // 5. Verify that it failed and did not retry
+        assert!(result.is_err(), "Expected error, got {:?}", result);
+        let err = result.unwrap_err();
+        assert_eq!(err.status().map(|s| s.code), Some(Code::Unavailable));
+
+        Ok(())
     }
 
     #[test]
