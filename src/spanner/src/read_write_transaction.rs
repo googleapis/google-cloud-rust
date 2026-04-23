@@ -86,6 +86,11 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
+    pub(crate) fn with_exclude_txn_from_change_streams(mut self, exclude: bool) -> Self {
+        self.options = self.options.set_exclude_txn_from_change_streams(exclude);
+        self
+    }
+
     pub(crate) async fn begin_transaction(&self) -> crate::Result<ReadWriteTransaction> {
         let session_name = self.session_name.clone();
         let mut request = BeginTransactionRequest::default()
@@ -856,6 +861,30 @@ mod tests {
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_isolation_level(IsolationLevel::Serializable)
             .with_read_lock_mode(ReadLockMode::Pessimistic)
+            .begin_transaction()
+            .await
+            .expect("Failed to build transaction");
+    }
+
+    #[tokio::test]
+    async fn read_write_transaction_with_exclude_txn_from_change_streams() {
+        let mut mock = create_session_mock();
+
+        mock.expect_begin_transaction().once().returning(|req| {
+            let req = req.into_inner();
+            let options = req.options.expect("missing transaction options");
+            assert!(options.exclude_txn_from_change_streams);
+
+            Ok(tonic::Response::new(v1::Transaction {
+                id: vec![9, 9, 9],
+                ..Default::default()
+            }))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
+            .with_exclude_txn_from_change_streams(true)
             .begin_transaction()
             .await
             .expect("Failed to build transaction");
