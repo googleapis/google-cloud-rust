@@ -1264,8 +1264,16 @@ pub struct Dataset {
     /// * DEFAULT - only accessible by owner and authorized accounts,
     /// * PUBLIC - accessible by everyone,
     /// * LINKED - linked dataset,
-    /// * EXTERNAL - dataset with definition in external metadata catalog.
+    /// * EXTERNAL - dataset with definition in external metadata catalog,
+    /// * BIGLAKE_ICEBERG - a Biglake dataset accessible through the Iceberg API,
+    /// * BIGLAKE_HIVE - a Biglake dataset accessible through the Hive API.
     pub r#type: std::string::String,
+
+    /// Output only. The origin of the dataset, one of:
+    ///
+    /// * (Unset) - Native BigQuery Dataset
+    /// * BIGLAKE - Dataset is backed by a namespace stored natively in Biglake
+    pub catalog_source: std::option::Option<std::string::String>,
 
     /// Optional. The source dataset reference when the dataset is of type LINKED.
     /// For all other dataset types it is not set. This field cannot be updated
@@ -1759,6 +1767,37 @@ impl Dataset {
     /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [catalog_source][crate::model::Dataset::catalog_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::Dataset;
+    /// let x = Dataset::new().set_catalog_source("example");
+    /// ```
+    pub fn set_catalog_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.catalog_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [catalog_source][crate::model::Dataset::catalog_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::Dataset;
+    /// let x = Dataset::new().set_or_clear_catalog_source(Some("example"));
+    /// let x = Dataset::new().set_or_clear_catalog_source(None::<String>);
+    /// ```
+    pub fn set_or_clear_catalog_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.catalog_source = v.map(|x| x.into());
         self
     }
 
@@ -3420,6 +3459,23 @@ pub struct ListFormatDataset {
     /// The geographic location where the dataset resides.
     pub location: std::string::String,
 
+    /// Output only. Same as `type` in `Dataset`.
+    /// The type of the dataset, one of:
+    ///
+    /// * DEFAULT - only accessible by owner and authorized accounts,
+    /// * PUBLIC - accessible by everyone,
+    /// * LINKED - linked dataset,
+    /// * EXTERNAL - dataset with definition in external metadata catalog,
+    /// * BIGLAKE_ICEBERG - a Biglake dataset accessible through the Iceberg API,
+    /// * BIGLAKE_HIVE - a Biglake dataset accessible through the Hive API.
+    pub r#type: std::string::String,
+
+    /// Output only. The origin of the dataset, one of:
+    ///
+    /// * (Unset) - Native BigQuery Dataset.
+    /// * BIGLAKE - Dataset is backed by a namespace stored natively in Biglake.
+    pub catalog_source: std::option::Option<std::string::String>,
+
     /// Output only. Reference to a read-only external dataset defined in data
     /// catalogs outside of BigQuery. Filled out when the dataset type is EXTERNAL.
     pub external_dataset_reference: std::option::Option<crate::model::ExternalDatasetReference>,
@@ -3552,6 +3608,49 @@ impl ListFormatDataset {
     /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::ListFormatDataset::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ListFormatDataset;
+    /// let x = ListFormatDataset::new().set_type("example");
+    /// ```
+    pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [catalog_source][crate::model::ListFormatDataset::catalog_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ListFormatDataset;
+    /// let x = ListFormatDataset::new().set_catalog_source("example");
+    /// ```
+    pub fn set_catalog_source<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.catalog_source = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [catalog_source][crate::model::ListFormatDataset::catalog_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::ListFormatDataset;
+    /// let x = ListFormatDataset::new().set_or_clear_catalog_source(Some("example"));
+    /// let x = ListFormatDataset::new().set_or_clear_catalog_source(None::<String>);
+    /// ```
+    pub fn set_or_clear_catalog_source<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.catalog_source = v.map(|x| x.into());
         self
     }
 
@@ -5879,9 +5978,9 @@ pub struct ExternalDataConfiguration {
     /// of TIMESTAMP types that are allowed to the destination table for
     /// autodetection mode.
     ///
-    /// Available for the formats: CSV.
+    /// Available for the formats: CSV, PARQUET, and AVRO.
     ///
-    /// For the CSV Format, Possible values include:
+    /// Possible values include:
     /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
     /// columns
     /// [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have
@@ -6963,6 +7062,463 @@ impl ExternalDatasetReference {
 impl wkt::message::Message for ExternalDatasetReference {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.ExternalDatasetReference"
+    }
+}
+
+/// Provides error statistics for a GenAi function call.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiFunctionErrorStats {
+    /// A list of unique errors at function level (up to 5, truncated to 100
+    /// chars).
+    pub errors: std::vec::Vec<std::string::String>,
+
+    /// Number of failed rows processed by the function
+    pub num_failed_rows: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiFunctionErrorStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [errors][crate::model::GenAiFunctionErrorStats::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionErrorStats;
+    /// let x = GenAiFunctionErrorStats::new().set_errors(["a", "b", "c"]);
+    /// ```
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [num_failed_rows][crate::model::GenAiFunctionErrorStats::num_failed_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionErrorStats;
+    /// let x = GenAiFunctionErrorStats::new().set_num_failed_rows(42);
+    /// ```
+    pub fn set_num_failed_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.num_failed_rows = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiFunctionErrorStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiFunctionErrorStats"
+    }
+}
+
+/// Provides cost optimization statistics for a GenAi function call.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiFunctionCostOptimizationStats {
+    /// Number of rows inferred via cost optimized workflow.
+    pub num_cost_optimized_rows: std::option::Option<i64>,
+
+    /// System generated message to provide insights into cost optimization state.
+    pub message: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiFunctionCostOptimizationStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [num_cost_optimized_rows][crate::model::GenAiFunctionCostOptimizationStats::num_cost_optimized_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_num_cost_optimized_rows(42);
+    /// ```
+    pub fn set_num_cost_optimized_rows<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_cost_optimized_rows = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [num_cost_optimized_rows][crate::model::GenAiFunctionCostOptimizationStats::num_cost_optimized_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_or_clear_num_cost_optimized_rows(Some(42));
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_or_clear_num_cost_optimized_rows(None::<i32>);
+    /// ```
+    pub fn set_or_clear_num_cost_optimized_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_cost_optimized_rows = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [message][crate::model::GenAiFunctionCostOptimizationStats::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_message("example");
+    /// ```
+    pub fn set_message<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [message][crate::model::GenAiFunctionCostOptimizationStats::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_or_clear_message(Some("example"));
+    /// let x = GenAiFunctionCostOptimizationStats::new().set_or_clear_message(None::<String>);
+    /// ```
+    pub fn set_or_clear_message<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.message = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiFunctionCostOptimizationStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiFunctionCostOptimizationStats"
+    }
+}
+
+/// Provides statistics for each Ai function call within a query.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiFunctionStats {
+    /// Name of the function.
+    pub function_name: std::option::Option<std::string::String>,
+
+    /// User input prompt of the function (truncated to 20 chars).
+    pub prompt: std::option::Option<std::string::String>,
+
+    /// Number of rows processed by this GenAi function.
+    /// This includes all cost_optimized, llm_inferred and failed_rows.
+    pub num_processed_rows: std::option::Option<i64>,
+
+    /// Error stats for the function.
+    pub error_stats: std::option::Option<crate::model::GenAiFunctionErrorStats>,
+
+    /// Cost optimization stats if applied on the rows processed by the function.
+    pub cost_optimization_stats:
+        std::option::Option<crate::model::GenAiFunctionCostOptimizationStats>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiFunctionStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [function_name][crate::model::GenAiFunctionStats::function_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_function_name("example");
+    /// ```
+    pub fn set_function_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.function_name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [function_name][crate::model::GenAiFunctionStats::function_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_function_name(Some("example"));
+    /// let x = GenAiFunctionStats::new().set_or_clear_function_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_function_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.function_name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [prompt][crate::model::GenAiFunctionStats::prompt].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_prompt("example");
+    /// ```
+    pub fn set_prompt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prompt][crate::model::GenAiFunctionStats::prompt].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_prompt(Some("example"));
+    /// let x = GenAiFunctionStats::new().set_or_clear_prompt(None::<String>);
+    /// ```
+    pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [num_processed_rows][crate::model::GenAiFunctionStats::num_processed_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_num_processed_rows(42);
+    /// ```
+    pub fn set_num_processed_rows<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_processed_rows = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [num_processed_rows][crate::model::GenAiFunctionStats::num_processed_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_num_processed_rows(Some(42));
+    /// let x = GenAiFunctionStats::new().set_or_clear_num_processed_rows(None::<i32>);
+    /// ```
+    pub fn set_or_clear_num_processed_rows<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.num_processed_rows = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error_stats][crate::model::GenAiFunctionStats::error_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionErrorStats;
+    /// let x = GenAiFunctionStats::new().set_error_stats(GenAiFunctionErrorStats::default()/* use setters */);
+    /// ```
+    pub fn set_error_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionErrorStats>,
+    {
+        self.error_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error_stats][crate::model::GenAiFunctionStats::error_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionErrorStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_error_stats(Some(GenAiFunctionErrorStats::default()/* use setters */));
+    /// let x = GenAiFunctionStats::new().set_or_clear_error_stats(None::<GenAiFunctionErrorStats>);
+    /// ```
+    pub fn set_or_clear_error_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionErrorStats>,
+    {
+        self.error_stats = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cost_optimization_stats][crate::model::GenAiFunctionStats::cost_optimization_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionStats::new().set_cost_optimization_stats(GenAiFunctionCostOptimizationStats::default()/* use setters */);
+    /// ```
+    pub fn set_cost_optimization_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionCostOptimizationStats>,
+    {
+        self.cost_optimization_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cost_optimization_stats][crate::model::GenAiFunctionStats::cost_optimization_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionCostOptimizationStats;
+    /// let x = GenAiFunctionStats::new().set_or_clear_cost_optimization_stats(Some(GenAiFunctionCostOptimizationStats::default()/* use setters */));
+    /// let x = GenAiFunctionStats::new().set_or_clear_cost_optimization_stats(None::<GenAiFunctionCostOptimizationStats>);
+    /// ```
+    pub fn set_or_clear_cost_optimization_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiFunctionCostOptimizationStats>,
+    {
+        self.cost_optimization_stats = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiFunctionStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiFunctionStats"
+    }
+}
+
+/// Provides error statistics for the query job across all AI function calls.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiErrorStats {
+    /// A list of unique errors at query level (up to 5, truncated to 100 chars)
+    pub errors: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiErrorStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [errors][crate::model::GenAiErrorStats::errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiErrorStats;
+    /// let x = GenAiErrorStats::new().set_errors(["a", "b", "c"]);
+    /// ```
+    pub fn set_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiErrorStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiErrorStats"
+    }
+}
+
+/// GenAi stats for the query job.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenAiStats {
+    /// Job level error stats across all GenAi functions
+    pub error_stats: std::option::Option<crate::model::GenAiErrorStats>,
+
+    /// Function level stats for GenAi Functions.
+    /// See <https://docs.cloud.google.com/bigquery/docs/generative-ai-overview>
+    pub function_stats: std::vec::Vec<crate::model::GenAiFunctionStats>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenAiStats {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error_stats][crate::model::GenAiStats::error_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiStats;
+    /// use google_cloud_bigquery_v2::model::GenAiErrorStats;
+    /// let x = GenAiStats::new().set_error_stats(GenAiErrorStats::default()/* use setters */);
+    /// ```
+    pub fn set_error_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiErrorStats>,
+    {
+        self.error_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error_stats][crate::model::GenAiStats::error_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiStats;
+    /// use google_cloud_bigquery_v2::model::GenAiErrorStats;
+    /// let x = GenAiStats::new().set_or_clear_error_stats(Some(GenAiErrorStats::default()/* use setters */));
+    /// let x = GenAiStats::new().set_or_clear_error_stats(None::<GenAiErrorStats>);
+    /// ```
+    pub fn set_or_clear_error_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiErrorStats>,
+    {
+        self.error_stats = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [function_stats][crate::model::GenAiStats::function_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::GenAiStats;
+    /// use google_cloud_bigquery_v2::model::GenAiFunctionStats;
+    /// let x = GenAiStats::new()
+    ///     .set_function_stats([
+    ///         GenAiFunctionStats::default()/* use setters */,
+    ///         GenAiFunctionStats::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_function_stats<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GenAiFunctionStats>,
+    {
+        use std::iter::Iterator;
+        self.function_stats = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for GenAiStats {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.GenAiStats"
     }
 }
 
@@ -9441,10 +9997,10 @@ pub struct QueryRequest {
     pub use_query_cache: std::option::Option<wkt::BoolValue>,
 
     /// Specifies whether to use BigQuery's legacy SQL dialect for this query. The
-    /// default value is true. If set to false, the query will use BigQuery's
-    /// GoogleSQL: <https://cloud.google.com/bigquery/sql-reference/> When
-    /// useLegacySql is set to false, the value of flattenResults is ignored; query
-    /// will be run as if flattenResults is false.
+    /// default value is true. If set to false, the query uses BigQuery's
+    /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
+    /// When useLegacySql is set to false, the value of flattenResults is ignored;
+    /// query will be run as if flattenResults is false.
     pub use_legacy_sql: std::option::Option<wkt::BoolValue>,
 
     /// GoogleSQL only. Set to POSITIONAL to use positional (?) query parameters
@@ -11247,9 +11803,9 @@ pub struct JobConfigurationQuery {
     pub maximum_bytes_billed: std::option::Option<wkt::Int64Value>,
 
     /// Optional. Specifies whether to use BigQuery's legacy SQL dialect for this
-    /// query. The default value is true. If set to false, the query will use
-    /// BigQuery's GoogleSQL:
-    /// <https://cloud.google.com/bigquery/sql-reference/>
+    /// query. The default value is true. If set to false, the query uses
+    /// BigQuery's
+    /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
     ///
     /// When useLegacySql is set to false, the value of flattenResults is ignored;
     /// query will be run as if flattenResults is false.
@@ -12633,9 +13189,9 @@ pub struct JobConfigurationLoad {
     /// of TIMESTAMP types that are allowed to the destination table for
     /// autodetection mode.
     ///
-    /// Available for the formats: CSV.
+    /// Available for the formats: CSV, PARQUET, and AVRO.
     ///
-    /// For the CSV Format, Possible values include:
+    /// Possible values include:
     /// Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP
     /// columns
     /// [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have
@@ -19793,16 +20349,35 @@ impl wkt::message::Message for LoadQueryStatistics {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct IncrementalResultStats {
-    /// Reason why incremental query results are/were not written by the query.
+    /// Output only. Reason why incremental query results are/were not written by
+    /// the query.
     pub disabled_reason: crate::model::incremental_result_stats::DisabledReason,
 
-    /// The time at which the result table's contents were completely replaced.
-    /// May be absent if no results have been written or the query has completed.
+    /// Output only. Additional human-readable clarification, if available, for
+    /// DisabledReason.
+    pub disabled_reason_details: std::string::String,
+
+    /// Output only. The time at which the result table's contents were completely
+    /// replaced. May be absent if no results have been written or the query has
+    /// completed.
     pub result_set_last_replace_time: std::option::Option<wkt::Timestamp>,
 
-    /// The time at which the result table's contents were modified.
+    /// Output only. The time at which the result table's contents were modified.
     /// May be absent if no results have been written or the query has completed.
     pub result_set_last_modify_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the first incremental result was written. If
+    /// the query needed to restart internally, this only describes the final
+    /// attempt.
+    pub first_incremental_row_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the last incremental result was written.
+    /// Does not include the final result written after query completion.
+    pub last_incremental_row_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Number of rows that were in the latest result set before query
+    /// completion.
+    pub incremental_row_count: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -19819,6 +20394,7 @@ impl IncrementalResultStats {
     /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
     /// use google_cloud_bigquery_v2::model::incremental_result_stats::DisabledReason;
     /// let x0 = IncrementalResultStats::new().set_disabled_reason(DisabledReason::Other);
+    /// let x1 = IncrementalResultStats::new().set_disabled_reason(DisabledReason::UnsupportedOperator);
     /// ```
     pub fn set_disabled_reason<
         T: std::convert::Into<crate::model::incremental_result_stats::DisabledReason>,
@@ -19827,6 +20403,21 @@ impl IncrementalResultStats {
         v: T,
     ) -> Self {
         self.disabled_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [disabled_reason_details][crate::model::IncrementalResultStats::disabled_reason_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// let x = IncrementalResultStats::new().set_disabled_reason_details("example");
+    /// ```
+    pub fn set_disabled_reason_details<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disabled_reason_details = v.into();
         self
     }
 
@@ -19895,6 +20486,103 @@ impl IncrementalResultStats {
         self.result_set_last_modify_time = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [first_incremental_row_time][crate::model::IncrementalResultStats::first_incremental_row_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// use wkt::Timestamp;
+    /// let x = IncrementalResultStats::new().set_first_incremental_row_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_first_incremental_row_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.first_incremental_row_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [first_incremental_row_time][crate::model::IncrementalResultStats::first_incremental_row_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// use wkt::Timestamp;
+    /// let x = IncrementalResultStats::new().set_or_clear_first_incremental_row_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IncrementalResultStats::new().set_or_clear_first_incremental_row_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_first_incremental_row_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.first_incremental_row_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_incremental_row_time][crate::model::IncrementalResultStats::last_incremental_row_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// use wkt::Timestamp;
+    /// let x = IncrementalResultStats::new().set_last_incremental_row_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_incremental_row_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_incremental_row_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_incremental_row_time][crate::model::IncrementalResultStats::last_incremental_row_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// use wkt::Timestamp;
+    /// let x = IncrementalResultStats::new().set_or_clear_last_incremental_row_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IncrementalResultStats::new().set_or_clear_last_incremental_row_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_incremental_row_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_incremental_row_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [incremental_row_count][crate::model::IncrementalResultStats::incremental_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// let x = IncrementalResultStats::new().set_incremental_row_count(42);
+    /// ```
+    pub fn set_incremental_row_count<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.incremental_row_count = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [incremental_row_count][crate::model::IncrementalResultStats::incremental_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::IncrementalResultStats;
+    /// let x = IncrementalResultStats::new().set_or_clear_incremental_row_count(Some(42));
+    /// let x = IncrementalResultStats::new().set_or_clear_incremental_row_count(None::<i32>);
+    /// ```
+    pub fn set_or_clear_incremental_row_count<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.incremental_row_count = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for IncrementalResultStats {
@@ -19928,8 +20616,11 @@ pub mod incremental_result_stats {
     pub enum DisabledReason {
         /// Disabled reason not specified.
         Unspecified,
-        /// Some other reason.
+        /// Incremental results are/were disabled for reasons not covered by the
+        /// other enum values, e.g. runtime issues.
         Other,
+        /// Query includes an operation that is not supported.
+        UnsupportedOperator,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [DisabledReason::value] or
@@ -19954,6 +20645,7 @@ pub mod incremental_result_stats {
             match self {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Other => std::option::Option::Some(1),
+                Self::UnsupportedOperator => std::option::Option::Some(2),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -19966,6 +20658,7 @@ pub mod incremental_result_stats {
             match self {
                 Self::Unspecified => std::option::Option::Some("DISABLED_REASON_UNSPECIFIED"),
                 Self::Other => std::option::Option::Some("OTHER"),
+                Self::UnsupportedOperator => std::option::Option::Some("UNSUPPORTED_OPERATOR"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -19989,6 +20682,7 @@ pub mod incremental_result_stats {
             match value {
                 0 => Self::Unspecified,
                 1 => Self::Other,
+                2 => Self::UnsupportedOperator,
                 _ => Self::UnknownValue(disabled_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -20002,6 +20696,7 @@ pub mod incremental_result_stats {
             match value {
                 "DISABLED_REASON_UNSPECIFIED" => Self::Unspecified,
                 "OTHER" => Self::Other,
+                "UNSUPPORTED_OPERATOR" => Self::UnsupportedOperator,
                 _ => Self::UnknownValue(disabled_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -20017,6 +20712,7 @@ pub mod incremental_result_stats {
             match self {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Other => serializer.serialize_i32(1),
+                Self::UnsupportedOperator => serializer.serialize_i32(2),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -20094,6 +20790,10 @@ pub struct JobStatistics2 {
 
     /// Output only. Referenced routines for the job.
     pub referenced_routines: std::vec::Vec<crate::model::RoutineReference>,
+
+    /// Output only. Referenced property graphs for the job. Queries that reference
+    /// more than 50 property graphs will not have a complete list.
+    pub referenced_property_graphs: std::vec::Vec<crate::model::PropertyGraphReference>,
 
     /// Output only. The schema of the results. Present only for successful dry
     /// run of non-legacy SQL queries.
@@ -20320,6 +21020,9 @@ pub struct JobStatistics2 {
     /// Output only. Statistics related to incremental query results, if enabled
     /// for the query. This feature is not yet available.
     pub incremental_result_stats: std::option::Option<crate::model::IncrementalResultStats>,
+
+    /// Output only. Statistics related to GenAI usage in the query.
+    pub gen_ai_stats: std::option::Option<crate::model::GenAiStats>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -20691,6 +21394,28 @@ impl JobStatistics2 {
     {
         use std::iter::Iterator;
         self.referenced_routines = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referenced_property_graphs][crate::model::JobStatistics2::referenced_property_graphs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics2;
+    /// use google_cloud_bigquery_v2::model::PropertyGraphReference;
+    /// let x = JobStatistics2::new()
+    ///     .set_referenced_property_graphs([
+    ///         PropertyGraphReference::default()/* use setters */,
+    ///         PropertyGraphReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_referenced_property_graphs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PropertyGraphReference>,
+    {
+        use std::iter::Iterator;
+        self.referenced_property_graphs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -21590,6 +22315,39 @@ impl JobStatistics2 {
         T: std::convert::Into<crate::model::IncrementalResultStats>,
     {
         self.incremental_result_stats = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gen_ai_stats][crate::model::JobStatistics2::gen_ai_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics2;
+    /// use google_cloud_bigquery_v2::model::GenAiStats;
+    /// let x = JobStatistics2::new().set_gen_ai_stats(GenAiStats::default()/* use setters */);
+    /// ```
+    pub fn set_gen_ai_stats<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiStats>,
+    {
+        self.gen_ai_stats = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gen_ai_stats][crate::model::JobStatistics2::gen_ai_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::JobStatistics2;
+    /// use google_cloud_bigquery_v2::model::GenAiStats;
+    /// let x = JobStatistics2::new().set_or_clear_gen_ai_stats(Some(GenAiStats::default()/* use setters */));
+    /// let x = JobStatistics2::new().set_or_clear_gen_ai_stats(None::<GenAiStats>);
+    /// ```
+    pub fn set_or_clear_gen_ai_stats<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GenAiStats>,
+    {
+        self.gen_ai_stats = v.map(|x| x.into());
         self
     }
 }
@@ -23399,6 +24157,12 @@ pub struct DmlStats {
     /// statements.
     pub updated_row_count: std::option::Option<wkt::Int64Value>,
 
+    /// Output only. DML mode used.
+    pub dml_mode: crate::model::dml_stats::DmlMode,
+
+    /// Output only. Reason for disabling fine-grained DML if applicable.
+    pub fine_grained_dml_unused_reason: crate::model::dml_stats::FineGrainedDmlUnusedReason,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -23505,11 +24269,335 @@ impl DmlStats {
         self.updated_row_count = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [dml_mode][crate::model::DmlStats::dml_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::DmlStats;
+    /// use google_cloud_bigquery_v2::model::dml_stats::DmlMode;
+    /// let x0 = DmlStats::new().set_dml_mode(DmlMode::CoarseGrainedDml);
+    /// let x1 = DmlStats::new().set_dml_mode(DmlMode::FineGrainedDml);
+    /// ```
+    pub fn set_dml_mode<T: std::convert::Into<crate::model::dml_stats::DmlMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.dml_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [fine_grained_dml_unused_reason][crate::model::DmlStats::fine_grained_dml_unused_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::DmlStats;
+    /// use google_cloud_bigquery_v2::model::dml_stats::FineGrainedDmlUnusedReason;
+    /// let x0 = DmlStats::new().set_fine_grained_dml_unused_reason(FineGrainedDmlUnusedReason::MaxPartitionSizeExceeded);
+    /// let x1 = DmlStats::new().set_fine_grained_dml_unused_reason(FineGrainedDmlUnusedReason::TableNotEnrolled);
+    /// let x2 = DmlStats::new().set_fine_grained_dml_unused_reason(FineGrainedDmlUnusedReason::DmlInMultiStatementTransaction);
+    /// ```
+    pub fn set_fine_grained_dml_unused_reason<
+        T: std::convert::Into<crate::model::dml_stats::FineGrainedDmlUnusedReason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.fine_grained_dml_unused_reason = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for DmlStats {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.DmlStats"
+    }
+}
+
+/// Defines additional types related to [DmlStats].
+pub mod dml_stats {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Enum to specify the DML mode used.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DmlMode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Coarse-grained DML was used.
+        CoarseGrainedDml,
+        /// Fine-grained DML was used.
+        FineGrainedDml,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DmlMode::value] or
+        /// [DmlMode::name].
+        UnknownValue(dml_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod dml_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DmlMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CoarseGrainedDml => std::option::Option::Some(1),
+                Self::FineGrainedDml => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DML_MODE_UNSPECIFIED"),
+                Self::CoarseGrainedDml => std::option::Option::Some("COARSE_GRAINED_DML"),
+                Self::FineGrainedDml => std::option::Option::Some("FINE_GRAINED_DML"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DmlMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DmlMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DmlMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CoarseGrainedDml,
+                2 => Self::FineGrainedDml,
+                _ => Self::UnknownValue(dml_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DmlMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DML_MODE_UNSPECIFIED" => Self::Unspecified,
+                "COARSE_GRAINED_DML" => Self::CoarseGrainedDml,
+                "FINE_GRAINED_DML" => Self::FineGrainedDml,
+                _ => Self::UnknownValue(dml_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DmlMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CoarseGrainedDml => serializer.serialize_i32(1),
+                Self::FineGrainedDml => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DmlMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DmlMode>::new(
+                ".google.cloud.bigquery.v2.DmlStats.DmlMode",
+            ))
+        }
+    }
+
+    /// Reason for disabling fine-grained DML. Additional values may be added in
+    /// the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum FineGrainedDmlUnusedReason {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Max partition size threshold exceeded. [Fine-grained DML Limitations]
+        /// (<https://docs.cloud.google.com/bigquery/docs/data-manipulation-language#fine-grained-dml-limitations>)
+        MaxPartitionSizeExceeded,
+        /// The table is not enrolled for fine-grained DML.
+        TableNotEnrolled,
+        /// The DML statement is part of a multi-statement transaction.
+        DmlInMultiStatementTransaction,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [FineGrainedDmlUnusedReason::value] or
+        /// [FineGrainedDmlUnusedReason::name].
+        UnknownValue(fine_grained_dml_unused_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod fine_grained_dml_unused_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl FineGrainedDmlUnusedReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MaxPartitionSizeExceeded => std::option::Option::Some(1),
+                Self::TableNotEnrolled => std::option::Option::Some(2),
+                Self::DmlInMultiStatementTransaction => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("FINE_GRAINED_DML_UNUSED_REASON_UNSPECIFIED")
+                }
+                Self::MaxPartitionSizeExceeded => {
+                    std::option::Option::Some("MAX_PARTITION_SIZE_EXCEEDED")
+                }
+                Self::TableNotEnrolled => std::option::Option::Some("TABLE_NOT_ENROLLED"),
+                Self::DmlInMultiStatementTransaction => {
+                    std::option::Option::Some("DML_IN_MULTI_STATEMENT_TRANSACTION")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for FineGrainedDmlUnusedReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for FineGrainedDmlUnusedReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for FineGrainedDmlUnusedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::MaxPartitionSizeExceeded,
+                2 => Self::TableNotEnrolled,
+                3 => Self::DmlInMultiStatementTransaction,
+                _ => Self::UnknownValue(fine_grained_dml_unused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for FineGrainedDmlUnusedReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "FINE_GRAINED_DML_UNUSED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "MAX_PARTITION_SIZE_EXCEEDED" => Self::MaxPartitionSizeExceeded,
+                "TABLE_NOT_ENROLLED" => Self::TableNotEnrolled,
+                "DML_IN_MULTI_STATEMENT_TRANSACTION" => Self::DmlInMultiStatementTransaction,
+                _ => Self::UnknownValue(fine_grained_dml_unused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for FineGrainedDmlUnusedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MaxPartitionSizeExceeded => serializer.serialize_i32(1),
+                Self::TableNotEnrolled => serializer.serialize_i32(2),
+                Self::DmlInMultiStatementTransaction => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for FineGrainedDmlUnusedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<FineGrainedDmlUnusedReason>::new(
+                    ".google.cloud.bigquery.v2.DmlStats.FineGrainedDmlUnusedReason",
+                ),
+            )
+        }
     }
 }
 
@@ -41159,6 +42247,75 @@ impl wkt::message::Message for GetServiceAccountResponse {
     }
 }
 
+/// Id path of a property graph.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PropertyGraphReference {
+    /// Required. The ID of the project containing this property graph.
+    pub project_id: std::string::String,
+
+    /// Required. The ID of the dataset containing this property graph.
+    pub dataset_id: std::string::String,
+
+    /// Required. The ID of the property graph. The ID must contain only
+    /// letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum
+    /// length is 256 characters.
+    pub property_graph_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PropertyGraphReference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_id][crate::model::PropertyGraphReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::PropertyGraphReference;
+    /// let x = PropertyGraphReference::new().set_project_id("example");
+    /// ```
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [dataset_id][crate::model::PropertyGraphReference::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::PropertyGraphReference;
+    /// let x = PropertyGraphReference::new().set_dataset_id("example");
+    /// ```
+    pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.dataset_id = v.into();
+        self
+    }
+
+    /// Sets the value of [property_graph_id][crate::model::PropertyGraphReference::property_graph_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::PropertyGraphReference;
+    /// let x = PropertyGraphReference::new().set_property_graph_id("example");
+    /// ```
+    pub fn set_property_graph_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.property_graph_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PropertyGraphReference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PropertyGraphReference"
+    }
+}
+
 /// The type of a struct parameter.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -42230,6 +43387,11 @@ pub struct Routine {
     /// [Preview](https://cloud.google.com/products/#product-launch-stages)
     pub external_runtime_options: std::option::Option<crate::model::ExternalRuntimeOptions>,
 
+    /// Output only. The build status of the routine. This field is only applicable
+    /// to Python UDFs.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    pub build_status: std::option::Option<crate::model::RoutineBuildStatus>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -42686,6 +43848,39 @@ impl Routine {
         T: std::convert::Into<crate::model::ExternalRuntimeOptions>,
     {
         self.external_runtime_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [build_status][crate::model::Routine::build_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::Routine;
+    /// use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// let x = Routine::new().set_build_status(RoutineBuildStatus::default()/* use setters */);
+    /// ```
+    pub fn set_build_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutineBuildStatus>,
+    {
+        self.build_status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [build_status][crate::model::Routine::build_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::Routine;
+    /// use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// let x = Routine::new().set_or_clear_build_status(Some(RoutineBuildStatus::default()/* use setters */));
+    /// let x = Routine::new().set_or_clear_build_status(None::<RoutineBuildStatus>);
+    /// ```
+    pub fn set_or_clear_build_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RoutineBuildStatus>,
+    {
+        self.build_status = v.map(|x| x.into());
         self
     }
 }
@@ -44324,6 +45519,319 @@ impl SparkOptions {
 impl wkt::message::Message for SparkOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.bigquery.v2.SparkOptions"
+    }
+}
+
+/// The status of a routine build.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RoutineBuildStatus {
+    /// Output only. The current build state of the routine.
+    pub build_state: crate::model::routine_build_status::BuildState,
+
+    /// Output only. A result object that will be present only if the build has
+    /// failed.
+    pub error_result: std::option::Option<crate::model::ErrorProto>,
+
+    /// Output only. The time when the build state was updated last.
+    pub build_state_update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time taken for the image build. Populated only after the
+    /// build succeeds or fails.
+    pub build_duration: std::option::Option<wkt::Duration>,
+
+    /// Output only. The size of the image in bytes. Populated only after the build
+    /// succeeds.
+    pub image_size_bytes: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RoutineBuildStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [build_state][crate::model::RoutineBuildStatus::build_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use google_cloud_bigquery_v2::model::routine_build_status::BuildState;
+    /// let x0 = RoutineBuildStatus::new().set_build_state(BuildState::InProgress);
+    /// let x1 = RoutineBuildStatus::new().set_build_state(BuildState::Succeeded);
+    /// let x2 = RoutineBuildStatus::new().set_build_state(BuildState::Failed);
+    /// ```
+    pub fn set_build_state<
+        T: std::convert::Into<crate::model::routine_build_status::BuildState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.build_state = v.into();
+        self
+    }
+
+    /// Sets the value of [error_result][crate::model::RoutineBuildStatus::error_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use google_cloud_bigquery_v2::model::ErrorProto;
+    /// let x = RoutineBuildStatus::new().set_error_result(ErrorProto::default()/* use setters */);
+    /// ```
+    pub fn set_error_result<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ErrorProto>,
+    {
+        self.error_result = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [error_result][crate::model::RoutineBuildStatus::error_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use google_cloud_bigquery_v2::model::ErrorProto;
+    /// let x = RoutineBuildStatus::new().set_or_clear_error_result(Some(ErrorProto::default()/* use setters */));
+    /// let x = RoutineBuildStatus::new().set_or_clear_error_result(None::<ErrorProto>);
+    /// ```
+    pub fn set_or_clear_error_result<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ErrorProto>,
+    {
+        self.error_result = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [build_state_update_time][crate::model::RoutineBuildStatus::build_state_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use wkt::Timestamp;
+    /// let x = RoutineBuildStatus::new().set_build_state_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_build_state_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.build_state_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [build_state_update_time][crate::model::RoutineBuildStatus::build_state_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use wkt::Timestamp;
+    /// let x = RoutineBuildStatus::new().set_or_clear_build_state_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RoutineBuildStatus::new().set_or_clear_build_state_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_build_state_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.build_state_update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [build_duration][crate::model::RoutineBuildStatus::build_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use wkt::Duration;
+    /// let x = RoutineBuildStatus::new().set_build_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_build_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.build_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [build_duration][crate::model::RoutineBuildStatus::build_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// use wkt::Duration;
+    /// let x = RoutineBuildStatus::new().set_or_clear_build_duration(Some(Duration::default()/* use setters */));
+    /// let x = RoutineBuildStatus::new().set_or_clear_build_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_build_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.build_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [image_size_bytes][crate::model::RoutineBuildStatus::image_size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::RoutineBuildStatus;
+    /// let x = RoutineBuildStatus::new().set_image_size_bytes(42);
+    /// ```
+    pub fn set_image_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.image_size_bytes = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RoutineBuildStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.RoutineBuildStatus"
+    }
+}
+
+/// Defines additional types related to [RoutineBuildStatus].
+pub mod routine_build_status {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The build state of a routine.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum BuildState {
+        /// Default value.
+        Unspecified,
+        /// The build is in progress.
+        InProgress,
+        /// The build has succeeded.
+        Succeeded,
+        /// The build has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [BuildState::value] or
+        /// [BuildState::name].
+        UnknownValue(build_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod build_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl BuildState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InProgress => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Failed => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("BUILD_STATE_UNSPECIFIED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for BuildState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for BuildState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for BuildState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InProgress,
+                2 => Self::Succeeded,
+                3 => Self::Failed,
+                _ => Self::UnknownValue(build_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for BuildState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "BUILD_STATE_UNSPECIFIED" => Self::Unspecified,
+                "IN_PROGRESS" => Self::InProgress,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(build_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for BuildState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InProgress => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Failed => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for BuildState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<BuildState>::new(
+                ".google.cloud.bigquery.v2.RoutineBuildStatus.BuildState",
+            ))
+        }
     }
 }
 
@@ -46978,9 +48486,9 @@ pub struct ViewDefinition {
     pub user_defined_function_resources: std::vec::Vec<crate::model::UserDefinedFunctionResource>,
 
     /// Specifies whether to use BigQuery's legacy SQL for this view.
-    /// The default value is true. If set to false, the view will use
-    /// BigQuery's GoogleSQL:
-    /// <https://cloud.google.com/bigquery/sql-reference/>
+    /// The default value is true. If set to false, the view uses
+    /// BigQuery's
+    /// [GoogleSQL](https://docs.cloud.google.com/bigquery/docs/introduction-sql).
     ///
     /// Queries and views that reference this view must use the same flag value.
     /// A wrapper is used here because the default value is True.
@@ -51228,7 +52736,7 @@ pub mod foreign_type_info {
 
 /// Data policy option. For more information, see
 /// [Mask data by applying data policies to a
-/// column](https://cloud.google.com/bigquery/docs/column-data-masking#data-policies-on-column/).
+/// column](https://docs.cloud.google.com/bigquery/docs/column-data-masking#data-policies-on-column).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DataPolicyOption {
@@ -51420,6 +52928,10 @@ pub struct TableFieldSchema {
     /// Only valid for top-level schema fields (not nested fields).
     /// If the type is FOREIGN, this field is required.
     pub foreign_type_definition: std::string::String,
+
+    /// Optional. Definition of how values are generated for the field.
+    /// Only valid for top-level schema fields (not nested fields).
+    pub generated_column: std::option::Option<crate::model::table_field_schema::GeneratedColumn>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -51775,6 +53287,39 @@ impl TableFieldSchema {
         self.foreign_type_definition = v.into();
         self
     }
+
+    /// Sets the value of [generated_column][crate::model::TableFieldSchema::generated_column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+    /// let x = TableFieldSchema::new().set_generated_column(GeneratedColumn::default()/* use setters */);
+    /// ```
+    pub fn set_generated_column<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::table_field_schema::GeneratedColumn>,
+    {
+        self.generated_column = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [generated_column][crate::model::TableFieldSchema::generated_column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_v2::model::TableFieldSchema;
+    /// use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+    /// let x = TableFieldSchema::new().set_or_clear_generated_column(Some(GeneratedColumn::default()/* use setters */));
+    /// let x = TableFieldSchema::new().set_or_clear_generated_column(None::<GeneratedColumn>);
+    /// ```
+    pub fn set_or_clear_generated_column<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::table_field_schema::GeneratedColumn>,
+    {
+        self.generated_column = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for TableFieldSchema {
@@ -51862,6 +53407,421 @@ pub mod table_field_schema {
     impl wkt::message::Message for FieldElementType {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.bigquery.v2.TableFieldSchema.FieldElementType"
+        }
+    }
+
+    /// Definition of the expression used to generate the field.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GeneratedExpressionInfo {
+        /// Optional. The generation expression (e.g. AI.EMBED(...)) used to
+        /// generated the field.
+        pub generation_expression: std::option::Option<std::string::String>,
+
+        /// Optional. Whether the column generation is done asynchronously.
+        pub asynchronous: std::option::Option<bool>,
+
+        /// Optional. Whether the generated column is stored in the table.
+        pub stored: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GeneratedExpressionInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generation_expression][crate::model::table_field_schema::GeneratedExpressionInfo::generation_expression].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_generation_expression("example");
+        /// ```
+        pub fn set_generation_expression<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.generation_expression = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generation_expression][crate::model::table_field_schema::GeneratedExpressionInfo::generation_expression].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_generation_expression(Some("example"));
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_generation_expression(None::<String>);
+        /// ```
+        pub fn set_or_clear_generation_expression<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.generation_expression = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [asynchronous][crate::model::table_field_schema::GeneratedExpressionInfo::asynchronous].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_asynchronous(true);
+        /// ```
+        pub fn set_asynchronous<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.asynchronous = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asynchronous][crate::model::table_field_schema::GeneratedExpressionInfo::asynchronous].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_asynchronous(Some(false));
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_asynchronous(None::<bool>);
+        /// ```
+        pub fn set_or_clear_asynchronous<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.asynchronous = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [stored][crate::model::table_field_schema::GeneratedExpressionInfo::stored].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_stored(true);
+        /// ```
+        pub fn set_stored<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.stored = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stored][crate::model::table_field_schema::GeneratedExpressionInfo::stored].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_stored(Some(false));
+        /// let x = GeneratedExpressionInfo::new().set_or_clear_stored(None::<bool>);
+        /// ```
+        pub fn set_or_clear_stored<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.stored = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for GeneratedExpressionInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.TableFieldSchema.GeneratedExpressionInfo"
+        }
+    }
+
+    /// Optional. Definition of how values are generated for the field.
+    /// Only valid for top-level schema fields (not nested fields).
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GeneratedColumn {
+        /// Optional. Dictates when system generated values are used to populate the
+        /// field.
+        pub generated_mode:
+            std::option::Option<crate::model::table_field_schema::generated_column::GeneratedMode>,
+
+        /// Captures the metadata for the generated column. Could be either an
+        /// identity column or a generated column.
+        pub definition:
+            std::option::Option<crate::model::table_field_schema::generated_column::Definition>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GeneratedColumn {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [generated_mode][crate::model::table_field_schema::GeneratedColumn::generated_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+        /// use google_cloud_bigquery_v2::model::table_field_schema::generated_column::GeneratedMode;
+        /// let x0 = GeneratedColumn::new().set_generated_mode(GeneratedMode::GeneratedAlways);
+        /// let x1 = GeneratedColumn::new().set_generated_mode(GeneratedMode::GeneratedByDefault);
+        /// ```
+        pub fn set_generated_mode<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::table_field_schema::generated_column::GeneratedMode,
+                >,
+        {
+            self.generated_mode = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [generated_mode][crate::model::table_field_schema::GeneratedColumn::generated_mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+        /// use google_cloud_bigquery_v2::model::table_field_schema::generated_column::GeneratedMode;
+        /// let x0 = GeneratedColumn::new().set_or_clear_generated_mode(Some(GeneratedMode::GeneratedAlways));
+        /// let x1 = GeneratedColumn::new().set_or_clear_generated_mode(Some(GeneratedMode::GeneratedByDefault));
+        /// let x_none = GeneratedColumn::new().set_or_clear_generated_mode(None::<GeneratedMode>);
+        /// ```
+        pub fn set_or_clear_generated_mode<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::table_field_schema::generated_column::GeneratedMode,
+                >,
+        {
+            self.generated_mode = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [definition][crate::model::table_field_schema::GeneratedColumn::definition].
+        ///
+        /// Note that all the setters affecting `definition` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+        /// use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedColumn::new().set_definition(Some(
+        ///     google_cloud_bigquery_v2::model::table_field_schema::generated_column::Definition::GeneratedExpressionInfo(GeneratedExpressionInfo::default().into())));
+        /// ```
+        pub fn set_definition<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::table_field_schema::generated_column::Definition,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = v.into();
+            self
+        }
+
+        /// The value of [definition][crate::model::table_field_schema::GeneratedColumn::definition]
+        /// if it holds a `GeneratedExpressionInfo`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn generated_expression_info(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::table_field_schema::GeneratedExpressionInfo>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.definition.as_ref().and_then(|v| match v {
+                crate::model::table_field_schema::generated_column::Definition::GeneratedExpressionInfo(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [definition][crate::model::table_field_schema::GeneratedColumn::definition]
+        /// to hold a `GeneratedExpressionInfo`.
+        ///
+        /// Note that all the setters affecting `definition` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_v2::model::table_field_schema::GeneratedColumn;
+        /// use google_cloud_bigquery_v2::model::table_field_schema::GeneratedExpressionInfo;
+        /// let x = GeneratedColumn::new().set_generated_expression_info(GeneratedExpressionInfo::default()/* use setters */);
+        /// assert!(x.generated_expression_info().is_some());
+        /// ```
+        pub fn set_generated_expression_info<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::table_field_schema::GeneratedExpressionInfo>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.definition = std::option::Option::Some(
+                crate::model::table_field_schema::generated_column::Definition::GeneratedExpressionInfo(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for GeneratedColumn {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.bigquery.v2.TableFieldSchema.GeneratedColumn"
+        }
+    }
+
+    /// Defines additional types related to [GeneratedColumn].
+    pub mod generated_column {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Dictates when system generated values are used to populate the field.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum GeneratedMode {
+            /// Unspecified GeneratedMode will default to GENERATED_ALWAYS.
+            Unspecified,
+            /// Field can only have system generated values. Users cannot manually
+            /// insert values into the field.
+            GeneratedAlways,
+            /// Use system generated values only if the user does not explicitly
+            /// provide a value.
+            GeneratedByDefault,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [GeneratedMode::value] or
+            /// [GeneratedMode::name].
+            UnknownValue(generated_mode::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod generated_mode {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl GeneratedMode {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::GeneratedAlways => std::option::Option::Some(1),
+                    Self::GeneratedByDefault => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("GENERATED_MODE_UNSPECIFIED"),
+                    Self::GeneratedAlways => std::option::Option::Some("GENERATED_ALWAYS"),
+                    Self::GeneratedByDefault => std::option::Option::Some("GENERATED_BY_DEFAULT"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for GeneratedMode {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for GeneratedMode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for GeneratedMode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::GeneratedAlways,
+                    2 => Self::GeneratedByDefault,
+                    _ => Self::UnknownValue(generated_mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for GeneratedMode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "GENERATED_MODE_UNSPECIFIED" => Self::Unspecified,
+                    "GENERATED_ALWAYS" => Self::GeneratedAlways,
+                    "GENERATED_BY_DEFAULT" => Self::GeneratedByDefault,
+                    _ => Self::UnknownValue(generated_mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for GeneratedMode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::GeneratedAlways => serializer.serialize_i32(1),
+                    Self::GeneratedByDefault => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for GeneratedMode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<GeneratedMode>::new(
+                    ".google.cloud.bigquery.v2.TableFieldSchema.GeneratedColumn.GeneratedMode",
+                ))
+            }
+        }
+
+        /// Captures the metadata for the generated column. Could be either an
+        /// identity column or a generated column.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Definition {
+            /// Definition of the expression used to generate the field.
+            GeneratedExpressionInfo(
+                std::boxed::Box<crate::model::table_field_schema::GeneratedExpressionInfo>,
+            ),
         }
     }
 

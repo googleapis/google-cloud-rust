@@ -808,6 +808,9 @@ impl serde::ser::Serialize for super::ClusterConfig {
         if !wkt::internal::is_default(&self.cluster_tier) {
             state.serialize_entry("clusterTier", &self.cluster_tier)?;
         }
+        if !wkt::internal::is_default(&self.engine) {
+            state.serialize_entry("engine", &self.engine)?;
+        }
         if !self.config_bucket.is_empty() {
             state.serialize_entry("configBucket", &self.config_bucket)?;
         }
@@ -1870,6 +1873,15 @@ impl serde::ser::Serialize for super::LifecycleConfig {
         }
         if let Some(value) = self.auto_delete_ttl() {
             state.serialize_entry("autoDeleteTtl", value)?;
+        }
+        if self.idle_stop_ttl.is_some() {
+            state.serialize_entry("idleStopTtl", &self.idle_stop_ttl)?;
+        }
+        if let Some(value) = self.auto_stop_time() {
+            state.serialize_entry("autoStopTime", value)?;
+        }
+        if let Some(value) = self.auto_stop_ttl() {
+            state.serialize_entry("autoStopTtl", value)?;
         }
         if self.idle_start_time.is_some() {
             state.serialize_entry("idleStartTime", &self.idle_start_time)?;

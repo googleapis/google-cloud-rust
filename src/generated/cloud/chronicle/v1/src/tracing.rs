@@ -238,6 +238,299 @@ where
     }
 }
 
+/// Implements a [DataTableService](super::stub::DataTableService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct DataTableService<T>
+where
+    T: super::stub::DataTableService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+    duration: gaxi::observability::DurationMetric,
+}
+
+impl<T> DataTableService<T>
+where
+    T: super::stub::DataTableService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self {
+            inner,
+            duration: gaxi::observability::DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+        }
+    }
+}
+
+impl<T> super::stub::DataTableService for DataTableService<T>
+where
+    T: super::stub::DataTableService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_data_table(
+        &self,
+        req: crate::model::CreateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTable>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::create_data_table",
+            self.inner.create_data_table(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_data_tables(
+        &self,
+        req: crate::model::ListDataTablesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataTablesResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::list_data_tables",
+            self.inner.list_data_tables(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_data_table(
+        &self,
+        req: crate::model::GetDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTable>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::get_data_table",
+            self.inner.get_data_table(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_data_table(
+        &self,
+        req: crate::model::UpdateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTable>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::update_data_table",
+            self.inner.update_data_table(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_data_table(
+        &self,
+        req: crate::model::DeleteDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::delete_data_table",
+            self.inner.delete_data_table(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn create_data_table_row(
+        &self,
+        req: crate::model::CreateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTableRow>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::create_data_table_row",
+            self.inner.create_data_table_row(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn update_data_table_row(
+        &self,
+        req: crate::model::UpdateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTableRow>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::update_data_table_row",
+            self.inner.update_data_table_row(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_data_table_rows(
+        &self,
+        req: crate::model::ListDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDataTableRowsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::list_data_table_rows",
+            self.inner.list_data_table_rows(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_data_table_row(
+        &self,
+        req: crate::model::GetDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTableRow>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::get_data_table_row",
+            self.inner.get_data_table_row(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_data_table_row(
+        &self,
+        req: crate::model::DeleteDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::delete_data_table_row",
+            self.inner.delete_data_table_row(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn bulk_create_data_table_rows(
+        &self,
+        req: crate::model::BulkCreateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BulkCreateDataTableRowsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::bulk_create_data_table_rows",
+            self.inner.bulk_create_data_table_rows(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn bulk_get_data_table_rows(
+        &self,
+        req: crate::model::BulkGetDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BulkGetDataTableRowsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::bulk_get_data_table_rows",
+            self.inner.bulk_get_data_table_rows(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn bulk_replace_data_table_rows(
+        &self,
+        req: crate::model::BulkReplaceDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BulkReplaceDataTableRowsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::bulk_replace_data_table_rows",
+            self.inner.bulk_replace_data_table_rows(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn bulk_update_data_table_rows(
+        &self,
+        req: crate::model::BulkUpdateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BulkUpdateDataTableRowsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::bulk_update_data_table_rows",
+            self.inner.bulk_update_data_table_rows(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_data_table_operation_errors(
+        &self,
+        req: crate::model::GetDataTableOperationErrorsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DataTableOperationErrors>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::get_data_table_operation_errors",
+            self.inner.get_data_table_operation_errors(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::list_operations",
+            self.inner.list_operations(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::get_operation",
+            self.inner.get_operation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::delete_operation",
+            self.inner.delete_operation(req, options));
+        pending.await
+    }
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        let (_span, pending) = gaxi::client_request_signals!(
+            metric: self.duration.clone(),
+            info: *info::INSTRUMENTATION_CLIENT_INFO,
+            method: "client::DataTableService::cancel_operation",
+            self.inner.cancel_operation(req, options));
+        pending.await
+    }
+}
+
 /// Implements a [EntityService](super::stub::EntityService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct EntityService<T>

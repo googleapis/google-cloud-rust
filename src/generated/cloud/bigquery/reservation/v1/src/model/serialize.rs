@@ -924,6 +924,9 @@ impl serde::ser::Serialize for super::Assignment {
         if self.scheduling_policy.is_some() {
             state.serialize_entry("schedulingPolicy", &self.scheduling_policy)?;
         }
+        if !self.principal.is_empty() {
+            state.serialize_entry("principal", &self.principal)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

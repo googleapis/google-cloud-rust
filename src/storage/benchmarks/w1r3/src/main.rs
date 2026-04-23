@@ -161,7 +161,7 @@ async fn runner(
 ) -> anyhow::Result<()> {
     tokio::time::sleep(args.rampup_period * id as u32).await;
     let task = Task { id, start, tx };
-    if task.id % 128 == 0 {
+    if task.id.is_multiple_of(128) {
         tracing::info!("Task::run({})", task.id);
     }
     let builder = StorageControl::builder().with_credentials(credentials);

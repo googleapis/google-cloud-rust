@@ -36,7 +36,10 @@ google-cloud-test-utils = { workspace = true }
 prost-types.workspace   = true
 reqwest                 = { workspace = true, features = ["json"] }
 serde_json              = { workspace = true }
+spanner-grpc-mock       = { path = "../../src/spanner/grpc-mock" }
 tokio                   = { workspace = true, features = ["sync"] }
+tokio-stream            = { workspace = true }
+tonic                   = { workspace = true }
 tracing.workspace       = true
 
 [lints]

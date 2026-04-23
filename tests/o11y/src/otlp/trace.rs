@@ -133,7 +133,7 @@ impl Builder {
                 opentelemetry::KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
                 opentelemetry::KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
-            .with_detectors(&Vec::from_iter(self.detector.into_iter()))
+            .with_detectors(&Vec::from_iter(self.detector))
             .build();
 
         let is_https = self.endpoint.starts_with("https");

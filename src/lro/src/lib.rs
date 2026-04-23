@@ -86,6 +86,7 @@
 //! ```
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![warn(missing_docs)]
 
 use google_cloud_gax::Result;
 use google_cloud_gax::error::Error;
@@ -124,6 +125,7 @@ pub enum PollingResult<ResponseType, MetadataType> {
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+#[allow(missing_docs)]
 pub mod internal;
 
 pub(crate) mod sealed {

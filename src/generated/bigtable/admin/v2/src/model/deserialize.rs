@@ -10024,6 +10024,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
             __display_name,
             __state,
             __type,
+            __edition,
             __labels,
             __create_time,
             __satisfies_pzs,
@@ -10054,6 +10055,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             "display_name" => Ok(__FieldTag::__display_name),
                             "state" => Ok(__FieldTag::__state),
                             "type" => Ok(__FieldTag::__type),
+                            "edition" => Ok(__FieldTag::__edition),
                             "labels" => Ok(__FieldTag::__labels),
                             "createTime" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
@@ -10125,6 +10127,17 @@ impl<'de> serde::de::Deserialize<'de> for super::Instance {
                             }
                             result.r#type = map
                                 .next_value::<std::option::Option<crate::model::instance::Type>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edition => {
+                            if !fields.insert(__FieldTag::__edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition",
+                                ));
+                            }
+                            result.edition = map
+                                .next_value::<std::option::Option<crate::model::instance::Edition>>(
+                                )?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__labels => {

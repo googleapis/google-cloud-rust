@@ -22,7 +22,7 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:current": "1.94" }'
+  GHA_RUST_VERSIONS: '{ "rust:current": "1.95" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.6" }'
   # Define the unstable flags once
   UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming'
@@ -148,7 +148,7 @@ jobs:
       - name: Upload user guide
         if: matrix.rust-version == 'rust:current'
         id: deployment
-        uses: actions/upload-pages-artifact@v4 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@v5 # or specific "vX.X.X" version tag for this action
         with:
           path: guide/book/
 

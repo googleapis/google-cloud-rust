@@ -328,6 +328,39 @@ mod tests {
         Ok(())
     }
 
+    #[tokio_test_no_panics]
+    async fn publisher_publish_successfully_with_arc() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(2)
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok);
+
+        let mock_arc = std::sync::Arc::new(mock);
+        let client = GapicPublisher::from_stub::<MockGapicPublisher>(mock_arc);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
+            .set_message_count_threshold(1_u32)
+            .build();
+
+        let messages = [
+            Message::new().set_data("hello"),
+            Message::new().set_data("world"),
+        ];
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await?;
+            let id = String::from_utf8(id.data.to_vec())?;
+            assert_eq!(got, id);
+        }
+
+        Ok(())
+    }
+
     #[tokio::test]
     async fn publisher_publish_large_message() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();

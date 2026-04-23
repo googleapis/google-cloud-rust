@@ -54,6 +54,7 @@ pub struct EntityTag(u64);
 
 static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
 impl EntityTag {
+    /// Creates a new, unique [EntityTag].
     pub fn new() -> Self {
         let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
         Self(value)
@@ -68,8 +69,15 @@ impl EntityTag {
 /// is still valid.
 #[derive(Clone, PartialEq, Debug)]
 pub enum CacheableResource<T> {
+    /// Indicates that the resource has not been modified and the cached version is still valid.
     NotModified,
-    New { entity_tag: EntityTag, data: T },
+    /// Contains the new resource data and its associated [EntityTag].
+    New {
+        /// The entity tag for the new resource.
+        entity_tag: EntityTag,
+        /// The new resource data.
+        data: T,
+    },
 }
 
 /// An implementation of [crate::credentials::CredentialsProvider].

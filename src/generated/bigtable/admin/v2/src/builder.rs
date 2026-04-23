@@ -424,6 +424,12 @@ pub mod bigtable_instance_admin {
             self
         }
 
+        /// Sets the value of [edition][crate::model::Instance::edition].
+        pub fn set_edition<T: Into<crate::model::instance::Edition>>(mut self, v: T) -> Self {
+            self.0.request.edition = v.into();
+            self
+        }
+
         /// Sets the value of [labels][crate::model::Instance::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where

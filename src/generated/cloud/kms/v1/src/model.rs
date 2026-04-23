@@ -2636,7 +2636,7 @@ pub struct SingleTenantHsmInstance {
 
     /// Output only. The system-defined duration that an instance can remain
     /// unrefreshed until it is automatically disabled. This will have a value of
-    /// 120 days.
+    /// 730 days.
     pub unrefreshed_duration_until_disable: std::option::Option<wkt::Duration>,
 
     /// Output only. The time at which the instance will be automatically disabled
@@ -2651,6 +2651,14 @@ pub struct SingleTenantHsmInstance {
     /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
     /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
     pub disable_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Immutable. Indicates whether key portability is enabled for the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// This can only be set at creation time. Key portability features are
+    /// disabled by default and not yet available in GA.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub key_portability_enabled: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2855,6 +2863,18 @@ impl SingleTenantHsmInstance {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.disable_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [key_portability_enabled][crate::model::SingleTenantHsmInstance::key_portability_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstance::new().set_key_portability_enabled(true);
+    /// ```
+    pub fn set_key_portability_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.key_portability_enabled = v.into();
         self
     }
 }
@@ -6487,6 +6507,10 @@ pub struct CryptoKey {
     /// justification codes.
     /// <https://cloud.google.com/assured-workloads/key-access-justifications/docs/justification-codes>
     /// By default, this field is absent, and all justification codes are allowed.
+    /// If the
+    /// `key_access_justifications_policy.allowed_access_reasons`
+    /// is empty (zero allowed justification code), all encrypt, decrypt, and sign
+    /// operations will fail.
     pub key_access_justifications_policy:
         std::option::Option<crate::model::KeyAccessJustificationsPolicy>,
 
@@ -10396,7 +10420,9 @@ impl wkt::message::Message for ExternalProtectionLevelOptions {
 /// [KeyAccessJustificationsPolicy][google.cloud.kms.v1.KeyAccessJustificationsPolicy]
 /// specifies zero or more allowed
 /// [AccessReason][google.cloud.kms.v1.AccessReason] values for encrypt, decrypt,
-/// and sign operations on a [CryptoKey][google.cloud.kms.v1.CryptoKey].
+/// and sign operations on a [CryptoKey][google.cloud.kms.v1.CryptoKey] or
+/// [KeyAccessJustificationsPolicyConfig][google.cloud.kms.v1.KeyAccessJustificationsPolicyConfig]
+/// (the default Key Access Justifications policy).
 ///
 /// [google.cloud.kms.v1.AccessReason]: crate::model::AccessReason
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
@@ -10405,10 +10431,12 @@ impl wkt::message::Message for ExternalProtectionLevelOptions {
 #[non_exhaustive]
 pub struct KeyAccessJustificationsPolicy {
     /// The list of allowed reasons for access to a
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey]. Zero allowed access reasons
-    /// means all encrypt, decrypt, and sign operations for the
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] associated with this policy will
-    /// fail.
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey]. Note that empty
+    /// allowed_access_reasons has a different meaning depending on where this
+    /// message appears. If this is under
+    /// [KeyAccessJustificationsPolicyConfig][google.cloud.kms.v1.KeyAccessJustificationsPolicyConfig],
+    /// it means allow-all. If this is under
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey], it means deny-all.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     pub allowed_access_reasons: std::vec::Vec<crate::model::AccessReason>,
@@ -16768,6 +16796,7 @@ impl Digest {
     /// assert!(x.sha256().is_some());
     /// assert!(x.sha384().is_none());
     /// assert!(x.sha512().is_none());
+    /// assert!(x.external_mu().is_none());
     /// ```
     pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
@@ -16798,6 +16827,7 @@ impl Digest {
     /// assert!(x.sha384().is_some());
     /// assert!(x.sha256().is_none());
     /// assert!(x.sha512().is_none());
+    /// assert!(x.external_mu().is_none());
     /// ```
     pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
@@ -16828,9 +16858,41 @@ impl Digest {
     /// assert!(x.sha512().is_some());
     /// assert!(x.sha256().is_none());
     /// assert!(x.sha384().is_none());
+    /// assert!(x.external_mu().is_none());
     /// ```
     pub fn set_sha512<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha512(v.into()));
+        self
+    }
+
+    /// The value of [digest][crate::model::Digest::digest]
+    /// if it holds a `ExternalMu`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn external_mu(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.digest.as_ref().and_then(|v| match v {
+            crate::model::digest::Digest::ExternalMu(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [digest][crate::model::Digest::digest]
+    /// to hold a `ExternalMu`.
+    ///
+    /// Note that all the setters affecting `digest` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Digest;
+    /// let x = Digest::new().set_external_mu(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.external_mu().is_some());
+    /// assert!(x.sha256().is_none());
+    /// assert!(x.sha384().is_none());
+    /// assert!(x.sha512().is_none());
+    /// ```
+    pub fn set_external_mu<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.digest = std::option::Option::Some(crate::model::digest::Digest::ExternalMu(v.into()));
         self
     }
 }
@@ -16856,6 +16918,11 @@ pub mod digest {
         Sha384(::bytes::Bytes),
         /// A message digest produced with the SHA-512 algorithm.
         Sha512(::bytes::Bytes),
+        /// A message digest produced with SHAKE-256, to be used with ML-DSA
+        /// external-μ algorithms only. See "message representative" note in
+        /// section 6.2, algorithm 7 of the FIPS-204 standard:
+        /// <https://doi.org/10.6028/nist.fips.204>
+        ExternalMu(::bytes::Bytes),
     }
 }
 

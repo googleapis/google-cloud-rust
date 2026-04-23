@@ -3025,6 +3025,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
             __state,
             __enable_gemini_in_bigquery,
             __scheduling_policy,
+            __principal,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3056,6 +3057,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
                             }
                             "schedulingPolicy" => Ok(__FieldTag::__scheduling_policy),
                             "scheduling_policy" => Ok(__FieldTag::__scheduling_policy),
+                            "principal" => Ok(__FieldTag::__principal),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3139,6 +3141,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Assignment {
                             result.scheduling_policy = map
                                 .next_value::<std::option::Option<crate::model::SchedulingPolicy>>(
                                 )?;
+                        }
+                        __FieldTag::__principal => {
+                            if !fields.insert(__FieldTag::__principal) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for principal",
+                                ));
+                            }
+                            result.principal = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

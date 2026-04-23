@@ -735,6 +735,9 @@ impl serde::ser::Serialize for super::SingleTenantHsmInstance {
         if self.disable_time.is_some() {
             state.serialize_entry("disableTime", &self.disable_time)?;
         }
+        if !wkt::internal::is_default(&self.key_portability_enabled) {
+            state.serialize_entry("keyPortabilityEnabled", &self.key_portability_enabled)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4384,6 +4387,18 @@ impl serde::ser::Serialize for super::Digest {
                 }
             }
             state.serialize_entry("sha512", &__With(value))?;
+        }
+        if let Some(value) = self.external_mu() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("externalMu", &__With(value))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -13,7 +13,7 @@ client libraries for Rust.
 
 ## Minimum Supported Rust Version (MSRV)
 
-We require Rust >= 1.86. We plan to update the MSRV periodically. However, the
+We require Rust >= 1.87. We plan to update the MSRV periodically. However, the
 development branch will always compile with the `rustc` versions released within
 the previous year.
 

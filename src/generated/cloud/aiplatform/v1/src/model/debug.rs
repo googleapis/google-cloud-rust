@@ -11419,6 +11419,7 @@ impl std::fmt::Debug for super::CopyModelRequest {
         debug_struct.field("parent", &self.parent);
         debug_struct.field("source_model", &self.source_model);
         debug_struct.field("encryption_spec", &self.encryption_spec);
+        debug_struct.field("custom_service_account", &self.custom_service_account);
         debug_struct.field("destination_model", &self.destination_model);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -12452,6 +12453,7 @@ impl std::fmt::Debug for super::Schema {
     feature = "notebook-service",
     feature = "persistent-resource-service",
     feature = "pipeline-service",
+    feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
     feature = "session-service",
@@ -13961,6 +13963,44 @@ impl std::fmt::Debug for super::StreamQueryReasoningEngineRequest {
         debug_struct.field("name", &self.name);
         debug_struct.field("input", &self.input);
         debug_struct.field("class_method", &self.class_method);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+impl std::fmt::Debug for super::AsyncQueryReasoningEngineRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncQueryReasoningEngineRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("input_gcs_uri", &self.input_gcs_uri);
+        debug_struct.field("output_gcs_uri", &self.output_gcs_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+impl std::fmt::Debug for super::AsyncQueryReasoningEngineOperationMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncQueryReasoningEngineOperationMetadata");
+        debug_struct.field("generic_metadata", &self.generic_metadata);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+impl std::fmt::Debug for super::AsyncQueryReasoningEngineResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AsyncQueryReasoningEngineResponse");
+        debug_struct.field("output_gcs_uri", &self.output_gcs_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

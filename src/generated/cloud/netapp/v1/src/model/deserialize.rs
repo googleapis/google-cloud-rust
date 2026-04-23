@@ -10617,6 +10617,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StoragePool {
             __hot_tier_size_used_gib,
             __type,
             __mode,
+            __scale_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10707,6 +10708,8 @@ impl<'de> serde::de::Deserialize<'de> for super::StoragePool {
                             "hot_tier_size_used_gib" => Ok(__FieldTag::__hot_tier_size_used_gib),
                             "type" => Ok(__FieldTag::__type),
                             "mode" => Ok(__FieldTag::__mode),
+                            "scaleType" => Ok(__FieldTag::__scale_type),
+                            "scale_type" => Ok(__FieldTag::__scale_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -11147,6 +11150,16 @@ impl<'de> serde::de::Deserialize<'de> for super::StoragePool {
                             }
                             result.mode =
                                 map.next_value::<std::option::Option<crate::model::Mode>>()?;
+                        }
+                        __FieldTag::__scale_type => {
+                            if !fields.insert(__FieldTag::__scale_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scale_type",
+                                ));
+                            }
+                            result.scale_type = map
+                                .next_value::<std::option::Option<crate::model::ScaleType>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -12005,6 +12018,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Volume {
             __cache_parameters,
             __hot_tier_size_used_gib,
             __block_devices,
+            __large_capacity_config,
             __clone_details,
             Unknown(std::string::String),
         }
@@ -12107,6 +12121,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Volume {
                             "hot_tier_size_used_gib" => Ok(__FieldTag::__hot_tier_size_used_gib),
                             "blockDevices" => Ok(__FieldTag::__block_devices),
                             "block_devices" => Ok(__FieldTag::__block_devices),
+                            "largeCapacityConfig" => Ok(__FieldTag::__large_capacity_config),
+                            "large_capacity_config" => Ok(__FieldTag::__large_capacity_config),
                             "cloneDetails" => Ok(__FieldTag::__clone_details),
                             "clone_details" => Ok(__FieldTag::__clone_details),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -12605,6 +12621,15 @@ impl<'de> serde::de::Deserialize<'de> for super::Volume {
                             }
                             result.block_devices = map.next_value::<std::option::Option<std::vec::Vec<crate::model::BlockDevice>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__large_capacity_config => {
+                            if !fields.insert(__FieldTag::__large_capacity_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for large_capacity_config",
+                                ));
+                            }
+                            result.large_capacity_config = map.next_value::<std::option::Option<crate::model::LargeCapacityConfig>>()?
+                                ;
+                        }
                         __FieldTag::__clone_details => {
                             if !fields.insert(__FieldTag::__clone_details) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -12729,6 +12754,97 @@ impl<'de> serde::de::Deserialize<'de> for super::volume::CloneDetails {
                                 }
                             }
                             result.shared_space_gib =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::LargeCapacityConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __constituent_count,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LargeCapacityConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "constituentCount" => Ok(__FieldTag::__constituent_count),
+                            "constituent_count" => Ok(__FieldTag::__constituent_count),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::LargeCapacityConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LargeCapacityConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__constituent_count => {
+                            if !fields.insert(__FieldTag::__constituent_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for constituent_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.constituent_count =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

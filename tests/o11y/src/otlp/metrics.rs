@@ -132,7 +132,7 @@ impl Builder {
                 KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
                 KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
-            .with_detectors(&Vec::from_iter(self.detector.into_iter()))
+            .with_detectors(&Vec::from_iter(self.detector))
             .build();
         let credentials = match self.credentials {
             Some(c) => c,

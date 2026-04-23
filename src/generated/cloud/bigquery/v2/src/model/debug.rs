@@ -116,6 +116,7 @@ impl std::fmt::Debug for super::Dataset {
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
         debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("catalog_source", &self.catalog_source);
         debug_struct.field("linked_dataset_source", &self.linked_dataset_source);
         debug_struct.field("linked_dataset_metadata", &self.linked_dataset_metadata);
         debug_struct.field(
@@ -254,6 +255,8 @@ impl std::fmt::Debug for super::ListFormatDataset {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("friendly_name", &self.friendly_name);
         debug_struct.field("location", &self.location);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("catalog_source", &self.catalog_source);
         debug_struct.field(
             "external_dataset_reference",
             &self.external_dataset_reference,
@@ -565,6 +568,68 @@ impl std::fmt::Debug for super::ExternalDatasetReference {
         let mut debug_struct = f.debug_struct("ExternalDatasetReference");
         debug_struct.field("external_source", &self.external_source);
         debug_struct.field("connection", &self.connection);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenAiFunctionErrorStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiFunctionErrorStats");
+        debug_struct.field("errors", &self.errors);
+        debug_struct.field("num_failed_rows", &self.num_failed_rows);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenAiFunctionCostOptimizationStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiFunctionCostOptimizationStats");
+        debug_struct.field("num_cost_optimized_rows", &self.num_cost_optimized_rows);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenAiFunctionStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiFunctionStats");
+        debug_struct.field("function_name", &self.function_name);
+        debug_struct.field("prompt", &self.prompt);
+        debug_struct.field("num_processed_rows", &self.num_processed_rows);
+        debug_struct.field("error_stats", &self.error_stats);
+        debug_struct.field("cost_optimization_stats", &self.cost_optimization_stats);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenAiErrorStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiErrorStats");
+        debug_struct.field("errors", &self.errors);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenAiStats {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenAiStats");
+        debug_struct.field("error_stats", &self.error_stats);
+        debug_struct.field("function_stats", &self.function_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1333,6 +1398,7 @@ impl std::fmt::Debug for super::IncrementalResultStats {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("IncrementalResultStats");
         debug_struct.field("disabled_reason", &self.disabled_reason);
+        debug_struct.field("disabled_reason_details", &self.disabled_reason_details);
         debug_struct.field(
             "result_set_last_replace_time",
             &self.result_set_last_replace_time,
@@ -1341,6 +1407,12 @@ impl std::fmt::Debug for super::IncrementalResultStats {
             "result_set_last_modify_time",
             &self.result_set_last_modify_time,
         );
+        debug_struct.field(
+            "first_incremental_row_time",
+            &self.first_incremental_row_time,
+        );
+        debug_struct.field("last_incremental_row_time", &self.last_incremental_row_time);
+        debug_struct.field("incremental_row_count", &self.incremental_row_count);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1373,6 +1445,10 @@ impl std::fmt::Debug for super::JobStatistics2 {
         debug_struct.field("cache_hit", &self.cache_hit);
         debug_struct.field("referenced_tables", &self.referenced_tables);
         debug_struct.field("referenced_routines", &self.referenced_routines);
+        debug_struct.field(
+            "referenced_property_graphs",
+            &self.referenced_property_graphs,
+        );
         debug_struct.field("schema", &self.schema);
         debug_struct.field("num_dml_affected_rows", &self.num_dml_affected_rows);
         debug_struct.field("dml_stats", &self.dml_stats);
@@ -1414,6 +1490,7 @@ impl std::fmt::Debug for super::JobStatistics2 {
         );
         debug_struct.field("metadata_cache_statistics", &self.metadata_cache_statistics);
         debug_struct.field("incremental_result_stats", &self.incremental_result_stats);
+        debug_struct.field("gen_ai_stats", &self.gen_ai_stats);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1588,6 +1665,11 @@ impl std::fmt::Debug for super::DmlStats {
         debug_struct.field("inserted_row_count", &self.inserted_row_count);
         debug_struct.field("deleted_row_count", &self.deleted_row_count);
         debug_struct.field("updated_row_count", &self.updated_row_count);
+        debug_struct.field("dml_mode", &self.dml_mode);
+        debug_struct.field(
+            "fine_grained_dml_unused_reason",
+            &self.fine_grained_dml_unused_reason,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2887,6 +2969,19 @@ impl std::fmt::Debug for super::GetServiceAccountResponse {
     }
 }
 
+impl std::fmt::Debug for super::PropertyGraphReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PropertyGraphReference");
+        debug_struct.field("project_id", &self.project_id);
+        debug_struct.field("dataset_id", &self.dataset_id);
+        debug_struct.field("property_graph_id", &self.property_graph_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::QueryParameterStructType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("QueryParameterStructType");
@@ -3014,6 +3109,7 @@ impl std::fmt::Debug for super::Routine {
         debug_struct.field("data_governance_type", &self.data_governance_type);
         debug_struct.field("python_options", &self.python_options);
         debug_struct.field("external_runtime_options", &self.external_runtime_options);
+        debug_struct.field("build_status", &self.build_status);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3090,6 +3186,21 @@ impl std::fmt::Debug for super::SparkOptions {
         debug_struct.field("file_uris", &self.file_uris);
         debug_struct.field("archive_uris", &self.archive_uris);
         debug_struct.field("main_class", &self.main_class);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RoutineBuildStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RoutineBuildStatus");
+        debug_struct.field("build_state", &self.build_state);
+        debug_struct.field("error_result", &self.error_result);
+        debug_struct.field("build_state_update_time", &self.build_state_update_time);
+        debug_struct.field("build_duration", &self.build_duration);
+        debug_struct.field("image_size_bytes", &self.image_size_bytes);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3821,6 +3932,7 @@ impl std::fmt::Debug for super::TableFieldSchema {
         debug_struct.field("default_value_expression", &self.default_value_expression);
         debug_struct.field("range_element_type", &self.range_element_type);
         debug_struct.field("foreign_type_definition", &self.foreign_type_definition);
+        debug_struct.field("generated_column", &self.generated_column);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3843,6 +3955,31 @@ impl std::fmt::Debug for super::table_field_schema::FieldElementType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("FieldElementType");
         debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::table_field_schema::GeneratedExpressionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratedExpressionInfo");
+        debug_struct.field("generation_expression", &self.generation_expression);
+        debug_struct.field("asynchronous", &self.asynchronous);
+        debug_struct.field("stored", &self.stored);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::table_field_schema::GeneratedColumn {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeneratedColumn");
+        debug_struct.field("generated_mode", &self.generated_mode);
+        debug_struct.field("definition", &self.definition);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

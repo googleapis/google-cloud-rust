@@ -25935,6 +25935,9 @@ impl serde::ser::Serialize for super::CopyModelRequest {
         if self.encryption_spec.is_some() {
             state.serialize_entry("encryptionSpec", &self.encryption_spec)?;
         }
+        if !self.custom_service_account.is_empty() {
+            state.serialize_entry("customServiceAccount", &self.custom_service_account)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -28238,6 +28241,7 @@ impl serde::ser::Serialize for super::Schema {
     feature = "notebook-service",
     feature = "persistent-resource-service",
     feature = "pipeline-service",
+    feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
     feature = "session-service",
@@ -31660,6 +31664,81 @@ impl serde::ser::Serialize for super::StreamQueryReasoningEngineRequest {
         }
         if !self.class_method.is_empty() {
             state.serialize_entry("classMethod", &self.class_method)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncQueryReasoningEngineRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.input_gcs_uri.is_empty() {
+            state.serialize_entry("inputGcsUri", &self.input_gcs_uri)?;
+        }
+        if !self.output_gcs_uri.is_empty() {
+            state.serialize_entry("outputGcsUri", &self.output_gcs_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncQueryReasoningEngineOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.generic_metadata.is_some() {
+            state.serialize_entry("genericMetadata", &self.generic_metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-execution-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AsyncQueryReasoningEngineResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.output_gcs_uri.is_empty() {
+            state.serialize_entry("outputGcsUri", &self.output_gcs_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

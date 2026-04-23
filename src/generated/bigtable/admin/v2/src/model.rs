@@ -9024,6 +9024,12 @@ pub struct Instance {
     /// The type of the instance. Defaults to `PRODUCTION`.
     pub r#type: crate::model::instance::Type,
 
+    /// Optional. The edition of the instance. See
+    /// [Edition][google.bigtable.admin.v2.Instance.Edition] for details.
+    ///
+    /// [google.bigtable.admin.v2.Instance.Edition]: crate::model::instance::Edition
+    pub edition: crate::model::instance::Edition,
+
     /// Labels are a flexible and lightweight mechanism for organizing cloud
     /// resources into groups that reflect a customer's organizational needs and
     /// deployment strategies. They can be used to filter resources and aggregate
@@ -9117,6 +9123,23 @@ impl Instance {
     /// ```
     pub fn set_type<T: std::convert::Into<crate::model::instance::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [edition][crate::model::Instance::edition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigtable_admin_v2::model::Instance;
+    /// use google_cloud_bigtable_admin_v2::model::instance::Edition;
+    /// let x0 = Instance::new().set_edition(Edition::Enterprise);
+    /// let x1 = Instance::new().set_edition(Edition::EnterprisePlus);
+    /// ```
+    pub fn set_edition<T: std::convert::Into<crate::model::instance::Edition>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.edition = v.into();
         self
     }
 
@@ -9535,6 +9558,149 @@ pub mod instance {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
                 ".google.bigtable.admin.v2.Instance.Type",
+            ))
+        }
+    }
+
+    /// Possible editions of an instance.
+    ///
+    /// An edition is a specific tier of Cloud Bigtable. Each edition is tailored
+    /// to different customer needs. Higher tiers offer more features and better
+    /// performance.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Edition {
+        /// The edition is unspecified. This is treated as `ENTERPRISE`.
+        Unspecified,
+        /// The Enterprise edition. This is the default offering that is designed to
+        /// meet the needs of most enterprise workloads.
+        Enterprise,
+        /// The Enterprise Plus edition. This is a premium tier that is designed for
+        /// demanding, multi-tenant workloads requiring the highest levels of
+        /// performance, scale, and global availability.
+        ///
+        /// The nodes in the Enterprise Plus tier come at a higher cost than the
+        /// Enterprise tier. Any Enterprise Plus features must be disabled before
+        /// downgrading to Enterprise.
+        EnterprisePlus,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Edition::value] or
+        /// [Edition::name].
+        UnknownValue(edition::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod edition {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Edition {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Enterprise => std::option::Option::Some(1),
+                Self::EnterprisePlus => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EDITION_UNSPECIFIED"),
+                Self::Enterprise => std::option::Option::Some("ENTERPRISE"),
+                Self::EnterprisePlus => std::option::Option::Some("ENTERPRISE_PLUS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Edition {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Edition {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Edition {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Enterprise,
+                2 => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Edition {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EDITION_UNSPECIFIED" => Self::Unspecified,
+                "ENTERPRISE" => Self::Enterprise,
+                "ENTERPRISE_PLUS" => Self::EnterprisePlus,
+                _ => Self::UnknownValue(edition::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Edition {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Enterprise => serializer.serialize_i32(1),
+                Self::EnterprisePlus => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Edition {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Edition>::new(
+                ".google.bigtable.admin.v2.Instance.Edition",
             ))
         }
     }

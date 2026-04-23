@@ -1771,6 +1771,19 @@ impl std::fmt::Debug for super::DataDocumentationResult {
     }
 }
 
+impl std::fmt::Debug for super::data_documentation_result::DatasetResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DatasetResult");
+        debug_struct.field("overview", &self.overview);
+        debug_struct.field("schema_relationships", &self.schema_relationships);
+        debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::data_documentation_result::TableResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("TableResult");
@@ -1778,6 +1791,32 @@ impl std::fmt::Debug for super::data_documentation_result::TableResult {
         debug_struct.field("overview", &self.overview);
         debug_struct.field("schema", &self.schema);
         debug_struct.field("queries", &self.queries);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::SchemaRelationship {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaRelationship");
+        debug_struct.field("left_schema_paths", &self.left_schema_paths);
+        debug_struct.field("right_schema_paths", &self.right_schema_paths);
+        debug_struct.field("sources", &self.sources);
+        debug_struct.field("r#type", &self.r#type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::data_documentation_result::schema_relationship::SchemaPaths {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaPaths");
+        debug_struct.field("table_fqn", &self.table_fqn);
+        debug_struct.field("paths", &self.paths);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

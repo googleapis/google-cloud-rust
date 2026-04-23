@@ -64,6 +64,7 @@ members = [
   "guide/samples",
   "src/auth",
   "src/bigquery",
+  "src/bigquery/grpc-mock",
   "src/bigtable",
   "src/datastore",
   "src/firestore",
@@ -290,6 +291,7 @@ members = [
   "src/pubsub",
   "src/pubsub/benchmarks/throughput",
   "src/pubsub/examples",
+  "src/pubsub/grpc-mock",
   "src/spanner",
   "src/spanner/grpc-mock",
   "src/storage",
@@ -350,7 +352,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.86.0"
+rust-version = "1.87.0"
 
 # Define a custom profile for builds on GHA. The standard profiles exhaust the
 # available disk space on the free GHA runners. The GHA builds cannot take

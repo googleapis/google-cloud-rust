@@ -11981,6 +11981,10 @@ pub struct StoragePool {
     /// `DEFAULT`.
     pub mode: std::option::Option<crate::model::Mode>,
 
+    /// Optional. The scale type of the storage pool. Defaults to
+    /// `SCALE_TYPE_DEFAULT` if not specified.
+    pub scale_type: crate::model::ScaleType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12520,6 +12524,20 @@ impl StoragePool {
         T: std::convert::Into<crate::model::Mode>,
     {
         self.mode = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [scale_type][crate::model::StoragePool::scale_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::ScaleType;
+    /// let x0 = StoragePool::new().set_scale_type(ScaleType::Default);
+    /// let x1 = StoragePool::new().set_scale_type(ScaleType::Scaleout);
+    /// ```
+    pub fn set_scale_type<T: std::convert::Into<crate::model::ScaleType>>(mut self, v: T) -> Self {
+        self.scale_type = v.into();
         self
     }
 }
@@ -13372,7 +13390,9 @@ pub struct Volume {
     pub restricted_actions: std::vec::Vec<crate::model::RestrictedAction>,
 
     /// Optional. Flag indicating if the volume will be a large capacity volume or
-    /// a regular volume.
+    /// a regular volume. This field is used for legacy FILE pools. For Unified
+    /// pools, use the `large_capacity_config` field instead. This field and
+    /// `large_capacity_config` are mutually exclusive.
     pub large_capacity: bool,
 
     /// Optional. Flag indicating if the volume will have an IP address per node
@@ -13410,6 +13430,13 @@ pub struct Volume {
     /// Optional. Block devices for the volume.
     /// Currently, only one block device is permitted per Volume.
     pub block_devices: std::vec::Vec<crate::model::BlockDevice>,
+
+    /// Optional. Large capacity config for the volume.
+    /// Enables and configures large capacity for volumes in Unified pools with
+    /// File protocols. Not applicable for Block protocols in Unified pools.
+    /// This field and the legacy `large_capacity` boolean field
+    /// are mutually exclusive.
+    pub large_capacity_config: std::option::Option<crate::model::LargeCapacityConfig>,
 
     /// Output only. If this volume is a clone, this field contains details about
     /// the clone.
@@ -14180,6 +14207,39 @@ impl Volume {
         self
     }
 
+    /// Sets the value of [large_capacity_config][crate::model::Volume::large_capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::LargeCapacityConfig;
+    /// let x = Volume::new().set_large_capacity_config(LargeCapacityConfig::default()/* use setters */);
+    /// ```
+    pub fn set_large_capacity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LargeCapacityConfig>,
+    {
+        self.large_capacity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [large_capacity_config][crate::model::Volume::large_capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::LargeCapacityConfig;
+    /// let x = Volume::new().set_or_clear_large_capacity_config(Some(LargeCapacityConfig::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_large_capacity_config(None::<LargeCapacityConfig>);
+    /// ```
+    pub fn set_or_clear_large_capacity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LargeCapacityConfig>,
+    {
+        self.large_capacity_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [clone_details][crate::model::Volume::clone_details].
     ///
     /// # Example
@@ -14481,6 +14541,43 @@ pub mod volume {
                 ".google.cloud.netapp.v1.Volume.State",
             ))
         }
+    }
+}
+
+/// Configuration for a Large Capacity Volume. A Large Capacity Volume
+/// supports sizes ranging from 4.8 TiB to 20 PiB, it is composed of multiple
+/// internal constituents, and must be created in a large capacity pool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LargeCapacityConfig {
+    /// Optional. The number of internal constituents (e.g., FlexVols) for this
+    /// large volume. The minimum number of constituents is 2.
+    pub constituent_count: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl LargeCapacityConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [constituent_count][crate::model::LargeCapacityConfig::constituent_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::LargeCapacityConfig;
+    /// let x = LargeCapacityConfig::new().set_constituent_count(42);
+    /// ```
+    pub fn set_constituent_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.constituent_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for LargeCapacityConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.LargeCapacityConfig"
     }
 }
 
@@ -18761,6 +18858,140 @@ impl<'de> serde::de::Deserialize<'de> for StoragePoolType {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<StoragePoolType>::new(
             ".google.cloud.netapp.v1.StoragePoolType",
+        ))
+    }
+}
+
+/// Defines the scale-type of a UNIFIED Storage Pool.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum ScaleType {
+    /// Unspecified scale type.
+    Unspecified,
+    /// Represents standard capacity and performance scale-type.
+    /// Suitable for general purpose workloads.
+    Default,
+    /// Represents higher capacity and performance scale-type.
+    /// Suitable for more demanding workloads.
+    Scaleout,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [ScaleType::value] or
+    /// [ScaleType::name].
+    UnknownValue(scale_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod scale_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl ScaleType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Default => std::option::Option::Some(1),
+            Self::Scaleout => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("SCALE_TYPE_UNSPECIFIED"),
+            Self::Default => std::option::Option::Some("SCALE_TYPE_DEFAULT"),
+            Self::Scaleout => std::option::Option::Some("SCALE_TYPE_SCALEOUT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for ScaleType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for ScaleType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for ScaleType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Default,
+            2 => Self::Scaleout,
+            _ => Self::UnknownValue(scale_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for ScaleType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "SCALE_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "SCALE_TYPE_DEFAULT" => Self::Default,
+            "SCALE_TYPE_SCALEOUT" => Self::Scaleout,
+            _ => Self::UnknownValue(scale_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for ScaleType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Default => serializer.serialize_i32(1),
+            Self::Scaleout => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for ScaleType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<ScaleType>::new(
+            ".google.cloud.netapp.v1.ScaleType",
         ))
     }
 }

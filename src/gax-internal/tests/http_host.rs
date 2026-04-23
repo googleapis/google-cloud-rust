@@ -71,7 +71,7 @@ mod tests {
             .await?;
         let response = response.json::<serde_json::Value>().await?;
         let got = get_header_value(&response, "host");
-        assert_eq!(got.as_deref(), Some("test.googleapis.com"), "{response:?}");
+        assert_eq!(got.as_deref(), Some("127.0.0.1"), "{response:?}");
         Ok(())
     }
 

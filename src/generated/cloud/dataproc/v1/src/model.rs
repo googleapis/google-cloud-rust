@@ -3231,6 +3231,9 @@ pub struct ClusterConfig {
     /// Optional. The cluster tier.
     pub cluster_tier: crate::model::cluster_config::ClusterTier,
 
+    /// Optional. The cluster engine.
+    pub engine: crate::model::cluster_config::Engine,
+
     /// Optional. A Cloud Storage bucket used to stage job
     /// dependencies, config files, and job driver console output.
     /// If you do not specify a staging bucket, Cloud
@@ -3358,6 +3361,23 @@ impl ClusterConfig {
         v: T,
     ) -> Self {
         self.cluster_tier = v.into();
+        self
+    }
+
+    /// Sets the value of [engine][crate::model::ClusterConfig::engine].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::cluster_config::Engine;
+    /// let x0 = ClusterConfig::new().set_engine(Engine::Default);
+    /// let x1 = ClusterConfig::new().set_engine(Engine::Lightning);
+    /// ```
+    pub fn set_engine<T: std::convert::Into<crate::model::cluster_config::Engine>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.engine = v.into();
         self
     }
 
@@ -4105,6 +4125,138 @@ pub mod cluster_config {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterTier>::new(
                 ".google.cloud.dataproc.v1.ClusterConfig.ClusterTier",
+            ))
+        }
+    }
+
+    /// The cluster engine.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Engine {
+        /// The engine is not specified. Works the same as ENGINE_DEFAULT.
+        Unspecified,
+        /// The cluster is a default engine cluster.
+        Default,
+        /// The cluster is a lightning engine cluster.
+        Lightning,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Engine::value] or
+        /// [Engine::name].
+        UnknownValue(engine::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod engine {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Engine {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Default => std::option::Option::Some(1),
+                Self::Lightning => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENGINE_UNSPECIFIED"),
+                Self::Default => std::option::Option::Some("DEFAULT"),
+                Self::Lightning => std::option::Option::Some("LIGHTNING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Engine {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Engine {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Engine {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Default,
+                2 => Self::Lightning,
+                _ => Self::UnknownValue(engine::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Engine {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENGINE_UNSPECIFIED" => Self::Unspecified,
+                "DEFAULT" => Self::Default,
+                "LIGHTNING" => Self::Lightning,
+                _ => Self::UnknownValue(engine::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Engine {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Default => serializer.serialize_i32(1),
+                Self::Lightning => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Engine {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Engine>::new(
+                ".google.cloud.dataproc.v1.ClusterConfig.Engine",
             ))
         }
     }
@@ -8141,6 +8293,13 @@ pub struct LifecycleConfig {
     /// [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
     pub idle_delete_ttl: std::option::Option<wkt::Duration>,
 
+    /// Optional. The duration to keep the cluster started while idling (when no
+    /// jobs are running). Passing this threshold will cause the cluster to be
+    /// stopped. Minimum value is 5 minutes; maximum value is 14 days (see JSON
+    /// representation of
+    /// [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
+    pub idle_stop_ttl: std::option::Option<wkt::Duration>,
+
     /// Output only. The time when cluster became idle (most recent job finished)
     /// and became eligible for deletion due to idleness (see JSON representation
     /// of
@@ -8150,6 +8309,10 @@ pub struct LifecycleConfig {
     /// Either the exact time the cluster should be deleted at or
     /// the cluster maximum age.
     pub ttl: std::option::Option<crate::model::lifecycle_config::Ttl>,
+
+    /// Either the exact time the cluster should be stopped at or
+    /// the cluster maximum age.
+    pub stop_ttl: std::option::Option<crate::model::lifecycle_config::StopTtl>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8189,6 +8352,39 @@ impl LifecycleConfig {
         T: std::convert::Into<wkt::Duration>,
     {
         self.idle_delete_ttl = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [idle_stop_ttl][crate::model::LifecycleConfig::idle_stop_ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::LifecycleConfig;
+    /// use wkt::Duration;
+    /// let x = LifecycleConfig::new().set_idle_stop_ttl(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_idle_stop_ttl<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.idle_stop_ttl = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [idle_stop_ttl][crate::model::LifecycleConfig::idle_stop_ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::LifecycleConfig;
+    /// use wkt::Duration;
+    /// let x = LifecycleConfig::new().set_or_clear_idle_stop_ttl(Some(Duration::default()/* use setters */));
+    /// let x = LifecycleConfig::new().set_or_clear_idle_stop_ttl(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_idle_stop_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.idle_stop_ttl = v.map(|x| x.into());
         self
     }
 
@@ -8315,6 +8511,100 @@ impl LifecycleConfig {
             std::option::Option::Some(crate::model::lifecycle_config::Ttl::AutoDeleteTtl(v.into()));
         self
     }
+
+    /// Sets the value of [stop_ttl][crate::model::LifecycleConfig::stop_ttl].
+    ///
+    /// Note that all the setters affecting `stop_ttl` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::LifecycleConfig;
+    /// use wkt::Timestamp;
+    /// let x = LifecycleConfig::new().set_stop_ttl(Some(
+    ///     google_cloud_dataproc_v1::model::lifecycle_config::StopTtl::AutoStopTime(Timestamp::default().into())));
+    /// ```
+    pub fn set_stop_ttl<
+        T: std::convert::Into<std::option::Option<crate::model::lifecycle_config::StopTtl>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.stop_ttl = v.into();
+        self
+    }
+
+    /// The value of [stop_ttl][crate::model::LifecycleConfig::stop_ttl]
+    /// if it holds a `AutoStopTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn auto_stop_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.stop_ttl.as_ref().and_then(|v| match v {
+            crate::model::lifecycle_config::StopTtl::AutoStopTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [stop_ttl][crate::model::LifecycleConfig::stop_ttl]
+    /// to hold a `AutoStopTime`.
+    ///
+    /// Note that all the setters affecting `stop_ttl` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::LifecycleConfig;
+    /// use wkt::Timestamp;
+    /// let x = LifecycleConfig::new().set_auto_stop_time(Timestamp::default()/* use setters */);
+    /// assert!(x.auto_stop_time().is_some());
+    /// assert!(x.auto_stop_ttl().is_none());
+    /// ```
+    pub fn set_auto_stop_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.stop_ttl = std::option::Option::Some(
+            crate::model::lifecycle_config::StopTtl::AutoStopTime(v.into()),
+        );
+        self
+    }
+
+    /// The value of [stop_ttl][crate::model::LifecycleConfig::stop_ttl]
+    /// if it holds a `AutoStopTtl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn auto_stop_ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.stop_ttl.as_ref().and_then(|v| match v {
+            crate::model::lifecycle_config::StopTtl::AutoStopTtl(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [stop_ttl][crate::model::LifecycleConfig::stop_ttl]
+    /// to hold a `AutoStopTtl`.
+    ///
+    /// Note that all the setters affecting `stop_ttl` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::LifecycleConfig;
+    /// use wkt::Duration;
+    /// let x = LifecycleConfig::new().set_auto_stop_ttl(Duration::default()/* use setters */);
+    /// assert!(x.auto_stop_ttl().is_some());
+    /// assert!(x.auto_stop_time().is_none());
+    /// ```
+    pub fn set_auto_stop_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.stop_ttl = std::option::Option::Some(
+            crate::model::lifecycle_config::StopTtl::AutoStopTtl(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for LifecycleConfig {
@@ -8342,6 +8632,23 @@ pub mod lifecycle_config {
         /// maximum value is 14 days (see JSON representation of
         /// [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
         AutoDeleteTtl(std::boxed::Box<wkt::Duration>),
+    }
+
+    /// Either the exact time the cluster should be stopped at or
+    /// the cluster maximum age.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StopTtl {
+        /// Optional. The time when cluster will be auto-stopped (see JSON
+        /// representation of
+        /// [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)).
+        AutoStopTime(std::boxed::Box<wkt::Timestamp>),
+        /// Optional. The lifetime duration of the cluster. The cluster will be
+        /// auto-stopped at the end of this period, calculated from the time of
+        /// submission of the create or update cluster request. Minimum value is 10
+        /// minutes; maximum value is 14 days (see JSON representation of
+        /// [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)).
+        AutoStopTtl(std::boxed::Box<wkt::Duration>),
     }
 }
 

@@ -23,6 +23,7 @@ extern crate gaxi;
 extern crate google_cloud_gax;
 extern crate google_cloud_longrunning;
 extern crate google_cloud_lro;
+extern crate google_cloud_rpc;
 extern crate google_cloud_type;
 extern crate serde;
 extern crate serde_json;
@@ -1700,6 +1701,2277 @@ impl IngestionLabel {
 impl wkt::message::Message for IngestionLabel {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.IngestionLabel"
+    }
+}
+
+/// A request to create DataTable.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDataTableRequest {
+    /// Required. The parent resource where this data table will be created.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Required. The data table being created.
+    pub data_table: std::option::Option<crate::model::DataTable>,
+
+    /// Required. The ID to use for the data table. This is also the display name
+    /// for the data table. It must satisfy the following requirements:
+    ///
+    /// - Starts with letter.
+    /// - Contains only letters, numbers and underscore.
+    /// - Must be unique and has length < 256.
+    pub data_table_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDataTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDataTableRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRequest;
+    /// let x = CreateDataTableRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [data_table][crate::model::CreateDataTableRequest::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRequest;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = CreateDataTableRequest::new().set_data_table(DataTable::default()/* use setters */);
+    /// ```
+    pub fn set_data_table<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTable>,
+    {
+        self.data_table = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_table][crate::model::CreateDataTableRequest::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRequest;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = CreateDataTableRequest::new().set_or_clear_data_table(Some(DataTable::default()/* use setters */));
+    /// let x = CreateDataTableRequest::new().set_or_clear_data_table(None::<DataTable>);
+    /// ```
+    pub fn set_or_clear_data_table<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTable>,
+    {
+        self.data_table = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [data_table_id][crate::model::CreateDataTableRequest::data_table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRequest;
+    /// let x = CreateDataTableRequest::new().set_data_table_id("example");
+    /// ```
+    pub fn set_data_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_table_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDataTableRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.CreateDataTableRequest"
+    }
+}
+
+/// A request to get details about a data table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDataTableRequest {
+    /// Required. The resource name of the data table to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instances}/dataTables/{data_table}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDataTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDataTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetDataTableRequest;
+    /// let x = GetDataTableRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDataTableRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetDataTableRequest"
+    }
+}
+
+/// A request to update details of data table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDataTableRequest {
+    /// Required. This field is used to identify the datatable to update.
+    /// Format:
+    /// projects/{project}/locations/{locations}/instances/{instance}/dataTables/{data_table}
+    pub data_table: std::option::Option<crate::model::DataTable>,
+
+    /// Optional. The list of metadata fields to update. Currently data tables only
+    /// support updating the `description`, `row_time_to_live` and `scope_info`
+    /// fields. When no field mask is supplied, all non-empty fields will be
+    /// updated. A field mask of "*" will update all fields, whether empty or not.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDataTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table][crate::model::UpdateDataTableRequest::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRequest;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = UpdateDataTableRequest::new().set_data_table(DataTable::default()/* use setters */);
+    /// ```
+    pub fn set_data_table<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTable>,
+    {
+        self.data_table = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_table][crate::model::UpdateDataTableRequest::data_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRequest;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = UpdateDataTableRequest::new().set_or_clear_data_table(Some(DataTable::default()/* use setters */));
+    /// let x = UpdateDataTableRequest::new().set_or_clear_data_table(None::<DataTable>);
+    /// ```
+    pub fn set_or_clear_data_table<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTable>,
+    {
+        self.data_table = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDataTableRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTableRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDataTableRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTableRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataTableRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDataTableRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateDataTableRequest"
+    }
+}
+
+/// A request for a list of data tables.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataTablesRequest {
+    /// Required. The parent resource where this data table will be created.
+    /// Format: projects/{project}/locations/{location}/instances/{instance}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of data tables to return. The service may
+    /// return fewer than this value. If unspecified, at most 100 data tables will
+    /// be returned. The maximum value is 1000; values above 1000 will be coerced
+    /// to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDataTables` call.
+    /// Provide this to retrieve the subsequent page.
+    /// When paginating, all other parameters provided to
+    /// `ListDataTables` must match the call that provided the page
+    /// token.
+    pub page_token: std::string::String,
+
+    /// Optional. Configures ordering of DataTables in the response.
+    /// Note: Our implementation currently supports order by "create_time asc" only
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataTablesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDataTablesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesRequest;
+    /// let x = ListDataTablesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDataTablesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesRequest;
+    /// let x = ListDataTablesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDataTablesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesRequest;
+    /// let x = ListDataTablesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDataTablesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesRequest;
+    /// let x = ListDataTablesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataTablesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListDataTablesRequest"
+    }
+}
+
+/// Request message for deleting data tables.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDataTableRequest {
+    /// Required. The resource name of the data table to delete.
+    /// Format
+    /// projects/{project}/locations/{location}/instances/{instances}/dataTables/{data_table}
+    pub name: std::string::String,
+
+    /// Optional. If set to true, any rows under this data table will also be
+    /// deleted. (Otherwise, the request will only work if the data table has no
+    /// rows.)
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDataTableRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDataTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DeleteDataTableRequest;
+    /// let x = DeleteDataTableRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteDataTableRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DeleteDataTableRequest;
+    /// let x = DeleteDataTableRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDataTableRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DeleteDataTableRequest"
+    }
+}
+
+/// Response message for listing data tables.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataTablesResponse {
+    /// The list of the data tables returned.
+    pub data_tables: std::vec::Vec<crate::model::DataTable>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataTablesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_tables][crate::model::ListDataTablesResponse::data_tables].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesResponse;
+    /// use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = ListDataTablesResponse::new()
+    ///     .set_data_tables([
+    ///         DataTable::default()/* use setters */,
+    ///         DataTable::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_tables<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTable>,
+    {
+        use std::iter::Iterator;
+        self.data_tables = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataTablesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTablesResponse;
+    /// let x = ListDataTablesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataTablesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListDataTablesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataTablesResponse {
+    type PageItem = crate::model::DataTable;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.data_tables
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request to create data table row.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateDataTableRowRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// /projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Required. The data table row to create.
+    pub data_table_row: std::option::Option<crate::model::DataTableRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateDataTableRowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateDataTableRowRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
+    /// let x = CreateDataTableRowRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [data_table_row][crate::model::CreateDataTableRowRequest::data_table_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = CreateDataTableRowRequest::new().set_data_table_row(DataTableRow::default()/* use setters */);
+    /// ```
+    pub fn set_data_table_row<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableRow>,
+    {
+        self.data_table_row = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_table_row][crate::model::CreateDataTableRowRequest::data_table_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = CreateDataTableRowRequest::new().set_or_clear_data_table_row(Some(DataTableRow::default()/* use setters */));
+    /// let x = CreateDataTableRowRequest::new().set_or_clear_data_table_row(None::<DataTableRow>);
+    /// ```
+    pub fn set_or_clear_data_table_row<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableRow>,
+    {
+        self.data_table_row = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateDataTableRowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.CreateDataTableRowRequest"
+    }
+}
+
+/// Request to update data table row.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateDataTableRowRequest {
+    /// Required. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}/dataTableRows/{data_table_row}
+    pub data_table_row: std::option::Option<crate::model::DataTableRow>,
+
+    /// Optional. The list of fields to update. Currently data table rows only
+    /// support updating the `values` field. When no field mask is supplied, all
+    /// non-empty fields will be updated. A field mask of "*" will update all
+    /// fields, whether empty or not.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateDataTableRowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_row][crate::model::UpdateDataTableRowRequest::data_table_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRowRequest;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = UpdateDataTableRowRequest::new().set_data_table_row(DataTableRow::default()/* use setters */);
+    /// ```
+    pub fn set_data_table_row<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableRow>,
+    {
+        self.data_table_row = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_table_row][crate::model::UpdateDataTableRowRequest::data_table_row].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRowRequest;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = UpdateDataTableRowRequest::new().set_or_clear_data_table_row(Some(DataTableRow::default()/* use setters */));
+    /// let x = UpdateDataTableRowRequest::new().set_or_clear_data_table_row(None::<DataTableRow>);
+    /// ```
+    pub fn set_or_clear_data_table_row<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableRow>,
+    {
+        self.data_table_row = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateDataTableRowRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRowRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTableRowRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateDataTableRowRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::UpdateDataTableRowRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDataTableRowRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDataTableRowRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateDataTableRowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.UpdateDataTableRowRequest"
+    }
+}
+
+/// Request to list data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataTableRowsRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// projects/{project}/locations/{locations}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of data table rows to return. The service may
+    /// return fewer than this value. If unspecified, at most 100 data table rows
+    /// will be returned. The maximum value is 1000; values above 1000 will be
+    /// coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDataTableRows` call.
+    pub page_token: std::string::String,
+
+    /// Optional. Configures ordering of DataTables in the response.
+    /// Note: Our implementation currently supports order by "create_time asc" only
+    pub order_by: std::string::String,
+
+    /// Optional. Filter facilitating search over data table rows. This filter
+    /// performs a case-insensitive substring match on the row values.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataTableRowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDataTableRowsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
+    /// let x = ListDataTableRowsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDataTableRowsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
+    /// let x = ListDataTableRowsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDataTableRowsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
+    /// let x = ListDataTableRowsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListDataTableRowsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
+    /// let x = ListDataTableRowsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDataTableRowsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsRequest;
+    /// let x = ListDataTableRowsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataTableRowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListDataTableRowsRequest"
+    }
+}
+
+/// Response message for listing data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDataTableRowsResponse {
+    /// The list of the data table rows returned.
+    pub data_table_rows: std::vec::Vec<crate::model::DataTableRow>,
+
+    /// Optional. A token, which can be sent as `page_token` to retrieve the next
+    /// page. If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDataTableRowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_rows][crate::model::ListDataTableRowsResponse::data_table_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsResponse;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = ListDataTableRowsResponse::new()
+    ///     .set_data_table_rows([
+    ///         DataTableRow::default()/* use setters */,
+    ///         DataTableRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_table_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRow>,
+    {
+        use std::iter::Iterator;
+        self.data_table_rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDataTableRowsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::ListDataTableRowsResponse;
+    /// let x = ListDataTableRowsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDataTableRowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.ListDataTableRowsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDataTableRowsResponse {
+    type PageItem = crate::model::DataTableRow;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.data_table_rows
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request to get data table row.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDataTableRowRequest {
+    /// Required. The resource name of the data table row i,e row_id.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}/dataTableRows/{data_table_row}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDataTableRowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDataTableRowRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetDataTableRowRequest;
+    /// let x = GetDataTableRowRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDataTableRowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetDataTableRowRequest"
+    }
+}
+
+/// Request to delete data table row.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteDataTableRowRequest {
+    /// Required. The resource name of the data table row i,e row_id.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}/dataTableRows/{data_table_row}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteDataTableRowRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteDataTableRowRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DeleteDataTableRowRequest;
+    /// let x = DeleteDataTableRowRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteDataTableRowRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DeleteDataTableRowRequest"
+    }
+}
+
+/// Request to create data table rows in bulk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkCreateDataTableRowsRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// /projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Required. Data table rows to create. A maximum of 1000 rows (for sync
+    /// requests) or 2000 rows (for async requests) can be created in a single
+    /// request. Total size of the rows should be less than 4MB.
+    pub requests: std::vec::Vec<crate::model::CreateDataTableRowRequest>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkCreateDataTableRowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BulkCreateDataTableRowsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkCreateDataTableRowsRequest;
+    /// let x = BulkCreateDataTableRowsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BulkCreateDataTableRowsRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkCreateDataTableRowsRequest;
+    /// use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
+    /// let x = BulkCreateDataTableRowsRequest::new()
+    ///     .set_requests([
+    ///         CreateDataTableRowRequest::default()/* use setters */,
+    ///         CreateDataTableRowRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CreateDataTableRowRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkCreateDataTableRowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkCreateDataTableRowsRequest"
+    }
+}
+
+/// Response message with created data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkCreateDataTableRowsResponse {
+    /// DataTableRows created
+    pub data_table_rows: std::vec::Vec<crate::model::DataTableRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkCreateDataTableRowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_rows][crate::model::BulkCreateDataTableRowsResponse::data_table_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkCreateDataTableRowsResponse;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = BulkCreateDataTableRowsResponse::new()
+    ///     .set_data_table_rows([
+    ///         DataTableRow::default()/* use setters */,
+    ///         DataTableRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_table_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRow>,
+    {
+        use std::iter::Iterator;
+        self.data_table_rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkCreateDataTableRowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkCreateDataTableRowsResponse"
+    }
+}
+
+/// Request to get data table rows in bulk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkGetDataTableRowsRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// /projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Required. Data table rows to get. At max 1,000 rows can be there in a
+    /// request.
+    pub requests: std::vec::Vec<crate::model::GetDataTableRowRequest>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkGetDataTableRowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BulkGetDataTableRowsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkGetDataTableRowsRequest;
+    /// let x = BulkGetDataTableRowsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BulkGetDataTableRowsRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkGetDataTableRowsRequest;
+    /// use google_cloud_chronicle_v1::model::GetDataTableRowRequest;
+    /// let x = BulkGetDataTableRowsRequest::new()
+    ///     .set_requests([
+    ///         GetDataTableRowRequest::default()/* use setters */,
+    ///         GetDataTableRowRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GetDataTableRowRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkGetDataTableRowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkGetDataTableRowsRequest"
+    }
+}
+
+/// Response message with data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkGetDataTableRowsResponse {
+    /// The requested data table rows.
+    pub data_table_rows: std::vec::Vec<crate::model::DataTableRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkGetDataTableRowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_rows][crate::model::BulkGetDataTableRowsResponse::data_table_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkGetDataTableRowsResponse;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = BulkGetDataTableRowsResponse::new()
+    ///     .set_data_table_rows([
+    ///         DataTableRow::default()/* use setters */,
+    ///         DataTableRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_table_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRow>,
+    {
+        use std::iter::Iterator;
+        self.data_table_rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkGetDataTableRowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkGetDataTableRowsResponse"
+    }
+}
+
+/// Request to replace data table rows in bulk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkReplaceDataTableRowsRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// /projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Required. Data table rows to replace the existing data table rows. A
+    /// maximum of 1000 rows (for sync requests) or 2000 rows (for async requests)
+    /// can be replaced in a single request. Total size of the rows should be less
+    /// than 4MB.
+    pub requests: std::vec::Vec<crate::model::CreateDataTableRowRequest>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkReplaceDataTableRowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BulkReplaceDataTableRowsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkReplaceDataTableRowsRequest;
+    /// let x = BulkReplaceDataTableRowsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BulkReplaceDataTableRowsRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkReplaceDataTableRowsRequest;
+    /// use google_cloud_chronicle_v1::model::CreateDataTableRowRequest;
+    /// let x = BulkReplaceDataTableRowsRequest::new()
+    ///     .set_requests([
+    ///         CreateDataTableRowRequest::default()/* use setters */,
+    ///         CreateDataTableRowRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CreateDataTableRowRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkReplaceDataTableRowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkReplaceDataTableRowsRequest"
+    }
+}
+
+/// Response message with data table rows that replaced existing data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkReplaceDataTableRowsResponse {
+    /// DataTableRows that replaced existing data table rows
+    pub data_table_rows: std::vec::Vec<crate::model::DataTableRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkReplaceDataTableRowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_rows][crate::model::BulkReplaceDataTableRowsResponse::data_table_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkReplaceDataTableRowsResponse;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = BulkReplaceDataTableRowsResponse::new()
+    ///     .set_data_table_rows([
+    ///         DataTableRow::default()/* use setters */,
+    ///         DataTableRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_table_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRow>,
+    {
+        use std::iter::Iterator;
+        self.data_table_rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkReplaceDataTableRowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkReplaceDataTableRowsResponse"
+    }
+}
+
+/// Request to update data table rows in bulk.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkUpdateDataTableRowsRequest {
+    /// Required. The resource id of the data table.
+    /// Format:
+    /// /projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}
+    pub parent: std::string::String,
+
+    /// Required. Data table rows to update. At max 1,000 rows (or rows with size
+    /// less than 2MB) can be there in a request.
+    pub requests: std::vec::Vec<crate::model::UpdateDataTableRowRequest>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkUpdateDataTableRowsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BulkUpdateDataTableRowsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkUpdateDataTableRowsRequest;
+    /// let x = BulkUpdateDataTableRowsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [requests][crate::model::BulkUpdateDataTableRowsRequest::requests].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkUpdateDataTableRowsRequest;
+    /// use google_cloud_chronicle_v1::model::UpdateDataTableRowRequest;
+    /// let x = BulkUpdateDataTableRowsRequest::new()
+    ///     .set_requests([
+    ///         UpdateDataTableRowRequest::default()/* use setters */,
+    ///         UpdateDataTableRowRequest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_requests<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UpdateDataTableRowRequest>,
+    {
+        use std::iter::Iterator;
+        self.requests = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkUpdateDataTableRowsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkUpdateDataTableRowsRequest"
+    }
+}
+
+/// Response message with updated data table rows.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BulkUpdateDataTableRowsResponse {
+    /// DataTableRows updated
+    pub data_table_rows: std::vec::Vec<crate::model::DataTableRow>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BulkUpdateDataTableRowsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_table_rows][crate::model::BulkUpdateDataTableRowsResponse::data_table_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::BulkUpdateDataTableRowsResponse;
+    /// use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = BulkUpdateDataTableRowsResponse::new()
+    ///     .set_data_table_rows([
+    ///         DataTableRow::default()/* use setters */,
+    ///         DataTableRow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_data_table_rows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableRow>,
+    {
+        use std::iter::Iterator;
+        self.data_table_rows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BulkUpdateDataTableRowsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.BulkUpdateDataTableRowsResponse"
+    }
+}
+
+/// DataTableScopeInfo specifies the scope info of the data table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableScopeInfo {
+    /// Required. Contains the list of scope names of the data table. If the list
+    /// is empty, the data table is treated as unscoped. The scope names should be
+    /// full resource names and should be of the format:
+    /// "projects/{project}/locations/{location}/instances/{instance}/dataAccessScopes/{scope_name}"
+    pub data_access_scopes: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableScopeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [data_access_scopes][crate::model::DataTableScopeInfo::data_access_scopes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableScopeInfo;
+    /// let x = DataTableScopeInfo::new().set_data_access_scopes(["a", "b", "c"]);
+    /// ```
+    pub fn set_data_access_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.data_access_scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableScopeInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableScopeInfo"
+    }
+}
+
+/// DataTable represents the data table resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTable {
+    /// Identifier. The resource name of the data table
+    /// Format:
+    /// "{project}/locations/{location}/instances/{instance}/dataTables/{data_table}"
+    pub name: std::string::String,
+
+    /// Output only. The unique display name of the data table.
+    pub display_name: std::string::String,
+
+    /// Required. A user-provided description of the data table.
+    pub description: std::string::String,
+
+    /// Output only. Table create time
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Table update time
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Immutable. Details of all the columns in the table
+    pub column_info: std::vec::Vec<crate::model::DataTableColumnInfo>,
+
+    /// Output only. Data table unique id
+    pub data_table_uuid: std::string::String,
+
+    /// Output only. The resource names for the associated Rules that use this
+    /// data table. Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/rules/{rule}.
+    /// {rule} here refers to the rule id.
+    pub rules: std::vec::Vec<std::string::String>,
+
+    /// Output only. The count of rules using the data table.
+    pub rule_associations_count: i32,
+
+    /// Optional. User-provided TTL of the data table.
+    pub row_time_to_live: std::string::String,
+
+    /// Output only. The count of rows in the data table.
+    pub approximate_row_count: i64,
+
+    /// Optional. The scope info of the data table.
+    /// During data table creation, if this field is not set, the data
+    /// table without scopes (an unscoped table) will be created for a global
+    /// user. For a scoped user, this field must be set. During data table
+    /// update, if scope_info is requested to be updated, this field must be set.
+    pub scope_info: std::option::Option<crate::model::DataTableScopeInfo>,
+
+    /// Output only. Source of the data table update.
+    pub update_source: crate::model::DataTableUpdateSource,
+
+    /// Output only. Last update time of the TTL of the data table.
+    pub row_time_to_live_update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTable {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DataTable::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::DataTable::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::DataTable::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DataTable::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DataTable::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTable::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DataTable::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DataTable::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTable::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [column_info][crate::model::DataTable::column_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTable::new()
+    ///     .set_column_info([
+    ///         DataTableColumnInfo::default()/* use setters */,
+    ///         DataTableColumnInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_column_info<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DataTableColumnInfo>,
+    {
+        use std::iter::Iterator;
+        self.column_info = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data_table_uuid][crate::model::DataTable::data_table_uuid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_data_table_uuid("example");
+    /// ```
+    pub fn set_data_table_uuid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.data_table_uuid = v.into();
+        self
+    }
+
+    /// Sets the value of [rules][crate::model::DataTable::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_rules(["a", "b", "c"]);
+    /// ```
+    pub fn set_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rule_associations_count][crate::model::DataTable::rule_associations_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_rule_associations_count(42);
+    /// ```
+    pub fn set_rule_associations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.rule_associations_count = v.into();
+        self
+    }
+
+    /// Sets the value of [row_time_to_live][crate::model::DataTable::row_time_to_live].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_row_time_to_live("example");
+    /// ```
+    pub fn set_row_time_to_live<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_time_to_live = v.into();
+        self
+    }
+
+    /// Sets the value of [approximate_row_count][crate::model::DataTable::approximate_row_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// let x = DataTable::new().set_approximate_row_count(42);
+    /// ```
+    pub fn set_approximate_row_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.approximate_row_count = v.into();
+        self
+    }
+
+    /// Sets the value of [scope_info][crate::model::DataTable::scope_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::model::DataTableScopeInfo;
+    /// let x = DataTable::new().set_scope_info(DataTableScopeInfo::default()/* use setters */);
+    /// ```
+    pub fn set_scope_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableScopeInfo>,
+    {
+        self.scope_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope_info][crate::model::DataTable::scope_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::model::DataTableScopeInfo;
+    /// let x = DataTable::new().set_or_clear_scope_info(Some(DataTableScopeInfo::default()/* use setters */));
+    /// let x = DataTable::new().set_or_clear_scope_info(None::<DataTableScopeInfo>);
+    /// ```
+    pub fn set_or_clear_scope_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataTableScopeInfo>,
+    {
+        self.scope_info = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_source][crate::model::DataTable::update_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use google_cloud_chronicle_v1::model::DataTableUpdateSource;
+    /// let x0 = DataTable::new().set_update_source(DataTableUpdateSource::User);
+    /// let x1 = DataTable::new().set_update_source(DataTableUpdateSource::Rule);
+    /// let x2 = DataTable::new().set_update_source(DataTableUpdateSource::Search);
+    /// ```
+    pub fn set_update_source<T: std::convert::Into<crate::model::DataTableUpdateSource>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.update_source = v.into();
+        self
+    }
+
+    /// Sets the value of [row_time_to_live_update_time][crate::model::DataTable::row_time_to_live_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_row_time_to_live_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_row_time_to_live_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.row_time_to_live_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [row_time_to_live_update_time][crate::model::DataTable::row_time_to_live_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTable;
+    /// use wkt::Timestamp;
+    /// let x = DataTable::new().set_or_clear_row_time_to_live_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTable::new().set_or_clear_row_time_to_live_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_row_time_to_live_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.row_time_to_live_update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DataTable {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTable"
+    }
+}
+
+/// DataTableRow represents a single row in a data table.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableRow {
+    /// Identifier. The resource name of the data table
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTables/{data_table}/dataTableRows/{data_table_row}
+    pub name: std::string::String,
+
+    /// Required. All column values for a single row. The values should be in the
+    /// same order as the columns of the data tables.
+    pub values: std::vec::Vec<std::string::String>,
+
+    /// Output only. DataTableRow create time
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. DataTableRow update time
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. User-provided TTL of the data table row.
+    pub row_time_to_live: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableRow {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DataTableRow::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = DataTableRow::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [values][crate::model::DataTableRow::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = DataTableRow::new().set_values(["a", "b", "c"]);
+    /// ```
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DataTableRow::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use wkt::Timestamp;
+    /// let x = DataTableRow::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DataTableRow::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use wkt::Timestamp;
+    /// let x = DataTableRow::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTableRow::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DataTableRow::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use wkt::Timestamp;
+    /// let x = DataTableRow::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DataTableRow::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// use wkt::Timestamp;
+    /// let x = DataTableRow::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DataTableRow::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [row_time_to_live][crate::model::DataTableRow::row_time_to_live].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableRow;
+    /// let x = DataTableRow::new().set_row_time_to_live("example");
+    /// ```
+    pub fn set_row_time_to_live<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.row_time_to_live = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableRow {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableRow"
+    }
+}
+
+/// DataTableColumnInfo represents the column metadata of the
+/// datatable. The column_index represents the ordering of the
+/// values in DataTableRow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableColumnInfo {
+    /// Required. Column Index. 0,1,2...
+    pub column_index: i32,
+
+    /// Required. Original column name of the Data Table (present in the CSV header
+    /// in case of creation of data tables using file uploads). It must satisfy the
+    /// following requirements:
+    ///
+    /// - Starts with letter.
+    /// - Contains only letters, numbers and underscore.
+    /// - Must be unique and has length < 256.
+    pub original_column: std::string::String,
+
+    /// Optional. Whether to include this column in the calculation of the row ID.
+    /// If no columns have key_column = true, all columns will be included in the
+    /// calculation of the row ID.
+    pub key_column: bool,
+
+    /// Optional. Whether the column is a repeated values column.
+    pub repeated_values: bool,
+
+    pub path_or_type: std::option::Option<crate::model::data_table_column_info::PathOrType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableColumnInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [column_index][crate::model::DataTableColumnInfo::column_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTableColumnInfo::new().set_column_index(42);
+    /// ```
+    pub fn set_column_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.column_index = v.into();
+        self
+    }
+
+    /// Sets the value of [original_column][crate::model::DataTableColumnInfo::original_column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTableColumnInfo::new().set_original_column("example");
+    /// ```
+    pub fn set_original_column<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.original_column = v.into();
+        self
+    }
+
+    /// Sets the value of [key_column][crate::model::DataTableColumnInfo::key_column].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTableColumnInfo::new().set_key_column(true);
+    /// ```
+    pub fn set_key_column<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.key_column = v.into();
+        self
+    }
+
+    /// Sets the value of [repeated_values][crate::model::DataTableColumnInfo::repeated_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTableColumnInfo::new().set_repeated_values(true);
+    /// ```
+    pub fn set_repeated_values<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.repeated_values = v.into();
+        self
+    }
+
+    /// Sets the value of [path_or_type][crate::model::DataTableColumnInfo::path_or_type].
+    ///
+    /// Note that all the setters affecting `path_or_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// use google_cloud_chronicle_v1::model::data_table_column_info::PathOrType;
+    /// let x = DataTableColumnInfo::new().set_path_or_type(Some(PathOrType::MappedColumnPath("example".to_string())));
+    /// ```
+    pub fn set_path_or_type<
+        T: std::convert::Into<std::option::Option<crate::model::data_table_column_info::PathOrType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.path_or_type = v.into();
+        self
+    }
+
+    /// The value of [path_or_type][crate::model::DataTableColumnInfo::path_or_type]
+    /// if it holds a `MappedColumnPath`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn mapped_column_path(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.path_or_type.as_ref().and_then(|v| match v {
+            crate::model::data_table_column_info::PathOrType::MappedColumnPath(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [path_or_type][crate::model::DataTableColumnInfo::path_or_type]
+    /// to hold a `MappedColumnPath`.
+    ///
+    /// Note that all the setters affecting `path_or_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// let x = DataTableColumnInfo::new().set_mapped_column_path("example");
+    /// assert!(x.mapped_column_path().is_some());
+    /// assert!(x.column_type().is_none());
+    /// ```
+    pub fn set_mapped_column_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.path_or_type = std::option::Option::Some(
+            crate::model::data_table_column_info::PathOrType::MappedColumnPath(v.into()),
+        );
+        self
+    }
+
+    /// The value of [path_or_type][crate::model::DataTableColumnInfo::path_or_type]
+    /// if it holds a `ColumnType`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn column_type(
+        &self,
+    ) -> std::option::Option<&crate::model::data_table_column_info::DataTableColumnType> {
+        #[allow(unreachable_patterns)]
+        self.path_or_type.as_ref().and_then(|v| match v {
+            crate::model::data_table_column_info::PathOrType::ColumnType(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [path_or_type][crate::model::DataTableColumnInfo::path_or_type]
+    /// to hold a `ColumnType`.
+    ///
+    /// Note that all the setters affecting `path_or_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableColumnInfo;
+    /// use google_cloud_chronicle_v1::model::data_table_column_info::DataTableColumnType;
+    /// let x0 = DataTableColumnInfo::new().set_column_type(DataTableColumnType::String);
+    /// let x1 = DataTableColumnInfo::new().set_column_type(DataTableColumnType::Regex);
+    /// let x2 = DataTableColumnInfo::new().set_column_type(DataTableColumnType::Cidr);
+    /// assert!(x0.column_type().is_some());
+    /// assert!(x0.mapped_column_path().is_none());
+    /// assert!(x1.column_type().is_some());
+    /// assert!(x1.mapped_column_path().is_none());
+    /// assert!(x2.column_type().is_some());
+    /// assert!(x2.mapped_column_path().is_none());
+    /// ```
+    pub fn set_column_type<
+        T: std::convert::Into<crate::model::data_table_column_info::DataTableColumnType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.path_or_type = std::option::Option::Some(
+            crate::model::data_table_column_info::PathOrType::ColumnType(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableColumnInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableColumnInfo"
+    }
+}
+
+/// Defines additional types related to [DataTableColumnInfo].
+pub mod data_table_column_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// DataTableColumnType denotes the type of the column to be referenced in the
+    /// rule.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataTableColumnType {
+        /// The default Data Table Column Type.
+        Unspecified,
+        /// Denotes the type of the column as STRING.
+        String,
+        /// Denotes the type of the column as REGEX.
+        Regex,
+        /// Denotes the type of the column as CIDR.
+        Cidr,
+        /// Denotes the type of the column as NUMBER (includes int and float).
+        Number,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataTableColumnType::value] or
+        /// [DataTableColumnType::name].
+        UnknownValue(data_table_column_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod data_table_column_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DataTableColumnType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::String => std::option::Option::Some(1),
+                Self::Regex => std::option::Option::Some(2),
+                Self::Cidr => std::option::Option::Some(3),
+                Self::Number => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("DATA_TABLE_COLUMN_TYPE_UNSPECIFIED")
+                }
+                Self::String => std::option::Option::Some("STRING"),
+                Self::Regex => std::option::Option::Some("REGEX"),
+                Self::Cidr => std::option::Option::Some("CIDR"),
+                Self::Number => std::option::Option::Some("NUMBER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DataTableColumnType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DataTableColumnType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DataTableColumnType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::String,
+                2 => Self::Regex,
+                3 => Self::Cidr,
+                4 => Self::Number,
+                _ => Self::UnknownValue(data_table_column_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DataTableColumnType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_TABLE_COLUMN_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "STRING" => Self::String,
+                "REGEX" => Self::Regex,
+                "CIDR" => Self::Cidr,
+                "NUMBER" => Self::Number,
+                _ => Self::UnknownValue(data_table_column_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DataTableColumnType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::String => serializer.serialize_i32(1),
+                Self::Regex => serializer.serialize_i32(2),
+                Self::Cidr => serializer.serialize_i32(3),
+                Self::Number => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DataTableColumnType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataTableColumnType>::new(
+                ".google.cloud.chronicle.v1.DataTableColumnInfo.DataTableColumnType",
+            ))
+        }
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PathOrType {
+        /// Entity proto field path that the column is mapped to
+        MappedColumnPath(std::string::String),
+        /// Column type can be STRING, CIDR (Ex- 10.1.1.0/24), REGEX
+        ColumnType(crate::model::data_table_column_info::DataTableColumnType),
+    }
+}
+
+/// The request message for GetDataTableOperationErrors.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDataTableOperationErrorsRequest {
+    /// Required. Resource name for the data table operation errors.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTableOperationErrors/{data_table_operation_errors}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDataTableOperationErrorsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDataTableOperationErrorsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::GetDataTableOperationErrorsRequest;
+    /// let x = GetDataTableOperationErrorsRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDataTableOperationErrorsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.GetDataTableOperationErrorsRequest"
+    }
+}
+
+/// The message containing the errors for a data table operation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DataTableOperationErrors {
+    /// Identifier. Resource name for the data table operation errors.
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance}/dataTableOperationErrors/{data_table_operation_errors}
+    pub name: std::string::String,
+
+    /// The list of errors.
+    /// Replaces the deprecated `errors` field.
+    pub rpc_errors: std::vec::Vec<google_cloud_rpc::model::Status>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DataTableOperationErrors {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DataTableOperationErrors::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableOperationErrors;
+    /// let x = DataTableOperationErrors::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [rpc_errors][crate::model::DataTableOperationErrors::rpc_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_chronicle_v1::model::DataTableOperationErrors;
+    /// use google_cloud_rpc::model::Status;
+    /// let x = DataTableOperationErrors::new()
+    ///     .set_rpc_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_rpc_errors<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<google_cloud_rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.rpc_errors = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DataTableOperationErrors {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.chronicle.v1.DataTableOperationErrors"
     }
 }
 
@@ -6485,6 +8757,145 @@ impl InputsUsed {
 impl wkt::message::Message for InputsUsed {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.chronicle.v1.InputsUsed"
+    }
+}
+
+/// DataTableUpdateSource denotes the source that updated the data table.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DataTableUpdateSource {
+    /// The data table is updated by the user.
+    Unspecified,
+    /// The data table is updated by the user.
+    User,
+    /// The data table is updated by the rule.
+    Rule,
+    /// The data table is updated by the search.
+    Search,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DataTableUpdateSource::value] or
+    /// [DataTableUpdateSource::name].
+    UnknownValue(data_table_update_source::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod data_table_update_source {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl DataTableUpdateSource {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::User => std::option::Option::Some(1),
+            Self::Rule => std::option::Option::Some(2),
+            Self::Search => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DATA_TABLE_UPDATE_SOURCE_UNSPECIFIED"),
+            Self::User => std::option::Option::Some("USER"),
+            Self::Rule => std::option::Option::Some("RULE"),
+            Self::Search => std::option::Option::Some("SEARCH"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for DataTableUpdateSource {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for DataTableUpdateSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for DataTableUpdateSource {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::User,
+            2 => Self::Rule,
+            3 => Self::Search,
+            _ => Self::UnknownValue(data_table_update_source::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for DataTableUpdateSource {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DATA_TABLE_UPDATE_SOURCE_UNSPECIFIED" => Self::Unspecified,
+            "USER" => Self::User,
+            "RULE" => Self::Rule,
+            "SEARCH" => Self::Search,
+            _ => Self::UnknownValue(data_table_update_source::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for DataTableUpdateSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::User => serializer.serialize_i32(1),
+            Self::Rule => serializer.serialize_i32(2),
+            Self::Search => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for DataTableUpdateSource {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataTableUpdateSource>::new(
+            ".google.cloud.chronicle.v1.DataTableUpdateSource",
+        ))
     }
 }
 

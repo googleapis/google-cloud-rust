@@ -300,6 +300,7 @@ mod tests {
             metadata: ResultSetMetadata {
                 column_names: Arc::new(names),
                 column_types: Arc::new(types),
+                undeclared_parameters: Arc::new(std::collections::BTreeMap::new()),
             },
         };
 

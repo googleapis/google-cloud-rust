@@ -72,6 +72,7 @@ pub(crate) mod iam;
 pub(crate) mod mds;
 pub(crate) mod service_account;
 
+/// A specialized `Result` type for signing operations.
 pub type Result<T> = std::result::Result<T, SigningError>;
 
 /// An implementation of [crate::signer::SigningProvider] that wraps a

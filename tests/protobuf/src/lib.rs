@@ -62,6 +62,20 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     println!("GET = {get:?}");
     assert_eq!(get, create);
 
+    println!("\nTesting create_secret_version() for alias");
+    let data = "The quick brown fox jumps over the lazy dog".as_bytes();
+    let checksum = crc32c::crc32c(data);
+    let _version = client
+        .add_secret_version()
+        .set_parent(&get.name)
+        .set_payload(
+            SecretPayload::new()
+                .set_data(bytes::Bytes::from(data))
+                .set_data_crc32c(checksum as i64),
+        )
+        .send()
+        .await?;
+
     // We need to verify that FieldMask as query parameters are sent correctly
     // by the client library. This involves:
     // - Setting the mask does not result in a RPC error
@@ -80,9 +94,14 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
                 .set_name(&get.name)
                 .set_etag(get.etag)
                 .set_labels(tag(get.labels.clone(), "test-1"))
-                .set_annotations(tag(get.annotations.clone(), "test-1")),
+                .set_annotations(tag(get.annotations.clone(), "test-1"))
+                .set_version_aliases([("test-alias".to_string(), 1i64)]),
         )
-        .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
+        .set_update_mask(FieldMask::default().set_paths([
+            "annotations",
+            "labels",
+            "version_aliases",
+        ]))
         // Avoid flakes, safe to retry because of the etag.
         .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
         .send()
@@ -96,6 +115,7 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
         update.annotations.get("updated").map(String::as_str),
         Some("test-1")
     );
+    assert_eq!(update.version_aliases.get("test-alias"), Some(&1i64));
 
     println!("\nTesting update_secret() [2]");
     let update = client

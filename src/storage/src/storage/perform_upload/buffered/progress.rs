@@ -98,17 +98,6 @@ impl InProgressUpload {
         }
     }
 
-    // This is only used in tests.
-    #[cfg(test)]
-    fn fake(target_size: usize) -> Self {
-        Self {
-            target_size,
-            hint: SizeHint::default(),
-            persisted_size: Some(0_u64),
-            ..Default::default()
-        }
-    }
-
     pub fn needs_query(&self) -> bool {
         self.persisted_size.is_none_or(|x| x != self.offset)
     }
@@ -242,6 +231,17 @@ mod tests {
 
     fn new_line(i: i32, len: usize) -> bytes::Bytes {
         bytes::Bytes::from_owner(new_line_string(i, len))
+    }
+
+    impl InProgressUpload {
+        fn fake(target_size: usize) -> Self {
+            Self {
+                target_size,
+                hint: SizeHint::default(),
+                persisted_size: Some(0_u64),
+                ..Default::default()
+            }
+        }
     }
 
     #[tokio::test]

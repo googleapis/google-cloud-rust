@@ -78,10 +78,6 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> ClientBuilderResult<Self> {
         let cred = Self::make_credentials(&config).await?;
-
-        let universe_domain =
-            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
-
         let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
         // TODO(#4298): Remove after adding HTTP2 support.
@@ -93,14 +89,17 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
+        let host = crate::host::header(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            &universe_domain,
+        )
+        .map_err(|e| e.client_builder())?;
+        let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config
-            .endpoint
-            .unwrap_or_else(|| default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain));
-
-        let host = crate::host::header(Some(endpoint.as_ref()), default_endpoint, &universe_domain)
-            .map_err(|e| e.client_builder())?;
-
+        let endpoint = config.endpoint.unwrap_or(service_endpoint);
         Ok(Self {
             inner,
             cred,
@@ -594,9 +593,12 @@ mod tests {
     use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
     use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
+    use scoped_env::ScopedEnv;
+    use serial_test::serial;
     use test_case::test_case;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
+    type TestResult = anyhow::Result<()>;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -770,7 +772,7 @@ mod tests {
     #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
     #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
+    #[test_case(Some("localhost:5678"), "localhost"; "emulator")]
     #[tokio::test]
     async fn host_from_endpoint(
         custom_endpoint: Option<&str>,
@@ -791,27 +793,47 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn host_from_endpoint_with_universe_domain() -> anyhow::Result<()> {
-        let universe_domain = "my-universe-domain.com".to_string();
+    #[test_case(None, "test.my-custom-universe.com"; "default")]
+    #[test_case(Some("http://www.my-custom-universe.com"), "test.my-custom-universe.com"; "global")]
+    #[test_case(Some("http://private.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC private")]
+    #[test_case(Some("http://restricted.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC restricted")]
+    #[test_case(Some("http://test-my-private-ep.p.my-custom-universe.com"), "test.my-custom-universe.com"; "PSC custom endpoint")]
+    #[test_case(Some("https://us-central1-test.my-custom-universe.com"), "us-central1-test.my-custom-universe.com"; "locational endpoint")]
+    #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com"), "test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
+    #[serial]
+    async fn host_from_endpoint_with_universe_domain_success(
+        endpoint_override: Option<&str>,
+        expected_host: &str,
+    ) -> TestResult {
+        let _env = ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN");
+        let universe_domain = "my-custom-universe.com";
         let mut config = ClientConfig::default();
-        config.universe_domain = Some(universe_domain.clone());
+        config.universe_domain = Some(universe_domain.to_string());
+        config.endpoint = endpoint_override.map(String::from);
 
         let mut cred = MockCredentials::new();
         cred.expect_universe_domain()
-            .returning(move || Some(universe_domain.clone()));
+            .returning(move || Some(universe_domain.to_string()));
         config.cred = Some(cred.into());
 
-        // test with trailing slash
-        let client = ReqwestClient::new(config.clone(), "https://language.googleapis.com/").await?;
-        assert_eq!(client.universe_domain, "my-universe-domain.com");
-        assert_eq!(client.host, "language.my-universe-domain.com");
-        assert_eq!(client.endpoint, "https://language.my-universe-domain.com/");
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        assert_eq!(client.universe_domain, universe_domain);
+        assert_eq!(client.host, expected_host);
 
-        // test without trailing slash
-        let client = ReqwestClient::new(config, "https://language.googleapis.com").await?;
-        assert_eq!(client.universe_domain, "my-universe-domain.com");
-        assert_eq!(client.host, "language.my-universe-domain.com");
-        assert_eq!(client.endpoint, "https://language.my-universe-domain.com");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_from_endpoint_with_universe_domain_mismatch_fails() -> TestResult {
+        let mut config = ClientConfig::default();
+        config.universe_domain = Some("custom.com".to_string());
+        config.cred = Some(Anonymous::new().build());
+
+        let err = ReqwestClient::new(config, "https://language.googleapis.com")
+            .await
+            .unwrap_err();
+
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
 
         Ok(())
     }

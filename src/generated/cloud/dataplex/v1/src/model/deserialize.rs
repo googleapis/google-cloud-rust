@@ -15046,6 +15046,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDocumentationResult {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __dataset_result,
             __table_result,
             Unknown(std::string::String),
         }
@@ -15067,6 +15068,8 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDocumentationResult {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "datasetResult" => Ok(__FieldTag::__dataset_result),
+                            "dataset_result" => Ok(__FieldTag::__dataset_result),
                             "tableResult" => Ok(__FieldTag::__table_result),
                             "table_result" => Ok(__FieldTag::__table_result),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -15094,6 +15097,28 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDocumentationResult {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__dataset_result => {
+                            if !fields.insert(__FieldTag::__dataset_result) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dataset_result",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .google.cloud.dataplex.v1.DataDocumentationResult.dataset_result, latest field was datasetResult",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::model::data_documentation_result::Result::DatasetResult(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::data_documentation_result::DatasetResult,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__table_result => {
                             if !fields.insert(__FieldTag::__table_result) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -15115,6 +15140,117 @@ impl<'de> serde::de::Deserialize<'de> for super::DataDocumentationResult {
                                     .unwrap_or_default(),
                                 ),
                             );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::data_documentation_result::DatasetResult {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __overview,
+            __schema_relationships,
+            __queries,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DatasetResult")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "overview" => Ok(__FieldTag::__overview),
+                            "schemaRelationships" => Ok(__FieldTag::__schema_relationships),
+                            "schema_relationships" => Ok(__FieldTag::__schema_relationships),
+                            "queries" => Ok(__FieldTag::__queries),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::data_documentation_result::DatasetResult;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DatasetResult")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__overview => {
+                            if !fields.insert(__FieldTag::__overview) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for overview",
+                                ));
+                            }
+                            result.overview = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__schema_relationships => {
+                            if !fields.insert(__FieldTag::__schema_relationships) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_relationships",
+                                ));
+                            }
+                            result.schema_relationships = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::data_documentation_result::SchemaRelationship,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__queries => {
+                            if !fields.insert(__FieldTag::__queries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for queries",
+                                ));
+                            }
+                            result.queries = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::data_documentation_result::Query>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -15233,6 +15369,211 @@ impl<'de> serde::de::Deserialize<'de> for super::data_documentation_result::Tabl
                                     std::vec::Vec<crate::model::data_documentation_result::Query>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::data_documentation_result::SchemaRelationship {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __left_schema_paths,
+            __right_schema_paths,
+            __sources,
+            __type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SchemaRelationship")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "leftSchemaPaths" => Ok(__FieldTag::__left_schema_paths),
+                            "left_schema_paths" => Ok(__FieldTag::__left_schema_paths),
+                            "rightSchemaPaths" => Ok(__FieldTag::__right_schema_paths),
+                            "right_schema_paths" => Ok(__FieldTag::__right_schema_paths),
+                            "sources" => Ok(__FieldTag::__sources),
+                            "type" => Ok(__FieldTag::__type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::data_documentation_result::SchemaRelationship;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SchemaRelationship")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__left_schema_paths => {
+                            if !fields.insert(__FieldTag::__left_schema_paths) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for left_schema_paths",
+                                ));
+                            }
+                            result.left_schema_paths = map.next_value::<std::option::Option<crate::model::data_documentation_result::schema_relationship::SchemaPaths>>()?
+                                ;
+                        }
+                        __FieldTag::__right_schema_paths => {
+                            if !fields.insert(__FieldTag::__right_schema_paths) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for right_schema_paths",
+                                ));
+                            }
+                            result.right_schema_paths = map.next_value::<std::option::Option<crate::model::data_documentation_result::schema_relationship::SchemaPaths>>()?
+                                ;
+                        }
+                        __FieldTag::__sources => {
+                            if !fields.insert(__FieldTag::__sources) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sources",
+                                ));
+                            }
+                            result.sources = map.next_value::<std::option::Option<std::vec::Vec<crate::model::data_documentation_result::schema_relationship::Source>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::data_documentation_result::schema_relationship::Type>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::data_documentation_result::schema_relationship::SchemaPaths
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __table_fqn,
+            __paths,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SchemaPaths")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tableFqn" => Ok(__FieldTag::__table_fqn),
+                            "table_fqn" => Ok(__FieldTag::__table_fqn),
+                            "paths" => Ok(__FieldTag::__paths),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::data_documentation_result::schema_relationship::SchemaPaths;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SchemaPaths")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__table_fqn => {
+                            if !fields.insert(__FieldTag::__table_fqn) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for table_fqn",
+                                ));
+                            }
+                            result.table_fqn = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__paths => {
+                            if !fields.insert(__FieldTag::__paths) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for paths",
+                                ));
+                            }
+                            result.paths = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

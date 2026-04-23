@@ -282,6 +282,9 @@ impl serde::ser::Serialize for super::Dataset {
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
         }
+        if self.catalog_source.is_some() {
+            state.serialize_entry("catalogSource", &self.catalog_source)?;
+        }
         if self.linked_dataset_source.is_some() {
             state.serialize_entry("linkedDatasetSource", &self.linked_dataset_source)?;
         }
@@ -630,6 +633,12 @@ impl serde::ser::Serialize for super::ListFormatDataset {
         }
         if !self.location.is_empty() {
             state.serialize_entry("location", &self.location)?;
+        }
+        if !self.r#type.is_empty() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.catalog_source.is_some() {
+            state.serialize_entry("catalogSource", &self.catalog_source)?;
         }
         if self.external_dataset_reference.is_some() {
             state.serialize_entry("externalDatasetReference", &self.external_dataset_reference)?;
@@ -1359,6 +1368,171 @@ impl serde::ser::Serialize for super::ExternalDatasetReference {
         }
         if !self.connection.is_empty() {
             state.serialize_entry("connection", &self.connection)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiFunctionErrorStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.errors.is_empty() {
+            state.serialize_entry("errors", &self.errors)?;
+        }
+        if !wkt::internal::is_default(&self.num_failed_rows) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("numFailedRows", &__With(&self.num_failed_rows))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiFunctionCostOptimizationStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.num_cost_optimized_rows.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "numCostOptimizedRows",
+                &__With(&self.num_cost_optimized_rows),
+            )?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiFunctionStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.function_name.is_some() {
+            state.serialize_entry("functionName", &self.function_name)?;
+        }
+        if self.prompt.is_some() {
+            state.serialize_entry("prompt", &self.prompt)?;
+        }
+        if self.num_processed_rows.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("numProcessedRows", &__With(&self.num_processed_rows))?;
+        }
+        if self.error_stats.is_some() {
+            state.serialize_entry("errorStats", &self.error_stats)?;
+        }
+        if self.cost_optimization_stats.is_some() {
+            state.serialize_entry("costOptimizationStats", &self.cost_optimization_stats)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiErrorStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.errors.is_empty() {
+            state.serialize_entry("errors", &self.errors)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GenAiStats {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.error_stats.is_some() {
+            state.serialize_entry("errorStats", &self.error_stats)?;
+        }
+        if !self.function_stats.is_empty() {
+            state.serialize_entry("functionStats", &self.function_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3977,6 +4151,9 @@ impl serde::ser::Serialize for super::IncrementalResultStats {
         if !wkt::internal::is_default(&self.disabled_reason) {
             state.serialize_entry("disabledReason", &self.disabled_reason)?;
         }
+        if !self.disabled_reason_details.is_empty() {
+            state.serialize_entry("disabledReasonDetails", &self.disabled_reason_details)?;
+        }
         if self.result_set_last_replace_time.is_some() {
             state.serialize_entry(
                 "resultSetLastReplaceTime",
@@ -3985,6 +4162,26 @@ impl serde::ser::Serialize for super::IncrementalResultStats {
         }
         if self.result_set_last_modify_time.is_some() {
             state.serialize_entry("resultSetLastModifyTime", &self.result_set_last_modify_time)?;
+        }
+        if self.first_incremental_row_time.is_some() {
+            state.serialize_entry("firstIncrementalRowTime", &self.first_incremental_row_time)?;
+        }
+        if self.last_incremental_row_time.is_some() {
+            state.serialize_entry("lastIncrementalRowTime", &self.last_incremental_row_time)?;
+        }
+        if self.incremental_row_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("incrementalRowCount", &__With(&self.incremental_row_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4133,6 +4330,9 @@ impl serde::ser::Serialize for super::JobStatistics2 {
         if !self.referenced_routines.is_empty() {
             state.serialize_entry("referencedRoutines", &self.referenced_routines)?;
         }
+        if !self.referenced_property_graphs.is_empty() {
+            state.serialize_entry("referencedPropertyGraphs", &self.referenced_property_graphs)?;
+        }
         if self.schema.is_some() {
             state.serialize_entry("schema", &self.schema)?;
         }
@@ -4264,6 +4464,9 @@ impl serde::ser::Serialize for super::JobStatistics2 {
         }
         if self.incremental_result_stats.is_some() {
             state.serialize_entry("incrementalResultStats", &self.incremental_result_stats)?;
+        }
+        if self.gen_ai_stats.is_some() {
+            state.serialize_entry("genAiStats", &self.gen_ai_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4893,6 +5096,15 @@ impl serde::ser::Serialize for super::DmlStats {
                 }
             }
             state.serialize_entry("updatedRowCount", &__With(&self.updated_row_count))?;
+        }
+        if !wkt::internal::is_default(&self.dml_mode) {
+            state.serialize_entry("dmlMode", &self.dml_mode)?;
+        }
+        if !wkt::internal::is_default(&self.fine_grained_dml_unused_reason) {
+            state.serialize_entry(
+                "fineGrainedDmlUnusedReason",
+                &self.fine_grained_dml_unused_reason,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9157,6 +9369,34 @@ impl serde::ser::Serialize for super::GetServiceAccountResponse {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::PropertyGraphReference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.project_id.is_empty() {
+            state.serialize_entry("projectId", &self.project_id)?;
+        }
+        if !self.dataset_id.is_empty() {
+            state.serialize_entry("datasetId", &self.dataset_id)?;
+        }
+        if !self.property_graph_id.is_empty() {
+            state.serialize_entry("propertyGraphId", &self.property_graph_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::QueryParameterStructType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -9479,6 +9719,9 @@ impl serde::ser::Serialize for super::Routine {
         if self.external_runtime_options.is_some() {
             state.serialize_entry("externalRuntimeOptions", &self.external_runtime_options)?;
         }
+        if self.build_status.is_some() {
+            state.serialize_entry("buildStatus", &self.build_status)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -9678,6 +9921,49 @@ impl serde::ser::Serialize for super::SparkOptions {
         }
         if !self.main_class.is_empty() {
             state.serialize_entry("mainClass", &self.main_class)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::RoutineBuildStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.build_state) {
+            state.serialize_entry("buildState", &self.build_state)?;
+        }
+        if self.error_result.is_some() {
+            state.serialize_entry("errorResult", &self.error_result)?;
+        }
+        if self.build_state_update_time.is_some() {
+            state.serialize_entry("buildStateUpdateTime", &self.build_state_update_time)?;
+        }
+        if self.build_duration.is_some() {
+            state.serialize_entry("buildDuration", &self.build_duration)?;
+        }
+        if !wkt::internal::is_default(&self.image_size_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("imageSizeBytes", &__With(&self.image_size_bytes))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11640,6 +11926,9 @@ impl serde::ser::Serialize for super::TableFieldSchema {
         if !self.foreign_type_definition.is_empty() {
             state.serialize_entry("foreignTypeDefinition", &self.foreign_type_definition)?;
         }
+        if self.generated_column.is_some() {
+            state.serialize_entry("generatedColumn", &self.generated_column)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -11683,6 +11972,59 @@ impl serde::ser::Serialize for super::table_field_schema::FieldElementType {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.r#type.is_empty() {
             state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::table_field_schema::GeneratedExpressionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.generation_expression.is_some() {
+            state.serialize_entry("generationExpression", &self.generation_expression)?;
+        }
+        if self.asynchronous.is_some() {
+            state.serialize_entry("asynchronous", &self.asynchronous)?;
+        }
+        if self.stored.is_some() {
+            state.serialize_entry("stored", &self.stored)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::table_field_schema::GeneratedColumn {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.generated_mode.is_some() {
+            state.serialize_entry("generatedMode", &self.generated_mode)?;
+        }
+        if let Some(value) = self.generated_expression_info() {
+            state.serialize_entry("generatedExpressionInfo", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

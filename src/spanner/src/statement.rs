@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::model::DirectedReadOptions;
+use crate::model::execute_sql_request::QueryMode;
+use crate::model::execute_sql_request::QueryOptions;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
@@ -32,6 +35,9 @@ pub struct StatementBuilder {
     params: BTreeMap<String, Value>,
     param_types: BTreeMap<String, Type>,
     request_options: Option<crate::model::RequestOptions>,
+    directed_read_options: Option<DirectedReadOptions>,
+    query_options: Option<QueryOptions>,
+    query_mode: Option<QueryMode>,
 }
 
 impl StatementBuilder {
@@ -41,6 +47,9 @@ impl StatementBuilder {
             params: BTreeMap::new(),
             param_types: BTreeMap::new(),
             request_options: None,
+            directed_read_options: None,
+            query_options: None,
+            query_mode: None,
         }
     }
 
@@ -90,6 +99,56 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the directed read options for this statement.
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::DirectedReadOptions;
+    /// let dro = DirectedReadOptions::default();
+    /// let stmt = Statement::builder("SELECT * FROM users")
+    ///     .with_directed_read_options(dro)
+    ///     .build();
+    /// ```
+    ///
+    /// DirectedReadOptions can only be specified for a read-only transaction,
+    /// otherwise Spanner returns an INVALID_ARGUMENT error.
+    pub fn with_directed_read_options(mut self, options: DirectedReadOptions) -> Self {
+        self.directed_read_options = Some(options);
+        self
+    }
+
+    /// Sets the query options to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryOptions;
+    /// let options = QueryOptions::default()
+    ///     .set_optimizer_version("latest");
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_query_options(options)
+    ///     .build();
+    /// ```
+    pub fn with_query_options(mut self, options: QueryOptions) -> Self {
+        self.query_options = Some(options);
+        self
+    }
+
+    /// Sets the query mode to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
+    /// let statement = Statement::builder("SELECT * FROM users")
+    ///     .with_query_mode(QueryMode::Plan)
+    ///     .build();
+    /// ```
+    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+        self.query_mode = Some(mode);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -97,6 +156,9 @@ impl StatementBuilder {
             params: self.params,
             param_types: self.param_types,
             request_options: self.request_options,
+            directed_read_options: self.directed_read_options,
+            query_options: self.query_options,
+            query_mode: self.query_mode,
         }
     }
 }
@@ -130,12 +192,37 @@ pub struct Statement {
     pub(crate) params: BTreeMap<String, Value>,
     pub(crate) param_types: BTreeMap<String, Type>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
+    pub(crate) directed_read_options: Option<DirectedReadOptions>,
+    pub(crate) query_options: Option<QueryOptions>,
+    pub(crate) query_mode: Option<QueryMode>,
 }
 
 impl Statement {
     /// Creates a new statement builder.
     pub fn builder(sql: impl Into<String>) -> StatementBuilder {
         StatementBuilder::new(sql)
+    }
+
+    /// Sets the query mode to use for this statement.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Statement;
+    /// # use google_cloud_spanner::model::execute_sql_request::QueryMode;
+    /// # use google_cloud_spanner::client::SingleUseReadOnlyTransaction;
+    /// # async fn test_doc(tx: SingleUseReadOnlyTransaction) -> Result<(), google_cloud_spanner::Error> {
+    /// let statement = Statement::builder("SELECT * FROM users WHERE id = @id")
+    ///     .add_param("id", &42)
+    ///     .build();
+    /// let mut query_plan = tx.execute_query(statement.clone().with_query_mode(QueryMode::Plan)).await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This method consumes the statement and returns a new one with the specified mode.
+    pub fn with_query_mode(mut self, mode: QueryMode) -> Self {
+        self.query_mode = Some(mode);
+        self
     }
 
     fn into_parts(
@@ -165,12 +252,18 @@ impl Statement {
 
     pub(crate) fn into_request(self) -> crate::model::ExecuteSqlRequest {
         let request_options = self.request_options.clone();
+        let directed_read_options = self.directed_read_options.clone();
+        let query_options = self.query_options.clone();
+        let query_mode = self.query_mode.clone();
         let (sql, params, param_types) = self.into_parts();
         crate::model::ExecuteSqlRequest::default()
             .set_sql(sql)
             .set_or_clear_params(params)
             .set_param_types(param_types)
             .set_or_clear_request_options(request_options)
+            .set_or_clear_directed_read_options(directed_read_options)
+            .set_or_clear_query_options(query_options)
+            .set_query_mode(query_mode.unwrap_or_default())
     }
 
     pub(crate) fn into_batch_statement(self) -> crate::model::execute_batch_dml_request::Statement {
@@ -211,6 +304,7 @@ impl From<&str> for Statement {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use anyhow::Context;
 
     #[test]
     fn test_auto_traits() {
@@ -323,5 +417,63 @@ mod tests {
                 .request_tag,
             "tag1"
         );
+    }
+
+    #[test]
+    fn with_directed_read_options() {
+        let dro = DirectedReadOptions::default();
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_directed_read_options(dro.clone())
+            .build();
+        assert_eq!(stmt.directed_read_options, Some(dro));
+    }
+
+    #[test]
+    fn with_query_options() -> anyhow::Result<()> {
+        let query_options = QueryOptions::default().set_optimizer_version("1");
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_query_options(query_options.clone())
+            .build();
+        assert_eq!(
+            stmt.query_options
+                .as_ref()
+                .context("query options missing")?
+                .optimizer_version,
+            "1"
+        );
+
+        let req = stmt.into_request();
+        assert_eq!(
+            req.query_options
+                .context("query options missing in request")?
+                .optimizer_version,
+            "1"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn with_query_mode() -> anyhow::Result<()> {
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_query_mode(QueryMode::Plan)
+            .build();
+        assert_eq!(stmt.query_mode, Some(QueryMode::Plan));
+
+        let req = stmt.into_request();
+        assert_eq!(req.query_mode, QueryMode::Plan);
+        Ok(())
+    }
+
+    #[test]
+    fn statement_with_query_mode() -> anyhow::Result<()> {
+        let stmt = Statement::builder("SELECT * FROM users").build();
+        assert_eq!(stmt.query_mode, None);
+
+        let stmt = stmt.with_query_mode(QueryMode::Profile);
+        assert_eq!(stmt.query_mode, Some(QueryMode::Profile));
+
+        let req = stmt.into_request();
+        assert_eq!(req.query_mode, QueryMode::Profile);
+        Ok(())
     }
 }

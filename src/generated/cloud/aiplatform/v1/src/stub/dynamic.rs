@@ -8179,6 +8179,12 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryReasoningEngineResponse>>;
 
+    async fn async_query_reasoning_engine(
+        &self,
+        req: crate::model::AsyncQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -8238,6 +8244,16 @@ pub trait ReasoningEngineExecutionService: std::fmt::Debug + Send + Sync {
         req: google_cloud_longrunning::model::WaitOperationRequest,
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ReasoningEngineExecutionService] also implement [ReasoningEngineExecutionService].
@@ -8251,6 +8267,15 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::QueryReasoningEngineResponse>> {
         T::query_reasoning_engine(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn async_query_reasoning_engine(
+        &self,
+        req: crate::model::AsyncQueryReasoningEngineRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::async_query_reasoning_engine(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -8343,6 +8368,20 @@ impl<T: super::ReasoningEngineExecutionService> ReasoningEngineExecutionService 
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }
 

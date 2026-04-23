@@ -5954,6 +5954,137 @@ impl serde::ser::Serialize for super::CacheKeyPolicy {
     }
 }
 
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CachePolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.cache_bypass_request_header_names.is_empty() {
+            state.serialize_entry(
+                "cacheBypassRequestHeaderNames",
+                &self.cache_bypass_request_header_names,
+            )?;
+        }
+        if self.cache_key_policy.is_some() {
+            state.serialize_entry("cacheKeyPolicy", &self.cache_key_policy)?;
+        }
+        if self.cache_mode.is_some() {
+            state.serialize_entry("cacheMode", &self.cache_mode)?;
+        }
+        if self.client_ttl.is_some() {
+            state.serialize_entry("clientTtl", &self.client_ttl)?;
+        }
+        if self.default_ttl.is_some() {
+            state.serialize_entry("defaultTtl", &self.default_ttl)?;
+        }
+        if self.max_ttl.is_some() {
+            state.serialize_entry("maxTtl", &self.max_ttl)?;
+        }
+        if self.negative_caching.is_some() {
+            state.serialize_entry("negativeCaching", &self.negative_caching)?;
+        }
+        if !self.negative_caching_policy.is_empty() {
+            state.serialize_entry("negativeCachingPolicy", &self.negative_caching_policy)?;
+        }
+        if self.request_coalescing.is_some() {
+            state.serialize_entry("requestCoalescing", &self.request_coalescing)?;
+        }
+        if self.serve_while_stale.is_some() {
+            state.serialize_entry("serveWhileStale", &self.serve_while_stale)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CachePolicyCacheKeyPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.excluded_query_parameters.is_empty() {
+            state.serialize_entry("excludedQueryParameters", &self.excluded_query_parameters)?;
+        }
+        if self.include_host.is_some() {
+            state.serialize_entry("includeHost", &self.include_host)?;
+        }
+        if self.include_protocol.is_some() {
+            state.serialize_entry("includeProtocol", &self.include_protocol)?;
+        }
+        if self.include_query_string.is_some() {
+            state.serialize_entry("includeQueryString", &self.include_query_string)?;
+        }
+        if !self.included_cookie_names.is_empty() {
+            state.serialize_entry("includedCookieNames", &self.included_cookie_names)?;
+        }
+        if !self.included_header_names.is_empty() {
+            state.serialize_entry("includedHeaderNames", &self.included_header_names)?;
+        }
+        if !self.included_query_parameters.is_empty() {
+            state.serialize_entry("includedQueryParameters", &self.included_query_parameters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CachePolicyNegativeCachingPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("code", &__With(&self.code))?;
+        }
+        if self.ttl.is_some() {
+            state.serialize_entry("ttl", &self.ttl)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(feature = "advice")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::CalendarModeAdviceRequest {
@@ -15692,6 +15823,9 @@ impl serde::ser::Serialize for super::HttpRouteAction {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.cache_policy.is_some() {
+            state.serialize_entry("cachePolicy", &self.cache_policy)?;
+        }
         if self.cors_policy.is_some() {
             state.serialize_entry("corsPolicy", &self.cors_policy)?;
         }

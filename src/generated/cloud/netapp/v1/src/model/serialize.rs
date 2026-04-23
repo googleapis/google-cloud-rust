@@ -3171,6 +3171,9 @@ impl serde::ser::Serialize for super::StoragePool {
         if self.mode.is_some() {
             state.serialize_entry("mode", &self.mode)?;
         }
+        if !wkt::internal::is_default(&self.scale_type) {
+            state.serialize_entry("scaleType", &self.scale_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -3594,6 +3597,9 @@ impl serde::ser::Serialize for super::Volume {
         if !self.block_devices.is_empty() {
             state.serialize_entry("blockDevices", &self.block_devices)?;
         }
+        if self.large_capacity_config.is_some() {
+            state.serialize_entry("largeCapacityConfig", &self.large_capacity_config)?;
+        }
         if self.clone_details.is_some() {
             state.serialize_entry("cloneDetails", &self.clone_details)?;
         }
@@ -3633,6 +3639,37 @@ impl serde::ser::Serialize for super::volume::CloneDetails {
                 }
             }
             state.serialize_entry("sharedSpaceGib", &__With(&self.shared_space_gib))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LargeCapacityConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.constituent_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("constituentCount", &__With(&self.constituent_count))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

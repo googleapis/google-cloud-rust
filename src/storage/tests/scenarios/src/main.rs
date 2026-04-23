@@ -135,7 +135,7 @@ async fn runner(
     objects: Vec<Object>,
 ) -> anyhow::Result<()> {
     tokio::time::sleep(args.rampup_period * task as u32).await;
-    if task % 128 == 0 {
+    if task.is_multiple_of(128) {
         tracing::info!("runner({})", task);
     }
 

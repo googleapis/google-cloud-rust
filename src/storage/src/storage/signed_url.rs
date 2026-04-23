@@ -278,13 +278,6 @@ impl SignedUrlBuilder {
         Self::new(SigningScope::Bucket(bucket.into()))
     }
 
-    #[cfg(test)]
-    /// Sets the timestamp for the signed URL. Only used in tests.
-    fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
-        self.timestamp = timestamp;
-        self
-    }
-
     /// Sets the HTTP method for the signed URL. The default is [GET][crate::http::Method::GET].
     ///
     /// # Example
@@ -637,6 +630,14 @@ mod tests {
         impl SigningProvider for Signer {
             async fn client_email(&self) -> SignResult<String>;
             async fn sign(&self, content: &[u8]) -> SignResult<bytes::Bytes>;
+        }
+    }
+
+    impl SignedUrlBuilder {
+        /// Sets the timestamp for the signed URL. Only used in tests.
+        fn with_timestamp(mut self, timestamp: DateTime<Utc>) -> Self {
+            self.timestamp = timestamp;
+            self
         }
     }
 

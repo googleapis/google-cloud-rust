@@ -28,6 +28,7 @@
 //! # Available Clients
 //!
 //! * [DataAccessControlService](client/struct.DataAccessControlService.html)
+//! * [DataTableService](client/struct.DataTableService.html)
 //! * [EntityService](client/struct.EntityService.html)
 //! * [InstanceService](client/struct.InstanceService.html)
 //! * [ReferenceListService](client/struct.ReferenceListService.html)

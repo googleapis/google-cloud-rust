@@ -15992,9 +15992,9 @@ impl DataDocumentationResult {
     /// # Example
     /// ```ignore,no_run
     /// # use google_cloud_dataplex_v1::model::DataDocumentationResult;
-    /// use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
+    /// use google_cloud_dataplex_v1::model::data_documentation_result::DatasetResult;
     /// let x = DataDocumentationResult::new().set_result(Some(
-    ///     google_cloud_dataplex_v1::model::data_documentation_result::Result::TableResult(TableResult::default().into())));
+    ///     google_cloud_dataplex_v1::model::data_documentation_result::Result::DatasetResult(DatasetResult::default().into())));
     /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::data_documentation_result::Result>>,
@@ -16003,6 +16003,48 @@ impl DataDocumentationResult {
         v: T,
     ) -> Self {
         self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::DataDocumentationResult::result]
+    /// if it holds a `DatasetResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn dataset_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::data_documentation_result::DatasetResult>>
+    {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::data_documentation_result::Result::DatasetResult(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::DataDocumentationResult::result]
+    /// to hold a `DatasetResult`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataplex_v1::model::DataDocumentationResult;
+    /// use google_cloud_dataplex_v1::model::data_documentation_result::DatasetResult;
+    /// let x = DataDocumentationResult::new().set_dataset_result(DatasetResult::default()/* use setters */);
+    /// assert!(x.dataset_result().is_some());
+    /// assert!(x.table_result().is_none());
+    /// ```
+    pub fn set_dataset_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::DatasetResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::data_documentation_result::Result::DatasetResult(v.into()),
+        );
         self
     }
 
@@ -16034,6 +16076,7 @@ impl DataDocumentationResult {
     /// use google_cloud_dataplex_v1::model::data_documentation_result::TableResult;
     /// let x = DataDocumentationResult::new().set_table_result(TableResult::default()/* use setters */);
     /// assert!(x.table_result().is_some());
+    /// assert!(x.dataset_result().is_none());
     /// ```
     pub fn set_table_result<
         T: std::convert::Into<std::boxed::Box<crate::model::data_documentation_result::TableResult>>,
@@ -16059,7 +16102,93 @@ pub mod data_documentation_result {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Generated metadata about the table.
+    /// Insights for a dataset resource.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DatasetResult {
+        /// Output only. Generated Dataset description.
+        pub overview: std::string::String,
+
+        /// Output only. Relationships suggesting how tables in the dataset are
+        /// related to each other, based on their schema.
+        pub schema_relationships:
+            std::vec::Vec<crate::model::data_documentation_result::SchemaRelationship>,
+
+        /// Output only. Sample SQL queries for the dataset.
+        pub queries: std::vec::Vec<crate::model::data_documentation_result::Query>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DatasetResult {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [overview][crate::model::data_documentation_result::DatasetResult::overview].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DatasetResult;
+        /// let x = DatasetResult::new().set_overview("example");
+        /// ```
+        pub fn set_overview<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.overview = v.into();
+            self
+        }
+
+        /// Sets the value of [schema_relationships][crate::model::data_documentation_result::DatasetResult::schema_relationships].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DatasetResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// let x = DatasetResult::new()
+        ///     .set_schema_relationships([
+        ///         SchemaRelationship::default()/* use setters */,
+        ///         SchemaRelationship::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_schema_relationships<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::SchemaRelationship>,
+        {
+            use std::iter::Iterator;
+            self.schema_relationships = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [queries][crate::model::data_documentation_result::DatasetResult::queries].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::DatasetResult;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::Query;
+        /// let x = DatasetResult::new()
+        ///     .set_queries([
+        ///         Query::default()/* use setters */,
+        ///         Query::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::data_documentation_result::Query>,
+        {
+            use std::iter::Iterator;
+            self.queries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for DatasetResult {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.DatasetResult"
+        }
+    }
+
+    /// Insights for a table resource.
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TableResult {
@@ -16169,6 +16298,504 @@ pub mod data_documentation_result {
     impl wkt::message::Message for TableResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.TableResult"
+        }
+    }
+
+    /// Details of the relationship between the schema of two resources.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SchemaRelationship {
+        /// Output only. An ordered list of fields for the join from the first table.
+        /// The size of this list must be the same as `right_schema_paths`.
+        /// Each field at index i in this list must correspond to a field at the same
+        /// index in the `right_schema_paths` list.
+        pub left_schema_paths: std::option::Option<
+            crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+        >,
+
+        /// Output only. An ordered list of fields for the join from the second
+        /// table. The size of this list must be the same as `left_schema_paths`.
+        /// Each field at index i in this list must correspond to a field at the same
+        /// index in the `left_schema_paths` list.
+        pub right_schema_paths: std::option::Option<
+            crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+        >,
+
+        /// Output only. Sources which generated the schema relation edge.
+        pub sources:
+            std::vec::Vec<crate::model::data_documentation_result::schema_relationship::Source>,
+
+        /// Output only. The type of relationship between the schema paths.
+        pub r#type: crate::model::data_documentation_result::schema_relationship::Type,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SchemaRelationship {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [left_schema_paths][crate::model::data_documentation_result::SchemaRelationship::left_schema_paths].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+        /// let x = SchemaRelationship::new().set_left_schema_paths(SchemaPaths::default()/* use setters */);
+        /// ```
+        pub fn set_left_schema_paths<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+                >,
+        {
+            self.left_schema_paths = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [left_schema_paths][crate::model::data_documentation_result::SchemaRelationship::left_schema_paths].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+        /// let x = SchemaRelationship::new().set_or_clear_left_schema_paths(Some(SchemaPaths::default()/* use setters */));
+        /// let x = SchemaRelationship::new().set_or_clear_left_schema_paths(None::<SchemaPaths>);
+        /// ```
+        pub fn set_or_clear_left_schema_paths<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+                >,
+        {
+            self.left_schema_paths = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [right_schema_paths][crate::model::data_documentation_result::SchemaRelationship::right_schema_paths].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+        /// let x = SchemaRelationship::new().set_right_schema_paths(SchemaPaths::default()/* use setters */);
+        /// ```
+        pub fn set_right_schema_paths<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+                >,
+        {
+            self.right_schema_paths = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [right_schema_paths][crate::model::data_documentation_result::SchemaRelationship::right_schema_paths].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+        /// let x = SchemaRelationship::new().set_or_clear_right_schema_paths(Some(SchemaPaths::default()/* use setters */));
+        /// let x = SchemaRelationship::new().set_or_clear_right_schema_paths(None::<SchemaPaths>);
+        /// ```
+        pub fn set_or_clear_right_schema_paths<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::data_documentation_result::schema_relationship::SchemaPaths,
+                >,
+        {
+            self.right_schema_paths = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [sources][crate::model::data_documentation_result::SchemaRelationship::sources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::Source;
+        /// let x = SchemaRelationship::new().set_sources([
+        ///     Source::Agent,
+        ///     Source::QueryHistory,
+        ///     Source::TableConstraints,
+        /// ]);
+        /// ```
+        pub fn set_sources<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::data_documentation_result::schema_relationship::Source,
+                >,
+        {
+            use std::iter::Iterator;
+            self.sources = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [r#type][crate::model::data_documentation_result::SchemaRelationship::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dataplex_v1::model::data_documentation_result::SchemaRelationship;
+        /// use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::Type;
+        /// let x0 = SchemaRelationship::new().set_type(Type::SchemaJoin);
+        /// ```
+        pub fn set_type<
+            T: std::convert::Into<crate::model::data_documentation_result::schema_relationship::Type>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.r#type = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SchemaRelationship {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.SchemaRelationship"
+        }
+    }
+
+    /// Defines additional types related to [SchemaRelationship].
+    pub mod schema_relationship {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Represents an ordered set of paths within a table's schema.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SchemaPaths {
+            /// Output only. The service-qualified full resource name of the table
+            /// Ex:
+            /// //bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID
+            pub table_fqn: std::string::String,
+
+            /// Output only. An ordered set of Paths to fields within the schema of the
+            /// table. For fields nested within a top level field of type record, use
+            /// '.' to separate field names. Examples: Top level field - `top_level`
+            /// Nested field - `top_level.child.sub_field`
+            pub paths: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SchemaPaths {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [table_fqn][crate::model::data_documentation_result::schema_relationship::SchemaPaths::table_fqn].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+            /// let x = SchemaPaths::new().set_table_fqn("example");
+            /// ```
+            pub fn set_table_fqn<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.table_fqn = v.into();
+                self
+            }
+
+            /// Sets the value of [paths][crate::model::data_documentation_result::schema_relationship::SchemaPaths::paths].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dataplex_v1::model::data_documentation_result::schema_relationship::SchemaPaths;
+            /// let x = SchemaPaths::new().set_paths(["a", "b", "c"]);
+            /// ```
+            pub fn set_paths<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.paths = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for SchemaPaths {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dataplex.v1.DataDocumentationResult.SchemaRelationship.SchemaPaths"
+            }
+        }
+
+        /// Source which generated the schema relation edge.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Source {
+            /// The source of the schema relationship is unspecified.
+            Unspecified,
+            /// The source of the schema relationship is agent.
+            Agent,
+            /// The source of the schema relationship is query history from the source
+            /// system.
+            QueryHistory,
+            /// The source of the schema relationship is table constraints added in
+            /// the source system.
+            TableConstraints,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Source::value] or
+            /// [Source::name].
+            UnknownValue(source::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod source {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Source {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Agent => std::option::Option::Some(4),
+                    Self::QueryHistory => std::option::Option::Some(5),
+                    Self::TableConstraints => std::option::Option::Some(6),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SOURCE_UNSPECIFIED"),
+                    Self::Agent => std::option::Option::Some("AGENT"),
+                    Self::QueryHistory => std::option::Option::Some("QUERY_HISTORY"),
+                    Self::TableConstraints => std::option::Option::Some("TABLE_CONSTRAINTS"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Source {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Source {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Source {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    4 => Self::Agent,
+                    5 => Self::QueryHistory,
+                    6 => Self::TableConstraints,
+                    _ => Self::UnknownValue(source::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Source {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SOURCE_UNSPECIFIED" => Self::Unspecified,
+                    "AGENT" => Self::Agent,
+                    "QUERY_HISTORY" => Self::QueryHistory,
+                    "TABLE_CONSTRAINTS" => Self::TableConstraints,
+                    _ => Self::UnknownValue(source::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Source {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Agent => serializer.serialize_i32(4),
+                    Self::QueryHistory => serializer.serialize_i32(5),
+                    Self::TableConstraints => serializer.serialize_i32(6),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Source {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Source>::new(
+                    ".google.cloud.dataplex.v1.DataDocumentationResult.SchemaRelationship.Source",
+                ))
+            }
+        }
+
+        /// The type of relationship.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Type {
+            /// The type of the schema relationship is unspecified.
+            Unspecified,
+            /// Indicates a join relationship between the schema fields.
+            SchemaJoin,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Type::value] or
+            /// [Type::name].
+            UnknownValue(r#type::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod r#type {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl Type {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::SchemaJoin => std::option::Option::Some(1),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                    Self::SchemaJoin => std::option::Option::Some("SCHEMA_JOIN"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for Type {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for Type {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for Type {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::SchemaJoin,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for Type {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TYPE_UNSPECIFIED" => Self::Unspecified,
+                    "SCHEMA_JOIN" => Self::SchemaJoin,
+                    _ => Self::UnknownValue(r#type::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for Type {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::SchemaJoin => serializer.serialize_i32(1),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for Type {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                    ".google.cloud.dataplex.v1.DataDocumentationResult.SchemaRelationship.Type",
+                ))
+            }
         }
     }
 
@@ -16342,7 +16969,9 @@ pub mod data_documentation_result {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
-        /// Output only. Table result for insights.
+        /// Output only. Insights for a Dataset resource.
+        DatasetResult(std::boxed::Box<crate::model::data_documentation_result::DatasetResult>),
+        /// Output only. Insights for a Table resource.
         TableResult(std::boxed::Box<crate::model::data_documentation_result::TableResult>),
     }
 }

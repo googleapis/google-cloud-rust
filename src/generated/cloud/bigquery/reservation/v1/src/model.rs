@@ -858,7 +858,7 @@ pub mod reservation {
         ///    reservation will scale up to 1000 slots with 200 baseline and 800 idle
         ///    slots.
         /// 1. if there are 500 idle slots available in other reservations, the
-        ///    reservation will scale up to 700 slots with 200 baseline and 300 idle
+        ///    reservation will scale up to 700 slots with 200 baseline and 500 idle
         ///    slots.
         ///    Please note, in this mode, the reservation might not be able to scale up
         ///    to max_slots.
@@ -3283,6 +3283,23 @@ pub struct Assignment {
     /// This feature is not yet generally available.
     pub scheduling_policy: std::option::Option<crate::model::SchedulingPolicy>,
 
+    /// Optional. Represents the principal for this assignment. If not empty, jobs
+    /// run by this principal will utilize the associated reservation. Otherwise,
+    /// jobs will fall back to using the reservation assigned to the project,
+    /// folder, or organization (in that order). If no reservation is assigned at
+    /// any of these levels, on-demand capacity will be used.
+    ///
+    /// The supported formats are:
+    ///
+    /// * `principal://goog/subject/USER_EMAIL_ADDRESS` for users,
+    /// * `principal://iam.googleapis.com/projects/-/serviceAccounts/SA_EMAIL_ADDRESS`
+    ///   for service accounts,
+    /// * `principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/POOL_ID/subject/SUBJECT_ID`
+    ///   for workload identity pool identities.
+    /// * The special value `unknown_or_deleted_user` represents principals which
+    ///   cannot be read from the user info service, for example deleted users.
+    pub principal: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3393,6 +3410,18 @@ impl Assignment {
         T: std::convert::Into<crate::model::SchedulingPolicy>,
     {
         self.scheduling_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [principal][crate::model::Assignment::principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = Assignment::new().set_principal("example");
+    /// ```
+    pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal = v.into();
         self
     }
 }
