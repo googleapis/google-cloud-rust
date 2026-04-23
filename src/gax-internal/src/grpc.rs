@@ -643,7 +643,7 @@ mod tests {
     #[test_case(None, "my-custom-universe.com", "https://test.my-custom-universe.com/"; "default custom universe domain")]
     #[test_case(Some("https://test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.googleapis.com/"; "GDU override")]
     #[test_case(Some("https://another-custom-universe.com/"), "my-custom-universe.com", "https://another-custom-universe.com/"; "custom endpoint override with universe domain")]
-    #[test_case(Some("https://rep.test.googleapis.com/"), "my-custom-universe.com", "https://rep.test.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com/"), "my-custom-universe.com", "https://test.us-central1.rep.googleapis.com/"; "regional endpoint with universe domain")]
     #[test_case(Some("http://www.my-custom-universe.com/"), "my-custom-universe.com", "http://www.my-custom-universe.com/"; "global custom universe")]
     #[test_case(Some("http://private.my-custom-universe.com/"), "my-custom-universe.com", "http://private.my-custom-universe.com/"; "VPC-SC private custom universe")]
     #[test_case(Some("http://restricted.my-custom-universe.com/"), "my-custom-universe.com", "http://restricted.my-custom-universe.com/"; "VPC-SC restricted custom universe")]
