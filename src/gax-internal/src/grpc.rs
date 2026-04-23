@@ -426,6 +426,7 @@ impl Client {
             WithTransportMetric::new(self.metric.clone(), pending, _prior_attempt_count as u32);
         let pending = WithTransportLogging::new(pending);
         let pending = WithTransportSpan::new(span, pending);
+
         if let Some(recorder) = crate::observability::RequestRecorder::current() {
             recorder.scope(pending).await
         } else {
