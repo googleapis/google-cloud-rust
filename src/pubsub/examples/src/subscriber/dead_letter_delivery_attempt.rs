@@ -32,8 +32,9 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
 
     while let Some((message, handler)) = stream.next().await.transpose()? {
         println!("received message: {message:?}");
-        if let Some(attempt) = handler.delivery_attempt() {
-            println!("delivery attempt: {attempt}");
+        match handler.delivery_attempt() {
+            Some(i) => println!("delivery attempt: {i}"),
+            None => println!("delivery attempt: unknown"),
         }
         handler.ack();
     }
