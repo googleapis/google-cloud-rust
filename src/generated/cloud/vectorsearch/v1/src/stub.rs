@@ -396,6 +396,17 @@ pub trait VectorSearchService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::VectorSearchService::update_index].
+    fn update_index(
+        &self,
+        _req: crate::model::UpdateIndexRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::VectorSearchService::delete_index].
     fn delete_index(
         &self,

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Status conversions for Firestore.
+
 use crate::google;
 use gaxi::grpc::status::{any_from_prost, any_to_prost};
 use gaxi::prost::{ConvertError, FromProto, ToProto};

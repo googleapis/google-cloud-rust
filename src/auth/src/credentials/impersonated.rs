@@ -443,18 +443,6 @@ impl Builder {
         Ok(self.build_credentials()?.into())
     }
 
-    #[cfg(test)]
-    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
-        self.iam_endpoint_override = iam_endpoint_override;
-        self
-    }
-
-    #[cfg(test)]
-    fn without_access_boundary(mut self) -> Self {
-        self.is_access_boundary_enabled = false;
-        self
-    }
-
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
     ///
     /// # Example
@@ -922,6 +910,18 @@ mod tests {
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    impl Builder {
+        fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+            self.iam_endpoint_override = iam_endpoint_override;
+            self
+        }
+
+        fn without_access_boundary(mut self) -> Self {
+            self.is_access_boundary_enabled = false;
+            self
+        }
+    }
 
     #[tokio::test]
     #[parallel]

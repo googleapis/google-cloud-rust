@@ -252,6 +252,32 @@ pub struct Partition {
 }
 
 impl Partition {
+    /// Sets whether Data Boost is enabled for this partition.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Statement};
+    /// # use google_cloud_spanner::model::PartitionOptions;
+    /// # async fn run_query(spanner: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = spanner.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// # let transaction = db_client.batch_read_only_transaction().build().await?;
+    /// # let partitions = transaction.partition_query(Statement::builder("SELECT * FROM Users").build(), PartitionOptions::default()).await?;
+    /// // On a worker receiving a partition, execute it with Data Boost:
+    /// let mut result_set = partitions[0].clone()
+    ///     .with_data_boost(true)
+    ///     .execute(&db_client)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn with_data_boost(mut self, enabled: bool) -> Self {
+        match &mut self.inner {
+            PartitionedOperation::Query(req) => req.data_boost_enabled = enabled,
+            PartitionedOperation::Read(req) => req.data_boost_enabled = enabled,
+        }
+        self
+    }
+
     /// Executes this partition and returns a [ResultSet] that
     /// contains the rows that belong to this partition.
     ///
@@ -369,18 +395,22 @@ pub(crate) mod tests {
     use super::*;
     use crate::client::Statement;
     use crate::client::{KeySet, ReadRequest as SpannerReadRequest, TimestampBound};
+    use crate::model::transaction_selector::Selector;
+    use crate::model::{ExecuteSqlRequest, ReadRequest as GrpcReadRequest, TransactionSelector};
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::Response;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::{
         Partition as MockPartition, PartitionResponse, Transaction,
     };
+    use static_assertions::assert_impl_all;
+    use std::fmt::Debug;
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(BatchReadOnlyTransactionBuilder: Send, Sync);
-        static_assertions::assert_impl_all!(BatchReadOnlyTransaction: Send, Sync, std::fmt::Debug);
-        static_assertions::assert_impl_all!(Partition: Send, Sync, std::fmt::Debug, Clone, serde::Serialize, serde::Deserialize<'static>);
+        assert_impl_all!(BatchReadOnlyTransactionBuilder: Send, Sync);
+        assert_impl_all!(BatchReadOnlyTransaction: Send, Sync, Debug);
+        assert_impl_all!(Partition: Send, Sync, Debug);
     }
 
     #[test]
@@ -655,6 +685,69 @@ pub(crate) mod tests {
             }
             _ => panic!("Expected Read partition"),
         }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_query_with_data_boost() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.data_boost_enabled, "data_boost_enabled should be true");
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(rx))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let req = ExecuteSqlRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_1".to_vec().into())),
+                ..Default::default()
+            })
+            .set_sql("SELECT * FROM Users")
+            .set_partition_token(b"partition_token_123".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Query(req),
+        };
+
+        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn execute_read_with_data_boost() -> anyhow::Result<()> {
+        let mut mock = create_session_mock();
+
+        mock.expect_streaming_read().once().returning(|req| {
+            let req = req.into_inner();
+            assert!(req.data_boost_enabled, "data_boost_enabled should be true");
+            let (_, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::from(rx))
+        });
+
+        let (db_client, _server) = setup_db_client(mock).await;
+
+        let req = GrpcReadRequest::new()
+            .set_session("projects/p/instances/i/databases/d/sessions/123")
+            .set_transaction(TransactionSelector {
+                selector: Some(Selector::Id(b"tx_id_2".to_vec().into())),
+                ..Default::default()
+            })
+            .set_table("Users")
+            .set_columns(vec!["Id".to_string(), "Name".to_string()])
+            .set_partition_token(b"partition_token_456".to_vec());
+
+        let partition = Partition {
+            inner: PartitionedOperation::Read(req),
+        };
+
+        let _result_set = partition.with_data_boost(true).execute(&db_client).await?;
+
         Ok(())
     }
 }

@@ -4224,8 +4224,39 @@ impl serde::ser::Serialize for super::DataDocumentationResult {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.dataset_result() {
+            state.serialize_entry("datasetResult", value)?;
+        }
         if let Some(value) = self.table_result() {
             state.serialize_entry("tableResult", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::DatasetResult {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.overview.is_empty() {
+            state.serialize_entry("overview", &self.overview)?;
+        }
+        if !self.schema_relationships.is_empty() {
+            state.serialize_entry("schemaRelationships", &self.schema_relationships)?;
+        }
+        if !self.queries.is_empty() {
+            state.serialize_entry("queries", &self.queries)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4257,6 +4288,62 @@ impl serde::ser::Serialize for super::data_documentation_result::TableResult {
         }
         if !self.queries.is_empty() {
             state.serialize_entry("queries", &self.queries)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::SchemaRelationship {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.left_schema_paths.is_some() {
+            state.serialize_entry("leftSchemaPaths", &self.left_schema_paths)?;
+        }
+        if self.right_schema_paths.is_some() {
+            state.serialize_entry("rightSchemaPaths", &self.right_schema_paths)?;
+        }
+        if !self.sources.is_empty() {
+            state.serialize_entry("sources", &self.sources)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::data_documentation_result::schema_relationship::SchemaPaths {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.table_fqn.is_empty() {
+            state.serialize_entry("tableFqn", &self.table_fqn)?;
+        }
+        if !self.paths.is_empty() {
+            state.serialize_entry("paths", &self.paths)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

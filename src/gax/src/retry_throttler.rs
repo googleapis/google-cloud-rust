@@ -69,13 +69,21 @@ use std::sync::{Arc, Mutex};
 /// The error type for throttler policy creation.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
+/// Errors that can occur when building a retry throttler.
 pub enum Error {
+    /// The scaling factor is out of range (must be >= 0.0).
     #[error("the scaling factor ({0}) must be greater or equal than 0.0")]
     ScalingOutOfRange(f64),
+    /// The minimum tokens must be less than or equal to the initial tokens.
     #[error(
         "the minimum tokens ({min}) must be less than or equal to the initial token ({initial}) count"
     )]
-    TooFewMinTokens { min: u64, initial: u64 },
+    TooFewMinTokens {
+        /// The minimum tokens.
+        min: u64,
+        /// The initial tokens.
+        initial: u64,
+    },
 }
 
 /// Implementations of this trait prevent a client from sending too many retries.

@@ -15422,6 +15422,41 @@ impl ReasoningEngineExecutionService {
         )
     }
 
+    /// Async query using a reasoning engine.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.async_query_reasoning_engine()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn async_query_reasoning_engine(
+        &self,
+    ) -> super::builder::reasoning_engine_execution_service::AsyncQueryReasoningEngine {
+        super::builder::reasoning_engine_execution_service::AsyncQueryReasoningEngine::new(
+            self.inner.clone(),
+        )
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example
