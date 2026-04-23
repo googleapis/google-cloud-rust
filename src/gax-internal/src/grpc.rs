@@ -103,9 +103,18 @@ impl Client {
     ) -> ClientBuilderResult<Self> {
         let credentials = Self::make_credentials(&config).await?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &credentials)
+                .await?;
 
-        let (inner, tracing_attributes) =
-            Self::make_inner(&config, default_endpoint, tracing_enabled, instrumentation).await?;
+        let (inner, tracing_attributes) = Self::make_inner(
+            &config,
+            default_endpoint,
+            tracing_enabled,
+            &universe_domain,
+            instrumentation,
+        )
+        .await?;
 
         Ok(Self {
             inner,
@@ -429,12 +438,14 @@ impl Client {
         config: &crate::options::ClientConfig,
         default_endpoint: &str,
         tracing_enabled: bool,
+        universe_domain: &str,
         instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     ) -> ClientBuilderResult<(InnerClient, Option<TracingAttributes>)> {
         use ::tonic::transport::{Channel, channel::Change};
         let endpoint = Self::make_endpoint(
             config.endpoint.clone(),
             default_endpoint,
+            universe_domain,
             config.grpc_max_header_list_size,
         )
         .await?;
@@ -479,19 +490,16 @@ impl Client {
     async fn make_endpoint(
         endpoint: Option<String>,
         default_endpoint: &str,
+        universe_domain: &str,
         grpc_max_header_list_size: Option<u32>,
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin = crate::host::origin(
-            endpoint.as_deref(),
-            default_endpoint,
-            DEFAULT_UNIVERSE_DOMAIN, // TODO(#3646): Pass in the actual universe domain
-        )
-        .map_err(|e| e.client_builder())?;
-        let endpoint =
-            Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(BuilderError::transport)?;
+        let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, universe_domain);
+        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint, universe_domain)
+            .map_err(|e| e.client_builder())?;
+        let target_endpoint = endpoint.unwrap_or(service_endpoint);
+        let endpoint = Endpoint::from_shared(target_endpoint).map_err(BuilderError::transport)?;
         let endpoint = if endpoint
             .uri()
             .scheme()
@@ -624,8 +632,61 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::Client;
+    use super::*;
     use crate::options::InstrumentationClientInfo;
+    use test_case::test_case;
+
+    type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    #[test_case(None, DEFAULT_UNIVERSE_DOMAIN, "https://test.googleapis.com/"; "default GDU")]
+    #[test_case(None, "my-custom-universe.com", "https://test.my-custom-universe.com/"; "default custom universe domain")]
+    #[test_case(Some("https://test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.googleapis.com/"; "GDU override")]
+    #[test_case(Some("https://another-custom-universe.com/"), "my-custom-universe.com", "https://another-custom-universe.com/"; "custom endpoint override with universe domain")]
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com/"), "my-custom-universe.com", "https://test.us-central1.rep.googleapis.com/"; "regional endpoint with universe domain")]
+    #[test_case(Some("http://www.my-custom-universe.com/"), "my-custom-universe.com", "http://www.my-custom-universe.com/"; "global custom universe")]
+    #[test_case(Some("http://private.my-custom-universe.com/"), "my-custom-universe.com", "http://private.my-custom-universe.com/"; "VPC-SC private custom universe")]
+    #[test_case(Some("http://restricted.my-custom-universe.com/"), "my-custom-universe.com", "http://restricted.my-custom-universe.com/"; "VPC-SC restricted custom universe")]
+    #[test_case(Some("http://test-my-private-ep.p.my-custom-universe.com/"), "my-custom-universe.com", "http://test-my-private-ep.p.my-custom-universe.com/"; "PSC custom endpoint custom universe")]
+    #[test_case(Some("https://us-central1-test.my-custom-universe.com/"), "my-custom-universe.com", "https://us-central1-test.my-custom-universe.com/"; "locational custom universe")]
+    #[test_case(Some("https://us-central1-test.googleapis.com/"), "my-custom-universe.com", "https://us-central1-test.googleapis.com/"; "locational endpoint with universe domain")]
+    #[test_case(Some("https://us-central1-test.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://us-central1-test.googleapis.com/"; "locational GDU")]
+    #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com/"), "my-custom-universe.com", "https://test.us-central1.rep.my-custom-universe.com/"; "regional custom universe")]
+    #[test_case(Some("https://test.us-central1.rep.googleapis.com/"), DEFAULT_UNIVERSE_DOMAIN, "https://test.us-central1.rep.googleapis.com/"; "regional GDU")]
+
+    async fn make_endpoint_with_universe_domain(
+        endpoint_override: Option<&str>,
+        universe_domain: &str,
+        expected_uri: &str,
+    ) -> TestResult {
+        let default_endpoint = "https://test.googleapis.com";
+        let endpoint = Client::make_endpoint(
+            endpoint_override.map(String::from),
+            default_endpoint,
+            universe_domain,
+            None,
+        )
+        .await?;
+
+        assert_eq!(endpoint.uri().to_string(), expected_uri);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn make_endpoint_with_universe_domain_mismatch() -> TestResult {
+        let mut config = crate::options::ClientConfig::default();
+        config.universe_domain = Some("my-custom-universe.com".to_string());
+        config.cred = Some(google_cloud_auth::credentials::anonymous::Builder::new().build());
+
+        let err = Client::new(config, "https://language.googleapis.com")
+            .await
+            .unwrap_err();
+
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
+
+        Ok(())
+    }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn test_new_with_instrumentation() {
