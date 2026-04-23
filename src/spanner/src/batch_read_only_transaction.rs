@@ -158,7 +158,11 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .spanner
-            .partition_query(request, crate::RequestOptions::default())
+            .partition_query(
+                request,
+                crate::RequestOptions::default(),
+                self.inner.context.channel_hint,
+            )
             .await?;
 
         Ok(response
@@ -215,7 +219,11 @@ impl BatchReadOnlyTransaction {
             .context
             .client
             .spanner
-            .partition_read(request, crate::RequestOptions::default())
+            .partition_read(
+                request,
+                crate::RequestOptions::default(),
+                self.inner.context.channel_hint,
+            )
             .await?;
 
         Ok(response
@@ -329,9 +337,10 @@ impl Partition {
         client: &DatabaseClient,
         req: &crate::model::ExecuteSqlRequest,
     ) -> crate::Result<ResultSet> {
+        let channel_hint = client.spanner.next_channel_hint();
         let stream = client
             .spanner
-            .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
+            .execute_streaming_sql(req.clone(), crate::RequestOptions::default(), channel_hint)
             .send()
             .await?;
 
@@ -345,6 +354,7 @@ impl Partition {
             client.clone(),
             req.session.clone(),
             StreamOperation::Query(req.clone()),
+            channel_hint,
         ))
     }
 
@@ -352,9 +362,10 @@ impl Partition {
         client: &DatabaseClient,
         req: &crate::model::ReadRequest,
     ) -> crate::Result<ResultSet> {
+        let channel_hint = client.spanner.next_channel_hint();
         let stream = client
             .spanner
-            .streaming_read(req.clone(), crate::RequestOptions::default())
+            .streaming_read(req.clone(), crate::RequestOptions::default(), channel_hint)
             .send()
             .await?;
 
@@ -368,6 +379,7 @@ impl Partition {
             client.clone(),
             req.session.clone(),
             StreamOperation::Read(req.clone()),
+            channel_hint,
         ))
     }
 }

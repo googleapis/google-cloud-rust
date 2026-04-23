@@ -64,6 +64,7 @@ pub struct ResultSet {
     max_buffered_partial_result_sets: usize,
     retry_count: usize,
     transaction_selector: Option<ReadContextTransactionSelector>,
+    channel_hint: usize,
 }
 
 /// Errors that can occur when interacting with a [`ResultSet`].
@@ -95,6 +96,7 @@ impl ResultSet {
         client: DatabaseClient,
         session_name: String,
         operation: StreamOperation,
+        channel_hint: usize,
     ) -> Self {
         Self {
             stream: Some(stream),
@@ -113,6 +115,7 @@ impl ResultSet {
             max_buffered_partial_result_sets: MAX_BUFFERED_PARTIAL_RESULT_SETS,
             retry_count: 0,
             transaction_selector,
+            channel_hint,
             stats: None,
         }
     }
@@ -311,7 +314,7 @@ impl ResultSet {
         self.transaction_selector
             .as_ref()
             .unwrap()
-            .begin_explicitly(&self.client, self.session_name.clone())
+            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
             .await?;
 
         self.partial_result_sets_buffer.clear();
@@ -461,7 +464,11 @@ impl ResultSet {
                 let stream = self
                     .client
                     .spanner
-                    .execute_streaming_sql(req.clone(), crate::RequestOptions::default())
+                    .execute_streaming_sql(
+                        req.clone(),
+                        crate::RequestOptions::default(),
+                        self.channel_hint,
+                    )
                     .send()
                     .await?;
                 self.stream = Some(stream);
@@ -474,7 +481,11 @@ impl ResultSet {
                 let stream = self
                     .client
                     .spanner
-                    .streaming_read(req.clone(), crate::RequestOptions::default())
+                    .streaming_read(
+                        req.clone(),
+                        crate::RequestOptions::default(),
+                        self.channel_hint,
+                    )
                     .send()
                     .await?;
                 self.stream = Some(stream);

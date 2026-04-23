@@ -90,6 +90,7 @@ impl SingleUseReadOnlyTransactionBuilder {
             .set_single_use(TransactionOptions::default().set_read_only(read_only));
 
         let session_name = self.client.session_name();
+        let channel_hint = self.client.spanner.next_channel_hint();
         SingleUseReadOnlyTransaction {
             context: ReadContext {
                 session_name,
@@ -100,6 +101,7 @@ impl SingleUseReadOnlyTransactionBuilder {
                 ),
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
+                channel_hint,
             },
         }
     }
@@ -277,8 +279,10 @@ impl MultiUseReadOnlyTransactionBuilder {
         &self,
         session_name: String,
         options: TransactionOptions,
+        channel_hint: usize,
     ) -> crate::Result<ReadContextTransactionSelector> {
-        let response = execute_begin_transaction(&self.client, session_name, options).await?;
+        let response =
+            execute_begin_transaction(&self.client, session_name, options, channel_hint).await?;
 
         let transaction_selector = crate::model::TransactionSelector::default().set_id(response.id);
 
@@ -309,8 +313,10 @@ impl MultiUseReadOnlyTransactionBuilder {
         let options = TransactionOptions::default().set_read_only(read_only);
 
         let session_name = self.client.session_name();
+        let channel_hint = self.client.spanner.next_channel_hint();
         let selector = if self.explicit_begin {
-            self.begin(session_name.clone(), options).await?
+            self.begin(session_name.clone(), options, channel_hint)
+                .await?
         } else {
             ReadContextTransactionSelector::Lazy(Arc::new(Mutex::new(
                 TransactionState::NotStarted(options),
@@ -324,6 +330,7 @@ impl MultiUseReadOnlyTransactionBuilder {
                 transaction_selector: selector,
                 precommit_token_tracker: PrecommitTokenTracker::new_noop(),
                 transaction_tag: None,
+                channel_hint,
             },
         })
     }
@@ -430,6 +437,7 @@ async fn execute_begin_transaction(
     client: &crate::database_client::DatabaseClient,
     session_name: String,
     options: crate::model::TransactionOptions,
+    channel_hint: usize,
 ) -> crate::Result<crate::model::Transaction> {
     let request = crate::model::BeginTransactionRequest::default()
         .set_session(session_name)
@@ -438,7 +446,7 @@ async fn execute_begin_transaction(
     // TODO(#4972): make request options configurable
     client
         .spanner
-        .begin_transaction(request, crate::RequestOptions::default())
+        .begin_transaction(request, crate::RequestOptions::default(), channel_hint)
         .await
 }
 
@@ -484,6 +492,7 @@ impl ReadContextTransactionSelector {
         &self,
         client: &crate::database_client::DatabaseClient,
         session_name: String,
+        channel_hint: usize,
     ) -> crate::Result<()> {
         let Self::Lazy(lazy) = self else {
             return Ok(());
@@ -497,7 +506,8 @@ impl ReadContextTransactionSelector {
             options.clone()
         };
 
-        let response = execute_begin_transaction(client, session_name, options).await?;
+        let response =
+            execute_begin_transaction(client, session_name, options, channel_hint).await?;
         self.update(response.id, response.read_timestamp);
 
         Ok(())
@@ -537,6 +547,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_selector: ReadContextTransactionSelector,
     pub(crate) precommit_token_tracker: PrecommitTokenTracker,
     pub(crate) transaction_tag: Option<String>,
+    pub(crate) channel_hint: usize,
 }
 
 impl ReadContext {
@@ -571,7 +582,7 @@ impl ReadContext {
         }
 
         self.transaction_selector
-            .begin_explicitly(&self.client, self.session_name.clone())
+            .begin_explicitly(&self.client, self.session_name.clone(), self.channel_hint)
             .await?;
         Ok(true)
     }
@@ -584,7 +595,11 @@ macro_rules! execute_stream_with_retry {
             .client
             .spanner
             // TODO(#4972): make request options configurable
-            .$rpc_method($request.clone(), crate::RequestOptions::default())
+            .$rpc_method(
+                $request.clone(),
+                crate::RequestOptions::default(),
+                $self.channel_hint,
+            )
             .send()
             .await
         {
@@ -596,7 +611,11 @@ macro_rules! execute_stream_with_retry {
                         .client
                         .spanner
                         // TODO(#4972): make request options configurable
-                        .$rpc_method($request.clone(), crate::RequestOptions::default())
+                        .$rpc_method(
+                            $request.clone(),
+                            crate::RequestOptions::default(),
+                            $self.channel_hint,
+                        )
                         .send()
                         .await?
                 } else {
@@ -612,6 +631,7 @@ macro_rules! execute_stream_with_retry {
             $self.client.clone(),
             $self.session_name.clone(),
             $operation_variant($request),
+            $self.channel_hint,
         ))
     }};
 }

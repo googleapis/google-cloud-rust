@@ -221,6 +221,7 @@ impl WriteOnlyTransaction {
         let client = self.client;
         let session_name = self.session_name.clone();
         let previous_transaction_id = Arc::new(Mutex::new(Bytes::new()));
+        let channel_hint = client.spanner.next_channel_hint();
 
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
@@ -250,7 +251,7 @@ impl WriteOnlyTransaction {
 
                 let tx = client
                     .spanner
-                    .begin_transaction(begin_req, crate::RequestOptions::default())
+                    .begin_transaction(begin_req, crate::RequestOptions::default(), channel_hint)
                     .await?;
                 *previous_transaction_id.lock().unwrap() = tx.id.clone();
 
@@ -264,7 +265,7 @@ impl WriteOnlyTransaction {
 
                 let response = client
                     .spanner
-                    .commit(commit_req, crate::RequestOptions::default())
+                    .commit(commit_req, crate::RequestOptions::default(), channel_hint)
                     .await?;
 
                 // If a commit_response with a precommit_token is returned, then we need to
@@ -277,7 +278,11 @@ impl WriteOnlyTransaction {
                         .set_precommit_token(new_token);
                     client
                         .spanner
-                        .commit(retry_commit_req, crate::RequestOptions::default())
+                        .commit(
+                            retry_commit_req,
+                            crate::RequestOptions::default(),
+                            channel_hint,
+                        )
                         .await
                 } else {
                     Ok(response)
@@ -336,6 +341,7 @@ impl WriteOnlyTransaction {
             .set_request_options(req_options)
             .set_or_clear_max_commit_delay(self.max_commit_delay);
         let client = self.client;
+        let channel_hint = client.spanner.next_channel_hint();
 
         retry_aborted(&*self.retry_policy, || {
             let client = client.clone();
@@ -344,7 +350,7 @@ impl WriteOnlyTransaction {
             async move {
                 client
                     .spanner
-                    .commit(request, crate::RequestOptions::default())
+                    .commit(request, crate::RequestOptions::default(), channel_hint)
                     .await
             }
         })

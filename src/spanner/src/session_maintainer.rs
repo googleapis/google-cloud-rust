@@ -134,7 +134,9 @@ impl ManagedSessionMaintainer {
                     .set_creator_role(database_role),
             );
 
-        spanner.create_session(request, options.clone()).await
+        spanner
+            .create_session(request, options.clone(), spanner.next_channel_hint())
+            .await
     }
 
     async fn maintenance_loop(
