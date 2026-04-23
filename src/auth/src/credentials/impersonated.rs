@@ -232,7 +232,7 @@ impl Builder {
     /// ```
     pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
         self.service_account_impersonation_url = Some(format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
+            "https://iamcredentials.{{universe_domain}}/v1/projects/-/serviceAccounts/{}:generateAccessToken",
             target_principal.into()
         ));
         self
@@ -735,7 +735,7 @@ pub(crate) fn build_components_from_credentials(
 ) -> BuildResult<ImpersonatedCredentialComponents> {
     let url = service_account_impersonation_url.ok_or_else(|| {
         BuilderError::parsing(
-            "`service_account_impersonation_url` is required when building from source credentials",
+            "`target_principal` is required when building from source credentials",
         )
     })?;
     Ok(ImpersonatedCredentialComponents {
@@ -899,12 +899,18 @@ impl TokenProvider for ImpersonatedTokenProvider {
                 unreachable!("requested source credentials without a caching etag")
             }
         };
+
+        let universe_domain = crate::universe_domain::resolve(&self.source_credentials).await;
+        let url = self
+            .service_account_impersonation_url
+            .replace("{universe_domain}", &universe_domain);
+
         generate_access_token(
             source_headers,
             self.delegates.clone(),
             self.scopes.clone(),
             self.lifetime,
-            &self.service_account_impersonation_url,
+            &url,
         )
         .await
     }
@@ -1798,7 +1804,7 @@ mod tests {
 
         assert_eq!(
             token_provider.inner.service_account_impersonation_url,
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
+            "https://iamcredentials.{universe_domain}/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
         );
     }
 

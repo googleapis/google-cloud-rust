@@ -169,7 +169,7 @@ impl Builder {
             include_email: None,
             target_audience: target_audience.into(),
             service_account_impersonation_url: Some(format!(
-                "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateIdToken",
+                "https://iamcredentials.{{universe_domain}}/v1/projects/-/serviceAccounts/{}:generateIdToken",
                 target_principal.into()
             )),
             retry_builder: RetryTokenProviderBuilder::default(),
@@ -181,7 +181,7 @@ impl Builder {
     pub(crate) fn with_impersonation_url_host<S: Into<String>>(mut self, host: S) -> Self {
         self.service_account_impersonation_url = self
             .service_account_impersonation_url
-            .map(|s| s.replace("https://iamcredentials.googleapis.com/", &host.into()));
+            .map(|s| s.replace("https://iamcredentials.{universe_domain}/", &host.into()));
         self
     }
 
@@ -448,12 +448,17 @@ impl TokenProvider for ImpersonatedTokenProvider {
             }
         };
 
+        let universe_domain = crate::universe_domain::resolve(&self.source_credentials).await;
+        let url = self
+            .service_account_impersonation_url
+            .replace("{universe_domain}", &universe_domain);
+
         generate_id_token(
             source_headers,
             self.delegates.clone(),
             self.target_audience.clone(),
             self.include_email,
-            &self.service_account_impersonation_url,
+            &url,
         )
         .await
     }

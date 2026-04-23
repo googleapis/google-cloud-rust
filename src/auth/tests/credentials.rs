@@ -825,7 +825,7 @@ mod tests {
             "private_key_id": "test-private-key-id",
             "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
             "client_email": "test-client-email",
-            "universe_domain": "test-universe-domain"
+            "universe_domain": "googleapis.com"
         }"#;
         let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
