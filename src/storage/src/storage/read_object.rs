@@ -462,30 +462,6 @@ where
         self
     }
 
-    /// Sets the project that will be billed for this request.
-    ///
-    /// Required for [Requester Pays] buckets. The value overrides any
-    /// `quota_project_id` configured on the credentials; the credential-level
-    /// header is suppressed for this RPC.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_storage::client::Storage;
-    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
-    /// let response = client
-    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_user_project("my-billing-project")
-    ///     .send()
-    ///     .await?;
-    /// # Ok(()) }
-    /// ```
-    ///
-    /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
-        self.options.with_user_project(project);
-        self
-    }
-
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         self.stub.read_object(self.request, self.options).await
@@ -690,31 +666,15 @@ mod tests {
     use base64::Engine;
     use futures::TryStreamExt;
     use google_cloud_auth::credentials::{
-        CacheableResource, Credentials, EntityTag, anonymous::Builder as Anonymous,
-        testing::error_credentials,
+        anonymous::Builder as Anonymous, testing::error_credentials,
     };
-    use httptest::{Expectation, Server, all_of, cycle, matchers::*, responders::status_code};
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
     use std::error::Error;
     use std::sync::Arc;
     use test_case::test_case;
 
     type Result = anyhow::Result<()>;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-        impl google_cloud_auth::credentials::CredentialsProvider for Credentials {
-            async fn headers(
-                &self,
-                extensions: http::Extensions,
-            ) -> std::result::Result<
-                google_cloud_auth::credentials::CacheableResource<http::HeaderMap>,
-                google_cloud_gax::error::CredentialsError,
-            >;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
 
     async fn http_request_builder(
         inner: Arc<StorageInner>,
@@ -1172,134 +1132,6 @@ mod tests {
             got.extend_from_slice(&b);
         }
         assert_eq!(bytes::Bytes::from_owner(got), "hello world");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_with_user_project() -> Result {
-        const PROJECT_NAME: &str = "project_lazy_dog";
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
-                request::headers(contains(("x-goog-user-project", PROJECT_NAME))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .body("hello world")
-                    .append_header("x-goog-generation", 123456),
-            ),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-        let mut reader = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
-            .send()
-            .await?;
-        let mut got = Vec::new();
-        while let Some(b) = reader.next().await.transpose()? {
-            got.extend_from_slice(&b);
-        }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_strips_credential_quota_project() -> Result {
-        const PROJECT_NAME: &str = "project_lazy_dog";
-        const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
-                request::headers(contains(("x-goog-user-project", PROJECT_NAME))),
-                request::headers(not(contains(("x-goog-user-project", CRED_QUOTA_PROJECT)))),
-            ])
-            .times(1)
-            .respond_with(
-                status_code(200)
-                    .body("hello world")
-                    .append_header("x-goog-generation", 123456),
-            ),
-        );
-
-        let mut mock = MockCredentials::new();
-        mock.expect_headers().returning(|_exts: http::Extensions| {
-            let mut map = http::HeaderMap::new();
-            map.insert(
-                http::header::AUTHORIZATION,
-                http::HeaderValue::from_static("Bearer test-token"),
-            );
-            map.insert(
-                "x-goog-user-project",
-                http::HeaderValue::from_static(CRED_QUOTA_PROJECT),
-            );
-            Ok(CacheableResource::New {
-                data: map,
-                entity_tag: EntityTag::default(),
-            })
-        });
-        mock.expect_universe_domain().returning(|| None);
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(Credentials::from(mock))
-            .build()
-            .await?;
-        let mut reader = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
-            .send()
-            .await?;
-        let mut got = Vec::new();
-        while let Some(b) = reader.next().await.transpose()? {
-            got.extend_from_slice(&b);
-        }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_retry_preserves_user_project() -> Result {
-        const PROJECT_NAME: &str = "project_lazy_dog";
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
-                request::headers(contains(("x-goog-user-project", PROJECT_NAME))),
-            ])
-            .times(2)
-            .respond_with(cycle![
-                status_code(503),
-                status_code(200)
-                    .body("hello")
-                    .append_header("x-goog-generation", 1)
-            ]),
-        );
-
-        let client = Storage::builder()
-            .with_endpoint(format!("http://{}", server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .build()
-            .await?;
-        let mut reader = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
-            .send()
-            .await?;
-        let mut got = Vec::new();
-        while let Some(b) = reader.next().await.transpose()? {
-            got.extend_from_slice(&b);
-        }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello");
 
         Ok(())
     }

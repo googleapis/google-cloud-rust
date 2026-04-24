@@ -34,7 +34,6 @@ use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
@@ -209,7 +208,7 @@ impl Client {
     {
         use ::tonic::IntoStreamingRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers, &options).await?;
+        let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
@@ -274,7 +273,7 @@ impl Client {
     {
         use ::tonic::IntoRequest;
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
-        let headers = self.add_auth_headers(headers, &options).await?;
+        let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
         if let Some(attempt_timeout) = options.attempt_timeout() {
@@ -402,7 +401,7 @@ impl Client {
         };
 
         #[allow(unused_mut)]
-        let mut headers = self.add_auth_headers(headers, options).await?;
+        let mut headers = self.add_auth_headers(headers).await?;
 
         crate::observability::propagation::inject_context(&span, &mut headers);
 
@@ -531,11 +530,7 @@ impl Client {
             .map_err(BuilderError::cred)
     }
 
-    async fn add_auth_headers(
-        &self,
-        mut headers: http::HeaderMap,
-        options: &RequestOptions,
-    ) -> Result<http::HeaderMap> {
+    async fn add_auth_headers(&self, headers: http::HeaderMap) -> Result<http::HeaderMap> {
         let h = self
             .credentials
             .headers(http::Extensions::new())
@@ -546,14 +541,9 @@ impl Client {
             unreachable!("headers are not cached");
         };
 
-        if let Some(up) = options.get_extension::<UserProject>() {
-            data.insert(
-                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
-                up.as_value().clone(),
-            );
-        }
-        headers.extend(data);
-        Ok(headers)
+        // Note that client headers override credential headers (e.g. for `x-goog-user-project`).
+        data.extend(headers);
+        Ok(data)
     }
 
     async fn make_headers(
@@ -563,9 +553,15 @@ impl Client {
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
         if let Some(user_agent) = options.user_agent() {
-            headers.append(
+            headers.insert(
                 http::header::USER_AGENT,
                 http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
+        if let Some(user_project) = options.user_project() {
+            headers.insert(
+                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                http::header::HeaderValue::from_str(user_project).map_err(Error::ser)?,
             );
         }
         headers.append(

@@ -43,6 +43,7 @@ use std::sync::Arc;
 pub struct RequestOptions {
     idempotent: Option<bool>,
     user_agent: Option<String>,
+    user_project: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -90,6 +91,22 @@ impl RequestOptions {
     /// Gets the current user-agent prefix
     pub fn user_agent(&self) -> &Option<String> {
         &self.user_agent
+    }
+
+    /// Sets the user project for the request.
+    ///
+    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
+    /// `x-goog-user-project` header carrying this value and drop any
+    /// `x-goog-user-project` header the credentials provider would have
+    /// emitted from its configured `quota_project_id`, so the wire
+    /// carries exactly one `x-goog-user-project`.
+    pub fn set_user_project<T: Into<String>>(&mut self, v: T) {
+        self.user_project = Some(v.into());
+    }
+
+    /// Gets the current user project.
+    pub fn user_project(&self) -> &Option<String> {
+        &self.user_project
     }
 
     /// Sets the per-attempt timeout.
@@ -169,6 +186,15 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// Set the user agent header.
     fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
 
+    /// Sets the user project for the request.
+    ///
+    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
+    /// `x-goog-user-project` header carrying this value and drop any
+    /// `x-goog-user-project` header the credentials provider would have
+    /// emitted from its configured `quota_project_id`, so the wire
+    /// carries exactly one `x-goog-user-project`.
+    fn with_user_project<V: Into<String>>(self, v: V) -> Self;
+
     /// Sets the per-attempt timeout.
     ///
     /// When using a retry loop, this affects the timeout for each attempt. The
@@ -237,11 +263,6 @@ pub mod internal {
         fn insert_extension<T>(self, value: T) -> Self
         where
             T: Clone + Send + Sync + 'static;
-
-        /// Sets an extension value in-place.
-        fn insert_extension_mut<T>(&mut self, value: T)
-        where
-            T: Clone + Send + Sync + 'static;
     }
 
     impl sealed::OptionsExt for RequestOptions {}
@@ -260,13 +281,6 @@ pub mod internal {
             let _ = self.extensions.insert(value);
             self
         }
-
-        fn insert_extension_mut<T>(&mut self, value: T)
-        where
-            T: Clone + Send + Sync + 'static,
-        {
-            self.extensions.insert(value);
-        }
     }
 
     #[derive(Debug, Clone, Default, PartialEq)]
@@ -274,31 +288,6 @@ pub mod internal {
 
     #[derive(Debug, Clone, Default, PartialEq)]
     pub struct ResourceName(pub String);
-
-    /// Per-request billing project. When present, `gax-internal`'s gRPC and
-    /// HTTP transports emit an `x-goog-user-project` header carrying this
-    /// value and drop any `x-goog-user-project` header the credentials
-    /// provider would have emitted from its configured `quota_project_id`,
-    /// so the wire carries exactly one `x-goog-user-project`.
-    #[derive(Debug, Clone, PartialEq)]
-    pub struct UserProject(http::HeaderValue);
-
-    impl UserProject {
-        /// Creates a new `UserProject` extension.
-        ///
-        /// # Panics
-        ///
-        /// Panics if the project ID contains non-visible ASCII characters.
-        pub fn new(project: impl Into<String>) -> Self {
-            let val = http::HeaderValue::from_str(&project.into()).expect("invalid project id");
-            Self(val)
-        }
-
-        /// Returns the underlying header value.
-        pub fn as_value(&self) -> &http::HeaderValue {
-            &self.0
-        }
-    }
 
     // Cannot remove this function, as that would break any client libraries
     // that are released and use this function.
@@ -330,6 +319,11 @@ where
 
     fn with_user_agent<V: Into<String>>(mut self, v: V) -> Self {
         self.request_options().set_user_agent(v);
+        self
+    }
+
+    fn with_user_project<V: Into<String>>(mut self, v: V) -> Self {
+        self.request_options().set_user_project(v);
         self
     }
 
@@ -394,6 +388,9 @@ mod tests {
 
     #[test]
     fn request_options() {
+        const USER_AGENT: &str = "test-only";
+        const USER_PROJECT: &str = "test-project";
+
         let mut opts = RequestOptions::default();
 
         assert_eq!(opts.idempotent, None);
@@ -402,13 +399,16 @@ mod tests {
         opts.set_idempotency(false);
         assert_eq!(opts.idempotent(), Some(false));
 
-        opts.set_user_agent("test-only");
-        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        opts.set_user_agent(USER_AGENT);
+        assert_eq!(opts.user_agent().as_deref(), Some(USER_AGENT));
         assert_eq!(opts.attempt_timeout(), &None);
+
+        opts.set_user_project(USER_PROJECT);
+        assert_eq!(opts.user_project().as_deref(), Some(USER_PROJECT));
 
         let d = Duration::from_secs(123);
         opts.set_attempt_timeout(d);
-        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        assert_eq!(opts.user_agent().as_deref(), Some(USER_AGENT));
         assert_eq!(opts.attempt_timeout(), &Some(d));
 
         opts.set_retry_policy(LimitedAttemptCount::new(3));
@@ -462,8 +462,12 @@ mod tests {
 
     #[test]
     fn request_options_builder() -> anyhow::Result<()> {
+        const USER_AGENT: &str = "test-only";
+        const USER_PROJECT: &str = "test-project";
+
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
+        assert_eq!(builder.request_options().user_project(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
 
         let mut builder = TestBuilder::default().with_idempotency(true);
@@ -471,12 +475,18 @@ mod tests {
         let mut builder = TestBuilder::default().with_idempotency(false);
         assert_eq!(builder.request_options().idempotent(), Some(false));
 
-        let mut builder = TestBuilder::default().with_user_agent("test-only");
+        let mut builder = TestBuilder::default().with_user_agent(USER_AGENT);
         assert_eq!(
             builder.request_options().user_agent().as_deref(),
-            Some("test-only")
+            Some(USER_AGENT)
         );
         assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_user_project(USER_PROJECT);
+        assert_eq!(
+            builder.request_options().user_project().as_deref(),
+            Some(USER_PROJECT)
+        );
 
         let d = Duration::from_secs(123);
         let mut builder = TestBuilder::default().with_attempt_timeout(d);
@@ -517,18 +527,5 @@ mod tests {
         );
 
         Ok(())
-    }
-
-    #[test]
-    fn user_project() {
-        const PROJECT_NAME: &str = "project_lazy_dog";
-        let up = UserProject::new(PROJECT_NAME);
-        assert_eq!(up.as_value(), PROJECT_NAME);
-    }
-
-    #[test]
-    #[should_panic(expected = "invalid project id")]
-    fn user_project_invalid_project_id_panics() {
-        let _ = UserProject::new("invalid\nproject");
     }
 }

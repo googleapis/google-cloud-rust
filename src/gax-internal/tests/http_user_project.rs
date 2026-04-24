@@ -19,12 +19,12 @@ mod tests {
     use super::mock_credentials::{MockCredentials, mock_credentials};
     use google_cloud_auth::credentials::{CacheableResource, Credentials, EntityTag};
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
     use http::{HeaderMap, HeaderValue};
     use serde_json::json;
 
-    const PROJECT_NAME: &str = "project_lazy_dog";
+    const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
     const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
+    const USER_PROJECT_NAME: &str = "project_lazy_dog";
 
     #[tokio::test]
     async fn user_project_emits_header() -> anyhow::Result<()> {
@@ -35,14 +35,15 @@ mod tests {
             .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
-        let options = RequestOptions::default().insert_extension(UserProject::new(PROJECT_NAME));
+        let mut options = RequestOptions::default();
+        options.set_user_project(USER_PROJECT_NAME);
         let response: serde_json::Value = client
             .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
         assert_eq!(
-            get_header_value(&response, "x-goog-user-project").as_deref(),
-            Some(PROJECT_NAME),
+            get_header_value(&response, X_GOOG_USER_PROJECT).as_deref(),
+            Some(USER_PROJECT_NAME),
             "{response:?}"
         );
         Ok(())
@@ -62,7 +63,7 @@ mod tests {
             .await?
             .into_body();
         assert!(
-            get_header_value(&response, "x-goog-user-project").is_none(),
+            get_header_value(&response, X_GOOG_USER_PROJECT).is_none(),
             "{response:?}"
         );
         Ok(())
@@ -80,7 +81,7 @@ mod tests {
                 HeaderValue::from_static("Bearer test-token"),
             );
             map.insert(
-                "x-goog-user-project",
+                X_GOOG_USER_PROJECT,
                 HeaderValue::from_static(CRED_QUOTA_PROJECT),
             );
             Ok(CacheableResource::New {
@@ -88,6 +89,7 @@ mod tests {
                 entity_tag: EntityTag::default(),
             })
         });
+        mock.expect_universe_domain().returning(|| None);
 
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
@@ -95,15 +97,16 @@ mod tests {
             .await?;
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
-        let options = RequestOptions::default().insert_extension(UserProject::new(PROJECT_NAME));
+        let mut options = RequestOptions::default();
+        options.set_user_project(USER_PROJECT_NAME);
         let response: serde_json::Value = client
             .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
 
         assert_eq!(
-            get_header_value(&response, "x-goog-user-project").as_deref(),
-            Some(PROJECT_NAME),
+            get_header_value(&response, X_GOOG_USER_PROJECT).as_deref(),
+            Some(USER_PROJECT_NAME),
             "{response:?}"
         );
         let headers = response.get("headers").and_then(|h| h.as_object());
