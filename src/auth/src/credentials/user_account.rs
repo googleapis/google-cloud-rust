@@ -367,8 +367,7 @@ impl Builder {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
 
-        // TODO: wait for other PR to merge to use .as_deref() here
-        let universe_domain = authorized_user.universe_domain.clone();
+        let universe_domain = authorized_user.universe_domain.as_deref();
         if !crate::universe_domain::is_default_universe_domain(universe_domain) {
             return Err(BuilderError::not_supported(
                 "User Account Credentials are not supported in universes other than googleapis.com",
