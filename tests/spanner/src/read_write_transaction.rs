@@ -134,7 +134,8 @@ pub async fn rolled_back_read_write_transaction(db_client: &DatabaseClient) -> a
                 "Simulated error to trigger rollback",
             )))
         })
-        .await;
+        .await
+        .map(|res| res.result);
 
     assert!(res.is_err(), "Transaction should return an error");
 
@@ -245,7 +246,8 @@ pub async fn concurrent_read_write_transaction_retries(
 
                     Ok(())
                 })
-                .await;
+                .await
+                .map(|res| res.result);
             res.expect("Transaction failed");
         });
         handles.push(handle);

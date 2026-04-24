@@ -60,7 +60,8 @@ pub async fn read_write_with_directed_read_error(db_client: &DatabaseClient) -> 
             let _ = rs.next().await;
             Ok(())
         })
-        .await;
+        .await
+        .map(|res| res.result);
 
     assert!(
         result.is_err(),
