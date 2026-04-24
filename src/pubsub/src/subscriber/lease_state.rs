@@ -177,7 +177,7 @@ where
     //
     // These are held separate from pending acks/nacks because we do not need to
     // await them on shutdown.
-    pending_extends: JoinSet<()>,
+    pending_extends: JoinSet<Vec<String>>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -763,22 +763,22 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -819,12 +819,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(2)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_confirmed_ack()
             .times(1)
             .in_sequence(&mut seq)
@@ -834,12 +834,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -888,7 +888,7 @@ pub(super) mod tests {
         mock.expect_extend()
             .times(2)
             .withf(|v| *v == vec![test_id(1)])
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -1226,8 +1226,9 @@ pub(super) mod tests {
             .times(NUM_BATCHES as usize)
             .returning(move |ack_ids| {
                 ack_id_tx
-                    .send(ack_ids)
+                    .send(ack_ids.clone())
                     .expect("sending on channel always succeeds");
+                ack_ids
             });
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
@@ -1273,12 +1274,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease: MAX_LEASE,

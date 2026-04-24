@@ -413,7 +413,7 @@ mod tests {
                 .expect_extend()
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(0..30))
-                .returning(move |_| ());
+                .returning(move |ack_ids| ack_ids);
             tokio::time::advance(EXTEND_START).await;
 
             // Yield the current task, so tokio can execute the flush().
@@ -433,7 +433,7 @@ mod tests {
                 .expect_extend()
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(10..30))
-                .returning(|_| ());
+                .returning(move |ack_ids| ack_ids);
             tokio::time::advance(EXTEND_PERIOD).await;
 
             // Yield the current task, so tokio can execute the flush().
@@ -584,7 +584,9 @@ mod tests {
                 ack_ids.sort();
                 assert_eq!(ack_ids, test_ids(10..30));
             }
-            async fn extend(&self, _ack_ids: Vec<String>) {}
+            async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
+                ack_ids
+            }
             async fn confirmed_ack(&self, _ack_ids: Vec<String>) {}
             async fn confirmed_nack(&self, _ack_ids: Vec<String>) {}
         }
