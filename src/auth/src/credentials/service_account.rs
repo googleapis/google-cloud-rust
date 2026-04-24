@@ -431,7 +431,7 @@ pub(crate) struct ServiceAccountKey {
     /// The project id the service account belongs to.
     project_id: String,
     /// The universe domain this service account belongs to.
-    universe_domain: Option<String>,
+    pub(crate) universe_domain: Option<String>,
 }
 
 impl ServiceAccountKey {
