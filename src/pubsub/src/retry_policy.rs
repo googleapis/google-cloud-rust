@@ -12,24 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the retry policies for Cloud Pub/Sub.
-//!
-//! The Pub/Sub service [recommends] retrying several transient error codes.
-//!
-//! - [Unavailable][Code::Unavailable]
-//! - [Internal][Code::Internal]
-//! - [Resource Exhausted][Code::ResourceExhausted]
-//! - [Aborted][Code::Aborted]
-//! - [Deadline Exceeded][Code::DeadlineExceeded]
-//! - [Unknown][Code::Unknown]
-//!
-//! [recommends]: https://docs.cloud.google.com/pubsub/docs/reference/error-codes
-//! [Code::Unavailable]: google_cloud_gax::error::rpc::Code::Unavailable
-//! [Code::Internal]: google_cloud_gax::error::rpc::Code::Internal
-//! [Code::ResourceExhausted]: google_cloud_gax::error::rpc::Code::ResourceExhausted
-//! [Code::Aborted]: google_cloud_gax::error::rpc::Code::Aborted
-//! [Code::DeadlineExceeded]: google_cloud_gax::error::rpc::Code::DeadlineExceeded
-//! [Code::Unknown]: google_cloud_gax::error::rpc::Code::Unknown
+//! Defines a retry policy for Cloud Pub/Sub.
 
 use crate::Error;
 use google_cloud_gax::retry_policy::RetryPolicy;
@@ -38,6 +21,20 @@ use google_cloud_gax::retry_state::RetryState;
 
 /// Follows the retry strategy recommended by the Cloud Pub/Sub guides on
 /// [error codes].
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// # use google_cloud_gax::retry_policy::RetryPolicyExt;
+/// # use google_cloud_pubsub::client::Publisher;
+/// # use google_cloud_pubsub::retry_policy::RetryableErrors;
+/// let policy = RetryableErrors.with_time_limit(std::time::Duration::from_secs(60));
+/// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+///     .with_retry_policy(policy)
+///     .build()
+///     .await?;
+/// # Ok(())
+/// # }
+/// ```
 ///
 /// This policy must be decorated to limit the duration of the retry loop.
 ///
