@@ -579,12 +579,11 @@ impl ReadContext {
 
 /// Helper macro to execute a streaming SQL or streaming read RPC with retry logic.
 macro_rules! execute_stream_with_retry {
-    ($self:expr, $request:ident, $rpc_method:ident, $operation_variant:path) => {{
+    ($self:expr, $request:ident, $gax_options:ident, $rpc_method:ident, $operation_variant:path) => {{
         let stream = match $self
             .client
             .spanner
-            // TODO(#4972): make request options configurable
-            .$rpc_method($request.clone(), crate::RequestOptions::default())
+            .$rpc_method($request.clone(), $gax_options.clone())
             .send()
             .await
         {
@@ -595,8 +594,7 @@ macro_rules! execute_stream_with_retry {
                     $self
                         .client
                         .spanner
-                        // TODO(#4972): make request options configurable
-                        .$rpc_method($request.clone(), crate::RequestOptions::default())
+                        .$rpc_method($request.clone(), $gax_options.clone())
                         .send()
                         .await?
                 } else {
@@ -621,28 +619,42 @@ impl ReadContext {
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
+        let statement = statement.into();
+        let gax_options = statement.gax_options().clone();
         let mut request = statement
-            .into()
             .into_request()
             .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector());
         request.request_options = self.amend_request_options(request.request_options);
 
-        execute_stream_with_retry!(self, request, execute_streaming_sql, StreamOperation::Query)
+        execute_stream_with_retry!(
+            self,
+            request,
+            gax_options,
+            execute_streaming_sql,
+            StreamOperation::Query
+        )
     }
 
     pub(crate) async fn execute_read<T: Into<crate::read::ReadRequest>>(
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
+        let read = read.into();
+        let gax_options = read.gax_options.clone();
         let mut request = read
-            .into()
             .into_request()
             .set_session(self.session_name.clone())
             .set_transaction(self.transaction_selector.selector());
         request.request_options = self.amend_request_options(request.request_options);
 
-        execute_stream_with_retry!(self, request, streaming_read, StreamOperation::Read)
+        execute_stream_with_retry!(
+            self,
+            request,
+            gax_options,
+            streaming_read,
+            StreamOperation::Read
+        )
     }
 }
 

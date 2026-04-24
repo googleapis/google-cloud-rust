@@ -4460,6 +4460,7 @@ dependencies = [
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
+ "google-cloud-test-macros",
  "google-cloud-wkt",
  "http",
  "mockall",
