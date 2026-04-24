@@ -250,7 +250,7 @@ impl MessageStream {
     /// // Signal and await a shutdown of the stream.
     /// shutdown_token.shutdown().await;
     ///
-    /// // The stream stops yielding messages after a cancel.
+    /// // The stream stops yielding messages after shutdown is signaled.
     /// assert!(stream.next().await.is_none());
     /// # }
     /// ```

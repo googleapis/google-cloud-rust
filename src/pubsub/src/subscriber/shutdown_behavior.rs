@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// The behavior on shutdown.
+/// The behavior on shutdown for a stream.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum ShutdownBehavior {
     /// The subscriber stops reading from the underlying gRPC stream.
