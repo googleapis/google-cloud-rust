@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use google_cloud_aiplatform_v1::client::ModelService;
 use google_cloud_test_utils::runtime_config::{project_id, region_id};
 

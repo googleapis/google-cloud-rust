@@ -17,6 +17,8 @@
 //! Setting up integration tests is a bit complicated. So we refactor that code
 //! to some helper functions.
 
+#![allow(missing_docs)]
+
 use axum::{
     extract::Query,
     http::{HeaderMap, StatusCode},
