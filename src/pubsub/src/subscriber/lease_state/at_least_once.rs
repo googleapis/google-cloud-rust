@@ -70,10 +70,11 @@ impl Leases {
 
     /// Updates the `last_extension` timestamp for the given ack IDs with the
     /// completion time of a successful extension RPC.
-    pub fn update_last_extension(&mut self, ack_ids: &[String], time: Instant) {
+    pub fn update_last_extension(&mut self, ack_ids: &[String]) {
+        let now = Instant::now();
         for id in ack_ids {
             if let Some(info) = self.under_lease.get_mut(id) {
-                info.last_extension = Some(time);
+                info.last_extension = Some(now);
             }
         }
     }
@@ -163,57 +164,13 @@ mod tests {
     // Cover the constant, converting it to an integer for convenience.
     const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
-    #[test]
-    fn update_last_extension() {
-        let mut leases = Leases::default();
-        let now = Instant::now();
-
-        leases.add(test_id(1), AtLeastOnceInfo::new());
-        leases.add(test_id(2), AtLeastOnceInfo::new());
-
-        assert_eq!(
-            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
-            None
-        );
-        assert_eq!(
-            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
-            None
-        );
-
-        leases.update_last_extension(&[test_id(1)], now);
-
-        assert_eq!(
-            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
-            Some(now)
-        );
-        assert_eq!(
-            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
-            None
-        );
-
-        let later = now + Duration::from_secs(5);
-        leases.update_last_extension(&[test_id(1), test_id(2)], later);
-
-        assert_eq!(
-            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
-            Some(later)
-        );
-        assert_eq!(
-            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
-            Some(later)
-        );
-
-        // Test with non-existent ID
-        leases.update_last_extension(&[test_id(3)], later + Duration::from_secs(1));
-        // Should not have side effects.
-        assert_eq!(
-            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
-            Some(later)
-        );
-        assert_eq!(
-            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
-            Some(later)
-        );
+    impl Leases {
+        fn last_extension(&self, id: &str) -> Option<Instant> {
+            self.under_lease
+                .get(id)
+                .expect("test id should be under lease")
+                .last_extension
+        }
     }
 
     #[test]
@@ -342,6 +299,34 @@ mod tests {
             },
             leases
         );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn update_last_extension() {
+        let mut leases = Leases::default();
+        let now = Instant::now();
+
+        leases.add(test_id(1), AtLeastOnceInfo::new());
+        leases.add(test_id(2), AtLeastOnceInfo::new());
+
+        assert_eq!(leases.last_extension(&test_id(1)), None);
+        assert_eq!(leases.last_extension(&test_id(2)), None);
+
+        leases.update_last_extension(&[test_id(1)]);
+        assert_eq!(leases.last_extension(&test_id(1)), Some(now));
+        assert_eq!(leases.last_extension(&test_id(2)), None);
+
+        tokio::time::advance(Duration::from_secs(5)).await;
+        let later = Instant::now();
+        leases.update_last_extension(&[test_id(1), test_id(2)]);
+        assert_eq!(leases.last_extension(&test_id(1)), Some(later));
+        assert_eq!(leases.last_extension(&test_id(2)), Some(later));
+
+        // Test with non-existent ID
+        leases.update_last_extension(&[test_id(3)]);
+        // Should not have side effects.
+        assert_eq!(leases.last_extension(&test_id(1)), Some(later));
+        assert_eq!(leases.last_extension(&test_id(2)), Some(later));
     }
 
     #[test]

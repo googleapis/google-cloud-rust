@@ -263,15 +263,15 @@ where
     /// Updates the `last_extension` timestamp for the given at-least-once ack IDs
     /// with the completion time of a successful extension RPC.
     #[allow(dead_code)]
-    pub(super) fn update_last_extension(&mut self, ack_ids: Vec<String>, time: Instant) {
-        self.leases.update_last_extension(&ack_ids, time);
+    pub(super) fn update_last_extension(&mut self, ack_ids: Vec<String>) {
+        self.leases.update_last_extension(&ack_ids);
     }
 
     /// Updates the `last_extension` timestamp for the given exactly-once ack IDs
     /// with the completion time of a successful extension RPC.
     #[allow(dead_code)]
-    pub(super) fn update_last_extension_eo(&mut self, ack_ids: Vec<String>, time: Instant) {
-        self.eo_leases.update_last_extension(&ack_ids, time);
+    pub(super) fn update_last_extension_eo(&mut self, ack_ids: Vec<String>) {
+        self.eo_leases.update_last_extension(&ack_ids);
     }
 
     /// Flush pending acks/nacks
@@ -444,11 +444,10 @@ pub(super) mod tests {
     async fn update_last_extension() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        let now = Instant::now();
 
         // Test at-least-once
         state.add(test_id(1), at_least_once_info());
-        state.update_last_extension(test_ids(1..2), now);
+        state.update_last_extension(test_ids(1..2));
 
         // Verify no extension immediately
         let batches = state
@@ -468,9 +467,8 @@ pub(super) mod tests {
         assert_eq!(flattened.ack_ids, test_ids(1..2));
 
         // Test exactly-once
-        let now = Instant::now();
         state.add(test_id(2), exactly_once_info());
-        state.update_last_extension_eo(test_ids(2..3), now);
+        state.update_last_extension_eo(test_ids(2..3));
 
         // Verify no extension immediately
         let batches = state
