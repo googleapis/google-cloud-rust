@@ -873,9 +873,14 @@ impl TokenProvider for ImpersonatedTokenProvider {
         };
 
         let replaced_url;
-        let url = if self.service_account_impersonation_url.contains("{universe_domain}") {
+        let url = if self
+            .service_account_impersonation_url
+            .contains("{universe_domain}")
+        {
             let universe_domain = crate::universe_domain::resolve(&self.source_credentials).await;
-            replaced_url = self.service_account_impersonation_url.replace("{universe_domain}", &universe_domain);
+            replaced_url = self
+                .service_account_impersonation_url
+                .replace("{universe_domain}", &universe_domain);
             replaced_url.as_str()
         } else {
             self.service_account_impersonation_url.as_str()
@@ -2530,7 +2535,7 @@ mod tests {
     #[parallel]
     async fn test_impersonated_access_token_custom_universe_domain() -> TestResult {
         use crate::credentials::CredentialsProvider;
-        
+
         #[derive(Debug)]
         struct MockSourceCredentials {
             universe_domain: Option<String>,
@@ -2543,7 +2548,10 @@ mod tests {
                 _extensions: Extensions,
             ) -> Result<CacheableResource<HeaderMap>> {
                 let mut headers = HeaderMap::new();
-                headers.insert("authorization", format!("Bearer {}", self.token).parse().unwrap());
+                headers.insert(
+                    "authorization",
+                    format!("Bearer {}", self.token).parse().unwrap(),
+                );
                 Ok(CacheableResource::New {
                     entity_tag: Default::default(),
                     data: headers,
@@ -2560,7 +2568,7 @@ mod tests {
         let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
             .format(&time::format_description::well_known::Rfc3339)
             .unwrap();
-            
+
         server.expect(
             Expectation::matching(all_of![
                 request::method_path(
@@ -2585,9 +2593,14 @@ mod tests {
 
         let mut builder = Builder::from_source_credentials(source_credentials)
             .with_target_principal("test-principal");
-        
-        builder.service_account_impersonation_url = builder.service_account_impersonation_url
-            .map(|s| s.replace("https://iamcredentials.{universe_domain}/", "http://{universe_domain}/"));
+
+        builder.service_account_impersonation_url =
+            builder.service_account_impersonation_url.map(|s| {
+                s.replace(
+                    "https://iamcredentials.{universe_domain}/",
+                    "http://{universe_domain}/",
+                )
+            });
 
         let creds = builder.build_access_token_credentials()?;
 
