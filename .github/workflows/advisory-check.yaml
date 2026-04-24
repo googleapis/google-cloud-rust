@@ -37,7 +37,7 @@ jobs:
       - name: Check Advisories
         id: deny
         run: cargo deny check advisories
-        
+
       - name: Create Issue on Failure
         if: failure()
         env:
@@ -46,9 +46,9 @@ jobs:
         run: |
           ISSUE_TITLE="google-cloud-rust: New RUSTSEC advisory detected"
           BODY="A new advisory was detected during the scheduled check. Please review and update the dependencies or ignore the advisory in \`deny.toml\`.
-          
+
           Run \`cargo deny check advisories\` locally to see the details.
-          
+
           cc @googleapis/cloud-sdk-rust-team"
 
           # Check for an existing open issue with the same title.
