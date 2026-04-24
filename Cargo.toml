@@ -341,6 +341,7 @@ members = [
   "tests/spanner",
   "tests/storage",
   "tools/check-copyright",
+  "tools/doc-dup-checker",
   "tools/minimal-version-helper",
 ]
 
