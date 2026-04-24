@@ -363,9 +363,7 @@ impl Builder {
         })
     }
 
-    fn build_credentials(
-        self,
-    ) -> BuildResult<UserCredentials<TokenCache>> {
+    fn build_credentials(self) -> BuildResult<UserCredentials<TokenCache>> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
 
