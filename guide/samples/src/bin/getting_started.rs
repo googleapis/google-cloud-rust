@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 // ANCHOR: all
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

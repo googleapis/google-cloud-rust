@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use anyhow::bail;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::options::RequestOptions;

@@ -15,6 +15,8 @@
 //! This crate contains a number of guides showing how to use the
 //! Google Cloud Client Libraries for Rust.
 
+#![allow(missing_docs)]
+
 pub mod authentication;
 pub mod binding_errors;
 pub mod compute;

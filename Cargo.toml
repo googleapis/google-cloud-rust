@@ -534,6 +534,7 @@ storage-samples          = { path = "src/storage/examples" }
 storage-grpc-mock        = { path = "src/storage/grpc-mock" }
 
 [workspace.lints.rust]
+missing_docs = "warn"
 unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_grpc_server_streaming)',
   'cfg(google_cloud_unstable_storage_bidi)',

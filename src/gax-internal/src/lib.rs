@@ -24,6 +24,8 @@
 //! This is intentional, as they are not intended for general use and will be
 //! changed without notice.
 
+#![allow(missing_docs)]
+
 #[cfg(feature = "_internal-common")]
 pub mod api_header;
 
