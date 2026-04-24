@@ -82,6 +82,23 @@ pub(super) enum Action {
 /// To reject (nack) a message, you call [`Handler::nack()`]. The
 /// service will redeliver the message.
 ///
+/// ## Delivery attempts
+///
+/// If the subscription has a [dead-letter topic] configured, you can retrieve
+/// the delivery attempt count.
+///
+/// [dead-letter topic]: https://cloud.google.com/pubsub/docs/dead-letter-topics
+///
+/// ```
+/// # use google_cloud_pubsub::subscriber::handler::Handler;
+/// fn on_message(h: Handler) {
+///     match h.delivery_attempt() {
+///         Some(i) => println!("Delivery attempt: {i}"),
+///         None => println!("Delivery attempt: unknown"),
+///     }
+/// }
+/// ```
+///
 /// ## Exactly-once delivery
 ///
 /// If your subscription has [exactly-once delivery] enabled, you should
@@ -108,7 +125,31 @@ pub(super) enum Action {
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
+    /// A handler for at-least-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, AtLeastOnce};
+    /// # fn on_message(h: Handler) {
+    /// if let Handler::AtLeastOnce(h) = h {
+    ///     h.ack();
+    /// }
+    /// # }
+    /// ```
     AtLeastOnce(AtLeastOnce),
+    /// A handler for exactly-once delivery.
+    ///
+    /// The handler type is determined by the subscription configuration.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::{Handler, ExactlyOnce};
+    /// # async fn on_message(h: Handler) -> Result<(), Box<dyn std::error::Error>> {
+    /// if let Handler::ExactlyOnce(h) = h {
+    ///     h.confirmed_ack().await?;
+    /// }
+    /// # Ok(()) }
+    /// ```
     ExactlyOnce(ExactlyOnce),
 }
 
@@ -158,11 +199,26 @@ impl Handler {
         }
     }
 
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
+    /// Returns the delivery attempt count for this message, if available.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::Handler;
+    /// fn on_message(h: Handler) {
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// This returns `None` if there is no delivery attempt recorded (e.g., if
+    /// dead-letter topics are not configured on the subscription).
+    pub fn delivery_attempt(&self) -> Option<i32> {
         match self {
-            Handler::AtLeastOnce(h) => h.ack_id(),
-            Handler::ExactlyOnce(h) => h.ack_id(),
+            Handler::AtLeastOnce(h) => h.delivery_attempt(),
+            Handler::ExactlyOnce(h) => h.delivery_attempt(),
         }
     }
 }
@@ -171,6 +227,7 @@ impl Handler {
 struct AtLeastOnceImpl {
     ack_id: String,
     ack_tx: UnboundedSender<Action>,
+    delivery_attempt: Option<i32>,
 }
 
 impl AtLeastOnceImpl {
@@ -190,9 +247,17 @@ pub struct AtLeastOnce {
 }
 
 impl AtLeastOnce {
-    pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<Action>) -> Self {
+    pub(super) fn new(
+        ack_id: String,
+        ack_tx: UnboundedSender<Action>,
+        delivery_attempt: Option<i32>,
+    ) -> Self {
         Self {
-            inner: Some(AtLeastOnceImpl { ack_id, ack_tx }),
+            inner: Some(AtLeastOnceImpl {
+                ack_id,
+                ack_tx,
+                delivery_attempt,
+            }),
         }
     }
 
@@ -227,12 +292,24 @@ impl AtLeastOnce {
         }
     }
 
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
+    /// Returns the delivery attempt count for this message, if available.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::AtLeastOnce;
+    /// fn on_message(h: AtLeastOnce) {
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// This returns `None` if there is no delivery attempt recorded (e.g., if
+    /// dead-letter topics are not configured on the subscription).
+    pub fn delivery_attempt(&self) -> Option<i32> {
+        self.inner.as_ref().and_then(|i| i.delivery_attempt)
     }
 }
 
@@ -259,12 +336,14 @@ impl ExactlyOnce {
         ack_id: String,
         ack_tx: UnboundedSender<Action>,
         result_rx: Receiver<AckResult>,
+        delivery_attempt: Option<i32>,
     ) -> Self {
         Self {
             inner: Some(ExactlyOnceImpl {
                 ack_id,
                 ack_tx,
                 result_rx,
+                delivery_attempt,
             }),
         }
     }
@@ -332,12 +411,24 @@ impl ExactlyOnce {
         inner.confirmed_nack().await
     }
 
-    #[cfg(test)]
-    pub(crate) fn ack_id(&self) -> &str {
-        self.inner
-            .as_ref()
-            .map(|i| i.ack_id.as_str())
-            .unwrap_or_default()
+    /// Returns the delivery attempt count for this message, if available.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::subscriber::handler::ExactlyOnce;
+    /// fn on_message(h: ExactlyOnce) {
+    ///     match h.delivery_attempt() {
+    ///         Some(i) => println!("Delivery attempt: {i}"),
+    ///         None => println!("Delivery attempt: unknown"),
+    ///     }
+    /// }
+    /// ```
+    ///
+    /// This returns `None` if there is no delivery attempt recorded (e.g., if
+    /// dead-letter topics are not configured on the subscription).
+    pub fn delivery_attempt(&self) -> Option<i32> {
+        self.inner.as_ref().and_then(|i| i.delivery_attempt)
     }
 }
 
@@ -358,6 +449,7 @@ struct ExactlyOnceImpl {
     pub(super) ack_id: String,
     pub(super) ack_tx: UnboundedSender<Action>,
     pub(super) result_rx: Receiver<AckResult>,
+    pub(super) delivery_attempt: Option<i32>,
 }
 
 impl ExactlyOnceImpl {
@@ -401,10 +493,79 @@ mod tests {
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::sync::oneshot::channel;
 
+    impl Handler {
+        pub(crate) fn ack_id(&self) -> &str {
+            match self {
+                Handler::AtLeastOnce(h) => h.ack_id(),
+                Handler::ExactlyOnce(h) => h.ack_id(),
+            }
+        }
+    }
+
+    impl AtLeastOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
+
+    impl ExactlyOnce {
+        pub(crate) fn ack_id(&self) -> &str {
+            self.inner
+                .as_ref()
+                .map(|i| i.ack_id.as_str())
+                .unwrap_or_default()
+        }
+    }
+
+    #[test]
+    fn handler_delivery_attempt() -> anyhow::Result<()> {
+        let (ack_tx, _) = unbounded_channel();
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx, Some(5)));
+        assert_eq!(h.delivery_attempt(), Some(5));
+        Ok(())
+    }
+
+    #[test]
+    fn at_least_once_delivery_attempt() -> anyhow::Result<()> {
+        let (ack_tx, _) = unbounded_channel();
+        let h = AtLeastOnce::new(test_id(1), ack_tx, Some(5));
+        assert_eq!(h.delivery_attempt(), Some(5));
+        Ok(())
+    }
+
+    #[test]
+    fn at_least_once_delivery_attempt_none() -> anyhow::Result<()> {
+        let (ack_tx, _) = unbounded_channel();
+        let h = AtLeastOnce::new(test_id(1), ack_tx, None);
+        assert_eq!(h.delivery_attempt(), None);
+        Ok(())
+    }
+
+    #[test]
+    fn exactly_once_delivery_attempt() -> anyhow::Result<()> {
+        let (ack_tx, _) = unbounded_channel();
+        let (_result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, Some(5));
+        assert_eq!(h.delivery_attempt(), Some(5));
+        Ok(())
+    }
+
+    #[test]
+    fn exactly_once_delivery_attempt_none() -> anyhow::Result<()> {
+        let (ack_tx, _) = unbounded_channel();
+        let (_result_tx, result_rx) = channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
+        assert_eq!(h.delivery_attempt(), None);
+        Ok(())
+    }
+
     #[test]
     fn handler_at_least_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -417,7 +578,7 @@ mod tests {
     #[test]
     fn handler_at_least_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
@@ -431,7 +592,7 @@ mod tests {
     fn handler_exactly_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx));
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -445,7 +606,7 @@ mod tests {
     fn handler_exactly_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx));
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
@@ -458,7 +619,7 @@ mod tests {
     #[test]
     fn at_least_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce::new(test_id(1), ack_tx);
+        let h = AtLeastOnce::new(test_id(1), ack_tx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -471,7 +632,7 @@ mod tests {
     #[test]
     fn at_least_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce::new(test_id(1), ack_tx);
+        let h = AtLeastOnce::new(test_id(1), ack_tx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
@@ -485,7 +646,7 @@ mod tests {
     fn exactly_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.ack();
@@ -499,7 +660,7 @@ mod tests {
     async fn exactly_once_success() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         let task = tokio::task::spawn(async move { h.confirmed_ack().await });
@@ -519,7 +680,7 @@ mod tests {
     async fn exactly_once_nack_success() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         let task = tokio::task::spawn(async move { h.confirmed_nack().await });
@@ -539,7 +700,7 @@ mod tests {
     async fn exactly_once_error() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         let task = tokio::task::spawn(async move { h.confirmed_ack().await });
@@ -560,7 +721,7 @@ mod tests {
     async fn exactly_once_nack_error() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         let task = tokio::task::spawn(async move { h.confirmed_nack().await });
@@ -581,7 +742,7 @@ mod tests {
     async fn exactly_once_action_channel_closed() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
         drop(ack_rx);
 
@@ -595,7 +756,7 @@ mod tests {
     async fn exactly_once_nack_action_channel_closed() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
         drop(ack_rx);
 
@@ -615,7 +776,7 @@ mod tests {
     async fn exactly_once_result_channel_closed() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         let task = tokio::task::spawn(async move { h.confirmed_ack().await });
@@ -634,7 +795,7 @@ mod tests {
     fn exactly_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         h.nack();
@@ -647,7 +808,7 @@ mod tests {
     #[test]
     fn handler_at_least_once_nack_on_drop() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
+        let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);
@@ -661,7 +822,7 @@ mod tests {
     fn handler_exactly_once_nack_on_drop() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx));
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx, result_rx, None));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);
@@ -674,7 +835,7 @@ mod tests {
     #[test]
     fn at_least_once_nack_on_drop() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce::new(test_id(1), ack_tx);
+        let h = AtLeastOnce::new(test_id(1), ack_tx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);
@@ -688,7 +849,7 @@ mod tests {
     fn exactly_once_nack_on_drop() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let (_result_tx, result_rx) = channel();
-        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx);
+        let h = ExactlyOnce::new(test_id(1), ack_tx, result_rx, None);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);

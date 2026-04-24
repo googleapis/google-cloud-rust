@@ -2472,6 +2472,61 @@ impl std::fmt::Debug for super::CacheKeyPolicy {
     }
 }
 
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl std::fmt::Debug for super::CachePolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CachePolicy");
+        debug_struct.field(
+            "cache_bypass_request_header_names",
+            &self.cache_bypass_request_header_names,
+        );
+        debug_struct.field("cache_key_policy", &self.cache_key_policy);
+        debug_struct.field("cache_mode", &self.cache_mode);
+        debug_struct.field("client_ttl", &self.client_ttl);
+        debug_struct.field("default_ttl", &self.default_ttl);
+        debug_struct.field("max_ttl", &self.max_ttl);
+        debug_struct.field("negative_caching", &self.negative_caching);
+        debug_struct.field("negative_caching_policy", &self.negative_caching_policy);
+        debug_struct.field("request_coalescing", &self.request_coalescing);
+        debug_struct.field("serve_while_stale", &self.serve_while_stale);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl std::fmt::Debug for super::CachePolicyCacheKeyPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CachePolicyCacheKeyPolicy");
+        debug_struct.field("excluded_query_parameters", &self.excluded_query_parameters);
+        debug_struct.field("include_host", &self.include_host);
+        debug_struct.field("include_protocol", &self.include_protocol);
+        debug_struct.field("include_query_string", &self.include_query_string);
+        debug_struct.field("included_cookie_names", &self.included_cookie_names);
+        debug_struct.field("included_header_names", &self.included_header_names);
+        debug_struct.field("included_query_parameters", &self.included_query_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-url-maps", feature = "url-maps",))]
+impl std::fmt::Debug for super::CachePolicyNegativeCachingPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CachePolicyNegativeCachingPolicy");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("ttl", &self.ttl);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "advice")]
 impl std::fmt::Debug for super::CalendarModeAdviceRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -6970,6 +7025,7 @@ impl std::fmt::Debug for super::HttpRetryPolicy {
 impl std::fmt::Debug for super::HttpRouteAction {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("HttpRouteAction");
+        debug_struct.field("cache_policy", &self.cache_policy);
         debug_struct.field("cors_policy", &self.cors_policy);
         debug_struct.field("fault_injection_policy", &self.fault_injection_policy);
         debug_struct.field("max_stream_duration", &self.max_stream_duration);

@@ -40,12 +40,23 @@ use std::sync::Arc;
 pub struct ResultSetMetadata {
     pub(crate) column_names: Arc<Vec<String>>,
     pub(crate) column_types: Arc<Vec<crate::types::Type>>,
+    pub(crate) undeclared_parameters: Arc<std::collections::BTreeMap<String, crate::types::Type>>,
 }
 
 impl ResultSetMetadata {
     pub(crate) fn new(metadata: Option<crate::google::spanner::v1::ResultSetMetadata>) -> Self {
         let mut column_names = Vec::new();
         let mut column_types = Vec::new();
+        let mut undeclared_parameters = std::collections::BTreeMap::new();
+
+        if let Some(m) = &metadata {
+            if let Some(undeclared) = &m.undeclared_parameters {
+                for field in &undeclared.fields {
+                    let param_type = field.r#type.clone().map(Into::into).unwrap_or_default();
+                    undeclared_parameters.insert(field.name.clone(), param_type);
+                }
+            }
+        }
 
         let fields = metadata
             .and_then(|m| m.row_type)
@@ -60,6 +71,7 @@ impl ResultSetMetadata {
         Self {
             column_names: Arc::new(column_names),
             column_types: Arc::new(column_types),
+            undeclared_parameters: Arc::new(undeclared_parameters),
         }
     }
 
@@ -71,6 +83,10 @@ impl ResultSetMetadata {
     /// Returns the types of the columns in the result set.
     pub fn column_types(&self) -> &[crate::types::Type] {
         &self.column_types
+    }
+    /// Returns the types of the undeclared parameters in the result set.
+    pub fn undeclared_parameters(&self) -> &std::collections::BTreeMap<String, crate::types::Type> {
+        &self.undeclared_parameters
     }
 }
 

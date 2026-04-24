@@ -151,24 +151,10 @@ impl MessageStream {
             handle,
             message_tx,
             ack_tx,
+            cancel: shutdown,
         } = LeaseLoop::new(leaser, confirmed_rx, options);
         let lease_loop = handle.map(|_| ()).boxed().shared();
-
-        let weak_message_tx = message_tx.downgrade();
-        let weak_ack_tx = ack_tx.downgrade();
-
-        let shutdown = CancellationToken::new();
-        let shutdown_clone = shutdown.clone();
         let _shutdown_guard = shutdown.clone().drop_guard();
-        tokio::spawn(async move {
-            // Hold the strong senders for the channels, dropping them when an
-            // application signals a shutdown. This lets us begin the shutdown
-            // procedure without requiring the application to `drop(stream)` or
-            // call `stream.next()`.
-            shutdown_clone.cancelled().await;
-            drop(message_tx);
-            drop(ack_tx);
-        });
 
         let initial_req = StreamingPullRequest {
             subscription,
@@ -187,8 +173,8 @@ impl MessageStream {
             initial_req,
             stream: None,
             pool: VecDeque::new(),
-            message_tx: weak_message_tx,
-            ack_tx: weak_ack_tx,
+            message_tx,
+            ack_tx,
             shutdown: shutdown.clone(),
         };
         Self {
@@ -379,6 +365,8 @@ impl MessageStreamImpl {
                 continue;
             };
 
+            let delivery_attempt = (rm.delivery_attempt > 0).then_some(rm.delivery_attempt);
+
             let (lease_info, handler_info) = if exactly_once {
                 let (result_tx, result_rx) = tokio::sync::oneshot::channel();
                 (
@@ -386,6 +374,7 @@ impl MessageStreamImpl {
                     HandlerInfo::ExactlyOnce {
                         ack_id: rm.ack_id.clone(),
                         result_rx,
+                        delivery_attempt,
                     },
                 )
             } else {
@@ -393,6 +382,7 @@ impl MessageStreamImpl {
                     LeaseInfo::AtLeastOnce(AtLeastOnceInfo::new()),
                     HandlerInfo::AtLeastOnce {
                         ack_id: rm.ack_id.clone(),
+                        delivery_attempt,
                     },
                 )
             };
@@ -433,10 +423,12 @@ impl MessageStreamImpl {
 enum HandlerInfo {
     AtLeastOnce {
         ack_id: String,
+        delivery_attempt: Option<i32>,
     },
     ExactlyOnce {
         ack_id: String,
         result_rx: Receiver<AckResult>,
+        delivery_attempt: Option<i32>,
     },
 }
 
@@ -445,12 +437,20 @@ impl HandlerInfo {
     /// serving it to the application.
     fn into_handler(self, ack_tx: UnboundedSender<Action>) -> Handler {
         match self {
-            HandlerInfo::AtLeastOnce { ack_id } => {
-                Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx))
-            }
-            HandlerInfo::ExactlyOnce { ack_id, result_rx } => {
-                Handler::ExactlyOnce(ExactlyOnce::new(ack_id, ack_tx, result_rx))
-            }
+            HandlerInfo::AtLeastOnce {
+                ack_id,
+                delivery_attempt,
+            } => Handler::AtLeastOnce(AtLeastOnce::new(ack_id, ack_tx, delivery_attempt)),
+            HandlerInfo::ExactlyOnce {
+                ack_id,
+                result_rx,
+                delivery_attempt,
+            } => Handler::ExactlyOnce(ExactlyOnce::new(
+                ack_id,
+                ack_tx,
+                result_rx,
+                delivery_attempt,
+            )),
         }
     }
 }
@@ -669,6 +669,59 @@ mod tests {
         let ack_req = ack_rx.try_recv()?;
         assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
         assert_eq!(sorted(ack_req.ack_ids), test_ids(1..7));
+
+        Ok(())
+    }
+
+    #[test_case(0, None, false; "at_least_once_zero_maps_to_none")]
+    #[test_case(5, Some(5), false; "at_least_once_positive_maps_to_some")]
+    #[test_case(-1, None, false; "at_least_once_negative_maps_to_none")]
+    #[test_case(1, Some(1), false; "at_least_once_one_maps_to_some")]
+    #[test_case(i32::MAX, Some(i32::MAX), false; "at_least_once_max_maps_to_some")]
+    #[test_case(0, None, true; "exactly_once_zero_maps_to_none")]
+    #[test_case(5, Some(5), true; "exactly_once_positive_maps_to_some")]
+    #[test_case(-1, None, true; "exactly_once_negative_maps_to_none")]
+    #[test_case(1, Some(1), true; "exactly_once_one_maps_to_some")]
+    #[test_case(i32::MAX, Some(i32::MAX), true; "exactly_once_max_maps_to_some")]
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn delivery_attempt_mapping(
+        input: i32,
+        expected: Option<i32>,
+        exactly_once: bool,
+    ) -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(TonicResponse::from(response_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+
+        let resp = v1::StreamingPullResponse {
+            subscription_properties: Some(v1::streaming_pull_response::SubscriptionProperties {
+                exactly_once_delivery_enabled: exactly_once,
+                ..Default::default()
+            }),
+            received_messages: vec![v1::ReceivedMessage {
+                ack_id: test_id(0),
+                message: Some(v1::PubsubMessage {
+                    data: test_data(0).to_vec(),
+                    ..Default::default()
+                }),
+                delivery_attempt: input,
+            }],
+            ..Default::default()
+        };
+
+        response_tx.send(Ok(resp)).await?;
+        drop(response_tx);
+
+        let Some((_, h)) = stream.next().await.transpose()? else {
+            anyhow::bail!("expected message")
+        };
+        assert_eq!(h.delivery_attempt(), expected);
 
         Ok(())
     }

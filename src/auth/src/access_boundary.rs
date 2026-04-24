@@ -90,18 +90,6 @@ impl AccessBoundary {
         let (_, rx_header) = watch::channel((None, EntityTag::new()));
         Self { rx_header }
     }
-
-    #[cfg(test)]
-    // only used for testing
-    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
-    where
-        T: AccessBoundaryProvider + 'static,
-    {
-        let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
-        tokio::spawn(refresh_task(provider, tx_header));
-        Self { rx_header }
-    }
-
     fn is_enabled() -> bool {
         #[cfg(google_cloud_unstable_trusted_boundaries)]
         {
@@ -111,12 +99,6 @@ impl AccessBoundary {
         {
             false
         }
-    }
-
-    #[cfg(test)]
-    fn header_value(&self) -> Option<String> {
-        let (val, _) = self.latest_header_value_and_entity_tag();
-        val
     }
 
     fn latest_header_value_and_entity_tag(&self) -> (Option<String>, EntityTag) {
@@ -412,7 +394,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
         match self.url.as_ref() {
@@ -444,7 +426,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
 
@@ -691,6 +673,22 @@ pub(crate) mod tests {
         #[async_trait::async_trait]
         impl AccessBoundaryProvider for AccessBoundaryProvider {
             async fn fetch_access_boundary(&self) -> Result<Option<String>>;
+        }
+    }
+
+    impl AccessBoundary {
+        fn new_with_mock_provider<T>(provider: T) -> Self
+        where
+            T: AccessBoundaryProvider + 'static,
+        {
+            let (tx_header, rx_header) = watch::channel((None, EntityTag::new()));
+            tokio::spawn(refresh_task(provider, tx_header));
+            Self { rx_header }
+        }
+
+        fn header_value(&self) -> Option<String> {
+            let (val, _) = self.latest_header_value_and_entity_tag();
+            val
         }
     }
 

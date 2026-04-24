@@ -39,6 +39,10 @@ const MAX_IDS_PER_RPC: usize = 1000;
 // How often we extend deadlines for messages under lease
 const EXTEND_PERIOD: Duration = Duration::from_secs(3);
 
+/// The buffer applied to the lease extension period to account for network
+/// latency and processing time.
+const EXTEND_BUFFER: Duration = Duration::from_secs(2);
+
 // Helper function to chunk ack ids into chunks of MAX_IDS_PER_RPC.
 fn batch(ack_ids: Vec<String>) -> Vec<Vec<String>> {
     ack_ids
@@ -130,6 +134,7 @@ pub(super) struct ExactlyOnceInfo {
     receive_time: Instant,
     result_tx: Sender<AckResult>,
     status: MessageStatus,
+    last_extension: Option<Instant>,
 }
 
 impl ExactlyOnceInfo {
@@ -138,6 +143,7 @@ impl ExactlyOnceInfo {
             receive_time: Instant::now(),
             result_tx,
             status: MessageStatus::Leased,
+            last_extension: None,
         }
     }
 }
@@ -171,7 +177,7 @@ where
     //
     // These are held separate from pending acks/nacks because we do not need to
     // await them on shutdown.
-    pending_extends: JoinSet<()>,
+    pending_extends: JoinSet<Vec<String>>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -290,7 +296,9 @@ where
                 .spawn(async move { leaser.extend(ack_ids).await });
         }
 
-        let batches = self.eo_leases.retain(self.max_lease);
+        let batches = self
+            .eo_leases
+            .retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
             self.pending_extends
@@ -755,22 +763,22 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -811,12 +819,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(2)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_confirmed_ack()
             .times(1)
             .in_sequence(&mut seq)
@@ -826,14 +834,18 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+        let options = LeaseOptions {
+            max_lease_extension: Duration::ZERO,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         // Add 10 messages. These are now under lease management.
         for i in 0..10 {
@@ -876,7 +888,7 @@ pub(super) mod tests {
         mock.expect_extend()
             .times(2)
             .withf(|v| *v == vec![test_id(1)])
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -1214,8 +1226,9 @@ pub(super) mod tests {
             .times(NUM_BATCHES as usize)
             .returning(move |ack_ids| {
                 ack_id_tx
-                    .send(ack_ids)
+                    .send(ack_ids.clone())
                     .expect("sending on channel always succeeds");
+                ack_ids
             });
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
@@ -1261,12 +1274,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(|_| ());
+            .returning(move |ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease: MAX_LEASE,

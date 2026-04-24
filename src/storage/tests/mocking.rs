@@ -112,6 +112,38 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn mock_read_object_success_with_arc() -> anyhow::Result<()> {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let object = {
+            let mut o = ObjectHighlights::default();
+            o.etag = "custom-etag".to_string();
+            o
+        };
+
+        let mut mock = MockStorage::new();
+        mock.expect_read_object().return_once({
+            let o = object.clone();
+            move |_, _| Ok(ReadObjectResponse::from_source(o, LAZY))
+        });
+
+        let mock_arc = std::sync::Arc::new(mock);
+        let client = gcs::client::Storage::<MockStorage>::from_stub(mock_arc);
+        let mut reader = client
+            .read_object("projects/_/buckets/my-bucket", "my-object")
+            .send()
+            .await?;
+        assert_eq!(&object, &reader.object());
+
+        let mut contents = Vec::new();
+        while let Some(chunk) = reader.next().await.transpose()? {
+            contents.extend_from_slice(&chunk);
+        }
+        let contents = bytes::Bytes::from_owner(contents);
+        assert_eq!(contents, LAZY);
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn mock_write_object_buffered() {
         let mut mock = MockStorage::new();
         mock.expect_write_object_buffered()

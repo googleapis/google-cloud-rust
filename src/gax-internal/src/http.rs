@@ -27,6 +27,7 @@ pub mod reqwest;
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 use crate::observability::{HttpResultExt, RequestRecorder, create_http_attempt_span};
+use crate::universe_domain::DEFAULT_UNIVERSE_DOMAIN;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -67,6 +68,7 @@ pub struct ReqwestClient {
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
     _tracing_enabled: bool,
+    universe_domain: String,
     transport_metric: Option<crate::observability::TransportMetric>,
 }
 
@@ -87,12 +89,17 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
-        let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
-            .map_err(|e| e.client_builder())?;
+        let universe_domain =
+            crate::universe_domain::resolve(config.universe_domain.as_deref(), &cred).await?;
+        let host = crate::host::header(
+            config.endpoint.as_deref(),
+            default_endpoint,
+            &universe_domain,
+        )
+        .map_err(|e| e.client_builder())?;
+        let service_endpoint = default_endpoint.replace(DEFAULT_UNIVERSE_DOMAIN, &universe_domain);
         let tracing_enabled = crate::options::tracing_enabled(&config);
-        let endpoint = config
-            .endpoint
-            .unwrap_or_else(|| default_endpoint.to_string());
+        let endpoint = config.endpoint.unwrap_or(service_endpoint);
         Ok(Self {
             inner,
             cred,
@@ -117,6 +124,7 @@ impl ReqwestClient {
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
             _tracing_enabled: tracing_enabled,
+            universe_domain,
             transport_metric: None,
         })
     }
@@ -220,7 +228,8 @@ impl ReqwestClient {
         url: &str,
         default_endpoint: &str,
     ) -> Result<HttpRequestBuilder> {
-        let host = crate::host::header(Some(url), default_endpoint).map_err(|e| e.gax())?;
+        let host = crate::host::header(Some(url), default_endpoint, &self.universe_domain)
+            .map_err(|e| e.gax())?;
         let builder = self
             .inner
             .request(method, url)
@@ -581,8 +590,25 @@ mod tests {
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider};
+    use google_cloud_auth::errors::CredentialsError;
     use http::{HeaderMap, HeaderValue, Method};
+    use scoped_env::ScopedEnv;
+    use serial_test::serial;
     use test_case::test_case;
+
+    type AuthResult<T> = std::result::Result<T, CredentialsError>;
+    type TestResult = anyhow::Result<()>;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+    }
 
     #[tokio::test]
     async fn client_http_error_bytes() -> anyhow::Result<()> {
@@ -746,8 +772,7 @@ mod tests {
     #[test_case(Some("http://test-my-private-ep.p.googleapis.com"), "test.googleapis.com"; "PSC custom endpoint")]
     #[test_case(Some("https://us-central1-test.googleapis.com"), "us-central1-test.googleapis.com"; "locational endpoint")]
     #[test_case(Some("https://test.us-central1.rep.googleapis.com"), "test.us-central1.rep.googleapis.com"; "regional endpoint")]
-    #[test_case(Some("https://test.my-universe-domain.com"), "test.googleapis.com"; "universe domain")]
-    #[test_case(Some("localhost:5678"), "test.googleapis.com"; "emulator")]
+    #[test_case(Some("localhost:5678"), "localhost"; "emulator")]
     #[tokio::test]
     async fn host_from_endpoint(
         custom_endpoint: Option<&str>,
@@ -763,6 +788,52 @@ mod tests {
         // a `/`. Make sure everything still works.
         let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
         assert_eq!(client.host, expected_host);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[test_case(None, "test.my-custom-universe.com"; "default")]
+    #[test_case(Some("http://www.my-custom-universe.com"), "test.my-custom-universe.com"; "global")]
+    #[test_case(Some("http://private.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC private")]
+    #[test_case(Some("http://restricted.my-custom-universe.com"), "test.my-custom-universe.com"; "VPC-SC restricted")]
+    #[test_case(Some("http://test-my-private-ep.p.my-custom-universe.com"), "test.my-custom-universe.com"; "PSC custom endpoint")]
+    #[test_case(Some("https://us-central1-test.my-custom-universe.com"), "us-central1-test.my-custom-universe.com"; "locational endpoint")]
+    #[test_case(Some("https://test.us-central1.rep.my-custom-universe.com"), "test.us-central1.rep.my-custom-universe.com"; "regional endpoint")]
+    #[serial]
+    async fn host_from_endpoint_with_universe_domain_success(
+        endpoint_override: Option<&str>,
+        expected_host: &str,
+    ) -> TestResult {
+        let _env = ScopedEnv::remove("GOOGLE_CLOUD_UNIVERSE_DOMAIN");
+        let universe_domain = "my-custom-universe.com";
+        let mut config = ClientConfig::default();
+        config.universe_domain = Some(universe_domain.to_string());
+        config.endpoint = endpoint_override.map(String::from);
+
+        let mut cred = MockCredentials::new();
+        cred.expect_universe_domain()
+            .returning(move || Some(universe_domain.to_string()));
+        config.cred = Some(cred.into());
+
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        assert_eq!(client.universe_domain, universe_domain);
+        assert_eq!(client.host, expected_host);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn host_from_endpoint_with_universe_domain_mismatch_fails() -> TestResult {
+        let mut config = ClientConfig::default();
+        config.universe_domain = Some("custom.com".to_string());
+        config.cred = Some(Anonymous::new().build());
+
+        let err = ReqwestClient::new(config, "https://language.googleapis.com")
+            .await
+            .unwrap_err();
+
+        assert!(err.is_universe_domain_mismatch(), "{err:?}");
 
         Ok(())
     }

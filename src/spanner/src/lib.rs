@@ -20,7 +20,6 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 
-pub use crate::model::PartitionOptions;
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{
@@ -38,15 +37,14 @@ pub(crate) use google_cloud_gax::response::Response;
 
 pub mod batch_dml;
 pub mod client;
-pub(crate) mod server_streaming;
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }
 pub mod batch_read_only_transaction;
-pub(crate) mod database_client;
-pub(crate) mod model {
+pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
+pub(crate) mod database_client;
 pub(crate) mod from_value;
 pub(crate) mod key;
 pub(crate) mod mutation;
@@ -58,6 +56,8 @@ pub(crate) mod read_write_transaction;
 pub(crate) mod result_set;
 pub(crate) mod result_set_metadata;
 pub(crate) mod row;
+pub(crate) mod server_streaming;
+pub(crate) mod session_maintainer;
 pub(crate) mod statement;
 pub(crate) mod timestamp_bound;
 pub(crate) mod to_value;

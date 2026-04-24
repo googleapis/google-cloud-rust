@@ -233,6 +233,300 @@ impl<T: super::DataAccessControlService> DataAccessControlService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::DataTableService].
+#[async_trait::async_trait]
+pub trait DataTableService: std::fmt::Debug + Send + Sync {
+    async fn create_data_table(
+        &self,
+        req: crate::model::CreateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>>;
+
+    async fn list_data_tables(
+        &self,
+        req: crate::model::ListDataTablesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataTablesResponse>>;
+
+    async fn get_data_table(
+        &self,
+        req: crate::model::GetDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>>;
+
+    async fn update_data_table(
+        &self,
+        req: crate::model::UpdateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>>;
+
+    async fn delete_data_table(
+        &self,
+        req: crate::model::DeleteDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn create_data_table_row(
+        &self,
+        req: crate::model::CreateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>>;
+
+    async fn update_data_table_row(
+        &self,
+        req: crate::model::UpdateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>>;
+
+    async fn list_data_table_rows(
+        &self,
+        req: crate::model::ListDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataTableRowsResponse>>;
+
+    async fn get_data_table_row(
+        &self,
+        req: crate::model::GetDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>>;
+
+    async fn delete_data_table_row(
+        &self,
+        req: crate::model::DeleteDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn bulk_create_data_table_rows(
+        &self,
+        req: crate::model::BulkCreateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkCreateDataTableRowsResponse>>;
+
+    async fn bulk_get_data_table_rows(
+        &self,
+        req: crate::model::BulkGetDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkGetDataTableRowsResponse>>;
+
+    async fn bulk_replace_data_table_rows(
+        &self,
+        req: crate::model::BulkReplaceDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkReplaceDataTableRowsResponse>>;
+
+    async fn bulk_update_data_table_rows(
+        &self,
+        req: crate::model::BulkUpdateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkUpdateDataTableRowsResponse>>;
+
+    async fn get_data_table_operation_errors(
+        &self,
+        req: crate::model::GetDataTableOperationErrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableOperationErrors>>;
+
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>>;
+}
+
+/// All implementations of [super::DataTableService] also implement [DataTableService].
+#[async_trait::async_trait]
+impl<T: super::DataTableService> DataTableService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_data_table(
+        &self,
+        req: crate::model::CreateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>> {
+        T::create_data_table(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_data_tables(
+        &self,
+        req: crate::model::ListDataTablesRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataTablesResponse>> {
+        T::list_data_tables(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_table(
+        &self,
+        req: crate::model::GetDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>> {
+        T::get_data_table(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_data_table(
+        &self,
+        req: crate::model::UpdateDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTable>> {
+        T::update_data_table(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_data_table(
+        &self,
+        req: crate::model::DeleteDataTableRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_data_table(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_data_table_row(
+        &self,
+        req: crate::model::CreateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>> {
+        T::create_data_table_row(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_data_table_row(
+        &self,
+        req: crate::model::UpdateDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>> {
+        T::update_data_table_row(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_data_table_rows(
+        &self,
+        req: crate::model::ListDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDataTableRowsResponse>> {
+        T::list_data_table_rows(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_table_row(
+        &self,
+        req: crate::model::GetDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableRow>> {
+        T::get_data_table_row(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_data_table_row(
+        &self,
+        req: crate::model::DeleteDataTableRowRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_data_table_row(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn bulk_create_data_table_rows(
+        &self,
+        req: crate::model::BulkCreateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkCreateDataTableRowsResponse>> {
+        T::bulk_create_data_table_rows(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn bulk_get_data_table_rows(
+        &self,
+        req: crate::model::BulkGetDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkGetDataTableRowsResponse>> {
+        T::bulk_get_data_table_rows(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn bulk_replace_data_table_rows(
+        &self,
+        req: crate::model::BulkReplaceDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkReplaceDataTableRowsResponse>> {
+        T::bulk_replace_data_table_rows(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn bulk_update_data_table_rows(
+        &self,
+        req: crate::model::BulkUpdateDataTableRowsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BulkUpdateDataTableRowsResponse>> {
+        T::bulk_update_data_table_rows(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_data_table_operation_errors(
+        &self,
+        req: crate::model::GetDataTableOperationErrorsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DataTableOperationErrors>> {
+        T::get_data_table_operation_errors(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>>
+    {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::EntityService].
 #[async_trait::async_trait]
 pub trait EntityService: std::fmt::Debug + Send + Sync {

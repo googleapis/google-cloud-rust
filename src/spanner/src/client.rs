@@ -13,6 +13,11 @@
 // limitations under the License.
 
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::model::{
+    BeginTransactionRequest, CommitRequest, CommitResponse, CreateSessionRequest,
+    ExecuteBatchDmlRequest, ExecuteBatchDmlResponse, ExecuteSqlRequest, PartitionQueryRequest,
+    PartitionReadRequest, PartitionResponse, RollbackRequest, Session, Transaction,
+};
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 
@@ -20,8 +25,6 @@ pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
 pub use crate::from_value::{ConvertError, FromValue};
 pub use crate::key::{Key, KeyRange, KeySet, KeySetBuilder};
-pub use crate::model::transaction_options::IsolationLevel;
-pub use crate::model::transaction_options::read_write::ReadLockMode;
 pub use crate::mutation::{Mutation, ValueBinder, WriteBuilder};
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequest;
@@ -91,6 +94,30 @@ fn parse_emulator_endpoint(endpoint: &str) -> String {
     }
 }
 
+macro_rules! define_idempotent_rpc {
+    ($method:ident, $request_type:ty, $response_type:ty) => {
+        pub(crate) async fn $method(
+            &self,
+            request: $request_type,
+            options: crate::RequestOptions,
+        ) -> crate::Result<$response_type> {
+            self.inner
+                .$method()
+                .with_request(request)
+                .with_options(with_default_idempotency(options))
+                .send()
+                .await
+        }
+    };
+}
+
+fn with_default_idempotency(mut options: crate::RequestOptions) -> crate::RequestOptions {
+    if options.idempotent().is_none() {
+        options.set_idempotency(true);
+    }
+    options
+}
+
 #[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
@@ -153,122 +180,19 @@ impl Spanner {
         }
     }
 
-    pub(crate) async fn create_session(
-        &self,
-        request: crate::model::CreateSessionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::Session> {
-        self.inner
-            .create_session()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn execute_sql(
-        &self,
-        request: crate::model::ExecuteSqlRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
-            .execute_sql()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn execute_batch_dml(
-        &self,
-        request: crate::model::ExecuteBatchDmlRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ExecuteBatchDmlResponse> {
-        self.inner
-            .execute_batch_dml()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn read(
-        &self,
-        request: crate::model::ReadRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::ResultSet> {
-        self.inner
-            .read()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn begin_transaction(
-        &self,
-        request: crate::model::BeginTransactionRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::Transaction> {
-        self.inner
-            .begin_transaction()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn commit(
-        &self,
-        request: crate::model::CommitRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::CommitResponse> {
-        self.inner
-            .commit()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn rollback(
-        &self,
-        request: crate::model::RollbackRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<()> {
-        self.inner
-            .rollback()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn partition_query(
-        &self,
-        request: crate::model::PartitionQueryRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
-            .partition_query()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
-
-    pub(crate) async fn partition_read(
-        &self,
-        request: crate::model::PartitionReadRequest,
-        options: crate::RequestOptions,
-    ) -> crate::Result<crate::model::PartitionResponse> {
-        self.inner
-            .partition_read()
-            .with_request(request)
-            .with_options(options)
-            .send()
-            .await
-    }
+    define_idempotent_rpc!(create_session, CreateSessionRequest, Session);
+    define_idempotent_rpc!(execute_sql, ExecuteSqlRequest, crate::model::ResultSet);
+    define_idempotent_rpc!(
+        execute_batch_dml,
+        ExecuteBatchDmlRequest,
+        ExecuteBatchDmlResponse
+    );
+    define_idempotent_rpc!(read, crate::model::ReadRequest, crate::model::ResultSet);
+    define_idempotent_rpc!(begin_transaction, BeginTransactionRequest, Transaction);
+    define_idempotent_rpc!(commit, CommitRequest, CommitResponse);
+    define_idempotent_rpc!(rollback, RollbackRequest, ());
+    define_idempotent_rpc!(partition_query, PartitionQueryRequest, PartitionResponse);
+    define_idempotent_rpc!(partition_read, PartitionReadRequest, PartitionResponse);
 
     /// Executes an SQL statement, returning a stream of results.
     ///
@@ -325,12 +249,25 @@ impl Spanner {
 mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
+    use crate::result_set::tests::adapt;
+    use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    extern crate spanner_grpc_mock;
+    use google_cloud_gax::error::rpc::Code;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
+    use std::time::Duration;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &google_cloud_gax::retry_state::RetryState) -> std::time::Duration;
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -563,6 +500,7 @@ mod tests {
                 id: vec![1, 2, 3],
                 read_timestamp: None,
                 precommit_token: None,
+                ..Default::default()
             }))
         });
 
@@ -600,6 +538,7 @@ mod tests {
                 commit_stats: None,
                 multiplexed_session_retry: None,
                 snapshot_timestamp: None,
+                ..Default::default()
             }))
         });
 
@@ -671,9 +610,7 @@ mod tests {
                 cache_update: None,
                 last: false,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(result_set)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::new(adapt([Ok(result_set)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -720,9 +657,7 @@ mod tests {
                 cache_update: None,
                 last: false,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(result_set)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(result_set)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -761,9 +696,7 @@ mod tests {
                 status: None,
                 commit_timestamp: None,
             };
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Ok(response)]),
-            )))
+            Ok(gaxi::grpc::tonic::Response::from(adapt([Ok(response)])))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -796,11 +729,10 @@ mod tests {
 
         let mut mock = MockSpanner::new();
         mock.expect_execute_streaming_sql().once().returning(|_| {
-            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
-                tokio_stream::iter(vec![Err(gaxi::grpc::tonic::Status::internal(
-                    "unexpected internal error",
-                ))]),
-            )))
+            let stream = adapt([Err(gaxi::grpc::tonic::Status::internal(
+                "unexpected internal error",
+            ))]);
+            Ok(gaxi::grpc::tonic::Response::from(stream))
         });
 
         let (address, _server) = start("0.0.0.0:0", mock)
@@ -829,6 +761,332 @@ mod tests {
             err.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Internal
         );
+    }
+
+    #[tokio::test]
+    async fn default_retry_respected() -> anyhow::Result<()> {
+        use crate::model::CreateSessionRequest;
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::unavailable("server is unavailable")));
+        mock.expect_create_session().once().in_sequence(&mut seq).returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/456".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // 4. Call CreateSession using the hand-written wrapper
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let session = client
+            .create_session(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call create_session");
+
+        // 5. Verify Response
+        assert_eq!(
+            session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/456"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn override_idempotency_to_false() -> anyhow::Result<()> {
+        use crate::model::CreateSessionRequest;
+
+        // 1. Setup Mock Server to fail with UNAVAILABLE
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session()
+            .once()
+            .returning(|_| Err(Status::unavailable("server is unavailable")));
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        // 4. Call CreateSession with explicit idempotency = false
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let mut options = crate::RequestOptions::default();
+        options.set_idempotency(false);
+
+        let result = client.create_session(req, options).await;
+
+        // 5. Verify that it failed and did not retry
+        assert!(result.is_err(), "Expected error, got {:?}", result);
+        let err = result.unwrap_err();
+        assert_eq!(err.status().map(|s| s.code), Some(Code::Unavailable));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn timeout_respected() -> anyhow::Result<()> {
+        use crate::batch_dml::BatchDml;
+        use std::time::Duration;
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(mock_v1::Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for query"
+            );
+
+            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::new(rx))
+        });
+
+        mock.expect_streaming_read().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for read"
+            );
+
+            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::new(rx))
+        });
+
+        mock.expect_execute_sql().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for single DML"
+            );
+
+            Ok(Response::new(mock_v1::ResultSet {
+                stats: Some(mock_v1::ResultSetStats {
+                    row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_batch_dml().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for batch dml"
+            );
+
+            Ok(Response::new(mock_v1::ExecuteBatchDmlResponse {
+                result_sets: vec![mock_v1::ResultSet {
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+        let runner = db.read_write_transaction().build().await?;
+
+        // 4. Run transaction
+        runner
+            .run(async |tx| {
+                // Query
+                let stmt = Statement::builder("SELECT 1")
+                    .with_attempt_timeout(Duration::from_secs(10))
+                    .build();
+                let _ = tx.execute_query(stmt).await?;
+
+                // Read
+                let req = ReadRequest::builder("Table", vec!["Col"])
+                    .with_keys(crate::key::KeySet::all())
+                    .with_attempt_timeout(Duration::from_secs(5))
+                    .build();
+                let _ = tx.execute_read(req).await?;
+
+                // Single DML
+                let dml = Statement::builder("UPDATE t SET c = 1")
+                    .with_attempt_timeout(Duration::from_secs(7))
+                    .build();
+                let _ = tx.execute_update(dml).await?;
+
+                // Batch DML
+                let batch = BatchDml::builder()
+                    .add_statement("UPDATE t SET c = 2")
+                    .with_attempt_timeout(Duration::from_secs(8))
+                    .build();
+                let _ = tx.execute_batch_update(batch).await?;
+
+                Ok(())
+            })
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_policy_respected() -> anyhow::Result<()> {
+        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+
+        // Extend the default retry policy to also retry on ResourceExhausted.
+        let retry_policy = Aip194Strict.continue_on_too_many_requests();
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(mock_v1::Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        // Mock ExecuteSql to first return RESOURCE_EXHAUSTED and then succeed.
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded")));
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::ResultSet {
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+        let runner = db.read_write_transaction().build().await?;
+
+        // 4. Call execute_update with custom retry and backoff
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
+        let stmt = Statement::builder("UPDATE t SET c = 1")
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(mock_backoff)
+            .build();
+
+        let result = runner
+            .run(async |tx| {
+                let count = tx.execute_update(stmt.clone()).await?;
+                Ok(count)
+            })
+            .await?;
+
+        // 5. Verify success after retry
+        assert_eq!(result, 1);
+
+        Ok(())
     }
 
     #[test]

@@ -117,6 +117,7 @@ wrappers = [
   "grpc-server",
   "integration-tests-grpc-mock",
   "integration-tests-o11y",
+  "integration-tests-spanner",
   "pubsub-grpc-mock",
   "spanner-grpc-mock",
   "storage-grpc-mock",

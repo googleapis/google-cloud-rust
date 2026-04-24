@@ -12,5 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod concurrency_control;
+pub mod dead_letter_delivery_attempt;
+pub mod error_listener;
+pub mod exactly_once;
+pub mod flow_settings;
 pub mod quickstart_subscriber;
 pub mod subscriber_stream;

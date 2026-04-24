@@ -16,6 +16,7 @@ use crate::Error;
 use crate::RequestOptions;
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use google_cloud_gax::retry_policy::{RetryPolicy, RetryPolicyExt};
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_gax::retry_state::RetryState;
@@ -48,9 +49,11 @@ impl RetryPolicy for StreamRetryPolicy {
         }
         if let Some(status) = error.status() {
             return match status.code {
-                Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
-                    RetryResult::Continue(error)
-                }
+                Code::DeadlineExceeded
+                | Code::ResourceExhausted
+                | Code::Aborted
+                | Code::Internal
+                | Code::Unavailable => RetryResult::Continue(error),
                 _ => RetryResult::Permanent(error),
             };
         }
@@ -80,7 +83,7 @@ impl BackoffPolicy for NoBackoff {
     }
 }
 
-/// The policies for lease management RPCs in at-least-once delivery.
+/// The policies for lease management RPCs.
 ///
 /// Specifically, these are the `Acknowledge` and `ModifyAckDeadline` RPCs.
 ///
@@ -94,10 +97,24 @@ impl BackoffPolicy for NoBackoff {
 /// Note that an RPC attempt that fails because a channel is closed may be
 /// retried on another channel that is closed. That is why we retry up to N
 /// times where N is the number of channels in the client.
-pub(super) fn at_least_once_options(grpc_subchannel_count: usize) -> RequestOptions {
+pub(super) fn rpc_options(grpc_subchannel_count: usize) -> RequestOptions {
     let mut o = RequestOptions::default();
     o.set_retry_policy(OnlyTransportErrors.with_attempt_limit(grpc_subchannel_count as u32 + 1));
     o.set_backoff_policy(NoBackoff);
+    o
+}
+
+/// The policies for retrying RPCs in exactly-once delivery.
+pub(super) fn exactly_once_options() -> RequestOptions {
+    let mut o = RequestOptions::default();
+    o.set_retry_policy(OnlyTransportErrors.with_time_limit(Duration::from_secs(600)));
+    o.set_backoff_policy(
+        ExponentialBackoffBuilder::new()
+            .with_initial_delay(Duration::from_secs(1))
+            .with_maximum_delay(Duration::from_secs(64))
+            .with_scaling(2.0)
+            .clamp(),
+    );
     o
 }
 
@@ -159,6 +176,7 @@ pub(super) mod tests {
         ));
     }
 
+    #[test_case(Code::DeadlineExceeded)]
     #[test_case(Code::ResourceExhausted)]
     #[test_case(Code::Aborted)]
     #[test_case(Code::Internal)]
@@ -244,8 +262,8 @@ pub(super) mod tests {
     }
 
     #[test]
-    fn at_least_once_options() {
-        let o = super::at_least_once_options(42);
+    fn rpc_options() {
+        let o = super::rpc_options(42);
         verify_policies(o, 42);
     }
 
@@ -316,6 +334,110 @@ pub(super) mod tests {
             backoff.on_failure(&state),
             Duration::ZERO,
             "the backoff should always be 0"
+        );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn exactly_once_options() {
+        let o = super::exactly_once_options();
+        let retry = o.retry_policy().clone().unwrap();
+        let backoff = o.backoff_policy().clone().unwrap();
+
+        let mut state = RetryState::default();
+        state.attempt_count = 1;
+        assert!(
+            matches!(
+                retry.on_error(&state, transport_err()),
+                RetryResult::Continue(_)
+            ),
+            "initial transport error should be retried"
+        );
+        assert!(
+            matches!(
+                retry.on_error(&state, non_transport_err()),
+                RetryResult::Permanent(_)
+            ),
+            "non-transport error should not be retried"
+        );
+
+        state.attempt_count = 42;
+        assert!(
+            matches!(
+                retry.on_error(&state, transport_err()),
+                RetryResult::Continue(_)
+            ),
+            "we should retry transport errors"
+        );
+        assert!(
+            matches!(
+                retry.on_error(&state, non_transport_err()),
+                RetryResult::Permanent(_)
+            ),
+            "non-transport error should not be retried"
+        );
+
+        state.attempt_count = 43;
+        assert!(
+            matches!(
+                retry.on_error(&state, transport_err()),
+                RetryResult::Continue(_)
+            ),
+            "the retry policy should not be exhausted based on attempt count"
+        );
+        assert!(
+            matches!(
+                retry.on_error(&state, non_transport_err()),
+                RetryResult::Permanent(_)
+            ),
+            "non-transport error should not be retried"
+        );
+
+        // Verify time limit
+        let state = RetryState::default().set_start(tokio::time::Instant::now());
+        let r = retry.remaining_time(&state).unwrap();
+        assert_eq!(
+            r,
+            Duration::from_secs(600),
+            "Expected time limit of exactly 600s, got {:?}",
+            r
+        );
+
+        // Verify backoff behavior
+        // Attempt 1: Expect initial delay up to 1s.
+        let mut state = RetryState::default();
+        state.attempt_count = 1;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_secs(1),
+            "Expected backoff <= 1s on attempt 1, got {:?}",
+            b
+        );
+
+        // Attempt 2: Expect delay up to 2s.
+        state.attempt_count = 2;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_secs(2),
+            "Expected backoff <= 2s on attempt 2, got {:?}",
+            b
+        );
+
+        // Attempt 7: 1s * 2^6 = 64s.
+        state.attempt_count = 7;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_secs(64),
+            "Expected backoff <= 64s on attempt 7, got {:?}",
+            b
+        );
+
+        // Attempt 10: Clamping should reduce it to 64s.
+        state.attempt_count = 10;
+        let b = backoff.on_failure(&state);
+        assert!(
+            b <= Duration::from_secs(64),
+            "Expected backoff <= 64s on attempt 10, got {:?}",
+            b
         );
     }
 

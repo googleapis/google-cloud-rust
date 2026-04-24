@@ -13,8 +13,7 @@
 // limitations under the License.
 
 use super::super::handler::AckResult;
-use super::MAX_IDS_PER_RPC;
-use super::{ExactlyOnceInfo, MessageStatus};
+use super::{EXTEND_BUFFER, EXTEND_PERIOD, ExactlyOnceInfo, MAX_IDS_PER_RPC, MessageStatus};
 use crate::error::AckError;
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
@@ -89,12 +88,16 @@ impl Leases {
     /// Returns batches of ack IDs to extend.
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub fn retain(&mut self, max_lease: Duration) -> Vec<Vec<String>> {
+    pub fn retain(
+        &mut self,
+        max_lease: Duration,
+        max_lease_extension: Duration,
+    ) -> Vec<Vec<String>> {
         let now = Instant::now();
 
         // We want to extract some values from `HashMap`, leaving the rest
         // unchanged.
-        // - `extract_if()` is not available as our MSRV is 1.86 and that appears
+        // - `extract_if()` is not available as our MSRV is 1.87 and that appears
         //   in 1.88.
         // - `retain` does not work because we need a *value* of `info` to
         //   change `tx` and that only gives us a `&mut ExactlyOnceInfo`.
@@ -105,15 +108,34 @@ impl Leases {
         let mut expired = Vec::new();
         let remaining = self
             .under_lease
-            .iter()
+            .iter_mut()
             .filter_map(|(id, info)| match info.status {
                 MessageStatus::Nacking => None,
-                MessageStatus::Acking => Some(id.clone()),
-                MessageStatus::Leased => {
-                    if info.receive_time + max_lease < now {
-                        expired.push(id.clone());
+                MessageStatus::Acking => {
+                    if info.last_extension.is_some_and(|i| {
+                        i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
+                    }) {
+                        // The lease is still valid for a while. No need to extend.
                         None
                     } else {
+                        // Continue to extend messages being acked.
+                        info.last_extension = Some(now);
+                        Some(id.clone())
+                    }
+                }
+                MessageStatus::Leased => {
+                    if info.receive_time + max_lease < now {
+                        // Drop messages that have been held for too long.
+                        expired.push(id.clone());
+                        None
+                    } else if info.last_extension.is_some_and(|i| {
+                        i + max_lease_extension > now + EXTEND_PERIOD + EXTEND_BUFFER
+                    }) {
+                        // The lease is still valid for a while. No need to extend.
+                        None
+                    } else {
+                        // Extend leases for all other messages
+                        info.last_extension = Some(now);
                         Some(id.clone())
                     }
                 }
@@ -189,6 +211,7 @@ mod tests {
             receive_time: Instant::now(),
             result_tx,
             status: MessageStatus::Leased,
+            last_extension: None,
         }
     }
 
@@ -315,6 +338,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
         assert_eq!(
@@ -514,13 +538,13 @@ mod tests {
             want.insert(test_id(i));
         }
 
-        let batches = leases.retain(Duration::from_secs(1));
+        let batches = leases.retain(Duration::from_secs(1), Duration::ZERO);
         assert_eq!(batches.len(), NUM_BATCHES as usize);
 
         let mut got = HashSet::new();
         for batch in batches {
             assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
-            got.extend(batch.into_iter());
+            got.extend(batch);
         }
 
         // Make sure all ack IDs are included.
@@ -540,6 +564,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(3),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
 
@@ -550,11 +575,12 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
 
         // No messages expired.
-        let mut batches = leases.retain(Duration::from_secs(4));
+        let mut batches = leases.retain(Duration::from_secs(4), Duration::ZERO);
         for batch in &mut batches {
             batch.sort();
         }
@@ -569,7 +595,7 @@ mod tests {
         );
 
         // Message 1 expires.
-        let batches = leases.retain(Duration::from_secs(2));
+        let batches = leases.retain(Duration::from_secs(2), Duration::ZERO);
         assert_eq!(batches, vec![vec![test_id(2)]]);
         assert_eq!(
             TestLeases {
@@ -583,7 +609,7 @@ mod tests {
         assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
 
         // Message 2 expires.
-        let batches = leases.retain(Duration::ZERO);
+        let batches = leases.retain(Duration::ZERO, Duration::ZERO);
         assert!(batches.is_empty(), "{batches:?}");
         assert_eq!(
             TestLeases {
@@ -610,6 +636,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 status: MessageStatus::Acking,
+                last_extension: None,
             },
         );
 
@@ -620,10 +647,11 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
 
-        let batches = leases.retain(Duration::ZERO);
+        let batches = leases.retain(Duration::ZERO, Duration::ZERO);
         assert_eq!(batches, vec![vec![test_id(1)]]);
         assert_eq!(
             TestLeases {
@@ -652,6 +680,7 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
         leases.nack(test_id(1));
@@ -663,10 +692,11 @@ mod tests {
                 receive_time: Instant::now() - Duration::from_secs(1),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
 
-        let batches = leases.retain(Duration::ZERO);
+        let batches = leases.retain(Duration::ZERO, Duration::ZERO);
         assert!(batches.is_empty(), "{batches:?}");
 
         assert_eq!(
@@ -699,6 +729,7 @@ mod tests {
                 // Even pending acks will be evicted, and satisfied with
                 // `Shutdown` errors.
                 status: MessageStatus::Acking,
+                last_extension: None,
             },
         );
         let (result_tx, result_rx2) = channel();
@@ -708,6 +739,7 @@ mod tests {
                 receive_time: Instant::now(),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
         let (result_tx, result_rx3) = channel();
@@ -717,6 +749,7 @@ mod tests {
                 receive_time: Instant::now(),
                 result_tx,
                 status: MessageStatus::Leased,
+                last_extension: None,
             },
         );
         leases.nack(test_id(3));
@@ -770,6 +803,64 @@ mod tests {
         let to_nack = Batches::flatten(to_nack);
         assert_eq!(to_nack.counts, vec![MAX_IDS_PER_RPC, 20]);
         assert_eq!(sorted(&to_nack.ack_ids), test_ids(0..MAX_IDS_PER_RPC + 20));
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn necessary_extensions() -> anyhow::Result<()> {
+        const MAX_LEASE: Duration = Duration::from_secs(900);
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(10);
+
+        let mut leases = Leases::default();
+        leases.add(test_id(0), test_info());
+
+        // Add an acked message.
+        leases.add(test_id(1), test_info());
+        leases.ack(test_id(1));
+
+        // We should always send a receipt lease extension upon receiving a
+        // message.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        let flattened = Batches::flatten(batches);
+        assert_eq!(sorted(&flattened.ack_ids), test_ids(0..2));
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..2),
+                to_ack: vec![test_id(1)],
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        // The clock has not advanced, and we just sent out an extension. We
+        // should not send another extension.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        assert!(batches.is_empty(), "{batches:?}");
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..2),
+                to_ack: vec![test_id(1)],
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        // Advance the time close to the expiration of the initial lease.
+        tokio::time::advance(MAX_LEASE_EXTENSION - Duration::from_secs(1)).await;
+
+        // We need to extend the lease again.
+        let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        let flattened = Batches::flatten(batches);
+        assert_eq!(sorted(&flattened.ack_ids), test_ids(0..2));
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(0..2),
+                to_ack: vec![test_id(1)],
+                to_nack: Vec::new(),
+            },
+            leases
+        );
 
         Ok(())
     }
