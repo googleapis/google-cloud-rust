@@ -20,6 +20,8 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 
+#![allow(missing_docs)]
+
 pub use batch_dml::BatchDml;
 pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{

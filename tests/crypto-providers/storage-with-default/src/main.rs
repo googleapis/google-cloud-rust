@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     test_metadata::has_default_crypto_provider(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;

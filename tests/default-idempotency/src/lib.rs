@@ -19,6 +19,8 @@
 //! idempotent or not. We use this to verify that the operation's default
 //! idempotency is correct.
 
+#![allow(missing_docs)]
+
 #[cfg(test)]
 mod tests {
     type Result = anyhow::Result<()>;

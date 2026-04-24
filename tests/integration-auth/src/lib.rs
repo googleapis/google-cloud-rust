@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use google_cloud_auth::credentials::idtoken::{
     Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
     mds::Builder as IDTokenMDSBuilder, mds::Format,

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use anyhow::Result;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};

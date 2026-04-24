@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use google::test::v1::{EchoRequest, EchoResponse};
 use google_cloud_auth::credentials::Credentials;
 use google_cloud_gax::client_builder::ClientBuilder;

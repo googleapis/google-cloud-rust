@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(missing_docs)]
+
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_secretmanager_v1::Error;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
