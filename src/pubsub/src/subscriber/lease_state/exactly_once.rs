@@ -130,9 +130,6 @@ impl Leases {
                         None
                     } else {
                         // Continue to extend messages being acked.
-                        // TODO(#5048): Do not update last_extension here after update_last_extension fn
-                        // is used to report successful extends.
-                        info.last_extension = Some(now);
                         Some(id.clone())
                     }
                 }
@@ -148,9 +145,6 @@ impl Leases {
                         None
                     } else {
                         // Extend leases for all other messages
-                        // TODO(#5048): Do not update last_extension here after update_last_extension fn
-                        // is used to report successful extends.
-                        info.last_extension = Some(now);
                         Some(id.clone())
                     }
                 }
@@ -874,6 +868,7 @@ mod tests {
         // We should always send a receipt lease extension upon receiving a
         // message.
         let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        leases.update_last_extension(&test_ids(0..2));
         let flattened = Batches::flatten(batches);
         assert_eq!(sorted(&flattened.ack_ids), test_ids(0..2));
         assert_eq!(
@@ -903,6 +898,7 @@ mod tests {
 
         // We need to extend the lease again.
         let batches = leases.retain(MAX_LEASE, MAX_LEASE_EXTENSION);
+        leases.update_last_extension(&test_ids(0..2));
         let flattened = Batches::flatten(batches);
         assert_eq!(sorted(&flattened.ack_ids), test_ids(0..2));
         assert_eq!(

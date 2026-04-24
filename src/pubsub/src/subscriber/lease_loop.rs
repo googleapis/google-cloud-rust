@@ -87,6 +87,12 @@ impl LeaseLoop {
                         match event {
                             LeaseEvent::Flush => state.flush(),
                             LeaseEvent::Extend => state.extend(),
+                            LeaseEvent::ExtendCompleted(ack_ids) => {
+                                state.update_last_extension(ack_ids);
+                            }
+                            LeaseEvent::ExtendCompletedEO(ack_ids) => {
+                                state.update_last_extension_eo(ack_ids);
+                            }
                         }
                     },
                     message = message_rx.recv() => {
@@ -378,7 +384,7 @@ mod tests {
     }
 
     #[tokio_test_no_panics(start_paused = true)]
-    async fn deadline_interval() -> anyhow::Result<()> {
+    async fn extend_interval() -> anyhow::Result<()> {
         const EXTEND_PERIOD: Duration = Duration::from_secs(1);
         const EXTEND_START: Duration = Duration::from_millis(200);
 
@@ -390,8 +396,9 @@ mod tests {
             flush_start: Duration::from_secs(900),
             extend_period: EXTEND_PERIOD,
             extend_start: EXTEND_START,
-            // extend leases for all messages on the timer
-            max_lease_extension: Duration::ZERO,
+            // max_lease_extension is set to 7 seconds as the test advances
+            // extend_period twice and the buffer is 5 seconds.
+            max_lease_extension: Duration::from_secs(7),
             ..Default::default()
         };
         let lease_loop = LeaseLoop::new(mock.clone(), confirmed_rx, options);
@@ -401,6 +408,14 @@ mod tests {
         // Seed the lease loop with some messages
         for i in 0..30 {
             lease_loop.strong_message_tx().send(test_message(i))?;
+        }
+
+        // Seed the lease loop with some exactly-once messages
+        for i in 30..60 {
+            lease_loop.strong_message_tx().send(NewMessage {
+                ack_id: test_id(i),
+                lease_info: exactly_once_info(),
+            })?;
         }
 
         // Confirm initial state
@@ -414,6 +429,14 @@ mod tests {
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(0..30))
                 .returning(move |ack_ids| ack_ids);
+
+            mock.lock()
+                .await
+                .expect_extend()
+                .times(1)
+                .withf(|v| sorted(v) == test_ids(30..60))
+                .returning(move |ack_ids| ack_ids);
+
             tokio::time::advance(EXTEND_START).await;
 
             // Yield the current task, so tokio can execute the flush().
@@ -426,14 +449,32 @@ mod tests {
             lease_loop.strong_ack_tx().send(Action::Ack(test_id(i)))?;
         }
 
-        // Advance to and validate the second extension
+        // Advance to and validate the second extension period (should be skipped)
+        {
+            mock.lock().await.expect_extend().times(0);
+            tokio::time::advance(EXTEND_PERIOD).await;
+
+            // Yield the current task, so tokio can execute the flush().
+            tokio::task::yield_now().await;
+            mock.lock().await.checkpoint();
+        }
+
+        // Advance to and validate the third extension (should be extended)
         {
             mock.lock()
                 .await
                 .expect_extend()
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(10..30))
-                .returning(move |ack_ids| ack_ids);
+                .returning(|ack_ids| ack_ids);
+
+            mock.lock()
+                .await
+                .expect_extend()
+                .times(1)
+                .withf(|v| sorted(v) == test_ids(30..60))
+                .returning(|ack_ids| ack_ids);
+
             tokio::time::advance(EXTEND_PERIOD).await;
 
             // Yield the current task, so tokio can execute the flush().
