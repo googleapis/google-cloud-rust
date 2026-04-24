@@ -38,7 +38,6 @@ use google_cloud_gax::client_builder::Result as ClientBuilderResult;
 use google_cloud_gax::error::{Error, rpc::Status};
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
 use google_cloud_gax::options::RequestOptions;
-use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
 use google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy;
 use google_cloud_gax::polling_error_policy::{
     Aip194Strict as PollingAip194Strict, PollingErrorPolicy,
@@ -389,29 +388,32 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        builder = if let Some(user_agent) = options.user_agent() {
-            builder.header(
-                reqwest::USER_AGENT,
-                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            )
-        } else {
-            builder
-        };
-
         builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
 
-        builder = match self.cred.headers(Extensions::new()).await {
+        let mut headers = match self.cred.headers(Extensions::new()).await {
             Err(e) => return Err(Error::authentication(e)),
-            Ok(CacheableResource::New { mut data, .. }) => {
-                if let Some(up) = options.get_extension::<UserProject>() {
-                    data.insert(X_GOOG_USER_PROJECT, up.as_value().clone());
-                }
-                builder.headers(data)
-            }
+            Ok(CacheableResource::New { data, .. }) => data,
             Ok(CacheableResource::NotModified) => unreachable!("headers are not cached"),
         };
+
+        if let Some(user_agent) = options.user_agent() {
+            headers.insert(
+                http::header::USER_AGENT,
+                http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
+
+        if let Some(user_project) = options.user_project() {
+            headers.insert(
+                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                http::header::HeaderValue::from_str(user_project).map_err(Error::ser)?,
+            );
+        }
+
+        builder = builder.headers(headers);
+
         builder.build().map_err(map_send_error)
     }
 

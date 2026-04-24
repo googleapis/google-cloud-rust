@@ -20,13 +20,13 @@ mod tests {
     use google_cloud_auth::credentials::{CacheableResource, Credentials, EntityTag};
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use http::{HeaderMap, HeaderValue};
 
-    const PROJECT_NAME: &str = "project_lazy_dog";
+    const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
     const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
+    const USER_PROJECT_NAME: &str = "project_lazy_dog";
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn user_project_emits_header() -> anyhow::Result<()> {
@@ -36,14 +36,15 @@ mod tests {
             .build()
             .await?;
 
-        let options = RequestOptions::default().insert_extension(UserProject::new(PROJECT_NAME));
+        let mut options = RequestOptions::default();
+        options.set_user_project(USER_PROJECT_NAME);
         let response = send_request(client, options).await?;
         assert_eq!(
             response
                 .metadata
-                .get("x-goog-user-project")
+                .get(X_GOOG_USER_PROJECT)
                 .map(String::as_str),
-            Some(PROJECT_NAME)
+            Some(USER_PROJECT_NAME)
         );
         Ok(())
     }
@@ -58,7 +59,7 @@ mod tests {
 
         let response = send_request(client, RequestOptions::default()).await?;
         assert!(
-            !response.metadata.contains_key("x-goog-user-project"),
+            !response.metadata.contains_key(X_GOOG_USER_PROJECT),
             "{:?}",
             response.metadata
         );
@@ -77,7 +78,7 @@ mod tests {
                 HeaderValue::from_static("Bearer test-token"),
             );
             map.insert(
-                "x-goog-user-project",
+                X_GOOG_USER_PROJECT,
                 HeaderValue::from_static(CRED_QUOTA_PROJECT),
             );
             Ok(CacheableResource::New {
@@ -85,21 +86,23 @@ mod tests {
                 entity_tag: EntityTag::default(),
             })
         });
+        mock.expect_universe_domain().returning(|| None);
 
         let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
             .build()
             .await?;
 
-        let options = RequestOptions::default().insert_extension(UserProject::new(PROJECT_NAME));
+        let mut options = RequestOptions::default();
+        options.set_user_project(USER_PROJECT_NAME);
         let response = send_request(client, options).await?;
 
         assert_eq!(
             response
                 .metadata
-                .get("x-goog-user-project")
+                .get(X_GOOG_USER_PROJECT)
                 .map(String::as_str),
-            Some(PROJECT_NAME)
+            Some(USER_PROJECT_NAME)
         );
         assert!(
             !response.metadata.values().any(|v| v == CRED_QUOTA_PROJECT),
