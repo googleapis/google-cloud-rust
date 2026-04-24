@@ -181,10 +181,10 @@ impl Builder {
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
                 .map_err(BuilderError::parsing)?;
 
-        let universe_domain = service_account_key.universe_domain.clone();
+        let universe_domain = service_account_key.universe_domain.as_deref();
         if !crate::universe_domain::is_default_universe_domain(universe_domain) {
             return Err(BuilderError::not_supported(
-                "Service Account Credentials does not support getting an ID token in universes other than googleapis.com",
+                "Service Account Credentials do not support getting an ID token in universes other than googleapis.com",
             ));
         }
 
