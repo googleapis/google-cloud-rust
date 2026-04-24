@@ -232,7 +232,7 @@ impl Builder {
     /// ```
     pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
         self.service_account_impersonation_url = Some(format!(
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
+            "https://iamcredentials.{{universe_domain}}/v1/projects/-/serviceAccounts/{}:generateAccessToken",
             target_principal.into()
         ));
         self
@@ -871,12 +871,27 @@ impl TokenProvider for ImpersonatedTokenProvider {
                 unreachable!("requested source credentials without a caching etag")
             }
         };
+
+        let replaced_url;
+        let url = if self
+            .service_account_impersonation_url
+            .contains("{universe_domain}")
+        {
+            let universe_domain = crate::universe_domain::resolve(&self.source_credentials).await;
+            replaced_url = self
+                .service_account_impersonation_url
+                .replace("{universe_domain}", &universe_domain);
+            replaced_url.as_str()
+        } else {
+            self.service_account_impersonation_url.as_str()
+        };
+
         generate_access_token(
             source_headers,
             self.delegates.clone(),
             self.scopes.clone(),
             self.lifetime,
-            &self.service_account_impersonation_url,
+            url,
         )
         .await
     }
@@ -1782,7 +1797,7 @@ mod tests {
 
         assert_eq!(
             token_provider.inner.service_account_impersonation_url,
-            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
+            "https://iamcredentials.{universe_domain}/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
         );
     }
 
@@ -2512,6 +2527,85 @@ mod tests {
                 "should be 0x1234 but found: {access_boundary:?}"
             );
         }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_impersonated_access_token_custom_universe_domain() -> TestResult {
+        use crate::credentials::CredentialsProvider;
+
+        #[derive(Debug)]
+        struct MockSourceCredentials {
+            universe_domain: Option<String>,
+            token: String,
+        }
+
+        impl CredentialsProvider for MockSourceCredentials {
+            async fn headers(
+                &self,
+                _extensions: Extensions,
+            ) -> Result<CacheableResource<HeaderMap>> {
+                let mut headers = HeaderMap::new();
+                headers.insert(
+                    "authorization",
+                    format!("Bearer {}", self.token).parse().unwrap(),
+                );
+                Ok(CacheableResource::New {
+                    entity_tag: Default::default(),
+                    data: headers,
+                })
+            }
+
+            async fn universe_domain(&self) -> Option<String> {
+                self.universe_domain.clone()
+            }
+        }
+
+        let server = Server::run();
+        let server_host = server.addr().to_string();
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let source_credentials = Credentials::from(MockSourceCredentials {
+            universe_domain: Some(server_host.clone()),
+            token: "test-user-account-token".to_string(),
+        });
+
+        let mut builder = Builder::from_source_credentials(source_credentials)
+            .with_target_principal("test-principal");
+
+        builder.service_account_impersonation_url =
+            builder.service_account_impersonation_url.map(|s| {
+                s.replace(
+                    "https://iamcredentials.{universe_domain}/",
+                    "http://{universe_domain}/",
+                )
+            });
+
+        let creds = builder.build_access_token_credentials()?;
+
+        let token = creds.access_token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
 
         Ok(())
     }
