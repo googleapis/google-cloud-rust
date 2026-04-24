@@ -69,6 +69,7 @@ pub struct McpServer {
 }
 
 impl McpServer {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -235,6 +236,7 @@ pub struct McpTool {
 }
 
 impl McpTool {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -410,6 +412,7 @@ pub struct GetMcpServerRequest {
 }
 
 impl GetMcpServerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -461,6 +464,7 @@ pub struct ListMcpServersRequest {
 }
 
 impl ListMcpServersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -549,6 +553,7 @@ pub struct ListMcpServersResponse {
 }
 
 impl ListMcpServersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -638,6 +643,7 @@ pub struct GetMcpToolRequest {
 }
 
 impl GetMcpToolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -689,6 +695,7 @@ pub struct ListMcpToolsRequest {
 }
 
 impl ListMcpToolsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -777,6 +784,7 @@ pub struct ListMcpToolsResponse {
 }
 
 impl ListMcpToolsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

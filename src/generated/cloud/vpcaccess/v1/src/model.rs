@@ -77,6 +77,7 @@ pub struct Connector {
 }
 
 impl Connector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -276,6 +277,7 @@ pub mod connector {
     }
 
     impl Subnet {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -483,6 +485,7 @@ pub struct CreateConnectorRequest {
 }
 
 impl CreateConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -562,6 +565,7 @@ pub struct GetConnectorRequest {
 }
 
 impl GetConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -602,6 +606,7 @@ pub struct ListConnectorsRequest {
 }
 
 impl ListConnectorsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -663,6 +668,7 @@ pub struct ListConnectorsResponse {
 }
 
 impl ListConnectorsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -733,6 +739,7 @@ pub struct DeleteConnectorRequest {
 }
 
 impl DeleteConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -778,6 +785,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

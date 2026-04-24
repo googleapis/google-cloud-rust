@@ -54,6 +54,7 @@ pub struct LoginProfile {
 }
 
 impl LoginProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -135,6 +136,7 @@ pub struct CreateSshPublicKeyRequest {
 }
 
 impl CreateSshPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -204,6 +206,7 @@ pub struct DeletePosixAccountRequest {
 }
 
 impl DeletePosixAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -240,6 +243,7 @@ pub struct DeleteSshPublicKeyRequest {
 }
 
 impl DeleteSshPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -280,6 +284,7 @@ pub struct GetLoginProfileRequest {
 }
 
 impl GetLoginProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -340,6 +345,7 @@ pub struct GetSshPublicKeyRequest {
 }
 
 impl GetSshPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -385,6 +391,7 @@ pub struct ImportSshPublicKeyRequest {
 }
 
 impl ImportSshPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -484,6 +491,7 @@ pub struct ImportSshPublicKeyResponse {
 }
 
 impl ImportSshPublicKeyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -559,6 +567,7 @@ pub struct UpdateSshPublicKeyRequest {
 }
 
 impl UpdateSshPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

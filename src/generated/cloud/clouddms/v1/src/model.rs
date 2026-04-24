@@ -76,6 +76,7 @@ pub struct ListMigrationJobsRequest {
 }
 
 impl ListMigrationJobsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -165,6 +166,7 @@ pub struct ListMigrationJobsResponse {
 }
 
 impl ListMigrationJobsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -252,6 +254,7 @@ pub struct GetMigrationJobRequest {
 }
 
 impl GetMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -304,6 +307,7 @@ pub struct CreateMigrationJobRequest {
 }
 
 impl CreateMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -411,6 +415,7 @@ pub struct UpdateMigrationJobRequest {
 }
 
 impl UpdateMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -525,6 +530,7 @@ pub struct DeleteMigrationJobRequest {
 }
 
 impl DeleteMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -587,6 +593,7 @@ pub struct StartMigrationJobRequest {
 }
 
 impl StartMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -633,6 +640,7 @@ pub struct StopMigrationJobRequest {
 }
 
 impl StopMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -667,6 +675,7 @@ pub struct ResumeMigrationJobRequest {
 }
 
 impl ResumeMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -701,6 +710,7 @@ pub struct PromoteMigrationJobRequest {
 }
 
 impl PromoteMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -743,6 +753,7 @@ pub struct VerifyMigrationJobRequest {
 }
 
 impl VerifyMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -847,6 +858,7 @@ pub struct RestartMigrationJobRequest {
 }
 
 impl RestartMigrationJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -902,6 +914,7 @@ pub struct GenerateSshScriptRequest {
 }
 
 impl GenerateSshScriptRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1088,6 +1101,7 @@ pub struct VmCreationConfig {
 }
 
 impl VmCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1146,6 +1160,7 @@ pub struct VmSelectionConfig {
 }
 
 impl VmSelectionConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1180,6 +1195,7 @@ pub struct SshScript {
 }
 
 impl SshScript {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1232,6 +1248,7 @@ pub struct GenerateTcpProxyScriptRequest {
 }
 
 impl GenerateTcpProxyScriptRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1314,6 +1331,7 @@ pub struct TcpProxyScript {
 }
 
 impl TcpProxyScript {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1375,6 +1393,7 @@ pub struct ListConnectionProfilesRequest {
 }
 
 impl ListConnectionProfilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1464,6 +1483,7 @@ pub struct ListConnectionProfilesResponse {
 }
 
 impl ListConnectionProfilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1551,6 +1571,7 @@ pub struct GetConnectionProfileRequest {
 }
 
 impl GetConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1610,6 +1631,7 @@ pub struct CreateConnectionProfileRequest {
 }
 
 impl CreateConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1751,6 +1773,7 @@ pub struct UpdateConnectionProfileRequest {
 }
 
 impl UpdateConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1888,6 +1911,7 @@ pub struct DeleteConnectionProfileRequest {
 }
 
 impl DeleteConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1965,6 +1989,7 @@ pub struct CreatePrivateConnectionRequest {
 }
 
 impl CreatePrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2096,6 +2121,7 @@ pub struct ListPrivateConnectionsRequest {
 }
 
 impl ListPrivateConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2185,6 +2211,7 @@ pub struct ListPrivateConnectionsResponse {
 }
 
 impl ListPrivateConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2281,6 +2308,7 @@ pub struct DeletePrivateConnectionRequest {
 }
 
 impl DeletePrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2327,6 +2355,7 @@ pub struct GetPrivateConnectionRequest {
 }
 
 impl GetPrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2387,6 +2416,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2557,6 +2587,7 @@ pub struct ListConversionWorkspacesRequest {
 }
 
 impl ListConversionWorkspacesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2634,6 +2665,7 @@ pub struct ListConversionWorkspacesResponse {
 }
 
 impl ListConversionWorkspacesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2721,6 +2753,7 @@ pub struct GetConversionWorkspaceRequest {
 }
 
 impl GetConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2771,6 +2804,7 @@ pub struct CreateConversionWorkspaceRequest {
 }
 
 impl CreateConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2878,6 +2912,7 @@ pub struct UpdateConversionWorkspaceRequest {
 }
 
 impl UpdateConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2991,6 +3026,7 @@ pub struct DeleteConversionWorkspaceRequest {
 }
 
 impl DeleteConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3052,6 +3088,7 @@ pub struct CommitConversionWorkspaceRequest {
 }
 
 impl CommitConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3098,6 +3135,7 @@ pub struct RollbackConversionWorkspaceRequest {
 }
 
 impl RollbackConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3151,6 +3189,7 @@ pub struct ApplyConversionWorkspaceRequest {
 }
 
 impl ApplyConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3309,6 +3348,7 @@ pub struct ListMappingRulesRequest {
 }
 
 impl ListMappingRulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3371,6 +3411,7 @@ pub struct ListMappingRulesResponse {
 }
 
 impl ListMappingRulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3447,6 +3488,7 @@ pub struct GetMappingRuleRequest {
 }
 
 impl GetMappingRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3492,6 +3534,7 @@ pub struct SeedConversionWorkspaceRequest {
 }
 
 impl SeedConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3668,6 +3711,7 @@ pub struct ConvertConversionWorkspaceRequest {
 }
 
 impl ConvertConversionWorkspaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3750,6 +3794,7 @@ pub struct ImportMappingRulesRequest {
 }
 
 impl ImportMappingRulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3845,6 +3890,7 @@ pub mod import_mapping_rules_request {
     }
 
     impl RulesFile {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3930,6 +3976,7 @@ pub struct DescribeDatabaseEntitiesRequest {
 }
 
 impl DescribeDatabaseEntitiesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4214,6 +4261,7 @@ pub struct DescribeDatabaseEntitiesResponse {
 }
 
 impl DescribeDatabaseEntitiesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4299,6 +4347,7 @@ pub struct SearchBackgroundJobsRequest {
 }
 
 impl SearchBackgroundJobsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4396,6 +4445,7 @@ pub struct SearchBackgroundJobsResponse {
 }
 
 impl SearchBackgroundJobsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4445,6 +4495,7 @@ pub struct DescribeConversionWorkspaceRevisionsRequest {
 }
 
 impl DescribeConversionWorkspaceRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4494,6 +4545,7 @@ pub struct DescribeConversionWorkspaceRevisionsResponse {
 }
 
 impl DescribeConversionWorkspaceRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4555,6 +4607,7 @@ pub struct CreateMappingRuleRequest {
 }
 
 impl CreateMappingRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4655,6 +4708,7 @@ pub struct DeleteMappingRuleRequest {
 }
 
 impl DeleteMappingRuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4708,6 +4762,7 @@ pub struct FetchStaticIpsRequest {
 }
 
 impl FetchStaticIpsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4770,6 +4825,7 @@ pub struct FetchStaticIpsResponse {
 }
 
 impl FetchStaticIpsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4837,6 +4893,7 @@ pub struct SslConfig {
 }
 
 impl SslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5078,6 +5135,7 @@ pub struct MySqlConnectionProfile {
 }
 
 impl MySqlConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5238,6 +5296,7 @@ pub struct PostgreSqlConnectionProfile {
 }
 
 impl PostgreSqlConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5539,6 +5598,7 @@ pub struct OracleConnectionProfile {
 }
 
 impl OracleConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5855,6 +5915,7 @@ pub struct CloudSqlConnectionProfile {
 }
 
 impl CloudSqlConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5966,6 +6027,7 @@ pub struct AlloyDbConnectionProfile {
 }
 
 impl AlloyDbConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6039,6 +6101,7 @@ pub struct SqlAclEntry {
 }
 
 impl SqlAclEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6214,6 +6277,7 @@ pub struct SqlIpConfig {
 }
 
 impl SqlIpConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6441,6 +6505,7 @@ pub struct CloudSqlSettings {
 }
 
 impl CloudSqlSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7558,6 +7623,7 @@ pub struct AlloyDbSettings {
     /// of 'key', 'value' pairs.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    #[allow(missing_docs)]
     pub primary_instance_settings:
         std::option::Option<crate::model::alloy_db_settings::PrimaryInstanceSettings>,
 
@@ -7572,6 +7638,7 @@ pub struct AlloyDbSettings {
 }
 
 impl AlloyDbSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7738,6 +7805,7 @@ pub mod alloy_db_settings {
     }
 
     impl UserPassword {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7816,6 +7884,7 @@ pub mod alloy_db_settings {
     }
 
     impl PrimaryInstanceSettings {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7946,6 +8015,7 @@ pub mod alloy_db_settings {
         }
 
         impl MachineConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7984,6 +8054,7 @@ pub mod alloy_db_settings {
     }
 
     impl EncryptionConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8022,6 +8093,7 @@ pub struct StaticIpConnectivity {
 }
 
 impl StaticIpConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8047,6 +8119,7 @@ pub struct PrivateServiceConnectConnectivity {
 }
 
 impl PrivateServiceConnectConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8101,6 +8174,7 @@ pub struct ReverseSshConnectivity {
 }
 
 impl ReverseSshConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8173,6 +8247,7 @@ pub struct VpcPeeringConnectivity {
 }
 
 impl VpcPeeringConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8209,6 +8284,7 @@ pub struct ForwardSshTunnelConnectivity {
     /// Port for the SSH tunnel, default value is 22.
     pub port: i32,
 
+    #[allow(missing_docs)]
     pub authentication_method:
         std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
 
@@ -8216,6 +8292,7 @@ pub struct ForwardSshTunnelConnectivity {
 }
 
 impl ForwardSshTunnelConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8361,6 +8438,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthenticationMethod {
@@ -8379,6 +8457,7 @@ pub struct StaticServiceIpConnectivity {
 }
 
 impl StaticServiceIpConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8401,6 +8480,7 @@ pub struct PrivateConnectivity {
 }
 
 impl PrivateConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8441,6 +8521,7 @@ pub struct DatabaseType {
 }
 
 impl DatabaseType {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8590,6 +8671,7 @@ pub struct MigrationJob {
 }
 
 impl MigrationJob {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9256,6 +9338,7 @@ pub mod migration_job {
     }
 
     impl DumpFlag {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9302,6 +9385,7 @@ pub mod migration_job {
     }
 
     impl DumpFlags {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9346,6 +9430,7 @@ pub mod migration_job {
     }
 
     impl PerformanceConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10065,6 +10150,7 @@ pub struct ConversionWorkspaceInfo {
 }
 
 impl ConversionWorkspaceInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10145,6 +10231,7 @@ pub struct ConnectionProfile {
 }
 
 impl ConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10787,6 +10874,7 @@ pub struct MigrationJobVerificationError {
 }
 
 impl MigrationJobVerificationError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11234,12 +11322,14 @@ pub struct PrivateConnection {
     /// Output only. The error details in case of state FAILED.
     pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
+    #[allow(missing_docs)]
     pub connectivity: std::option::Option<crate::model::private_connection::Connectivity>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivateConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11498,6 +11588,7 @@ pub mod private_connection {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
+        #[allow(missing_docs)]
         Unspecified,
         /// The private connection is in creation state - creating resources.
         Creating,
@@ -11639,6 +11730,7 @@ pub mod private_connection {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Connectivity {
@@ -11663,6 +11755,7 @@ pub struct VpcPeeringConfig {
 }
 
 impl VpcPeeringConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11712,6 +11805,7 @@ pub struct DatabaseEngineInfo {
 }
 
 impl DatabaseEngineInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11794,6 +11888,7 @@ pub struct ConversionWorkspace {
 }
 
 impl ConversionWorkspace {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12070,12 +12165,14 @@ pub struct BackgroundJobLogEntry {
     /// committed after a successful completion of the job.
     pub request_autocommit: bool,
 
+    #[allow(missing_docs)]
     pub job_details: std::option::Option<crate::model::background_job_log_entry::JobDetails>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BackgroundJobLogEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12452,6 +12549,7 @@ pub mod background_job_log_entry {
     }
 
     impl SeedJobDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12492,6 +12590,7 @@ pub mod background_job_log_entry {
     }
 
     impl ImportRulesJobDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12548,6 +12647,7 @@ pub mod background_job_log_entry {
     }
 
     impl ConvertJobDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12585,6 +12685,7 @@ pub mod background_job_log_entry {
     }
 
     impl ApplyJobDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12756,6 +12857,7 @@ pub mod background_job_log_entry {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum JobDetails {
@@ -12808,6 +12910,7 @@ pub struct MappingRuleFilter {
 }
 
 impl MappingRuleFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12934,6 +13037,7 @@ pub struct MappingRule {
 }
 
 impl MappingRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13856,6 +13960,7 @@ pub struct SingleEntityRename {
 }
 
 impl SingleEntityRename {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13906,6 +14011,7 @@ pub struct MultiEntityRename {
 }
 
 impl MultiEntityRename {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13969,6 +14075,7 @@ pub struct EntityMove {
 }
 
 impl EntityMove {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14056,6 +14163,7 @@ pub struct SingleColumnChange {
 }
 
 impl SingleColumnChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14323,6 +14431,7 @@ pub struct MultiColumnDatatypeChange {
 }
 
 impl MultiColumnDatatypeChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14584,6 +14693,7 @@ pub struct SourceTextFilter {
 }
 
 impl SourceTextFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14647,6 +14757,7 @@ pub struct SourceNumericFilter {
 }
 
 impl SourceNumericFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14739,6 +14850,7 @@ pub struct ConditionalColumnSetValue {
     /// Optional. Custom engine specific features.
     pub custom_features: std::option::Option<wkt::Struct>,
 
+    #[allow(missing_docs)]
     pub source_filter:
         std::option::Option<crate::model::conditional_column_set_value::SourceFilter>,
 
@@ -14746,6 +14858,7 @@ pub struct ConditionalColumnSetValue {
 }
 
 impl ConditionalColumnSetValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14934,6 +15047,7 @@ pub mod conditional_column_set_value {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SourceFilter {
@@ -14951,14 +15065,17 @@ pub mod conditional_column_set_value {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueTransformation {
+    #[allow(missing_docs)]
     pub filter: std::option::Option<crate::model::value_transformation::Filter>,
 
+    #[allow(missing_docs)]
     pub action: std::option::Option<crate::model::value_transformation::Action>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValueTransformation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15429,6 +15546,7 @@ pub mod value_transformation {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Filter {
@@ -15444,6 +15562,7 @@ pub mod value_transformation {
         DoubleComparison(std::boxed::Box<crate::model::DoubleComparisonFilter>),
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Action {
@@ -15486,6 +15605,7 @@ pub struct ConvertRowIdToColumn {
 }
 
 impl ConvertRowIdToColumn {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15529,6 +15649,7 @@ pub struct SetTablePrimaryKey {
 }
 
 impl SetTablePrimaryKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15588,6 +15709,7 @@ pub struct SinglePackageChange {
 }
 
 impl SinglePackageChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15642,6 +15764,7 @@ pub struct SourceSqlChange {
 }
 
 impl SourceSqlChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15687,6 +15810,7 @@ pub struct FilterTableColumns {
 }
 
 impl FilterTableColumns {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15751,6 +15875,7 @@ pub struct ValueListFilter {
 }
 
 impl ValueListFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15823,6 +15948,7 @@ pub struct IntComparisonFilter {
 }
 
 impl IntComparisonFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15879,6 +16005,7 @@ pub struct DoubleComparisonFilter {
 }
 
 impl DoubleComparisonFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15931,6 +16058,7 @@ pub struct AssignSpecificValue {
 }
 
 impl AssignSpecificValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15958,12 +16086,14 @@ impl wkt::message::Message for AssignSpecificValue {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApplyHash {
+    #[allow(missing_docs)]
     pub hash_function: std::option::Option<crate::model::apply_hash::HashFunction>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApplyHash {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16038,6 +16168,7 @@ pub mod apply_hash {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum HashFunction {
@@ -16059,6 +16190,7 @@ pub struct RoundToScale {
 }
 
 impl RoundToScale {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16123,6 +16255,7 @@ pub struct DatabaseEntity {
 }
 
 impl DatabaseEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16973,6 +17106,7 @@ pub struct DatabaseInstanceEntity {
 }
 
 impl DatabaseInstanceEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17032,6 +17166,7 @@ pub struct SchemaEntity {
 }
 
 impl SchemaEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17102,6 +17237,7 @@ pub struct TableEntity {
 }
 
 impl TableEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17310,6 +17446,7 @@ pub struct ColumnEntity {
 }
 
 impl ColumnEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17602,6 +17739,7 @@ pub struct ConstraintEntity {
 }
 
 impl ConstraintEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17753,6 +17891,7 @@ pub struct IndexEntity {
 }
 
 impl IndexEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17876,6 +18015,7 @@ pub struct TriggerEntity {
 }
 
 impl TriggerEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17990,6 +18130,7 @@ pub struct ViewEntity {
 }
 
 impl ViewEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18100,6 +18241,7 @@ pub struct SequenceEntity {
 }
 
 impl SequenceEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18230,6 +18372,7 @@ pub struct StoredProcedureEntity {
 }
 
 impl StoredProcedureEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18300,6 +18443,7 @@ pub struct FunctionEntity {
 }
 
 impl FunctionEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18370,6 +18514,7 @@ pub struct MaterializedViewEntity {
 }
 
 impl MaterializedViewEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18444,6 +18589,7 @@ pub struct SynonymEntity {
 }
 
 impl SynonymEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18536,6 +18682,7 @@ pub struct PackageEntity {
 }
 
 impl PackageEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18624,6 +18771,7 @@ pub struct UDTEntity {
 }
 
 impl UDTEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18723,6 +18871,7 @@ pub struct EntityMapping {
 }
 
 impl EntityMapping {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18833,6 +18982,7 @@ pub struct EntityMappingLogEntry {
 }
 
 impl EntityMappingLogEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18906,6 +19056,7 @@ pub struct EntityDdl {
 }
 
 impl EntityDdl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19020,6 +19171,7 @@ pub struct EntityIssue {
 }
 
 impl EntityIssue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19210,6 +19362,7 @@ pub mod entity_issue {
     }
 
     impl Position {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -19691,6 +19844,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseEntityView {
     }
 }
 
+/// Enum for [NetworkArchitecture].
 ///
 /// # Working with unknown values
 ///
@@ -19708,6 +19862,7 @@ impl<'de> serde::de::Deserialize<'de> for DatabaseEntityView {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum NetworkArchitecture {
+    #[allow(missing_docs)]
     Unspecified,
     /// Instance is in Cloud SQL's old producer network architecture.
     OldCsqlProducer,
