@@ -81,16 +81,13 @@ pub mod builder {
         pub use crate::publisher::builder::PublisherBuilder;
         pub use crate::publisher::builder::PublisherPartialBuilder;
     }
-    /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
         pub use crate::subscriber::builder::ClientBuilder;
         pub use crate::subscriber::builder::Subscribe;
     }
-    /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
     pub use crate::generated::gapic::builder::subscription_admin;
-    /// Request and client builders for the [TopicAdmin][crate::client::TopicAdmin] client.
     pub use crate::generated::gapic::builder::topic_admin;
 }
 
