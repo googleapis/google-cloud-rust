@@ -213,8 +213,8 @@ impl Handler {
     /// }
     /// ```
     ///
-    /// This returns `None` if there is no delivery attempt recorded (e.g., if
-    /// dead-letter topics are not configured on the subscription).
+    /// This returns `None` if dead-letter topics are not configured on the
+    /// subscription.
     pub fn delivery_attempt(&self) -> Option<i32> {
         match self {
             Handler::AtLeastOnce(h) => h.delivery_attempt(),
@@ -306,8 +306,8 @@ impl AtLeastOnce {
     /// }
     /// ```
     ///
-    /// This returns `None` if there is no delivery attempt recorded (e.g., if
-    /// dead-letter topics are not configured on the subscription).
+    /// This returns `None` if dead-letter topics are not configured on the
+    /// subscription.
     pub fn delivery_attempt(&self) -> Option<i32> {
         self.inner.as_ref().and_then(|i| i.delivery_attempt)
     }
@@ -425,8 +425,8 @@ impl ExactlyOnce {
     /// }
     /// ```
     ///
-    /// This returns `None` if there is no delivery attempt recorded (e.g., if
-    /// dead-letter topics are not configured on the subscription).
+    /// This returns `None` if dead-letter topics are not configured on the
+    /// subscription.
     pub fn delivery_attempt(&self) -> Option<i32> {
         self.inner.as_ref().and_then(|i| i.delivery_attempt)
     }
