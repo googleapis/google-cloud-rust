@@ -170,8 +170,8 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
-    /// Sets the timeout for this read request.
-    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+    /// Sets the per-attempt timeout for this read request.
+    pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.gax_options.set_attempt_timeout(timeout);
         self
     }
@@ -337,7 +337,7 @@ mod tests {
 
         let req = ReadRequest::builder("MyTable", vec!["col1"])
             .with_keys(KeySet::all())
-            .with_timeout(Duration::from_secs(10))
+            .with_attempt_timeout(Duration::from_secs(10))
             .with_retry_policy(NeverRetry)
             .with_backoff_policy(ExponentialBackoff::default())
             .build();

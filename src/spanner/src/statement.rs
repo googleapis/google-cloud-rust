@@ -155,8 +155,8 @@ impl StatementBuilder {
         self
     }
 
-    /// Sets the timeout for this statement.
-    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+    /// Sets the per-attempt timeout for this statement.
+    pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.gax_options.set_attempt_timeout(timeout);
         self
     }
@@ -514,7 +514,7 @@ mod tests {
         use std::time::Duration;
 
         let stmt = Statement::builder("SELECT * FROM users")
-            .with_timeout(Duration::from_secs(10))
+            .with_attempt_timeout(Duration::from_secs(10))
             .with_retry_policy(NeverRetry)
             .with_backoff_policy(ExponentialBackoff::default())
             .build();

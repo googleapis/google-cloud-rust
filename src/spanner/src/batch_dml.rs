@@ -64,8 +64,8 @@ impl BatchDmlBuilder {
         self
     }
 
-    /// Sets the timeout for this batch DML request.
-    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+    /// Sets the per-attempt timeout for this batch DML request.
+    pub fn with_attempt_timeout(mut self, timeout: Duration) -> Self {
         self.gax_options.set_attempt_timeout(timeout);
         self
     }
@@ -171,6 +171,38 @@ mod tests {
             "Unexpected request_options set: {:#?}",
             batch.request_options
         );
+    }
+
+    #[test]
+    fn builder_with_gax_options() {
+        use google_cloud_gax::backoff_policy::BackoffPolicy;
+        use google_cloud_gax::retry_policy::Aip194Strict;
+        use google_cloud_gax::retry_state::RetryState;
+        use std::time::Duration;
+
+        #[derive(Debug)]
+        struct DummyBackoff;
+        impl BackoffPolicy for DummyBackoff {
+            fn on_failure(&self, _state: &RetryState) -> Duration {
+                Duration::ZERO
+            }
+        }
+
+        let stmt = Statement::builder("UPDATE t SET c = 1 WHERE id = 1").build();
+
+        let batch = BatchDml::builder()
+            .add_statement(stmt)
+            .with_attempt_timeout(Duration::from_secs(5))
+            .with_retry_policy(Aip194Strict)
+            .with_backoff_policy(DummyBackoff)
+            .build();
+
+        assert_eq!(
+            *batch.gax_options.attempt_timeout(),
+            Some(Duration::from_secs(5))
+        );
+        assert!(batch.gax_options.retry_policy().is_some());
+        assert!(batch.gax_options.backoff_policy().is_some());
     }
 
     #[test]

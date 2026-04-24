@@ -955,27 +955,27 @@ mod tests {
             .run(async |tx| {
                 // Query
                 let stmt = Statement::builder("SELECT 1")
-                    .with_timeout(Duration::from_secs(10))
+                    .with_attempt_timeout(Duration::from_secs(10))
                     .build();
                 let _ = tx.execute_query(stmt).await?;
 
                 // Read
                 let req = ReadRequest::builder("Table", vec!["Col"])
                     .with_keys(crate::key::KeySet::all())
-                    .with_timeout(Duration::from_secs(5))
+                    .with_attempt_timeout(Duration::from_secs(5))
                     .build();
                 let _ = tx.execute_read(req).await?;
 
                 // Single DML
                 let dml = Statement::builder("UPDATE t SET c = 1")
-                    .with_timeout(Duration::from_secs(7))
+                    .with_attempt_timeout(Duration::from_secs(7))
                     .build();
                 let _ = tx.execute_update(dml).await?;
 
                 // Batch DML
                 let batch = BatchDml::builder()
                     .add_statement("UPDATE t SET c = 2")
-                    .with_timeout(Duration::from_secs(8))
+                    .with_attempt_timeout(Duration::from_secs(8))
                     .build();
                 let _ = tx.execute_batch_update(batch).await?;
 
