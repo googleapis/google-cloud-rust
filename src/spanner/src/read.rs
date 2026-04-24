@@ -14,6 +14,10 @@
 
 use crate::key::KeySet;
 use crate::model::DirectedReadOptions;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
+use std::time::Duration;
 
 /// Represents an incomplete read operation that requires specifying keys.
 ///
@@ -63,6 +67,7 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -90,12 +95,13 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            gax_options: GaxRequestOptions::default(),
         }
     }
 }
 
 /// A fully configured read request that is ready to be built.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct ConfiguredReadRequestBuilder {
     table: String,
     index: Option<String>,
@@ -104,6 +110,7 @@ pub struct ConfiguredReadRequestBuilder {
     limit: Option<i64>,
     request_options: Option<crate::model::RequestOptions>,
     directed_read_options: Option<DirectedReadOptions>,
+    gax_options: GaxRequestOptions,
 }
 
 impl ConfiguredReadRequestBuilder {
@@ -163,6 +170,24 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
+    /// Sets the timeout for this read request.
+    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+        self.gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for this read request.
+    pub fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for this read request.
+    pub fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.gax_options.set_backoff_policy(policy);
+        self
+    }
+
     /// Builds the configured `ReadRequest`.
     pub fn build(self) -> ReadRequest {
         ReadRequest {
@@ -173,6 +198,7 @@ impl ConfiguredReadRequestBuilder {
             limit: self.limit,
             request_options: self.request_options,
             directed_read_options: self.directed_read_options,
+            gax_options: self.gax_options,
         }
     }
 }
@@ -181,7 +207,7 @@ impl ConfiguredReadRequestBuilder {
 ///
 /// Contains the table, optional index, keys, and columns.
 /// Allows configuring optional parameters on the read operation, such as a limit.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct ReadRequest {
     pub(crate) table: String,
     pub(crate) index: Option<String>,
@@ -190,6 +216,7 @@ pub struct ReadRequest {
     pub(crate) limit: Option<i64>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
+    pub(crate) gax_options: GaxRequestOptions,
 }
 
 impl ReadRequest {
@@ -238,9 +265,9 @@ mod tests {
 
     #[test]
     fn auto_traits() {
-        static_assertions::assert_impl_all!(ReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug, PartialEq);
-        static_assertions::assert_impl_all!(ConfiguredReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug, PartialEq);
-        static_assertions::assert_impl_all!(ReadRequest: Send, Sync, Clone, std::fmt::Debug, PartialEq);
+        static_assertions::assert_impl_all!(ReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ConfiguredReadRequestBuilder: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(ReadRequest: Send, Sync, Clone, std::fmt::Debug);
     }
 
     #[test]
@@ -300,5 +327,28 @@ mod tests {
             .with_directed_read_options(dro.clone())
             .build();
         assert_eq!(req.directed_read_options, Some(dro));
+    }
+
+    #[test]
+    fn with_gax_options() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_timeout(Duration::from_secs(10))
+            .with_retry_policy(NeverRetry)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .build();
+
+        assert_eq!(
+            req.gax_options.attempt_timeout(),
+            &Some(Duration::from_secs(10))
+        );
+        assert!(req.gax_options.retry_policy().is_some());
+        assert!(req.gax_options.backoff_policy().is_some());
+
+        Ok(())
     }
 }

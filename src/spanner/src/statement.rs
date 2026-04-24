@@ -18,7 +18,11 @@ use crate::model::execute_sql_request::QueryOptions;
 use crate::to_value::ToValue;
 use crate::types::Type;
 use crate::value::Value;
+use google_cloud_gax::backoff_policy::BackoffPolicyArg;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicyArg;
 use std::collections::BTreeMap;
+use std::time::Duration;
 
 /// A builder for [Statement].
 ///
@@ -29,7 +33,7 @@ use std::collections::BTreeMap;
 ///     .add_param("id", &42)
 ///     .build();
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct StatementBuilder {
     sql: String,
     params: BTreeMap<String, Value>,
@@ -38,6 +42,7 @@ pub struct StatementBuilder {
     directed_read_options: Option<DirectedReadOptions>,
     query_options: Option<QueryOptions>,
     query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl StatementBuilder {
@@ -50,6 +55,7 @@ impl StatementBuilder {
             directed_read_options: None,
             query_options: None,
             query_mode: None,
+            gax_options: GaxRequestOptions::default(),
         }
     }
 
@@ -149,6 +155,24 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the timeout for this statement.
+    pub fn with_timeout(mut self, timeout: Duration) -> Self {
+        self.gax_options.set_attempt_timeout(timeout);
+        self
+    }
+
+    /// Sets the retry policy for this statement.
+    pub fn with_retry_policy(mut self, policy: impl Into<RetryPolicyArg>) -> Self {
+        self.gax_options.set_retry_policy(policy);
+        self
+    }
+
+    /// Sets the backoff policy for this statement.
+    pub fn with_backoff_policy(mut self, policy: impl Into<BackoffPolicyArg>) -> Self {
+        self.gax_options.set_backoff_policy(policy);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -159,6 +183,7 @@ impl StatementBuilder {
             directed_read_options: self.directed_read_options,
             query_options: self.query_options,
             query_mode: self.query_mode,
+            gax_options: self.gax_options,
         }
     }
 }
@@ -186,7 +211,7 @@ impl StatementBuilder {
 /// # Ok(())
 /// # }
 /// ```
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug)]
 pub struct Statement {
     pub sql: String,
     pub(crate) params: BTreeMap<String, Value>,
@@ -195,12 +220,17 @@ pub struct Statement {
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
     pub(crate) query_options: Option<QueryOptions>,
     pub(crate) query_mode: Option<QueryMode>,
+    gax_options: GaxRequestOptions,
 }
 
 impl Statement {
     /// Creates a new statement builder.
     pub fn builder(sql: impl Into<String>) -> StatementBuilder {
         StatementBuilder::new(sql)
+    }
+
+    pub(crate) fn gax_options(&self) -> &GaxRequestOptions {
+        &self.gax_options
     }
 
     /// Sets the query mode to use for this statement.
@@ -308,8 +338,8 @@ mod tests {
 
     #[test]
     fn test_auto_traits() {
-        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, PartialEq, Send, Sync);
-        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, PartialEq, Send, Sync);
+        static_assertions::assert_impl_all!(Statement: Clone, std::fmt::Debug, Send, Sync);
+        static_assertions::assert_impl_all!(StatementBuilder: Clone, std::fmt::Debug, Send, Sync);
     }
 
     #[test]
@@ -474,6 +504,28 @@ mod tests {
 
         let req = stmt.into_request();
         assert_eq!(req.query_mode, QueryMode::Profile);
+        Ok(())
+    }
+
+    #[test]
+    fn with_gax_options() -> anyhow::Result<()> {
+        use google_cloud_gax::exponential_backoff::ExponentialBackoff;
+        use google_cloud_gax::retry_policy::NeverRetry;
+        use std::time::Duration;
+
+        let stmt = Statement::builder("SELECT * FROM users")
+            .with_timeout(Duration::from_secs(10))
+            .with_retry_policy(NeverRetry)
+            .with_backoff_policy(ExponentialBackoff::default())
+            .build();
+
+        assert_eq!(
+            stmt.gax_options.attempt_timeout(),
+            &Some(Duration::from_secs(10))
+        );
+        assert!(stmt.gax_options.retry_policy().is_some());
+        assert!(stmt.gax_options.backoff_policy().is_some());
+
         Ok(())
     }
 }
