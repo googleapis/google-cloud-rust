@@ -14,6 +14,7 @@
 
 use crate::key::KeySet;
 use crate::model::DirectedReadOptions;
+use crate::model::read_request::{LockHint, OrderBy};
 
 /// Represents an incomplete read operation that requires specifying keys.
 ///
@@ -63,6 +64,8 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            order_by: None,
+            lock_hint: None,
         }
     }
 
@@ -90,6 +93,8 @@ impl ReadRequestBuilder {
             limit: None,
             request_options: None,
             directed_read_options: None,
+            order_by: None,
+            lock_hint: None,
         }
     }
 }
@@ -104,6 +109,8 @@ pub struct ConfiguredReadRequestBuilder {
     limit: Option<i64>,
     request_options: Option<crate::model::RequestOptions>,
     directed_read_options: Option<DirectedReadOptions>,
+    order_by: Option<OrderBy>,
+    lock_hint: Option<LockHint>,
 }
 
 impl ConfiguredReadRequestBuilder {
@@ -163,6 +170,57 @@ impl ConfiguredReadRequestBuilder {
         self
     }
 
+    /// Sets the order in which rows are returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::read_request::OrderBy;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_order_by(OrderBy::NoOrder);
+    /// ```
+    ///
+    /// By default, Spanner returns result rows in primary key order (or index key
+    /// order if reading via an index) except for `PartitionRead` requests.
+    ///
+    /// For applications that don't require rows to be returned in primary key
+    /// (`ORDER_BY_PRIMARY_KEY`) order, setting `ORDER_BY_NO_ORDER` option allows
+    /// Spanner to optimize row retrieval, resulting in lower latencies in certain
+    /// cases (for example, bulk point lookups).
+    pub fn with_order_by(mut self, order_by: OrderBy) -> Self {
+        self.order_by = Some(order_by);
+        self
+    }
+
+    /// Sets the lock hint for this read.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::read_request::LockHint;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_lock_hint(LockHint::Exclusive);
+    /// ```
+    ///
+    /// Lock hints can only be used with read-write transactions.
+    ///
+    /// By default, Spanner acquires shared read locks, which allows other reads to
+    /// still access the data until your transaction is ready to commit.
+    ///
+    /// Requesting exclusive locks (`LOCK_HINT_EXCLUSIVE`) is beneficial if you observe
+    /// high write contention. It prevents deadlocks by avoiding the situation where
+    /// multiple transactions initially acquire shared locks and then both try to upgrade
+    /// to exclusive locks at the same time.
+    ///
+    /// Request exclusive locks judiciously because they block others from reading that
+    /// data for the entire transaction, rather than just when the writes are being performed.
+    pub fn with_lock_hint(mut self, lock_hint: LockHint) -> Self {
+        self.lock_hint = Some(lock_hint);
+        self
+    }
+
     /// Builds the configured `ReadRequest`.
     pub fn build(self) -> ReadRequest {
         ReadRequest {
@@ -173,6 +231,8 @@ impl ConfiguredReadRequestBuilder {
             limit: self.limit,
             request_options: self.request_options,
             directed_read_options: self.directed_read_options,
+            order_by: self.order_by,
+            lock_hint: self.lock_hint,
         }
     }
 }
@@ -190,6 +250,8 @@ pub struct ReadRequest {
     pub(crate) limit: Option<i64>,
     pub(crate) request_options: Option<crate::model::RequestOptions>,
     pub(crate) directed_read_options: Option<DirectedReadOptions>,
+    pub(crate) order_by: Option<OrderBy>,
+    pub(crate) lock_hint: Option<LockHint>,
 }
 
 impl ReadRequest {
@@ -221,6 +283,8 @@ impl ReadRequest {
             .set_limit(self.limit.unwrap_or_default())
             .set_or_clear_request_options(self.request_options)
             .set_or_clear_directed_read_options(self.directed_read_options)
+            .set_order_by(self.order_by.unwrap_or_default())
+            .set_lock_hint(self.lock_hint.unwrap_or_default())
     }
 
     pub(crate) fn into_partition_read_request(self) -> crate::model::PartitionReadRequest {
@@ -300,5 +364,23 @@ mod tests {
             .with_directed_read_options(dro.clone())
             .build();
         assert_eq!(req.directed_read_options, Some(dro));
+    }
+
+    #[test]
+    fn with_order_by() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_order_by(OrderBy::PrimaryKey)
+            .build();
+        assert_eq!(req.order_by, Some(OrderBy::PrimaryKey));
+    }
+
+    #[test]
+    fn with_lock_hint() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_lock_hint(LockHint::Exclusive)
+            .build();
+        assert_eq!(req.lock_hint, Some(LockHint::Exclusive));
     }
 }
