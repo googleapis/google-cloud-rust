@@ -14,6 +14,7 @@
 
 use crate::key::KeySet;
 use crate::model::DirectedReadOptions;
+use crate::model::request_options::Priority;
 
 /// Represents an incomplete read operation that requires specifying keys.
 ///
@@ -140,6 +141,24 @@ impl ConfiguredReadRequestBuilder {
         self.request_options
             .get_or_insert_with(crate::model::RequestOptions::default)
             .request_tag = tag.into();
+        self
+    }
+
+    /// Sets the RPC priority to use for this read request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{ReadRequest, KeySet};
+    /// # use google_cloud_spanner::model::request_options::Priority;
+    /// let request = ReadRequest::builder("Users", vec!["Id"])
+    ///     .with_keys(KeySet::all())
+    ///     .with_priority(Priority::Low)
+    ///     .build();
+    /// ```
+    pub fn with_priority(mut self, priority: Priority) -> Self {
+        self.request_options
+            .get_or_insert_with(crate::model::RequestOptions::default)
+            .priority = priority;
         self
     }
 
@@ -289,6 +308,20 @@ mod tests {
                 .expect("request options missing")
                 .request_tag,
             "tag1"
+        );
+    }
+
+    #[test]
+    fn with_priority() {
+        let req = ReadRequest::builder("MyTable", vec!["col1"])
+            .with_keys(KeySet::all())
+            .with_priority(Priority::High)
+            .build();
+        assert_eq!(
+            req.request_options
+                .expect("request options missing")
+                .priority,
+            Priority::High
         );
     }
 
