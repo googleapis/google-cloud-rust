@@ -53,7 +53,6 @@
 #![warn(missing_docs)]
 
 #[allow(rustdoc::broken_intra_doc_links)]
-#[allow(missing_docs)]
 pub(crate) mod generated;
 
 /// Types related to publishing messages with a [Publisher][client::Publisher]
