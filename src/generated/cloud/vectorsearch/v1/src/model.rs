@@ -70,6 +70,7 @@ pub struct DataObject {
 }
 
 impl DataObject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -249,6 +250,7 @@ pub struct Vector {
 }
 
 impl Vector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -377,6 +379,7 @@ pub struct DenseVector {
 }
 
 impl DenseVector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -419,6 +422,7 @@ pub struct SparseVector {
 }
 
 impl SparseVector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -481,6 +485,7 @@ pub struct OutputFields {
 }
 
 impl OutputFields {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -554,6 +559,7 @@ pub struct SearchHint {
 }
 
 impl SearchHint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -682,6 +688,7 @@ pub mod search_hint {
     }
 
     impl IndexHint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -714,6 +721,7 @@ pub mod search_hint {
     }
 
     impl KnnHint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -748,6 +756,7 @@ pub struct Search {
 }
 
 impl Search {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -943,6 +952,7 @@ pub struct VectorSearch {
 }
 
 impl VectorSearch {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1257,6 +1267,7 @@ pub struct SemanticSearch {
 }
 
 impl SemanticSearch {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1464,6 +1475,7 @@ pub struct TextSearch {
 }
 
 impl TextSearch {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1632,6 +1644,7 @@ pub struct SearchDataObjectsRequest {
 }
 
 impl SearchDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1856,6 +1869,7 @@ pub struct SearchResult {
 }
 
 impl SearchResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1947,6 +1961,7 @@ pub struct SearchDataObjectsResponse {
 }
 
 impl SearchDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2028,6 +2043,7 @@ pub struct AggregateDataObjectsRequest {
 }
 
 impl AggregateDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2114,6 +2130,7 @@ pub struct AggregateDataObjectsResponse {
 }
 
 impl AggregateDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2184,6 +2201,7 @@ pub struct QueryDataObjectsRequest {
 }
 
 impl QueryDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2316,6 +2334,7 @@ pub struct QueryDataObjectsResponse {
 }
 
 impl QueryDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2394,6 +2413,7 @@ pub struct BatchSearchDataObjectsRequest {
 }
 
 impl BatchSearchDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2499,6 +2519,7 @@ pub mod batch_search_data_objects_request {
     }
 
     impl CombineResultsOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2600,6 +2621,7 @@ pub struct Ranker {
 }
 
 impl Ranker {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2688,6 +2710,7 @@ pub struct ReciprocalRankFusion {
 }
 
 impl ReciprocalRankFusion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2728,6 +2751,7 @@ pub struct BatchSearchDataObjectsResponse {
 }
 
 impl BatchSearchDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2786,6 +2810,7 @@ pub struct CreateDataObjectRequest {
 }
 
 impl CreateDataObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2875,6 +2900,7 @@ pub struct BatchCreateDataObjectsRequest {
 }
 
 impl BatchCreateDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2934,6 +2960,7 @@ pub struct BatchCreateDataObjectsResponse {
 }
 
 impl BatchCreateDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2983,6 +3010,7 @@ pub struct GetDataObjectRequest {
 }
 
 impl GetDataObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3026,6 +3054,7 @@ pub struct UpdateDataObjectRequest {
 }
 
 impl UpdateDataObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3124,6 +3153,7 @@ pub struct BatchUpdateDataObjectsRequest {
 }
 
 impl BatchUpdateDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3180,6 +3210,7 @@ pub struct BatchUpdateDataObjectsResponse {
 }
 
 impl BatchUpdateDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3212,6 +3243,7 @@ pub struct DeleteDataObjectRequest {
 }
 
 impl DeleteDataObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3266,6 +3298,7 @@ pub struct BatchDeleteDataObjectsRequest {
 }
 
 impl BatchDeleteDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3333,6 +3366,7 @@ pub struct VertexEmbeddingConfig {
 }
 
 impl VertexEmbeddingConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3402,6 +3436,7 @@ pub struct EncryptionSpec {
 }
 
 impl EncryptionSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3468,6 +3503,7 @@ pub struct Collection {
 }
 
 impl Collection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3701,6 +3737,7 @@ pub struct VectorField {
 }
 
 impl VectorField {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3847,6 +3884,7 @@ pub struct DenseVectorField {
 }
 
 impl DenseVectorField {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3911,6 +3949,7 @@ pub struct SparseVectorField {
 }
 
 impl SparseVectorField {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3946,6 +3985,7 @@ pub struct ListCollectionsRequest {
 }
 
 impl ListCollectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4034,6 +4074,7 @@ pub struct ListCollectionsResponse {
 }
 
 impl ListCollectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4121,6 +4162,7 @@ pub struct GetCollectionRequest {
 }
 
 impl GetCollectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4180,6 +4222,7 @@ pub struct CreateCollectionRequest {
 }
 
 impl CreateCollectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4305,6 +4348,7 @@ pub struct UpdateCollectionRequest {
 }
 
 impl UpdateCollectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4420,6 +4464,7 @@ pub struct DeleteCollectionRequest {
 }
 
 impl DeleteCollectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4502,6 +4547,7 @@ pub struct Index {
 }
 
 impl Index {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4880,6 +4926,7 @@ pub struct CreateIndexRequest {
 }
 
 impl CreateIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5004,6 +5051,7 @@ pub struct UpdateIndexRequest {
 }
 
 impl UpdateIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5121,6 +5169,7 @@ pub struct DeleteIndexRequest {
 }
 
 impl DeleteIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5180,6 +5229,7 @@ pub struct ListIndexesRequest {
 }
 
 impl ListIndexesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5265,6 +5315,7 @@ pub struct ListIndexesResponse {
 }
 
 impl ListIndexesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5335,6 +5386,7 @@ pub struct GetIndexRequest {
 }
 
 impl GetIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5395,6 +5447,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5550,6 +5603,7 @@ pub struct ImportDataObjectsRequest {
 }
 
 impl ImportDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5665,6 +5719,7 @@ pub mod import_data_objects_request {
     }
 
     impl GcsImportConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5747,6 +5802,7 @@ pub struct ImportDataObjectsMetadata {
 }
 
 impl ImportDataObjectsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5862,6 +5918,7 @@ pub struct ImportDataObjectsResponse {
 }
 
 impl ImportDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5925,6 +5982,7 @@ pub struct ExportDataObjectsRequest {
 }
 
 impl ExportDataObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6036,6 +6094,7 @@ pub mod export_data_objects_request {
     }
 
     impl GcsExportDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6237,6 +6296,7 @@ pub struct ExportDataObjectsMetadata {
 }
 
 impl ExportDataObjectsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6322,6 +6382,7 @@ pub struct ExportDataObjectsResponse {
 }
 
 impl ExportDataObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6348,6 +6409,7 @@ pub struct DedicatedInfrastructure {
 }
 
 impl DedicatedInfrastructure {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6452,6 +6514,7 @@ pub mod dedicated_infrastructure {
     }
 
     impl AutoscalingSpec {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6631,6 +6694,7 @@ pub struct DenseScannIndex {
 }
 
 impl DenseScannIndex {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

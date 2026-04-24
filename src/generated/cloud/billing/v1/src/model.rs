@@ -89,6 +89,7 @@ pub struct BillingAccount {
 }
 
 impl BillingAccount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -206,6 +207,7 @@ pub struct ProjectBillingInfo {
 }
 
 impl ProjectBillingInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -280,6 +282,7 @@ pub struct GetBillingAccountRequest {
 }
 
 impl GetBillingAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -338,6 +341,7 @@ pub struct ListBillingAccountsRequest {
 }
 
 impl ListBillingAccountsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -413,6 +417,7 @@ pub struct ListBillingAccountsResponse {
 }
 
 impl ListBillingAccountsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -493,6 +498,7 @@ pub struct CreateBillingAccountRequest {
 }
 
 impl CreateBillingAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -568,6 +574,7 @@ pub struct UpdateBillingAccountRequest {
 }
 
 impl UpdateBillingAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -679,6 +686,7 @@ pub struct ListProjectBillingInfoRequest {
 }
 
 impl ListProjectBillingInfoRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -743,6 +751,7 @@ pub struct ListProjectBillingInfoResponse {
 }
 
 impl ListProjectBillingInfoResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -814,6 +823,7 @@ pub struct GetProjectBillingInfoRequest {
 }
 
 impl GetProjectBillingInfoRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -855,6 +865,7 @@ pub struct UpdateProjectBillingInfoRequest {
 }
 
 impl UpdateProjectBillingInfoRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -930,6 +941,7 @@ pub struct MoveBillingAccountRequest {
 }
 
 impl MoveBillingAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -991,6 +1003,7 @@ pub struct Service {
 }
 
 impl Service {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1091,6 +1104,7 @@ pub struct Sku {
 }
 
 impl Sku {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1281,6 +1295,7 @@ pub struct Category {
 }
 
 impl Category {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1377,6 +1392,7 @@ pub struct PricingInfo {
 }
 
 impl PricingInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1566,6 +1582,7 @@ pub struct PricingExpression {
 }
 
 impl PricingExpression {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1699,6 +1716,7 @@ pub mod pricing_expression {
     }
 
     impl TierRate {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1760,8 +1778,10 @@ pub mod pricing_expression {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregationInfo {
+    #[allow(missing_docs)]
     pub aggregation_level: crate::model::aggregation_info::AggregationLevel,
 
+    #[allow(missing_docs)]
     pub aggregation_interval: crate::model::aggregation_info::AggregationInterval,
 
     /// The number of intervals to aggregate over.
@@ -1773,6 +1793,7 @@ pub struct AggregationInfo {
 }
 
 impl AggregationInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1859,8 +1880,11 @@ pub mod aggregation_info {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AggregationLevel {
+        #[allow(missing_docs)]
         Unspecified,
+        #[allow(missing_docs)]
         Account,
+        #[allow(missing_docs)]
         Project,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1990,8 +2014,11 @@ pub mod aggregation_info {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AggregationInterval {
+        #[allow(missing_docs)]
         Unspecified,
+        #[allow(missing_docs)]
         Daily,
+        #[allow(missing_docs)]
         Monthly,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2117,6 +2144,7 @@ pub struct GeoTaxonomy {
 }
 
 impl GeoTaxonomy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2326,6 +2354,7 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2377,6 +2406,7 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2477,6 +2507,7 @@ pub struct ListSkusRequest {
 }
 
 impl ListSkusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2618,6 +2649,7 @@ pub struct ListSkusResponse {
 }
 
 impl ListSkusResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

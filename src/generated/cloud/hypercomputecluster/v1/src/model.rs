@@ -99,6 +99,7 @@ pub struct Cluster {
 }
 
 impl Cluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -372,6 +373,7 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -464,6 +466,7 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -555,6 +558,7 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -606,6 +610,7 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -710,6 +715,7 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -819,6 +825,7 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -874,6 +881,7 @@ pub struct NetworkResource {
 }
 
 impl NetworkResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1006,6 +1014,7 @@ pub struct NetworkReference {
 }
 
 impl NetworkReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1054,6 +1063,7 @@ pub struct NetworkResourceConfig {
 }
 
 impl NetworkResourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1207,6 +1217,7 @@ pub struct NewNetworkConfig {
 }
 
 impl NewNetworkConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1262,6 +1273,7 @@ pub struct ExistingNetworkConfig {
 }
 
 impl ExistingNetworkConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1317,6 +1329,7 @@ pub struct StorageResource {
 }
 
 impl StorageResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1527,6 +1540,7 @@ pub struct FilestoreReference {
 }
 
 impl FilestoreReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1562,6 +1576,7 @@ pub struct BucketReference {
 }
 
 impl BucketReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1598,6 +1613,7 @@ pub struct LustreReference {
 }
 
 impl LustreReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1634,6 +1650,7 @@ pub struct StorageResourceConfig {
 }
 
 impl StorageResourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1995,6 +2012,7 @@ pub struct NewFilestoreConfig {
 }
 
 impl NewFilestoreConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2376,6 +2394,7 @@ pub struct FileShareConfig {
 }
 
 impl FileShareConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2428,6 +2447,7 @@ pub struct ExistingFilestoreConfig {
 }
 
 impl ExistingFilestoreConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2475,6 +2495,7 @@ pub struct NewBucketConfig {
 }
 
 impl NewBucketConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2822,6 +2843,7 @@ pub struct GcsAutoclassConfig {
 }
 
 impl GcsAutoclassConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3000,6 +3022,7 @@ pub struct GcsHierarchicalNamespaceConfig {
 }
 
 impl GcsHierarchicalNamespaceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3039,6 +3062,7 @@ pub struct ExistingBucketConfig {
 }
 
 impl ExistingBucketConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3093,6 +3117,7 @@ pub struct NewLustreConfig {
 }
 
 impl NewLustreConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3170,6 +3195,7 @@ pub struct ExistingLustreConfig {
 }
 
 impl ExistingLustreConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3206,6 +3232,7 @@ pub struct ComputeResource {
 }
 
 impl ComputeResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3261,6 +3288,7 @@ pub struct ComputeResourceConfig {
 }
 
 impl ComputeResourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3513,6 +3541,7 @@ pub struct NewOnDemandInstancesConfig {
 }
 
 impl NewOnDemandInstancesConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3576,6 +3605,7 @@ pub struct NewSpotInstancesConfig {
 }
 
 impl NewSpotInstancesConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3784,6 +3814,7 @@ pub struct NewReservedInstancesConfig {
 }
 
 impl NewReservedInstancesConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3893,6 +3924,7 @@ pub struct NewFlexStartInstancesConfig {
 }
 
 impl NewFlexStartInstancesConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3978,6 +4010,7 @@ pub struct BootDisk {
 }
 
 impl BootDisk {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4026,6 +4059,7 @@ pub struct Orchestrator {
 }
 
 impl Orchestrator {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4150,6 +4184,7 @@ pub struct SlurmOrchestrator {
 }
 
 impl SlurmOrchestrator {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4337,6 +4372,7 @@ pub struct SlurmNodeSet {
 }
 
 impl SlurmNodeSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4523,6 +4559,7 @@ pub struct ComputeInstanceSlurmNodeSet {
 }
 
 impl ComputeInstanceSlurmNodeSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4621,6 +4658,7 @@ pub struct SlurmPartition {
 }
 
 impl SlurmPartition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4720,6 +4758,7 @@ pub struct SlurmLoginNodes {
 }
 
 impl SlurmLoginNodes {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4924,6 +4963,7 @@ pub struct StorageConfig {
 }
 
 impl StorageConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4972,6 +5012,7 @@ pub struct ComputeInstance {
 }
 
 impl ComputeInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5032,6 +5073,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5201,6 +5243,7 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5249,6 +5292,7 @@ pub struct OperationStep {
 }
 
 impl OperationStep {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6931,6 +6975,7 @@ pub struct CreateNetwork {
 }
 
 impl CreateNetwork {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6963,6 +7008,7 @@ pub struct CreatePrivateServiceAccess {
 }
 
 impl CreatePrivateServiceAccess {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6987,6 +7033,7 @@ pub struct CreateFilestoreInstance {
 }
 
 impl CreateFilestoreInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7022,6 +7069,7 @@ pub struct CreateStorageBucket {
 }
 
 impl CreateStorageBucket {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7058,6 +7106,7 @@ pub struct CreateLustreInstance {
 }
 
 impl CreateLustreInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7089,6 +7138,7 @@ pub struct CreateOrchestrator {
 }
 
 impl CreateOrchestrator {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7111,6 +7161,7 @@ pub struct CreateNodeset {
 }
 
 impl CreateNodeset {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7150,6 +7201,7 @@ pub struct CreatePartition {
 }
 
 impl CreatePartition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7186,6 +7238,7 @@ pub struct CreateLoginNode {
 }
 
 impl CreateLoginNode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7206,6 +7259,7 @@ pub struct CheckClusterHealth {
 }
 
 impl CheckClusterHealth {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7225,6 +7279,7 @@ pub struct UpdateOrchestrator {
 }
 
 impl UpdateOrchestrator {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7247,6 +7302,7 @@ pub struct UpdateNodeset {
 }
 
 impl UpdateNodeset {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7286,6 +7342,7 @@ pub struct UpdatePartition {
 }
 
 impl UpdatePartition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7322,6 +7379,7 @@ pub struct UpdateLoginNode {
 }
 
 impl UpdateLoginNode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7341,6 +7399,7 @@ pub struct DeleteOrchestrator {
 }
 
 impl DeleteOrchestrator {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7363,6 +7422,7 @@ pub struct DeleteNodeset {
 }
 
 impl DeleteNodeset {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7402,6 +7462,7 @@ pub struct DeletePartition {
 }
 
 impl DeletePartition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7438,6 +7499,7 @@ pub struct DeleteLoginNode {
 }
 
 impl DeleteLoginNode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7462,6 +7524,7 @@ pub struct DeleteFilestoreInstance {
 }
 
 impl DeleteFilestoreInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7497,6 +7560,7 @@ pub struct DeleteStorageBucket {
 }
 
 impl DeleteStorageBucket {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7533,6 +7597,7 @@ pub struct DeleteLustreInstance {
 }
 
 impl DeleteLustreInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7565,6 +7630,7 @@ pub struct DeletePrivateServiceAccess {
 }
 
 impl DeletePrivateServiceAccess {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7589,6 +7655,7 @@ pub struct DeleteNetwork {
 }
 
 impl DeleteNetwork {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

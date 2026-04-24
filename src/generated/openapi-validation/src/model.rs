@@ -46,6 +46,7 @@ pub struct ListLocationsResponse {
 }
 
 impl ListLocationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -154,6 +155,7 @@ pub struct Location {
 }
 
 impl Location {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -332,6 +334,7 @@ pub struct ListSecretsResponse {
 }
 
 impl ListSecretsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -538,6 +541,7 @@ pub struct Secret {
 }
 
 impl Secret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -941,6 +945,7 @@ pub struct Replication {
 }
 
 impl Replication {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1035,6 +1040,7 @@ pub struct Automatic {
 }
 
 impl Automatic {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1101,6 +1107,7 @@ pub struct CustomerManagedEncryption {
 }
 
 impl CustomerManagedEncryption {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1138,6 +1145,7 @@ pub struct UserManaged {
 }
 
 impl UserManaged {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1192,6 +1200,7 @@ pub struct Replica {
 }
 
 impl Replica {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1283,6 +1292,7 @@ pub struct Topic {
 }
 
 impl Topic {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1331,6 +1341,7 @@ pub struct Rotation {
 }
 
 impl Rotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1419,6 +1430,7 @@ pub struct AddSecretVersionRequest {
 }
 
 impl AddSecretVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1487,6 +1499,7 @@ pub struct SecretPayload {
 }
 
 impl SecretPayload {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1610,6 +1623,7 @@ pub struct SecretVersion {
 }
 
 impl SecretVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1935,6 +1949,7 @@ pub struct ReplicationStatus {
 }
 
 impl ReplicationStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2028,6 +2043,7 @@ pub struct AutomaticStatus {
 }
 
 impl AutomaticStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2085,6 +2101,7 @@ pub struct CustomerManagedEncryptionStatus {
 }
 
 impl CustomerManagedEncryptionStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2126,6 +2143,7 @@ pub struct UserManagedStatus {
 }
 
 impl UserManagedStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2176,6 +2194,7 @@ pub struct ReplicaStatus {
 }
 
 impl ReplicaStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2267,6 +2286,7 @@ pub struct Empty {
 }
 
 impl Empty {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2298,6 +2318,7 @@ pub struct ListSecretVersionsResponse {
 }
 
 impl ListSecretVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2423,6 +2444,7 @@ pub struct AccessSecretVersionResponse {
 }
 
 impl AccessSecretVersionResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2511,6 +2533,7 @@ pub struct DisableSecretVersionRequest {
 }
 
 impl DisableSecretVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2566,6 +2589,7 @@ pub struct EnableSecretVersionRequest {
 }
 
 impl EnableSecretVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2621,6 +2645,7 @@ pub struct DestroySecretVersionRequest {
 }
 
 impl DestroySecretVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2684,6 +2709,7 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2893,6 +2919,7 @@ pub struct Policy {
 }
 
 impl Policy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3121,6 +3148,7 @@ pub struct Binding {
 }
 
 impl Binding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3276,6 +3304,7 @@ pub struct Expr {
 }
 
 impl Expr {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3479,6 +3508,7 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3579,6 +3609,7 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3652,6 +3683,7 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3692,6 +3724,7 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3755,6 +3788,7 @@ pub mod secret_manager_service {
     }
 
     impl ListLocationsRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3885,6 +3919,7 @@ pub mod secret_manager_service {
     }
 
     impl GetLocationRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3945,6 +3980,7 @@ pub mod secret_manager_service {
     }
 
     impl ListSecretsRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4080,6 +4116,7 @@ pub mod secret_manager_service {
     }
 
     impl CreateSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4178,6 +4215,7 @@ pub mod secret_manager_service {
     }
 
     impl ListSecretsByProjectAndLocationRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4330,6 +4368,7 @@ pub mod secret_manager_service {
     }
 
     impl CreateSecretByProjectAndLocationRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4427,6 +4466,7 @@ pub mod secret_manager_service {
     }
 
     impl AddSecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4517,6 +4557,7 @@ pub mod secret_manager_service {
     }
 
     impl AddSecretVersionByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4611,6 +4652,7 @@ pub mod secret_manager_service {
     }
 
     impl GetSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4665,6 +4707,7 @@ pub mod secret_manager_service {
     }
 
     impl DeleteSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4751,6 +4794,7 @@ pub mod secret_manager_service {
     }
 
     impl UpdateSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4851,6 +4895,7 @@ pub mod secret_manager_service {
     }
 
     impl GetSecretByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4922,6 +4967,7 @@ pub mod secret_manager_service {
     }
 
     impl DeleteSecretByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5025,6 +5071,7 @@ pub mod secret_manager_service {
     }
 
     impl UpdateSecretByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5148,6 +5195,7 @@ pub mod secret_manager_service {
     }
 
     impl ListSecretVersionsRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5311,6 +5359,7 @@ pub mod secret_manager_service {
     }
 
     impl ListSecretVersionsByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5470,6 +5519,7 @@ pub mod secret_manager_service {
     }
 
     impl GetSecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5541,6 +5591,7 @@ pub mod secret_manager_service {
     }
 
     impl GetSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5619,6 +5670,7 @@ pub mod secret_manager_service {
     }
 
     impl AccessSecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5690,6 +5742,7 @@ pub mod secret_manager_service {
     }
 
     impl AccessSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5771,6 +5824,7 @@ pub mod secret_manager_service {
     }
 
     impl DisableSecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5878,6 +5932,7 @@ pub mod secret_manager_service {
     }
 
     impl DisableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5992,6 +6047,7 @@ pub mod secret_manager_service {
     }
 
     impl EnableSecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6099,6 +6155,7 @@ pub mod secret_manager_service {
     }
 
     impl EnableSecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6213,6 +6270,7 @@ pub mod secret_manager_service {
     }
 
     impl DestroySecretVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6320,6 +6378,7 @@ pub mod secret_manager_service {
     }
 
     impl DestroySecretVersionByProjectAndLocationAndSecretAndVersionRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6429,6 +6488,7 @@ pub mod secret_manager_service {
     }
 
     impl SetIamPolicyRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6519,6 +6579,7 @@ pub mod secret_manager_service {
     }
 
     impl SetIamPolicyByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6633,6 +6694,7 @@ pub mod secret_manager_service {
     }
 
     impl GetIamPolicyRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6741,6 +6803,7 @@ pub mod secret_manager_service {
     }
 
     impl GetIamPolicyByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6839,6 +6902,7 @@ pub mod secret_manager_service {
     }
 
     impl TestIamPermissionsRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6929,6 +6993,7 @@ pub mod secret_manager_service {
     }
 
     impl TestIamPermissionsByProjectAndLocationAndSecretRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
