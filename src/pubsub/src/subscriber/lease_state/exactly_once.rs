@@ -85,6 +85,16 @@ impl Leases {
         )
     }
 
+    /// Updates the `last_extension` timestamp for the given ack IDs with the
+    /// completion time of a successful extension RPC.
+    pub fn update_last_extension(&mut self, ack_ids: &[String], time: Instant) {
+        for id in ack_ids {
+            if let Some(info) = self.under_lease.get_mut(id) {
+                info.last_extension = Some(time);
+            }
+        }
+    }
+
     /// Returns batches of ack IDs to extend.
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
@@ -119,6 +129,8 @@ impl Leases {
                         None
                     } else {
                         // Continue to extend messages being acked.
+                        // TODO(#5048): Do not update last_extension here after update_last_extension fn
+                        // is used to report successful extends.
                         info.last_extension = Some(now);
                         Some(id.clone())
                     }
@@ -135,6 +147,8 @@ impl Leases {
                         None
                     } else {
                         // Extend leases for all other messages
+                        // TODO(#5048): Do not update last_extension here after update_last_extension fn
+                        // is used to report successful extends.
                         info.last_extension = Some(now);
                         Some(id.clone())
                     }
@@ -213,6 +227,59 @@ mod tests {
             status: MessageStatus::Leased,
             last_extension: None,
         }
+    }
+
+    #[test]
+    fn update_last_extension() {
+        let mut leases = Leases::default();
+        let now = Instant::now();
+
+        leases.add(test_id(1), test_info());
+        leases.add(test_id(2), test_info());
+
+        assert_eq!(
+            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
+            None
+        );
+        assert_eq!(
+            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
+            None
+        );
+
+        leases.update_last_extension(&[test_id(1)], now);
+
+        assert_eq!(
+            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
+            Some(now)
+        );
+        assert_eq!(
+            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
+            None
+        );
+
+        let later = now + Duration::from_secs(5);
+        leases.update_last_extension(&[test_id(1), test_id(2)], later);
+
+        assert_eq!(
+            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
+            Some(later)
+        );
+        assert_eq!(
+            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
+            Some(later)
+        );
+
+        // Test with non-existent ID
+        leases.update_last_extension(&[test_id(3)], later + Duration::from_secs(1));
+        // Should not have side effects.
+        assert_eq!(
+            leases.under_lease.get(&test_id(1)).unwrap().last_extension,
+            Some(later)
+        );
+        assert_eq!(
+            leases.under_lease.get(&test_id(2)).unwrap().last_extension,
+            Some(later)
+        );
     }
 
     #[test]
