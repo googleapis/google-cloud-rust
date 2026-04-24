@@ -448,7 +448,7 @@ pub(super) mod tests {
 
         // Test at-least-once
         state.add(test_id(1), at_least_once_info());
-        state.update_last_extension(vec![test_id(1)], now);
+        state.update_last_extension(test_ids(1..2), now);
 
         // Verify no extension immediately
         let batches = state
@@ -470,7 +470,7 @@ pub(super) mod tests {
         // Test exactly-once
         let now = Instant::now();
         state.add(test_id(2), exactly_once_info());
-        state.update_last_extension_eo(vec![test_id(2)], now);
+        state.update_last_extension_eo(test_ids(2..3), now);
 
         // Verify no extension immediately
         let batches = state
