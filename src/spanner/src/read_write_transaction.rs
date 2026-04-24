@@ -33,8 +33,15 @@ use crate::precommit::PrecommitTokenTracker;
 use crate::read_only_transaction::ReadContext;
 use crate::result_set::ResultSet;
 use crate::statement::Statement;
+use google_cloud_gax::error::Error as GaxError;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
+use google_cloud_gax::retry_policy::RetryPolicy;
+use google_cloud_gax::retry_result::RetryResult;
+use google_cloud_gax::retry_state::RetryState;
 use std::sync::Arc;
 use std::sync::atomic::{AtomicI64, Ordering};
+use std::time::Duration as StdDuration;
+use tokio::time::Instant;
 use wkt::Duration;
 
 /// A builder for [ReadWriteTransaction].
@@ -99,7 +106,10 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub(crate) async fn begin_transaction(&self) -> crate::Result<ReadWriteTransaction> {
+    pub(crate) async fn begin_transaction(
+        &self,
+        deadline: Option<Instant>,
+    ) -> crate::Result<ReadWriteTransaction> {
         let session_name = self.session_name.clone();
         let mut request = BeginTransactionRequest::default()
             .set_session(session_name.clone())
@@ -111,10 +121,16 @@ impl ReadWriteTransactionBuilder {
         }
 
         // TODO(#4972): make request options configurable
+        let mut options = RequestOptions::default();
+        if let Some(d) = deadline {
+            let remaining = d.saturating_duration_since(Instant::now());
+            options.set_attempt_timeout(remaining);
+        }
+
         let response = self
             .client
             .spanner
-            .begin_transaction(request, RequestOptions::default())
+            .begin_transaction(request, options)
             .await?;
 
         let transaction_selector =
@@ -132,6 +148,7 @@ impl ReadWriteTransactionBuilder {
             },
             seqno: Arc::new(AtomicI64::new(1)),
             max_commit_delay: self.max_commit_delay,
+            deadline,
         })
     }
 }
@@ -142,6 +159,7 @@ pub struct ReadWriteTransaction {
     pub(crate) context: ReadContext,
     seqno: Arc<AtomicI64>,
     max_commit_delay: Option<Duration>,
+    pub(crate) deadline: Option<Instant>,
 }
 
 impl ReadWriteTransaction {
@@ -150,7 +168,14 @@ impl ReadWriteTransaction {
         &self,
         statement: T,
     ) -> crate::Result<ResultSet> {
-        self.context.execute_query(statement).await
+        if self.deadline.is_none() {
+            return self.context.execute_query(statement).await;
+        }
+        let stmt = statement.into();
+        let mut gax_options = stmt.gax_options().clone();
+        self.apply_transaction_timeout(&mut gax_options);
+        let stmt = stmt.with_gax_options(gax_options);
+        self.context.execute_query(stmt).await
     }
 
     /// Reads rows from the database using key lookups and scans, as a simple key/value style alternative to execute_query.
@@ -158,14 +183,22 @@ impl ReadWriteTransaction {
         &self,
         read: T,
     ) -> crate::Result<ResultSet> {
-        self.context.execute_read(read).await
+        if self.deadline.is_none() {
+            return self.context.execute_read(read).await;
+        }
+        let mut req = read.into();
+        self.apply_transaction_timeout(&mut req.gax_options);
+        self.context.execute_read(req).await
     }
 
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
-        let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
         let statement = statement.into();
-        let gax_options = statement.gax_options().clone();
+        let mut gax_options = statement.gax_options().clone();
+        if self.deadline.is_some() {
+            self.apply_transaction_timeout(&mut gax_options);
+        }
+        let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
         let mut request = statement
             .into_request()
             .set_session(self.context.session_name.clone())
@@ -260,6 +293,10 @@ impl ReadWriteTransaction {
     /// # }
     /// ```
     pub async fn execute_batch_update(&self, batch: BatchDml) -> crate::Result<Vec<i64>> {
+        let mut batch = batch;
+        if self.deadline.is_some() {
+            self.apply_transaction_timeout(&mut batch.gax_options);
+        }
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
         let statements: Vec<ExecuteBatchDmlStatement> = batch
@@ -313,11 +350,15 @@ impl ReadWriteTransaction {
             .set_or_clear_request_options(self.context.amend_request_options(None))
             .set_or_clear_max_commit_delay(self.max_commit_delay);
 
+        // TODO(#4972): make request options configurable
+        let mut gax_options = GaxRequestOptions::default();
+        self.apply_transaction_timeout(&mut gax_options);
+
         let response = self
             .context
             .client
             .spanner
-            .commit(request, RequestOptions::default())
+            .commit(request, gax_options)
             .await?;
 
         let response =
@@ -328,10 +369,14 @@ impl ReadWriteTransaction {
                     .set_precommit_token(*new_precommit_token)
                     .set_or_clear_request_options(self.context.amend_request_options(None));
 
+                // TODO(#4972): make request options configurable
+                let mut gax_options = GaxRequestOptions::default();
+                self.apply_transaction_timeout(&mut gax_options);
+
                 self.context
                     .client
                     .spanner
-                    .commit(retry_commit_req, RequestOptions::default())
+                    .commit(retry_commit_req, gax_options)
                     .await?
             } else {
                 response
@@ -358,6 +403,40 @@ impl ReadWriteTransaction {
             .await?;
 
         Ok(())
+    }
+
+    fn apply_transaction_timeout(&self, options: &mut GaxRequestOptions) {
+        if let Some(deadline) = self.deadline {
+            let inner_policy = options
+                .retry_policy()
+                .clone()
+                .unwrap_or_else(|| Arc::new(google_cloud_gax::retry_policy::Aip194Strict));
+            let bounded_policy = TransactionBoundedRetryPolicy {
+                inner: inner_policy,
+                deadline,
+            };
+            options.set_retry_policy(bounded_policy);
+        }
+    }
+}
+
+/// A retry policy that wraps another policy and bounds the total execution time
+/// by a specific transaction deadline.
+///
+/// This policy delegates `on_error` to the inner policy but overrides `remaining_time`
+/// to ensure that it never exceeds the time left until the transaction deadline.
+#[derive(Debug)]
+struct TransactionBoundedRetryPolicy {
+    inner: Arc<dyn RetryPolicy>,
+    deadline: Instant,
+}
+
+impl RetryPolicy for TransactionBoundedRetryPolicy {
+    fn on_error(&self, state: &RetryState, error: GaxError) -> RetryResult {
+        self.inner.on_error(state, error)
+    }
+    fn remaining_time(&self, _state: &RetryState) -> Option<StdDuration> {
+        Some(self.deadline.saturating_duration_since(Instant::now()))
     }
 }
 
@@ -460,7 +539,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -527,7 +606,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
         let count = tx
@@ -564,7 +643,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -609,7 +688,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -668,7 +747,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .begin_transaction()
+            .begin_transaction(None)
             .await?;
 
         let batch = BatchDml::builder()
@@ -713,7 +792,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client)
-            .begin_transaction()
+            .begin_transaction(None)
             .await?;
 
         let batch = BatchDml::builder()
@@ -771,7 +850,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -821,7 +900,7 @@ mod tests {
         let (db_client, _server) = setup_db_client(mock).await;
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -873,7 +952,7 @@ mod tests {
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_isolation_level(IsolationLevel::Serializable)
             .with_read_lock_mode(ReadLockMode::Pessimistic)
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
     }
@@ -897,7 +976,7 @@ mod tests {
 
         let _tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_exclude_txn_from_change_streams(true)
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
     }
@@ -957,7 +1036,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -1031,7 +1110,7 @@ mod tests {
 
         let (db_client, _server) = setup_db_client(mock).await;
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 
@@ -1072,7 +1151,7 @@ mod tests {
 
         let tx = ReadWriteTransactionBuilder::new(db_client.clone())
             .with_max_commit_delay(Duration::new(0, 200_000_000).unwrap())
-            .begin_transaction()
+            .begin_transaction(None)
             .await
             .expect("Failed to build transaction");
 

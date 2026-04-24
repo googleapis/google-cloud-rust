@@ -19,6 +19,7 @@ use crate::read_write_transaction::{ReadWriteTransaction, ReadWriteTransactionBu
 use crate::transaction_retry_policy::{
     BasicTransactionRetryPolicy, TransactionRetryPolicy, backoff_if_aborted, is_aborted,
 };
+use std::time::Duration as StdDuration;
 use wkt::Duration;
 
 /// A builder for a [TransactionRunner] for a read/write transaction.
@@ -45,6 +46,7 @@ use wkt::Duration;
 pub struct TransactionRunnerBuilder {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    timeout: Option<StdDuration>,
 }
 
 impl TransactionRunnerBuilder {
@@ -52,7 +54,33 @@ impl TransactionRunnerBuilder {
         Self {
             builder: ReadWriteTransactionBuilder::new(client),
             retry_policy: Box::new(BasicTransactionRetryPolicy::default()),
+            timeout: None,
         }
+    }
+
+    /// Sets the timeout for the entire transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use std::time::Duration;
+    /// # async fn run(client: Spanner) -> Result<(), google_cloud_spanner::Error> {
+    /// # let db_client = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    /// let runner = db_client.read_write_transaction()
+    ///     .with_transaction_timeout(Duration::from_secs(5))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// This timeout applies to the total time spent executing the transaction, including
+    /// all statements and automatic retries. Each individual RPC within the transaction
+    /// is automatically assigned a deadline derived from the remaining time of this
+    /// overall timeout.
+    pub fn with_transaction_timeout(mut self, timeout: StdDuration) -> Self {
+        self.timeout = Some(timeout);
+        self
     }
 
     /// Sets the isolation level for the transaction.
@@ -228,6 +256,7 @@ impl TransactionRunnerBuilder {
         Ok(TransactionRunner {
             builder: self.builder,
             retry_policy: self.retry_policy,
+            timeout: self.timeout,
         })
     }
 }
@@ -236,6 +265,7 @@ impl TransactionRunnerBuilder {
 pub struct TransactionRunner {
     builder: ReadWriteTransactionBuilder,
     retry_policy: Box<dyn TransactionRetryPolicy>,
+    timeout: Option<StdDuration>,
 }
 
 impl TransactionRunner {
@@ -271,13 +301,14 @@ impl TransactionRunner {
         let start_time = tokio::time::Instant::now();
         let mut attempts: u32 = 0;
         let backoff = crate::transaction_retry_policy::default_retry_backoff();
+        let deadline = self.timeout.map(|t| start_time + t);
 
         loop {
             attempts += 1;
 
             let mut current_tx_id = None;
             let attempt_result = async {
-                let transaction = self.builder.begin_transaction().await?;
+                let transaction = self.builder.begin_transaction(deadline).await?;
                 current_tx_id = transaction.transaction_id().ok();
 
                 let result = match work(transaction.clone()).await {
