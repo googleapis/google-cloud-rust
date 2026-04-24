@@ -178,6 +178,7 @@ where
     // These are held separate from pending acks/nacks because we do not need to
     // await them on shutdown.
     pending_extends: JoinSet<Vec<String>>,
+    eo_pending_extends: JoinSet<Vec<String>>,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -208,6 +209,7 @@ where
             max_lease_extension: options.max_lease_extension,
             pending_acks_nacks: TaskTracker::new(),
             pending_extends: JoinSet::new(),
+            eo_pending_extends: JoinSet::new(),
         }
     }
 
@@ -258,6 +260,20 @@ where
         }
     }
 
+    /// Updates the `last_extension` timestamp for the given at-least-once ack IDs
+    /// with the completion time of a successful extension RPC.
+    #[allow(dead_code)]
+    pub(super) fn update_last_extension(&mut self, ack_ids: Vec<String>) {
+        self.leases.update_last_extension(&ack_ids);
+    }
+
+    /// Updates the `last_extension` timestamp for the given exactly-once ack IDs
+    /// with the completion time of a successful extension RPC.
+    #[allow(dead_code)]
+    pub(super) fn update_last_extension_eo(&mut self, ack_ids: Vec<String>) {
+        self.eo_leases.update_last_extension(&ack_ids);
+    }
+
     /// Flush pending acks/nacks
     pub(super) fn flush(&mut self) {
         let (to_ack, to_nack) = self.leases.drain();
@@ -301,7 +317,7 @@ where
             .retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
-            self.pending_extends
+            self.eo_pending_extends
                 .spawn(async move { leaser.extend(ack_ids).await });
         }
 
@@ -347,7 +363,10 @@ where
         // practice, because we are nacking all the messages, but it simplifies
         // our tests.
         #[cfg(test)]
-        self.pending_extends.join_all().await;
+        {
+            self.pending_extends.join_all().await;
+            self.eo_pending_extends.join_all().await;
+        }
     }
 }
 
@@ -417,6 +436,56 @@ pub(super) mod tests {
         state.extend();
         let pending_extends = std::mem::take(&mut state.pending_extends);
         let _ = pending_extends.join_all().await;
+        let eo_pending_extends = std::mem::take(&mut state.eo_pending_extends);
+        let _ = eo_pending_extends.join_all().await;
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn update_last_extension() {
+        let mock = MockLeaser::new();
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        // Test at-least-once
+        state.add(test_id(1), at_least_once_info());
+        state.update_last_extension(test_ids(1..2));
+
+        // Verify no extension immediately
+        let batches = state
+            .leases
+            .retain(Duration::from_secs(600), Duration::from_secs(60));
+        assert!(
+            batches.is_empty(),
+            "lease should not be extended since time has not advanced"
+        );
+
+        // Advance time past the extension buffer (60s max_lease_extension)
+        tokio::time::advance(Duration::from_secs(61)).await;
+        let batches = state
+            .leases
+            .retain(Duration::from_secs(600), Duration::from_secs(60));
+        let flattened = Batches::flatten(batches);
+        assert_eq!(flattened.ack_ids, test_ids(1..2));
+
+        // Test exactly-once
+        state.add(test_id(2), exactly_once_info());
+        state.update_last_extension_eo(test_ids(2..3));
+
+        // Verify no extension immediately
+        let batches = state
+            .eo_leases
+            .retain(Duration::from_secs(600), Duration::from_secs(60));
+        assert!(
+            batches.is_empty(),
+            "lease should not be extended since time has not advanced"
+        );
+
+        // Advance time past the extension buffer
+        tokio::time::advance(Duration::from_secs(61)).await;
+        let batches = state
+            .eo_leases
+            .retain(Duration::from_secs(600), Duration::from_secs(60));
+        let flattened = Batches::flatten(batches);
+        assert_eq!(flattened.ack_ids, test_ids(2..3));
     }
 
     async fn flush_and_await<L>(state: &mut LeaseState<L>)
@@ -763,22 +832,22 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -819,12 +888,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..10))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(2)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_confirmed_ack()
             .times(1)
             .in_sequence(&mut seq)
@@ -834,12 +903,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(5..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -1274,12 +1343,12 @@ pub(super) mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(0..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
         mock.expect_extend()
             .times(1)
             .in_sequence(&mut seq)
             .withf(|v| sorted(v) == test_ids(10..20))
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease: MAX_LEASE,
