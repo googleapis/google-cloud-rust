@@ -427,6 +427,7 @@ pub(crate) mod tests {
     use crate::model::{ExecuteSqlRequest, ReadRequest as GrpcReadRequest, TransactionSelector};
     use crate::read_only_transaction::tests::{create_session_mock, setup_db_client};
     use gaxi::grpc::tonic::Response;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Timestamp;
     use spanner_grpc_mock::google::spanner::v1::{
         Partition as MockPartition, PartitionResponse, Transaction,
@@ -465,7 +466,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn partition_execute_respects_options() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
         use std::time::Duration;
