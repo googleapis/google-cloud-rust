@@ -610,6 +610,7 @@ macro_rules! execute_stream_with_retry {
             $self.client.clone(),
             $self.session_name.clone(),
             $operation_variant($request),
+            $gax_options,
         ))
     }};
 }
