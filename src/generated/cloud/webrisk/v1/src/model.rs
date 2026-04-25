@@ -58,6 +58,7 @@ pub struct ComputeThreatListDiffRequest {
 }
 
 impl ComputeThreatListDiffRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -158,6 +159,7 @@ pub mod compute_threat_list_diff_request {
     }
 
     impl Constraints {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -215,6 +217,7 @@ pub mod compute_threat_list_diff_request {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffResponse {
@@ -250,6 +253,7 @@ pub struct ComputeThreatListDiffResponse {
 }
 
 impl ComputeThreatListDiffResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -441,6 +445,7 @@ pub mod compute_threat_list_diff_response {
     }
 
     impl Checksum {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -614,6 +619,7 @@ pub struct SearchUrisRequest {
 }
 
 impl SearchUrisRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -659,6 +665,7 @@ impl wkt::message::Message for SearchUrisRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisResponse {
@@ -669,6 +676,7 @@ pub struct SearchUrisResponse {
 }
 
 impl SearchUrisResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -733,6 +741,7 @@ pub mod search_uris_response {
     }
 
     impl ThreatUri {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -818,6 +827,7 @@ pub struct SearchHashesRequest {
 }
 
 impl SearchHashesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -863,6 +873,7 @@ impl wkt::message::Message for SearchHashesRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesResponse {
@@ -878,6 +889,7 @@ pub struct SearchHashesResponse {
 }
 
 impl SearchHashesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -969,6 +981,7 @@ pub mod search_hashes_response {
     }
 
     impl ThreatHash {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1066,6 +1079,7 @@ pub struct ThreatEntryAdditions {
 }
 
 impl ThreatEntryAdditions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1149,6 +1163,7 @@ pub struct ThreatEntryRemovals {
 }
 
 impl ThreatEntryRemovals {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1237,6 +1252,7 @@ pub struct RawIndices {
 }
 
 impl RawIndices {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1290,6 +1306,7 @@ pub struct RawHashes {
 }
 
 impl RawHashes {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1351,6 +1368,7 @@ pub struct RiceDeltaEncoding {
 }
 
 impl RiceDeltaEncoding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1427,6 +1445,7 @@ pub struct Submission {
 }
 
 impl Submission {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1490,6 +1509,7 @@ pub struct ThreatInfo {
 }
 
 impl ThreatInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1594,12 +1614,14 @@ pub mod threat_info {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Confidence {
+        #[allow(missing_docs)]
         pub value: std::option::Option<crate::model::threat_info::confidence::Value>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Confidence {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1859,6 +1881,7 @@ pub mod threat_info {
             }
         }
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Value {
@@ -1886,6 +1909,7 @@ pub mod threat_info {
     }
 
     impl ThreatJustification {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2243,6 +2267,7 @@ pub struct ThreatDiscovery {
 }
 
 impl ThreatDiscovery {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2456,6 +2481,7 @@ pub struct CreateSubmissionRequest {
 }
 
 impl CreateSubmissionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2533,6 +2559,7 @@ pub struct SubmitUriRequest {
 }
 
 impl SubmitUriRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2672,6 +2699,7 @@ pub struct SubmitUriMetadata {
 }
 
 impl SubmitUriMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

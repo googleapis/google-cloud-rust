@@ -86,6 +86,7 @@ pub struct Environment {
 }
 
 impl Environment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -387,6 +388,7 @@ pub struct GetEnvironmentRequest {
 }
 
 impl GetEnvironmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -419,6 +421,7 @@ pub struct CreateEnvironmentMetadata {
 }
 
 impl CreateEnvironmentMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -439,6 +442,7 @@ pub struct DeleteEnvironmentMetadata {
 }
 
 impl DeleteEnvironmentMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -475,6 +479,7 @@ pub struct StartEnvironmentRequest {
 }
 
 impl StartEnvironmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -553,6 +558,7 @@ pub struct AuthorizeEnvironmentRequest {
 }
 
 impl AuthorizeEnvironmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -644,6 +650,7 @@ pub struct AuthorizeEnvironmentResponse {
 }
 
 impl AuthorizeEnvironmentResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -666,6 +673,7 @@ pub struct AuthorizeEnvironmentMetadata {
 }
 
 impl AuthorizeEnvironmentMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -691,6 +699,7 @@ pub struct StartEnvironmentMetadata {
 }
 
 impl StartEnvironmentMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -901,6 +910,7 @@ pub struct StartEnvironmentResponse {
 }
 
 impl StartEnvironmentResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -968,6 +978,7 @@ pub struct AddPublicKeyRequest {
 }
 
 impl AddPublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1017,6 +1028,7 @@ pub struct AddPublicKeyResponse {
 }
 
 impl AddPublicKeyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1051,6 +1063,7 @@ pub struct AddPublicKeyMetadata {
 }
 
 impl AddPublicKeyMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1080,6 +1093,7 @@ pub struct RemovePublicKeyRequest {
 }
 
 impl RemovePublicKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1126,6 +1140,7 @@ pub struct RemovePublicKeyResponse {
 }
 
 impl RemovePublicKeyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1148,6 +1163,7 @@ pub struct RemovePublicKeyMetadata {
 }
 
 impl RemovePublicKeyMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1171,6 +1187,7 @@ pub struct CloudShellErrorDetails {
 }
 
 impl CloudShellErrorDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

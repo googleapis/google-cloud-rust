@@ -60,6 +60,7 @@ pub struct AppConnectorInstanceConfig {
 }
 
 impl AppConnectorInstanceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -186,12 +187,14 @@ impl wkt::message::Message for AppConnectorInstanceConfig {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NotificationConfig {
+    #[allow(missing_docs)]
     pub config: std::option::Option<crate::model::notification_config::Config>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl NotificationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -285,6 +288,7 @@ pub mod notification_config {
     }
 
     impl CloudPubSubNotificationConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -311,6 +315,7 @@ pub mod notification_config {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Config {
@@ -337,6 +342,7 @@ pub struct ImageConfig {
 }
 
 impl ImageConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -405,6 +411,7 @@ pub struct ListAppConnectorsRequest {
 }
 
 impl ListAppConnectorsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -494,6 +501,7 @@ pub struct ListAppConnectorsResponse {
 }
 
 impl ListAppConnectorsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,6 +590,7 @@ pub struct GetAppConnectorRequest {
 }
 
 impl GetAppConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -646,6 +655,7 @@ pub struct CreateAppConnectorRequest {
 }
 
 impl CreateAppConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -780,6 +790,7 @@ pub struct UpdateAppConnectorRequest {
 }
 
 impl UpdateAppConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -912,6 +923,7 @@ pub struct DeleteAppConnectorRequest {
 }
 
 impl DeleteAppConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -993,6 +1005,7 @@ pub struct ReportStatusRequest {
 }
 
 impl ReportStatusRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1115,6 +1128,7 @@ pub struct AppConnector {
 }
 
 impl AppConnector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1342,12 +1356,14 @@ pub mod app_connector {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrincipalInfo {
+        #[allow(missing_docs)]
         pub r#type: std::option::Option<crate::model::app_connector::principal_info::Type>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PrincipalInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1443,6 +1459,7 @@ pub mod app_connector {
         }
 
         impl ServiceAccount {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1466,6 +1483,7 @@ pub mod app_connector {
             }
         }
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Type {
@@ -1666,6 +1684,7 @@ pub struct AppConnectorOperationMetadata {
 }
 
 impl AppConnectorOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1838,6 +1857,7 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

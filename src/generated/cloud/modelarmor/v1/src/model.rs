@@ -59,6 +59,7 @@ pub struct Template {
 }
 
 impl Template {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -281,6 +282,7 @@ pub mod template {
     }
 
     impl TemplateMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -467,6 +469,7 @@ pub mod template {
         }
 
         impl MultiLanguageDetection {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -666,6 +669,7 @@ pub struct FloorSetting {
 }
 
 impl FloorSetting {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -926,6 +930,7 @@ pub mod floor_setting {
     }
 
     impl FloorSettingMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -990,6 +995,7 @@ pub mod floor_setting {
         }
 
         impl MultiLanguageDetection {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1158,6 +1164,7 @@ pub struct AiPlatformFloorSetting {
 }
 
 impl AiPlatformFloorSetting {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1312,6 +1319,7 @@ pub struct ListTemplatesRequest {
 }
 
 impl ListTemplatesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1400,6 +1408,7 @@ pub struct ListTemplatesResponse {
 }
 
 impl ListTemplatesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1487,6 +1496,7 @@ pub struct GetTemplateRequest {
 }
 
 impl GetTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1544,6 +1554,7 @@ pub struct CreateTemplateRequest {
 }
 
 impl CreateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1657,6 +1668,7 @@ pub struct UpdateTemplateRequest {
 }
 
 impl UpdateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1772,6 +1784,7 @@ pub struct DeleteTemplateRequest {
 }
 
 impl DeleteTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1819,6 +1832,7 @@ pub struct GetFloorSettingRequest {
 }
 
 impl GetFloorSettingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1860,6 +1874,7 @@ pub struct UpdateFloorSettingRequest {
 }
 
 impl UpdateFloorSettingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1959,6 +1974,7 @@ pub struct FilterConfig {
 }
 
 impl FilterConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2128,6 +2144,7 @@ pub struct PiAndJailbreakFilterSettings {
 }
 
 impl PiAndJailbreakFilterSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2330,6 +2347,7 @@ pub struct MaliciousUriFilterSettings {
 }
 
 impl MaliciousUriFilterSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2512,6 +2530,7 @@ pub struct RaiFilterSettings {
 }
 
 impl RaiFilterSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2568,6 +2587,7 @@ pub mod rai_filter_settings {
     }
 
     impl RaiFilter {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2629,6 +2649,7 @@ pub struct SdpFilterSettings {
 }
 
 impl SdpFilterSettings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2780,6 +2801,7 @@ pub struct SdpBasicConfig {
 }
 
 impl SdpBasicConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2985,6 +3007,7 @@ pub struct SdpAdvancedConfig {
 }
 
 impl SdpAdvancedConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3045,6 +3068,7 @@ pub struct SanitizeUserPromptRequest {
 }
 
 impl SanitizeUserPromptRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3159,6 +3183,7 @@ pub struct SanitizeModelResponseRequest {
 }
 
 impl SanitizeModelResponseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3274,6 +3299,7 @@ pub struct SanitizeUserPromptResponse {
 }
 
 impl SanitizeUserPromptResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3329,6 +3355,7 @@ pub struct SanitizeModelResponseResponse {
 }
 
 impl SanitizeModelResponseResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3406,6 +3433,7 @@ pub struct SanitizationResult {
 }
 
 impl SanitizationResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3530,6 +3558,7 @@ pub mod sanitization_result {
     }
 
     impl SanitizationMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3601,6 +3630,7 @@ pub struct MultiLanguageDetectionMetadata {
 }
 
 impl MultiLanguageDetectionMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3652,6 +3682,7 @@ pub struct FilterResult {
 }
 
 impl FilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4011,6 +4042,7 @@ pub struct RaiFilterResult {
 }
 
 impl RaiFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4122,6 +4154,7 @@ pub mod rai_filter_result {
     }
 
     impl RaiFilterTypeResult {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4200,6 +4233,7 @@ pub struct SdpFilterResult {
 }
 
 impl SdpFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4365,6 +4399,7 @@ pub struct SdpInspectResult {
 }
 
 impl SdpInspectResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4477,6 +4512,7 @@ pub struct DataItem {
 }
 
 impl DataItem {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4603,6 +4639,7 @@ pub struct ByteDataItem {
 }
 
 impl ByteDataItem {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4848,6 +4885,7 @@ pub struct SdpDeidentifyResult {
 }
 
 impl SdpDeidentifyResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4994,6 +5032,7 @@ pub struct SdpFinding {
 }
 
 impl SdpFinding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5092,6 +5131,7 @@ pub mod sdp_finding {
     }
 
     impl SdpFindingLocation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5194,6 +5234,7 @@ pub struct PiAndJailbreakFilterResult {
 }
 
 impl PiAndJailbreakFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5305,6 +5346,7 @@ pub struct MaliciousUriFilterResult {
 }
 
 impl MaliciousUriFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5416,6 +5458,7 @@ pub mod malicious_uri_filter_result {
     }
 
     impl MaliciousUriMatchedItem {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5493,6 +5536,7 @@ pub struct VirusScanFilterResult {
 }
 
 impl VirusScanFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5796,6 +5840,7 @@ pub struct VirusDetail {
 }
 
 impl VirusDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6038,6 +6083,7 @@ pub struct CsamFilterResult {
 }
 
 impl CsamFilterResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6119,6 +6165,7 @@ pub struct MessageItem {
 }
 
 impl MessageItem {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6321,6 +6368,7 @@ pub struct RangeInfo {
 }
 
 impl RangeInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

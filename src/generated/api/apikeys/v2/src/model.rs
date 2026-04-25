@@ -61,6 +61,7 @@ pub struct CreateKeyRequest {
 }
 
 impl CreateKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -150,6 +151,7 @@ pub struct ListKeysRequest {
 }
 
 impl ListKeysRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -223,6 +225,7 @@ pub struct ListKeysResponse {
 }
 
 impl ListKeysResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -293,6 +296,7 @@ pub struct GetKeyRequest {
 }
 
 impl GetKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -327,6 +331,7 @@ pub struct GetKeyStringRequest {
 }
 
 impl GetKeyStringRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -361,6 +366,7 @@ pub struct GetKeyStringResponse {
 }
 
 impl GetKeyStringResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -406,6 +412,7 @@ pub struct UpdateKeyRequest {
 }
 
 impl UpdateKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -498,6 +505,7 @@ pub struct DeleteKeyRequest {
 }
 
 impl DeleteKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -544,6 +552,7 @@ pub struct UndeleteKeyRequest {
 }
 
 impl UndeleteKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -578,6 +587,7 @@ pub struct LookupKeyRequest {
 }
 
 impl LookupKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -616,6 +626,7 @@ pub struct LookupKeyResponse {
 }
 
 impl LookupKeyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -706,6 +717,7 @@ pub struct Key {
 }
 
 impl Key {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -949,6 +961,7 @@ pub struct Restrictions {
 }
 
 impl Restrictions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1210,6 +1223,7 @@ pub struct BrowserKeyRestrictions {
 }
 
 impl BrowserKeyRestrictions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1250,6 +1264,7 @@ pub struct ServerKeyRestrictions {
 }
 
 impl ServerKeyRestrictions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1290,6 +1305,7 @@ pub struct AndroidKeyRestrictions {
 }
 
 impl AndroidKeyRestrictions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1340,6 +1356,7 @@ pub struct AndroidApplication {
 }
 
 impl AndroidApplication {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1389,6 +1406,7 @@ pub struct IosKeyRestrictions {
 }
 
 impl IosKeyRestrictions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1442,6 +1460,7 @@ pub struct ApiTarget {
 }
 
 impl ApiTarget {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

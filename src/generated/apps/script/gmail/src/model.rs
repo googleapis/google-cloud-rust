@@ -70,6 +70,7 @@ pub struct GmailAddOnManifest {
 }
 
 impl GmailAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -223,6 +224,7 @@ pub struct UniversalAction {
 }
 
 impl UniversalAction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -365,6 +367,7 @@ pub struct ComposeTrigger {
 }
 
 impl ComposeTrigger {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -574,6 +577,7 @@ pub struct ContextualTrigger {
 }
 
 impl ContextualTrigger {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -685,6 +689,7 @@ pub struct UnconditionalTrigger {
 }
 
 impl UnconditionalTrigger {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

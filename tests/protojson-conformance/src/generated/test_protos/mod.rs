@@ -34,311 +34,446 @@ pub struct TestAllTypesProto3 {
     /// Singular
     pub optional_int32: i32,
 
+    #[allow(missing_docs)]
     pub optional_int64: i64,
 
+    #[allow(missing_docs)]
     pub optional_uint32: u32,
 
+    #[allow(missing_docs)]
     pub optional_uint64: u64,
 
+    #[allow(missing_docs)]
     pub optional_sint32: i32,
 
+    #[allow(missing_docs)]
     pub optional_sint64: i64,
 
+    #[allow(missing_docs)]
     pub optional_fixed32: u32,
 
+    #[allow(missing_docs)]
     pub optional_fixed64: u64,
 
+    #[allow(missing_docs)]
     pub optional_sfixed32: i32,
 
+    #[allow(missing_docs)]
     pub optional_sfixed64: i64,
 
+    #[allow(missing_docs)]
     pub optional_float: f32,
 
+    #[allow(missing_docs)]
     pub optional_double: f64,
 
+    #[allow(missing_docs)]
     pub optional_bool: bool,
 
+    #[allow(missing_docs)]
     pub optional_string: std::string::String,
 
+    #[allow(missing_docs)]
     pub optional_bytes: ::bytes::Bytes,
 
+    #[allow(missing_docs)]
     pub optional_nested_message: std::option::Option<
         std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
     >,
 
+    #[allow(missing_docs)]
     pub optional_foreign_message:
         std::option::Option<crate::generated::test_protos::ForeignMessage>,
 
+    #[allow(missing_docs)]
     pub optional_nested_enum: crate::generated::test_protos::test_all_types_proto_3::NestedEnum,
 
+    #[allow(missing_docs)]
     pub optional_foreign_enum: crate::generated::test_protos::ForeignEnum,
 
+    #[allow(missing_docs)]
     pub optional_aliased_enum: crate::generated::test_protos::test_all_types_proto_3::AliasedEnum,
 
+    #[allow(missing_docs)]
     pub optional_string_piece: std::string::String,
 
+    #[allow(missing_docs)]
     pub optional_cord: std::string::String,
 
+    #[allow(missing_docs)]
     pub recursive_message:
         std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
 
     /// Repeated
     pub repeated_int32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub repeated_int64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub repeated_uint32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub repeated_uint64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub repeated_sint32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub repeated_sint64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub repeated_fixed32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub repeated_fixed64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub repeated_sfixed32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub repeated_sfixed64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub repeated_float: std::vec::Vec<f32>,
 
+    #[allow(missing_docs)]
     pub repeated_double: std::vec::Vec<f64>,
 
+    #[allow(missing_docs)]
     pub repeated_bool: std::vec::Vec<bool>,
 
+    #[allow(missing_docs)]
     pub repeated_string: std::vec::Vec<std::string::String>,
 
+    #[allow(missing_docs)]
     pub repeated_bytes: std::vec::Vec<::bytes::Bytes>,
 
+    #[allow(missing_docs)]
     pub repeated_nested_message:
         std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
 
+    #[allow(missing_docs)]
     pub repeated_foreign_message: std::vec::Vec<crate::generated::test_protos::ForeignMessage>,
 
+    #[allow(missing_docs)]
     pub repeated_nested_enum:
         std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
+    #[allow(missing_docs)]
     pub repeated_foreign_enum: std::vec::Vec<crate::generated::test_protos::ForeignEnum>,
 
+    #[allow(missing_docs)]
     pub repeated_string_piece: std::vec::Vec<std::string::String>,
 
+    #[allow(missing_docs)]
     pub repeated_cord: std::vec::Vec<std::string::String>,
 
     /// Packed
     pub packed_int32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub packed_int64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub packed_uint32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub packed_uint64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub packed_sint32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub packed_sint64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub packed_fixed32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub packed_fixed64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub packed_sfixed32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub packed_sfixed64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub packed_float: std::vec::Vec<f32>,
 
+    #[allow(missing_docs)]
     pub packed_double: std::vec::Vec<f64>,
 
+    #[allow(missing_docs)]
     pub packed_bool: std::vec::Vec<bool>,
 
+    #[allow(missing_docs)]
     pub packed_nested_enum:
         std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
     /// Unpacked
     pub unpacked_int32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub unpacked_int64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub unpacked_uint32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub unpacked_uint64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub unpacked_sint32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub unpacked_sint64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub unpacked_fixed32: std::vec::Vec<u32>,
 
+    #[allow(missing_docs)]
     pub unpacked_fixed64: std::vec::Vec<u64>,
 
+    #[allow(missing_docs)]
     pub unpacked_sfixed32: std::vec::Vec<i32>,
 
+    #[allow(missing_docs)]
     pub unpacked_sfixed64: std::vec::Vec<i64>,
 
+    #[allow(missing_docs)]
     pub unpacked_float: std::vec::Vec<f32>,
 
+    #[allow(missing_docs)]
     pub unpacked_double: std::vec::Vec<f64>,
 
+    #[allow(missing_docs)]
     pub unpacked_bool: std::vec::Vec<bool>,
 
+    #[allow(missing_docs)]
     pub unpacked_nested_enum:
         std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>,
 
     /// Map
     pub map_int32_int32: std::collections::HashMap<i32, i32>,
 
+    #[allow(missing_docs)]
     pub map_int64_int64: std::collections::HashMap<i64, i64>,
 
+    #[allow(missing_docs)]
     pub map_uint32_uint32: std::collections::HashMap<u32, u32>,
 
+    #[allow(missing_docs)]
     pub map_uint64_uint64: std::collections::HashMap<u64, u64>,
 
+    #[allow(missing_docs)]
     pub map_sint32_sint32: std::collections::HashMap<i32, i32>,
 
+    #[allow(missing_docs)]
     pub map_sint64_sint64: std::collections::HashMap<i64, i64>,
 
+    #[allow(missing_docs)]
     pub map_fixed32_fixed32: std::collections::HashMap<u32, u32>,
 
+    #[allow(missing_docs)]
     pub map_fixed64_fixed64: std::collections::HashMap<u64, u64>,
 
+    #[allow(missing_docs)]
     pub map_sfixed32_sfixed32: std::collections::HashMap<i32, i32>,
 
+    #[allow(missing_docs)]
     pub map_sfixed64_sfixed64: std::collections::HashMap<i64, i64>,
 
+    #[allow(missing_docs)]
     pub map_int32_float: std::collections::HashMap<i32, f32>,
 
+    #[allow(missing_docs)]
     pub map_int32_double: std::collections::HashMap<i32, f64>,
 
+    #[allow(missing_docs)]
     pub map_bool_bool: std::collections::HashMap<bool, bool>,
 
+    #[allow(missing_docs)]
     pub map_string_string: std::collections::HashMap<std::string::String, std::string::String>,
 
+    #[allow(missing_docs)]
     pub map_string_bytes: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 
+    #[allow(missing_docs)]
     pub map_string_nested_message: std::collections::HashMap<
         std::string::String,
         crate::generated::test_protos::test_all_types_proto_3::NestedMessage,
     >,
 
+    #[allow(missing_docs)]
     pub map_string_foreign_message: std::collections::HashMap<
         std::string::String,
         crate::generated::test_protos::ForeignMessage,
     >,
 
+    #[allow(missing_docs)]
     pub map_string_nested_enum: std::collections::HashMap<
         std::string::String,
         crate::generated::test_protos::test_all_types_proto_3::NestedEnum,
     >,
 
+    #[allow(missing_docs)]
     pub map_string_foreign_enum:
         std::collections::HashMap<std::string::String, crate::generated::test_protos::ForeignEnum>,
 
     /// Well-known types
     pub optional_bool_wrapper: std::option::Option<wkt::BoolValue>,
 
+    #[allow(missing_docs)]
     pub optional_int32_wrapper: std::option::Option<wkt::Int32Value>,
 
+    #[allow(missing_docs)]
     pub optional_int64_wrapper: std::option::Option<wkt::Int64Value>,
 
+    #[allow(missing_docs)]
     pub optional_uint32_wrapper: std::option::Option<wkt::UInt32Value>,
 
+    #[allow(missing_docs)]
     pub optional_uint64_wrapper: std::option::Option<wkt::UInt64Value>,
 
+    #[allow(missing_docs)]
     pub optional_float_wrapper: std::option::Option<wkt::FloatValue>,
 
+    #[allow(missing_docs)]
     pub optional_double_wrapper: std::option::Option<wkt::DoubleValue>,
 
+    #[allow(missing_docs)]
     pub optional_string_wrapper: std::option::Option<wkt::StringValue>,
 
+    #[allow(missing_docs)]
     pub optional_bytes_wrapper: std::option::Option<wkt::BytesValue>,
 
+    #[allow(missing_docs)]
     pub repeated_bool_wrapper: std::vec::Vec<wkt::BoolValue>,
 
+    #[allow(missing_docs)]
     pub repeated_int32_wrapper: std::vec::Vec<wkt::Int32Value>,
 
+    #[allow(missing_docs)]
     pub repeated_int64_wrapper: std::vec::Vec<wkt::Int64Value>,
 
+    #[allow(missing_docs)]
     pub repeated_uint32_wrapper: std::vec::Vec<wkt::UInt32Value>,
 
+    #[allow(missing_docs)]
     pub repeated_uint64_wrapper: std::vec::Vec<wkt::UInt64Value>,
 
+    #[allow(missing_docs)]
     pub repeated_float_wrapper: std::vec::Vec<wkt::FloatValue>,
 
+    #[allow(missing_docs)]
     pub repeated_double_wrapper: std::vec::Vec<wkt::DoubleValue>,
 
+    #[allow(missing_docs)]
     pub repeated_string_wrapper: std::vec::Vec<wkt::StringValue>,
 
+    #[allow(missing_docs)]
     pub repeated_bytes_wrapper: std::vec::Vec<wkt::BytesValue>,
 
+    #[allow(missing_docs)]
     pub optional_duration: std::option::Option<wkt::Duration>,
 
+    #[allow(missing_docs)]
     pub optional_timestamp: std::option::Option<wkt::Timestamp>,
 
+    #[allow(missing_docs)]
     pub optional_field_mask: std::option::Option<wkt::FieldMask>,
 
+    #[allow(missing_docs)]
     pub optional_struct: std::option::Option<wkt::Struct>,
 
+    #[allow(missing_docs)]
     pub optional_any: std::option::Option<wkt::Any>,
 
+    #[allow(missing_docs)]
     pub optional_value: std::option::Option<wkt::Value>,
 
+    #[allow(missing_docs)]
     pub optional_null_value: wkt::NullValue,
 
+    #[allow(missing_docs)]
     pub repeated_duration: std::vec::Vec<wkt::Duration>,
 
+    #[allow(missing_docs)]
     pub repeated_timestamp: std::vec::Vec<wkt::Timestamp>,
 
+    #[allow(missing_docs)]
     pub repeated_fieldmask: std::vec::Vec<wkt::FieldMask>,
 
+    #[allow(missing_docs)]
     pub repeated_struct: std::vec::Vec<wkt::Struct>,
 
+    #[allow(missing_docs)]
     pub repeated_any: std::vec::Vec<wkt::Any>,
 
+    #[allow(missing_docs)]
     pub repeated_value: std::vec::Vec<wkt::Value>,
 
+    #[allow(missing_docs)]
     pub repeated_list_value: std::vec::Vec<wkt::ListValue>,
 
     /// Test field-name-to-JSON-name convention.
     /// (protobuf says names can be any valid C/C++ identifier.)
     pub fieldname1: i32,
 
+    #[allow(missing_docs)]
     pub field_name2: i32,
 
+    #[allow(missing_docs)]
     pub _field_name3: i32,
 
+    #[allow(missing_docs)]
     pub field__name4_: i32,
 
+    #[allow(missing_docs)]
     pub field0name5: i32,
 
+    #[allow(missing_docs)]
     pub field_0_name6: i32,
 
+    #[allow(missing_docs)]
     pub field_name_7: i32,
 
+    #[allow(missing_docs)]
     pub field_name_8: i32,
 
+    #[allow(missing_docs)]
     pub field_name_9: i32,
 
+    #[allow(missing_docs)]
     pub field_name_10: i32,
 
+    #[allow(missing_docs)]
     pub field_name_11: i32,
 
+    #[allow(missing_docs)]
     pub field_name_12: i32,
 
+    #[allow(missing_docs)]
     pub __field_name13: i32,
 
+    #[allow(missing_docs)]
     pub __field_name_14: i32,
 
+    #[allow(missing_docs)]
     pub field__name15: i32,
 
+    #[allow(missing_docs)]
     pub field__name_16: i32,
 
+    #[allow(missing_docs)]
     pub field_name17__: i32,
 
+    #[allow(missing_docs)]
     pub field_name_18__: i32,
 
+    #[allow(missing_docs)]
     pub oneof_field:
         std::option::Option<crate::generated::test_protos::test_all_types_proto_3::OneofField>,
 
@@ -346,6 +481,7 @@ pub struct TestAllTypesProto3 {
 }
 
 impl TestAllTypesProto3 {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2181,11 +2317,14 @@ pub mod test_all_types_proto_3 {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NestedMessage {
+        #[allow(missing_docs)]
         pub a: i32,
 
+        #[allow(missing_docs)]
         pub corecursive:
             std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>,
 
@@ -2193,6 +2332,7 @@ pub mod test_all_types_proto_3 {
     }
 
     impl NestedMessage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2228,6 +2368,7 @@ pub mod test_all_types_proto_3 {
         }
     }
 
+    /// Enum for [NestedEnum].
     ///
     /// # Working with unknown values
     ///
@@ -2245,9 +2386,13 @@ pub mod test_all_types_proto_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum NestedEnum {
+        #[allow(missing_docs)]
         Foo,
+        #[allow(missing_docs)]
         Bar,
+        #[allow(missing_docs)]
         Baz,
+        #[allow(missing_docs)]
         Neg,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2362,6 +2507,7 @@ pub mod test_all_types_proto_3 {
         }
     }
 
+    /// Enum for [AliasedEnum].
     ///
     /// # Working with unknown values
     ///
@@ -2379,10 +2525,15 @@ pub mod test_all_types_proto_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AliasedEnum {
+        #[allow(missing_docs)]
         AliasFoo,
+        #[allow(missing_docs)]
         AliasBar,
+        #[allow(missing_docs)]
         AliasBaz,
+        #[allow(missing_docs)]
         Moo,
+        #[allow(missing_docs)]
         BAz,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2501,33 +2652,47 @@ pub mod test_all_types_proto_3 {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OneofField {
+        #[allow(missing_docs)]
         OneofUint32(u32),
+        #[allow(missing_docs)]
         OneofNestedMessage(
             std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>,
         ),
+        #[allow(missing_docs)]
         OneofString(std::string::String),
+        #[allow(missing_docs)]
         OneofBytes(::bytes::Bytes),
+        #[allow(missing_docs)]
         OneofBool(bool),
+        #[allow(missing_docs)]
         OneofUint64(u64),
+        #[allow(missing_docs)]
         OneofFloat(f32),
+        #[allow(missing_docs)]
         OneofDouble(f64),
+        #[allow(missing_docs)]
         OneofEnum(crate::generated::test_protos::test_all_types_proto_3::NestedEnum),
+        #[allow(missing_docs)]
         OneofNullValue(wkt::NullValue),
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ForeignMessage {
+    #[allow(missing_docs)]
     pub c: i32,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ForeignMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2545,6 +2710,7 @@ impl wkt::message::Message for ForeignMessage {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NullHypothesisProto3 {
@@ -2552,6 +2718,7 @@ pub struct NullHypothesisProto3 {
 }
 
 impl NullHypothesisProto3 {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2563,6 +2730,7 @@ impl wkt::message::Message for NullHypothesisProto3 {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOnlyProto3 {
@@ -2570,6 +2738,7 @@ pub struct EnumOnlyProto3 {
 }
 
 impl EnumOnlyProto3 {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2586,6 +2755,7 @@ pub mod enum_only_proto_3 {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [Bool].
     ///
     /// # Working with unknown values
     ///
@@ -2603,7 +2773,9 @@ pub mod enum_only_proto_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Bool {
+        #[allow(missing_docs)]
         KFalse,
+        #[allow(missing_docs)]
         KTrue,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2709,6 +2881,7 @@ pub mod enum_only_proto_3 {
     }
 }
 
+/// Enum for [ForeignEnum].
 ///
 /// # Working with unknown values
 ///
@@ -2726,8 +2899,11 @@ pub mod enum_only_proto_3 {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ForeignEnum {
+    #[allow(missing_docs)]
     ForeignFoo,
+    #[allow(missing_docs)]
     ForeignBar,
+    #[allow(missing_docs)]
     ForeignBaz,
     /// If set, the enum was initialized with an unknown value.
     ///

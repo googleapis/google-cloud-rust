@@ -47,6 +47,7 @@ pub struct AuditData {
 }
 
 impl AuditData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -111,6 +112,7 @@ pub mod audit_data {
     }
 
     impl PermissionDelta {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -228,6 +230,7 @@ pub struct ServiceAccount {
 }
 
 impl ServiceAccount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -376,6 +379,7 @@ pub struct CreateServiceAccountRequest {
 }
 
 impl CreateServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -472,6 +476,7 @@ pub struct ListServiceAccountsRequest {
 }
 
 impl ListServiceAccountsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -537,6 +542,7 @@ pub struct ListServiceAccountsResponse {
 }
 
 impl ListServiceAccountsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -611,6 +617,7 @@ pub struct GetServiceAccountRequest {
 }
 
 impl GetServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -649,6 +656,7 @@ pub struct DeleteServiceAccountRequest {
 }
 
 impl DeleteServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -682,14 +690,17 @@ impl wkt::message::Message for DeleteServiceAccountRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PatchServiceAccountRequest {
+    #[allow(missing_docs)]
     pub service_account: std::option::Option<crate::model::ServiceAccount>,
 
+    #[allow(missing_docs)]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PatchServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -781,6 +792,7 @@ pub struct UndeleteServiceAccountRequest {
 }
 
 impl UndeleteServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -804,6 +816,7 @@ impl wkt::message::Message for UndeleteServiceAccountRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UndeleteServiceAccountResponse {
@@ -814,6 +827,7 @@ pub struct UndeleteServiceAccountResponse {
 }
 
 impl UndeleteServiceAccountResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -873,6 +887,7 @@ pub struct EnableServiceAccountRequest {
 }
 
 impl EnableServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -911,6 +926,7 @@ pub struct DisableServiceAccountRequest {
 }
 
 impl DisableServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -955,6 +971,7 @@ pub struct ListServiceAccountKeysRequest {
 }
 
 impl ListServiceAccountKeysRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1150,6 +1167,7 @@ pub struct ListServiceAccountKeysResponse {
 }
 
 impl ListServiceAccountKeysResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1203,6 +1221,7 @@ pub struct GetServiceAccountKeyRequest {
 }
 
 impl GetServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1319,6 +1338,7 @@ pub struct ServiceAccountKey {
 }
 
 impl ServiceAccountKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1541,6 +1561,7 @@ pub struct CreateServiceAccountKeyRequest {
 }
 
 impl CreateServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1621,6 +1642,7 @@ pub struct UploadServiceAccountKeyRequest {
 }
 
 impl UploadServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1671,6 +1693,7 @@ pub struct DeleteServiceAccountKeyRequest {
 }
 
 impl DeleteServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1710,6 +1733,7 @@ pub struct DisableServiceAccountKeyRequest {
 }
 
 impl DisableServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1749,6 +1773,7 @@ pub struct EnableServiceAccountKeyRequest {
 }
 
 impl EnableServiceAccountKeyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1801,6 +1826,7 @@ pub struct SignBlobRequest {
 }
 
 impl SignBlobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1863,6 +1889,7 @@ pub struct SignBlobResponse {
 }
 
 impl SignBlobResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1938,6 +1965,7 @@ pub struct SignJwtRequest {
 }
 
 impl SignJwtRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2000,6 +2028,7 @@ pub struct SignJwtResponse {
 }
 
 impl SignJwtResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2076,6 +2105,7 @@ pub struct Role {
 }
 
 impl Role {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2355,6 +2385,7 @@ pub struct QueryGrantableRolesRequest {
     /// `//cloudresourcemanager.googleapis.com/projects/my-project`.
     pub full_resource_name: std::string::String,
 
+    #[allow(missing_docs)]
     pub view: crate::model::RoleView,
 
     /// Optional limit on the number of roles to include in the response.
@@ -2370,6 +2401,7 @@ pub struct QueryGrantableRolesRequest {
 }
 
 impl QueryGrantableRolesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2448,6 +2480,7 @@ pub struct QueryGrantableRolesResponse {
 }
 
 impl QueryGrantableRolesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2565,6 +2598,7 @@ pub struct ListRolesRequest {
 }
 
 impl ListRolesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2652,6 +2686,7 @@ pub struct ListRolesResponse {
 }
 
 impl ListRolesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2753,6 +2788,7 @@ pub struct GetRoleRequest {
 }
 
 impl GetRoleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2820,6 +2856,7 @@ pub struct CreateRoleRequest {
 }
 
 impl CreateRoleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2928,6 +2965,7 @@ pub struct UpdateRoleRequest {
 }
 
 impl UpdateRoleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3054,6 +3092,7 @@ pub struct DeleteRoleRequest {
 }
 
 impl DeleteRoleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3126,6 +3165,7 @@ pub struct UndeleteRoleRequest {
 }
 
 impl UndeleteRoleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3175,6 +3215,7 @@ pub struct Permission {
     /// This permission can ONLY be used in predefined roles.
     pub description: std::string::String,
 
+    #[allow(missing_docs)]
     #[deprecated]
     pub only_in_predefined_roles: bool,
 
@@ -3195,6 +3236,7 @@ pub struct Permission {
 }
 
 impl Permission {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3623,6 +3665,7 @@ pub struct QueryTestablePermissionsRequest {
 }
 
 impl QueryTestablePermissionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3688,6 +3731,7 @@ pub struct QueryTestablePermissionsResponse {
 }
 
 impl QueryTestablePermissionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3763,6 +3807,7 @@ pub struct QueryAuditableServicesRequest {
 }
 
 impl QueryAuditableServicesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3800,6 +3845,7 @@ pub struct QueryAuditableServicesResponse {
 }
 
 impl QueryAuditableServicesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3850,6 +3896,7 @@ pub mod query_auditable_services_response {
     }
 
     impl AuditableService {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3896,6 +3943,7 @@ pub struct LintPolicyRequest {
 }
 
 impl LintPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4031,6 +4079,7 @@ pub struct LintResult {
 }
 
 impl LintResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4440,6 +4489,7 @@ pub struct LintPolicyResponse {
 }
 
 impl LintPolicyResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

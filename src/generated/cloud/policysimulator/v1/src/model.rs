@@ -72,6 +72,7 @@ pub struct AccessTuple {
 }
 
 impl AccessTuple {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -185,6 +186,7 @@ pub struct ExplainedPolicy {
 }
 
 impl ExplainedPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -368,6 +370,7 @@ pub struct BindingExplanation {
 }
 
 impl BindingExplanation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -537,6 +540,7 @@ pub mod binding_explanation {
     }
 
     impl AnnotatedMembership {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -954,6 +958,7 @@ pub struct OrgPolicyViolationsPreview {
 }
 
 impl OrgPolicyViolationsPreview {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1152,6 +1157,7 @@ pub mod org_policy_violations_preview {
     }
 
     impl ResourceCounts {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1246,6 +1252,7 @@ pub struct OrgPolicyViolation {
 }
 
 impl OrgPolicyViolation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1405,6 +1412,7 @@ pub struct ResourceContext {
 }
 
 impl ResourceContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1485,6 +1493,7 @@ pub struct OrgPolicyOverlay {
 }
 
 impl OrgPolicyOverlay {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1560,6 +1569,7 @@ pub mod org_policy_overlay {
     }
 
     impl PolicyOverlay {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1635,6 +1645,7 @@ pub mod org_policy_overlay {
     }
 
     impl CustomConstraintOverlay {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1724,6 +1735,7 @@ pub struct CreateOrgPolicyViolationsPreviewOperationMetadata {
 }
 
 impl CreateOrgPolicyViolationsPreviewOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1882,6 +1894,7 @@ pub struct ListOrgPolicyViolationsPreviewsRequest {
 }
 
 impl ListOrgPolicyViolationsPreviewsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1947,6 +1960,7 @@ pub struct ListOrgPolicyViolationsPreviewsResponse {
 }
 
 impl ListOrgPolicyViolationsPreviewsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2022,6 +2036,7 @@ pub struct GetOrgPolicyViolationsPreviewRequest {
 }
 
 impl GetOrgPolicyViolationsPreviewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2080,6 +2095,7 @@ pub struct CreateOrgPolicyViolationsPreviewRequest {
 }
 
 impl CreateOrgPolicyViolationsPreviewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2182,6 +2198,7 @@ pub struct ListOrgPolicyViolationsRequest {
 }
 
 impl ListOrgPolicyViolationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2247,6 +2264,7 @@ pub struct ListOrgPolicyViolationsResponse {
 }
 
 impl ListOrgPolicyViolationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2334,6 +2352,7 @@ pub struct Replay {
 }
 
 impl Replay {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2471,6 +2490,7 @@ pub mod replay {
     }
 
     impl ResultsSummary {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2782,6 +2802,7 @@ pub struct ReplayResult {
 }
 
 impl ReplayResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3024,6 +3045,7 @@ pub struct CreateReplayRequest {
 }
 
 impl CreateReplayRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3091,6 +3113,7 @@ pub struct ReplayOperationMetadata {
 }
 
 impl ReplayOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3159,6 +3182,7 @@ pub struct GetReplayRequest {
 }
 
 impl GetReplayRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3224,6 +3248,7 @@ pub struct ListReplayResultsRequest {
 }
 
 impl ListReplayResultsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3294,6 +3319,7 @@ pub struct ListReplayResultsResponse {
 }
 
 impl ListReplayResultsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3389,6 +3415,7 @@ pub struct ReplayConfig {
 }
 
 impl ReplayConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3599,6 +3626,7 @@ pub struct ReplayDiff {
 }
 
 impl ReplayDiff {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3672,6 +3700,7 @@ pub struct AccessStateDiff {
 }
 
 impl AccessStateDiff {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3995,6 +4024,7 @@ pub struct ExplainedAccess {
 }
 
 impl ExplainedAccess {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

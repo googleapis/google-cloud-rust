@@ -69,6 +69,7 @@ pub struct ListAppConnectionsRequest {
 }
 
 impl ListAppConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -158,6 +159,7 @@ pub struct ListAppConnectionsResponse {
 }
 
 impl ListAppConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -246,6 +248,7 @@ pub struct GetAppConnectionRequest {
 }
 
 impl GetAppConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -310,6 +313,7 @@ pub struct CreateAppConnectionRequest {
 }
 
 impl CreateAppConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -449,6 +453,7 @@ pub struct UpdateAppConnectionRequest {
 }
 
 impl UpdateAppConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -593,6 +598,7 @@ pub struct DeleteAppConnectionRequest {
 }
 
 impl DeleteAppConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -669,6 +675,7 @@ pub struct ResolveAppConnectionsRequest {
 }
 
 impl ResolveAppConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -750,6 +757,7 @@ pub struct ResolveAppConnectionsResponse {
 }
 
 impl ResolveAppConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -846,6 +854,7 @@ pub mod resolve_app_connections_response {
     }
 
     impl AppConnectionDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -958,6 +967,7 @@ pub struct AppConnection {
 }
 
 impl AppConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1228,6 +1238,7 @@ pub mod app_connection {
     }
 
     impl ApplicationEndpoint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1286,6 +1297,7 @@ pub mod app_connection {
     }
 
     impl Gateway {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1800,6 +1812,7 @@ pub struct AppConnectionOperationMetadata {
 }
 
 impl AppConnectionOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

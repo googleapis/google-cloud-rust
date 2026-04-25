@@ -89,6 +89,7 @@ pub struct ErrorInfo {
 }
 
 impl ErrorInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -168,6 +169,7 @@ pub struct RetryInfo {
 }
 
 impl RetryInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -226,6 +228,7 @@ pub struct DebugInfo {
 }
 
 impl DebugInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -287,6 +290,7 @@ pub struct QuotaFailure {
 }
 
 impl QuotaFailure {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -413,6 +417,7 @@ pub mod quota_failure {
     }
 
     impl Violation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -567,6 +572,7 @@ pub struct PreconditionFailure {
 }
 
 impl PreconditionFailure {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -629,6 +635,7 @@ pub mod precondition_failure {
     }
 
     impl Violation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -689,6 +696,7 @@ pub struct BadRequest {
 }
 
 impl BadRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -791,6 +799,7 @@ pub mod bad_request {
     }
 
     impl FieldViolation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -889,6 +898,7 @@ pub struct RequestInfo {
 }
 
 impl RequestInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -955,6 +965,7 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1029,6 +1040,7 @@ pub struct Help {
 }
 
 impl Help {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1081,6 +1093,7 @@ pub mod help {
     }
 
     impl Link {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1134,6 +1147,7 @@ pub struct LocalizedMessage {
 }
 
 impl LocalizedMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1190,6 +1204,7 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1280,6 +1295,7 @@ pub struct HttpResponse {
 }
 
 impl HttpResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1363,6 +1379,7 @@ pub struct HttpHeader {
 }
 
 impl HttpHeader {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1430,6 +1447,7 @@ pub struct Status {
 }
 
 impl Status {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

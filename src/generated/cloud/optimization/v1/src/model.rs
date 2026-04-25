@@ -50,6 +50,7 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -164,6 +165,7 @@ pub struct OutputConfig {
 }
 
 impl OutputConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -280,6 +282,7 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -314,6 +317,7 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -358,6 +362,7 @@ pub struct AsyncModelMetadata {
 }
 
 impl AsyncModelMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -859,6 +864,7 @@ pub struct OptimizeToursRequest {
 }
 
 impl OptimizeToursRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1575,6 +1581,7 @@ pub struct OptimizeToursResponse {
 }
 
 impl OptimizeToursResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1769,6 +1776,7 @@ pub mod optimize_tours_response {
     }
 
     impl Metrics {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1966,6 +1974,7 @@ pub struct BatchOptimizeToursRequest {
 }
 
 impl BatchOptimizeToursRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2044,6 +2053,7 @@ pub mod batch_optimize_tours_request {
     }
 
     impl AsyncModelConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2158,6 +2168,7 @@ pub struct BatchOptimizeToursResponse {
 }
 
 impl BatchOptimizeToursResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2373,6 +2384,7 @@ pub struct ShipmentModel {
 }
 
 impl ShipmentModel {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2736,6 +2748,7 @@ pub mod shipment_model {
     }
 
     impl DurationDistanceMatrix {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2808,6 +2821,7 @@ pub mod shipment_model {
         }
 
         impl Row {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2891,6 +2905,7 @@ pub mod shipment_model {
     }
 
     impl PrecedenceRule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3052,6 +3067,7 @@ pub mod shipment_model {
     }
 
     impl BreakRule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3133,6 +3149,7 @@ pub mod shipment_model {
         }
 
         impl BreakRequest {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3294,6 +3311,7 @@ pub mod shipment_model {
         }
 
         impl FrequencyConstraint {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3520,6 +3538,7 @@ pub struct Shipment {
 }
 
 impl Shipment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3953,6 +3972,7 @@ pub mod shipment {
     }
 
     impl VisitRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4272,6 +4292,7 @@ pub mod shipment {
     }
 
     impl Load {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4313,6 +4334,7 @@ pub struct ShipmentTypeIncompatibility {
 }
 
 impl ShipmentTypeIncompatibility {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4535,6 +4557,7 @@ pub struct ShipmentTypeRequirement {
 }
 
 impl ShipmentTypeRequirement {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4793,6 +4816,7 @@ pub struct RouteModifiers {
 }
 
 impl RouteModifiers {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5108,6 +5132,7 @@ pub struct Vehicle {
 }
 
 impl Vehicle {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5822,6 +5847,7 @@ pub mod vehicle {
     }
 
     impl LoadLimit {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5991,6 +6017,7 @@ pub mod vehicle {
         }
 
         impl Interval {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6106,6 +6133,7 @@ pub mod vehicle {
     }
 
     impl DurationLimit {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6634,6 +6662,7 @@ pub struct TimeWindow {
 }
 
 impl TimeWindow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6854,14 +6883,17 @@ impl wkt::message::Message for TimeWindow {
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantity {
+    #[allow(missing_docs)]
     pub r#type: std::string::String,
 
+    #[allow(missing_docs)]
     pub value: i64,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CapacityQuantity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6906,16 +6938,20 @@ impl wkt::message::Message for CapacityQuantity {
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantityInterval {
+    #[allow(missing_docs)]
     pub r#type: std::string::String,
 
+    #[allow(missing_docs)]
     pub min_value: std::option::Option<i64>,
 
+    #[allow(missing_docs)]
     pub max_value: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CapacityQuantityInterval {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7048,6 +7084,7 @@ pub struct DistanceLimit {
 }
 
 impl DistanceLimit {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7255,6 +7292,7 @@ pub struct TransitionAttributes {
 }
 
 impl TransitionAttributes {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7430,6 +7468,7 @@ pub struct Waypoint {
 }
 
 impl Waypoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7572,6 +7611,7 @@ pub struct Location {
 }
 
 impl Location {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7671,6 +7711,7 @@ pub struct BreakRule {
 }
 
 impl BreakRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7752,6 +7793,7 @@ pub mod break_rule {
     }
 
     impl BreakRequest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7913,6 +7955,7 @@ pub mod break_rule {
     }
 
     impl FrequencyConstraint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8214,6 +8257,7 @@ pub struct ShipmentRoute {
 }
 
 impl ShipmentRoute {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8634,6 +8678,7 @@ pub mod shipment_route {
     }
 
     impl Delay {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8811,6 +8856,7 @@ pub mod shipment_route {
     }
 
     impl Visit {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9150,6 +9196,7 @@ pub mod shipment_route {
     }
 
     impl Transition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9480,6 +9527,7 @@ pub mod shipment_route {
     }
 
     impl VehicleLoad {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9517,6 +9565,7 @@ pub mod shipment_route {
     }
 
     impl EncodedPolyline {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9554,6 +9603,7 @@ pub mod shipment_route {
     }
 
     impl Break {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9680,6 +9730,7 @@ pub mod shipment_route {
     }
 
     impl TravelStep {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9807,6 +9858,7 @@ pub struct SkippedShipment {
 }
 
 impl SkippedShipment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9915,6 +9967,7 @@ pub mod skipped_shipment {
     }
 
     impl Reason {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10302,6 +10355,7 @@ pub struct AggregatedMetrics {
 }
 
 impl AggregatedMetrics {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10616,6 +10670,7 @@ pub struct InjectedSolutionConstraint {
 }
 
 impl InjectedSolutionConstraint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10731,6 +10786,7 @@ pub mod injected_solution_constraint {
     }
 
     impl ConstraintRelaxation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10848,6 +10904,7 @@ pub mod injected_solution_constraint {
         }
 
         impl Relaxation {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -11400,6 +11457,7 @@ pub struct OptimizeToursValidationError {
 }
 
 impl OptimizeToursValidationError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11511,6 +11569,7 @@ pub mod optimize_tours_validation_error {
             std::boxed::Box<crate::model::optimize_tours_validation_error::FieldReference>,
         >,
 
+        #[allow(missing_docs)]
         pub index_or_key: std::option::Option<
             crate::model::optimize_tours_validation_error::field_reference::IndexOrKey,
         >,
@@ -11519,6 +11578,7 @@ pub mod optimize_tours_validation_error {
     }
 
     impl FieldReference {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11671,6 +11731,7 @@ pub mod optimize_tours_validation_error {
         #[allow(unused_imports)]
         use super::*;
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum IndexOrKey {

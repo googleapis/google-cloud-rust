@@ -68,6 +68,17 @@ impl Leases {
         )
     }
 
+    /// Updates the `last_extension` timestamp for the given ack IDs with the
+    /// completion time of a successful extension RPC.
+    pub fn update_last_extension(&mut self, ack_ids: &[String]) {
+        let now = Instant::now();
+        for id in ack_ids {
+            if let Some(info) = self.under_lease.get_mut(id) {
+                info.last_extension = Some(now);
+            }
+        }
+    }
+
     /// Returns batches of ack IDs to extend.
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
@@ -100,6 +111,8 @@ impl Leases {
                     // Flush the batch when it is full.
                     batches.push(std::mem::take(&mut batch));
                 }
+                // TODO(#5048): Do not update last_extension here after update_last_extension fn
+                // is used to report successful extends.
                 info.last_extension = Some(now);
                 true
             }
@@ -150,6 +163,15 @@ mod tests {
 
     // Cover the constant, converting it to an integer for convenience.
     const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
+
+    impl Leases {
+        fn last_extension(&self, id: &str) -> Option<Instant> {
+            self.under_lease
+                .get(id)
+                .expect("test id should be under lease")
+                .last_extension
+        }
+    }
 
     #[test]
     fn basic_add_ack_nack() {
@@ -277,6 +299,34 @@ mod tests {
             },
             leases
         );
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn update_last_extension() {
+        let mut leases = Leases::default();
+        let now = Instant::now();
+
+        leases.add(test_id(1), AtLeastOnceInfo::new());
+        leases.add(test_id(2), AtLeastOnceInfo::new());
+
+        assert_eq!(leases.last_extension(&test_id(1)), None);
+        assert_eq!(leases.last_extension(&test_id(2)), None);
+
+        leases.update_last_extension(&[test_id(1)]);
+        assert_eq!(leases.last_extension(&test_id(1)), Some(now));
+        assert_eq!(leases.last_extension(&test_id(2)), None);
+
+        tokio::time::advance(Duration::from_secs(5)).await;
+        let later = Instant::now();
+        leases.update_last_extension(&[test_id(1), test_id(2)]);
+        assert_eq!(leases.last_extension(&test_id(1)), Some(later));
+        assert_eq!(leases.last_extension(&test_id(2)), Some(later));
+
+        // Test with non-existent ID
+        leases.update_last_extension(&[test_id(3)]);
+        // Should not have side effects.
+        assert_eq!(leases.last_extension(&test_id(1)), Some(later));
+        assert_eq!(leases.last_extension(&test_id(2)), Some(later));
     }
 
     #[test]
