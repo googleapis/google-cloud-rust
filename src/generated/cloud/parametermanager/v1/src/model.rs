@@ -69,6 +69,7 @@ pub struct Parameter {
 }
 
 impl Parameter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -286,6 +287,7 @@ pub struct ListParametersRequest {
 }
 
 impl ListParametersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -374,6 +376,7 @@ pub struct ListParametersResponse {
 }
 
 impl ListParametersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -462,6 +465,7 @@ pub struct GetParameterRequest {
 }
 
 impl GetParameterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -518,6 +522,7 @@ pub struct CreateParameterRequest {
 }
 
 impl CreateParameterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -632,6 +637,7 @@ pub struct UpdateParameterRequest {
 }
 
 impl UpdateParameterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -748,6 +754,7 @@ pub struct DeleteParameterRequest {
 }
 
 impl DeleteParameterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -819,6 +826,7 @@ pub struct ParameterVersion {
 }
 
 impl ParameterVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -995,6 +1003,7 @@ pub struct ParameterVersionPayload {
 }
 
 impl ParameterVersionPayload {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1043,6 +1052,7 @@ pub struct ListParameterVersionsRequest {
 }
 
 impl ListParameterVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1131,6 +1141,7 @@ pub struct ListParameterVersionsResponse {
 }
 
 impl ListParameterVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1224,6 +1235,7 @@ pub struct GetParameterVersionRequest {
 }
 
 impl GetParameterVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1272,6 +1284,7 @@ pub struct RenderParameterVersionRequest {
 }
 
 impl RenderParameterVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1316,6 +1329,7 @@ pub struct RenderParameterVersionResponse {
 }
 
 impl RenderParameterVersionResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1420,6 +1434,7 @@ pub struct CreateParameterVersionRequest {
 }
 
 impl CreateParameterVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1537,6 +1552,7 @@ pub struct UpdateParameterVersionRequest {
 }
 
 impl UpdateParameterVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1653,6 +1669,7 @@ pub struct DeleteParameterVersionRequest {
 }
 
 impl DeleteParameterVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

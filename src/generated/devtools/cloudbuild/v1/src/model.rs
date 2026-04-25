@@ -48,6 +48,7 @@ pub struct GetDefaultServiceAccountRequest {
 }
 
 impl GetDefaultServiceAccountRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -95,6 +96,7 @@ pub struct DefaultServiceAccount {
 }
 
 impl DefaultServiceAccount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -151,6 +153,7 @@ pub struct RetryBuildRequest {
 }
 
 impl RetryBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -220,6 +223,7 @@ pub struct RunBuildTriggerRequest {
 }
 
 impl RunBuildTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -327,6 +331,7 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -563,6 +568,7 @@ pub struct GitSource {
 }
 
 impl GitSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -644,6 +650,7 @@ pub struct RepoSource {
 }
 
 impl RepoSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -887,6 +894,7 @@ pub struct StorageSourceManifest {
 }
 
 impl StorageSourceManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -954,6 +962,7 @@ pub struct ConnectedRepository {
 }
 
 impl ConnectedRepository {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1012,6 +1021,7 @@ pub struct Source {
 }
 
 impl Source {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1286,6 +1296,7 @@ pub struct BuiltImage {
 }
 
 impl BuiltImage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1389,6 +1400,7 @@ pub struct UploadedPythonPackage {
 }
 
 impl UploadedPythonPackage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1513,6 +1525,7 @@ pub struct UploadedMavenArtifact {
 }
 
 impl UploadedMavenArtifact {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1638,6 +1651,7 @@ pub struct UploadedGoModule {
 }
 
 impl UploadedGoModule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1763,6 +1777,7 @@ pub struct UploadedNpmPackage {
 }
 
 impl UploadedNpmPackage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1992,6 +2007,7 @@ pub struct BuildStep {
 }
 
 impl BuildStep {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2360,6 +2376,7 @@ pub struct Volume {
 }
 
 impl Volume {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2443,6 +2460,7 @@ pub struct Results {
 }
 
 impl Results {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2677,6 +2695,7 @@ pub struct ArtifactResult {
 }
 
 impl ArtifactResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2889,6 +2908,7 @@ pub struct Build {
 }
 
 impl Build {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3660,6 +3680,7 @@ pub mod build {
     }
 
     impl Warning {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3863,6 +3884,7 @@ pub mod build {
     }
 
     impl FailureInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4269,6 +4291,7 @@ pub struct Dependency {
 }
 
 impl Dependency {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4394,6 +4417,7 @@ pub mod dependency {
     }
 
     impl GitSourceDependency {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4498,6 +4522,7 @@ pub mod dependency {
     }
 
     impl GitSourceRepository {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4643,6 +4668,7 @@ pub struct GitConfig {
 }
 
 impl GitConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4707,6 +4733,7 @@ pub mod git_config {
     }
 
     impl HttpConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4801,6 +4828,7 @@ pub struct Artifacts {
 }
 
 impl Artifacts {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4978,6 +5006,7 @@ pub mod artifacts {
     }
 
     impl ArtifactObjects {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5087,6 +5116,7 @@ pub mod artifacts {
     }
 
     impl MavenArtifact {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5197,6 +5227,7 @@ pub mod artifacts {
     }
 
     impl GoModule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5314,6 +5345,7 @@ pub mod artifacts {
     }
 
     impl PythonPackage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5376,6 +5408,7 @@ pub mod artifacts {
     }
 
     impl NpmPackage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5429,6 +5462,7 @@ pub struct TimeSpan {
 }
 
 impl TimeSpan {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5517,6 +5551,7 @@ pub struct BuildOperationMetadata {
 }
 
 impl BuildOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5603,6 +5638,7 @@ pub struct SourceProvenance {
 }
 
 impl SourceProvenance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5819,6 +5855,7 @@ pub struct FileHashes {
 }
 
 impl FileHashes {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5866,6 +5903,7 @@ pub struct Hash {
 }
 
 impl Hash {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6071,6 +6109,7 @@ pub struct Secrets {
 }
 
 impl Secrets {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6147,6 +6186,7 @@ pub struct InlineSecret {
 }
 
 impl InlineSecret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6208,6 +6248,7 @@ pub struct SecretManagerSecret {
 }
 
 impl SecretManagerSecret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6266,6 +6307,7 @@ pub struct Secret {
 }
 
 impl Secret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6328,6 +6370,7 @@ pub struct CreateBuildRequest {
 }
 
 impl CreateBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6414,6 +6457,7 @@ pub struct GetBuildRequest {
 }
 
 impl GetBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6493,6 +6537,7 @@ pub struct ListBuildsRequest {
 }
 
 impl ListBuildsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6579,6 +6624,7 @@ pub struct ListBuildsResponse {
 }
 
 impl ListBuildsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6656,6 +6702,7 @@ pub struct CancelBuildRequest {
 }
 
 impl CancelBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6718,6 +6765,7 @@ pub struct ApproveBuildRequest {
 }
 
 impl ApproveBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6792,6 +6840,7 @@ pub struct BuildApproval {
 }
 
 impl BuildApproval {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7052,6 +7101,7 @@ pub struct ApprovalConfig {
 }
 
 impl ApprovalConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7103,6 +7153,7 @@ pub struct ApprovalResult {
 }
 
 impl ApprovalResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7367,6 +7418,7 @@ pub struct GitRepoSource {
 }
 
 impl GitRepoSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7589,6 +7641,7 @@ pub struct GitFileSource {
 }
 
 impl GitFileSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8052,6 +8105,7 @@ pub struct BuildTrigger {
 }
 
 impl BuildTrigger {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8666,6 +8720,7 @@ pub struct RepositoryEventConfig {
 }
 
 impl RepositoryEventConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8988,6 +9043,7 @@ pub struct GitHubEventsConfig {
 }
 
 impl GitHubEventsConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9174,6 +9230,7 @@ pub struct PubsubConfig {
 }
 
 impl PubsubConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9413,6 +9470,7 @@ pub struct WebhookConfig {
 }
 
 impl WebhookConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9664,6 +9722,7 @@ pub struct PullRequestFilter {
 }
 
 impl PullRequestFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9946,6 +10005,7 @@ pub struct PushFilter {
 }
 
 impl PushFilter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10090,6 +10150,7 @@ pub struct CreateBuildTriggerRequest {
 }
 
 impl CreateBuildTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10176,6 +10237,7 @@ pub struct GetBuildTriggerRequest {
 }
 
 impl GetBuildTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10244,6 +10306,7 @@ pub struct ListBuildTriggersRequest {
 }
 
 impl ListBuildTriggersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10317,6 +10380,7 @@ pub struct ListBuildTriggersResponse {
 }
 
 impl ListBuildTriggersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10394,6 +10458,7 @@ pub struct DeleteBuildTriggerRequest {
 }
 
 impl DeleteBuildTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10463,6 +10528,7 @@ pub struct UpdateBuildTriggerRequest {
 }
 
 impl UpdateBuildTriggerRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10659,6 +10725,7 @@ pub struct BuildOptions {
 }
 
 impl BuildOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10976,6 +11043,7 @@ pub mod build_options {
     }
 
     impl PoolOption {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11870,6 +11938,7 @@ pub struct ReceiveTriggerWebhookRequest {
 }
 
 impl ReceiveTriggerWebhookRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11971,6 +12040,7 @@ pub struct ReceiveTriggerWebhookResponse {
 }
 
 impl ReceiveTriggerWebhookResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12031,6 +12101,7 @@ pub struct GitHubEnterpriseConfig {
 }
 
 impl GitHubEnterpriseConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12214,6 +12285,7 @@ pub struct GitHubEnterpriseSecrets {
 }
 
 impl GitHubEnterpriseSecrets {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12346,6 +12418,7 @@ pub struct WorkerPool {
 }
 
 impl WorkerPool {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12790,6 +12863,7 @@ pub struct PrivatePoolV1Config {
 }
 
 impl PrivatePoolV1Config {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12931,6 +13005,7 @@ pub mod private_pool_v_1_config {
     }
 
     impl WorkerConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13034,6 +13109,7 @@ pub mod private_pool_v_1_config {
     }
 
     impl NetworkConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13272,6 +13348,7 @@ pub mod private_pool_v_1_config {
     }
 
     impl PrivateServiceConnect {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13349,6 +13426,7 @@ pub struct CreateWorkerPoolRequest {
 }
 
 impl CreateWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13441,6 +13519,7 @@ pub struct GetWorkerPoolRequest {
 }
 
 impl GetWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13489,6 +13568,7 @@ pub struct DeleteWorkerPoolRequest {
 }
 
 impl DeleteWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13569,6 +13649,7 @@ pub struct UpdateWorkerPoolRequest {
 }
 
 impl UpdateWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13678,6 +13759,7 @@ pub struct ListWorkerPoolsRequest {
 }
 
 impl ListWorkerPoolsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13741,6 +13823,7 @@ pub struct ListWorkerPoolsResponse {
 }
 
 impl ListWorkerPoolsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13819,6 +13902,7 @@ pub struct CreateWorkerPoolOperationMetadata {
 }
 
 impl CreateWorkerPoolOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13927,6 +14011,7 @@ pub struct UpdateWorkerPoolOperationMetadata {
 }
 
 impl UpdateWorkerPoolOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14035,6 +14120,7 @@ pub struct DeleteWorkerPoolOperationMetadata {
 }
 
 impl DeleteWorkerPoolOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

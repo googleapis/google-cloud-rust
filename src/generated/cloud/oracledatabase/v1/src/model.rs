@@ -107,6 +107,7 @@ pub struct AutonomousDatabase {
 }
 
 impl AutonomousDatabase {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -396,6 +397,7 @@ pub struct SourceConfig {
 }
 
 impl SourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -677,6 +679,7 @@ pub struct AutonomousDatabaseProperties {
 }
 
 impl AutonomousDatabaseProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3433,6 +3436,7 @@ pub struct EncryptionKeyHistoryEntry {
 }
 
 impl EncryptionKeyHistoryEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3527,6 +3531,7 @@ pub struct EncryptionKey {
 }
 
 impl EncryptionKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3720,6 +3725,7 @@ pub struct AutonomousDatabaseApex {
 }
 
 impl AutonomousDatabaseApex {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3789,6 +3795,7 @@ pub struct AutonomousDatabaseConnectionStrings {
 }
 
 impl AutonomousDatabaseConnectionStrings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3942,6 +3949,7 @@ pub struct DatabaseConnectionStringProfile {
 }
 
 impl DatabaseConnectionStringProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4952,6 +4960,7 @@ pub struct AllConnectionStrings {
 }
 
 impl AllConnectionStrings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5038,6 +5047,7 @@ pub struct AutonomousDatabaseConnectionUrls {
 }
 
 impl AutonomousDatabaseConnectionUrls {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5185,6 +5195,7 @@ pub struct AutonomousDatabaseStandbySummary {
 }
 
 impl AutonomousDatabaseStandbySummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5346,6 +5357,7 @@ pub struct ScheduledOperationDetails {
 }
 
 impl ScheduledOperationDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5462,6 +5474,7 @@ pub struct AutonomousDatabaseCharacterSet {
 }
 
 impl AutonomousDatabaseCharacterSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5683,6 +5696,7 @@ pub struct AutonomousDatabaseBackup {
 }
 
 impl AutonomousDatabaseBackup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5863,6 +5877,7 @@ pub struct AutonomousDatabaseBackupProperties {
 }
 
 impl AutonomousDatabaseBackupProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6531,6 +6546,7 @@ pub struct AutonomousDbVersion {
 }
 
 impl AutonomousDbVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6609,6 +6625,7 @@ pub struct CustomerContact {
 }
 
 impl CustomerContact {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6649,6 +6666,7 @@ pub struct IdentityConnector {
 }
 
 impl IdentityConnector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6865,6 +6883,7 @@ pub struct DataCollectionOptionsCommon {
 }
 
 impl DataCollectionOptionsCommon {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6968,6 +6987,7 @@ pub struct Database {
 }
 
 impl Database {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7390,6 +7410,7 @@ pub struct DatabaseProperties {
 }
 
 impl DatabaseProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7732,6 +7753,7 @@ pub struct DbBackupConfig {
 }
 
 impl DbBackupConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7882,6 +7904,7 @@ pub mod db_backup_config {
     }
 
     impl BackupDestinationDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8421,6 +8444,7 @@ pub struct GetDatabaseRequest {
 }
 
 impl GetDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8472,6 +8496,7 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8545,6 +8570,7 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8624,6 +8650,7 @@ pub struct DatabaseCharacterSet {
 }
 
 impl DatabaseCharacterSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8849,6 +8876,7 @@ pub struct ListDatabaseCharacterSetsRequest {
 }
 
 impl ListDatabaseCharacterSetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8922,6 +8950,7 @@ pub struct ListDatabaseCharacterSetsResponse {
 }
 
 impl ListDatabaseCharacterSetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8997,6 +9026,7 @@ pub struct DbNode {
 }
 
 impl DbNode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9088,6 +9118,7 @@ pub struct DbNodeProperties {
 }
 
 impl DbNodeProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9440,6 +9471,7 @@ pub struct DbServer {
 }
 
 impl DbServer {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9546,6 +9578,7 @@ pub struct DbServerProperties {
 }
 
 impl DbServerProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9897,6 +9930,7 @@ pub struct DbSystem {
 }
 
 impl DbSystem {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10151,6 +10185,7 @@ pub struct DbSystemProperties {
 }
 
 impl DbSystemProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11152,6 +11187,7 @@ pub struct DataCollectionOptionsDbSystem {
 }
 
 impl DataCollectionOptionsDbSystem {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11198,6 +11234,7 @@ pub struct DbSystemOptions {
 }
 
 impl DbSystemOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11388,6 +11425,7 @@ pub struct DbHome {
 }
 
 impl DbHome {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11504,6 +11542,7 @@ pub struct CreateDbSystemRequest {
 }
 
 impl CreateDbSystemRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11606,6 +11645,7 @@ pub struct DeleteDbSystemRequest {
 }
 
 impl DeleteDbSystemRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11653,6 +11693,7 @@ pub struct GetDbSystemRequest {
 }
 
 impl GetDbSystemRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11702,6 +11743,7 @@ pub struct ListDbSystemsRequest {
 }
 
 impl ListDbSystemsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11787,6 +11829,7 @@ pub struct ListDbSystemsResponse {
 }
 
 impl ListDbSystemsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11860,6 +11903,7 @@ pub struct DbSystemInitialStorageSize {
 }
 
 impl DbSystemInitialStorageSize {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11938,6 +11982,7 @@ pub struct DbSystemInitialStorageSizeProperties {
 }
 
 impl DbSystemInitialStorageSizeProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12311,6 +12356,7 @@ pub struct StorageSizeDetails {
 }
 
 impl StorageSizeDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12369,6 +12415,7 @@ pub struct ListDbSystemInitialStorageSizesRequest {
 }
 
 impl ListDbSystemInitialStorageSizesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12430,6 +12477,7 @@ pub struct ListDbSystemInitialStorageSizesResponse {
 }
 
 impl ListDbSystemInitialStorageSizesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12537,6 +12585,7 @@ pub struct DbSystemShape {
 }
 
 impl DbSystemShape {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12707,6 +12756,7 @@ pub struct DbVersion {
 }
 
 impl DbVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12790,6 +12840,7 @@ pub struct DbVersionProperties {
 }
 
 impl DbVersionProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12889,6 +12940,7 @@ pub struct ListDbVersionsRequest {
 }
 
 impl ListDbVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12962,6 +13014,7 @@ pub struct ListDbVersionsResponse {
 }
 
 impl ListDbVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13042,6 +13095,7 @@ pub struct Entitlement {
 }
 
 impl Entitlement {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13309,6 +13363,7 @@ pub struct CloudAccountDetails {
 }
 
 impl CloudAccountDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13444,6 +13499,7 @@ pub struct CloudExadataInfrastructure {
 }
 
 impl CloudExadataInfrastructure {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13699,6 +13755,7 @@ pub struct CloudExadataInfrastructureProperties {
 }
 
 impl CloudExadataInfrastructureProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14404,6 +14461,7 @@ pub struct MaintenanceWindow {
 }
 
 impl MaintenanceWindow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14900,6 +14958,7 @@ pub struct ExadbVmCluster {
 }
 
 impl ExadbVmCluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15098,6 +15157,7 @@ pub struct ExadbVmClusterStorageDetails {
 }
 
 impl ExadbVmClusterStorageDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15200,6 +15260,7 @@ pub struct ExadbVmClusterProperties {
 }
 
 impl ExadbVmClusterProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16009,6 +16070,7 @@ pub struct ExascaleDbStorageVault {
 }
 
 impl ExascaleDbStorageVault {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16204,6 +16266,7 @@ pub struct ExascaleDbStorageVaultProperties {
 }
 
 impl ExascaleDbStorageVaultProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16735,6 +16798,7 @@ pub struct ExascaleDbStorageDetails {
 }
 
 impl ExascaleDbStorageDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16782,6 +16846,7 @@ pub struct GetExascaleDbStorageVaultRequest {
 }
 
 impl GetExascaleDbStorageVaultRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16833,6 +16898,7 @@ pub struct ListExascaleDbStorageVaultsRequest {
 }
 
 impl ListExascaleDbStorageVaultsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16921,6 +16987,7 @@ pub struct ListExascaleDbStorageVaultsResponse {
 }
 
 impl ListExascaleDbStorageVaultsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17018,6 +17085,7 @@ pub struct CreateExascaleDbStorageVaultRequest {
 }
 
 impl CreateExascaleDbStorageVaultRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17123,6 +17191,7 @@ pub struct DeleteExascaleDbStorageVaultRequest {
 }
 
 impl DeleteExascaleDbStorageVaultRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17175,6 +17244,7 @@ pub struct GiVersion {
 }
 
 impl GiVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17223,6 +17293,7 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17270,6 +17341,7 @@ pub struct MinorVersion {
 }
 
 impl MinorVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17345,6 +17417,7 @@ pub struct ListMinorVersionsRequest {
 }
 
 impl ListMinorVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17418,6 +17491,7 @@ pub struct ListMinorVersionsResponse {
 }
 
 impl ListMinorVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17511,6 +17585,7 @@ pub struct OdbNetwork {
 }
 
 impl OdbNetwork {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17825,6 +17900,7 @@ pub struct CreateOdbNetworkRequest {
 }
 
 impl CreateOdbNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17927,6 +18003,7 @@ pub struct DeleteOdbNetworkRequest {
 }
 
 impl DeleteOdbNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17988,6 +18065,7 @@ pub struct ListOdbNetworksRequest {
 }
 
 impl ListOdbNetworksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18077,6 +18155,7 @@ pub struct ListOdbNetworksResponse {
 }
 
 impl ListOdbNetworksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18165,6 +18244,7 @@ pub struct GetOdbNetworkRequest {
 }
 
 impl GetOdbNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18215,6 +18295,7 @@ pub struct OdbSubnet {
 }
 
 impl OdbSubnet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18654,6 +18735,7 @@ pub struct CreateOdbSubnetRequest {
 }
 
 impl CreateOdbSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18756,6 +18838,7 @@ pub struct DeleteOdbSubnetRequest {
 }
 
 impl DeleteOdbSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18817,6 +18900,7 @@ pub struct ListOdbSubnetsRequest {
 }
 
 impl ListOdbSubnetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18906,6 +18990,7 @@ pub struct ListOdbSubnetsResponse {
 }
 
 impl ListOdbSubnetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18994,6 +19079,7 @@ pub struct GetOdbSubnetRequest {
 }
 
 impl GetOdbSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19043,6 +19129,7 @@ pub struct ListCloudExadataInfrastructuresRequest {
 }
 
 impl ListCloudExadataInfrastructuresRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19128,6 +19215,7 @@ pub struct ListCloudExadataInfrastructuresResponse {
 }
 
 impl ListCloudExadataInfrastructuresResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19202,6 +19290,7 @@ pub struct GetCloudExadataInfrastructureRequest {
 }
 
 impl GetCloudExadataInfrastructureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19256,6 +19345,7 @@ pub struct CreateCloudExadataInfrastructureRequest {
 }
 
 impl CreateCloudExadataInfrastructureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19367,6 +19457,7 @@ pub struct DeleteCloudExadataInfrastructureRequest {
 }
 
 impl DeleteCloudExadataInfrastructureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19437,6 +19528,7 @@ pub struct ListCloudVmClustersRequest {
 }
 
 impl ListCloudVmClustersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19510,6 +19602,7 @@ pub struct ListCloudVmClustersResponse {
 }
 
 impl ListCloudVmClustersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19581,6 +19674,7 @@ pub struct GetCloudVmClusterRequest {
 }
 
 impl GetCloudVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19635,6 +19729,7 @@ pub struct CreateCloudVmClusterRequest {
 }
 
 impl CreateCloudVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19745,6 +19840,7 @@ pub struct DeleteCloudVmClusterRequest {
 }
 
 impl DeleteCloudVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19812,6 +19908,7 @@ pub struct ListEntitlementsRequest {
 }
 
 impl ListEntitlementsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19873,6 +19970,7 @@ pub struct ListEntitlementsResponse {
 }
 
 impl ListEntitlementsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19952,6 +20050,7 @@ pub struct ListDbServersRequest {
 }
 
 impl ListDbServersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20013,6 +20112,7 @@ pub struct ListDbServersResponse {
 }
 
 impl ListDbServersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20093,6 +20193,7 @@ pub struct ListDbNodesRequest {
 }
 
 impl ListDbNodesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20154,6 +20255,7 @@ pub struct ListDbNodesResponse {
 }
 
 impl ListDbNodesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20239,6 +20341,7 @@ pub struct ListGiVersionsRequest {
 }
 
 impl ListGiVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20312,6 +20415,7 @@ pub struct ListGiVersionsResponse {
 }
 
 impl ListGiVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20396,6 +20500,7 @@ pub struct ListDbSystemShapesRequest {
 }
 
 impl ListDbSystemShapesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20469,6 +20574,7 @@ pub struct ListDbSystemShapesResponse {
 }
 
 impl ListDbSystemShapesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20567,6 +20673,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20742,6 +20849,7 @@ pub struct ListAutonomousDatabasesRequest {
 }
 
 impl ListAutonomousDatabasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20827,6 +20935,7 @@ pub struct ListAutonomousDatabasesResponse {
 }
 
 impl ListAutonomousDatabasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20898,6 +21007,7 @@ pub struct GetAutonomousDatabaseRequest {
 }
 
 impl GetAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20952,6 +21062,7 @@ pub struct CreateAutonomousDatabaseRequest {
 }
 
 impl CreateAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21063,6 +21174,7 @@ pub struct UpdateAutonomousDatabaseRequest {
 }
 
 impl UpdateAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21174,6 +21286,7 @@ pub struct DeleteAutonomousDatabaseRequest {
 }
 
 impl DeleteAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21224,6 +21337,7 @@ pub struct RestoreAutonomousDatabaseRequest {
 }
 
 impl RestoreAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21292,6 +21406,7 @@ pub struct StopAutonomousDatabaseRequest {
 }
 
 impl StopAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21327,6 +21442,7 @@ pub struct StartAutonomousDatabaseRequest {
 }
 
 impl StartAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21362,6 +21478,7 @@ pub struct RestartAutonomousDatabaseRequest {
 }
 
 impl RestartAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21400,6 +21517,7 @@ pub struct SwitchoverAutonomousDatabaseRequest {
 }
 
 impl SwitchoverAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21453,6 +21571,7 @@ pub struct FailoverAutonomousDatabaseRequest {
 }
 
 impl FailoverAutonomousDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21515,6 +21634,7 @@ pub struct GenerateAutonomousDatabaseWalletRequest {
 }
 
 impl GenerateAutonomousDatabaseWalletRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21587,6 +21707,7 @@ pub struct GenerateAutonomousDatabaseWalletResponse {
 }
 
 impl GenerateAutonomousDatabaseWalletResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21630,6 +21751,7 @@ pub struct ListAutonomousDbVersionsRequest {
 }
 
 impl ListAutonomousDbVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21691,6 +21813,7 @@ pub struct ListAutonomousDbVersionsResponse {
 }
 
 impl ListAutonomousDbVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21776,6 +21899,7 @@ pub struct ListAutonomousDatabaseCharacterSetsRequest {
 }
 
 impl ListAutonomousDatabaseCharacterSetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21850,6 +21974,7 @@ pub struct ListAutonomousDatabaseCharacterSetsResponse {
 }
 
 impl ListAutonomousDatabaseCharacterSetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21940,6 +22065,7 @@ pub struct ListAutonomousDatabaseBackupsRequest {
 }
 
 impl ListAutonomousDatabaseBackupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22013,6 +22139,7 @@ pub struct ListAutonomousDatabaseBackupsResponse {
 }
 
 impl ListAutonomousDatabaseBackupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22110,6 +22237,7 @@ pub struct CreateExadbVmClusterRequest {
 }
 
 impl CreateExadbVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22215,6 +22343,7 @@ pub struct DeleteExadbVmClusterRequest {
 }
 
 impl DeleteExadbVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22262,6 +22391,7 @@ pub struct GetExadbVmClusterRequest {
 }
 
 impl GetExadbVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22311,6 +22441,7 @@ pub struct ListExadbVmClustersRequest {
 }
 
 impl ListExadbVmClustersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22396,6 +22527,7 @@ pub struct ListExadbVmClustersResponse {
 }
 
 impl ListExadbVmClustersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22483,6 +22615,7 @@ pub struct UpdateExadbVmClusterRequest {
 }
 
 impl UpdateExadbVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22598,6 +22731,7 @@ pub struct RemoveVirtualMachineExadbVmClusterRequest {
 }
 
 impl RemoveVirtualMachineExadbVmClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22674,6 +22808,7 @@ pub struct PluggableDatabase {
 }
 
 impl PluggableDatabase {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22831,6 +22966,7 @@ pub struct PluggableDatabaseProperties {
 }
 
 impl PluggableDatabaseProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23109,6 +23245,7 @@ pub mod pluggable_database_properties {
     }
 
     impl DefinedTagValue {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23533,6 +23670,7 @@ pub struct PluggableDatabaseConnectionStrings {
 }
 
 impl PluggableDatabaseConnectionStrings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23606,6 +23744,7 @@ pub struct PluggableDatabaseNodeLevelDetails {
 }
 
 impl PluggableDatabaseNodeLevelDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23833,6 +23972,7 @@ pub struct DatabaseManagementConfig {
 }
 
 impl DatabaseManagementConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24208,6 +24348,7 @@ pub struct GetPluggableDatabaseRequest {
 }
 
 impl GetPluggableDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24260,6 +24401,7 @@ pub struct ListPluggableDatabasesRequest {
 }
 
 impl ListPluggableDatabasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24333,6 +24475,7 @@ pub struct ListPluggableDatabasesResponse {
 }
 
 impl ListPluggableDatabasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24458,6 +24601,7 @@ pub struct CloudVmCluster {
 }
 
 impl CloudVmCluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24830,6 +24974,7 @@ pub struct CloudVmClusterProperties {
 }
 
 impl CloudVmClusterProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25781,6 +25926,7 @@ pub struct DataCollectionOptions {
 }
 
 impl DataCollectionOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

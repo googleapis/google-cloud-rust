@@ -92,6 +92,7 @@ pub struct SecurityCenterService {
 }
 
 impl SecurityCenterService {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -267,6 +268,7 @@ pub mod security_center_service {
     }
 
     impl ModuleSettings {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -504,6 +506,7 @@ pub struct EffectiveSecurityHealthAnalyticsCustomModule {
 }
 
 impl EffectiveSecurityHealthAnalyticsCustomModule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -760,6 +763,7 @@ pub struct ListEffectiveSecurityHealthAnalyticsCustomModulesRequest {
 }
 
 impl ListEffectiveSecurityHealthAnalyticsCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -826,6 +830,7 @@ pub struct ListEffectiveSecurityHealthAnalyticsCustomModulesResponse {
 }
 
 impl ListEffectiveSecurityHealthAnalyticsCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -907,6 +912,7 @@ pub struct GetEffectiveSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl GetEffectiveSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -975,6 +981,7 @@ pub struct SecurityHealthAnalyticsCustomModule {
 }
 
 impl SecurityHealthAnalyticsCustomModule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1306,6 +1313,7 @@ pub struct CustomConfig {
 }
 
 impl CustomConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1476,6 +1484,7 @@ pub mod custom_config {
     }
 
     impl CustomOutputSpec {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1530,6 +1539,7 @@ pub mod custom_config {
         }
 
         impl Property {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1598,6 +1608,7 @@ pub mod custom_config {
     }
 
     impl ResourceSelector {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1803,6 +1814,7 @@ pub struct ListSecurityHealthAnalyticsCustomModulesRequest {
 }
 
 impl ListSecurityHealthAnalyticsCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1869,6 +1881,7 @@ pub struct ListSecurityHealthAnalyticsCustomModulesResponse {
 }
 
 impl ListSecurityHealthAnalyticsCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1960,6 +1973,7 @@ pub struct ListDescendantSecurityHealthAnalyticsCustomModulesRequest {
 }
 
 impl ListDescendantSecurityHealthAnalyticsCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2026,6 +2040,7 @@ pub struct ListDescendantSecurityHealthAnalyticsCustomModulesResponse {
 }
 
 impl ListDescendantSecurityHealthAnalyticsCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2102,6 +2117,7 @@ pub struct GetSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl GetSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2163,6 +2179,7 @@ pub struct CreateSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl CreateSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2273,6 +2290,7 @@ pub struct UpdateSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl UpdateSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2399,6 +2417,7 @@ pub struct DeleteSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl DeleteSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2460,6 +2479,7 @@ pub struct SimulateSecurityHealthAnalyticsCustomModuleRequest {
 }
 
 impl SimulateSecurityHealthAnalyticsCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2577,6 +2597,7 @@ pub mod simulate_security_health_analytics_custom_module_request {
     }
 
     impl SimulatedResource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2733,6 +2754,7 @@ pub struct SimulatedFinding {
 }
 
 impl SimulatedFinding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3411,6 +3433,7 @@ pub struct SimulateSecurityHealthAnalyticsCustomModuleResponse {
 }
 
 impl SimulateSecurityHealthAnalyticsCustomModuleResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3470,6 +3493,7 @@ pub mod simulate_security_health_analytics_custom_module_response {
     }
 
     impl SimulatedResult {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3682,6 +3706,7 @@ pub struct EffectiveEventThreatDetectionCustomModule {
 }
 
 impl EffectiveEventThreatDetectionCustomModule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3962,6 +3987,7 @@ pub struct ListEffectiveEventThreatDetectionCustomModulesRequest {
 }
 
 impl ListEffectiveEventThreatDetectionCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4028,6 +4054,7 @@ pub struct ListEffectiveEventThreatDetectionCustomModulesResponse {
 }
 
 impl ListEffectiveEventThreatDetectionCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4109,6 +4136,7 @@ pub struct GetEffectiveEventThreatDetectionCustomModuleRequest {
 }
 
 impl GetEffectiveEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4180,6 +4208,7 @@ pub struct EventThreatDetectionCustomModule {
 }
 
 impl EventThreatDetectionCustomModule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4528,6 +4557,7 @@ pub struct ListEventThreatDetectionCustomModulesRequest {
 }
 
 impl ListEventThreatDetectionCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4594,6 +4624,7 @@ pub struct ListEventThreatDetectionCustomModulesResponse {
 }
 
 impl ListEventThreatDetectionCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4686,6 +4717,7 @@ pub struct ListDescendantEventThreatDetectionCustomModulesRequest {
 }
 
 impl ListDescendantEventThreatDetectionCustomModulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4752,6 +4784,7 @@ pub struct ListDescendantEventThreatDetectionCustomModulesResponse {
 }
 
 impl ListDescendantEventThreatDetectionCustomModulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4832,6 +4865,7 @@ pub struct GetEventThreatDetectionCustomModuleRequest {
 }
 
 impl GetEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4896,6 +4930,7 @@ pub struct CreateEventThreatDetectionCustomModuleRequest {
 }
 
 impl CreateEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4997,6 +5032,7 @@ pub struct UpdateEventThreatDetectionCustomModuleRequest {
 }
 
 impl UpdateEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5123,6 +5159,7 @@ pub struct DeleteEventThreatDetectionCustomModuleRequest {
 }
 
 impl DeleteEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5182,6 +5219,7 @@ pub struct ValidateEventThreatDetectionCustomModuleRequest {
 }
 
 impl ValidateEventThreatDetectionCustomModuleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5245,6 +5283,7 @@ pub struct ValidateEventThreatDetectionCustomModuleResponse {
 }
 
 impl ValidateEventThreatDetectionCustomModuleResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5314,6 +5353,7 @@ pub mod validate_event_threat_detection_custom_module_response {
     }
 
     impl CustomModuleValidationError {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5437,6 +5477,7 @@ pub mod validate_event_threat_detection_custom_module_response {
     }
 
     impl Position {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5504,6 +5545,7 @@ pub struct GetSecurityCenterServiceRequest {
 }
 
 impl GetSecurityCenterServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5573,6 +5615,7 @@ pub struct ListSecurityCenterServicesRequest {
 }
 
 impl ListSecurityCenterServicesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5650,6 +5693,7 @@ pub struct ListSecurityCenterServicesResponse {
 }
 
 impl ListSecurityCenterServicesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5748,6 +5792,7 @@ pub struct UpdateSecurityCenterServiceRequest {
 }
 
 impl UpdateSecurityCenterServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

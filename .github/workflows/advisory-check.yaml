@@ -1,0 +1,62 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+name: Scheduled Advisory Check
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Runs every 6 hours
+  workflow_dispatch: # Allows manual triggering from the UI
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  advisory-check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-deny
+        run: cargo install --locked cargo-deny@0.19.0
+
+      - name: Check Advisories
+        id: deny
+        run: cargo deny check advisories
+
+      - name: Create Issue on Failure
+        if: failure()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          ISSUE_TITLE="google-cloud-rust: New RUSTSEC advisory detected"
+          BODY="A new advisory was detected during the scheduled check. Please review and update the dependencies or ignore the advisory in \`deny.toml\`.
+
+          Run \`cargo deny check advisories\` locally to see the details.
+
+          cc @googleapis/cloud-sdk-rust-team"
+
+          # Check for an existing open issue with the same title.
+          EXISTING_ISSUE=$(gh issue list --repo $GH_REPO --search "$ISSUE_TITLE in:title" --state open --json number --jq '.[0].number')
+
+          if [[ -n "$EXISTING_ISSUE" && "$EXISTING_ISSUE" != "null" ]]; then
+            echo "Found existing open issue #$EXISTING_ISSUE. Skipping to avoid noise."
+          else
+            echo "Creating new issue."
+            gh issue create --title "$ISSUE_TITLE" --body "$BODY" --label ":rotating_light: critical" -R $GH_REPO
+          fi

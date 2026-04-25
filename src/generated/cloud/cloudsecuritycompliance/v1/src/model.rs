@@ -59,6 +59,7 @@ pub struct GenerateFrameworkAuditScopeReportRequest {
 }
 
 impl GenerateFrameworkAuditScopeReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -266,6 +267,7 @@ pub struct GenerateFrameworkAuditScopeReportResponse {
 }
 
 impl GenerateFrameworkAuditScopeReportResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -401,6 +403,7 @@ pub struct ReportSummary {
 }
 
 impl ReportSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -499,6 +502,7 @@ pub struct CreateFrameworkAuditRequest {
 }
 
 impl CreateFrameworkAuditRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,6 +586,7 @@ pub struct FrameworkAuditDestination {
 }
 
 impl FrameworkAuditDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -681,6 +686,7 @@ pub struct BucketDestination {
 }
 
 impl BucketDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -901,6 +907,7 @@ pub struct FrameworkAudit {
 }
 
 impl FrameworkAudit {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1383,6 +1390,7 @@ pub struct ListFrameworkAuditsRequest {
 }
 
 impl ListFrameworkAuditsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1457,6 +1465,7 @@ pub struct ListFrameworkAuditsResponse {
 }
 
 impl ListFrameworkAuditsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1533,6 +1542,7 @@ pub struct GetFrameworkAuditRequest {
 }
 
 impl GetFrameworkAuditRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1603,6 +1613,7 @@ pub struct CloudControlGroupAuditDetails {
 }
 
 impl CloudControlGroupAuditDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1868,6 +1879,7 @@ pub struct FindingDetails {
 }
 
 impl FindingDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1992,6 +2004,7 @@ pub struct ObservationDetails {
 }
 
 impl ObservationDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2056,6 +2069,7 @@ pub struct EvidenceDetails {
 }
 
 impl EvidenceDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2129,6 +2143,7 @@ pub struct CloudControlAuditDetails {
 }
 
 impl CloudControlAuditDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2270,6 +2285,7 @@ pub struct UpdateCmEnrollmentRequest {
 }
 
 impl UpdateCmEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2364,6 +2380,7 @@ pub struct CalculateEffectiveCmEnrollmentRequest {
 }
 
 impl CalculateEffectiveCmEnrollmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2413,6 +2430,7 @@ pub struct CmEnrollment {
 }
 
 impl CmEnrollment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2492,6 +2510,7 @@ pub struct CalculateEffectiveCmEnrollmentResponse {
 }
 
 impl CalculateEffectiveCmEnrollmentResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2548,6 +2567,7 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2600,6 +2620,7 @@ pub mod audit_config {
     }
 
     impl CmEligibleDestination {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2730,6 +2751,7 @@ pub struct Framework {
 }
 
 impl Framework {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3076,6 +3098,7 @@ pub struct CloudControlDetails {
 }
 
 impl CloudControlDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3151,6 +3174,7 @@ pub struct FrameworkReference {
 }
 
 impl FrameworkReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3221,6 +3245,7 @@ pub struct Parameter {
 }
 
 impl Parameter {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3343,6 +3368,7 @@ pub struct CloudControl {
 }
 
 impl CloudControl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3804,6 +3830,7 @@ pub struct ParameterSpec {
 }
 
 impl ParameterSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4160,6 +4187,7 @@ pub struct Validation {
 }
 
 impl Validation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4337,6 +4365,7 @@ pub struct AllowedValues {
 }
 
 impl AllowedValues {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4381,6 +4410,7 @@ pub struct RegexpPattern {
 }
 
 impl RegexpPattern {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4420,6 +4450,7 @@ pub struct IntRange {
 }
 
 impl IntRange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4466,6 +4497,7 @@ pub struct StringList {
 }
 
 impl StringList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4505,6 +4537,7 @@ pub struct ParamValue {
 }
 
 impl ParamValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4745,6 +4778,7 @@ pub struct ParameterSubstitutionRule {
 }
 
 impl ParameterSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4890,6 +4924,7 @@ pub struct AttributeSubstitutionRule {
 }
 
 impl AttributeSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4924,6 +4959,7 @@ pub struct PlaceholderSubstitutionRule {
 }
 
 impl PlaceholderSubstitutionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4964,6 +5000,7 @@ pub struct Rule {
 }
 
 impl Rule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5098,6 +5135,7 @@ pub struct CELExpression {
 }
 
 impl CELExpression {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5234,6 +5272,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5385,6 +5424,7 @@ pub struct ControlFamily {
 }
 
 impl ControlFamily {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5444,6 +5484,7 @@ pub struct ListFrameworksRequest {
 }
 
 impl ListFrameworksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5507,6 +5548,7 @@ pub struct ListFrameworksResponse {
 }
 
 impl ListFrameworksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5583,6 +5625,7 @@ pub struct GetFrameworkRequest {
 }
 
 impl GetFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5638,6 +5681,7 @@ pub struct CreateFrameworkRequest {
 }
 
 impl CreateFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5727,6 +5771,7 @@ pub struct UpdateFrameworkRequest {
 }
 
 impl UpdateFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5829,6 +5874,7 @@ pub struct DeleteFrameworkRequest {
 }
 
 impl DeleteFrameworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5883,6 +5929,7 @@ pub struct ListCloudControlsRequest {
 }
 
 impl ListCloudControlsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5945,6 +5992,7 @@ pub struct ListCloudControlsResponse {
 }
 
 impl ListCloudControlsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6021,6 +6069,7 @@ pub struct GetCloudControlRequest {
 }
 
 impl GetCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6077,6 +6126,7 @@ pub struct CreateCloudControlRequest {
 }
 
 impl CreateCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6175,6 +6225,7 @@ pub struct UpdateCloudControlRequest {
 }
 
 impl UpdateCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6265,6 +6316,7 @@ pub struct DeleteCloudControlRequest {
 }
 
 impl DeleteCloudControlRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6366,6 +6418,7 @@ pub struct FrameworkDeployment {
 }
 
 impl FrameworkDeployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6698,6 +6751,7 @@ pub struct CloudControlDeployment {
 }
 
 impl CloudControlDeployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6992,6 +7046,7 @@ pub struct TargetResourceConfig {
 }
 
 impl TargetResourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7138,6 +7193,7 @@ pub struct TargetResourceCreationConfig {
 }
 
 impl TargetResourceCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7289,6 +7345,7 @@ pub struct FolderCreationConfig {
 }
 
 impl FolderCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7346,6 +7403,7 @@ pub struct ProjectCreationConfig {
 }
 
 impl ProjectCreationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7414,6 +7472,7 @@ pub struct CloudControlMetadata {
 }
 
 impl CloudControlMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7497,6 +7556,7 @@ pub struct CreateFrameworkDeploymentRequest {
 }
 
 impl CreateFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7592,6 +7652,7 @@ pub struct DeleteFrameworkDeploymentRequest {
 }
 
 impl DeleteFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7640,6 +7701,7 @@ pub struct GetFrameworkDeploymentRequest {
 }
 
 impl GetFrameworkDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7698,6 +7760,7 @@ pub struct ListFrameworkDeploymentsRequest {
 }
 
 impl ListFrameworkDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7784,6 +7847,7 @@ pub struct ListFrameworkDeploymentsResponse {
 }
 
 impl ListFrameworkDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7856,6 +7920,7 @@ pub struct GetCloudControlDeploymentRequest {
 }
 
 impl GetCloudControlDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7914,6 +7979,7 @@ pub struct ListCloudControlDeploymentsRequest {
 }
 
 impl ListCloudControlDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8000,6 +8066,7 @@ pub struct ListCloudControlDeploymentsResponse {
 }
 
 impl ListCloudControlDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8074,6 +8141,7 @@ pub struct CloudControlDeploymentReference {
 }
 
 impl CloudControlDeploymentReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8131,6 +8199,7 @@ pub struct FrameworkDeploymentReference {
 }
 
 impl FrameworkDeploymentReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8230,6 +8299,7 @@ pub struct ListFrameworkComplianceSummariesRequest {
 }
 
 impl ListFrameworkComplianceSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8306,6 +8376,7 @@ pub struct ListFrameworkComplianceSummariesResponse {
 }
 
 impl ListFrameworkComplianceSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8411,6 +8482,7 @@ pub struct FrameworkComplianceReport {
 }
 
 impl FrameworkComplianceReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8663,6 +8735,7 @@ pub struct FetchFrameworkComplianceReportRequest {
 }
 
 impl FetchFrameworkComplianceReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8745,6 +8818,7 @@ pub struct ListFindingSummariesRequest {
 }
 
 impl ListFindingSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8853,6 +8927,7 @@ pub struct ListFindingSummariesResponse {
 }
 
 impl ListFindingSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8938,6 +9013,7 @@ pub struct ListControlComplianceSummariesRequest {
 }
 
 impl ListControlComplianceSummariesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9046,6 +9122,7 @@ pub struct ListControlComplianceSummariesResponse {
 }
 
 impl ListControlComplianceSummariesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9129,6 +9206,7 @@ pub struct AggregateFrameworkComplianceReportRequest {
 }
 
 impl AggregateFrameworkComplianceReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9208,6 +9286,7 @@ pub struct AggregateFrameworkComplianceReportResponse {
 }
 
 impl AggregateFrameworkComplianceReportResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9262,6 +9341,7 @@ pub struct ControlAssessmentDetails {
 }
 
 impl ControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9359,6 +9439,7 @@ pub struct FrameworkComplianceSummary {
 }
 
 impl FrameworkComplianceSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9578,6 +9659,7 @@ pub struct FindingSummary {
 }
 
 impl FindingSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9753,6 +9835,7 @@ pub struct ControlComplianceSummary {
 }
 
 impl ControlComplianceSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9989,6 +10072,7 @@ pub struct CloudControlReport {
 }
 
 impl CloudControlReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10357,6 +10441,7 @@ pub struct ManualCloudControlAssessmentDetails {
 }
 
 impl ManualCloudControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10399,6 +10484,7 @@ pub struct CloudControlAssessmentDetails {
 }
 
 impl CloudControlAssessmentDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10454,6 +10540,7 @@ pub struct SimilarControls {
 }
 
 impl SimilarControls {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10503,6 +10590,7 @@ pub struct AggregatedComplianceReport {
 }
 
 impl AggregatedComplianceReport {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10614,6 +10702,7 @@ pub struct TargetResourceDetails {
 }
 
 impl TargetResourceDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

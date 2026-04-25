@@ -46,6 +46,7 @@ pub struct SheetsAddOnManifest {
 }
 
 impl SheetsAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,6 +138,7 @@ pub struct SheetsExtensionPoint {
 }
 
 impl SheetsExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

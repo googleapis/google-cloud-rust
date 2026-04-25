@@ -64,6 +64,7 @@ pub struct CheckRequest {
 }
 
 impl CheckRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -203,6 +204,7 @@ pub struct ResourceInfo {
 }
 
 impl ResourceInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -292,6 +294,7 @@ pub struct CheckResponse {
 }
 
 impl CheckResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -383,6 +386,7 @@ pub struct ReportRequest {
 }
 
 impl ReportRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -452,6 +456,7 @@ pub struct ReportResponse {
 }
 
 impl ReportResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -474,6 +479,7 @@ pub struct ResourceInfoList {
 }
 
 impl ResourceInfoList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -54,6 +54,7 @@ pub struct CreateDataPolicyRequest {
 }
 
 impl CreateDataPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -148,6 +149,7 @@ pub struct UpdateDataPolicyRequest {
 }
 
 impl UpdateDataPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -262,6 +264,7 @@ pub struct AddGranteesRequest {
 }
 
 impl AddGranteesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -327,6 +330,7 @@ pub struct RemoveGranteesRequest {
 }
 
 impl RemoveGranteesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -379,6 +383,7 @@ pub struct DeleteDataPolicyRequest {
 }
 
 impl DeleteDataPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -414,6 +419,7 @@ pub struct GetDataPolicyRequest {
 }
 
 impl GetDataPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -467,6 +473,7 @@ pub struct ListDataPoliciesRequest {
 }
 
 impl ListDataPoliciesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -541,6 +548,7 @@ pub struct ListDataPoliciesResponse {
 }
 
 impl ListDataPoliciesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -648,6 +656,7 @@ pub struct DataPolicy {
 }
 
 impl DataPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1143,6 +1152,7 @@ pub struct DataMaskingPolicy {
 }
 
 impl DataMaskingPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

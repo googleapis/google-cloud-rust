@@ -201,6 +201,7 @@ pub struct CertificateAuthority {
 }
 
 impl CertificateAuthority {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -732,6 +733,7 @@ pub mod certificate_authority {
     }
 
     impl AccessUrls {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -783,6 +785,7 @@ pub mod certificate_authority {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct KeyVersionSpec {
+        #[allow(missing_docs)]
         pub key_version:
             std::option::Option<crate::model::certificate_authority::key_version_spec::KeyVersion>,
 
@@ -790,6 +793,7 @@ pub mod certificate_authority {
     }
 
     impl KeyVersionSpec {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -916,6 +920,7 @@ pub mod certificate_authority {
         #[allow(unused_imports)]
         use super::*;
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum KeyVersion {
@@ -963,6 +968,7 @@ pub mod certificate_authority {
     }
 
     impl UserDefinedAccessUrls {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1585,6 +1591,7 @@ pub struct CaPool {
 }
 
 impl CaPool {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1766,6 +1773,7 @@ pub mod ca_pool {
     }
 
     impl PublishingOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2074,6 +2082,7 @@ pub mod ca_pool {
     }
 
     impl IssuancePolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2323,6 +2332,7 @@ pub mod ca_pool {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct AllowedKeyType {
+            #[allow(missing_docs)]
             pub key_type: std::option::Option<
                 crate::model::ca_pool::issuance_policy::allowed_key_type::KeyType,
             >,
@@ -2331,6 +2341,7 @@ pub mod ca_pool {
         }
 
         impl AllowedKeyType {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2496,6 +2507,7 @@ pub mod ca_pool {
             }
 
             impl RsaKeyType {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -2549,6 +2561,7 @@ pub mod ca_pool {
             }
 
             impl EcKeyType {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -2733,6 +2746,7 @@ pub mod ca_pool {
                 }
             }
 
+            #[allow(missing_docs)]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum KeyType {
@@ -2782,6 +2796,7 @@ pub mod ca_pool {
         }
 
         impl IssuanceModes {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3028,6 +3043,7 @@ pub struct CertificateRevocationList {
 }
 
 impl CertificateRevocationList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3261,6 +3277,7 @@ pub mod certificate_revocation_list {
     }
 
     impl RevokedCertificate {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3552,6 +3569,7 @@ pub struct Certificate {
 }
 
 impl Certificate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3955,6 +3973,7 @@ pub mod certificate {
     }
 
     impl RevocationDetails {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4142,6 +4161,7 @@ pub struct CertificateTemplate {
 }
 
 impl CertificateTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4437,6 +4457,7 @@ pub struct X509Parameters {
 }
 
 impl X509Parameters {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4634,6 +4655,7 @@ pub mod x_509_parameters {
     }
 
     impl CaOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4767,6 +4789,7 @@ pub mod x_509_parameters {
     }
 
     impl NameConstraints {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4936,6 +4959,7 @@ pub mod x_509_parameters {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubordinateConfig {
+    #[allow(missing_docs)]
     pub subordinate_config:
         std::option::Option<crate::model::subordinate_config::SubordinateConfig>,
 
@@ -4943,6 +4967,7 @@ pub struct SubordinateConfig {
 }
 
 impl SubordinateConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5075,6 +5100,7 @@ pub mod subordinate_config {
     }
 
     impl SubordinateConfigChain {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5103,6 +5129,7 @@ pub mod subordinate_config {
         }
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SubordinateConfig {
@@ -5143,6 +5170,7 @@ pub struct PublicKey {
 }
 
 impl PublicKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5365,6 +5393,7 @@ pub struct CertificateConfig {
 }
 
 impl CertificateConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5529,6 +5558,7 @@ pub mod certificate_config {
     }
 
     impl SubjectConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5619,6 +5649,7 @@ pub mod certificate_config {
     }
 
     impl KeyId {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5694,6 +5725,7 @@ pub struct CertificateDescription {
 }
 
 impl CertificateDescription {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5988,6 +6020,7 @@ pub mod certificate_description {
     }
 
     impl SubjectDescription {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6192,6 +6225,7 @@ pub mod certificate_description {
     }
 
     impl KeyId {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6226,6 +6260,7 @@ pub mod certificate_description {
     }
 
     impl CertificateFingerprint {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6266,6 +6301,7 @@ pub struct ObjectId {
 }
 
 impl ObjectId {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6317,6 +6353,7 @@ pub struct X509Extension {
 }
 
 impl X509Extension {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6409,6 +6446,7 @@ pub struct KeyUsage {
 }
 
 impl KeyUsage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6553,6 +6591,7 @@ pub mod key_usage {
     }
 
     impl KeyUsageOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6708,6 +6747,7 @@ pub mod key_usage {
     }
 
     impl ExtendedKeyUsageOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6810,6 +6850,7 @@ pub struct AttributeTypeAndValue {
 }
 
 impl AttributeTypeAndValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6969,6 +7010,7 @@ pub struct RelativeDistinguishedName {
 }
 
 impl RelativeDistinguishedName {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7040,6 +7082,7 @@ pub struct Subject {
 }
 
 impl Subject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7202,6 +7245,7 @@ pub struct SubjectAltNames {
 }
 
 impl SubjectAltNames {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7343,6 +7387,7 @@ pub struct CertificateIdentityConstraints {
 }
 
 impl CertificateIdentityConstraints {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7478,6 +7523,7 @@ pub struct CertificateExtensionConstraints {
 }
 
 impl CertificateExtensionConstraints {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7840,6 +7886,7 @@ pub struct CreateCertificateRequest {
 }
 
 impl CreateCertificateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7966,6 +8013,7 @@ pub struct GetCertificateRequest {
 }
 
 impl GetCertificateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8036,6 +8084,7 @@ pub struct ListCertificatesRequest {
 }
 
 impl ListCertificatesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8133,6 +8182,7 @@ pub struct ListCertificatesResponse {
 }
 
 impl ListCertificatesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8249,6 +8299,7 @@ pub struct RevokeCertificateRequest {
 }
 
 impl RevokeCertificateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8337,6 +8388,7 @@ pub struct UpdateCertificateRequest {
 }
 
 impl UpdateCertificateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8469,6 +8521,7 @@ pub struct ActivateCertificateAuthorityRequest {
 }
 
 impl ActivateCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8598,6 +8651,7 @@ pub struct CreateCertificateAuthorityRequest {
 }
 
 impl CreateCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8720,6 +8774,7 @@ pub struct DisableCertificateAuthorityRequest {
 }
 
 impl DisableCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8800,6 +8855,7 @@ pub struct EnableCertificateAuthorityRequest {
 }
 
 impl EnableCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8853,6 +8909,7 @@ pub struct FetchCertificateAuthorityCsrRequest {
 }
 
 impl FetchCertificateAuthorityCsrRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8890,6 +8947,7 @@ pub struct FetchCertificateAuthorityCsrResponse {
 }
 
 impl FetchCertificateAuthorityCsrResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8933,6 +8991,7 @@ pub struct GetCertificateAuthorityRequest {
 }
 
 impl GetCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9001,6 +9060,7 @@ pub struct ListCertificateAuthoritiesRequest {
 }
 
 impl ListCertificateAuthoritiesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9099,6 +9159,7 @@ pub struct ListCertificateAuthoritiesResponse {
 }
 
 impl ListCertificateAuthoritiesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9210,6 +9271,7 @@ pub struct UndeleteCertificateAuthorityRequest {
 }
 
 impl UndeleteCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9293,6 +9355,7 @@ pub struct DeleteCertificateAuthorityRequest {
 }
 
 impl DeleteCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9400,6 +9463,7 @@ pub struct UpdateCertificateAuthorityRequest {
 }
 
 impl UpdateCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9532,6 +9596,7 @@ pub struct CreateCaPoolRequest {
 }
 
 impl CreateCaPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9647,6 +9712,7 @@ pub struct UpdateCaPoolRequest {
 }
 
 impl UpdateCaPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9775,6 +9841,7 @@ pub struct DeleteCaPoolRequest {
 }
 
 impl DeleteCaPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9855,6 +9922,7 @@ pub struct FetchCaCertsRequest {
 }
 
 impl FetchCaCertsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9908,6 +9976,7 @@ pub struct FetchCaCertsResponse {
 }
 
 impl FetchCaCertsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9946,6 +10015,7 @@ pub mod fetch_ca_certs_response {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertChain {
@@ -9956,6 +10026,7 @@ pub mod fetch_ca_certs_response {
     }
 
     impl CertChain {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10003,6 +10074,7 @@ pub struct GetCaPoolRequest {
 }
 
 impl GetCaPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10068,6 +10140,7 @@ pub struct ListCaPoolsRequest {
 }
 
 impl ListCaPoolsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10165,6 +10238,7 @@ pub struct ListCaPoolsResponse {
 }
 
 impl ListCaPoolsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10262,6 +10336,7 @@ pub struct GetCertificateRevocationListRequest {
 }
 
 impl GetCertificateRevocationListRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10328,6 +10403,7 @@ pub struct ListCertificateRevocationListsRequest {
 }
 
 impl ListCertificateRevocationListsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10426,6 +10502,7 @@ pub struct ListCertificateRevocationListsResponse {
 }
 
 impl ListCertificateRevocationListsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10540,6 +10617,7 @@ pub struct UpdateCertificateRevocationListRequest {
 }
 
 impl UpdateCertificateRevocationListRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10673,6 +10751,7 @@ pub struct CreateCertificateTemplateRequest {
 }
 
 impl CreateCertificateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10789,6 +10868,7 @@ pub struct DeleteCertificateTemplateRequest {
 }
 
 impl DeleteCertificateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10844,6 +10924,7 @@ pub struct GetCertificateTemplateRequest {
 }
 
 impl GetCertificateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10910,6 +10991,7 @@ pub struct ListCertificateTemplatesRequest {
 }
 
 impl ListCertificateTemplatesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11008,6 +11090,7 @@ pub struct ListCertificateTemplatesResponse {
 }
 
 impl ListCertificateTemplatesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11120,6 +11203,7 @@ pub struct UpdateCertificateTemplateRequest {
 }
 
 impl UpdateCertificateTemplateRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11246,6 +11330,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

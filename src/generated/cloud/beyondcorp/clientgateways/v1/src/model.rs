@@ -64,6 +64,7 @@ pub struct ClientGateway {
 }
 
 impl ClientGateway {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -389,6 +390,7 @@ pub struct ListClientGatewaysRequest {
 }
 
 impl ListClientGatewaysRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -477,6 +479,7 @@ pub struct ListClientGatewaysResponse {
 }
 
 impl ListClientGatewaysResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -564,6 +567,7 @@ pub struct GetClientGatewayRequest {
 }
 
 impl GetClientGatewayRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -627,6 +631,7 @@ pub struct CreateClientGatewayRequest {
 }
 
 impl CreateClientGatewayRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -752,6 +757,7 @@ pub struct DeleteClientGatewayRequest {
 }
 
 impl DeleteClientGatewayRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -834,6 +840,7 @@ pub struct ClientGatewayOperationMetadata {
 }
 
 impl ClientGatewayOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

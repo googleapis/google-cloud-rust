@@ -39,7 +39,7 @@ pub(super) trait Leaser {
     /// Negatively acknowledge a batch of messages.
     async fn nack(&self, ack_ids: Vec<String>);
     /// Extend lease deadlines for a batch of messages.
-    async fn extend(&self, ack_ids: Vec<String>);
+    async fn extend(&self, ack_ids: Vec<String>) -> Vec<String>;
 
     /// Acknowledge a batch of messages with exactly-once semantics.
     ///
@@ -151,15 +151,20 @@ where
             .await;
     }
 
-    async fn extend(&self, ack_ids: Vec<String>) {
+    async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids)
+            .set_ack_ids(ack_ids.clone())
             .set_ack_deadline_seconds(self.ack_deadline_seconds);
-        let _ = self
+        let response = self
             .inner
             .modify_ack_deadline(req, self.options.clone())
             .await;
+        if response.is_ok() {
+            ack_ids
+        } else {
+            Vec::new()
+        }
     }
 
     /// The exactly-once ack retry loop.
@@ -406,7 +411,7 @@ pub(super) mod tests {
         impl Leaser for Leaser {
             async fn ack(&self, ack_ids: Vec<String>);
             async fn nack(&self, ack_ids: Vec<String>);
-            async fn extend(&self, ack_ids: Vec<String>);
+            async fn extend(&self, ack_ids: Vec<String>) -> Vec<String>;
             async fn confirmed_ack(&self, ack_ids: Vec<String>);
             async fn confirmed_nack(&self, ack_ids: Vec<String>);
         }
@@ -420,7 +425,7 @@ pub(super) mod tests {
         async fn nack(&self, ack_ids: Vec<String>) {
             MockLeaser::nack(self, ack_ids).await
         }
-        async fn extend(&self, ack_ids: Vec<String>) {
+        async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
             MockLeaser::extend(self, ack_ids).await
         }
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
@@ -439,7 +444,7 @@ pub(super) mod tests {
         async fn nack(&self, ack_ids: Vec<String>) {
             self.lock().await.nack(ack_ids).await
         }
-        async fn extend(&self, ack_ids: Vec<String>) {
+        async fn extend(&self, ack_ids: Vec<String>) -> Vec<String> {
             self.lock().await.extend(ack_ids).await
         }
         async fn confirmed_ack(&self, ack_ids: Vec<String>) {
@@ -542,7 +547,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn ack() {
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -554,6 +558,7 @@ pub(super) mod tests {
             Ok(Response::from(()))
         });
 
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
@@ -566,7 +571,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn nack() {
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -581,6 +585,7 @@ pub(super) mod tests {
                 Ok(Response::from(()))
             });
 
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
@@ -593,7 +598,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn extend() {
-        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -608,6 +612,7 @@ pub(super) mod tests {
                 Ok(Response::from(()))
             });
 
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
@@ -615,12 +620,40 @@ pub(super) mod tests {
             10,
             16_usize,
         );
-        leaser.extend(test_ids(0..10)).await;
+        let extended = leaser.extend(test_ids(0..10)).await;
+        assert_eq!(extended, test_ids(0..10));
+    }
+
+    #[tokio::test]
+    async fn extend_failure() {
+        let mut mock = MockStub::new();
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .return_once(|r, o| {
+                assert_eq!(r.ack_deadline_seconds, 10);
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_ids, test_ids(0..10));
+                verify_policies(o, 16);
+                Err(Error::service(Status::default().set_code(Code::Internal)))
+            });
+
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        let extended = leaser.extend(test_ids(0..10)).await;
+        assert!(extended.is_empty(), "{extended:?}");
     }
 
     #[tokio::test]
     async fn confirmed_ack_success() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -632,6 +665,7 @@ pub(super) mod tests {
             Ok(Response::from(()))
         });
 
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
@@ -659,7 +693,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn confirmed_ack_failure() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -675,6 +708,7 @@ pub(super) mod tests {
             ))
         });
 
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
@@ -706,7 +740,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn confirmed_ack_partial_transient_failure_retry_failure() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         let mut seq = Sequence::new();
 
@@ -739,6 +772,7 @@ pub(super) mod tests {
             .times(1)
             .return_const(std::time::Duration::ZERO);
 
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
@@ -769,7 +803,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn confirmed_ack_partial_transient_failure_retry_success() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         let mut seq = Sequence::new();
 
@@ -798,6 +831,7 @@ pub(super) mod tests {
             .times(1)
             .return_const(Duration::ZERO);
 
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
@@ -821,7 +855,6 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn confirmed_ack_partial_permanent_failure() -> anyhow::Result<()> {
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
 
         let info =
@@ -835,6 +868,7 @@ pub(super) mod tests {
                 Err(err)
             });
 
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
