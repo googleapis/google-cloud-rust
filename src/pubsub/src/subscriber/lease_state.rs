@@ -188,6 +188,10 @@ pub(super) enum LeaseEvent {
     Flush,
     /// Extend leases
     Extend,
+    /// Pending extensions completed
+    ExtendCompleted(Vec<String>),
+    /// Pending exactly-once extensions completed
+    ExtendCompletedEO(Vec<String>),
 }
 
 impl<L> LeaseState<L>
@@ -228,6 +232,22 @@ where
         tokio::select! {
             _ = self.flush_interval.tick() => LeaseEvent::Flush,
             _ = self.extend_interval.tick() => LeaseEvent::Extend,
+            res = self.pending_extends.join_next(), if !self.pending_extends.is_empty() => {
+                if let Some(Ok(ack_ids)) = res {
+                    LeaseEvent::ExtendCompleted(ack_ids)
+                } else {
+                    // swallow the JoinError.
+                    LeaseEvent::ExtendCompleted(Vec::new())
+                }
+            }
+            res = self.eo_pending_extends.join_next(), if !self.eo_pending_extends.is_empty() => {
+                if let Some(Ok(ack_ids)) = res {
+                    LeaseEvent::ExtendCompletedEO(ack_ids)
+                } else {
+                    // swallow the JoinError.
+                    LeaseEvent::ExtendCompletedEO(Vec::new())
+                }
+            }
         }
     }
 
@@ -262,14 +282,12 @@ where
 
     /// Updates the `last_extension` timestamp for the given at-least-once ack IDs
     /// with the completion time of a successful extension RPC.
-    #[allow(dead_code)]
     pub(super) fn update_last_extension(&mut self, ack_ids: Vec<String>) {
         self.leases.update_last_extension(&ack_ids);
     }
 
     /// Updates the `last_extension` timestamp for the given exactly-once ack IDs
     /// with the completion time of a successful extension RPC.
-    #[allow(dead_code)]
     pub(super) fn update_last_extension_eo(&mut self, ack_ids: Vec<String>) {
         self.eo_leases.update_last_extension(&ack_ids);
     }
@@ -305,6 +323,10 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) fn extend(&mut self) {
+        // Old pending extensions and their results are no longer needed.
+        self.pending_extends = JoinSet::new();
+        self.eo_pending_extends = JoinSet::new();
+
         let batches = self.leases.retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
@@ -320,9 +342,6 @@ where
             self.eo_pending_extends
                 .spawn(async move { leaser.extend(ack_ids).await });
         }
-
-        // TODO(#5048) - we could process the results as a lease event.
-        while self.pending_extends.try_join_next().is_some() {}
     }
 
     /// Shutdown the leaser
@@ -486,6 +505,28 @@ pub(super) mod tests {
             .retain(Duration::from_secs(600), Duration::from_secs(60));
         let flattened = Batches::flatten(batches);
         assert_eq!(flattened.ack_ids, test_ids(2..3));
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn extend_clears_pending() {
+        let mut mock = MockLeaser::new();
+        mock.expect_extend().returning(|ack_ids| ack_ids);
+
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
+
+        state.add(test_id(1), at_least_once_info());
+        state.add(test_id(2), exactly_once_info());
+
+        tokio::time::advance(Duration::from_secs(61)).await;
+
+        state.extend();
+        assert_eq!(state.pending_extends.len(), 1);
+        assert_eq!(state.eo_pending_extends.len(), 1);
+
+        state.extend();
+        // The previous pending extend tasks should be cleared and a new one spawned.
+        assert_eq!(state.pending_extends.len(), 1);
+        assert_eq!(state.eo_pending_extends.len(), 1);
     }
 
     async fn flush_and_await<L>(state: &mut LeaseState<L>)
@@ -955,9 +996,13 @@ pub(super) mod tests {
     async fn pending_extends_size_management() {
         let mut mock = MockLeaser::new();
         mock.expect_extend()
-            .times(2)
+            .times(1)
             .withf(|v| *v == vec![test_id(1)])
-            .returning(move |ack_ids| ack_ids);
+            .returning(|ack_ids| ack_ids);
+        mock.expect_extend()
+            .times(1)
+            .withf(|v| *v == vec![test_id(2)])
+            .returning(|ack_ids| ack_ids);
 
         let options = LeaseOptions {
             max_lease_extension: Duration::ZERO,
@@ -966,21 +1011,26 @@ pub(super) mod tests {
         let mut state = LeaseState::new(Arc::new(mock), options);
 
         state.add(test_id(1), at_least_once_info());
+        state.add(test_id(2), exactly_once_info());
         state.extend();
-        // Yield execution so the extend attempt can execute.
-        tokio::task::yield_now().await;
 
-        // TODO(#5048) - We currently clean up the completed pending extends in
-        // `LeaseState::extend()`. If we decide to clean up the pending extends
-        // elsewhere, this test will need an update.
-        state.extend();
-        let pending_extends = state.pending_extends.len();
-        assert!(
-            pending_extends < 2,
-            "The first lease extension attempt should have completed. We should not hold onto it."
+        let mut events = Vec::new();
+        events.push(state.next_event().await);
+        events.push(state.next_event().await);
+
+        assert!(events.contains(&LeaseEvent::ExtendCompleted(test_ids(1..2))));
+        assert!(events.contains(&LeaseEvent::ExtendCompletedEO(test_ids(2..3))));
+
+        assert_eq!(
+            state.pending_extends.len(),
+            0,
+            "Completed at-least-once extensions should be cleaned up"
         );
-
-        let _ = state.pending_extends.join_all().await;
+        assert_eq!(
+            state.eo_pending_extends.len(),
+            0,
+            "Completed exactly-once extensions should be cleaned up"
+        );
     }
 
     #[tokio::test]
