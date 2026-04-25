@@ -253,7 +253,10 @@ mod tests {
     use gaxi::grpc::tonic::MetadataMap;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::google::spanner::v1::CommitResponse;
@@ -264,8 +267,16 @@ mod tests {
     use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
     use std::sync::Arc;
-    use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
+    use std::sync::atomic::{AtomicU64, Ordering};
     use std::time::Duration;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -846,7 +857,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn timeout_respected() -> anyhow::Result<()> {
         use crate::batch_dml::BatchDml;
         use std::time::Duration;
@@ -993,24 +1004,10 @@ mod tests {
 
     #[tokio::test]
     async fn retry_policy_respected() -> anyhow::Result<()> {
-        use google_cloud_gax::backoff_policy::BackoffPolicy;
         use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-        use google_cloud_gax::retry_state::RetryState;
 
         // Extend the default retry policy to also retry on ResourceExhausted.
         let retry_policy = Aip194Strict.continue_on_too_many_requests();
-
-        // Custom Backoff Policy with a counter that allows us to verify that
-        // it was used.
-        #[derive(Debug)]
-        struct ConstantBackoff(Duration, Arc<AtomicUsize>);
-
-        impl BackoffPolicy for ConstantBackoff {
-            fn on_failure(&self, _state: &RetryState) -> Duration {
-                self.1.fetch_add(1, Ordering::SeqCst);
-                self.0
-            }
-        }
 
         // 1. Setup Mock Server
         let mut mock = MockSpanner::new();
@@ -1077,13 +1074,15 @@ mod tests {
         let runner = db.read_write_transaction().build().await?;
 
         // 4. Call execute_update with custom retry and backoff
-        let backoff_count = Arc::new(AtomicUsize::new(0));
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
         let stmt = Statement::builder("UPDATE t SET c = 1")
             .with_retry_policy(retry_policy)
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                backoff_count.clone(),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
 
         let result = runner
@@ -1093,13 +1092,8 @@ mod tests {
             })
             .await?;
 
-        // 5. Verify success after retry and that backoff was called
+        // 5. Verify success after retry
         assert_eq!(result, 1);
-        assert_eq!(
-            backoff_count.load(Ordering::SeqCst),
-            1,
-            "Backoff policy should have been called once"
-        );
 
         Ok(())
     }
@@ -1133,8 +1127,9 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn transaction_timeout_respected() -> anyhow::Result<()> {
+        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
         use spanner_grpc_mock::google::spanner::v1::Transaction;
 
         // 1. Setup Mock Server
@@ -1164,24 +1159,42 @@ mod tests {
             }))
         });
 
-        // Mock execute_sql to check timeout header
-        mock.expect_execute_sql().once().returning(|req| {
-            let timeout_val = parse_timeout(req.metadata());
-            assert!(
-                timeout_val <= 100000,
-                "Expected timeout to be <= 100ms, got {}",
-                timeout_val
-            );
+        // Mock execute_sql to first fail and then succeed, checking timeout header on both
+        let mut seq = mockall::Sequence::new();
 
-            let res = ResultSet {
-                stats: Some(ResultSetStats {
-                    row_count: Some(RowCount::RowCountExact(1)),
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let timeout_val = parse_timeout(req.metadata());
+                assert!(
+                    timeout_val <= 100000,
+                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val
+                );
+                Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded"))
+            });
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let timeout_val = parse_timeout(req.metadata());
+                assert!(
+                    timeout_val <= 100000,
+                    "Expected timeout to be <= 100ms, got {}",
+                    timeout_val
+                );
+
+                let res = ResultSet {
+                    stats: Some(ResultSetStats {
+                        row_count: Some(RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
                     ..Default::default()
-                }),
-                ..Default::default()
-            };
-            Ok(Response::new(res))
-        });
+                };
+                Ok(Response::new(res))
+            });
 
         // 2. Initialize Client
         let (address, _server) = start("127.0.0.1:0", mock).await?;
@@ -1202,10 +1215,21 @@ mod tests {
             .build()
             .await?;
 
-        // 4. Run transaction and expect success
+        // 4. Run transaction and expect success after retry
         let result = runner
             .run(async |tx| {
-                let stmt = Statement::builder("SELECT 1").build();
+                let mut mock_backoff = MockBackoffPolicy::new();
+                mock_backoff
+                    .expect_on_failure()
+                    .times(1)
+                    .returning(|_| Duration::from_nanos(1));
+
+                let retry_policy = Aip194Strict.continue_on_too_many_requests();
+
+                let stmt = Statement::builder("SELECT 1")
+                    .with_retry_policy(retry_policy)
+                    .with_backoff_policy(mock_backoff)
+                    .build();
                 tx.execute_update(stmt).await?;
                 Ok(())
             })

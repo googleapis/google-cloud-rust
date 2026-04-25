@@ -187,6 +187,7 @@ pub struct Color {
 }
 
 impl Color {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,6 +308,7 @@ pub struct Date {
 }
 
 impl Date {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -420,6 +422,7 @@ pub struct DateTime {
 }
 
 impl DateTime {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -642,6 +645,7 @@ pub struct TimeZone {
 }
 
 impl TimeZone {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -754,6 +758,7 @@ pub struct Decimal {
 }
 
 impl Decimal {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -840,6 +845,7 @@ pub struct Expr {
 }
 
 impl Expr {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -914,6 +920,7 @@ pub struct Fraction {
 }
 
 impl Fraction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -974,6 +981,7 @@ pub struct Interval {
 }
 
 impl Interval {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1069,6 +1077,7 @@ pub struct LatLng {
 }
 
 impl LatLng {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1124,6 +1133,7 @@ pub struct LocalizedText {
 }
 
 impl LocalizedText {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1182,6 +1192,7 @@ pub struct Money {
 }
 
 impl Money {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1283,6 +1294,7 @@ pub struct PhoneNumber {
 }
 
 impl PhoneNumber {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1429,6 +1441,7 @@ pub mod phone_number {
     }
 
     impl ShortCode {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1618,6 +1631,7 @@ pub struct PostalAddress {
 }
 
 impl PostalAddress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1854,6 +1868,7 @@ pub struct Quaternion {
 }
 
 impl Quaternion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1944,6 +1959,7 @@ pub struct TimeOfDay {
 }
 
 impl TimeOfDay {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

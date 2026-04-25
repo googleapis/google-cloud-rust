@@ -1844,7 +1844,7 @@ mod tests {
         let creds = builder.build()?;
         let universe_domain = creds.universe_domain().await;
 
-        assert!(is_default_universe_domain(universe_domain.clone()));
+        assert!(is_default_universe_domain(universe_domain.as_deref()));
 
         Ok(())
     }

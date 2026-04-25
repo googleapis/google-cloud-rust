@@ -139,6 +139,7 @@ pub struct Feature {
 }
 
 impl Feature {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -499,6 +500,7 @@ pub struct FeatureResourceState {
 }
 
 impl FeatureResourceState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -709,6 +711,7 @@ pub struct FeatureState {
 }
 
 impl FeatureState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -938,12 +941,14 @@ pub mod feature_state {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonFeatureSpec {
+    #[allow(missing_docs)]
     pub feature_spec: std::option::Option<crate::model::common_feature_spec::FeatureSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonFeatureSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1026,6 +1031,7 @@ pub mod common_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureSpec {
@@ -1043,12 +1049,14 @@ pub struct CommonFeatureState {
     /// Output only. The "running state" of the Feature in this Fleet.
     pub state: std::option::Option<crate::model::FeatureState>,
 
+    #[allow(missing_docs)]
     pub feature_state: std::option::Option<crate::model::common_feature_state::FeatureState>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CommonFeatureState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1166,6 +1174,7 @@ pub mod common_feature_state {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureState {
@@ -1184,6 +1193,7 @@ pub struct ScopeFeatureSpec {
 }
 
 impl ScopeFeatureSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1206,6 +1216,7 @@ pub struct ScopeFeatureState {
 }
 
 impl ScopeFeatureState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1255,12 +1266,14 @@ impl wkt::message::Message for ScopeFeatureState {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MembershipFeatureSpec {
+    #[allow(missing_docs)]
     pub feature_spec: std::option::Option<crate::model::membership_feature_spec::FeatureSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipFeatureSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1343,6 +1356,7 @@ pub mod membership_feature_spec {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureSpec {
@@ -1361,12 +1375,14 @@ pub struct MembershipFeatureState {
     /// The high-level state of this Feature for a single membership.
     pub state: std::option::Option<crate::model::FeatureState>,
 
+    #[allow(missing_docs)]
     pub feature_state: std::option::Option<crate::model::membership_feature_state::FeatureState>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MembershipFeatureState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1484,6 +1500,7 @@ pub mod membership_feature_state {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FeatureState {
@@ -1540,6 +1557,7 @@ pub struct Fleet {
 }
 
 impl Fleet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1793,6 +1811,7 @@ pub struct DefaultClusterConfig {
 }
 
 impl DefaultClusterConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1918,6 +1937,7 @@ pub struct SecurityPostureConfig {
 }
 
 impl SecurityPostureConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2269,6 +2289,7 @@ pub struct BinaryAuthorizationConfig {
 }
 
 impl BinaryAuthorizationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2339,6 +2360,7 @@ pub mod binary_authorization_config {
     }
 
     impl PolicyBinding {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2511,6 +2533,7 @@ pub struct CompliancePostureConfig {
 }
 
 impl CompliancePostureConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2566,6 +2589,7 @@ pub mod compliance_posture_config {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ComplianceStandard {
@@ -2576,6 +2600,7 @@ pub mod compliance_posture_config {
     }
 
     impl ComplianceStandard {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2599,6 +2624,7 @@ pub mod compliance_posture_config {
         }
     }
 
+    /// Enum for [Mode].
     ///
     /// # Working with unknown values
     ///
@@ -2742,6 +2768,7 @@ pub struct FleetLifecycleState {
 }
 
 impl FleetLifecycleState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2965,6 +2992,7 @@ pub struct Namespace {
 }
 
 impl Namespace {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3197,6 +3225,7 @@ pub struct NamespaceLifecycleState {
 }
 
 impl NamespaceLifecycleState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3419,6 +3448,7 @@ pub struct RBACRoleBinding {
 }
 
 impl RBACRoleBinding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3741,6 +3771,7 @@ pub mod rbac_role_binding {
     }
 
     impl Role {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3965,6 +3996,7 @@ pub struct RBACRoleBindingLifecycleState {
 }
 
 impl RBACRoleBindingLifecycleState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4187,6 +4219,7 @@ pub struct Scope {
 }
 
 impl Scope {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4407,6 +4440,7 @@ pub struct ScopeLifecycleState {
 }
 
 impl ScopeLifecycleState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4626,6 +4660,7 @@ pub struct MembershipBinding {
 }
 
 impl MembershipBinding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4890,6 +4925,7 @@ pub struct MembershipBindingLifecycleState {
 }
 
 impl MembershipBindingLifecycleState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5148,6 +5184,7 @@ pub struct Membership {
 }
 
 impl Membership {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5558,6 +5595,7 @@ pub struct MembershipEndpoint {
 }
 
 impl MembershipEndpoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5721,6 +5759,7 @@ pub struct KubernetesResource {
 }
 
 impl KubernetesResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5853,6 +5892,7 @@ pub struct ResourceOptions {
 }
 
 impl ResourceOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5931,6 +5971,7 @@ pub struct ResourceManifest {
 }
 
 impl ResourceManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5986,6 +6027,7 @@ pub struct GkeCluster {
 }
 
 impl GkeCluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6055,6 +6097,7 @@ pub struct KubernetesMetadata {
 }
 
 impl KubernetesMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6199,6 +6242,7 @@ pub struct MonitoringConfig {
 }
 
 impl MonitoringConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6284,6 +6328,7 @@ pub struct MembershipState {
 }
 
 impl MembershipState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6514,6 +6559,7 @@ pub struct Authority {
 }
 
 impl Authority {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6591,6 +6637,7 @@ pub struct GetScopeNamespaceRequest {
 }
 
 impl GetScopeNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6640,6 +6687,7 @@ pub struct CreateScopeNamespaceRequest {
 }
 
 impl CreateScopeNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6727,6 +6775,7 @@ pub struct UpdateScopeNamespaceRequest {
 }
 
 impl UpdateScopeNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6816,6 +6865,7 @@ pub struct DeleteScopeNamespaceRequest {
 }
 
 impl DeleteScopeNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6861,6 +6911,7 @@ pub struct ListScopeNamespacesRequest {
 }
 
 impl ListScopeNamespacesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6924,6 +6975,7 @@ pub struct ListScopeNamespacesResponse {
 }
 
 impl ListScopeNamespacesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6995,6 +7047,7 @@ pub struct GetScopeRBACRoleBindingRequest {
 }
 
 impl GetScopeRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7044,6 +7097,7 @@ pub struct CreateScopeRBACRoleBindingRequest {
 }
 
 impl CreateScopeRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7130,6 +7184,7 @@ pub struct UpdateScopeRBACRoleBindingRequest {
 }
 
 impl UpdateScopeRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7219,6 +7274,7 @@ pub struct DeleteScopeRBACRoleBindingRequest {
 }
 
 impl DeleteScopeRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7264,6 +7320,7 @@ pub struct ListScopeRBACRoleBindingsRequest {
 }
 
 impl ListScopeRBACRoleBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7327,6 +7384,7 @@ pub struct ListScopeRBACRoleBindingsResponse {
 }
 
 impl ListScopeRBACRoleBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7398,6 +7456,7 @@ pub struct GetScopeRequest {
 }
 
 impl GetScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7440,6 +7499,7 @@ pub struct CreateScopeRequest {
 }
 
 impl CreateScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7523,6 +7583,7 @@ pub struct UpdateScopeRequest {
 }
 
 impl UpdateScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7612,6 +7673,7 @@ pub struct DeleteScopeRequest {
 }
 
 impl DeleteScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7657,6 +7719,7 @@ pub struct ListScopesRequest {
 }
 
 impl ListScopesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7720,6 +7783,7 @@ pub struct ListScopesResponse {
 }
 
 impl ListScopesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7801,6 +7865,7 @@ pub struct ListPermittedScopesRequest {
 }
 
 impl ListPermittedScopesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7864,6 +7929,7 @@ pub struct ListPermittedScopesResponse {
 }
 
 impl ListPermittedScopesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7935,6 +8001,7 @@ pub struct GetMembershipBindingRequest {
 }
 
 impl GetMembershipBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7977,6 +8044,7 @@ pub struct CreateMembershipBindingRequest {
 }
 
 impl CreateMembershipBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8062,6 +8130,7 @@ pub struct UpdateMembershipBindingRequest {
 }
 
 impl UpdateMembershipBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8151,6 +8220,7 @@ pub struct DeleteMembershipBindingRequest {
 }
 
 impl DeleteMembershipBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8200,6 +8270,7 @@ pub struct ListMembershipBindingsRequest {
 }
 
 impl ListMembershipBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8278,6 +8349,7 @@ pub struct ListMembershipBindingsResponse {
 }
 
 impl ListMembershipBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8404,6 +8476,7 @@ pub struct ListMembershipsRequest {
 }
 
 impl ListMembershipsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8487,6 +8560,7 @@ pub struct GetMembershipRBACRoleBindingRequest {
 }
 
 impl GetMembershipRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8536,6 +8610,7 @@ pub struct CreateMembershipRBACRoleBindingRequest {
 }
 
 impl CreateMembershipRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8622,6 +8697,7 @@ pub struct UpdateMembershipRBACRoleBindingRequest {
 }
 
 impl UpdateMembershipRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8711,6 +8787,7 @@ pub struct DeleteMembershipRBACRoleBindingRequest {
 }
 
 impl DeleteMembershipRBACRoleBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8756,6 +8833,7 @@ pub struct ListMembershipRBACRoleBindingsRequest {
 }
 
 impl ListMembershipRBACRoleBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8822,6 +8900,7 @@ pub struct ListMembershipRBACRoleBindingsResponse {
 }
 
 impl ListMembershipRBACRoleBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8927,6 +9006,7 @@ pub struct GenerateMembershipRBACRoleBindingYAMLRequest {
 }
 
 impl GenerateMembershipRBACRoleBindingYAMLRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9009,6 +9089,7 @@ pub struct GenerateMembershipRBACRoleBindingYAMLResponse {
 }
 
 impl GenerateMembershipRBACRoleBindingYAMLResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9054,6 +9135,7 @@ pub struct ListMembershipsResponse {
 }
 
 impl ListMembershipsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9142,6 +9224,7 @@ pub struct GetMembershipRequest {
 }
 
 impl GetMembershipRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9194,6 +9277,7 @@ pub struct ListBoundMembershipsRequest {
 }
 
 impl ListBoundMembershipsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9272,6 +9356,7 @@ pub struct ListBoundMembershipsResponse {
 }
 
 impl ListBoundMembershipsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9389,6 +9474,7 @@ pub struct CreateMembershipRequest {
 }
 
 impl CreateMembershipRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9501,6 +9587,7 @@ pub struct DeleteMembershipRequest {
 }
 
 impl DeleteMembershipRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9588,6 +9675,7 @@ pub struct UpdateMembershipRequest {
 }
 
 impl UpdateMembershipRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9733,6 +9821,7 @@ pub struct GenerateConnectManifestRequest {
 }
 
 impl GenerateConnectManifestRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9844,6 +9933,7 @@ pub struct GenerateConnectManifestResponse {
 }
 
 impl GenerateConnectManifestResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9892,6 +9982,7 @@ pub struct ConnectAgentResource {
 }
 
 impl ConnectAgentResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9963,6 +10054,7 @@ pub struct TypeMeta {
 }
 
 impl TypeMeta {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10049,6 +10141,7 @@ pub struct ListFeaturesRequest {
 }
 
 impl ListFeaturesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10148,6 +10241,7 @@ pub struct ListFeaturesResponse {
 }
 
 impl ListFeaturesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10225,6 +10319,7 @@ pub struct GetFeatureRequest {
 }
 
 impl GetFeatureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10293,6 +10388,7 @@ pub struct CreateFeatureRequest {
 }
 
 impl CreateFeatureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10405,6 +10501,7 @@ pub struct DeleteFeatureRequest {
 }
 
 impl DeleteFeatureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10492,6 +10589,7 @@ pub struct UpdateFeatureRequest {
 }
 
 impl UpdateFeatureRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10608,6 +10706,7 @@ pub struct CreateFleetRequest {
 }
 
 impl CreateFleetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10676,6 +10775,7 @@ pub struct GetFleetRequest {
 }
 
 impl GetFleetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10716,6 +10816,7 @@ pub struct UpdateFleetRequest {
 }
 
 impl UpdateFleetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10805,6 +10906,7 @@ pub struct DeleteFleetRequest {
 }
 
 impl DeleteFleetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10852,6 +10954,7 @@ pub struct ListFleetsRequest {
 }
 
 impl ListFleetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10915,6 +11018,7 @@ pub struct ListFleetsResponse {
 }
 
 impl ListFleetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11011,6 +11115,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

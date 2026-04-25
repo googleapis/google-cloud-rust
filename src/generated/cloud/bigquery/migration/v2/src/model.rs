@@ -67,6 +67,7 @@ pub struct MigrationWorkflow {
 }
 
 impl MigrationWorkflow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -425,6 +426,7 @@ pub struct MigrationTask {
 }
 
 impl MigrationTask {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1023,6 +1025,7 @@ pub struct MigrationSubtask {
 }
 
 impl MigrationSubtask {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1422,6 +1425,7 @@ pub struct MigrationTaskResult {
 }
 
 impl MigrationTaskResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1523,6 +1527,7 @@ pub struct TranslationTaskResult {
 }
 
 impl TranslationTaskResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1597,6 +1602,7 @@ pub struct ResourceErrorDetail {
 }
 
 impl ResourceErrorDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1690,6 +1696,7 @@ pub struct ErrorDetail {
 }
 
 impl ErrorDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1783,6 +1790,7 @@ pub struct ErrorLocation {
 }
 
 impl ErrorLocation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1852,6 +1860,7 @@ pub struct TimeSeries {
 }
 
 impl TimeSeries {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1959,6 +1968,7 @@ pub struct Point {
 }
 
 impl Point {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2054,6 +2064,7 @@ pub struct TimeInterval {
 }
 
 impl TimeInterval {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2142,6 +2153,7 @@ pub struct TypedValue {
 }
 
 impl TypedValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2387,6 +2399,7 @@ pub struct CreateMigrationWorkflowRequest {
 }
 
 impl CreateMigrationWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2458,6 +2471,7 @@ pub struct GetMigrationWorkflowRequest {
 }
 
 impl GetMigrationWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2540,6 +2554,7 @@ pub struct ListMigrationWorkflowsRequest {
 }
 
 impl ListMigrationWorkflowsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2635,6 +2650,7 @@ pub struct ListMigrationWorkflowsResponse {
 }
 
 impl ListMigrationWorkflowsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2706,6 +2722,7 @@ pub struct DeleteMigrationWorkflowRequest {
 }
 
 impl DeleteMigrationWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2741,6 +2758,7 @@ pub struct StartMigrationWorkflowRequest {
 }
 
 impl StartMigrationWorkflowRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2779,6 +2797,7 @@ pub struct GetMigrationSubtaskRequest {
 }
 
 impl GetMigrationSubtaskRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2866,6 +2885,7 @@ pub struct ListMigrationSubtasksRequest {
 }
 
 impl ListMigrationSubtasksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2973,6 +2993,7 @@ pub struct ListMigrationSubtasksResponse {
 }
 
 impl ListMigrationSubtasksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3072,6 +3093,7 @@ pub struct TranslationConfigDetails {
 }
 
 impl TranslationConfigDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3427,6 +3449,7 @@ pub struct Dialect {
 }
 
 impl Dialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4430,6 +4453,7 @@ pub struct BigQueryDialect {
 }
 
 impl BigQueryDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4449,6 +4473,7 @@ pub struct HiveQLDialect {
 }
 
 impl HiveQLDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4468,6 +4493,7 @@ pub struct RedshiftDialect {
 }
 
 impl RedshiftDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4490,6 +4516,7 @@ pub struct TeradataDialect {
 }
 
 impl TeradataDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4664,6 +4691,7 @@ pub struct OracleDialect {
 }
 
 impl OracleDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4683,6 +4711,7 @@ pub struct SparkSQLDialect {
 }
 
 impl SparkSQLDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4702,6 +4731,7 @@ pub struct SnowflakeDialect {
 }
 
 impl SnowflakeDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4721,6 +4751,7 @@ pub struct NetezzaDialect {
 }
 
 impl NetezzaDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4740,6 +4771,7 @@ pub struct AzureSynapseDialect {
 }
 
 impl AzureSynapseDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4759,6 +4791,7 @@ pub struct VerticaDialect {
 }
 
 impl VerticaDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4778,6 +4811,7 @@ pub struct SQLServerDialect {
 }
 
 impl SQLServerDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4797,6 +4831,7 @@ pub struct PostgresqlDialect {
 }
 
 impl PostgresqlDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4816,6 +4851,7 @@ pub struct PrestoDialect {
 }
 
 impl PrestoDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4835,6 +4871,7 @@ pub struct MySQLDialect {
 }
 
 impl MySQLDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4854,6 +4891,7 @@ pub struct DB2Dialect {
 }
 
 impl DB2Dialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4873,6 +4911,7 @@ pub struct SQLiteDialect {
 }
 
 impl SQLiteDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4892,6 +4931,7 @@ pub struct GreenplumDialect {
 }
 
 impl GreenplumDialect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4915,6 +4955,7 @@ pub struct ObjectNameMappingList {
 }
 
 impl ObjectNameMappingList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4963,6 +5004,7 @@ pub struct ObjectNameMapping {
 }
 
 impl ObjectNameMapping {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5067,6 +5109,7 @@ pub struct NameMappingKey {
 }
 
 impl NameMappingKey {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5341,6 +5384,7 @@ pub struct NameMappingValue {
 }
 
 impl NameMappingValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5424,6 +5468,7 @@ pub struct SourceEnv {
 }
 
 impl SourceEnv {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5511,6 +5556,7 @@ pub struct TranslationDetails {
 }
 
 impl TranslationDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5637,6 +5683,7 @@ pub struct SourceTargetMapping {
 }
 
 impl SourceTargetMapping {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5728,6 +5775,7 @@ pub struct SourceSpec {
 }
 
 impl SourceSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5865,6 +5913,7 @@ pub struct TargetSpec {
 }
 
 impl TargetSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5902,6 +5951,7 @@ pub struct Literal {
 }
 
 impl Literal {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6046,6 +6096,7 @@ pub struct SourceEnvironment {
 }
 
 impl SourceEnvironment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6129,6 +6180,7 @@ pub struct TranslationReportRecord {
 }
 
 impl TranslationReportRecord {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6397,6 +6449,7 @@ pub struct GcsReportLogMessage {
 }
 
 impl GcsReportLogMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

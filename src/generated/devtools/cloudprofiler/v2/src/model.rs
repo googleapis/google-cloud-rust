@@ -52,6 +52,7 @@ pub struct CreateProfileRequest {
 }
 
 impl CreateProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -145,6 +146,7 @@ pub struct CreateOfflineProfileRequest {
 }
 
 impl CreateOfflineProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -218,6 +220,7 @@ pub struct UpdateProfileRequest {
 }
 
 impl UpdateProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -335,6 +338,7 @@ pub struct Profile {
 }
 
 impl Profile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -544,6 +548,7 @@ pub struct Deployment {
 }
 
 impl Deployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -623,6 +628,7 @@ pub struct ListProfilesRequest {
 }
 
 impl ListProfilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -692,6 +698,7 @@ pub struct ListProfilesResponse {
 }
 
 impl ListProfilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

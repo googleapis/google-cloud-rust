@@ -46,6 +46,7 @@ pub struct DriveAddOnManifest {
 }
 
 impl DriveAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -136,6 +137,7 @@ pub struct DriveExtensionPoint {
 }
 
 impl DriveExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

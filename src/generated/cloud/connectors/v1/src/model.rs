@@ -53,6 +53,7 @@ pub struct AuthConfig {
 }
 
 impl AuthConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -304,6 +305,7 @@ pub mod auth_config {
     }
 
     impl UserPassword {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -380,6 +382,7 @@ pub mod auth_config {
     }
 
     impl Oauth2JwtBearer {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -479,6 +482,7 @@ pub mod auth_config {
         }
 
         impl JwtClaims {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -545,6 +549,7 @@ pub mod auth_config {
     }
 
     impl Oauth2ClientCredentials {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -621,6 +626,7 @@ pub mod auth_config {
     }
 
     impl SshPublicKey {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -759,6 +765,7 @@ pub struct AuthConfigTemplate {
 }
 
 impl AuthConfigTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -866,6 +873,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1049,6 +1057,7 @@ pub struct ConfigVariableTemplate {
 }
 
 impl ConfigVariableTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1570,6 +1579,7 @@ pub struct Secret {
 }
 
 impl Secret {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1607,6 +1617,7 @@ pub struct EnumOption {
 }
 
 impl EnumOption {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1657,6 +1668,7 @@ pub struct ConfigVariable {
 }
 
 impl ConfigVariable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1877,6 +1889,7 @@ pub struct RoleGrant {
 }
 
 impl RoleGrant {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1990,6 +2003,7 @@ pub mod role_grant {
     }
 
     impl Resource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2345,6 +2359,7 @@ pub struct AuthorizationCodeLink {
 }
 
 impl AuthorizationCodeLink {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2486,6 +2501,7 @@ pub struct Connection {
 }
 
 impl Connection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2912,6 +2928,7 @@ pub struct NodeConfig {
 }
 
 impl NodeConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2978,6 +2995,7 @@ pub struct ConnectionSchemaMetadata {
 }
 
 impl ConnectionSchemaMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3270,6 +3288,7 @@ pub struct RuntimeEntitySchema {
 }
 
 impl RuntimeEntitySchema {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3356,6 +3375,7 @@ pub mod runtime_entity_schema {
     }
 
     impl Field {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3529,6 +3549,7 @@ pub struct RuntimeActionSchema {
 }
 
 impl RuntimeActionSchema {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3625,6 +3646,7 @@ pub mod runtime_action_schema {
     }
 
     impl InputParameter {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3740,6 +3762,7 @@ pub mod runtime_action_schema {
     }
 
     impl ResultMetadata {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3809,6 +3832,7 @@ pub struct LockConfig {
 }
 
 impl LockConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3872,6 +3896,7 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3974,6 +3999,7 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4066,6 +4092,7 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4122,6 +4149,7 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4222,6 +4250,7 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4311,6 +4340,7 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4347,6 +4377,7 @@ pub struct GetConnectionSchemaMetadataRequest {
 }
 
 impl GetConnectionSchemaMetadataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4383,6 +4414,7 @@ pub struct RefreshConnectionSchemaMetadataRequest {
 }
 
 impl RefreshConnectionSchemaMetadataRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4436,6 +4468,7 @@ pub struct ListRuntimeEntitySchemasRequest {
 }
 
 impl ListRuntimeEntitySchemasRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4509,6 +4542,7 @@ pub struct ListRuntimeEntitySchemasResponse {
 }
 
 impl ListRuntimeEntitySchemasResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4598,6 +4632,7 @@ pub struct ListRuntimeActionSchemasRequest {
 }
 
 impl ListRuntimeActionSchemasRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4671,6 +4706,7 @@ pub struct ListRuntimeActionSchemasResponse {
 }
 
 impl ListRuntimeActionSchemasResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4747,6 +4783,7 @@ pub struct ConnectionStatus {
 }
 
 impl ConnectionStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5017,6 +5054,7 @@ pub struct Connector {
 }
 
 impl Connector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5224,6 +5262,7 @@ pub struct GetConnectorRequest {
 }
 
 impl GetConnectorRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5266,6 +5305,7 @@ pub struct ListConnectorsRequest {
 }
 
 impl ListConnectorsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5330,6 +5370,7 @@ pub struct ListConnectorsResponse {
 }
 
 impl ListConnectorsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5463,6 +5504,7 @@ pub struct ConnectorVersion {
 }
 
 impl ConnectorVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5830,6 +5872,7 @@ pub struct GetConnectorVersionRequest {
 }
 
 impl GetConnectorVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5893,6 +5936,7 @@ pub struct ListConnectorVersionsRequest {
 }
 
 impl ListConnectorVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5974,6 +6018,7 @@ pub struct ListConnectorVersionsResponse {
 }
 
 impl ListConnectorVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6070,6 +6115,7 @@ pub struct SupportedRuntimeFeatures {
 }
 
 impl SupportedRuntimeFeatures {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6125,12 +6171,14 @@ impl wkt::message::Message for SupportedRuntimeFeatures {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EgressControlConfig {
+    #[allow(missing_docs)]
     pub oneof_backends: std::option::Option<crate::model::egress_control_config::OneofBackends>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EgressControlConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6242,6 +6290,7 @@ pub mod egress_control_config {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OneofBackends {
@@ -6267,6 +6316,7 @@ pub struct ExtractionRules {
 }
 
 impl ExtractionRules {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6315,6 +6365,7 @@ pub struct ExtractionRule {
 }
 
 impl ExtractionRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6393,6 +6444,7 @@ pub mod extraction_rule {
     }
 
     impl Source {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6572,6 +6624,7 @@ pub struct DestinationConfig {
 }
 
 impl DestinationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6617,18 +6670,21 @@ impl wkt::message::Message for DestinationConfig {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Destination {
     /// The port is the target port number that is accepted by the destination.
     pub port: i32,
 
+    #[allow(missing_docs)]
     pub destination: std::option::Option<crate::model::destination::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Destination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6744,6 +6800,7 @@ pub mod destination {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
@@ -6797,6 +6854,7 @@ pub struct Provider {
 }
 
 impl Provider {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7004,6 +7062,7 @@ pub struct GetProviderRequest {
 }
 
 impl GetProviderRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7046,6 +7105,7 @@ pub struct ListProvidersRequest {
 }
 
 impl ListProvidersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7110,6 +7170,7 @@ pub struct ListProvidersResponse {
 }
 
 impl ListProvidersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7198,6 +7259,7 @@ pub struct GetRuntimeConfigRequest {
 }
 
 impl GetRuntimeConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7269,6 +7331,7 @@ pub struct RuntimeConfig {
 }
 
 impl RuntimeConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7603,6 +7666,7 @@ pub struct GetGlobalSettingsRequest {
 }
 
 impl GetGlobalSettingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7644,6 +7708,7 @@ pub struct Settings {
 }
 
 impl Settings {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7714,6 +7779,7 @@ pub struct SslConfigTemplate {
 }
 
 impl SslConfigTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7852,6 +7918,7 @@ pub struct SslConfig {
 }
 
 impl SslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -62,6 +62,7 @@ pub struct Zone {
 }
 
 impl Zone {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -215,6 +216,7 @@ pub struct Network {
 }
 
 impl Network {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -396,6 +398,7 @@ pub struct Subnet {
 }
 
 impl Subnet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -792,6 +795,7 @@ pub struct Interconnect {
 }
 
 impl Interconnect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1174,6 +1178,7 @@ pub struct InterconnectAttachment {
 }
 
 impl InterconnectAttachment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1421,6 +1426,7 @@ pub struct Router {
 }
 
 impl Router {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1698,6 +1704,7 @@ pub mod router {
     }
 
     impl Interface {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1825,6 +1832,7 @@ pub mod router {
     }
 
     impl BgpPeer {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1959,6 +1967,7 @@ pub mod router {
     }
 
     impl Bgp {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2012,6 +2021,7 @@ pub struct LinkLayerAddress {
 }
 
 impl LinkLayerAddress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2066,6 +2076,7 @@ pub struct SubnetStatus {
 }
 
 impl SubnetStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2143,6 +2154,7 @@ pub struct InterconnectDiagnostics {
 }
 
 impl InterconnectDiagnostics {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2238,6 +2250,7 @@ pub mod interconnect_diagnostics {
     }
 
     impl LinkStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2378,6 +2391,7 @@ pub mod interconnect_diagnostics {
     }
 
     impl PacketCounts {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2491,6 +2505,7 @@ pub mod interconnect_diagnostics {
     }
 
     impl LinkLACPStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2758,6 +2773,7 @@ pub mod interconnect_diagnostics {
     }
 
     impl LinkLLDPStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2875,6 +2891,7 @@ pub struct RouterStatus {
 }
 
 impl RouterStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2959,6 +2976,7 @@ pub mod router_status {
     }
 
     impl BgpPeerStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3264,6 +3282,7 @@ pub mod router_status {
     }
 
     impl PrefixCounter {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3374,6 +3393,7 @@ pub struct ListZonesRequest {
 }
 
 impl ListZonesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3464,6 +3484,7 @@ pub struct ListZonesResponse {
 }
 
 impl ListZonesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3553,6 +3574,7 @@ pub struct GetZoneRequest {
 }
 
 impl GetZoneRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3600,6 +3622,7 @@ pub struct ListNetworksRequest {
 }
 
 impl ListNetworksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3688,6 +3711,7 @@ pub struct ListNetworksResponse {
 }
 
 impl ListNetworksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3775,6 +3799,7 @@ pub struct GetNetworkRequest {
 }
 
 impl GetNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3832,6 +3857,7 @@ pub struct CreateNetworkRequest {
 }
 
 impl CreateNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3938,6 +3964,7 @@ pub struct DeleteNetworkRequest {
 }
 
 impl DeleteNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3997,6 +4024,7 @@ pub struct ListSubnetsRequest {
 }
 
 impl ListSubnetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4085,6 +4113,7 @@ pub struct ListSubnetsResponse {
 }
 
 impl ListSubnetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4172,6 +4201,7 @@ pub struct GetSubnetRequest {
 }
 
 impl GetSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4229,6 +4259,7 @@ pub struct CreateSubnetRequest {
 }
 
 impl CreateSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4342,6 +4373,7 @@ pub struct UpdateSubnetRequest {
 }
 
 impl UpdateSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4457,6 +4489,7 @@ pub struct DeleteSubnetRequest {
 }
 
 impl DeleteSubnetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4516,6 +4549,7 @@ pub struct ListInterconnectsRequest {
 }
 
 impl ListInterconnectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4604,6 +4638,7 @@ pub struct ListInterconnectsResponse {
 }
 
 impl ListInterconnectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4691,6 +4726,7 @@ pub struct GetInterconnectRequest {
 }
 
 impl GetInterconnectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4738,6 +4774,7 @@ pub struct ListInterconnectAttachmentsRequest {
 }
 
 impl ListInterconnectAttachmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4826,6 +4863,7 @@ pub struct ListInterconnectAttachmentsResponse {
 }
 
 impl ListInterconnectAttachmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4915,6 +4953,7 @@ pub struct GetInterconnectAttachmentRequest {
 }
 
 impl GetInterconnectAttachmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4972,6 +5011,7 @@ pub struct CreateInterconnectAttachmentRequest {
 }
 
 impl CreateInterconnectAttachmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5081,6 +5121,7 @@ pub struct DeleteInterconnectAttachmentRequest {
 }
 
 impl DeleteInterconnectAttachmentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5140,6 +5181,7 @@ pub struct ListRoutersRequest {
 }
 
 impl ListRoutersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5228,6 +5270,7 @@ pub struct ListRoutersResponse {
 }
 
 impl ListRoutersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5315,6 +5358,7 @@ pub struct GetRouterRequest {
 }
 
 impl GetRouterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5372,6 +5416,7 @@ pub struct CreateRouterRequest {
 }
 
 impl CreateRouterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5485,6 +5530,7 @@ pub struct UpdateRouterRequest {
 }
 
 impl UpdateRouterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5600,6 +5646,7 @@ pub struct DeleteRouterRequest {
 }
 
 impl DeleteRouterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5670,6 +5717,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5818,6 +5866,7 @@ pub struct DiagnoseNetworkRequest {
 }
 
 impl DiagnoseNetworkRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5855,6 +5904,7 @@ pub struct DiagnoseNetworkResponse {
 }
 
 impl DiagnoseNetworkResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5953,6 +6003,7 @@ pub mod diagnose_network_response {
     }
 
     impl NetworkStatus {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6160,6 +6211,7 @@ pub struct DiagnoseInterconnectRequest {
 }
 
 impl DiagnoseInterconnectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6198,6 +6250,7 @@ pub struct DiagnoseInterconnectResponse {
 }
 
 impl DiagnoseInterconnectResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6286,6 +6339,7 @@ pub struct DiagnoseRouterRequest {
 }
 
 impl DiagnoseRouterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6323,6 +6377,7 @@ pub struct DiagnoseRouterResponse {
 }
 
 impl DiagnoseRouterResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6411,6 +6466,7 @@ pub struct InitializeZoneRequest {
 }
 
 impl InitializeZoneRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6442,6 +6498,7 @@ pub struct InitializeZoneResponse {
 }
 
 impl InitializeZoneResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

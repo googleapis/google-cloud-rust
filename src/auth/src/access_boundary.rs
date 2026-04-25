@@ -394,7 +394,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
         match self.url.as_ref() {
@@ -426,7 +426,7 @@ where
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
         let universe_domain = self.credentials.universe_domain().await;
-        if !is_default_universe_domain(universe_domain) {
+        if !is_default_universe_domain(universe_domain.as_deref()) {
             return Ok(None);
         }
 

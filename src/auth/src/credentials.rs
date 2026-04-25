@@ -659,8 +659,8 @@ impl Builder {
 
 #[derive(Debug, PartialEq)]
 enum AdcPath {
-    FromEnv(String),
-    WellKnown(String),
+    FromEnv(std::path::PathBuf),
+    WellKnown(std::path::PathBuf),
 }
 
 #[derive(Debug, PartialEq)]
@@ -832,9 +832,10 @@ fn build_signer(
     }
 }
 
-fn path_not_found(path: String) -> BuilderError {
+fn path_not_found(path: std::path::PathBuf) -> BuilderError {
     BuilderError::loading(format!(
-        "{path}. {}",
+        "{}. {}",
+        path.display(),
         concat!(
             "This file name was found in the `GOOGLE_APPLICATION_CREDENTIALS` ",
             "environment variable. Verify this environment variable points to ",
@@ -851,7 +852,7 @@ fn load_adc() -> BuildResult<AdcContents> {
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
             Err(e) => Err(BuilderError::loading(e)),
         },
-        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
+        Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
             Err(e) => Err(BuilderError::loading(e)),
@@ -863,8 +864,8 @@ fn load_adc() -> BuildResult<AdcContents> {
 ///
 /// [AIP-4110]: https://google.aip.dev/auth/4110
 fn adc_path() -> Option<AdcPath> {
-    if let Ok(path) = std::env::var("GOOGLE_APPLICATION_CREDENTIALS") {
-        return Some(AdcPath::FromEnv(path));
+    if let Some(path) = std::env::var_os("GOOGLE_APPLICATION_CREDENTIALS") {
+        return Some(AdcPath::FromEnv(std::path::PathBuf::from(path)));
     }
     Some(AdcPath::WellKnown(adc_well_known_path()?))
 }
@@ -873,20 +874,20 @@ fn adc_path() -> Option<AdcPath> {
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(target_os = "windows")]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("APPDATA")
-        .ok()
-        .map(|root| root + "/gcloud/application_default_credentials.json")
+fn adc_well_known_path() -> Option<std::path::PathBuf> {
+    std::env::var_os("APPDATA").map(|root| {
+        std::path::PathBuf::from(root).join("gcloud/application_default_credentials.json")
+    })
 }
 
 /// The well-known path to ADC on Linux and Mac, as specified in [AIP-4113].
 ///
 /// [AIP-4113]: https://google.aip.dev/auth/4113
 #[cfg(not(target_os = "windows"))]
-fn adc_well_known_path() -> Option<String> {
-    std::env::var("HOME")
-        .ok()
-        .map(|root| root + "/.config/gcloud/application_default_credentials.json")
+fn adc_well_known_path() -> Option<std::path::PathBuf> {
+    std::env::var_os("HOME").map(|root| {
+        std::path::PathBuf::from(root).join(".config/gcloud/application_default_credentials.json")
+    })
 }
 
 /// A module providing invalid credentials where authentication does not matter.
@@ -1136,13 +1137,15 @@ pub(crate) mod tests {
         let _appdata = ScopedEnv::set("APPDATA", "C:/Users/foo");
         assert_eq!(
             adc_well_known_path(),
-            Some("C:/Users/foo/gcloud/application_default_credentials.json".to_string())
+            Some(std::path::PathBuf::from(
+                "C:/Users/foo/gcloud/application_default_credentials.json"
+            ))
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::WellKnown(
-                "C:/Users/foo/gcloud/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::WellKnown(std::path::PathBuf::from(
+                "C:/Users/foo/gcloud/application_default_credentials.json"
+            )))
         );
     }
 
@@ -1164,13 +1167,15 @@ pub(crate) mod tests {
         let _home = ScopedEnv::set("HOME", "/home/foo");
         assert_eq!(
             adc_well_known_path(),
-            Some("/home/foo/.config/gcloud/application_default_credentials.json".to_string())
+            Some(std::path::PathBuf::from(
+                "/home/foo/.config/gcloud/application_default_credentials.json"
+            ))
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::WellKnown(
-                "/home/foo/.config/gcloud/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::WellKnown(std::path::PathBuf::from(
+                "/home/foo/.config/gcloud/application_default_credentials.json"
+            )))
         );
     }
 
@@ -1193,10 +1198,119 @@ pub(crate) mod tests {
         );
         assert_eq!(
             adc_path(),
-            Some(AdcPath::FromEnv(
-                "/usr/bar/application_default_credentials.json".to_string()
-            ))
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                "/usr/bar/application_default_credentials.json"
+            )))
         );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    #[serial_test::serial]
+    fn adc_path_from_env_non_utf8() {
+        use std::os::unix::ffi::OsStringExt;
+        let non_utf8_bytes = vec![
+            b'/', b'u', b's', b'r', b'/', b'b', b'a', b'r', b'/', 0xff, b'.', b'j', b's', b'o',
+            b'n',
+        ];
+        let non_utf8_os_str = std::ffi::OsString::from_vec(non_utf8_bytes);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf8_os_str.as_os_str(),
+        );
+
+        assert_eq!(
+            adc_path(),
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                non_utf8_os_str.clone()
+            )))
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_env_is_error_non_utf8() {
+        use std::os::unix::ffi::OsStringExt;
+        let non_utf8_bytes = vec![
+            b'f', b'i', b'l', b'e', b'-', 0xff, b'.', b'j', b's', b'o', b'n',
+        ];
+        let non_utf8_os_str = std::ffi::OsString::from_vec(non_utf8_bytes);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf8_os_str.as_os_str(),
+        );
+
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn adc_path_from_env_non_utf16() {
+        use std::os::windows::ffi::OsStringExt;
+        let non_utf16_wide = vec![
+            b'C' as u16,
+            b':' as u16,
+            b'/' as u16,
+            0xD800,
+            b'.' as u16,
+            b'j' as u16,
+            b's' as u16,
+            b'o' as u16,
+            b'n' as u16,
+        ];
+        let non_utf16_os_str = std::ffi::OsString::from_wide(&non_utf16_wide);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf16_os_str.as_os_str(),
+        );
+
+        assert_eq!(
+            adc_path(),
+            Some(AdcPath::FromEnv(std::path::PathBuf::from(
+                non_utf16_os_str.clone()
+            )))
+        );
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    #[serial_test::serial]
+    fn load_adc_no_file_at_env_is_error_non_utf16() {
+        use std::os::windows::ffi::OsStringExt;
+        let non_utf16_wide = vec![
+            b'f' as u16,
+            b'i' as u16,
+            b'l' as u16,
+            b'e' as u16,
+            b'-' as u16,
+            0xD800,
+            b'.' as u16,
+            b'j' as u16,
+            b's' as u16,
+            b'o' as u16,
+            b'n' as u16,
+        ];
+        let non_utf16_os_str = std::ffi::OsString::from_wide(&non_utf16_wide);
+
+        let _creds = ScopedEnv::set(
+            std::ffi::OsStr::new("GOOGLE_APPLICATION_CREDENTIALS"),
+            non_utf16_os_str.as_os_str(),
+        );
+
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
     }
 
     #[test]

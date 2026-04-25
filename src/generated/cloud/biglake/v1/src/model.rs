@@ -56,6 +56,7 @@ pub struct RegisterIcebergTableRequest {
 }
 
 impl RegisterIcebergTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -156,6 +157,7 @@ pub struct IcebergCatalog {
 }
 
 impl IcebergCatalog {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -627,6 +629,7 @@ pub struct CreateIcebergCatalogRequest {
 }
 
 impl CreateIcebergCatalogRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -709,6 +712,7 @@ pub struct DeleteIcebergCatalogRequest {
 }
 
 impl DeleteIcebergCatalogRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -746,6 +750,7 @@ pub struct UpdateIcebergCatalogRequest {
 }
 
 impl UpdateIcebergCatalogRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -834,6 +839,7 @@ pub struct GetIcebergCatalogRequest {
 }
 
 impl GetIcebergCatalogRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -880,6 +886,7 @@ pub struct ListIcebergCatalogsRequest {
 }
 
 impl ListIcebergCatalogsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1101,6 +1108,7 @@ pub struct ListIcebergCatalogsResponse {
 }
 
 impl ListIcebergCatalogsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1194,6 +1202,7 @@ pub struct FailoverIcebergCatalogRequest {
 }
 
 impl FailoverIcebergCatalogRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1294,6 +1303,7 @@ pub struct FailoverIcebergCatalogResponse {
 }
 
 impl FailoverIcebergCatalogResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1355,6 +1365,7 @@ pub struct UpdateIcebergTableRequest {
 }
 
 impl UpdateIcebergTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1425,6 +1436,7 @@ pub struct GetIcebergTableRequest {
 }
 
 impl GetIcebergTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1476,6 +1488,7 @@ pub struct DeleteIcebergTableRequest {
 }
 
 impl DeleteIcebergTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1528,6 +1541,7 @@ pub struct CreateIcebergTableRequest {
 }
 
 impl CreateIcebergTableRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1601,6 +1615,7 @@ pub struct ListIcebergTableIdentifiersRequest {
 }
 
 impl ListIcebergTableIdentifiersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1663,6 +1678,7 @@ pub struct TableIdentifier {
 }
 
 impl TableIdentifier {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1717,6 +1733,7 @@ pub struct ListIcebergTableIdentifiersResponse {
 }
 
 impl ListIcebergTableIdentifiersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1776,6 +1793,7 @@ pub struct IcebergNamespaceUpdate {
 }
 
 impl IcebergNamespaceUpdate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1842,6 +1860,7 @@ pub struct UpdateIcebergNamespaceRequest {
 }
 
 impl UpdateIcebergNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1916,6 +1935,7 @@ pub struct UpdateIcebergNamespaceResponse {
 }
 
 impl UpdateIcebergNamespaceResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1990,6 +2010,7 @@ pub struct DeleteIcebergNamespaceRequest {
 }
 
 impl DeleteIcebergNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2027,6 +2048,7 @@ pub struct IcebergNamespace {
 }
 
 impl IcebergNamespace {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2091,6 +2113,7 @@ pub struct CreateIcebergNamespaceRequest {
 }
 
 impl CreateIcebergNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2158,6 +2181,7 @@ pub struct GetIcebergCatalogConfigRequest {
 }
 
 impl GetIcebergCatalogConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2201,6 +2225,7 @@ pub struct IcebergCatalogConfig {
 }
 
 impl IcebergCatalogConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2283,6 +2308,7 @@ pub struct GetIcebergNamespaceRequest {
 }
 
 impl GetIcebergNamespaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2333,6 +2359,7 @@ pub struct ListIcebergNamespacesRequest {
 }
 
 impl ListIcebergNamespacesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2406,6 +2433,7 @@ pub struct ListIcebergNamespacesResponse {
 }
 
 impl ListIcebergNamespacesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2469,6 +2497,7 @@ pub struct StorageCredential {
 }
 
 impl StorageCredential {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2524,6 +2553,7 @@ pub struct LoadIcebergTableCredentialsResponse {
 }
 
 impl LoadIcebergTableCredentialsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -47,6 +47,7 @@ pub struct ClassificationPredictionResult {
 }
 
 impl ClassificationPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,6 +138,7 @@ pub struct ImageObjectDetectionPredictionResult {
 }
 
 impl ImageObjectDetectionPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -244,6 +246,7 @@ pub struct ImageSegmentationPredictionResult {
 }
 
 impl ImageSegmentationPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -296,6 +299,7 @@ pub struct TabularClassificationPredictionResult {
 }
 
 impl TabularClassificationPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -358,6 +362,7 @@ pub struct TabularRegressionPredictionResult {
 }
 
 impl TabularRegressionPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -435,6 +440,7 @@ pub struct TextExtractionPredictionResult {
 }
 
 impl TextExtractionPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -546,6 +552,7 @@ pub struct TextSentimentPredictionResult {
 }
 
 impl TextSentimentPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -599,6 +606,7 @@ pub struct VideoActionRecognitionPredictionResult {
 }
 
 impl VideoActionRecognitionPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -777,6 +785,7 @@ pub struct VideoClassificationPredictionResult {
 }
 
 impl VideoClassificationPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -957,6 +966,7 @@ pub struct VideoObjectTrackingPredictionResult {
 }
 
 impl VideoObjectTrackingPredictionResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1147,6 +1157,7 @@ pub mod video_object_tracking_prediction_result {
     }
 
     impl Frame {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

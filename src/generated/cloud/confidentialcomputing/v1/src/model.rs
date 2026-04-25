@@ -59,6 +59,7 @@ pub struct Challenge {
 }
 
 impl Challenge {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -188,6 +189,7 @@ pub struct CreateChallengeRequest {
 }
 
 impl CreateChallengeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -286,6 +288,7 @@ pub struct VerifyAttestationRequest {
 }
 
 impl VerifyAttestationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -661,6 +664,7 @@ pub struct NvidiaAttestation {
 }
 
 impl NvidiaAttestation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -858,6 +862,7 @@ pub mod nvidia_attestation {
     }
 
     impl GpuInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -979,6 +984,7 @@ pub mod nvidia_attestation {
     }
 
     impl SwitchInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1043,6 +1049,7 @@ pub mod nvidia_attestation {
     }
 
     impl SinglePassthroughAttestation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1102,6 +1109,7 @@ pub mod nvidia_attestation {
     }
 
     impl ProtectedPcieAttestation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1169,6 +1177,7 @@ pub mod nvidia_attestation {
     }
 
     impl MultiGpuSecurePassthroughAttestation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1372,6 +1381,7 @@ pub struct TdxCcelAttestation {
 }
 
 impl TdxCcelAttestation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1453,6 +1463,7 @@ pub struct SevSnpAttestation {
 }
 
 impl SevSnpAttestation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1504,6 +1515,7 @@ pub struct VerifyAttestationResponse {
 }
 
 impl VerifyAttestationResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1564,6 +1576,7 @@ pub struct GcpCredentials {
 }
 
 impl GcpCredentials {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1615,6 +1628,7 @@ pub struct TokenOptions {
 }
 
 impl TokenOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1758,6 +1772,7 @@ pub struct AwsPrincipalTagsOptions {
 }
 
 impl AwsPrincipalTagsOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1820,6 +1835,7 @@ pub mod aws_principal_tags_options {
     }
 
     impl AllowedPrincipalTags {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1881,6 +1897,7 @@ pub mod aws_principal_tags_options {
         }
 
         impl ContainerImageSignatures {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1941,6 +1958,7 @@ pub struct TpmAttestation {
 }
 
 impl TpmAttestation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2055,6 +2073,7 @@ pub mod tpm_attestation {
     }
 
     impl Quote {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2137,6 +2156,7 @@ pub struct ConfidentialSpaceInfo {
 }
 
 impl ConfidentialSpaceInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2183,6 +2203,7 @@ pub struct SignedEntity {
 }
 
 impl SignedEntity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2246,6 +2267,7 @@ pub struct ContainerImageSignature {
 }
 
 impl ContainerImageSignature {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2352,6 +2374,7 @@ pub struct VerifyConfidentialSpaceRequest {
 }
 
 impl VerifyConfidentialSpaceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2674,6 +2697,7 @@ pub mod verify_confidential_space_request {
     }
 
     impl ConfidentialSpaceOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2850,6 +2874,7 @@ pub struct GceShieldedIdentity {
 }
 
 impl GceShieldedIdentity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2913,6 +2938,7 @@ pub struct VerifyConfidentialSpaceResponse {
 }
 
 impl VerifyConfidentialSpaceResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2985,6 +3011,7 @@ pub struct VerifyConfidentialGkeRequest {
 }
 
 impl VerifyConfidentialGkeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3135,6 +3162,7 @@ pub mod verify_confidential_gke_request {
     }
 
     impl ConfidentialGkeOptions {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3217,6 +3245,7 @@ pub struct VerifyConfidentialGkeResponse {
 }
 
 impl VerifyConfidentialGkeResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

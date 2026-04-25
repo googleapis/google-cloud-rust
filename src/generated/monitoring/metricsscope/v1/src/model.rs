@@ -62,6 +62,7 @@ pub struct MetricsScope {
 }
 
 impl MetricsScope {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -193,6 +194,7 @@ pub struct MonitoredProject {
 }
 
 impl MonitoredProject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -262,6 +264,7 @@ pub struct GetMetricsScopeRequest {
 }
 
 impl GetMetricsScopeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -298,6 +301,7 @@ pub struct ListMetricsScopesByMonitoredProjectRequest {
 }
 
 impl ListMetricsScopesByMonitoredProjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -336,6 +340,7 @@ pub struct ListMetricsScopesByMonitoredProjectResponse {
 }
 
 impl ListMetricsScopesByMonitoredProjectResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -389,6 +394,7 @@ pub struct CreateMonitoredProjectRequest {
 }
 
 impl CreateMonitoredProjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -462,6 +468,7 @@ pub struct DeleteMonitoredProjectRequest {
 }
 
 impl DeleteMonitoredProjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -503,6 +510,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

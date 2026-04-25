@@ -629,6 +629,9 @@ pub(crate) mod tests {
     use crate::read::ReadRequest;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
+    use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use prost_types::Value;
     use spanner_grpc_mock::MockSpanner;
     use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
@@ -637,18 +640,13 @@ pub(crate) mod tests {
         PartialResultSet, ResultSetMetadata, Session, StructType,
     };
     use spanner_grpc_mock::start;
-    use std::sync::Arc;
-    use std::sync::atomic::{AtomicUsize, Ordering};
     use std::time::Duration;
 
-    /// A backoff policy that always returns the same duration and that contains a counter that
-    /// can be used to verify that it was called.
-    #[derive(Debug)]
-    pub(crate) struct ConstantBackoff(pub(crate) Duration, pub(crate) Arc<AtomicUsize>);
-    impl google_cloud_gax::backoff_policy::BackoffPolicy for ConstantBackoff {
-        fn on_failure(&self, _state: &RetryState) -> Duration {
-            self.1.fetch_add(1, Ordering::SeqCst);
-            self.0
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
         }
     }
 
@@ -996,12 +994,14 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
         let read_req = crate::read::ReadRequest::builder("table", vec!["Id", "Value"])
             .with_keys(crate::key::KeySet::all())
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                Arc::new(AtomicUsize::new(0)),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
         let mut rs: ResultSet = tx.execute_read(read_req).await?;
 
@@ -1083,14 +1083,16 @@ pub(crate) mod tests {
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
 
-        let backoff_count = Arc::new(AtomicUsize::new(0));
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(1)
+            .returning(|_| Duration::from_nanos(1));
+
         let read_req = ReadRequest::builder("table", vec!["Id", "Value"])
             .with_keys(KeySet::all())
             .with_retry_policy(retry_policy)
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                backoff_count.clone(),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
 
         let mut rs: ResultSet = tx.execute_read(read_req).await?;
@@ -1103,12 +1105,6 @@ pub(crate) mod tests {
         assert_eq!(row2.raw_values()[0].0, string_val("row2"));
 
         assert!(rs.next().await.is_none());
-
-        assert_eq!(
-            backoff_count.load(Ordering::SeqCst),
-            1,
-            "Backoff policy should have been called once"
-        );
 
         Ok(())
     }
@@ -1541,11 +1537,13 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
         let stmt = Statement::builder("SELECT 1")
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                Arc::new(AtomicUsize::new(0)),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
         let mut rs = tx.execute_query(stmt).await?;
 
@@ -1754,11 +1752,13 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
         let stmt = Statement::builder("SELECT 1")
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                Arc::new(AtomicUsize::new(0)),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
         let mut rs = tx.execute_query(stmt).await?;
 
@@ -1768,7 +1768,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn test_result_set_retry_under_limit_no_resume_token() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
@@ -1835,11 +1835,13 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .returning(|_| Duration::from_nanos(1));
+
         let stmt = Statement::builder("SELECT 1")
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                Arc::new(AtomicUsize::new(0)),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
         let mut rs = tx.execute_query(stmt).await?;
 
@@ -1890,12 +1892,14 @@ pub(crate) mod tests {
 
         let db_client = client.database_client("db").build().await?;
         let tx = db_client.single_use().build();
-        let backoff_count = Arc::new(AtomicUsize::new(0));
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .times(10)
+            .returning(|_| Duration::from_nanos(1));
+
         let stmt = Statement::builder("SELECT 1")
-            .with_backoff_policy(ConstantBackoff(
-                Duration::from_nanos(1),
-                backoff_count.clone(),
-            ))
+            .with_backoff_policy(mock_backoff)
             .build();
         let mut rs = tx.execute_query(stmt).await?;
 
@@ -1910,16 +1914,10 @@ pub(crate) mod tests {
             err_str
         );
 
-        assert_eq!(
-            backoff_count.load(Ordering::SeqCst),
-            10,
-            "Backoff policy should have been called 10 times"
-        );
-
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_inline_begin_stream_error_fallback() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
@@ -2014,7 +2012,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_retry_inline_begin_transient_error() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
@@ -2099,7 +2097,7 @@ pub(crate) mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn result_set_retry_inline_begin_id_recovered() -> anyhow::Result<()> {
         use gaxi::grpc::tonic::Response;
         use gaxi::grpc::tonic::Status;
