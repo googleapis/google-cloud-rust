@@ -21,6 +21,7 @@ use crate::read_only_transaction::{
 use crate::result_set::{ResultSet, StreamOperation};
 use crate::statement::Statement;
 use crate::timestamp_bound::TimestampBound;
+use google_cloud_gax::options::RequestOptions as GaxRequestOptions;
 use serde::{Deserialize, Serialize};
 
 /// A builder for [BatchReadOnlyTransaction].
@@ -345,6 +346,7 @@ impl Partition {
             client.clone(),
             req.session.clone(),
             StreamOperation::Query(req.clone()),
+            GaxRequestOptions::default(),
         ))
     }
 
@@ -368,6 +370,7 @@ impl Partition {
             client.clone(),
             req.session.clone(),
             StreamOperation::Read(req.clone()),
+            GaxRequestOptions::default(),
         ))
     }
 }

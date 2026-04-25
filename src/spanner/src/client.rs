@@ -252,7 +252,9 @@ mod tests {
     use crate::result_set::tests::adapt;
     use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::Code;
+    use google_cloud_gax::retry_state::RetryState;
     use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
@@ -264,8 +266,8 @@ mod tests {
     mockall::mock! {
         #[derive(Debug)]
         BackoffPolicy {}
-        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, state: &google_cloud_gax::retry_state::RetryState) -> std::time::Duration;
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &RetryState) -> Duration;
         }
     }
 
