@@ -13,9 +13,12 @@
 // limitations under the License.
 
 use crate::key::KeySet;
+use crate::model::batch_write_request::MutationGroup as ProtoMutationGroup;
 use crate::model::mutation::Operation;
 use crate::to_value::ToValue;
 use crate::value::Value;
+use std::slice::Iter;
+use std::vec::IntoIter;
 
 /// Represents an individual table modification to be applied to Cloud Spanner.
 ///
@@ -266,6 +269,42 @@ impl ValueBinder {
     }
 }
 
+/// A group of mutations that are applied atomically in a [BatchWriteTransaction].
+#[derive(Clone, Debug, PartialEq)]
+pub struct MutationGroup {
+    pub mutations: Vec<Mutation>,
+}
+
+impl MutationGroup {
+    /// Creates a new mutation group from a list of mutations.
+    pub fn new(mutations: Vec<Mutation>) -> Self {
+        Self { mutations }
+    }
+
+    #[allow(dead_code)]
+    pub(crate) fn build_proto(self) -> ProtoMutationGroup {
+        ProtoMutationGroup::new().set_mutations(self.mutations.into_iter().map(|m| m.build_proto()))
+    }
+}
+
+impl IntoIterator for MutationGroup {
+    type Item = Mutation;
+    type IntoIter = IntoIter<Mutation>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.mutations.into_iter()
+    }
+}
+
+impl<'a> IntoIterator for &'a MutationGroup {
+    type Item = &'a Mutation;
+    type IntoIter = Iter<'a, Mutation>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.mutations.iter()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -277,6 +316,55 @@ mod tests {
         static_assertions::assert_impl_all!(Delete: Send, Sync, Clone, std::fmt::Debug);
         static_assertions::assert_impl_all!(WriteBuilder: Send, Sync);
         static_assertions::assert_impl_all!(ValueBinder: Send, Sync);
+        static_assertions::assert_impl_all!(MutationGroup: Send, Sync, Clone, std::fmt::Debug);
+    }
+
+    #[test]
+    fn mutation_group() {
+        let mutation1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let mutation2 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build();
+        let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
+        assert_eq!(group.mutations.len(), 2);
+        assert_eq!(group.mutations[0], mutation1);
+        assert_eq!(group.mutations[1], mutation2);
+    }
+
+    #[test]
+    fn mutation_group_into_iter() {
+        let mutation1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let mutation2 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build();
+        let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
+
+        let mutations: Vec<_> = group.into_iter().collect();
+        assert_eq!(mutations, vec![mutation1, mutation2]);
+    }
+
+    #[test]
+    fn mutation_group_iter_ref() {
+        let mutation1 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&1)
+            .build();
+        let mutation2 = Mutation::new_insert_builder("Users")
+            .set("UserId")
+            .to(&2)
+            .build();
+        let group = MutationGroup::new(vec![mutation1.clone(), mutation2.clone()]);
+
+        let mutations: Vec<_> = (&group).into_iter().collect();
+        assert_eq!(mutations, vec![&mutation1, &mutation2]);
     }
 
     #[test]
