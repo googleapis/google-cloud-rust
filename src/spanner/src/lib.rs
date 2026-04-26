@@ -25,6 +25,9 @@ pub use batch_dml::BatchDmlBuilder;
 pub use batch_read_only_transaction::{
     BatchReadOnlyTransaction, BatchReadOnlyTransactionBuilder, Partition,
 };
+pub use batch_write_transaction::{
+    BatchWriteResponseStream, BatchWriteTransaction, BatchWriteTransactionBuilder,
+};
 pub use error::BatchUpdateError;
 pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
@@ -44,6 +47,7 @@ pub mod batch_read_only_transaction;
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
+pub(crate) mod batch_write_transaction;
 pub(crate) mod database_client;
 pub(crate) mod from_value;
 pub(crate) mod key;

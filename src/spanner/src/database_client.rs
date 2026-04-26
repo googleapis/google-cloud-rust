@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::batch_read_only_transaction::BatchReadOnlyTransactionBuilder;
+use crate::batch_write_transaction::BatchWriteTransactionBuilder;
 use crate::client::Spanner;
 use crate::partitioned_dml_transaction::PartitionedDmlTransactionBuilder;
 use crate::read_only_transaction::{
@@ -191,6 +192,54 @@ impl DatabaseClient {
         &self,
     ) -> crate::write_only_transaction::WriteOnlyTransactionBuilder {
         crate::write_only_transaction::WriteOnlyTransactionBuilder::new(self.clone())
+    }
+
+    /// Returns a builder for a batch write transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::{Spanner, Mutation, MutationGroup};
+    /// # use google_cloud_gax::error::rpc::Code;
+    /// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+    /// let client = Spanner::builder().build().await?;
+    /// let db = client.database_client("projects/p/instances/i/databases/d").build().await?;
+    ///
+    /// let mutation1a = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&1)
+    ///     .build();
+    /// let mutation1b = Mutation::new_insert_builder("UserRoles")
+    ///     .set("UserId").to(&1)
+    ///     .set("Role").to(&"Admin")
+    ///     .build();
+    /// let group1 = MutationGroup::new(vec![mutation1a, mutation1b]);
+    ///
+    /// let mutation2 = Mutation::new_insert_builder("Users")
+    ///     .set("UserId").to(&2)
+    ///     .build();
+    /// let group2 = MutationGroup::new(vec![mutation2]);
+    ///
+    /// let transaction = db.batch_write_transaction().build();
+    /// let mut stream = transaction.execute_streaming(vec![group1, group2]).await?;
+    ///
+    /// while let Some(response) = stream.next_message().await {
+    ///     let response = response?;
+    ///     if let Some(status) = response.status.as_ref().filter(|s| s.code != Code::Ok as i32) {
+    ///         eprintln!("Error applying groups {:?}: {}", response.indexes, status.message);
+    ///     } else {
+    ///         println!("Applied groups: {:?}", response.indexes);
+    ///     }
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// A batch write transaction is used to execute non-atomic writes using mutations.
+    /// Related mutations should be placed in a group. For example, two mutations inserting
+    /// rows with the same primary key prefix in both parent and child tables are related.
+    /// All mutations within a group are applied atomically, but the entire batch is not
+    /// guaranteed to be atomic.
+    pub fn batch_write_transaction(&self) -> BatchWriteTransactionBuilder {
+        BatchWriteTransactionBuilder::new(self.clone())
     }
 
     pub(crate) fn session_name(&self) -> String {

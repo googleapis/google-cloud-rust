@@ -25,7 +25,7 @@ pub use crate::database_client::DatabaseClient;
 pub use crate::error::SpannerInternalError;
 pub use crate::from_value::{ConvertError, FromValue};
 pub use crate::key::{Key, KeyRange, KeySet, KeySetBuilder};
-pub use crate::mutation::{Mutation, ValueBinder, WriteBuilder};
+pub use crate::mutation::{Mutation, MutationGroup, ValueBinder, WriteBuilder};
 pub use crate::read::ConfiguredReadRequestBuilder;
 pub use crate::read::ReadRequest;
 pub use crate::read::ReadRequestBuilder;

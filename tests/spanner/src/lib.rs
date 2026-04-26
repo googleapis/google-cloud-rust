@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod batch_read_only_transaction;
+pub mod batch_write;
 pub mod client;
 pub mod directed_read;
 pub mod partitioned_dml;
