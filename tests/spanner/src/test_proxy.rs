@@ -12,8 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use futures::stream::{BoxStream, StreamExt};
 use spanner_grpc_mock::google::spanner::v1 as spanner_v1;
 use spanner_grpc_mock::google::spanner::v1::spanner_client::SpannerClient;
+pub type ExecuteStreamingSqlStream =
+    BoxStream<'static, std::result::Result<spanner_v1::PartialResultSet, tonic::Status>>;
 
 #[tonic::async_trait]
 pub trait SpannerInterceptor: Send + Sync + 'static {
@@ -65,11 +68,17 @@ pub trait SpannerInterceptor: Send + Sync + 'static {
     async fn execute_streaming_sql(
         &self,
         request: tonic::Request<spanner_v1::ExecuteSqlRequest>,
-    ) -> std::result::Result<
-        tonic::Response<tonic::codec::Streaming<spanner_v1::PartialResultSet>>,
-        tonic::Status,
-    > {
-        self.emulator_client().execute_streaming_sql(request).await
+    ) -> std::result::Result<tonic::Response<ExecuteStreamingSqlStream>, tonic::Status> {
+        let res = self
+            .emulator_client()
+            .execute_streaming_sql(request)
+            .await?;
+        let (metadata, stream, extensions) = res.into_parts();
+        Ok(tonic::Response::from_parts(
+            metadata,
+            stream.boxed(),
+            extensions,
+        ))
     }
 
     async fn execute_batch_dml(
@@ -190,7 +199,7 @@ impl<T: SpannerInterceptor> spanner_v1::spanner_server::Spanner for InterceptedS
         self.0.execute_sql(request).await
     }
 
-    type ExecuteStreamingSqlStream = tonic::codec::Streaming<spanner_v1::PartialResultSet>;
+    type ExecuteStreamingSqlStream = ExecuteStreamingSqlStream;
 
     async fn execute_streaming_sql(
         &self,

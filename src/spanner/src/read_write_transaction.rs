@@ -169,7 +169,7 @@ impl ReadWriteTransaction {
         let mut request = statement
             .into_request()
             .set_session(self.context.session_name.clone())
-            .set_transaction(self.context.transaction_selector.selector())
+            .set_transaction(self.context.transaction_selector.selector().await?)
             .set_seqno(seqno);
         request.request_options = self.context.amend_request_options(request.request_options);
 
@@ -270,7 +270,7 @@ impl ReadWriteTransaction {
 
         let request = ExecuteBatchDmlRequest::default()
             .set_session(self.context.session_name.clone())
-            .set_transaction(self.context.transaction_selector.selector())
+            .set_transaction(self.context.transaction_selector.selector().await?)
             .set_seqno(seqno)
             .set_statements(statements)
             .set_or_clear_request_options(
@@ -295,8 +295,8 @@ impl ReadWriteTransaction {
         }
     }
 
-    pub(crate) fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
-        match &self.context.transaction_selector.selector().selector {
+    pub(crate) async fn transaction_id(&self) -> crate::Result<bytes::Bytes> {
+        match &self.context.transaction_selector.selector().await?.selector {
             Some(Selector::Id(id)) => Ok(id.clone()),
             _ => Err(internal_error("Transaction ID is missing")),
         }
@@ -304,7 +304,7 @@ impl ReadWriteTransaction {
 
     /// Commits the transaction.
     pub(crate) async fn commit(self) -> crate::Result<wkt::Timestamp> {
-        let transaction_id = self.transaction_id()?;
+        let transaction_id = self.transaction_id().await?;
         let precommit_token = self.context.precommit_token_tracker.get();
         let request = CommitRequest::default()
             .set_session(self.context.session_name.clone())
@@ -345,7 +345,7 @@ impl ReadWriteTransaction {
 
     /// Rolls back the transaction.
     pub(crate) async fn rollback(self) -> crate::Result<()> {
-        let transaction_id = self.transaction_id()?;
+        let transaction_id = self.transaction_id().await?;
 
         let request = RollbackRequest::default()
             .set_session(self.context.session_name.clone())

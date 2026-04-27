@@ -145,12 +145,13 @@ impl BatchReadOnlyTransaction {
         statement: T,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
+        let selector = self.inner.context.transaction_selector.selector().await?;
         let statement = statement.into();
         let request = statement
             .clone()
             .into_partition_query_request()
             .set_session(self.inner.context.session_name.clone())
-            .set_transaction(self.inner.context.transaction_selector.selector())
+            .set_transaction(selector.clone())
             .set_partition_options(options);
 
         let response = self
@@ -167,7 +168,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| {
                 let mut req = statement.clone().into_request();
                 req.session = self.inner.context.session_name.clone();
-                req.transaction = Some(self.inner.context.transaction_selector.selector());
+                req.transaction = Some(selector.clone());
                 req.partition_token = p.partition_token;
 
                 Partition {
@@ -202,12 +203,13 @@ impl BatchReadOnlyTransaction {
         read: T,
         options: PartitionOptions,
     ) -> crate::Result<Vec<Partition>> {
+        let selector = self.inner.context.transaction_selector.selector().await?;
         let read = read.into();
         let request = read
             .clone()
             .into_partition_read_request()
             .set_session(self.inner.context.session_name.clone())
-            .set_transaction(self.inner.context.transaction_selector.selector())
+            .set_transaction(selector.clone())
             .set_partition_options(options);
 
         let response = self
@@ -224,7 +226,7 @@ impl BatchReadOnlyTransaction {
             .map(|p| {
                 let mut req = read.clone().into_request();
                 req.session = self.inner.context.session_name.clone();
-                req.transaction = Some(self.inner.context.transaction_selector.selector());
+                req.transaction = Some(selector.clone());
                 req.partition_token = p.partition_token;
 
                 Partition {
@@ -338,7 +340,9 @@ impl Partition {
         Ok(ResultSet::new(
             stream,
             Some(ReadContextTransactionSelector::Fixed(
-                req.transaction.clone().unwrap_or_default(),
+                req.transaction
+                    .clone()
+                    .expect("transaction must be set in partition request"),
                 None,
             )),
             PrecommitTokenTracker::new_noop(),
@@ -361,7 +365,9 @@ impl Partition {
         Ok(ResultSet::new(
             stream,
             Some(ReadContextTransactionSelector::Fixed(
-                req.transaction.clone().unwrap_or_default(),
+                req.transaction
+                    .clone()
+                    .expect("transaction must be set in partition request"),
                 None,
             )),
             PrecommitTokenTracker::new_noop(),
