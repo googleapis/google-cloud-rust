@@ -202,8 +202,9 @@ impl GdchServiceAccountTokenProvider {
         let signature = signer
             .sign(signing_input.as_bytes())
             .map_err(errors::non_retryable)?;
-        let signature = ecdsa_der_to_jose(&signature, 32)?;
-        let encoded_signature = BASE64_URL_SAFE_NO_PAD.encode(signature);
+        let signature =
+            p256::ecdsa::Signature::from_der(&signature).map_err(errors::non_retryable)?;
+        let encoded_signature = BASE64_URL_SAFE_NO_PAD.encode(signature.to_bytes());
         Ok(format!("{signing_input}.{encoded_signature}"))
     }
 }
@@ -251,90 +252,6 @@ where
 {
     let json = serde_json::to_string(value).map_err(errors::non_retryable)?;
     Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
-}
-
-fn ecdsa_der_to_jose(der: &[u8], field_len: usize) -> Result<Vec<u8>> {
-    let mut pos = 0;
-    read_der_tag(der, &mut pos, 0x30)?;
-    let seq_len = read_der_len(der, &mut pos)?;
-    if pos + seq_len != der.len() {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature sequence length",
-        ));
-    }
-    let r = read_der_integer(der, &mut pos, field_len)?;
-    let s = read_der_integer(der, &mut pos, field_len)?;
-    if pos != der.len() {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature trailing data",
-        ));
-    }
-
-    let mut jose = Vec::with_capacity(field_len * 2);
-    jose.extend_from_slice(&r);
-    jose.extend_from_slice(&s);
-    Ok(jose)
-}
-
-fn read_der_tag(der: &[u8], pos: &mut usize, expected: u8) -> Result<()> {
-    if der.get(*pos).copied() != Some(expected) {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature DER tag",
-        ));
-    }
-    *pos += 1;
-    Ok(())
-}
-
-fn read_der_len(der: &[u8], pos: &mut usize) -> Result<usize> {
-    let Some(first) = der.get(*pos).copied() else {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature DER length",
-        ));
-    };
-    *pos += 1;
-    if first & 0x80 == 0 {
-        return Ok(first as usize);
-    }
-
-    let len_len = (first & 0x7f) as usize;
-    if len_len == 0 || len_len > std::mem::size_of::<usize>() || *pos + len_len > der.len() {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature DER length",
-        ));
-    }
-
-    let mut len = 0usize;
-    for byte in &der[*pos..*pos + len_len] {
-        len = (len << 8) | (*byte as usize);
-    }
-    *pos += len_len;
-    Ok(len)
-}
-
-fn read_der_integer(der: &[u8], pos: &mut usize, field_len: usize) -> Result<Vec<u8>> {
-    read_der_tag(der, pos, 0x02)?;
-    let len = read_der_len(der, pos)?;
-    if len == 0 || *pos + len > der.len() {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature integer",
-        ));
-    }
-
-    let mut value = &der[*pos..*pos + len];
-    *pos += len;
-    while value.len() > 1 && value[0] == 0 {
-        value = &value[1..];
-    }
-    if value.len() > field_len {
-        return Err(errors::non_retryable_from_str(
-            "invalid GDCH ECDSA signature integer length",
-        ));
-    }
-
-    let mut out = vec![0; field_len - value.len()];
-    out.extend_from_slice(value);
-    Ok(out)
 }
 
 const MSG: &str = "failed to exchange GDCH service account token";
