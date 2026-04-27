@@ -91,7 +91,6 @@ pub struct ListQueuesRequest {
 }
 
 impl ListQueuesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -179,7 +178,6 @@ pub struct ListQueuesResponse {
 }
 
 impl ListQueuesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -253,7 +251,6 @@ pub struct GetQueueRequest {
 }
 
 impl GetQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -304,7 +301,6 @@ pub struct CreateQueueRequest {
 }
 
 impl CreateQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -388,7 +384,6 @@ pub struct UpdateQueueRequest {
 }
 
 impl UpdateQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -481,7 +476,6 @@ pub struct DeleteQueueRequest {
 }
 
 impl DeleteQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -520,7 +514,6 @@ pub struct PurgeQueueRequest {
 }
 
 impl PurgeQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -559,7 +552,6 @@ pub struct PauseQueueRequest {
 }
 
 impl PauseQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -598,7 +590,6 @@ pub struct ResumeQueueRequest {
 }
 
 impl ResumeQueueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -681,7 +672,6 @@ pub struct ListTasksRequest {
 }
 
 impl ListTasksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -772,7 +762,6 @@ pub struct ListTasksResponse {
 }
 
 impl ListTasksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -865,7 +854,6 @@ pub struct GetTaskRequest {
 }
 
 impl GetTaskRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -980,7 +968,6 @@ pub struct CreateTaskRequest {
 }
 
 impl CreateTaskRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1069,7 +1056,6 @@ pub struct DeleteTaskRequest {
 }
 
 impl DeleteTaskRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1126,7 +1112,6 @@ pub struct RunTaskRequest {
 }
 
 impl RunTaskRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1300,7 +1285,6 @@ pub struct Queue {
 }
 
 impl Queue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1755,7 +1739,6 @@ pub struct RateLimits {
 }
 
 impl RateLimits {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1926,7 +1909,6 @@ pub struct RetryConfig {
 }
 
 impl RetryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2076,7 +2058,6 @@ pub struct StackdriverLoggingConfig {
 }
 
 impl StackdriverLoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2210,7 +2191,6 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2583,7 +2563,6 @@ pub struct AppEngineHttpRequest {
 }
 
 impl AppEngineHttpRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2802,7 +2781,6 @@ pub struct AppEngineRouting {
 }
 
 impl AppEngineRouting {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2885,7 +2863,6 @@ pub struct OAuthToken {
 }
 
 impl OAuthToken {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2948,7 +2925,6 @@ pub struct OidcToken {
 }
 
 impl OidcToken {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3101,7 +3077,6 @@ pub struct Task {
 }
 
 impl Task {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3637,7 +3612,6 @@ pub struct Attempt {
 }
 
 impl Attempt {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -59,7 +59,6 @@ pub struct ListAccessPoliciesRequest {
 }
 
 impl ListAccessPoliciesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -122,7 +121,6 @@ pub struct ListAccessPoliciesResponse {
 }
 
 impl ListAccessPoliciesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -195,7 +193,6 @@ pub struct GetAccessPolicyRequest {
 }
 
 impl GetAccessPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -233,7 +230,6 @@ pub struct UpdateAccessPolicyRequest {
 }
 
 impl UpdateAccessPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -324,7 +320,6 @@ pub struct DeleteAccessPolicyRequest {
 }
 
 impl DeleteAccessPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -378,7 +373,6 @@ pub struct ListAccessLevelsRequest {
 }
 
 impl ListAccessLevelsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -459,7 +453,6 @@ pub struct ListAccessLevelsResponse {
 }
 
 impl ListAccessLevelsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -544,7 +537,6 @@ pub struct GetAccessLevelRequest {
 }
 
 impl GetAccessLevelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -606,7 +598,6 @@ pub struct CreateAccessLevelRequest {
 }
 
 impl CreateAccessLevelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -681,7 +672,6 @@ pub struct UpdateAccessLevelRequest {
 }
 
 impl UpdateAccessLevelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -774,7 +764,6 @@ pub struct DeleteAccessLevelRequest {
 }
 
 impl DeleteAccessLevelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -831,7 +820,6 @@ pub struct ReplaceAccessLevelsRequest {
 }
 
 impl ReplaceAccessLevelsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -902,7 +890,6 @@ pub struct ReplaceAccessLevelsResponse {
 }
 
 impl ReplaceAccessLevelsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -961,7 +948,6 @@ pub struct ListServicePerimetersRequest {
 }
 
 impl ListServicePerimetersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1025,7 +1011,6 @@ pub struct ListServicePerimetersResponse {
 }
 
 impl ListServicePerimetersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1100,7 +1085,6 @@ pub struct GetServicePerimeterRequest {
 }
 
 impl GetServicePerimeterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1145,7 +1129,6 @@ pub struct CreateServicePerimeterRequest {
 }
 
 impl CreateServicePerimeterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1217,7 +1200,6 @@ pub struct UpdateServicePerimeterRequest {
 }
 
 impl UpdateServicePerimeterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1310,7 +1292,6 @@ pub struct DeleteServicePerimeterRequest {
 }
 
 impl DeleteServicePerimeterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1367,7 +1348,6 @@ pub struct ReplaceServicePerimetersRequest {
 }
 
 impl ReplaceServicePerimetersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1438,7 +1418,6 @@ pub struct ReplaceServicePerimetersResponse {
 }
 
 impl ReplaceServicePerimetersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1502,7 +1481,6 @@ pub struct CommitServicePerimetersRequest {
 }
 
 impl CommitServicePerimetersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1553,7 +1531,6 @@ pub struct CommitServicePerimetersResponse {
 }
 
 impl CommitServicePerimetersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1609,7 +1586,6 @@ pub struct ListGcpUserAccessBindingsRequest {
 }
 
 impl ListGcpUserAccessBindingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1673,7 +1649,6 @@ pub struct ListGcpUserAccessBindingsResponse {
 }
 
 impl ListGcpUserAccessBindingsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1745,7 +1720,6 @@ pub struct GetGcpUserAccessBindingRequest {
 }
 
 impl GetGcpUserAccessBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1785,7 +1759,6 @@ pub struct CreateGcpUserAccessBindingRequest {
 }
 
 impl CreateGcpUserAccessBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1863,7 +1836,6 @@ pub struct UpdateGcpUserAccessBindingRequest {
 }
 
 impl UpdateGcpUserAccessBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1953,7 +1925,6 @@ pub struct DeleteGcpUserAccessBindingRequest {
 }
 
 impl DeleteGcpUserAccessBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1987,7 +1958,6 @@ pub struct GcpUserAccessBindingOperationMetadata {
 }
 
 impl GcpUserAccessBindingOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2007,7 +1977,6 @@ pub struct AccessContextManagerOperationMetadata {
 }
 
 impl AccessContextManagerOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2050,7 +2019,6 @@ pub struct AccessLevel {
 }
 
 impl AccessLevel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2286,7 +2254,6 @@ pub struct BasicLevel {
 }
 
 impl BasicLevel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2519,7 +2486,6 @@ pub struct Condition {
 }
 
 impl Condition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2657,7 +2623,6 @@ pub struct CustomLevel {
 }
 
 impl CustomLevel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2742,7 +2707,6 @@ pub struct DevicePolicy {
 }
 
 impl DevicePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2882,7 +2846,6 @@ pub struct OsConstraint {
 }
 
 impl OsConstraint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2991,7 +2954,6 @@ pub struct AccessPolicy {
 }
 
 impl AccessPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3165,7 +3127,6 @@ pub struct GcpUserAccessBinding {
 }
 
 impl GcpUserAccessBinding {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3285,7 +3246,6 @@ pub struct ServicePerimeter {
 }
 
 impl ServicePerimeter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3693,7 +3653,6 @@ pub struct ServicePerimeterConfig {
 }
 
 impl ServicePerimeterConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3857,7 +3816,6 @@ pub mod service_perimeter_config {
     }
 
     impl VpcAccessibleServices {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3911,7 +3869,6 @@ pub mod service_perimeter_config {
     }
 
     impl MethodSelector {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4061,7 +4018,6 @@ pub mod service_perimeter_config {
     }
 
     impl ApiOperation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4126,7 +4082,6 @@ pub mod service_perimeter_config {
     }
 
     impl IngressSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4302,7 +4257,6 @@ pub mod service_perimeter_config {
     }
 
     impl IngressFrom {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4407,7 +4361,6 @@ pub mod service_perimeter_config {
     }
 
     impl IngressTo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4498,7 +4451,6 @@ pub mod service_perimeter_config {
     }
 
     impl IngressPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4604,7 +4556,6 @@ pub mod service_perimeter_config {
     }
 
     impl EgressFrom {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4701,7 +4652,6 @@ pub mod service_perimeter_config {
     }
 
     impl EgressTo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4816,7 +4766,6 @@ pub mod service_perimeter_config {
     }
 
     impl EgressPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

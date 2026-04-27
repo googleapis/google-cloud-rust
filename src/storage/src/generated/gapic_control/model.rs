@@ -32,7 +32,6 @@ pub struct PendingRenameInfo {
 }
 
 impl PendingRenameInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -86,7 +85,6 @@ pub struct Folder {
 }
 
 impl Folder {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -246,7 +244,6 @@ pub struct GetFolderRequest {
 }
 
 impl GetFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -378,7 +375,6 @@ pub struct CreateFolderRequest {
 }
 
 impl CreateFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -496,7 +492,6 @@ pub struct DeleteFolderRequest {
 }
 
 impl DeleteFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -640,7 +635,6 @@ pub struct ListFoldersRequest {
 }
 
 impl ListFoldersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -769,7 +763,6 @@ pub struct ListFoldersResponse {
 }
 
 impl ListFoldersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -858,7 +851,6 @@ pub struct RenameFolderRequest {
 }
 
 impl RenameFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -996,7 +988,6 @@ pub struct DeleteFolderRecursiveRequest {
 }
 
 impl DeleteFolderRecursiveRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1123,7 +1114,6 @@ pub struct CommonLongRunningOperationMetadata {
 }
 
 impl CommonLongRunningOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1288,7 +1278,6 @@ pub struct RenameFolderMetadata {
 }
 
 impl RenameFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1378,7 +1367,6 @@ pub struct DeleteFolderRecursiveMetadata {
 }
 
 impl DeleteFolderRecursiveMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1464,7 +1452,6 @@ pub struct StorageLayout {
 }
 
 impl StorageLayout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1596,7 +1583,6 @@ pub mod storage_layout {
     }
 
     impl CustomPlacementConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1636,7 +1622,6 @@ pub mod storage_layout {
     }
 
     impl HierarchicalNamespace {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1681,7 +1666,6 @@ pub struct GetStorageLayoutRequest {
 }
 
 impl GetStorageLayoutRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1753,7 +1737,6 @@ pub struct ManagedFolder {
 }
 
 impl ManagedFolder {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1880,7 +1863,6 @@ pub struct GetManagedFolderRequest {
 }
 
 impl GetManagedFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2003,7 +1985,6 @@ pub struct CreateManagedFolderRequest {
 }
 
 impl CreateManagedFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2118,7 +2099,6 @@ pub struct DeleteManagedFolderRequest {
 }
 
 impl DeleteManagedFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2255,7 +2235,6 @@ pub struct ListManagedFoldersRequest {
 }
 
 impl ListManagedFoldersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2342,7 +2321,6 @@ pub struct ListManagedFoldersResponse {
 }
 
 impl ListManagedFoldersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2431,7 +2409,6 @@ pub struct CreateAnywhereCacheMetadata {
 }
 
 impl CreateAnywhereCacheMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2631,7 +2608,6 @@ pub struct UpdateAnywhereCacheMetadata {
 }
 
 impl UpdateAnywhereCacheMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2846,7 +2822,6 @@ pub struct AnywhereCache {
 }
 
 impl AnywhereCache {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3043,7 +3018,6 @@ pub struct CreateAnywhereCacheRequest {
 }
 
 impl CreateAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3139,7 +3113,6 @@ pub struct UpdateAnywhereCacheRequest {
 }
 
 impl UpdateAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3246,7 +3219,6 @@ pub struct DisableAnywhereCacheRequest {
 }
 
 impl DisableAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3299,7 +3271,6 @@ pub struct PauseAnywhereCacheRequest {
 }
 
 impl PauseAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3352,7 +3323,6 @@ pub struct ResumeAnywhereCacheRequest {
 }
 
 impl ResumeAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3404,7 +3374,6 @@ pub struct GetAnywhereCacheRequest {
 }
 
 impl GetAnywhereCacheRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3463,7 +3432,6 @@ pub struct ListAnywhereCachesRequest {
 }
 
 impl ListAnywhereCachesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3538,7 +3506,6 @@ pub struct ListAnywhereCachesResponse {
 }
 
 impl ListAnywhereCachesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3637,7 +3604,6 @@ pub struct IntelligenceConfig {
 }
 
 impl IntelligenceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3841,7 +3807,6 @@ pub mod intelligence_config {
     }
 
     impl Filter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4107,7 +4072,6 @@ pub mod intelligence_config {
         }
 
         impl CloudStorageLocations {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4154,7 +4118,6 @@ pub mod intelligence_config {
         }
 
         impl CloudStorageBuckets {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4272,7 +4235,6 @@ pub mod intelligence_config {
     }
 
     impl EffectiveIntelligenceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4464,7 +4426,6 @@ pub mod intelligence_config {
     }
 
     impl TrialConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4693,7 +4654,6 @@ pub struct UpdateOrganizationIntelligenceConfigRequest {
 }
 
 impl UpdateOrganizationIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4810,7 +4770,6 @@ pub struct UpdateFolderIntelligenceConfigRequest {
 }
 
 impl UpdateFolderIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4927,7 +4886,6 @@ pub struct UpdateProjectIntelligenceConfigRequest {
 }
 
 impl UpdateProjectIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5038,7 +4996,6 @@ pub struct GetOrganizationIntelligenceConfigRequest {
 }
 
 impl GetOrganizationIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5083,7 +5040,6 @@ pub struct GetFolderIntelligenceConfigRequest {
 }
 
 impl GetFolderIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5128,7 +5084,6 @@ pub struct GetProjectIntelligenceConfigRequest {
 }
 
 impl GetProjectIntelligenceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

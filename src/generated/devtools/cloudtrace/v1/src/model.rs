@@ -53,7 +53,6 @@ pub struct Trace {
 }
 
 impl Trace {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -122,7 +121,6 @@ pub struct Traces {
 }
 
 impl Traces {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -232,7 +230,6 @@ pub struct TraceSpan {
 }
 
 impl TraceSpan {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -605,7 +602,6 @@ pub struct ListTracesRequest {
 }
 
 impl ListTracesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -926,7 +922,6 @@ pub struct ListTracesResponse {
 }
 
 impl ListTracesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1000,7 +995,6 @@ pub struct GetTraceRequest {
 }
 
 impl GetTraceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1050,7 +1044,6 @@ pub struct PatchTracesRequest {
 }
 
 impl PatchTracesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

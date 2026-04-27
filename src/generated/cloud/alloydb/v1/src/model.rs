@@ -55,7 +55,6 @@ pub struct CloudSQLBackupRunSource {
 }
 
 impl CloudSQLBackupRunSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -124,7 +123,6 @@ pub struct RestoreFromCloudSQLRequest {
 }
 
 impl RestoreFromCloudSQLRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -286,7 +284,6 @@ pub struct SqlResult {
 }
 
 impl SqlResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -358,7 +355,6 @@ pub struct SqlResultColumn {
 }
 
 impl SqlResultColumn {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -405,7 +401,6 @@ pub struct SqlResultRow {
 }
 
 impl SqlResultRow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -454,7 +449,6 @@ pub struct SqlResultValue {
 }
 
 impl SqlResultValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -543,7 +537,6 @@ pub struct UserPassword {
 }
 
 impl UserPassword {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -599,7 +592,6 @@ pub struct MigrationSource {
 }
 
 impl MigrationSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -798,7 +790,6 @@ pub struct EncryptionConfig {
 }
 
 impl EncryptionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -837,7 +828,6 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1042,7 +1032,6 @@ pub struct SslConfig {
 }
 
 impl SslConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1438,7 +1427,6 @@ pub struct AutomatedBackupPolicy {
 }
 
 impl AutomatedBackupPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1787,7 +1775,6 @@ pub mod automated_backup_policy {
     }
 
     impl WeeklySchedule {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1855,7 +1842,6 @@ pub mod automated_backup_policy {
     }
 
     impl TimeBasedRetention {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1912,7 +1898,6 @@ pub mod automated_backup_policy {
     }
 
     impl QuantityBasedRetention {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1995,7 +1980,6 @@ pub struct ContinuousBackupConfig {
 }
 
 impl ContinuousBackupConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2115,7 +2099,6 @@ pub struct ContinuousBackupInfo {
 }
 
 impl ContinuousBackupInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2266,7 +2249,6 @@ pub struct BackupSource {
 }
 
 impl BackupSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2318,7 +2300,6 @@ pub struct ContinuousBackupSource {
 }
 
 impl ContinuousBackupSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2391,7 +2372,6 @@ pub struct MaintenanceUpdatePolicy {
 }
 
 impl MaintenanceUpdatePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2467,7 +2447,6 @@ pub mod maintenance_update_policy {
     }
 
     impl MaintenanceWindow {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2561,7 +2540,6 @@ pub mod maintenance_update_policy {
     }
 
     impl DenyMaintenancePeriod {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2688,7 +2666,6 @@ pub struct MaintenanceSchedule {
 }
 
 impl MaintenanceSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2782,7 +2759,6 @@ pub struct Cluster {
     /// be used.
     pub database_version: crate::model::DatabaseVersion,
 
-    #[allow(missing_docs)]
     pub network_config: std::option::Option<crate::model::cluster::NetworkConfig>,
 
     /// Required. The resource link for the VPC network in which cluster resources
@@ -2888,7 +2864,6 @@ pub struct Cluster {
 }
 
 impl Cluster {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3879,7 +3854,6 @@ pub mod cluster {
     }
 
     impl NetworkConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3932,7 +3906,6 @@ pub mod cluster {
     }
 
     impl SecondaryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3973,7 +3946,6 @@ pub mod cluster {
     }
 
     impl PrimaryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4018,7 +3990,6 @@ pub mod cluster {
     }
 
     impl PscConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4077,7 +4048,6 @@ pub mod cluster {
     }
 
     impl TrialMetadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4234,7 +4204,6 @@ pub mod cluster {
     }
 
     impl DataplexConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4747,7 +4716,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5460,7 +5428,6 @@ pub mod instance {
     }
 
     impl MachineConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5525,7 +5492,6 @@ pub mod instance {
     }
 
     impl Node {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5610,7 +5576,6 @@ pub mod instance {
     }
 
     impl QueryInsightsInstanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5770,7 +5735,6 @@ pub mod instance {
     }
 
     impl ObservabilityInstanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6041,7 +6005,6 @@ pub mod instance {
     }
 
     impl ReadPoolConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6080,7 +6043,6 @@ pub mod instance {
     }
 
     impl ClientConnectionConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6152,7 +6114,6 @@ pub mod instance {
     }
 
     impl PscInterfaceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6231,7 +6192,6 @@ pub mod instance {
     }
 
     impl PscAutoConnectionConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6344,7 +6304,6 @@ pub mod instance {
     }
 
     impl PscInstanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6482,7 +6441,6 @@ pub mod instance {
     }
 
     impl InstanceNetworkConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6585,7 +6543,6 @@ pub mod instance {
         }
 
         impl AuthorizedNetwork {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6630,7 +6587,6 @@ pub mod instance {
     }
 
     impl ConnectionPoolConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7309,7 +7265,6 @@ pub struct ConnectionInfo {
 }
 
 impl ConnectionInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7487,7 +7442,6 @@ pub struct Backup {
 }
 
 impl Backup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8027,7 +7981,6 @@ pub mod backup {
     }
 
     impl QuantityBasedExpiry {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8370,7 +8323,6 @@ pub struct SupportedDatabaseFlag {
     /// The is a possibly key for the Instance.database_flags map field.
     pub flag_name: std::string::String,
 
-    #[allow(missing_docs)]
     pub value_type: crate::model::supported_database_flag::ValueType,
 
     /// Whether the database flag accepts multiple values. If true,
@@ -8400,7 +8352,6 @@ pub struct SupportedDatabaseFlag {
 }
 
 impl SupportedDatabaseFlag {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8754,7 +8705,6 @@ pub mod supported_database_flag {
     }
 
     impl StringRestrictions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8797,7 +8747,6 @@ pub mod supported_database_flag {
     }
 
     impl IntegerRestrictions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9206,7 +9155,6 @@ pub struct User {
 }
 
 impl User {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9461,7 +9409,6 @@ pub struct Database {
 }
 
 impl Database {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9595,7 +9542,6 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9684,7 +9630,6 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9777,7 +9722,6 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9815,7 +9759,6 @@ impl wkt::message::Message for GetClusterRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSecondaryClusterRequest {
@@ -9853,7 +9796,6 @@ pub struct CreateSecondaryClusterRequest {
 }
 
 impl CreateSecondaryClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9984,7 +9926,6 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10119,7 +10060,6 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10245,7 +10185,6 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10291,7 +10230,6 @@ pub struct ExportClusterRequest {
 }
 
 impl ExportClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10529,7 +10467,6 @@ pub mod export_cluster_request {
     }
 
     impl CsvExportOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10623,7 +10560,6 @@ pub mod export_cluster_request {
     }
 
     impl SqlExportOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10777,7 +10713,6 @@ pub struct ExportClusterResponse {
 }
 
 impl ExportClusterResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10896,7 +10831,6 @@ pub struct ImportClusterRequest {
 }
 
 impl ImportClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11077,7 +11011,6 @@ pub mod import_cluster_request {
     }
 
     impl SqlImportOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11120,7 +11053,6 @@ pub mod import_cluster_request {
     }
 
     impl CsvImportOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11228,7 +11160,6 @@ pub struct ImportClusterResponse {
 }
 
 impl ImportClusterResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11291,7 +11222,6 @@ pub struct UpgradeClusterRequest {
 }
 
 impl UpgradeClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11389,7 +11319,6 @@ pub struct UpgradeClusterResponse {
 }
 
 impl UpgradeClusterResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11477,7 +11406,6 @@ pub mod upgrade_cluster_response {
     }
 
     impl StageInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11554,7 +11482,6 @@ pub mod upgrade_cluster_response {
     }
 
     impl InstanceUpgradeDetails {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -11645,7 +11572,6 @@ pub mod upgrade_cluster_response {
     }
 
     impl ClusterUpgradeDetails {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12147,7 +12073,6 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12251,7 +12176,6 @@ pub struct SwitchoverClusterRequest {
 }
 
 impl SwitchoverClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12336,7 +12260,6 @@ pub struct PromoteClusterRequest {
 }
 
 impl PromoteClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12440,7 +12363,6 @@ pub struct RestoreClusterRequest {
 }
 
 impl RestoreClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12683,7 +12605,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12772,7 +12693,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12864,7 +12784,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12940,7 +12859,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13071,7 +12989,6 @@ pub struct CreateSecondaryInstanceRequest {
 }
 
 impl CreateSecondaryInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13176,7 +13093,6 @@ pub struct CreateInstanceRequests {
 }
 
 impl CreateInstanceRequests {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13239,7 +13155,6 @@ pub struct BatchCreateInstancesRequest {
 }
 
 impl BatchCreateInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13319,7 +13234,6 @@ pub struct BatchCreateInstancesResponse {
 }
 
 impl BatchCreateInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13377,7 +13291,6 @@ pub struct BatchCreateInstancesMetadata {
 }
 
 impl BatchCreateInstancesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13466,14 +13379,12 @@ pub struct BatchCreateInstanceStatus {
     /// present if an error happened during the instance creation.
     pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
-    #[allow(missing_docs)]
     pub r#type: crate::model::instance::InstanceType,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchCreateInstanceStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13779,7 +13690,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13930,7 +13840,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14022,7 +13931,6 @@ pub struct FailoverInstanceRequest {
 }
 
 impl FailoverInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14105,7 +14013,6 @@ pub struct InjectFaultRequest {
 }
 
 impl InjectFaultRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14301,7 +14208,6 @@ pub mod inject_fault_request {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestartInstanceRequest {
@@ -14337,7 +14243,6 @@ pub struct RestartInstanceRequest {
 }
 
 impl RestartInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14436,7 +14341,6 @@ pub struct ExecuteSqlRequest {
 }
 
 impl ExecuteSqlRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14591,7 +14495,6 @@ pub struct ExecuteSqlResponse {
 }
 
 impl ExecuteSqlResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14682,7 +14585,6 @@ pub struct ExecuteSqlMetadata {
 }
 
 impl ExecuteSqlMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14949,7 +14851,6 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15038,7 +14939,6 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15126,7 +15026,6 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15186,7 +15085,6 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15320,7 +15218,6 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15470,7 +15367,6 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15559,7 +15455,6 @@ pub struct ListSupportedDatabaseFlagsRequest {
 }
 
 impl ListSupportedDatabaseFlagsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15638,7 +15533,6 @@ pub struct ListSupportedDatabaseFlagsResponse {
 }
 
 impl ListSupportedDatabaseFlagsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15744,7 +15638,6 @@ pub struct GenerateClientCertificateRequest {
 }
 
 impl GenerateClientCertificateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15852,7 +15745,6 @@ pub struct GenerateClientCertificateResponse {
 }
 
 impl GenerateClientCertificateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15920,7 +15812,6 @@ pub struct GetConnectionInfoRequest {
 }
 
 impl GetConnectionInfoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15996,7 +15887,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16279,7 +16169,6 @@ pub struct UpgradeClusterStatus {
 }
 
 impl UpgradeClusterStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16407,7 +16296,6 @@ pub mod upgrade_cluster_status {
     }
 
     impl StageStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16593,7 +16481,6 @@ pub mod upgrade_cluster_status {
         }
 
         impl StageSchedule {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -16763,7 +16650,6 @@ pub mod upgrade_cluster_status {
     }
 
     impl ReadPoolInstancesUpgradeStageStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16831,7 +16717,6 @@ pub mod upgrade_cluster_status {
         }
 
         impl Stats {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -16917,7 +16802,6 @@ pub struct ListUsersRequest {
 }
 
 impl ListUsersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17006,7 +16890,6 @@ pub struct ListUsersResponse {
 }
 
 impl ListUsersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17095,7 +16978,6 @@ pub struct GetUserRequest {
 }
 
 impl GetUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17155,7 +17037,6 @@ pub struct CreateUserRequest {
 }
 
 impl CreateUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17288,7 +17169,6 @@ pub struct UpdateUserRequest {
 }
 
 impl UpdateUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17433,7 +17313,6 @@ pub struct DeleteUserRequest {
 }
 
 impl DeleteUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17507,7 +17386,6 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17582,7 +17460,6 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

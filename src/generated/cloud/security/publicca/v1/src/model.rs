@@ -55,7 +55,6 @@ pub struct ExternalAccountKey {
 }
 
 impl ExternalAccountKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -126,7 +125,6 @@ pub struct CreateExternalAccountKeyRequest {
 }
 
 impl CreateExternalAccountKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

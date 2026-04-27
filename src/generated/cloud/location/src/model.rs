@@ -54,7 +54,6 @@ pub struct ListLocationsRequest {
 }
 
 impl ListLocationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -130,7 +129,6 @@ pub struct ListLocationsResponse {
 }
 
 impl ListLocationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -203,7 +201,6 @@ pub struct GetLocationRequest {
 }
 
 impl GetLocationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -257,7 +254,6 @@ pub struct Location {
 }
 
 impl Location {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

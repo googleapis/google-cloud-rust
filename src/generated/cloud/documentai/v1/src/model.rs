@@ -87,7 +87,6 @@ pub struct Barcode {
 }
 
 impl Barcode {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -230,7 +229,6 @@ pub struct Document {
 }
 
 impl Document {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -742,7 +740,6 @@ pub mod document {
     }
 
     impl ShardInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -832,7 +829,6 @@ pub mod document {
     }
 
     impl Style {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1047,7 +1043,6 @@ pub mod document {
         }
 
         impl FontSize {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1166,7 +1161,6 @@ pub mod document {
     }
 
     impl Page {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1621,7 +1615,6 @@ pub mod document {
         }
 
         impl Dimension {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1691,7 +1684,6 @@ pub mod document {
         }
 
         impl Image {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1778,7 +1770,6 @@ pub mod document {
         }
 
         impl Matrix {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1873,7 +1864,6 @@ pub mod document {
         }
 
         impl Layout {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2164,7 +2154,6 @@ pub mod document {
         }
 
         impl Block {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2288,7 +2277,6 @@ pub mod document {
         }
 
         impl Paragraph {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2413,7 +2401,6 @@ pub mod document {
         }
 
         impl Line {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2547,7 +2534,6 @@ pub mod document {
         }
 
         impl Token {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2734,7 +2720,6 @@ pub mod document {
             }
 
             impl DetectedBreak {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -2977,7 +2962,6 @@ pub mod document {
             }
 
             impl StyleInfo {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3233,7 +3217,6 @@ pub mod document {
         }
 
         impl Symbol {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3325,7 +3308,6 @@ pub mod document {
         }
 
         impl VisualElement {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3432,7 +3414,6 @@ pub mod document {
         }
 
         impl Table {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3594,7 +3575,6 @@ pub mod document {
             }
 
             impl TableRow {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3653,7 +3633,6 @@ pub mod document {
             }
 
             impl TableCell {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3797,7 +3776,6 @@ pub mod document {
         }
 
         impl FormField {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4018,7 +3996,6 @@ pub mod document {
         }
 
         impl DetectedBarcode {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4112,7 +4089,6 @@ pub mod document {
         }
 
         impl DetectedLanguage {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4166,7 +4142,6 @@ pub mod document {
         }
 
         impl ImageQualityScores {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4243,7 +4218,6 @@ pub mod document {
             }
 
             impl DetectedDefect {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4342,7 +4316,6 @@ pub mod document {
     }
 
     impl Entity {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4633,7 +4606,6 @@ pub mod document {
         }
 
         impl NormalizedValue {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5224,7 +5196,6 @@ pub mod document {
     }
 
     impl EntityRelation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5294,7 +5265,6 @@ pub mod document {
     }
 
     impl TextAnchor {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5376,7 +5346,6 @@ pub mod document {
         }
 
         impl TextSegment {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5429,7 +5398,6 @@ pub mod document {
     }
 
     impl PageAnchor {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5507,7 +5475,6 @@ pub mod document {
         }
 
         impl PageRef {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5840,7 +5807,6 @@ pub mod document {
     }
 
     impl Provenance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5945,7 +5911,6 @@ pub mod document {
         }
 
         impl Parent {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6207,7 +6172,6 @@ pub mod document {
     }
 
     impl Revision {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6437,7 +6401,6 @@ pub mod document {
         }
 
         impl HumanReview {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6514,7 +6477,6 @@ pub mod document {
     }
 
     impl TextChange {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6608,7 +6570,6 @@ pub mod document {
     }
 
     impl Annotations {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6644,7 +6605,6 @@ pub mod document {
     }
 
     impl DocumentLayout {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6699,7 +6659,6 @@ pub mod document {
             /// Identifies the bounding box for the block.
             pub bounding_box: std::option::Option<crate::model::BoundingPoly>,
 
-            #[allow(missing_docs)]
             pub block: std::option::Option<
                 crate::model::document::document_layout::document_layout_block::Block,
             >,
@@ -6708,7 +6667,6 @@ pub mod document {
         }
 
         impl DocumentLayoutBlock {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7000,7 +6958,6 @@ pub mod document {
             }
 
             impl LayoutPageSpan {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7060,7 +7017,6 @@ pub mod document {
             }
 
             impl LayoutTextBlock {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7183,7 +7139,6 @@ pub mod document {
             }
 
             impl LayoutTableBlock {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7300,7 +7255,6 @@ pub mod document {
             }
 
             impl LayoutTableRow {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7353,7 +7307,6 @@ pub mod document {
             }
 
             impl LayoutTableCell {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7430,7 +7383,6 @@ pub mod document {
             }
 
             impl LayoutListBlock {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7492,7 +7444,6 @@ pub mod document {
             }
 
             impl LayoutListEntry {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7551,7 +7502,6 @@ pub mod document {
             }
 
             impl LayoutImageBlock {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7777,7 +7727,6 @@ pub mod document {
                 }
             }
 
-            #[allow(missing_docs)]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Block {
@@ -7804,7 +7753,6 @@ pub mod document {
     }
 
     impl ChunkedDocument {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7876,7 +7824,6 @@ pub mod document {
         }
 
         impl Chunk {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8058,7 +8005,6 @@ pub mod document {
             }
 
             impl ChunkPageSpan {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8110,7 +8056,6 @@ pub mod document {
             }
 
             impl ChunkPageHeader {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8190,7 +8135,6 @@ pub mod document {
             }
 
             impl ChunkPageFooter {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8270,7 +8214,6 @@ pub mod document {
             }
 
             impl ImageChunkField {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8477,7 +8420,6 @@ pub mod document {
             }
 
             impl TableChunkField {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8536,7 +8478,6 @@ pub mod document {
             }
 
             impl ChunkField {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -8711,7 +8652,6 @@ pub mod document {
     }
 
     impl BlobAsset {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8775,7 +8715,6 @@ pub mod document {
     }
 
     impl EntityValidationOutput {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8850,7 +8789,6 @@ pub mod document {
         }
 
         impl ValidationResult {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -9103,7 +9041,6 @@ pub mod document {
     }
 
     impl EntitiesRevision {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9222,7 +9159,6 @@ pub struct RawDocument {
 }
 
 impl RawDocument {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9284,7 +9220,6 @@ pub struct GcsDocument {
 }
 
 impl GcsDocument {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9331,7 +9266,6 @@ pub struct GcsDocuments {
 }
 
 impl GcsDocuments {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9376,7 +9310,6 @@ pub struct GcsPrefix {
 }
 
 impl GcsPrefix {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9412,7 +9345,6 @@ pub struct BatchDocumentsInputConfig {
 }
 
 impl BatchDocumentsInputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9551,7 +9483,6 @@ pub struct DocumentOutputConfig {
 }
 
 impl DocumentOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9652,7 +9583,6 @@ pub mod document_output_config {
     }
 
     impl GcsOutputConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9765,7 +9695,6 @@ pub mod document_output_config {
         }
 
         impl ShardingConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -9859,7 +9788,6 @@ pub struct OcrConfig {
 }
 
 impl OcrConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10039,7 +9967,6 @@ pub mod ocr_config {
     }
 
     impl Hints {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10086,7 +10013,6 @@ pub mod ocr_config {
     }
 
     impl PremiumFeatures {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10175,7 +10101,6 @@ pub struct ProcessOptions {
 }
 
 impl ProcessOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10443,7 +10368,6 @@ pub mod process_options {
     }
 
     impl LayoutConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10556,7 +10480,6 @@ pub mod process_options {
         }
 
         impl ChunkingConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -10607,7 +10530,6 @@ pub mod process_options {
     }
 
     impl IndividualPageSelector {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10718,7 +10640,6 @@ pub struct ProcessRequest {
 }
 
 impl ProcessRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11026,7 +10947,6 @@ pub struct HumanReviewStatus {
 }
 
 impl HumanReviewStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11260,7 +11180,6 @@ pub struct ProcessResponse {
 }
 
 impl ProcessResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11389,7 +11308,6 @@ pub struct BatchProcessRequest {
 }
 
 impl BatchProcessRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11556,7 +11474,6 @@ pub struct BatchProcessResponse {
 }
 
 impl BatchProcessResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11596,7 +11513,6 @@ pub struct BatchProcessMetadata {
 }
 
 impl BatchProcessMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11759,7 +11675,6 @@ pub mod batch_process_metadata {
     }
 
     impl IndividualProcessStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12045,7 +11960,6 @@ pub struct FetchProcessorTypesRequest {
 }
 
 impl FetchProcessorTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12084,7 +11998,6 @@ pub struct FetchProcessorTypesResponse {
 }
 
 impl FetchProcessorTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12143,7 +12056,6 @@ pub struct ListProcessorTypesRequest {
 }
 
 impl ListProcessorTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12209,7 +12121,6 @@ pub struct ListProcessorTypesResponse {
 }
 
 impl ListProcessorTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12290,7 +12201,6 @@ pub struct ListProcessorsRequest {
 }
 
 impl ListProcessorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12356,7 +12266,6 @@ pub struct ListProcessorsResponse {
 }
 
 impl ListProcessorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12431,7 +12340,6 @@ pub struct GetProcessorTypeRequest {
 }
 
 impl GetProcessorTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12470,7 +12378,6 @@ pub struct GetProcessorRequest {
 }
 
 impl GetProcessorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12509,7 +12416,6 @@ pub struct GetProcessorVersionRequest {
 }
 
 impl GetProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12555,7 +12461,6 @@ pub struct ListProcessorVersionsRequest {
 }
 
 impl ListProcessorVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12621,7 +12526,6 @@ pub struct ListProcessorVersionsResponse {
 }
 
 impl ListProcessorVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12696,7 +12600,6 @@ pub struct DeleteProcessorVersionRequest {
 }
 
 impl DeleteProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12735,7 +12638,6 @@ pub struct DeleteProcessorVersionMetadata {
 }
 
 impl DeleteProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12795,7 +12697,6 @@ pub struct DeployProcessorVersionRequest {
 }
 
 impl DeployProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12831,7 +12732,6 @@ pub struct DeployProcessorVersionResponse {
 }
 
 impl DeployProcessorVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12858,7 +12758,6 @@ pub struct DeployProcessorVersionMetadata {
 }
 
 impl DeployProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12918,7 +12817,6 @@ pub struct UndeployProcessorVersionRequest {
 }
 
 impl UndeployProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12954,7 +12852,6 @@ pub struct UndeployProcessorVersionResponse {
 }
 
 impl UndeployProcessorVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12981,7 +12878,6 @@ pub struct UndeployProcessorVersionMetadata {
 }
 
 impl UndeployProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13057,7 +12953,6 @@ pub struct CreateProcessorRequest {
 }
 
 impl CreateProcessorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13129,7 +13024,6 @@ pub struct DeleteProcessorRequest {
 }
 
 impl DeleteProcessorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13168,7 +13062,6 @@ pub struct DeleteProcessorMetadata {
 }
 
 impl DeleteProcessorMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13228,7 +13121,6 @@ pub struct EnableProcessorRequest {
 }
 
 impl EnableProcessorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13264,7 +13156,6 @@ pub struct EnableProcessorResponse {
 }
 
 impl EnableProcessorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13291,7 +13182,6 @@ pub struct EnableProcessorMetadata {
 }
 
 impl EnableProcessorMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13351,7 +13241,6 @@ pub struct DisableProcessorRequest {
 }
 
 impl DisableProcessorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13387,7 +13276,6 @@ pub struct DisableProcessorResponse {
 }
 
 impl DisableProcessorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13414,7 +13302,6 @@ pub struct DisableProcessorMetadata {
 }
 
 impl DisableProcessorMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13486,7 +13373,6 @@ pub struct SetDefaultProcessorVersionRequest {
 }
 
 impl SetDefaultProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13537,7 +13423,6 @@ pub struct SetDefaultProcessorVersionResponse {
 }
 
 impl SetDefaultProcessorVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13564,7 +13449,6 @@ pub struct SetDefaultProcessorVersionMetadata {
 }
 
 impl SetDefaultProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13639,7 +13523,6 @@ pub struct TrainProcessorVersionRequest {
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processorVersion}`.
     pub base_processor_version: std::string::String,
 
-    #[allow(missing_docs)]
     pub processor_flags:
         std::option::Option<crate::model::train_processor_version_request::ProcessorFlags>,
 
@@ -13647,7 +13530,6 @@ pub struct TrainProcessorVersionRequest {
 }
 
 impl TrainProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13929,7 +13811,6 @@ pub mod train_processor_version_request {
     }
 
     impl InputData {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14020,7 +13901,6 @@ pub mod train_processor_version_request {
     }
 
     impl CustomDocumentExtractionOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14070,11 +13950,8 @@ pub mod train_processor_version_request {
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum TrainingMethod {
-            #[allow(missing_docs)]
             Unspecified,
-            #[allow(missing_docs)]
             ModelBased,
-            #[allow(missing_docs)]
             TemplateBased,
             /// If set, the enum was initialized with an unknown value.
             ///
@@ -14204,7 +14081,6 @@ pub mod train_processor_version_request {
     }
 
     impl FoundationModelTuningOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14240,7 +14116,6 @@ pub mod train_processor_version_request {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ProcessorFlags {
@@ -14273,7 +14148,6 @@ pub struct TrainProcessorVersionResponse {
 }
 
 impl TrainProcessorVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14319,7 +14193,6 @@ pub struct TrainProcessorVersionMetadata {
 }
 
 impl TrainProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14460,7 +14333,6 @@ pub mod train_processor_version_metadata {
     }
 
     impl DatasetValidation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14570,7 +14442,6 @@ pub struct ReviewDocumentRequest {
 }
 
 impl ReviewDocumentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14878,7 +14749,6 @@ pub struct ReviewDocumentResponse {
 }
 
 impl ReviewDocumentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15090,7 +14960,6 @@ pub struct ReviewDocumentOperationMetadata {
 }
 
 impl ReviewDocumentOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15171,7 +15040,6 @@ pub struct EvaluateProcessorVersionRequest {
 }
 
 impl EvaluateProcessorVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15246,7 +15114,6 @@ pub struct EvaluateProcessorVersionMetadata {
 }
 
 impl EvaluateProcessorVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15306,7 +15173,6 @@ pub struct EvaluateProcessorVersionResponse {
 }
 
 impl EvaluateProcessorVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15345,7 +15211,6 @@ pub struct GetEvaluationRequest {
 }
 
 impl GetEvaluationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15397,7 +15262,6 @@ pub struct ListEvaluationsRequest {
 }
 
 impl ListEvaluationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15460,7 +15324,6 @@ pub struct ListEvaluationsResponse {
 }
 
 impl ListEvaluationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15540,7 +15403,6 @@ pub struct DocumentSchema {
 }
 
 impl DocumentSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15667,7 +15529,6 @@ pub mod document_schema {
         /// Description the nested structure, or composition of an entity.
         pub properties: std::vec::Vec<crate::model::document_schema::entity_type::Property>,
 
-        #[allow(missing_docs)]
         pub value_source:
             std::option::Option<crate::model::document_schema::entity_type::ValueSource>,
 
@@ -15675,7 +15536,6 @@ pub mod document_schema {
     }
 
     impl EntityType {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15837,7 +15697,6 @@ pub mod document_schema {
         }
 
         impl EnumValues {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -15893,7 +15752,6 @@ pub mod document_schema {
         }
 
         impl Property {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -16291,7 +16149,6 @@ pub mod document_schema {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum ValueSource {
@@ -16329,7 +16186,6 @@ pub mod document_schema {
     }
 
     impl Metadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16416,7 +16272,6 @@ pub struct EvaluationReference {
 }
 
 impl EvaluationReference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16552,7 +16407,6 @@ pub struct Evaluation {
 }
 
 impl Evaluation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16751,7 +16605,6 @@ pub mod evaluation {
     }
 
     impl Counters {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16852,7 +16705,6 @@ pub mod evaluation {
     }
 
     impl Metrics {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17013,7 +16865,6 @@ pub mod evaluation {
     }
 
     impl ConfidenceLevelMetrics {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17105,7 +16956,6 @@ pub mod evaluation {
     }
 
     impl MultiConfidenceMetrics {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17386,7 +17236,6 @@ pub struct Vertex {
 }
 
 impl Vertex {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17438,7 +17287,6 @@ pub struct NormalizedVertex {
 }
 
 impl NormalizedVertex {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17488,7 +17336,6 @@ pub struct BoundingPoly {
 }
 
 impl BoundingPoly {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17567,7 +17414,6 @@ pub struct CommonOperationMetadata {
 }
 
 impl CommonOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17904,7 +17750,6 @@ pub struct ProcessorVersion {
 }
 
 impl ProcessorVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18222,7 +18067,6 @@ pub mod processor_version {
     }
 
     impl DeprecationInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18295,7 +18139,6 @@ pub mod processor_version {
     }
 
     impl GenAiModelInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18442,7 +18285,6 @@ pub mod processor_version {
         }
 
         impl FoundationGenAiModelInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -18498,7 +18340,6 @@ pub mod processor_version {
         }
 
         impl CustomGenAiModelInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -19024,7 +18865,6 @@ pub struct ProcessorVersionAlias {
 }
 
 impl ProcessorVersionAlias {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19112,7 +18952,6 @@ pub struct Processor {
 }
 
 impl Processor {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19512,7 +19351,6 @@ pub struct ProcessorType {
 }
 
 impl ProcessorType {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19646,7 +19484,6 @@ pub mod processor_type {
     }
 
     impl LocationInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

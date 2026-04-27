@@ -65,7 +65,6 @@ pub struct CheckError {
 }
 
 impl CheckError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -508,7 +507,6 @@ pub struct Distribution {
 }
 
 impl Distribution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -796,7 +794,6 @@ pub mod distribution {
     }
 
     impl LinearBuckets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -869,7 +866,6 @@ pub mod distribution {
     }
 
     impl ExponentialBuckets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -942,7 +938,6 @@ pub mod distribution {
     }
 
     impl ExplicitBuckets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1077,7 +1072,6 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1342,7 +1336,6 @@ pub struct LogEntry {
 }
 
 impl LogEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1728,7 +1721,6 @@ pub struct LogEntryOperation {
 }
 
 impl LogEntryOperation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1813,7 +1805,6 @@ pub struct LogEntrySourceLocation {
 }
 
 impl LogEntrySourceLocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1898,7 +1889,6 @@ pub struct MetricValue {
 }
 
 impl MetricValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2232,7 +2222,6 @@ pub struct MetricValueSet {
 }
 
 impl MetricValueSet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2366,7 +2355,6 @@ pub struct Operation {
 }
 
 impl Operation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2739,7 +2727,6 @@ pub struct AllocateQuotaRequest {
 }
 
 impl AllocateQuotaRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2870,7 +2857,6 @@ pub struct QuotaOperation {
 }
 
 impl QuotaOperation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3191,7 +3177,6 @@ pub struct AllocateQuotaResponse {
 }
 
 impl AllocateQuotaResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3299,7 +3284,6 @@ pub struct QuotaError {
 }
 
 impl QuotaError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3577,7 +3561,6 @@ pub struct CheckRequest {
 }
 
 impl CheckRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3680,7 +3663,6 @@ pub struct CheckResponse {
 }
 
 impl CheckResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3815,7 +3797,6 @@ pub mod check_response {
     }
 
     impl CheckInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3913,7 +3894,6 @@ pub mod check_response {
     }
 
     impl ConsumerInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4166,7 +4146,6 @@ pub struct ReportRequest {
 }
 
 impl ReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4257,7 +4236,6 @@ pub struct ReportResponse {
 }
 
 impl ReportResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4350,7 +4328,6 @@ pub mod report_response {
     }
 
     impl ReportError {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

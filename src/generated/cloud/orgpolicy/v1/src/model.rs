@@ -83,7 +83,6 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -454,7 +453,6 @@ pub mod policy {
     }
 
     impl ListPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -751,7 +749,6 @@ pub mod policy {
     }
 
     impl BooleanPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -794,7 +791,6 @@ pub mod policy {
     }
 
     impl RestoreDefault {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

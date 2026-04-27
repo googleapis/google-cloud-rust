@@ -200,7 +200,6 @@ pub struct LogEntry {
 }
 
 impl LogEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -714,7 +713,6 @@ pub struct LogEntryOperation {
 }
 
 impl LogEntryOperation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -799,7 +797,6 @@ pub struct LogEntrySourceLocation {
 }
 
 impl LogEntrySourceLocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -870,7 +867,6 @@ pub struct LogSplit {
 }
 
 impl LogSplit {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -943,7 +939,6 @@ pub struct DeleteLogRequest {
 }
 
 impl DeleteLogRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1060,7 +1055,6 @@ pub struct WriteLogEntriesRequest {
 }
 
 impl WriteLogEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1192,7 +1186,6 @@ pub struct WriteLogEntriesResponse {
 }
 
 impl WriteLogEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1220,7 +1213,6 @@ pub struct WriteLogEntriesPartialErrors {
 }
 
 impl WriteLogEntriesPartialErrors {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1308,7 +1300,6 @@ pub struct ListLogEntriesRequest {
 }
 
 impl ListLogEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1410,7 +1401,6 @@ pub struct ListLogEntriesResponse {
 }
 
 impl ListLogEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1489,7 +1479,6 @@ pub struct ListMonitoredResourceDescriptorsRequest {
 }
 
 impl ListMonitoredResourceDescriptorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1541,7 +1530,6 @@ pub struct ListMonitoredResourceDescriptorsResponse {
 }
 
 impl ListMonitoredResourceDescriptorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1647,7 +1635,6 @@ pub struct ListLogsRequest {
 }
 
 impl ListLogsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1730,7 +1717,6 @@ pub struct ListLogsResponse {
 }
 
 impl ListLogsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1807,7 +1793,6 @@ pub struct TailLogEntriesRequest {
 }
 
 impl TailLogEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1901,7 +1886,6 @@ pub struct TailLogEntriesResponse {
 }
 
 impl TailLogEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1976,7 +1960,6 @@ pub mod tail_log_entries_response {
     }
 
     impl SuppressionInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2192,7 +2175,6 @@ pub struct IndexConfig {
 }
 
 impl IndexConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2335,7 +2317,6 @@ pub struct LogBucket {
 }
 
 impl LogBucket {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2603,7 +2584,6 @@ pub struct LogView {
 }
 
 impl LogView {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2837,7 +2817,6 @@ pub struct LogSink {
 }
 
 impl LogSink {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3263,7 +3242,6 @@ pub struct BigQueryDataset {
 }
 
 impl BigQueryDataset {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3328,7 +3306,6 @@ pub struct Link {
 }
 
 impl Link {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3475,7 +3452,6 @@ pub struct BigQueryOptions {
 }
 
 impl BigQueryOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3547,7 +3523,6 @@ pub struct ListBucketsRequest {
 }
 
 impl ListBucketsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3611,7 +3586,6 @@ pub struct ListBucketsResponse {
 }
 
 impl ListBucketsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3700,7 +3674,6 @@ pub struct CreateBucketRequest {
 }
 
 impl CreateBucketRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3804,7 +3777,6 @@ pub struct UpdateBucketRequest {
 }
 
 impl UpdateBucketRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3916,7 +3888,6 @@ pub struct GetBucketRequest {
 }
 
 impl GetBucketRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3962,7 +3933,6 @@ pub struct DeleteBucketRequest {
 }
 
 impl DeleteBucketRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4008,7 +3978,6 @@ pub struct UndeleteBucketRequest {
 }
 
 impl UndeleteBucketRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4059,7 +4028,6 @@ pub struct ListViewsRequest {
 }
 
 impl ListViewsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4123,7 +4091,6 @@ pub struct ListViewsResponse {
 }
 
 impl ListViewsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4210,7 +4177,6 @@ pub struct CreateViewRequest {
 }
 
 impl CreateViewRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4311,7 +4277,6 @@ pub struct UpdateViewRequest {
 }
 
 impl UpdateViewRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4420,7 +4385,6 @@ pub struct GetViewRequest {
 }
 
 impl GetViewRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4463,7 +4427,6 @@ pub struct DeleteViewRequest {
 }
 
 impl DeleteViewRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4516,7 +4479,6 @@ pub struct ListSinksRequest {
 }
 
 impl ListSinksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4580,7 +4542,6 @@ pub struct ListSinksResponse {
 }
 
 impl ListSinksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4662,7 +4623,6 @@ pub struct GetSinkRequest {
 }
 
 impl GetSinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4729,7 +4689,6 @@ pub struct CreateSinkRequest {
 }
 
 impl CreateSinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4858,7 +4817,6 @@ pub struct UpdateSinkRequest {
 }
 
 impl UpdateSinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4983,7 +4941,6 @@ pub struct DeleteSinkRequest {
 }
 
 impl DeleteSinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5033,7 +4990,6 @@ pub struct CreateLinkRequest {
 }
 
 impl CreateLinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5118,7 +5074,6 @@ pub struct DeleteLinkRequest {
 }
 
 impl DeleteLinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5166,7 +5121,6 @@ pub struct ListLinksRequest {
 }
 
 impl ListLinksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5230,7 +5184,6 @@ pub struct ListLinksResponse {
 }
 
 impl ListLinksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5306,7 +5259,6 @@ pub struct GetLinkRequest {
 }
 
 impl GetLinkRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5381,7 +5333,6 @@ pub struct LogExclusion {
 }
 
 impl LogExclusion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5536,7 +5487,6 @@ pub struct ListExclusionsRequest {
 }
 
 impl ListExclusionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5600,7 +5550,6 @@ pub struct ListExclusionsResponse {
 }
 
 impl ListExclusionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5682,7 +5631,6 @@ pub struct GetExclusionRequest {
 }
 
 impl GetExclusionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5733,7 +5681,6 @@ pub struct CreateExclusionRequest {
 }
 
 impl CreateExclusionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5828,7 +5775,6 @@ pub struct UpdateExclusionRequest {
 }
 
 impl UpdateExclusionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5940,7 +5886,6 @@ pub struct DeleteExclusionRequest {
 }
 
 impl DeleteExclusionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5998,7 +5943,6 @@ pub struct GetCmekSettingsRequest {
 }
 
 impl GetCmekSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6073,7 +6017,6 @@ pub struct UpdateCmekSettingsRequest {
 }
 
 impl UpdateCmekSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6250,7 +6193,6 @@ pub struct CmekSettings {
 }
 
 impl CmekSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6350,7 +6292,6 @@ pub struct GetSettingsRequest {
 }
 
 impl GetSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6422,7 +6363,6 @@ pub struct UpdateSettingsRequest {
 }
 
 impl UpdateSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6580,7 +6520,6 @@ pub struct Settings {
 }
 
 impl Settings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6680,7 +6619,6 @@ pub struct CopyLogEntriesRequest {
 }
 
 impl CopyLogEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6763,7 +6701,6 @@ pub struct CopyLogEntriesMetadata {
 }
 
 impl CopyLogEntriesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6936,7 +6873,6 @@ pub struct CopyLogEntriesResponse {
 }
 
 impl CopyLogEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6973,14 +6909,12 @@ pub struct BucketMetadata {
     /// State of an operation.
     pub state: crate::model::OperationState,
 
-    #[allow(missing_docs)]
     pub request: std::option::Option<crate::model::bucket_metadata::Request>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BucketMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7182,7 +7116,6 @@ pub mod bucket_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Request {
@@ -7206,14 +7139,12 @@ pub struct LinkMetadata {
     /// State of an operation.
     pub state: crate::model::OperationState,
 
-    #[allow(missing_docs)]
     pub request: std::option::Option<crate::model::link_metadata::Request>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl LinkMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7415,7 +7346,6 @@ pub mod link_metadata {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Request {
@@ -7438,7 +7368,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7602,7 +7531,6 @@ pub struct LogMetric {
 }
 
 impl LogMetric {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8013,7 +7941,6 @@ pub struct ListLogMetricsRequest {
 }
 
 impl ListLogMetricsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8077,7 +8004,6 @@ pub struct ListLogMetricsResponse {
 }
 
 impl ListLogMetricsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8152,7 +8078,6 @@ pub struct GetLogMetricRequest {
 }
 
 impl GetLogMetricRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8197,7 +8122,6 @@ pub struct CreateLogMetricRequest {
 }
 
 impl CreateLogMetricRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8276,7 +8200,6 @@ pub struct UpdateLogMetricRequest {
 }
 
 impl UpdateLogMetricRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8348,7 +8271,6 @@ pub struct DeleteLogMetricRequest {
 }
 
 impl DeleteLogMetricRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -93,7 +93,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -374,7 +373,6 @@ pub mod instance {
     }
 
     impl HostConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -466,7 +464,6 @@ pub mod instance {
     }
 
     impl PrivateConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -611,7 +608,6 @@ pub mod instance {
         }
 
         impl CustomHostConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -687,7 +683,6 @@ pub mod instance {
     }
 
     impl WorkforceIdentityFederationConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1044,7 +1039,6 @@ pub struct Repository {
 }
 
 impl Repository {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1271,7 +1265,6 @@ pub mod repository {
     }
 
     impl URIs {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1463,7 +1456,6 @@ pub mod repository {
     }
 
     impl InitialConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1570,7 +1562,6 @@ pub struct Hook {
 }
 
 impl Hook {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1770,7 +1761,6 @@ pub mod hook {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PushOption {
@@ -1784,7 +1774,6 @@ pub mod hook {
     }
 
     impl PushOption {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1811,7 +1800,6 @@ pub mod hook {
         }
     }
 
-    /// Enum for [HookEventType].
     ///
     /// # Working with unknown values
     ///
@@ -2017,7 +2005,6 @@ pub struct BranchRule {
 }
 
 impl BranchRule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2298,7 +2285,6 @@ pub mod branch_rule {
     }
 
     impl Check {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2363,7 +2349,6 @@ pub struct PullRequest {
 }
 
 impl PullRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2613,7 +2598,6 @@ pub mod pull_request {
     }
 
     impl Branch {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2810,7 +2794,6 @@ pub struct FileDiff {
 }
 
 impl FileDiff {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3057,7 +3040,6 @@ pub struct Issue {
 }
 
 impl Issue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3390,7 +3372,6 @@ pub struct IssueComment {
 }
 
 impl IssueComment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3515,7 +3496,6 @@ pub struct PullRequestComment {
 }
 
 impl PullRequestComment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3775,7 +3755,6 @@ pub mod pull_request_comment {
     }
 
     impl Review {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3993,7 +3972,6 @@ pub mod pull_request_comment {
     }
 
     impl Comment {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4045,7 +4023,6 @@ pub mod pull_request_comment {
     }
 
     impl Code {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4171,7 +4148,6 @@ pub mod pull_request_comment {
     }
 
     impl Position {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4245,7 +4221,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4317,7 +4292,6 @@ impl wkt::message::Message for ListInstancesRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListInstancesResponse {
@@ -4334,7 +4308,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4422,7 +4395,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4478,7 +4450,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4588,7 +4559,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4672,7 +4642,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4839,7 +4808,6 @@ pub struct ListRepositoriesRequest {
 }
 
 impl ListRepositoriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4911,7 +4879,6 @@ impl wkt::message::Message for ListRepositoriesRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListRepositoriesResponse {
@@ -4925,7 +4892,6 @@ pub struct ListRepositoriesResponse {
 }
 
 impl ListRepositoriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4998,7 +4964,6 @@ pub struct GetRepositoryRequest {
 }
 
 impl GetRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5042,7 +5007,6 @@ pub struct CreateRepositoryRequest {
 }
 
 impl CreateRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5133,7 +5097,6 @@ pub struct UpdateRepositoryRequest {
 }
 
 impl UpdateRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5240,7 +5203,6 @@ pub struct DeleteRepositoryRequest {
 }
 
 impl DeleteRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5294,7 +5256,6 @@ pub struct ListHooksRequest {
 }
 
 impl ListHooksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5356,7 +5317,6 @@ pub struct ListHooksResponse {
 }
 
 impl ListHooksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5429,7 +5389,6 @@ pub struct GetHookRequest {
 }
 
 impl GetHookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5475,7 +5434,6 @@ pub struct CreateHookRequest {
 }
 
 impl CreateHookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5562,7 +5520,6 @@ pub struct UpdateHookRequest {
 }
 
 impl UpdateHookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5653,7 +5610,6 @@ pub struct DeleteHookRequest {
 }
 
 impl DeleteHookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5690,7 +5646,6 @@ pub struct GetBranchRuleRequest {
 }
 
 impl GetBranchRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5718,20 +5673,16 @@ impl wkt::message::Message for GetBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateBranchRuleRequest {
-    #[allow(missing_docs)]
     pub parent: std::string::String,
 
-    #[allow(missing_docs)]
     pub branch_rule: std::option::Option<crate::model::BranchRule>,
 
-    #[allow(missing_docs)]
     pub branch_rule_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateBranchRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5804,7 +5755,6 @@ impl wkt::message::Message for CreateBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListBranchRulesRequest {
-    #[allow(missing_docs)]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. If unspecified, a default size of 30 will be
@@ -5818,7 +5768,6 @@ pub struct ListBranchRulesRequest {
 }
 
 impl ListBranchRulesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5870,7 +5819,6 @@ impl wkt::message::Message for ListBranchRulesRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteBranchRuleRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// Optional. If set to true, and the branch rule is not found, the request
@@ -5881,7 +5829,6 @@ pub struct DeleteBranchRuleRequest {
 }
 
 impl DeleteBranchRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5921,7 +5868,6 @@ impl wkt::message::Message for DeleteBranchRuleRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateBranchRuleRequest {
-    #[allow(missing_docs)]
     pub branch_rule: std::option::Option<crate::model::BranchRule>,
 
     /// Optional. If set, validate the request and preview the review, but do not
@@ -5939,7 +5885,6 @@ pub struct UpdateBranchRuleRequest {
 }
 
 impl UpdateBranchRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6043,7 +5988,6 @@ pub struct ListBranchRulesResponse {
 }
 
 impl ListBranchRulesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6118,7 +6062,6 @@ pub struct CreatePullRequestRequest {
 }
 
 impl CreatePullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6188,7 +6131,6 @@ pub struct GetPullRequestRequest {
 }
 
 impl GetPullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6231,7 +6173,6 @@ pub struct ListPullRequestsRequest {
 }
 
 impl ListPullRequestsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6293,7 +6234,6 @@ pub struct ListPullRequestsResponse {
 }
 
 impl ListPullRequestsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6371,7 +6311,6 @@ pub struct UpdatePullRequestRequest {
 }
 
 impl UpdatePullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6462,7 +6401,6 @@ pub struct MergePullRequestRequest {
 }
 
 impl MergePullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6499,7 +6437,6 @@ pub struct OpenPullRequestRequest {
 }
 
 impl OpenPullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6536,7 +6473,6 @@ pub struct ClosePullRequestRequest {
 }
 
 impl ClosePullRequestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6581,7 +6517,6 @@ pub struct ListPullRequestFileDiffsRequest {
 }
 
 impl ListPullRequestFileDiffsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6644,7 +6579,6 @@ pub struct ListPullRequestFileDiffsResponse {
 }
 
 impl ListPullRequestFileDiffsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6719,7 +6653,6 @@ pub struct CreateIssueRequest {
 }
 
 impl CreateIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6789,7 +6722,6 @@ pub struct GetIssueRequest {
 }
 
 impl GetIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6835,7 +6767,6 @@ pub struct ListIssuesRequest {
 }
 
 impl ListIssuesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6909,7 +6840,6 @@ pub struct ListIssuesResponse {
 }
 
 impl ListIssuesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6987,7 +6917,6 @@ pub struct UpdateIssueRequest {
 }
 
 impl UpdateIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7083,7 +7012,6 @@ pub struct DeleteIssueRequest {
 }
 
 impl DeleteIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7137,7 +7065,6 @@ pub struct CloseIssueRequest {
 }
 
 impl CloseIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7191,7 +7118,6 @@ pub struct OpenIssueRequest {
 }
 
 impl OpenIssueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7252,7 +7178,6 @@ pub struct TreeEntry {
 }
 
 impl TreeEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7503,7 +7428,6 @@ pub struct FetchTreeRequest {
 }
 
 impl FetchTreeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7589,7 +7513,6 @@ pub struct FetchTreeResponse {
 }
 
 impl FetchTreeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7665,7 +7588,6 @@ pub struct FetchBlobRequest {
 }
 
 impl FetchBlobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7715,7 +7637,6 @@ pub struct FetchBlobResponse {
 }
 
 impl FetchBlobResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7770,7 +7691,6 @@ pub struct ListPullRequestCommentsRequest {
 }
 
 impl ListPullRequestCommentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7833,7 +7753,6 @@ pub struct ListPullRequestCommentsResponse {
 }
 
 impl ListPullRequestCommentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7909,7 +7828,6 @@ pub struct CreatePullRequestCommentRequest {
 }
 
 impl CreatePullRequestCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7985,7 +7903,6 @@ pub struct BatchCreatePullRequestCommentsRequest {
 }
 
 impl BatchCreatePullRequestCommentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8042,7 +7959,6 @@ pub struct BatchCreatePullRequestCommentsResponse {
 }
 
 impl BatchCreatePullRequestCommentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8092,7 +8008,6 @@ pub struct UpdatePullRequestCommentRequest {
 }
 
 impl UpdatePullRequestCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8184,7 +8099,6 @@ pub struct DeletePullRequestCommentRequest {
 }
 
 impl DeletePullRequestCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8221,7 +8135,6 @@ pub struct GetPullRequestCommentRequest {
 }
 
 impl GetPullRequestCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8268,7 +8181,6 @@ pub struct ResolvePullRequestCommentsRequest {
 }
 
 impl ResolvePullRequestCommentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8332,7 +8244,6 @@ pub struct ResolvePullRequestCommentsResponse {
 }
 
 impl ResolvePullRequestCommentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8389,7 +8300,6 @@ pub struct UnresolvePullRequestCommentsRequest {
 }
 
 impl UnresolvePullRequestCommentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8453,7 +8363,6 @@ pub struct UnresolvePullRequestCommentsResponse {
 }
 
 impl UnresolvePullRequestCommentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8502,7 +8411,6 @@ pub struct CreateIssueCommentRequest {
 }
 
 impl CreateIssueCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8572,7 +8480,6 @@ pub struct GetIssueCommentRequest {
 }
 
 impl GetIssueCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8615,7 +8522,6 @@ pub struct ListIssueCommentsRequest {
 }
 
 impl ListIssueCommentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8677,7 +8583,6 @@ pub struct ListIssueCommentsResponse {
 }
 
 impl ListIssueCommentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8755,7 +8660,6 @@ pub struct UpdateIssueCommentRequest {
 }
 
 impl UpdateIssueCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8846,7 +8750,6 @@ pub struct DeleteIssueCommentRequest {
 }
 
 impl DeleteIssueCommentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -55,7 +55,6 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -156,7 +155,6 @@ pub struct ReplicaSelection {
 }
 
 impl ReplicaSelection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -180,7 +178,6 @@ impl wkt::message::Message for ReplicaSelection {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplicaInfo {
@@ -200,7 +197,6 @@ pub struct ReplicaInfo {
 }
 
 impl ReplicaInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -519,7 +515,6 @@ pub struct InstanceConfig {
 }
 
 impl InstanceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1355,7 +1350,6 @@ pub struct ReplicaComputeCapacity {
 }
 
 impl ReplicaComputeCapacity {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1543,7 +1537,6 @@ pub struct AutoscalingConfig {
 }
 
 impl AutoscalingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1670,7 +1663,6 @@ pub mod autoscaling_config {
     }
 
     impl AutoscalingLimits {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1929,7 +1921,6 @@ pub mod autoscaling_config {
     }
 
     impl AutoscalingTargets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2001,7 +1992,6 @@ pub mod autoscaling_config {
     }
 
     impl AsymmetricAutoscalingOption {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2164,7 +2154,6 @@ pub mod autoscaling_config {
         }
 
         impl AutoscalingConfigOverrides {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2411,7 +2400,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3334,7 +3322,6 @@ pub struct ListInstanceConfigsRequest {
 }
 
 impl ListInstanceConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3403,7 +3390,6 @@ pub struct ListInstanceConfigsResponse {
 }
 
 impl ListInstanceConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3478,7 +3464,6 @@ pub struct GetInstanceConfigRequest {
 }
 
 impl GetInstanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3534,7 +3519,6 @@ pub struct CreateInstanceConfigRequest {
 }
 
 impl CreateInstanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3655,7 +3639,6 @@ pub struct UpdateInstanceConfigRequest {
 }
 
 impl UpdateInstanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3774,7 +3757,6 @@ pub struct DeleteInstanceConfigRequest {
 }
 
 impl DeleteInstanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3897,7 +3879,6 @@ pub struct ListInstanceConfigOperationsRequest {
 }
 
 impl ListInstanceConfigOperationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3982,7 +3963,6 @@ pub struct ListInstanceConfigOperationsResponse {
 }
 
 impl ListInstanceConfigOperationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4067,7 +4047,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4148,7 +4127,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4277,7 +4255,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4399,7 +4376,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4504,7 +4480,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4597,7 +4572,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4653,7 +4627,6 @@ pub struct CreateInstanceMetadata {
 }
 
 impl CreateInstanceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4848,7 +4821,6 @@ pub struct UpdateInstanceMetadata {
 }
 
 impl UpdateInstanceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5035,7 +5007,6 @@ pub struct FreeInstanceMetadata {
 }
 
 impl FreeInstanceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5298,7 +5269,6 @@ pub struct CreateInstanceConfigMetadata {
 }
 
 impl CreateInstanceConfigMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5433,7 +5403,6 @@ pub struct UpdateInstanceConfigMetadata {
 }
 
 impl UpdateInstanceConfigMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5624,7 +5593,6 @@ pub struct InstancePartition {
 }
 
 impl InstancePartition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6119,7 +6087,6 @@ pub struct CreateInstancePartitionMetadata {
 }
 
 impl CreateInstancePartitionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6289,7 +6256,6 @@ pub struct CreateInstancePartitionRequest {
 }
 
 impl CreateInstancePartitionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6383,7 +6349,6 @@ pub struct DeleteInstancePartitionRequest {
 }
 
 impl DeleteInstancePartitionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6435,7 +6400,6 @@ pub struct GetInstancePartitionRequest {
 }
 
 impl GetInstancePartitionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6488,7 +6452,6 @@ pub struct UpdateInstancePartitionRequest {
 }
 
 impl UpdateInstancePartitionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6595,7 +6558,6 @@ pub struct UpdateInstancePartitionMetadata {
 }
 
 impl UpdateInstancePartitionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6780,7 +6742,6 @@ pub struct ListInstancePartitionsRequest {
 }
 
 impl ListInstancePartitionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6890,7 +6851,6 @@ pub struct ListInstancePartitionsResponse {
 }
 
 impl ListInstancePartitionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7053,7 +7013,6 @@ pub struct ListInstancePartitionOperationsRequest {
 }
 
 impl ListInstancePartitionOperationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7179,7 +7138,6 @@ pub struct ListInstancePartitionOperationsResponse {
 }
 
 impl ListInstancePartitionOperationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7277,7 +7235,6 @@ pub struct MoveInstanceRequest {
 }
 
 impl MoveInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7324,7 +7281,6 @@ pub struct MoveInstanceResponse {
 }
 
 impl MoveInstanceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7364,7 +7320,6 @@ pub struct MoveInstanceMetadata {
 }
 
 impl MoveInstanceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

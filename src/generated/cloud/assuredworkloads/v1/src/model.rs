@@ -55,7 +55,6 @@ pub struct CreateWorkloadRequest {
 }
 
 impl CreateWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -141,7 +140,6 @@ pub struct UpdateWorkloadRequest {
 }
 
 impl UpdateWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -236,7 +234,6 @@ pub struct DeleteWorkloadRequest {
 }
 
 impl DeleteWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -287,7 +284,6 @@ pub struct GetWorkloadRequest {
 }
 
 impl GetWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -335,7 +331,6 @@ pub struct ListWorkloadsRequest {
 }
 
 impl ListWorkloadsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -409,7 +404,6 @@ pub struct ListWorkloadsResponse {
 }
 
 impl ListWorkloadsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -564,7 +558,6 @@ pub struct Workload {
 }
 
 impl Workload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -909,7 +902,6 @@ pub mod workload {
     }
 
     impl ResourceInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1136,7 +1128,6 @@ pub mod workload {
     }
 
     impl KMSSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1239,7 +1230,6 @@ pub mod workload {
     }
 
     impl ResourceSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1314,7 +1304,6 @@ pub mod workload {
     }
 
     impl SaaEnrollmentResponse {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2171,7 +2160,6 @@ pub struct CreateWorkloadOperationMetadata {
 }
 
 impl CreateWorkloadOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2278,7 +2266,6 @@ pub struct RestrictAllowedResourcesRequest {
 }
 
 impl RestrictAllowedResourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2473,7 +2460,6 @@ pub struct RestrictAllowedResourcesResponse {
 }
 
 impl RestrictAllowedResourcesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2512,7 +2498,6 @@ pub struct AcknowledgeViolationRequest {
 }
 
 impl AcknowledgeViolationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2572,7 +2557,6 @@ pub struct AcknowledgeViolationResponse {
 }
 
 impl AcknowledgeViolationResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2598,7 +2582,6 @@ pub struct TimeWindow {
 }
 
 impl TimeWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2702,7 +2685,6 @@ pub struct ListViolationsRequest {
 }
 
 impl ListViolationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2809,7 +2791,6 @@ pub struct ListViolationsResponse {
 }
 
 impl ListViolationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2882,7 +2863,6 @@ pub struct GetViolationRequest {
 }
 
 impl GetViolationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2972,7 +2952,6 @@ pub struct Violation {
 }
 
 impl Violation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3297,7 +3276,6 @@ pub mod violation {
     }
 
     impl Remediation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3400,7 +3378,6 @@ pub mod violation {
         }
 
         impl Instructions {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3500,7 +3477,6 @@ pub mod violation {
             }
 
             impl Gcloud {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3580,7 +3556,6 @@ pub mod violation {
             }
 
             impl Console {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }

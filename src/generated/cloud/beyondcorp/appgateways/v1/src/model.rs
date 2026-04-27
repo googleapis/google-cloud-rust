@@ -69,7 +69,6 @@ pub struct ListAppGatewaysRequest {
 }
 
 impl ListAppGatewaysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -159,7 +158,6 @@ pub struct ListAppGatewaysResponse {
 }
 
 impl ListAppGatewaysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -248,7 +246,6 @@ pub struct GetAppGatewayRequest {
 }
 
 impl GetAppGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -313,7 +310,6 @@ pub struct CreateAppGatewayRequest {
 }
 
 impl CreateAppGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -437,7 +433,6 @@ pub struct DeleteAppGatewayRequest {
 }
 
 impl DeleteAppGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -532,7 +527,6 @@ pub struct AppGateway {
 }
 
 impl AppGateway {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -770,7 +764,6 @@ pub mod app_gateway {
     }
 
     impl AllocatedConnection {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1248,7 +1241,6 @@ pub struct AppGatewayOperationMetadata {
 }
 
 impl AppGatewayOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

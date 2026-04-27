@@ -113,7 +113,6 @@ pub struct Job {
 }
 
 impl Job {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -942,7 +941,6 @@ pub struct JobTemplate {
 }
 
 impl JobTemplate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1069,7 +1067,6 @@ pub struct JobConfig {
 }
 
 impl JobConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1373,7 +1370,6 @@ pub struct Input {
 }
 
 impl Input {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1492,7 +1488,6 @@ pub struct Output {
 }
 
 impl Output {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1544,7 +1539,6 @@ pub struct EditAtom {
 }
 
 impl EditAtom {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1663,7 +1657,6 @@ pub struct AdBreak {
 }
 
 impl AdBreak {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1724,7 +1717,6 @@ pub struct ElementaryStream {
 }
 
 impl ElementaryStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1961,7 +1953,6 @@ pub struct MuxStream {
 }
 
 impl MuxStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2152,7 +2143,6 @@ pub mod mux_stream {
     }
 
     impl Fmp4Config {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2219,7 +2209,6 @@ pub struct Manifest {
 }
 
 impl Manifest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2351,7 +2340,6 @@ pub mod manifest {
     }
 
     impl DashConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2706,7 +2694,6 @@ pub struct PubsubDestination {
 }
 
 impl PubsubDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2812,7 +2799,6 @@ pub struct SpriteSheet {
 }
 
 impl SpriteSheet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3099,7 +3085,6 @@ pub struct Overlay {
 }
 
 impl Overlay {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3185,7 +3170,6 @@ pub mod overlay {
     }
 
     impl NormalizedCoordinate {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3243,7 +3227,6 @@ pub mod overlay {
     }
 
     impl Image {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3330,7 +3313,6 @@ pub mod overlay {
     }
 
     impl AnimationStatic {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3433,7 +3415,6 @@ pub mod overlay {
     }
 
     impl AnimationFade {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3574,7 +3555,6 @@ pub mod overlay {
     }
 
     impl AnimationEnd {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3630,7 +3610,6 @@ pub mod overlay {
     }
 
     impl Animation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3972,7 +3951,6 @@ pub struct PreprocessingConfig {
 }
 
 impl PreprocessingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4245,7 +4223,6 @@ pub mod preprocessing_config {
     }
 
     impl Color {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4315,7 +4292,6 @@ pub mod preprocessing_config {
     }
 
     impl Denoise {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4369,7 +4345,6 @@ pub mod preprocessing_config {
     }
 
     impl Deblock {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4436,7 +4411,6 @@ pub mod preprocessing_config {
     }
 
     impl Audio {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4505,7 +4479,6 @@ pub mod preprocessing_config {
     }
 
     impl Crop {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4586,7 +4559,6 @@ pub mod preprocessing_config {
     }
 
     impl Pad {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4659,7 +4631,6 @@ pub mod preprocessing_config {
     }
 
     impl Deinterlace {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4829,7 +4800,6 @@ pub mod preprocessing_config {
         }
 
         impl YadifConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4921,7 +4891,6 @@ pub mod preprocessing_config {
         }
 
         impl BwdifConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5009,7 +4978,6 @@ pub struct TrackDefinition {
 }
 
 impl TrackDefinition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5109,7 +5077,6 @@ pub struct InputAttributes {
 }
 
 impl InputAttributes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5154,7 +5121,6 @@ pub struct VideoStream {
 }
 
 impl VideoStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5318,7 +5284,6 @@ pub mod video_stream {
     }
 
     impl H264ColorFormatSDR {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5338,7 +5303,6 @@ pub mod video_stream {
     }
 
     impl H264ColorFormatHLG {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5504,7 +5468,6 @@ pub mod video_stream {
     }
 
     impl H264CodecSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6002,7 +5965,6 @@ pub mod video_stream {
     }
 
     impl H265ColorFormatSDR {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6022,7 +5984,6 @@ pub mod video_stream {
     }
 
     impl H265ColorFormatHLG {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6042,7 +6003,6 @@ pub mod video_stream {
     }
 
     impl H265ColorFormatHDR10 {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6212,7 +6172,6 @@ pub mod video_stream {
     }
 
     impl H265CodecSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6742,7 +6701,6 @@ pub mod video_stream {
     }
 
     impl Vp9ColorFormatSDR {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6762,7 +6720,6 @@ pub mod video_stream {
     }
 
     impl Vp9ColorFormatHLG {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6864,7 +6821,6 @@ pub mod video_stream {
     }
 
     impl Vp9CodecSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7451,7 +7407,6 @@ pub struct AudioStream {
 }
 
 impl AudioStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7621,7 +7576,6 @@ pub mod audio_stream {
     }
 
     impl AudioMapping {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7744,7 +7698,6 @@ pub struct TextStream {
 }
 
 impl TextStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7851,7 +7804,6 @@ pub mod text_stream {
     }
 
     impl TextMapping {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7917,7 +7869,6 @@ pub struct SegmentSettings {
 }
 
 impl SegmentSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7995,7 +7946,6 @@ pub struct Encryption {
 }
 
 impl Encryption {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8267,7 +8217,6 @@ pub mod encryption {
     }
 
     impl Aes128Encryption {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8287,7 +8236,6 @@ pub mod encryption {
     }
 
     impl SampleAesEncryption {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8315,7 +8263,6 @@ pub mod encryption {
     }
 
     impl MpegCommonEncryption {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8355,7 +8302,6 @@ pub mod encryption {
     }
 
     impl SecretManagerSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8390,7 +8336,6 @@ pub mod encryption {
     }
 
     impl Widevine {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8410,7 +8355,6 @@ pub mod encryption {
     }
 
     impl Fairplay {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8430,7 +8374,6 @@ pub mod encryption {
     }
 
     impl Playready {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8450,7 +8393,6 @@ pub mod encryption {
     }
 
     impl Clearkey {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8482,7 +8424,6 @@ pub mod encryption {
     }
 
     impl DrmSystems {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8662,7 +8603,6 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8746,7 +8686,6 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8830,7 +8769,6 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8870,7 +8808,6 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8923,7 +8860,6 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9022,7 +8958,6 @@ pub struct CreateJobTemplateRequest {
 }
 
 impl CreateJobTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9118,7 +9053,6 @@ pub struct ListJobTemplatesRequest {
 }
 
 impl ListJobTemplatesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9203,7 +9137,6 @@ pub struct GetJobTemplateRequest {
 }
 
 impl GetJobTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9243,7 +9176,6 @@ pub struct DeleteJobTemplateRequest {
 }
 
 impl DeleteJobTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9296,7 +9228,6 @@ pub struct ListJobTemplatesResponse {
 }
 
 impl ListJobTemplatesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

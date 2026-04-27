@@ -62,7 +62,6 @@ pub struct CalendarAddOnManifest {
 }
 
 impl CalendarAddOnManifest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -412,7 +411,6 @@ pub struct ConferenceSolution {
 }
 
 impl ConferenceSolution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -487,7 +485,6 @@ pub struct CalendarExtensionPoint {
 }
 
 impl CalendarExtensionPoint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

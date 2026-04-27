@@ -38,14 +38,11 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepeatRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
-    #[allow(missing_docs)]
     pub info: std::option::Option<crate::model::ComplianceData>,
 
     /// If true, the server will verify that the received request matches
@@ -59,26 +56,20 @@ pub struct RepeatRequest {
     /// in query params.
     pub f_int32: i32,
 
-    #[allow(missing_docs)]
     pub f_int64: i64,
 
-    #[allow(missing_docs)]
     pub f_double: f64,
 
-    #[allow(missing_docs)]
     pub p_int32: std::option::Option<i32>,
 
-    #[allow(missing_docs)]
     pub p_int64: std::option::Option<i64>,
 
-    #[allow(missing_docs)]
     pub p_double: std::option::Option<f64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RepeatRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,11 +298,9 @@ impl wkt::message::Message for RepeatRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RepeatResponse {
-    #[allow(missing_docs)]
     pub request: std::option::Option<crate::model::RepeatRequest>,
 
     /// The URI template the request was bound to server-side.
@@ -321,7 +310,6 @@ pub struct RepeatResponse {
 }
 
 impl RepeatResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,14 +372,12 @@ impl wkt::message::Message for RepeatResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceSuite {
-    #[allow(missing_docs)]
     pub group: std::vec::Vec<crate::model::ComplianceGroup>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComplianceSuite {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -431,20 +417,16 @@ impl wkt::message::Message for ComplianceSuite {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceGroup {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
-    #[allow(missing_docs)]
     pub rpcs: std::vec::Vec<std::string::String>,
 
-    #[allow(missing_docs)]
     pub requests: std::vec::Vec<crate::model::RepeatRequest>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComplianceGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -512,110 +494,76 @@ impl wkt::message::Message for ComplianceGroup {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceData {
-    #[allow(missing_docs)]
     pub f_string: std::string::String,
 
-    #[allow(missing_docs)]
     pub f_int32: i32,
 
-    #[allow(missing_docs)]
     pub f_sint32: i32,
 
-    #[allow(missing_docs)]
     pub f_sfixed32: i32,
 
-    #[allow(missing_docs)]
     pub f_uint32: u32,
 
-    #[allow(missing_docs)]
     pub f_fixed32: u32,
 
-    #[allow(missing_docs)]
     pub f_int64: i64,
 
-    #[allow(missing_docs)]
     pub f_sint64: i64,
 
-    #[allow(missing_docs)]
     pub f_sfixed64: i64,
 
-    #[allow(missing_docs)]
     pub f_uint64: u64,
 
-    #[allow(missing_docs)]
     pub f_fixed64: u64,
 
-    #[allow(missing_docs)]
     pub f_double: f64,
 
-    #[allow(missing_docs)]
     pub f_float: f32,
 
-    #[allow(missing_docs)]
     pub f_bool: bool,
 
-    #[allow(missing_docs)]
     pub f_bytes: ::bytes::Bytes,
 
-    #[allow(missing_docs)]
     pub f_kingdom: crate::model::compliance_data::LifeKingdom,
 
-    #[allow(missing_docs)]
     pub f_child: std::option::Option<crate::model::ComplianceDataChild>,
 
-    #[allow(missing_docs)]
     pub p_string: std::option::Option<std::string::String>,
 
-    #[allow(missing_docs)]
     pub p_int32: std::option::Option<i32>,
 
-    #[allow(missing_docs)]
     pub p_sint32: std::option::Option<i32>,
 
-    #[allow(missing_docs)]
     pub p_sfixed32: std::option::Option<i32>,
 
-    #[allow(missing_docs)]
     pub p_uint32: std::option::Option<u32>,
 
-    #[allow(missing_docs)]
     pub p_fixed32: std::option::Option<u32>,
 
-    #[allow(missing_docs)]
     pub p_int64: std::option::Option<i64>,
 
-    #[allow(missing_docs)]
     pub p_sint64: std::option::Option<i64>,
 
-    #[allow(missing_docs)]
     pub p_sfixed64: std::option::Option<i64>,
 
-    #[allow(missing_docs)]
     pub p_uint64: std::option::Option<u64>,
 
-    #[allow(missing_docs)]
     pub p_fixed64: std::option::Option<u64>,
 
-    #[allow(missing_docs)]
     pub p_float: std::option::Option<f32>,
 
-    #[allow(missing_docs)]
     pub p_double: std::option::Option<f64>,
 
-    #[allow(missing_docs)]
     pub p_bool: std::option::Option<bool>,
 
-    #[allow(missing_docs)]
     pub p_kingdom: std::option::Option<crate::model::compliance_data::LifeKingdom>,
 
-    #[allow(missing_docs)]
     pub p_child: std::option::Option<crate::model::ComplianceDataChild>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComplianceData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1367,7 +1315,6 @@ pub mod compliance_data {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [LifeKingdom].
     ///
     /// # Working with unknown values
     ///
@@ -1385,19 +1332,12 @@ pub mod compliance_data {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LifeKingdom {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Archaebacteria,
-        #[allow(missing_docs)]
         Eubacteria,
-        #[allow(missing_docs)]
         Protista,
-        #[allow(missing_docs)]
         Fungi,
-        #[allow(missing_docs)]
         Plantae,
-        #[allow(missing_docs)]
         Animalia,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1528,51 +1468,37 @@ pub mod compliance_data {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceDataChild {
-    #[allow(missing_docs)]
     pub f_string: std::string::String,
 
-    #[allow(missing_docs)]
     pub f_float: f32,
 
-    #[allow(missing_docs)]
     pub f_double: f64,
 
-    #[allow(missing_docs)]
     pub f_bool: bool,
 
-    #[allow(missing_docs)]
     pub f_continent: crate::model::Continent,
 
-    #[allow(missing_docs)]
     pub f_child: std::option::Option<crate::model::ComplianceDataGrandchild>,
 
-    #[allow(missing_docs)]
     pub p_string: std::option::Option<std::string::String>,
 
-    #[allow(missing_docs)]
     pub p_float: std::option::Option<f32>,
 
-    #[allow(missing_docs)]
     pub p_double: std::option::Option<f64>,
 
-    #[allow(missing_docs)]
     pub p_bool: std::option::Option<bool>,
 
-    #[allow(missing_docs)]
     pub p_continent: crate::model::Continent,
 
-    #[allow(missing_docs)]
     pub p_child: std::option::Option<crate::model::ComplianceDataGrandchild>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComplianceDataChild {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1852,24 +1778,19 @@ impl wkt::message::Message for ComplianceDataChild {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceDataGrandchild {
-    #[allow(missing_docs)]
     pub f_string: std::string::String,
 
-    #[allow(missing_docs)]
     pub f_double: f64,
 
-    #[allow(missing_docs)]
     pub f_bool: bool,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ComplianceDataGrandchild {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1917,7 +1838,6 @@ impl wkt::message::Message for ComplianceDataGrandchild {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumRequest {
@@ -1928,7 +1848,6 @@ pub struct EnumRequest {
 }
 
 impl EnumRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1952,7 +1871,6 @@ impl wkt::message::Message for EnumRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumResponse {
@@ -1966,7 +1884,6 @@ pub struct EnumResponse {
 }
 
 impl EnumResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2048,14 +1965,12 @@ pub struct EchoRequest {
     /// To facilitate testing of <https://google.aip.dev/client-libraries/4235>
     pub other_request_id: std::option::Option<std::string::String>,
 
-    #[allow(missing_docs)]
     pub response: std::option::Option<crate::model::echo_request::Response>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EchoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2239,7 +2154,6 @@ pub mod echo_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Response {
@@ -2270,7 +2184,6 @@ pub struct EchoResponse {
 }
 
 impl EchoResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2352,7 +2265,6 @@ pub struct EchoErrorDetailsRequest {
 }
 
 impl EchoErrorDetailsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2400,10 +2312,8 @@ impl wkt::message::Message for EchoErrorDetailsRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EchoErrorDetailsResponse {
-    #[allow(missing_docs)]
     pub single_detail: std::option::Option<crate::model::echo_error_details_response::SingleDetail>,
 
-    #[allow(missing_docs)]
     pub multiple_details:
         std::option::Option<crate::model::echo_error_details_response::MultipleDetails>,
 
@@ -2411,7 +2321,6 @@ pub struct EchoErrorDetailsResponse {
 }
 
 impl EchoErrorDetailsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2494,18 +2403,15 @@ pub mod echo_error_details_response {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SingleDetail {
-        #[allow(missing_docs)]
         pub error: std::option::Option<crate::model::ErrorWithSingleDetail>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SingleDetail {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2550,18 +2456,15 @@ pub mod echo_error_details_response {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MultipleDetails {
-        #[allow(missing_docs)]
         pub error: std::option::Option<crate::model::ErrorWithMultipleDetails>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl MultipleDetails {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2607,18 +2510,15 @@ pub mod echo_error_details_response {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorWithSingleDetail {
-    #[allow(missing_docs)]
     pub details: std::option::Option<wkt::Any>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorWithSingleDetail {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2663,18 +2563,15 @@ impl wkt::message::Message for ErrorWithSingleDetail {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ErrorWithMultipleDetails {
-    #[allow(missing_docs)]
     pub details: std::vec::Vec<wkt::Any>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ErrorWithMultipleDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2714,14 +2611,12 @@ impl wkt::message::Message for ErrorWithMultipleDetails {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PoetryError {
-    #[allow(missing_docs)]
     pub poem: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PoetryError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2757,7 +2652,6 @@ pub struct FailEchoWithDetailsRequest {
 }
 
 impl FailEchoWithDetailsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2790,7 +2684,6 @@ pub struct FailEchoWithDetailsResponse {
 }
 
 impl FailEchoWithDetailsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2819,7 +2712,6 @@ pub struct ExpandRequest {
 }
 
 impl ExpandRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2926,7 +2818,6 @@ pub struct PagedExpandRequest {
 }
 
 impl PagedExpandRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2995,7 +2886,6 @@ pub struct PagedExpandLegacyRequest {
 }
 
 impl PagedExpandLegacyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3057,7 +2947,6 @@ pub struct PagedExpandResponse {
 }
 
 impl PagedExpandResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3121,14 +3010,12 @@ impl google_cloud_gax::paginator::internal::PageableResponse for PagedExpandResp
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandResponseList {
-    #[allow(missing_docs)]
     pub words: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PagedExpandResponseList {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3157,7 +3044,6 @@ impl wkt::message::Message for PagedExpandResponseList {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PagedExpandLegacyMappedResponse {
@@ -3174,7 +3060,6 @@ pub struct PagedExpandLegacyMappedResponse {
 }
 
 impl PagedExpandLegacyMappedResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3239,17 +3124,14 @@ impl google_cloud_gax::paginator::internal::PageableResponse for PagedExpandLega
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WaitRequest {
-    #[allow(missing_docs)]
     pub end: std::option::Option<crate::model::wait_request::End>,
 
-    #[allow(missing_docs)]
     pub response: std::option::Option<crate::model::wait_request::Response>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl WaitRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3439,7 +3321,6 @@ pub mod wait_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum End {
@@ -3449,7 +3330,6 @@ pub mod wait_request {
         Ttl(std::boxed::Box<wkt::Duration>),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Response {
@@ -3472,7 +3352,6 @@ pub struct WaitResponse {
 }
 
 impl WaitResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3507,7 +3386,6 @@ pub struct WaitMetadata {
 }
 
 impl WaitMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3559,14 +3437,12 @@ pub struct BlockRequest {
     /// The amount of time to block before returning a response.
     pub response_delay: std::option::Option<wkt::Duration>,
 
-    #[allow(missing_docs)]
     pub response: std::option::Option<crate::model::block_request::Response>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BlockRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3706,7 +3582,6 @@ pub mod block_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Response {
@@ -3730,7 +3605,6 @@ pub struct BlockResponse {
 }
 
 impl BlockResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3795,7 +3669,6 @@ pub struct User {
 }
 
 impl User {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4045,7 +3918,6 @@ pub struct CreateUserRequest {
 }
 
 impl CreateUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4102,7 +3974,6 @@ pub struct GetUserRequest {
 }
 
 impl GetUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4142,7 +4013,6 @@ pub struct UpdateUserRequest {
 }
 
 impl UpdateUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4232,7 +4102,6 @@ pub struct DeleteUserRequest {
 }
 
 impl DeleteUserRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4274,7 +4143,6 @@ pub struct ListUsersRequest {
 }
 
 impl ListUsersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4328,7 +4196,6 @@ pub struct ListUsersResponse {
 }
 
 impl ListUsersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4411,7 +4278,6 @@ pub struct Room {
 }
 
 impl Room {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4537,7 +4403,6 @@ pub struct CreateRoomRequest {
 }
 
 impl CreateRoomRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4594,7 +4459,6 @@ pub struct GetRoomRequest {
 }
 
 impl GetRoomRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4634,7 +4498,6 @@ pub struct UpdateRoomRequest {
 }
 
 impl UpdateRoomRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4724,7 +4587,6 @@ pub struct DeleteRoomRequest {
 }
 
 impl DeleteRoomRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4766,7 +4628,6 @@ pub struct ListRoomsRequest {
 }
 
 impl ListRoomsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4820,7 +4681,6 @@ pub struct ListRoomsResponse {
 }
 
 impl ListRoomsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4897,7 +4757,6 @@ pub struct Blurb {
     /// The latest timestamp at which the blurb was updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    #[allow(missing_docs)]
     pub content: std::option::Option<crate::model::blurb::Content>,
 
     /// (-- aip.dev/not-precedent: This is designed for testing non-slash
@@ -4909,7 +4768,6 @@ pub struct Blurb {
 }
 
 impl Blurb {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5174,7 +5032,6 @@ pub mod blurb {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Content {
@@ -5217,7 +5074,6 @@ pub struct CreateBlurbRequest {
 }
 
 impl CreateBlurbRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5286,7 +5142,6 @@ pub struct GetBlurbRequest {
 }
 
 impl GetBlurbRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5326,7 +5181,6 @@ pub struct UpdateBlurbRequest {
 }
 
 impl UpdateBlurbRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5416,7 +5270,6 @@ pub struct DeleteBlurbRequest {
 }
 
 impl DeleteBlurbRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5462,7 +5315,6 @@ pub struct ListBlurbsRequest {
 }
 
 impl ListBlurbsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5528,7 +5380,6 @@ pub struct ListBlurbsResponse {
 }
 
 impl ListBlurbsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5616,7 +5467,6 @@ pub struct SearchBlurbsRequest {
 }
 
 impl SearchBlurbsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5688,7 +5538,6 @@ pub struct SearchBlurbsMetadata {
 }
 
 impl SearchBlurbsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5751,7 +5600,6 @@ pub struct SearchBlurbsResponse {
 }
 
 impl SearchBlurbsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5812,7 +5660,6 @@ pub struct StreamBlurbsRequest {
 }
 
 impl StreamBlurbsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5884,7 +5731,6 @@ pub struct StreamBlurbsResponse {
 }
 
 impl StreamBlurbsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5970,7 +5816,6 @@ pub mod stream_blurbs_response {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Action {
-        #[allow(missing_docs)]
         Unspecified,
         /// Specifies that the blurb was created.
         Create,
@@ -6104,7 +5949,6 @@ pub struct SendBlurbsResponse {
 }
 
 impl SendBlurbsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6138,14 +5982,12 @@ impl wkt::message::Message for SendBlurbsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConnectRequest {
-    #[allow(missing_docs)]
     pub request: std::option::Option<crate::model::connect_request::Request>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConnectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6256,7 +6098,6 @@ pub mod connect_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConnectConfig {
@@ -6267,7 +6108,6 @@ pub mod connect_request {
     }
 
     impl ConnectConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6291,7 +6131,6 @@ pub mod connect_request {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Request {
@@ -6308,14 +6147,12 @@ pub mod connect_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestError {
-    #[allow(missing_docs)]
     pub error: std::option::Option<crate::model::rest_error::Status>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6365,7 +6202,6 @@ pub mod rest_error {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Status {
@@ -6385,7 +6221,6 @@ pub mod rest_error {
     }
 
     impl Status {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6466,7 +6301,6 @@ pub mod rest_error {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Sequence {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// Sequence of responses to return in order for each attempt. If empty, the
@@ -6477,7 +6311,6 @@ pub struct Sequence {
 }
 
 impl Sequence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6542,7 +6375,6 @@ pub mod sequence {
     }
 
     impl Response {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6641,7 +6473,6 @@ pub struct StreamingSequence {
 }
 
 impl StreamingSequence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6721,7 +6552,6 @@ pub mod streaming_sequence {
     }
 
     impl Response {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6816,7 +6646,6 @@ pub mod streaming_sequence {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSequenceReport {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// The set of RPC attempts received by the server for a Sequence.
@@ -6826,7 +6655,6 @@ pub struct StreamingSequenceReport {
 }
 
 impl StreamingSequenceReport {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6902,7 +6730,6 @@ pub mod streaming_sequence_report {
     }
 
     impl Attempt {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7063,7 +6890,6 @@ pub mod streaming_sequence_report {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SequenceReport {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// The set of RPC attempts received by the server for a Sequence.
@@ -7073,7 +6899,6 @@ pub struct SequenceReport {
 }
 
 impl SequenceReport {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7149,7 +6974,6 @@ pub mod sequence_report {
     }
 
     impl Attempt {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7310,14 +7134,12 @@ pub mod sequence_report {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSequenceRequest {
-    #[allow(missing_docs)]
     pub sequence: std::option::Option<crate::model::Sequence>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateSequenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7366,14 +7188,12 @@ impl wkt::message::Message for CreateSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateStreamingSequenceRequest {
-    #[allow(missing_docs)]
     pub streaming_sequence: std::option::Option<crate::model::StreamingSequence>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CreateStreamingSequenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7422,14 +7242,12 @@ impl wkt::message::Message for CreateStreamingSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptSequenceRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttemptSequenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7457,7 +7275,6 @@ impl wkt::message::Message for AttemptSequenceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AttemptStreamingSequenceRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// used to send the index of the last failed message
@@ -7469,7 +7286,6 @@ pub struct AttemptStreamingSequenceRequest {
 }
 
 impl AttemptStreamingSequenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7516,7 +7332,6 @@ pub struct AttemptStreamingSequenceResponse {
 }
 
 impl AttemptStreamingSequenceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7540,18 +7355,15 @@ impl wkt::message::Message for AttemptStreamingSequenceResponse {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSequenceReportRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetSequenceReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7575,18 +7387,15 @@ impl wkt::message::Message for GetSequenceReportRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetStreamingSequenceReportRequest {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetStreamingSequenceReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7629,7 +7438,6 @@ pub struct Session {
 }
 
 impl Session {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7822,7 +7630,6 @@ pub struct CreateSessionRequest {
 }
 
 impl CreateSessionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7878,7 +7685,6 @@ pub struct GetSessionRequest {
 }
 
 impl GetSessionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7916,7 +7722,6 @@ pub struct ListSessionsRequest {
 }
 
 impl ListSessionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7967,7 +7772,6 @@ pub struct ListSessionsResponse {
 }
 
 impl ListSessionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8038,7 +7842,6 @@ pub struct DeleteSessionRequest {
 }
 
 impl DeleteSessionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8073,7 +7876,6 @@ pub struct ReportSessionRequest {
 }
 
 impl ReportSessionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8111,7 +7913,6 @@ pub struct ReportSessionResponse {
 }
 
 impl ReportSessionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8186,7 +7987,6 @@ pub mod report_session_response {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
-        #[allow(missing_docs)]
         Unspecified,
         /// The session is complete, and everything passed.
         Passed,
@@ -8308,7 +8108,6 @@ pub mod report_session_response {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Test {
@@ -8333,7 +8132,6 @@ pub struct Test {
 }
 
 impl Test {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8437,7 +8235,6 @@ pub mod test {
     }
 
     impl Blueprint {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8547,7 +8344,6 @@ pub mod test {
         }
 
         impl Invocation {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8605,7 +8401,6 @@ pub mod test {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ExpectationLevel {
-        #[allow(missing_docs)]
         Unspecified,
         /// This test is strictly required.
         Required,
@@ -8757,7 +8552,6 @@ pub struct Issue {
 }
 
 impl Issue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8836,7 +8630,6 @@ pub mod issue {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
-        #[allow(missing_docs)]
         Unspecified,
         /// The test was never instrumented.
         Skipped,
@@ -8976,7 +8769,6 @@ pub mod issue {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Severity {
-        #[allow(missing_docs)]
         Unspecified,
         /// Errors.
         Error,
@@ -9108,7 +8900,6 @@ pub struct ListTestsRequest {
 }
 
 impl ListTestsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9171,7 +8962,6 @@ pub struct ListTestsResponse {
 }
 
 impl ListTestsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9247,7 +9037,6 @@ pub struct TestRun {
 }
 
 impl TestRun {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9315,7 +9104,6 @@ pub struct DeleteTestRequest {
 }
 
 impl DeleteTestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9339,7 +9127,6 @@ impl wkt::message::Message for DeleteTestRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyTestRequest {
@@ -9356,7 +9143,6 @@ pub struct VerifyTestRequest {
 }
 
 impl VerifyTestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9411,7 +9197,6 @@ impl wkt::message::Message for VerifyTestRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VerifyTestResponse {
@@ -9422,7 +9207,6 @@ pub struct VerifyTestResponse {
 }
 
 impl VerifyTestResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9467,7 +9251,6 @@ impl wkt::message::Message for VerifyTestResponse {
     }
 }
 
-/// Enum for [Continent].
 ///
 /// # Working with unknown values
 ///
@@ -9485,17 +9268,11 @@ impl wkt::message::Message for VerifyTestResponse {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum Continent {
-    #[allow(missing_docs)]
     Unspecified,
-    #[allow(missing_docs)]
     Africa,
-    #[allow(missing_docs)]
     America,
-    #[allow(missing_docs)]
     Antartica,
-    #[allow(missing_docs)]
     Australia,
-    #[allow(missing_docs)]
     Europe,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -9638,13 +9415,9 @@ impl<'de> serde::de::Deserialize<'de> for Continent {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum Severity {
-    #[allow(missing_docs)]
     Unnecessary,
-    #[allow(missing_docs)]
     Necessary,
-    #[allow(missing_docs)]
     Urgent,
-    #[allow(missing_docs)]
     Critical,
     /// If set, the enum was initialized with an unknown value.
     ///

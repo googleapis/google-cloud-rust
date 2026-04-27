@@ -66,7 +66,6 @@ pub struct CreateKeyHandleRequest {
 }
 
 impl CreateKeyHandleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -152,7 +151,6 @@ pub struct GetKeyHandleRequest {
 }
 
 impl GetKeyHandleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -219,7 +217,6 @@ pub struct KeyHandle {
 }
 
 impl KeyHandle {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -282,7 +279,6 @@ pub struct CreateKeyHandleMetadata {
 }
 
 impl CreateKeyHandleMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -338,7 +334,6 @@ pub struct ListKeyHandlesRequest {
 }
 
 impl ListKeyHandlesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -421,7 +416,6 @@ pub struct ListKeyHandlesResponse {
 }
 
 impl ListKeyHandlesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -505,7 +499,6 @@ pub struct UpdateAutokeyConfigRequest {
 }
 
 impl UpdateAutokeyConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -601,7 +594,6 @@ pub struct GetAutokeyConfigRequest {
 }
 
 impl GetAutokeyConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -671,7 +663,6 @@ pub struct AutokeyConfig {
 }
 
 impl AutokeyConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1092,7 +1083,6 @@ pub struct ShowEffectiveAutokeyConfigRequest {
 }
 
 impl ShowEffectiveAutokeyConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1131,7 +1121,6 @@ pub struct ShowEffectiveAutokeyConfigResponse {
 }
 
 impl ShowEffectiveAutokeyConfigResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1203,7 +1192,6 @@ pub struct ListEkmConnectionsRequest {
 }
 
 impl ListEkmConnectionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1309,7 +1297,6 @@ pub struct ListEkmConnectionsResponse {
 }
 
 impl ListEkmConnectionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1399,7 +1386,6 @@ pub struct GetEkmConnectionRequest {
 }
 
 impl GetEkmConnectionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1451,7 +1437,6 @@ pub struct CreateEkmConnectionRequest {
 }
 
 impl CreateEkmConnectionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1543,7 +1528,6 @@ pub struct UpdateEkmConnectionRequest {
 }
 
 impl UpdateEkmConnectionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1639,7 +1623,6 @@ pub struct GetEkmConfigRequest {
 }
 
 impl GetEkmConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1682,7 +1665,6 @@ pub struct UpdateEkmConfigRequest {
 }
 
 impl UpdateEkmConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1819,7 +1801,6 @@ pub struct Certificate {
 }
 
 impl Certificate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2057,7 +2038,6 @@ pub struct EkmConnection {
 }
 
 impl EkmConnection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2223,7 +2203,6 @@ pub mod ekm_connection {
     }
 
     impl ServiceResolver {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2507,7 +2486,6 @@ pub struct EkmConfig {
 }
 
 impl EkmConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2564,7 +2542,6 @@ pub struct VerifyConnectivityRequest {
 }
 
 impl VerifyConnectivityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2599,7 +2576,6 @@ pub struct VerifyConnectivityResponse {
 }
 
 impl VerifyConnectivityResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2688,7 +2664,6 @@ pub struct SingleTenantHsmInstance {
 }
 
 impl SingleTenantHsmInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2941,7 +2916,6 @@ pub mod single_tenant_hsm_instance {
     }
 
     impl QuorumAuth {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3300,7 +3274,6 @@ pub struct SingleTenantHsmInstanceProposal {
 }
 
 impl SingleTenantHsmInstanceProposal {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4058,7 +4031,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl QuorumParameters {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4151,7 +4123,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl RequiredActionQuorumParameters {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4268,7 +4239,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl RegisterTwoFactorAuthKeys {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4325,7 +4295,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl DisableSingleTenantHsmInstance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4353,7 +4322,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl EnableSingleTenantHsmInstance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4389,7 +4357,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl DeleteSingleTenantHsmInstance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4425,7 +4392,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl AddQuorumMember {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4476,7 +4442,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl RemoveQuorumMember {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4525,7 +4490,6 @@ pub mod single_tenant_hsm_instance_proposal {
     }
 
     impl RefreshSingleTenantHsmInstance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4932,7 +4896,6 @@ pub struct Challenge {
 }
 
 impl Challenge {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4983,7 +4946,6 @@ pub struct ChallengeReply {
 }
 
 impl ChallengeReply {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5079,7 +5041,6 @@ pub struct ListSingleTenantHsmInstancesRequest {
 }
 
 impl ListSingleTenantHsmInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5199,7 +5160,6 @@ pub struct ListSingleTenantHsmInstancesResponse {
 }
 
 impl ListSingleTenantHsmInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5292,7 +5252,6 @@ pub struct GetSingleTenantHsmInstanceRequest {
 }
 
 impl GetSingleTenantHsmInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5345,7 +5304,6 @@ pub struct CreateSingleTenantHsmInstanceRequest {
 }
 
 impl CreateSingleTenantHsmInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5429,7 +5387,6 @@ pub struct CreateSingleTenantHsmInstanceMetadata {
 }
 
 impl CreateSingleTenantHsmInstanceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5474,7 +5431,6 @@ pub struct CreateSingleTenantHsmInstanceProposalRequest {
 }
 
 impl CreateSingleTenantHsmInstanceProposalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5563,7 +5519,6 @@ pub struct CreateSingleTenantHsmInstanceProposalMetadata {
 }
 
 impl CreateSingleTenantHsmInstanceProposalMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5595,7 +5550,6 @@ pub struct GetSingleTenantHsmInstanceProposalRequest {
 }
 
 impl GetSingleTenantHsmInstanceProposalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5645,7 +5599,6 @@ pub struct ApproveSingleTenantHsmInstanceProposalRequest {
 }
 
 impl ApproveSingleTenantHsmInstanceProposalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5796,7 +5749,6 @@ pub mod approve_single_tenant_hsm_instance_proposal_request {
     }
 
     impl QuorumReply {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5855,7 +5807,6 @@ pub mod approve_single_tenant_hsm_instance_proposal_request {
     }
 
     impl RequiredActionQuorumReply {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5942,7 +5893,6 @@ pub struct ApproveSingleTenantHsmInstanceProposalResponse {
 }
 
 impl ApproveSingleTenantHsmInstanceProposalResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5974,7 +5924,6 @@ pub struct ExecuteSingleTenantHsmInstanceProposalRequest {
 }
 
 impl ExecuteSingleTenantHsmInstanceProposalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6009,7 +5958,6 @@ pub struct ExecuteSingleTenantHsmInstanceProposalResponse {
 }
 
 impl ExecuteSingleTenantHsmInstanceProposalResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6033,7 +5981,6 @@ pub struct ExecuteSingleTenantHsmInstanceProposalMetadata {
 }
 
 impl ExecuteSingleTenantHsmInstanceProposalMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6105,7 +6052,6 @@ pub struct ListSingleTenantHsmInstanceProposalsRequest {
 }
 
 impl ListSingleTenantHsmInstanceProposalsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6226,7 +6172,6 @@ pub struct ListSingleTenantHsmInstanceProposalsResponse {
 }
 
 impl ListSingleTenantHsmInstanceProposalsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6320,7 +6265,6 @@ pub struct DeleteSingleTenantHsmInstanceProposalRequest {
 }
 
 impl DeleteSingleTenantHsmInstanceProposalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6369,7 +6313,6 @@ pub struct KeyRing {
 }
 
 impl KeyRing {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6578,7 +6521,6 @@ pub struct CryptoKey {
 }
 
 impl CryptoKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7209,7 +7151,6 @@ pub struct CryptoKeyVersionTemplate {
 }
 
 impl CryptoKeyVersionTemplate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7280,7 +7221,6 @@ pub struct KeyOperationAttestation {
 }
 
 impl KeyOperationAttestation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7380,7 +7320,6 @@ pub mod key_operation_attestation {
     }
 
     impl CertificateChains {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7736,7 +7675,6 @@ pub struct CryptoKeyVersion {
 }
 
 impl CryptoKeyVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9108,7 +9046,6 @@ pub struct ChecksummedData {
 }
 
 impl ChecksummedData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9243,7 +9180,6 @@ pub struct PublicKey {
 }
 
 impl PublicKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9717,7 +9653,6 @@ pub struct ImportJob {
 }
 
 impl ImportJob {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10032,7 +9967,6 @@ pub mod import_job {
     }
 
     impl WrappingPublicKey {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10441,7 +10375,6 @@ pub struct ExternalProtectionLevelOptions {
 }
 
 impl ExternalProtectionLevelOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10512,7 +10445,6 @@ pub struct KeyAccessJustificationsPolicy {
 }
 
 impl KeyAccessJustificationsPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10580,7 +10512,6 @@ pub struct RetiredResource {
 }
 
 impl RetiredResource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10712,7 +10643,6 @@ pub struct ListKeyRingsRequest {
 }
 
 impl ListKeyRingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10834,7 +10764,6 @@ pub struct ListCryptoKeysRequest {
 }
 
 impl ListCryptoKeysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10975,7 +10904,6 @@ pub struct ListCryptoKeyVersionsRequest {
 }
 
 impl ListCryptoKeyVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11112,7 +11040,6 @@ pub struct ListImportJobsRequest {
 }
 
 impl ListImportJobsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11221,7 +11148,6 @@ pub struct ListRetiredResourcesRequest {
 }
 
 impl ListRetiredResourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11303,7 +11229,6 @@ pub struct ListKeyRingsResponse {
 }
 
 impl ListKeyRingsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11409,7 +11334,6 @@ pub struct ListCryptoKeysResponse {
 }
 
 impl ListCryptoKeysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11516,7 +11440,6 @@ pub struct ListCryptoKeyVersionsResponse {
 }
 
 impl ListCryptoKeyVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11622,7 +11545,6 @@ pub struct ListImportJobsResponse {
 }
 
 impl ListImportJobsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11723,7 +11645,6 @@ pub struct ListRetiredResourcesResponse {
 }
 
 impl ListRetiredResourcesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11813,7 +11734,6 @@ pub struct GetKeyRingRequest {
 }
 
 impl GetKeyRingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11855,7 +11775,6 @@ pub struct GetCryptoKeyRequest {
 }
 
 impl GetCryptoKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11897,7 +11816,6 @@ pub struct GetCryptoKeyVersionRequest {
 }
 
 impl GetCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11952,7 +11870,6 @@ pub struct GetPublicKeyRequest {
 }
 
 impl GetPublicKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12014,7 +11931,6 @@ pub struct GetImportJobRequest {
 }
 
 impl GetImportJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12056,7 +11972,6 @@ pub struct GetRetiredResourceRequest {
 }
 
 impl GetRetiredResourceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12108,7 +12023,6 @@ pub struct CreateKeyRingRequest {
 }
 
 impl CreateKeyRingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12220,7 +12134,6 @@ pub struct CreateCryptoKeyRequest {
 }
 
 impl CreateCryptoKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12327,7 +12240,6 @@ pub struct CreateCryptoKeyVersionRequest {
 }
 
 impl CreateCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12402,7 +12314,6 @@ pub struct DeleteCryptoKeyRequest {
 }
 
 impl DeleteCryptoKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12444,7 +12355,6 @@ pub struct DeleteCryptoKeyVersionRequest {
 }
 
 impl DeleteCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12587,7 +12497,6 @@ pub struct ImportCryptoKeyVersionRequest {
 }
 
 impl ImportCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12780,7 +12689,6 @@ pub struct CreateImportJobRequest {
 }
 
 impl CreateImportJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12868,7 +12776,6 @@ pub struct UpdateCryptoKeyRequest {
 }
 
 impl UpdateCryptoKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12966,7 +12873,6 @@ pub struct UpdateCryptoKeyVersionRequest {
 }
 
 impl UpdateCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13067,7 +12973,6 @@ pub struct UpdateCryptoKeyPrimaryVersionRequest {
 }
 
 impl UpdateCryptoKeyPrimaryVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13123,7 +13028,6 @@ pub struct DestroyCryptoKeyVersionRequest {
 }
 
 impl DestroyCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13164,7 +13068,6 @@ pub struct RestoreCryptoKeyVersionRequest {
 }
 
 impl RestoreCryptoKeyVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13303,7 +13206,6 @@ pub struct EncryptRequest {
 }
 
 impl EncryptRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13503,7 +13405,6 @@ pub struct DecryptRequest {
 }
 
 impl DecryptRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13749,7 +13650,6 @@ pub struct RawEncryptRequest {
 }
 
 impl RawEncryptRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14020,7 +13920,6 @@ pub struct RawDecryptRequest {
 }
 
 impl RawDecryptRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14288,7 +14187,6 @@ pub struct AsymmetricSignRequest {
 }
 
 impl AsymmetricSignRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14473,7 +14371,6 @@ pub struct AsymmetricDecryptRequest {
 }
 
 impl AsymmetricDecryptRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14587,7 +14484,6 @@ pub struct MacSignRequest {
 }
 
 impl MacSignRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14731,7 +14627,6 @@ pub struct MacVerifyRequest {
 }
 
 impl MacVerifyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14895,7 +14790,6 @@ pub struct DecapsulateRequest {
 }
 
 impl DecapsulateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14992,7 +14886,6 @@ pub struct GenerateRandomBytesRequest {
 }
 
 impl GenerateRandomBytesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15133,7 +15026,6 @@ pub struct EncryptResponse {
 }
 
 impl EncryptResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15298,7 +15190,6 @@ pub struct DecryptResponse {
 }
 
 impl DecryptResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15513,7 +15404,6 @@ pub struct RawEncryptResponse {
 }
 
 impl RawEncryptResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15799,7 +15689,6 @@ pub struct RawDecryptResponse {
 }
 
 impl RawDecryptResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16001,7 +15890,6 @@ pub struct AsymmetricSignResponse {
 }
 
 impl AsymmetricSignResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16171,7 +16059,6 @@ pub struct AsymmetricDecryptResponse {
 }
 
 impl AsymmetricDecryptResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16323,7 +16210,6 @@ pub struct MacSignResponse {
 }
 
 impl MacSignResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16504,7 +16390,6 @@ pub struct MacVerifyResponse {
 }
 
 impl MacVerifyResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16668,7 +16553,6 @@ pub struct DecapsulateResponse {
 }
 
 impl DecapsulateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16796,7 +16680,6 @@ pub struct GenerateRandomBytesResponse {
 }
 
 impl GenerateRandomBytesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16866,7 +16749,6 @@ pub struct Digest {
 }
 
 impl Digest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17085,7 +16967,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17153,7 +17034,6 @@ pub struct DeleteCryptoKeyMetadata {
 }
 
 impl DeleteCryptoKeyMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17192,7 +17072,6 @@ pub struct DeleteCryptoKeyVersionMetadata {
 }
 
 impl DeleteCryptoKeyVersionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

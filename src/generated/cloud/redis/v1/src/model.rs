@@ -50,7 +50,6 @@ pub struct NodeInfo {
 }
 
 impl NodeInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -286,7 +285,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1773,7 +1771,6 @@ pub struct PersistenceConfig {
 }
 
 impl PersistenceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2200,7 +2197,6 @@ pub struct RescheduleMaintenanceRequest {
 }
 
 impl RescheduleMaintenanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2446,7 +2442,6 @@ pub struct MaintenancePolicy {
 }
 
 impl MaintenancePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2577,7 +2572,6 @@ pub struct WeeklyMaintenanceWindow {
 }
 
 impl WeeklyMaintenanceWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2698,7 +2692,6 @@ pub struct MaintenanceSchedule {
 }
 
 impl MaintenanceSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2855,7 +2848,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2933,7 +2925,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3025,7 +3016,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3065,7 +3055,6 @@ pub struct GetInstanceAuthStringRequest {
 }
 
 impl GetInstanceAuthStringRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3100,7 +3089,6 @@ pub struct InstanceAuthString {
 }
 
 impl InstanceAuthString {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3153,7 +3141,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3250,7 +3237,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3347,7 +3333,6 @@ pub struct UpgradeInstanceRequest {
 }
 
 impl UpgradeInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3399,7 +3384,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3434,7 +3418,6 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3469,7 +3452,6 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3568,7 +3550,6 @@ pub struct ImportInstanceRequest {
 }
 
 impl ImportInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3637,7 +3618,6 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3672,7 +3652,6 @@ pub struct OutputConfig {
 }
 
 impl OutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3778,7 +3757,6 @@ pub struct ExportInstanceRequest {
 }
 
 impl ExportInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3854,7 +3832,6 @@ pub struct FailoverInstanceRequest {
 }
 
 impl FailoverInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4068,7 +4045,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4223,7 +4199,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4266,7 +4241,6 @@ pub struct ZoneMetadata {
 }
 
 impl ZoneMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4305,7 +4279,6 @@ pub struct TlsCertificate {
 }
 
 impl TlsCertificate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

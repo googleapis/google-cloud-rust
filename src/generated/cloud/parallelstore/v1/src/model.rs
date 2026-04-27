@@ -121,7 +121,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -580,7 +579,6 @@ pub struct TransferMetadataOptions {
 }
 
 impl TransferMetadataOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1073,7 +1071,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1165,7 +1162,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1254,7 +1250,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1318,7 +1313,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1431,7 +1425,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1547,7 +1540,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1619,7 +1611,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1770,7 +1761,6 @@ pub struct SourceGcsBucket {
 }
 
 impl SourceGcsBucket {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1807,7 +1797,6 @@ pub struct DestinationGcsBucket {
 }
 
 impl DestinationGcsBucket {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1843,7 +1832,6 @@ pub struct SourceParallelstore {
 }
 
 impl SourceParallelstore {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1879,7 +1867,6 @@ pub struct DestinationParallelstore {
 }
 
 impl DestinationParallelstore {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1951,7 +1938,6 @@ pub struct ImportDataRequest {
 }
 
 impl ImportDataRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2225,7 +2211,6 @@ pub struct ExportDataRequest {
 }
 
 impl ExportDataRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2460,7 +2445,6 @@ pub struct ImportDataResponse {
 }
 
 impl ImportDataResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2487,7 +2471,6 @@ pub struct TransferErrorLogEntry {
 }
 
 impl TransferErrorLogEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2546,7 +2529,6 @@ pub struct TransferErrorSummary {
 }
 
 impl TransferErrorSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2649,7 +2631,6 @@ pub struct ImportDataMetadata {
 }
 
 impl ImportDataMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2828,7 +2809,6 @@ pub struct ExportDataResponse {
 }
 
 impl ExportDataResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2879,7 +2859,6 @@ pub struct ExportDataMetadata {
 }
 
 impl ExportDataMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3074,7 +3053,6 @@ pub struct TransferOperationMetadata {
 }
 
 impl TransferOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3434,7 +3412,6 @@ pub struct TransferCounters {
 }
 
 impl TransferCounters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

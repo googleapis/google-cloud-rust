@@ -48,7 +48,6 @@ pub struct GetGoogleServiceAccountRequest {
 }
 
 impl GetGoogleServiceAccountRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -83,7 +82,6 @@ pub struct CreateTransferJobRequest {
 }
 
 impl CreateTransferJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -185,7 +183,6 @@ pub struct UpdateTransferJobRequest {
 }
 
 impl UpdateTransferJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -305,7 +302,6 @@ pub struct GetTransferJobRequest {
 }
 
 impl GetTransferJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -356,7 +352,6 @@ pub struct DeleteTransferJobRequest {
 }
 
 impl DeleteTransferJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -440,7 +435,6 @@ pub struct ListTransferJobsRequest {
 }
 
 impl ListTransferJobsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -502,7 +496,6 @@ pub struct ListTransferJobsResponse {
 }
 
 impl ListTransferJobsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -573,7 +566,6 @@ pub struct PauseTransferOperationRequest {
 }
 
 impl PauseTransferOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -608,7 +600,6 @@ pub struct ResumeTransferOperationRequest {
 }
 
 impl ResumeTransferOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -647,7 +638,6 @@ pub struct RunTransferJobRequest {
 }
 
 impl RunTransferJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -713,7 +703,6 @@ pub struct CreateAgentPoolRequest {
 }
 
 impl CreateAgentPoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -822,7 +811,6 @@ pub struct UpdateAgentPoolRequest {
 }
 
 impl UpdateAgentPoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -911,7 +899,6 @@ pub struct GetAgentPoolRequest {
 }
 
 impl GetAgentPoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -946,7 +933,6 @@ pub struct DeleteAgentPoolRequest {
 }
 
 impl DeleteAgentPoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -997,7 +983,6 @@ pub struct ListAgentPoolsRequest {
 }
 
 impl ListAgentPoolsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1071,7 +1056,6 @@ pub struct ListAgentPoolsResponse {
 }
 
 impl ListAgentPoolsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1145,7 +1129,6 @@ pub struct GoogleServiceAccount {
 }
 
 impl GoogleServiceAccount {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1201,7 +1184,6 @@ pub struct AwsAccessKey {
 }
 
 impl AwsAccessKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1259,7 +1241,6 @@ pub struct AzureCredentials {
 }
 
 impl AzureCredentials {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1427,7 +1408,6 @@ pub struct ObjectConditions {
 }
 
 impl ObjectConditions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1651,7 +1631,6 @@ pub struct GcsData {
 }
 
 impl GcsData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1780,14 +1759,12 @@ pub struct AwsS3Data {
     /// [google.storagetransfer.v1.GoogleServiceAccount]: crate::model::GoogleServiceAccount
     pub credentials_secret: std::string::String,
 
-    #[allow(missing_docs)]
     pub private_network: std::option::Option<crate::model::aws_s_3_data::PrivateNetwork>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AwsS3Data {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1956,7 +1933,6 @@ pub mod aws_s_3_data {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PrivateNetwork {
@@ -2036,7 +2012,6 @@ pub struct AzureBlobStorageData {
 }
 
 impl AzureBlobStorageData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2195,7 +2170,6 @@ pub mod azure_blob_storage_data {
     }
 
     impl FederatedIdentityConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2289,7 +2263,6 @@ pub struct HttpData {
 }
 
 impl HttpData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2324,7 +2297,6 @@ pub struct PosixFilesystem {
 }
 
 impl PosixFilesystem {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2362,7 +2334,6 @@ pub struct HdfsData {
 }
 
 impl HdfsData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2416,7 +2387,6 @@ pub struct AwsS3CompatibleData {
 }
 
 impl AwsS3CompatibleData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2583,7 +2553,6 @@ pub struct S3CompatibleMetadata {
 }
 
 impl S3CompatibleMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3232,7 +3201,6 @@ pub struct AgentPool {
 }
 
 impl AgentPool {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3336,7 +3304,6 @@ pub mod agent_pool {
     }
 
     impl BandwidthLimit {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3546,7 +3513,6 @@ pub struct TransferOptions {
 }
 
 impl TransferOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3840,7 +3806,6 @@ pub struct TransferSpec {
     /// The read source of the data.
     pub data_source: std::option::Option<crate::model::transfer_spec::DataSource>,
 
-    #[allow(missing_docs)]
     pub intermediate_data_location:
         std::option::Option<crate::model::transfer_spec::IntermediateDataLocation>,
 
@@ -3848,7 +3813,6 @@ pub struct TransferSpec {
 }
 
 impl TransferSpec {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4519,7 +4483,6 @@ pub mod transfer_spec {
         HdfsDataSource(std::boxed::Box<crate::model::HdfsData>),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum IntermediateDataLocation {
@@ -4563,7 +4526,6 @@ pub struct ReplicationSpec {
 }
 
 impl ReplicationSpec {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4844,7 +4806,6 @@ pub struct MetadataOptions {
 }
 
 impl MetadataOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6271,7 +6232,6 @@ pub struct TransferManifest {
 }
 
 impl TransferManifest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6387,7 +6347,6 @@ pub struct Schedule {
 }
 
 impl Schedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6590,7 +6549,6 @@ pub struct EventStream {
 }
 
 impl EventStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6792,7 +6750,6 @@ pub struct TransferJob {
 }
 
 impl TransferJob {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7345,7 +7302,6 @@ pub struct ErrorLogEntry {
 }
 
 impl ErrorLogEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7407,7 +7363,6 @@ pub struct ErrorSummary {
 }
 
 impl ErrorSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7562,7 +7517,6 @@ pub struct TransferCounters {
 }
 
 impl TransferCounters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7898,7 +7852,6 @@ pub struct NotificationConfig {
 }
 
 impl NotificationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8290,7 +8243,6 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8690,7 +8642,6 @@ pub struct TransferOperation {
 }
 
 impl TransferOperation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

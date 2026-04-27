@@ -70,7 +70,6 @@ pub struct ClientConnectorService {
 }
 
 impl ClientConnectorService {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -266,7 +265,6 @@ pub mod client_connector_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Ingress {
-        #[allow(missing_docs)]
         pub ingress_config:
             std::option::Option<crate::model::client_connector_service::ingress::IngressConfig>,
 
@@ -274,7 +272,6 @@ pub mod client_connector_service {
     }
 
     impl Ingress {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -379,7 +376,6 @@ pub mod client_connector_service {
         }
 
         impl Config {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -458,7 +454,6 @@ pub mod client_connector_service {
             }
 
             impl DestinationRoute {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -630,7 +625,6 @@ pub mod client_connector_service {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum IngressConfig {
@@ -643,7 +637,6 @@ pub mod client_connector_service {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Egress {
-        #[allow(missing_docs)]
         pub destination_type:
             std::option::Option<crate::model::client_connector_service::egress::DestinationType>,
 
@@ -651,7 +644,6 @@ pub mod client_connector_service {
     }
 
     impl Egress {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -751,7 +743,6 @@ pub mod client_connector_service {
         }
 
         impl PeeredVpc {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -778,7 +769,6 @@ pub mod client_connector_service {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum DestinationType {
@@ -974,7 +964,6 @@ pub struct ListClientConnectorServicesRequest {
 }
 
 impl ListClientConnectorServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1063,7 +1052,6 @@ pub struct ListClientConnectorServicesResponse {
 }
 
 impl ListClientConnectorServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1153,7 +1141,6 @@ pub struct GetClientConnectorServiceRequest {
 }
 
 impl GetClientConnectorServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1220,7 +1207,6 @@ pub struct CreateClientConnectorServiceRequest {
 }
 
 impl CreateClientConnectorServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1358,7 +1344,6 @@ pub struct UpdateClientConnectorServiceRequest {
 }
 
 impl UpdateClientConnectorServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1502,7 +1487,6 @@ pub struct DeleteClientConnectorServiceRequest {
 }
 
 impl DeleteClientConnectorServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1585,7 +1569,6 @@ pub struct ClientConnectorServiceOperationMetadata {
 }
 
 impl ClientConnectorServiceOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

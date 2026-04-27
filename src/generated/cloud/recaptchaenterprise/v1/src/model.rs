@@ -48,7 +48,6 @@ pub struct CreateAssessmentRequest {
 }
 
 impl CreateAssessmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -130,7 +129,6 @@ pub struct TransactionEvent {
 }
 
 impl TransactionEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -528,7 +526,6 @@ pub struct PhoneAuthenticationEvent {
 }
 
 impl PhoneAuthenticationEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -624,7 +621,6 @@ pub struct AnnotateAssessmentRequest {
 }
 
 impl AnnotateAssessmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1178,7 +1174,6 @@ pub struct AnnotateAssessmentResponse {
 }
 
 impl AnnotateAssessmentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1202,14 +1197,12 @@ pub struct EndpointVerificationInfo {
     /// endpoint, if any.
     pub last_verification_time: std::option::Option<wkt::Timestamp>,
 
-    #[allow(missing_docs)]
     pub endpoint: std::option::Option<crate::model::endpoint_verification_info::Endpoint>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EndpointVerificationInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1358,7 +1351,6 @@ pub mod endpoint_verification_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Endpoint {
@@ -1393,7 +1385,6 @@ pub struct AccountVerificationInfo {
 }
 
 impl AccountVerificationInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1708,7 +1699,6 @@ pub struct PrivatePasswordLeakVerification {
 }
 
 impl PrivatePasswordLeakVerification {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1838,7 +1828,6 @@ pub struct Assessment {
 }
 
 impl Assessment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2305,7 +2294,6 @@ pub struct Event {
 }
 
 impl Event {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2767,7 +2755,6 @@ pub struct TransactionData {
 }
 
 impl TransactionData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3093,7 +3080,6 @@ pub mod transaction_data {
     }
 
     impl Address {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3215,7 +3201,6 @@ pub mod transaction_data {
     }
 
     impl User {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3324,7 +3309,6 @@ pub mod transaction_data {
     }
 
     impl Item {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3410,7 +3394,6 @@ pub mod transaction_data {
     }
 
     impl GatewayInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3503,7 +3486,6 @@ pub struct UserInfo {
 }
 
 impl UserInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3586,14 +3568,12 @@ impl wkt::message::Message for UserInfo {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UserId {
-    #[allow(missing_docs)]
     pub id_oneof: std::option::Option<crate::model::user_id::IdOneof>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UserId {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3723,7 +3703,6 @@ pub mod user_id {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum IdOneof {
@@ -3766,7 +3745,6 @@ pub struct RiskAnalysis {
 }
 
 impl RiskAnalysis {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4203,7 +4181,6 @@ pub struct Bot {
 }
 
 impl Bot {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4426,7 +4403,6 @@ pub struct TokenProperties {
 }
 
 impl TokenProperties {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4767,7 +4743,6 @@ pub struct FraudPreventionAssessment {
 }
 
 impl FraudPreventionAssessment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4928,7 +4903,6 @@ pub mod fraud_prevention_assessment {
     }
 
     impl RiskReason {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5150,7 +5124,6 @@ pub mod fraud_prevention_assessment {
     }
 
     impl StolenInstrumentVerdict {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5187,7 +5160,6 @@ pub mod fraud_prevention_assessment {
     }
 
     impl CardTestingVerdict {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5224,7 +5196,6 @@ pub mod fraud_prevention_assessment {
     }
 
     impl BehavioralTrustVerdict {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5264,7 +5235,6 @@ pub struct FraudSignals {
 }
 
 impl FraudSignals {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5364,7 +5334,6 @@ pub mod fraud_signals {
     }
 
     impl UserSignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5411,7 +5380,6 @@ pub mod fraud_signals {
     }
 
     impl CardSignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5613,7 +5581,6 @@ pub struct SmsTollFraudVerdict {
 }
 
 impl SmsTollFraudVerdict {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5800,7 +5767,6 @@ pub struct PhoneFraudAssessment {
 }
 
 impl PhoneFraudAssessment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5856,7 +5822,6 @@ pub struct AccountDefenderAssessment {
 }
 
 impl AccountDefenderAssessment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6069,7 +6034,6 @@ pub struct CreateKeyRequest {
 }
 
 impl CreateKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6146,7 +6110,6 @@ pub struct ListKeysRequest {
 }
 
 impl ListKeysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6209,7 +6172,6 @@ pub struct ListKeysResponse {
 }
 
 impl ListKeysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6281,7 +6243,6 @@ pub struct RetrieveLegacySecretKeyRequest {
 }
 
 impl RetrieveLegacySecretKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6317,7 +6278,6 @@ pub struct GetKeyRequest {
 }
 
 impl GetKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6356,7 +6316,6 @@ pub struct UpdateKeyRequest {
 }
 
 impl UpdateKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6446,7 +6405,6 @@ pub struct DeleteKeyRequest {
 }
 
 impl DeleteKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6485,7 +6443,6 @@ pub struct CreateFirewallPolicyRequest {
 }
 
 impl CreateFirewallPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6562,7 +6519,6 @@ pub struct ListFirewallPoliciesRequest {
 }
 
 impl ListFirewallPoliciesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6625,7 +6581,6 @@ pub struct ListFirewallPoliciesResponse {
 }
 
 impl ListFirewallPoliciesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6697,7 +6652,6 @@ pub struct GetFirewallPolicyRequest {
 }
 
 impl GetFirewallPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6736,7 +6690,6 @@ pub struct UpdateFirewallPolicyRequest {
 }
 
 impl UpdateFirewallPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6826,7 +6779,6 @@ pub struct DeleteFirewallPolicyRequest {
 }
 
 impl DeleteFirewallPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6866,7 +6818,6 @@ pub struct ReorderFirewallPoliciesRequest {
 }
 
 impl ReorderFirewallPoliciesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6915,7 +6866,6 @@ pub struct ReorderFirewallPoliciesResponse {
 }
 
 impl ReorderFirewallPoliciesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6949,7 +6899,6 @@ pub struct MigrateKeyRequest {
 }
 
 impl MigrateKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6997,7 +6946,6 @@ pub struct GetMetricsRequest {
 }
 
 impl GetMetricsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7046,7 +6994,6 @@ pub struct Metrics {
 }
 
 impl Metrics {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7162,7 +7109,6 @@ pub struct RetrieveLegacySecretKeyResponse {
 }
 
 impl RetrieveLegacySecretKeyResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7222,7 +7168,6 @@ pub struct Key {
 }
 
 impl Key {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7600,7 +7545,6 @@ pub struct TestingOptions {
 }
 
 impl TestingOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7822,7 +7766,6 @@ pub struct WebKeySettings {
 }
 
 impl WebKeySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7965,7 +7908,6 @@ pub mod web_key_settings {
     }
 
     impl ActionSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8014,7 +7956,6 @@ pub mod web_key_settings {
     }
 
     impl ChallengeSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8402,7 +8343,6 @@ pub struct AndroidKeySettings {
 }
 
 impl AndroidKeySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8485,7 +8425,6 @@ pub struct IOSKeySettings {
 }
 
 impl IOSKeySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8567,7 +8506,6 @@ pub struct ExpressKeySettings {
 }
 
 impl ExpressKeySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8599,7 +8537,6 @@ pub struct AppleDeveloperId {
 }
 
 impl AppleDeveloperId {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8660,7 +8597,6 @@ pub struct ScoreDistribution {
 }
 
 impl ScoreDistribution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8709,7 +8645,6 @@ pub struct ScoreMetrics {
 }
 
 impl ScoreMetrics {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8800,7 +8735,6 @@ pub struct ChallengeMetrics {
 }
 
 impl ChallengeMetrics {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8877,7 +8811,6 @@ pub struct FirewallPolicyAssessment {
 }
 
 impl FirewallPolicyAssessment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8960,7 +8893,6 @@ impl wkt::message::Message for FirewallPolicyAssessment {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FirewallAction {
-    #[allow(missing_docs)]
     pub firewall_action_oneof:
         std::option::Option<crate::model::firewall_action::FirewallActionOneof>,
 
@@ -8968,7 +8900,6 @@ pub struct FirewallAction {
 }
 
 impl FirewallAction {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9290,7 +9221,6 @@ pub mod firewall_action {
     }
 
     impl AllowAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9311,7 +9241,6 @@ pub mod firewall_action {
     }
 
     impl BlockAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9335,7 +9264,6 @@ pub mod firewall_action {
     }
 
     impl IncludeRecaptchaScriptAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9356,7 +9284,6 @@ pub mod firewall_action {
     }
 
     impl RedirectAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9381,7 +9308,6 @@ pub mod firewall_action {
     }
 
     impl SubstituteAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9421,7 +9347,6 @@ pub mod firewall_action {
     }
 
     impl SetHeaderAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9457,7 +9382,6 @@ pub mod firewall_action {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FirewallActionOneof {
@@ -9527,7 +9451,6 @@ pub struct FirewallPolicy {
 }
 
 impl FirewallPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9634,7 +9557,6 @@ pub struct ListRelatedAccountGroupMembershipsRequest {
 }
 
 impl ListRelatedAccountGroupMembershipsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9698,7 +9620,6 @@ pub struct ListRelatedAccountGroupMembershipsResponse {
 }
 
 impl ListRelatedAccountGroupMembershipsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9785,7 +9706,6 @@ pub struct ListRelatedAccountGroupsRequest {
 }
 
 impl ListRelatedAccountGroupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9848,7 +9768,6 @@ pub struct ListRelatedAccountGroupsResponse {
 }
 
 impl ListRelatedAccountGroupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9949,7 +9868,6 @@ pub struct SearchRelatedAccountGroupMembershipsRequest {
 }
 
 impl SearchRelatedAccountGroupMembershipsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10038,7 +9956,6 @@ pub struct SearchRelatedAccountGroupMembershipsResponse {
 }
 
 impl SearchRelatedAccountGroupMembershipsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10115,7 +10032,6 @@ pub struct AddIpOverrideRequest {
 }
 
 impl AddIpOverrideRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10180,7 +10096,6 @@ pub struct AddIpOverrideResponse {
 }
 
 impl AddIpOverrideResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10207,7 +10122,6 @@ pub struct RemoveIpOverrideRequest {
 }
 
 impl RemoveIpOverrideRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10272,7 +10186,6 @@ pub struct RemoveIpOverrideResponse {
 }
 
 impl RemoveIpOverrideResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10306,7 +10219,6 @@ pub struct ListIpOverridesRequest {
 }
 
 impl ListIpOverridesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10369,7 +10281,6 @@ pub struct ListIpOverridesResponse {
 }
 
 impl ListIpOverridesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10453,7 +10364,6 @@ pub struct RelatedAccountGroupMembership {
 }
 
 impl RelatedAccountGroupMembership {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10515,7 +10425,6 @@ pub struct RelatedAccountGroup {
 }
 
 impl RelatedAccountGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10555,7 +10464,6 @@ pub struct WafSettings {
 }
 
 impl WafSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10926,7 +10834,6 @@ pub struct AssessmentEnvironment {
 }
 
 impl AssessmentEnvironment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10982,7 +10889,6 @@ pub struct IpOverrideData {
 }
 
 impl IpOverrideData {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

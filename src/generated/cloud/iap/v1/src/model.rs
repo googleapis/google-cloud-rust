@@ -61,7 +61,6 @@ pub struct ListTunnelDestGroupsRequest {
 }
 
 impl ListTunnelDestGroupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -124,7 +123,6 @@ pub struct ListTunnelDestGroupsResponse {
 }
 
 impl ListTunnelDestGroupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -207,7 +205,6 @@ pub struct CreateTunnelDestGroupRequest {
 }
 
 impl CreateTunnelDestGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -292,7 +289,6 @@ pub struct GetTunnelDestGroupRequest {
 }
 
 impl GetTunnelDestGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -329,7 +325,6 @@ pub struct DeleteTunnelDestGroupRequest {
 }
 
 impl DeleteTunnelDestGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -369,7 +364,6 @@ pub struct UpdateTunnelDestGroupRequest {
 }
 
 impl UpdateTunnelDestGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -465,7 +459,6 @@ pub struct TunnelDestGroup {
 }
 
 impl TunnelDestGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -536,7 +529,6 @@ pub struct GetIapSettingsRequest {
 }
 
 impl GetIapSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -581,7 +573,6 @@ pub struct UpdateIapSettingsRequest {
 }
 
 impl UpdateIapSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -676,7 +667,6 @@ pub struct IapSettings {
 }
 
 impl IapSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -798,7 +788,6 @@ pub struct AccessSettings {
 }
 
 impl AccessSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1188,7 +1177,6 @@ pub struct GcipSettings {
 }
 
 impl GcipSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1264,7 +1252,6 @@ pub struct CorsSettings {
 }
 
 impl CorsSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1340,7 +1327,6 @@ pub struct OAuthSettings {
 }
 
 impl OAuthSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1518,7 +1504,6 @@ pub struct WorkforceIdentitySettings {
 }
 
 impl WorkforceIdentitySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1600,7 +1585,6 @@ pub struct OAuth2 {
 }
 
 impl OAuth2 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1671,7 +1655,6 @@ pub struct ReauthSettings {
 }
 
 impl ReauthSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1778,7 +1761,6 @@ pub mod reauth_settings {
         Unspecified,
         /// Prompts the user to log in again.
         Login,
-        #[allow(missing_docs)]
         #[deprecated]
         Password,
         /// User must use their secure key 2nd factor device.
@@ -2052,7 +2034,6 @@ pub struct AllowedDomainsSettings {
 }
 
 impl AllowedDomainsSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2134,7 +2115,6 @@ pub struct ApplicationSettings {
 }
 
 impl ApplicationSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2296,7 +2276,6 @@ pub struct CsmSettings {
 }
 
 impl CsmSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2363,7 +2342,6 @@ pub struct AccessDeniedPageSettings {
 }
 
 impl AccessDeniedPageSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2528,7 +2506,6 @@ pub struct AttributePropagationSettings {
 }
 
 impl AttributePropagationSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2789,7 +2766,6 @@ pub struct ValidateIapAttributeExpressionRequest {
 }
 
 impl ValidateIapAttributeExpressionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2833,7 +2809,6 @@ pub struct ValidateIapAttributeExpressionResponse {
 }
 
 impl ValidateIapAttributeExpressionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2857,7 +2832,6 @@ pub struct ListBrandsRequest {
 }
 
 impl ListBrandsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2892,7 +2866,6 @@ pub struct ListBrandsResponse {
 }
 
 impl ListBrandsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2941,7 +2914,6 @@ pub struct CreateBrandRequest {
 }
 
 impl CreateBrandRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3010,7 +2982,6 @@ pub struct GetBrandRequest {
 }
 
 impl GetBrandRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3060,7 +3031,6 @@ pub struct ListIdentityAwareProxyClientsRequest {
 }
 
 impl ListIdentityAwareProxyClientsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3123,7 +3093,6 @@ pub struct ListIdentityAwareProxyClientsResponse {
 }
 
 impl ListIdentityAwareProxyClientsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3202,7 +3171,6 @@ pub struct CreateIdentityAwareProxyClientRequest {
 }
 
 impl CreateIdentityAwareProxyClientRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3272,7 +3240,6 @@ pub struct GetIdentityAwareProxyClientRequest {
 }
 
 impl GetIdentityAwareProxyClientRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3309,7 +3276,6 @@ pub struct ResetIdentityAwareProxyClientSecretRequest {
 }
 
 impl ResetIdentityAwareProxyClientSecretRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3346,7 +3312,6 @@ pub struct DeleteIdentityAwareProxyClientRequest {
 }
 
 impl DeleteIdentityAwareProxyClientRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3394,7 +3359,6 @@ pub struct Brand {
 }
 
 impl Brand {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3474,7 +3438,6 @@ pub struct IdentityAwareProxyClient {
 }
 
 impl IdentityAwareProxyClient {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

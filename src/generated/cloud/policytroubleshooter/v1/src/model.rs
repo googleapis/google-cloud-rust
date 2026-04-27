@@ -50,7 +50,6 @@ pub struct TroubleshootIamPolicyRequest {
 }
 
 impl TroubleshootIamPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -125,7 +124,6 @@ pub struct TroubleshootIamPolicyResponse {
 }
 
 impl TroubleshootIamPolicyResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -230,7 +228,6 @@ pub struct AccessTuple {
 }
 
 impl AccessTuple {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -332,7 +329,6 @@ pub struct ExplainedPolicy {
 }
 
 impl ExplainedPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -516,7 +512,6 @@ pub struct BindingExplanation {
 }
 
 impl BindingExplanation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -686,7 +681,6 @@ pub mod binding_explanation {
     }
 
     impl AnnotatedMembership {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

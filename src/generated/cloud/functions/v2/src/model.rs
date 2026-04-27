@@ -97,7 +97,6 @@ pub struct Function {
 }
 
 impl Function {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -586,7 +585,6 @@ pub struct StateMessage {
 }
 
 impl StateMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -813,7 +811,6 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -906,7 +903,6 @@ pub struct RepoSource {
 }
 
 impl RepoSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1117,7 +1113,6 @@ pub struct Source {
 }
 
 impl Source {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1294,7 +1289,6 @@ pub struct SourceProvenance {
 }
 
 impl SourceProvenance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1467,7 +1461,6 @@ pub struct BuildConfig {
 }
 
 impl BuildConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1911,9 +1904,7 @@ pub mod build_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RuntimeUpdatePolicy {
-        #[allow(missing_docs)]
         AutomaticUpdatePolicy(std::boxed::Box<crate::model::AutomaticUpdatePolicy>),
-        #[allow(missing_docs)]
         OnDeployUpdatePolicy(std::boxed::Box<crate::model::OnDeployUpdatePolicy>),
     }
 }
@@ -2029,7 +2020,6 @@ pub struct ServiceConfig {
 }
 
 impl ServiceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2789,7 +2779,6 @@ pub struct SecretEnvVar {
 }
 
 impl SecretEnvVar {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2879,7 +2868,6 @@ pub struct SecretVolume {
 }
 
 impl SecretVolume {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2973,7 +2961,6 @@ pub mod secret_volume {
     }
 
     impl SecretVersion {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3072,7 +3059,6 @@ pub struct EventTrigger {
 }
 
 impl EventTrigger {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3370,7 +3356,6 @@ pub struct EventFilter {
 }
 
 impl EventFilter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3437,7 +3422,6 @@ pub struct GetFunctionRequest {
 }
 
 impl GetFunctionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3510,7 +3494,6 @@ pub struct ListFunctionsRequest {
 }
 
 impl ListFunctionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3601,7 +3584,6 @@ pub struct ListFunctionsResponse {
 }
 
 impl ListFunctionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3700,7 +3682,6 @@ pub struct CreateFunctionRequest {
 }
 
 impl CreateFunctionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3784,7 +3765,6 @@ pub struct UpdateFunctionRequest {
 }
 
 impl UpdateFunctionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3873,7 +3853,6 @@ pub struct DeleteFunctionRequest {
 }
 
 impl DeleteFunctionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3932,7 +3911,6 @@ pub struct GenerateUploadUrlRequest {
 }
 
 impl GenerateUploadUrlRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4008,7 +3986,6 @@ pub struct GenerateUploadUrlResponse {
 }
 
 impl GenerateUploadUrlResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4077,7 +4054,6 @@ pub struct GenerateDownloadUrlRequest {
 }
 
 impl GenerateDownloadUrlRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4113,7 +4089,6 @@ pub struct GenerateDownloadUrlResponse {
 }
 
 impl GenerateDownloadUrlResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4153,7 +4128,6 @@ pub struct ListRuntimesRequest {
 }
 
 impl ListRuntimesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4200,7 +4174,6 @@ pub struct ListRuntimesResponse {
 }
 
 impl ListRuntimesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4269,7 +4242,6 @@ pub mod list_runtimes_response {
     }
 
     impl Runtime {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4598,7 +4570,6 @@ pub struct AutomaticUpdatePolicy {
 }
 
 impl AutomaticUpdatePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4622,7 +4593,6 @@ pub struct OnDeployUpdatePolicy {
 }
 
 impl OnDeployUpdatePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4699,7 +4669,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4945,7 +4914,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5004,7 +4972,6 @@ pub struct Stage {
 }
 
 impl Stage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

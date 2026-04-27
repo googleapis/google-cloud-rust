@@ -48,7 +48,6 @@ pub struct GetSchemaRegistryRequest {
 }
 
 impl GetSchemaRegistryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -84,7 +83,6 @@ pub struct ListSchemaRegistriesRequest {
 }
 
 impl ListSchemaRegistriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -119,7 +117,6 @@ pub struct ListSchemaRegistriesResponse {
 }
 
 impl ListSchemaRegistriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -175,7 +172,6 @@ pub struct CreateSchemaRegistryRequest {
 }
 
 impl CreateSchemaRegistryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -260,7 +256,6 @@ pub struct DeleteSchemaRegistryRequest {
 }
 
 impl DeleteSchemaRegistryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -296,7 +291,6 @@ pub struct GetContextRequest {
 }
 
 impl GetContextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -332,7 +326,6 @@ pub struct ListContextsRequest {
 }
 
 impl ListContextsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -373,7 +366,6 @@ pub struct GetSchemaRequest {
 }
 
 impl GetSchemaRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -441,7 +433,6 @@ pub struct ListSchemaTypesRequest {
 }
 
 impl ListSchemaTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -487,7 +478,6 @@ pub struct ListSchemaVersionsRequest {
 }
 
 impl ListSchemaVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -599,7 +589,6 @@ pub struct ListSubjectsRequest {
 }
 
 impl ListSubjectsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -707,7 +696,6 @@ pub struct ListSubjectsBySchemaIdRequest {
 }
 
 impl ListSubjectsBySchemaIdRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -811,7 +799,6 @@ pub struct ListVersionsRequest {
 }
 
 impl ListVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -887,7 +874,6 @@ pub struct DeleteSubjectRequest {
 }
 
 impl DeleteSubjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -961,7 +947,6 @@ pub struct GetVersionRequest {
 }
 
 impl GetVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1055,7 +1040,6 @@ pub struct CreateVersionRequest {
 }
 
 impl CreateVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1254,7 +1238,6 @@ pub struct CreateVersionResponse {
 }
 
 impl CreateVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1310,7 +1293,6 @@ pub struct LookupVersionRequest {
 }
 
 impl LookupVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1488,7 +1470,6 @@ pub struct DeleteVersionRequest {
 }
 
 impl DeleteVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1557,7 +1538,6 @@ pub struct ListReferencedSchemasRequest {
 }
 
 impl ListReferencedSchemasRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1611,7 +1591,6 @@ pub struct CheckCompatibilityRequest {
 }
 
 impl CheckCompatibilityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1752,7 +1731,6 @@ pub struct CheckCompatibilityResponse {
 }
 
 impl CheckCompatibilityResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1812,7 +1790,6 @@ pub struct GetSchemaConfigRequest {
 }
 
 impl GetSchemaConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1896,7 +1873,6 @@ pub struct UpdateSchemaConfigRequest {
 }
 
 impl UpdateSchemaConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2002,7 +1978,6 @@ pub struct DeleteSchemaConfigRequest {
 }
 
 impl DeleteSchemaConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2040,7 +2015,6 @@ pub struct GetSchemaModeRequest {
 }
 
 impl GetSchemaModeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2081,7 +2055,6 @@ pub struct UpdateSchemaModeRequest {
 }
 
 impl UpdateSchemaModeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2138,7 +2111,6 @@ pub struct DeleteSchemaModeRequest {
 }
 
 impl DeleteSchemaModeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2181,7 +2153,6 @@ pub struct SchemaRegistry {
 }
 
 impl SchemaRegistry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2243,7 +2214,6 @@ pub struct Context {
 }
 
 impl Context {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2301,7 +2271,6 @@ pub struct Schema {
 }
 
 impl Schema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2387,7 +2356,6 @@ pub mod schema {
     }
 
     impl SchemaReference {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2599,7 +2567,6 @@ pub struct SchemaSubject {
 }
 
 impl SchemaSubject {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2666,7 +2633,6 @@ pub struct SchemaVersion {
 }
 
 impl SchemaVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2792,7 +2758,6 @@ pub struct SchemaConfig {
 }
 
 impl SchemaConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3072,7 +3037,6 @@ pub struct SchemaMode {
 }
 
 impl SchemaMode {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -57,7 +57,6 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -121,7 +120,6 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -181,7 +179,6 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListConnections
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Connection {
@@ -199,7 +196,6 @@ pub struct Connection {
 }
 
 impl Connection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -268,7 +264,6 @@ impl wkt::message::Message for Connection {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Cluster {
@@ -282,7 +277,6 @@ pub struct Cluster {
 }
 
 impl Cluster {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -345,7 +339,6 @@ pub struct EgressRequest {
 }
 
 impl EgressRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -488,7 +481,6 @@ pub struct Payload {
 }
 
 impl Payload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -648,7 +640,6 @@ pub struct StreamInfo {
 }
 
 impl StreamInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -704,7 +695,6 @@ pub struct EgressResponse {
 }
 
 impl EgressResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -872,7 +862,6 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -997,7 +986,6 @@ pub struct Url {
 }
 
 impl Url {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1050,17 +1038,14 @@ impl wkt::message::Message for Url {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Header {
-    #[allow(missing_docs)]
     pub key: std::string::String,
 
-    #[allow(missing_docs)]
     pub values: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Header {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1130,7 +1115,6 @@ pub struct HttpResponse {
 }
 
 impl HttpResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

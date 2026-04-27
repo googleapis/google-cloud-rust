@@ -49,7 +49,6 @@ pub struct LookupServiceProjectAttachmentRequest {
 }
 
 impl LookupServiceProjectAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -84,7 +83,6 @@ pub struct LookupServiceProjectAttachmentResponse {
 }
 
 impl LookupServiceProjectAttachmentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -155,7 +153,6 @@ pub struct ListServiceProjectAttachmentsRequest {
 }
 
 impl ListServiceProjectAttachmentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -244,7 +241,6 @@ pub struct ListServiceProjectAttachmentsResponse {
 }
 
 impl ListServiceProjectAttachmentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -359,7 +355,6 @@ pub struct CreateServiceProjectAttachmentRequest {
 }
 
 impl CreateServiceProjectAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -456,7 +451,6 @@ pub struct GetServiceProjectAttachmentRequest {
 }
 
 impl GetServiceProjectAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -508,7 +502,6 @@ pub struct DeleteServiceProjectAttachmentRequest {
 }
 
 impl DeleteServiceProjectAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -557,7 +550,6 @@ pub struct DetachServiceProjectAttachmentRequest {
 }
 
 impl DetachServiceProjectAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -589,7 +581,6 @@ pub struct DetachServiceProjectAttachmentResponse {
 }
 
 impl DetachServiceProjectAttachmentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -627,7 +618,6 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -716,7 +706,6 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -818,7 +807,6 @@ pub struct ListDiscoveredServicesRequest {
 }
 
 impl ListDiscoveredServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -907,7 +895,6 @@ pub struct ListDiscoveredServicesResponse {
 }
 
 impl ListDiscoveredServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1021,7 +1008,6 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1115,7 +1101,6 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1152,7 +1137,6 @@ pub struct GetDiscoveredServiceRequest {
 }
 
 impl GetDiscoveredServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1193,7 +1177,6 @@ pub struct LookupDiscoveredServiceRequest {
 }
 
 impl LookupDiscoveredServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1240,7 +1223,6 @@ pub struct LookupDiscoveredServiceResponse {
 }
 
 impl LookupDiscoveredServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1322,7 +1304,6 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1440,7 +1421,6 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1501,7 +1481,6 @@ pub struct ListApplicationsRequest {
 }
 
 impl ListApplicationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1590,7 +1569,6 @@ pub struct ListApplicationsResponse {
 }
 
 impl ListApplicationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1703,7 +1681,6 @@ pub struct CreateApplicationRequest {
 }
 
 impl CreateApplicationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1797,7 +1774,6 @@ pub struct GetApplicationRequest {
 }
 
 impl GetApplicationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1858,7 +1834,6 @@ pub struct UpdateApplicationRequest {
 }
 
 impl UpdateApplicationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1976,7 +1951,6 @@ pub struct DeleteApplicationRequest {
 }
 
 impl DeleteApplicationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2038,7 +2012,6 @@ pub struct ListWorkloadsRequest {
 }
 
 impl ListWorkloadsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2127,7 +2100,6 @@ pub struct ListWorkloadsResponse {
 }
 
 impl ListWorkloadsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2229,7 +2201,6 @@ pub struct ListDiscoveredWorkloadsRequest {
 }
 
 impl ListDiscoveredWorkloadsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2318,7 +2289,6 @@ pub struct ListDiscoveredWorkloadsResponse {
 }
 
 impl ListDiscoveredWorkloadsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2432,7 +2402,6 @@ pub struct CreateWorkloadRequest {
 }
 
 impl CreateWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2526,7 +2495,6 @@ pub struct GetWorkloadRequest {
 }
 
 impl GetWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2563,7 +2531,6 @@ pub struct GetDiscoveredWorkloadRequest {
 }
 
 impl GetDiscoveredWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2604,7 +2571,6 @@ pub struct LookupDiscoveredWorkloadRequest {
 }
 
 impl LookupDiscoveredWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2651,7 +2617,6 @@ pub struct LookupDiscoveredWorkloadResponse {
 }
 
 impl LookupDiscoveredWorkloadResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2733,7 +2698,6 @@ pub struct UpdateWorkloadRequest {
 }
 
 impl UpdateWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2851,7 +2815,6 @@ pub struct DeleteWorkloadRequest {
 }
 
 impl DeleteWorkloadRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2924,7 +2887,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3105,7 +3067,6 @@ pub struct Application {
 }
 
 impl Application {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3471,7 +3432,6 @@ pub struct Scope {
 }
 
 impl Scope {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3659,7 +3619,6 @@ pub struct Attributes {
 }
 
 impl Attributes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3814,7 +3773,6 @@ pub struct Criticality {
 }
 
 impl Criticality {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4007,7 +3965,6 @@ pub struct Environment {
 }
 
 impl Environment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4204,7 +4161,6 @@ pub struct ContactInfo {
 }
 
 impl ContactInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4289,7 +4245,6 @@ pub struct Service {
 }
 
 impl Service {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4708,7 +4663,6 @@ pub struct ServiceReference {
 }
 
 impl ServiceReference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4752,7 +4706,6 @@ pub struct ServiceProperties {
 }
 
 impl ServiceProperties {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4822,7 +4775,6 @@ pub struct DiscoveredService {
 }
 
 impl DiscoveredService {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4943,7 +4895,6 @@ pub struct ServiceProjectAttachment {
 }
 
 impl ServiceProjectAttachment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5239,7 +5190,6 @@ pub struct Workload {
 }
 
 impl Workload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5657,7 +5607,6 @@ pub struct WorkloadReference {
 }
 
 impl WorkloadReference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5701,7 +5650,6 @@ pub struct WorkloadProperties {
 }
 
 impl WorkloadProperties {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5772,7 +5720,6 @@ pub struct DiscoveredWorkload {
 }
 
 impl DiscoveredWorkload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

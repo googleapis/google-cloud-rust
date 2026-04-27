@@ -37,7 +37,6 @@ pub struct ArrowSchema {
 }
 
 impl ArrowSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -71,7 +70,6 @@ pub struct ArrowRecordBatch {
 }
 
 impl ArrowRecordBatch {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -116,7 +114,6 @@ pub struct ArrowSerializationOptions {
 }
 
 impl ArrowSerializationOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -454,7 +451,6 @@ pub struct AvroSchema {
 }
 
 impl AvroSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -488,7 +484,6 @@ pub struct AvroRows {
 }
 
 impl AvroRows {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -541,7 +536,6 @@ pub struct AvroSerializationOptions {
 }
 
 impl AvroSerializationOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -747,7 +741,6 @@ pub struct ProtoSchema {
 }
 
 impl ProtoSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -777,7 +770,6 @@ impl wkt::message::Message for ProtoSchema {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtoRows {
@@ -791,7 +783,6 @@ pub struct ProtoRows {
 }
 
 impl ProtoRows {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -851,7 +842,6 @@ pub struct CreateReadSessionRequest {
 }
 
 impl CreateReadSessionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -915,7 +905,6 @@ pub struct ReadRowsRequest {
 }
 
 impl ReadRowsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -951,7 +940,6 @@ pub struct ThrottleState {
 }
 
 impl ThrottleState {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -980,7 +968,6 @@ pub struct StreamStats {
 }
 
 impl StreamStats {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1015,7 +1002,6 @@ pub mod stream_stats {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Progress {
@@ -1041,7 +1027,6 @@ pub mod stream_stats {
     }
 
     impl Progress {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1111,7 +1096,6 @@ pub struct ReadRowsResponse {
 }
 
 impl ReadRowsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1402,7 +1386,6 @@ pub struct SplitReadStreamRequest {
 }
 
 impl SplitReadStreamRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1443,7 +1426,6 @@ pub struct SplitReadStreamResponse {
 }
 
 impl SplitReadStreamResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1506,7 +1488,6 @@ pub struct CreateWriteStreamRequest {
 }
 
 impl CreateWriteStreamRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1645,7 +1626,6 @@ pub struct AppendRowsRequest {
 }
 
 impl AppendRowsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1802,7 +1782,6 @@ pub mod append_rows_request {
     }
 
     impl ArrowData {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1876,7 +1855,6 @@ pub mod append_rows_request {
     }
 
     impl ProtoData {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2112,14 +2090,12 @@ pub struct AppendRowsResponse {
     /// corresponding request.
     pub write_stream: std::string::String,
 
-    #[allow(missing_docs)]
     pub response: std::option::Option<crate::model::append_rows_response::Response>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AppendRowsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2256,7 +2232,6 @@ pub mod append_rows_response {
     }
 
     impl AppendResult {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2286,7 +2261,6 @@ pub mod append_rows_response {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Response {
@@ -2349,7 +2323,6 @@ pub struct GetWriteStreamRequest {
 }
 
 impl GetWriteStreamRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2388,7 +2361,6 @@ pub struct BatchCommitWriteStreamsRequest {
 }
 
 impl BatchCommitWriteStreamsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2437,7 +2409,6 @@ pub struct BatchCommitWriteStreamsResponse {
 }
 
 impl BatchCommitWriteStreamsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2490,7 +2461,6 @@ pub struct FinalizeWriteStreamRequest {
 }
 
 impl FinalizeWriteStreamRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2519,7 +2489,6 @@ pub struct FinalizeWriteStreamResponse {
 }
 
 impl FinalizeWriteStreamResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2552,7 +2521,6 @@ pub struct FlushRowsRequest {
 }
 
 impl FlushRowsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2599,7 +2567,6 @@ pub struct FlushRowsResponse {
 }
 
 impl FlushRowsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2637,7 +2604,6 @@ pub struct StorageError {
 }
 
 impl StorageError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2919,7 +2885,6 @@ pub struct RowError {
 }
 
 impl RowError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3154,7 +3119,6 @@ pub struct ReadSession {
 }
 
 impl ReadSession {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3359,7 +3323,6 @@ pub mod read_session {
     }
 
     impl TableModifiers {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3468,7 +3431,6 @@ pub mod read_session {
             crate::model::read_session::table_read_options::ResponseCompressionCodec,
         >,
 
-        #[allow(missing_docs)]
         pub output_format_serialization_options: std::option::Option<
             crate::model::read_session::table_read_options::OutputFormatSerializationOptions,
         >,
@@ -3477,7 +3439,6 @@ pub mod read_session {
     }
 
     impl TableReadOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3767,7 +3728,6 @@ pub mod read_session {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum OutputFormatSerializationOptions {
@@ -3835,7 +3795,6 @@ pub struct ReadStream {
 }
 
 impl ReadStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3892,7 +3851,6 @@ pub struct WriteStream {
 }
 
 impl WriteStream {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4273,7 +4231,6 @@ pub struct TableSchema {
 }
 
 impl TableSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4395,7 +4352,6 @@ pub struct TableFieldSchema {
 }
 
 impl TableFieldSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4527,7 +4483,6 @@ pub mod table_field_schema {
     }
 
     impl FieldElementType {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4548,7 +4503,6 @@ pub mod table_field_schema {
         }
     }
 
-    /// Enum for [Type].
     ///
     /// # Working with unknown values
     ///
@@ -4778,7 +4732,6 @@ pub mod table_field_schema {
         }
     }
 
-    /// Enum for [Mode].
     ///
     /// # Working with unknown values
     ///
@@ -4798,11 +4751,8 @@ pub mod table_field_schema {
     pub enum Mode {
         /// Illegal value
         Unspecified,
-        #[allow(missing_docs)]
         Nullable,
-        #[allow(missing_docs)]
         Required,
-        #[allow(missing_docs)]
         Repeated,
         /// If set, the enum was initialized with an unknown value.
         ///

@@ -64,7 +64,6 @@ pub struct Operation {
 }
 
 impl Operation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -259,7 +258,6 @@ pub struct GetOperationRequest {
 }
 
 impl GetOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -318,7 +316,6 @@ pub struct ListOperationsRequest {
 }
 
 impl ListOperationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -413,7 +410,6 @@ pub struct ListOperationsResponse {
 }
 
 impl ListOperationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -504,7 +500,6 @@ pub struct CancelOperationRequest {
 }
 
 impl CancelOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -542,7 +537,6 @@ pub struct DeleteOperationRequest {
 }
 
 impl DeleteOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -583,7 +577,6 @@ pub struct WaitOperationRequest {
 }
 
 impl WaitOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -678,7 +671,6 @@ pub struct OperationInfo {
 }
 
 impl OperationInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

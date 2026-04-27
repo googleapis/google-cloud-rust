@@ -45,7 +45,6 @@ pub struct ImageClassificationPredictionParams {
 }
 
 impl ImageClassificationPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -98,7 +97,6 @@ pub struct ImageObjectDetectionPredictionParams {
 }
 
 impl ImageObjectDetectionPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -148,7 +146,6 @@ pub struct ImageSegmentationPredictionParams {
 }
 
 impl ImageSegmentationPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -189,7 +186,6 @@ pub struct VideoActionRecognitionPredictionParams {
 }
 
 impl VideoActionRecognitionPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -267,7 +263,6 @@ pub struct VideoClassificationPredictionParams {
 }
 
 impl VideoClassificationPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -363,7 +358,6 @@ pub struct VideoObjectTrackingPredictionParams {
 }
 
 impl VideoObjectTrackingPredictionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

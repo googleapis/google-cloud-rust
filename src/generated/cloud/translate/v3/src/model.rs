@@ -68,7 +68,6 @@ pub struct AdaptiveMtDataset {
 }
 
 impl AdaptiveMtDataset {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -227,7 +226,6 @@ pub struct CreateAdaptiveMtDatasetRequest {
 }
 
 impl CreateAdaptiveMtDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -296,7 +294,6 @@ pub struct DeleteAdaptiveMtDatasetRequest {
 }
 
 impl DeleteAdaptiveMtDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -332,7 +329,6 @@ pub struct GetAdaptiveMtDatasetRequest {
 }
 
 impl GetAdaptiveMtDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,7 +380,6 @@ pub struct ListAdaptiveMtDatasetsRequest {
 }
 
 impl ListAdaptiveMtDatasetsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -460,7 +455,6 @@ pub struct ListAdaptiveMtDatasetsResponse {
 }
 
 impl ListAdaptiveMtDatasetsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -553,7 +547,6 @@ pub struct AdaptiveMtTranslateRequest {
 }
 
 impl AdaptiveMtTranslateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -703,7 +696,6 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentencePair {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -757,7 +749,6 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentencePairList {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -814,7 +805,6 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl ReferenceSentenceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -906,7 +896,6 @@ pub mod adaptive_mt_translate_request {
     }
 
     impl GlossaryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -969,7 +958,6 @@ pub struct AdaptiveMtTranslation {
 }
 
 impl AdaptiveMtTranslation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1011,7 +999,6 @@ pub struct AdaptiveMtTranslateResponse {
 }
 
 impl AdaptiveMtTranslateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1103,7 +1090,6 @@ pub struct AdaptiveMtFile {
 }
 
 impl AdaptiveMtFile {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1229,7 +1215,6 @@ pub struct GetAdaptiveMtFileRequest {
 }
 
 impl GetAdaptiveMtFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1265,7 +1250,6 @@ pub struct DeleteAdaptiveMtFileRequest {
 }
 
 impl DeleteAdaptiveMtFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1304,7 +1288,6 @@ pub struct ImportAdaptiveMtFileRequest {
 }
 
 impl ImportAdaptiveMtFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1461,7 +1444,6 @@ pub struct ImportAdaptiveMtFileResponse {
 }
 
 impl ImportAdaptiveMtFileResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1529,7 +1511,6 @@ pub struct ListAdaptiveMtFilesRequest {
 }
 
 impl ListAdaptiveMtFilesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1593,7 +1574,6 @@ pub struct ListAdaptiveMtFilesResponse {
 }
 
 impl ListAdaptiveMtFilesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1677,7 +1657,6 @@ pub struct AdaptiveMtSentence {
 }
 
 impl AdaptiveMtSentence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1802,7 +1781,6 @@ pub struct ListAdaptiveMtSentencesRequest {
     /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
     pub parent: std::string::String,
 
-    #[allow(missing_docs)]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1816,7 +1794,6 @@ pub struct ListAdaptiveMtSentencesRequest {
 }
 
 impl ListAdaptiveMtSentencesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1878,7 +1855,6 @@ pub struct ListAdaptiveMtSentencesResponse {
 }
 
 impl ListAdaptiveMtSentencesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1953,7 +1929,6 @@ pub struct ImportDataRequest {
 }
 
 impl ImportDataRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2021,7 +1996,6 @@ pub struct DatasetInputConfig {
 }
 
 impl DatasetInputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2077,7 +2051,6 @@ pub mod dataset_input_config {
     }
 
     impl InputFile {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2202,7 +2175,6 @@ pub struct ImportDataMetadata {
 }
 
 impl ImportDataMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2343,7 +2315,6 @@ pub struct ExportDataRequest {
 }
 
 impl ExportDataRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2411,7 +2382,6 @@ pub struct DatasetOutputConfig {
 }
 
 impl DatasetOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2519,7 +2489,6 @@ pub struct ExportDataMetadata {
 }
 
 impl ExportDataMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2656,7 +2625,6 @@ pub struct DeleteDatasetRequest {
 }
 
 impl DeleteDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2700,7 +2668,6 @@ pub struct DeleteDatasetMetadata {
 }
 
 impl DeleteDatasetMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2837,7 +2804,6 @@ pub struct GetDatasetRequest {
 }
 
 impl GetDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2882,7 +2848,6 @@ pub struct ListDatasetsRequest {
 }
 
 impl ListDatasetsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2946,7 +2911,6 @@ pub struct ListDatasetsResponse {
 }
 
 impl ListDatasetsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3020,7 +2984,6 @@ pub struct CreateDatasetRequest {
 }
 
 impl CreateDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3097,7 +3060,6 @@ pub struct CreateDatasetMetadata {
 }
 
 impl CreateDatasetMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3250,7 +3212,6 @@ pub struct ListExamplesRequest {
 }
 
 impl ListExamplesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3326,7 +3287,6 @@ pub struct ListExamplesResponse {
 }
 
 impl ListExamplesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3407,7 +3367,6 @@ pub struct Example {
 }
 
 impl Example {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3479,7 +3438,6 @@ pub struct BatchTransferResourcesResponse {
 }
 
 impl BatchTransferResourcesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3538,7 +3496,6 @@ pub mod batch_transfer_resources_response {
     }
 
     impl TransferResourceResponse {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3650,7 +3607,6 @@ pub struct Dataset {
 }
 
 impl Dataset {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3845,7 +3801,6 @@ pub struct CreateModelRequest {
 }
 
 impl CreateModelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3922,7 +3877,6 @@ pub struct CreateModelMetadata {
 }
 
 impl CreateModelMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4074,7 +4028,6 @@ pub struct ListModelsRequest {
 }
 
 impl ListModelsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4150,7 +4103,6 @@ pub struct ListModelsResponse {
 }
 
 impl ListModelsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4221,7 +4173,6 @@ pub struct GetModelRequest {
 }
 
 impl GetModelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4256,7 +4207,6 @@ pub struct DeleteModelRequest {
 }
 
 impl DeleteModelRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4300,7 +4250,6 @@ pub struct DeleteModelMetadata {
 }
 
 impl DeleteModelMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4470,7 +4419,6 @@ pub struct Model {
 }
 
 impl Model {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4661,7 +4609,6 @@ pub struct GcsInputSource {
 }
 
 impl GcsInputSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4702,7 +4649,6 @@ pub struct FileInputSource {
 }
 
 impl FileInputSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4763,7 +4709,6 @@ pub struct GcsOutputDestination {
 }
 
 impl GcsOutputDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4810,7 +4755,6 @@ pub struct GlossaryEntry {
 }
 
 impl GlossaryEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4964,7 +4908,6 @@ pub mod glossary_entry {
     }
 
     impl GlossaryTermsPair {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5056,7 +4999,6 @@ pub mod glossary_entry {
     }
 
     impl GlossaryTermsSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5116,7 +5058,6 @@ pub struct GlossaryTerm {
 }
 
 impl GlossaryTerm {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5164,7 +5105,6 @@ pub struct TransliterationConfig {
 }
 
 impl TransliterationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5274,7 +5214,6 @@ pub struct TranslateTextRequest {
 }
 
 impl TranslateTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5456,7 +5395,6 @@ impl wkt::message::Message for TranslateTextRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TranslateTextResponse {
@@ -5481,7 +5419,6 @@ pub struct TranslateTextResponse {
 }
 
 impl TranslateTextResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5569,7 +5506,6 @@ pub struct Translation {
 }
 
 impl Translation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5683,7 +5619,6 @@ pub struct RomanizeTextRequest {
 }
 
 impl RomanizeTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5758,7 +5693,6 @@ pub struct Romanization {
 }
 
 impl Romanization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5812,7 +5746,6 @@ pub struct RomanizeTextResponse {
 }
 
 impl RomanizeTextResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5896,7 +5829,6 @@ pub struct DetectLanguageRequest {
 }
 
 impl DetectLanguageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6047,7 +5979,6 @@ pub struct DetectedLanguage {
 }
 
 impl DetectedLanguage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6095,7 +6026,6 @@ pub struct DetectLanguageResponse {
 }
 
 impl DetectLanguageResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6172,7 +6102,6 @@ pub struct GetSupportedLanguagesRequest {
 }
 
 impl GetSupportedLanguagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6235,7 +6164,6 @@ pub struct SupportedLanguages {
 }
 
 impl SupportedLanguages {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6294,7 +6222,6 @@ pub struct SupportedLanguage {
 }
 
 impl SupportedLanguage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6365,7 +6292,6 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6406,7 +6332,6 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6531,7 +6456,6 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6569,7 +6493,6 @@ pub struct OutputConfig {
 }
 
 impl OutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6758,7 +6681,6 @@ pub struct DocumentInputConfig {
 }
 
 impl DocumentInputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6923,7 +6845,6 @@ pub struct DocumentOutputConfig {
 }
 
 impl DocumentOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7168,7 +7089,6 @@ pub struct TranslateDocumentRequest {
 }
 
 impl TranslateDocumentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7431,7 +7351,6 @@ pub struct DocumentTranslation {
 }
 
 impl DocumentTranslation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7518,7 +7437,6 @@ pub struct TranslateDocumentResponse {
 }
 
 impl TranslateDocumentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7717,7 +7635,6 @@ pub struct BatchTranslateTextRequest {
 }
 
 impl BatchTranslateTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7918,7 +7835,6 @@ pub struct BatchTranslateMetadata {
 }
 
 impl BatchTranslateMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8212,7 +8128,6 @@ pub struct BatchTranslateResponse {
 }
 
 impl BatchTranslateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8337,7 +8252,6 @@ pub struct GlossaryInputConfig {
 }
 
 impl GlossaryInputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8473,7 +8387,6 @@ pub struct Glossary {
 }
 
 impl Glossary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8740,7 +8653,6 @@ pub mod glossary {
     }
 
     impl LanguageCodePair {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8795,7 +8707,6 @@ pub mod glossary {
     }
 
     impl LanguageCodesSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8849,7 +8760,6 @@ pub struct CreateGlossaryRequest {
 }
 
 impl CreateGlossaryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8921,7 +8831,6 @@ pub struct UpdateGlossaryRequest {
 }
 
 impl UpdateGlossaryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9010,7 +8919,6 @@ pub struct GetGlossaryRequest {
 }
 
 impl GetGlossaryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9045,7 +8953,6 @@ pub struct DeleteGlossaryRequest {
 }
 
 impl DeleteGlossaryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9108,7 +9015,6 @@ pub struct ListGlossariesRequest {
 }
 
 impl ListGlossariesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9184,7 +9090,6 @@ pub struct ListGlossariesResponse {
 }
 
 impl ListGlossariesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9255,7 +9160,6 @@ pub struct GetGlossaryEntryRequest {
 }
 
 impl GetGlossaryEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9290,7 +9194,6 @@ pub struct DeleteGlossaryEntryRequest {
 }
 
 impl DeleteGlossaryEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9336,7 +9239,6 @@ pub struct ListGlossaryEntriesRequest {
 }
 
 impl ListGlossaryEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9399,7 +9301,6 @@ pub struct ListGlossaryEntriesResponse {
 }
 
 impl ListGlossaryEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9473,7 +9374,6 @@ pub struct CreateGlossaryEntryRequest {
 }
 
 impl CreateGlossaryEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9541,7 +9441,6 @@ pub struct UpdateGlossaryEntryRequest {
 }
 
 impl UpdateGlossaryEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9607,7 +9506,6 @@ pub struct CreateGlossaryMetadata {
 }
 
 impl CreateGlossaryMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9864,7 +9762,6 @@ pub struct UpdateGlossaryMetadata {
 }
 
 impl UpdateGlossaryMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10141,7 +10038,6 @@ pub struct DeleteGlossaryMetadata {
 }
 
 impl DeleteGlossaryMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10401,7 +10297,6 @@ pub struct DeleteGlossaryResponse {
 }
 
 impl DeleteGlossaryResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10581,7 +10476,6 @@ pub struct BatchTranslateDocumentRequest {
 }
 
 impl BatchTranslateDocumentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10809,7 +10703,6 @@ pub struct BatchDocumentInputConfig {
 }
 
 impl BatchDocumentInputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10924,7 +10817,6 @@ pub struct BatchDocumentOutputConfig {
 }
 
 impl BatchDocumentOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11113,7 +11005,6 @@ pub struct BatchTranslateDocumentResponse {
 }
 
 impl BatchTranslateDocumentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11332,7 +11223,6 @@ pub struct BatchTranslateDocumentMetadata {
 }
 
 impl BatchTranslateDocumentMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11680,7 +11570,6 @@ pub struct TranslateTextGlossaryConfig {
 }
 
 impl TranslateTextGlossaryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

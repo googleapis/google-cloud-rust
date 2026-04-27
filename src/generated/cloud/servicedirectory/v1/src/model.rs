@@ -100,7 +100,6 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -252,7 +251,6 @@ pub struct ResolveServiceRequest {
 }
 
 impl ResolveServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,14 +305,12 @@ impl wkt::message::Message for ResolveServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResolveServiceResponse {
-    #[allow(missing_docs)]
     pub service: std::option::Option<crate::model::Service>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ResolveServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,7 +380,6 @@ pub struct Namespace {
 }
 
 impl Namespace {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -468,7 +463,6 @@ pub struct CreateNamespaceRequest {
 }
 
 impl CreateNamespaceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -601,7 +595,6 @@ pub struct ListNamespacesRequest {
 }
 
 impl ListNamespacesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -691,7 +684,6 @@ pub struct ListNamespacesResponse {
 }
 
 impl ListNamespacesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -765,7 +757,6 @@ pub struct GetNamespaceRequest {
 }
 
 impl GetNamespaceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -806,7 +797,6 @@ pub struct UpdateNamespaceRequest {
 }
 
 impl UpdateNamespaceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -898,7 +888,6 @@ pub struct DeleteNamespaceRequest {
 }
 
 impl DeleteNamespaceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -948,7 +937,6 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1084,7 +1072,6 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1174,7 +1161,6 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1250,7 +1236,6 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1291,7 +1276,6 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1383,7 +1367,6 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1433,7 +1416,6 @@ pub struct CreateEndpointRequest {
 }
 
 impl CreateEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1572,7 +1554,6 @@ pub struct ListEndpointsRequest {
 }
 
 impl ListEndpointsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1662,7 +1643,6 @@ pub struct ListEndpointsResponse {
 }
 
 impl ListEndpointsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1738,7 +1718,6 @@ pub struct GetEndpointRequest {
 }
 
 impl GetEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1779,7 +1758,6 @@ pub struct UpdateEndpointRequest {
 }
 
 impl UpdateEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1871,7 +1849,6 @@ pub struct DeleteEndpointRequest {
 }
 
 impl DeleteEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1947,7 +1924,6 @@ pub struct Service {
 }
 
 impl Service {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

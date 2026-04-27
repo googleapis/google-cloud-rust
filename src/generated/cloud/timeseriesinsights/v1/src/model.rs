@@ -58,7 +58,6 @@ pub struct BigqueryMapping {
 }
 
 impl BigqueryMapping {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,7 +136,6 @@ pub struct DataSource {
 }
 
 impl DataSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -230,7 +228,6 @@ pub struct DataSet {
 }
 
 impl DataSet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -569,7 +566,6 @@ pub struct EventDimension {
 }
 
 impl EventDimension {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -810,7 +806,6 @@ pub struct Event {
 }
 
 impl Event {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -923,7 +918,6 @@ pub struct AppendEventsRequest {
 }
 
 impl AppendEventsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -980,7 +974,6 @@ pub struct AppendEventsResponse {
 }
 
 impl AppendEventsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1029,7 +1022,6 @@ pub struct CreateDataSetRequest {
 }
 
 impl CreateDataSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1097,7 +1089,6 @@ pub struct DeleteDataSetRequest {
 }
 
 impl DeleteDataSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1138,7 +1129,6 @@ pub struct ListDataSetsRequest {
 }
 
 impl ListDataSetsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1200,7 +1190,6 @@ pub struct ListDataSetsResponse {
 }
 
 impl ListDataSetsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1277,7 +1266,6 @@ pub struct PinnedDimension {
 }
 
 impl PinnedDimension {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1468,7 +1456,6 @@ pub struct ForecastParams {
 }
 
 impl ForecastParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1743,7 +1730,6 @@ pub struct TimeseriesPoint {
 }
 
 impl TimeseriesPoint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1830,7 +1816,6 @@ pub struct Timeseries {
 }
 
 impl Timeseries {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1981,7 +1966,6 @@ pub struct EvaluatedSlice {
 }
 
 impl EvaluatedSlice {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2301,7 +2285,6 @@ pub struct SlicingParams {
 }
 
 impl SlicingParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2488,7 +2471,6 @@ pub struct TimeseriesParams {
 }
 
 impl TimeseriesParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2831,7 +2813,6 @@ pub struct QueryDataSetRequest {
 }
 
 impl QueryDataSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3051,7 +3032,6 @@ pub struct QueryDataSetResponse {
 }
 
 impl QueryDataSetResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3131,7 +3111,6 @@ pub struct EvaluateSliceRequest {
 }
 
 impl EvaluateSliceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3317,7 +3296,6 @@ pub struct EvaluateTimeseriesRequest {
 }
 
 impl EvaluateTimeseriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

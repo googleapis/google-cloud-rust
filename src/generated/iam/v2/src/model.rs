@@ -124,7 +124,6 @@ pub struct DenyRule {
 }
 
 impl DenyRule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -298,7 +297,6 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -535,14 +533,12 @@ pub struct PolicyRule {
     /// characters.
     pub description: std::string::String,
 
-    #[allow(missing_docs)]
     pub kind: std::option::Option<crate::model::policy_rule::Kind>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyRule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -623,7 +619,6 @@ pub mod policy_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -663,7 +658,6 @@ pub struct ListPoliciesRequest {
 }
 
 impl ListPoliciesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -728,7 +722,6 @@ pub struct ListPoliciesResponse {
 }
 
 impl ListPoliciesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -807,7 +800,6 @@ pub struct GetPolicyRequest {
 }
 
 impl GetPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -860,7 +852,6 @@ pub struct CreatePolicyRequest {
 }
 
 impl CreatePolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -944,7 +935,6 @@ pub struct UpdatePolicyRequest {
 }
 
 impl UpdatePolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1016,7 +1006,6 @@ pub struct DeletePolicyRequest {
 }
 
 impl DeletePolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1063,7 +1052,6 @@ pub struct PolicyOperationMetadata {
 }
 
 impl PolicyOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

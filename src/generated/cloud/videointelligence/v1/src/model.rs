@@ -82,7 +82,6 @@ pub struct AnnotateVideoRequest {
 }
 
 impl AnnotateVideoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -235,7 +234,6 @@ pub struct VideoContext {
 }
 
 impl VideoContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -575,7 +573,6 @@ pub struct LabelDetectionConfig {
 }
 
 impl LabelDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -666,7 +663,6 @@ pub struct ShotChangeDetectionConfig {
 }
 
 impl ShotChangeDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -703,7 +699,6 @@ pub struct ObjectTrackingConfig {
 }
 
 impl ObjectTrackingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -747,7 +742,6 @@ pub struct FaceDetectionConfig {
 }
 
 impl FaceDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -817,7 +811,6 @@ pub struct PersonDetectionConfig {
 }
 
 impl PersonDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -878,7 +871,6 @@ pub struct ExplicitContentDetectionConfig {
 }
 
 impl ExplicitContentDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -922,7 +914,6 @@ pub struct TextDetectionConfig {
 }
 
 impl TextDetectionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -979,7 +970,6 @@ pub struct VideoSegment {
 }
 
 impl VideoSegment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1071,7 +1061,6 @@ pub struct LabelSegment {
 }
 
 impl LabelSegment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1143,7 +1132,6 @@ pub struct LabelFrame {
 }
 
 impl LabelFrame {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1219,7 +1207,6 @@ pub struct Entity {
 }
 
 impl Entity {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1293,7 +1280,6 @@ pub struct LabelAnnotation {
 }
 
 impl LabelAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1431,7 +1417,6 @@ pub struct ExplicitContentFrame {
 }
 
 impl ExplicitContentFrame {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1510,7 +1495,6 @@ pub struct ExplicitContentAnnotation {
 }
 
 impl ExplicitContentAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1578,7 +1562,6 @@ pub struct NormalizedBoundingBox {
 }
 
 impl NormalizedBoundingBox {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1655,7 +1638,6 @@ pub struct FaceDetectionAnnotation {
 }
 
 impl FaceDetectionAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1727,7 +1709,6 @@ pub struct PersonDetectionAnnotation {
 }
 
 impl PersonDetectionAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1784,7 +1765,6 @@ pub struct FaceSegment {
 }
 
 impl FaceSegment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1847,7 +1827,6 @@ pub struct FaceFrame {
 }
 
 impl FaceFrame {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1932,7 +1911,6 @@ pub struct FaceAnnotation {
 }
 
 impl FaceAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2023,7 +2001,6 @@ pub struct TimestampedObject {
 }
 
 impl TimestampedObject {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2165,7 +2142,6 @@ pub struct Track {
 }
 
 impl Track {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2285,7 +2261,6 @@ pub struct DetectedAttribute {
 }
 
 impl DetectedAttribute {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2352,7 +2327,6 @@ pub struct DetectedLandmark {
 }
 
 impl DetectedLandmark {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2497,7 +2471,6 @@ pub struct VideoAnnotationResults {
 }
 
 impl VideoAnnotationResults {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2920,7 +2893,6 @@ pub struct AnnotateVideoResponse {
 }
 
 impl AnnotateVideoResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2984,7 +2956,6 @@ pub struct VideoAnnotationProgress {
 }
 
 impl VideoAnnotationProgress {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3147,7 +3118,6 @@ pub struct AnnotateVideoProgress {
 }
 
 impl AnnotateVideoProgress {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3243,7 +3213,6 @@ pub struct SpeechTranscriptionConfig {
 }
 
 impl SpeechTranscriptionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3395,7 +3364,6 @@ pub struct SpeechContext {
 }
 
 impl SpeechContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3443,7 +3411,6 @@ pub struct SpeechTranscription {
 }
 
 impl SpeechTranscription {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3513,7 +3480,6 @@ pub struct SpeechRecognitionAlternative {
 }
 
 impl SpeechRecognitionAlternative {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3610,7 +3576,6 @@ pub struct WordInfo {
 }
 
 impl WordInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3740,7 +3705,6 @@ pub struct NormalizedVertex {
 }
 
 impl NormalizedVertex {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3803,7 +3767,6 @@ pub struct NormalizedBoundingPoly {
 }
 
 impl NormalizedBoundingPoly {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3855,7 +3818,6 @@ pub struct TextSegment {
 }
 
 impl TextSegment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3950,7 +3912,6 @@ pub struct TextFrame {
 }
 
 impl TextFrame {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4047,7 +4008,6 @@ pub struct TextAnnotation {
 }
 
 impl TextAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4120,7 +4080,6 @@ pub struct ObjectTrackingFrame {
 }
 
 impl ObjectTrackingFrame {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4225,7 +4184,6 @@ pub struct ObjectTrackingAnnotation {
 }
 
 impl ObjectTrackingAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4452,7 +4410,6 @@ pub struct LogoRecognitionAnnotation {
 }
 
 impl LogoRecognitionAnnotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

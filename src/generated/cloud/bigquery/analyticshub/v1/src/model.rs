@@ -91,7 +91,6 @@ pub struct DataExchange {
 }
 
 impl DataExchange {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -338,7 +337,6 @@ pub struct QueryTemplate {
 }
 
 impl QueryTemplate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -705,7 +703,6 @@ pub struct Routine {
 }
 
 impl Routine {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -897,7 +894,6 @@ pub struct CreateQueryTemplateRequest {
 }
 
 impl CreateQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -982,7 +978,6 @@ pub struct GetQueryTemplateRequest {
 }
 
 impl GetQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1026,7 +1021,6 @@ pub struct ListQueryTemplatesRequest {
 }
 
 impl ListQueryTemplatesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1088,7 +1082,6 @@ pub struct ListQueryTemplatesResponse {
 }
 
 impl ListQueryTemplatesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1164,7 +1157,6 @@ pub struct UpdateQueryTemplateRequest {
 }
 
 impl UpdateQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1255,7 +1247,6 @@ pub struct DeleteQueryTemplateRequest {
 }
 
 impl DeleteQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1292,7 +1283,6 @@ pub struct SubmitQueryTemplateRequest {
 }
 
 impl SubmitQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1329,7 +1319,6 @@ pub struct ApproveQueryTemplateRequest {
 }
 
 impl ApproveQueryTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1358,14 +1347,12 @@ impl wkt::message::Message for ApproveQueryTemplateRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SharingEnvironmentConfig {
-    #[allow(missing_docs)]
     pub environment: std::option::Option<crate::model::sharing_environment_config::Environment>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SharingEnvironmentConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1504,7 +1491,6 @@ pub mod sharing_environment_config {
     }
 
     impl DefaultExchangeConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1539,7 +1525,6 @@ pub mod sharing_environment_config {
     }
 
     impl DcrExchangeConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1619,7 +1604,6 @@ pub mod sharing_environment_config {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Environment {
@@ -1649,7 +1633,6 @@ pub struct DataProvider {
 }
 
 impl DataProvider {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1700,7 +1683,6 @@ pub struct Publisher {
 }
 
 impl Publisher {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1736,7 +1718,6 @@ impl wkt::message::Message for Publisher {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDatasetReference {
@@ -1752,7 +1733,6 @@ pub struct DestinationDatasetReference {
 }
 
 impl DestinationDatasetReference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1822,7 +1802,6 @@ pub struct DestinationDataset {
 }
 
 impl DestinationDataset {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1994,7 +1973,6 @@ pub struct DestinationPubSubSubscription {
 }
 
 impl DestinationPubSubSubscription {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2128,7 +2106,6 @@ pub struct Listing {
 }
 
 impl Listing {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2682,7 +2659,6 @@ pub mod listing {
     }
 
     impl BigQueryDatasetSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2815,7 +2791,6 @@ pub mod listing {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct SelectedResource {
-            #[allow(missing_docs)]
             pub resource: std::option::Option<
                 crate::model::listing::big_query_dataset_source::selected_resource::Resource,
             >,
@@ -2824,7 +2799,6 @@ pub mod listing {
         }
 
         impl SelectedResource {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2924,7 +2898,6 @@ pub mod listing {
             #[allow(unused_imports)]
             use super::*;
 
-            #[allow(missing_docs)]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Resource {
@@ -2961,7 +2934,6 @@ pub mod listing {
         }
 
         impl RestrictedExportPolicy {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3104,7 +3076,6 @@ pub mod listing {
         }
 
         impl Replica {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3475,7 +3446,6 @@ pub mod listing {
     }
 
     impl PubSubTopicSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3536,7 +3506,6 @@ pub mod listing {
     }
 
     impl RestrictedExportConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3601,7 +3570,6 @@ pub mod listing {
     }
 
     impl CommercialInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3672,7 +3640,6 @@ pub mod listing {
         }
 
         impl GoogleCloudMarketplaceInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4035,47 +4002,26 @@ pub mod listing {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Category {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Others,
-        #[allow(missing_docs)]
         AdvertisingAndMarketing,
-        #[allow(missing_docs)]
         Commerce,
-        #[allow(missing_docs)]
         ClimateAndEnvironment,
-        #[allow(missing_docs)]
         Demographics,
-        #[allow(missing_docs)]
         Economics,
-        #[allow(missing_docs)]
         Education,
-        #[allow(missing_docs)]
         Energy,
-        #[allow(missing_docs)]
         Financial,
-        #[allow(missing_docs)]
         Gaming,
-        #[allow(missing_docs)]
         Geospatial,
-        #[allow(missing_docs)]
         HealthcareAndLifeScience,
-        #[allow(missing_docs)]
         Media,
-        #[allow(missing_docs)]
         PublicSector,
-        #[allow(missing_docs)]
         Retail,
-        #[allow(missing_docs)]
         Sports,
-        #[allow(missing_docs)]
         ScienceAndResearch,
-        #[allow(missing_docs)]
         TransportationAndLogistics,
-        #[allow(missing_docs)]
         TravelAndTourism,
-        #[allow(missing_docs)]
         GoogleEarthEngine,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4314,7 +4260,6 @@ pub struct StoredProcedureConfig {
 }
 
 impl StoredProcedureConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4546,14 +4491,12 @@ pub struct Subscription {
     /// Optional. BigQuery destination dataset to create for the subscriber.
     pub destination_dataset: std::option::Option<crate::model::DestinationDataset>,
 
-    #[allow(missing_docs)]
     pub resource_name: std::option::Option<crate::model::subscription::ResourceName>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Subscription {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4960,14 +4903,12 @@ pub mod subscription {
         /// Output only. Listing for which linked resource is created.
         pub listing: std::string::String,
 
-        #[allow(missing_docs)]
         pub reference: std::option::Option<crate::model::subscription::linked_resource::Reference>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl LinkedResource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5091,7 +5032,6 @@ pub mod subscription {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Reference {
@@ -5118,7 +5058,6 @@ pub mod subscription {
     }
 
     impl CommercialInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5183,7 +5122,6 @@ pub mod subscription {
         }
 
         impl GoogleCloudMarketplaceInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5349,7 +5287,6 @@ pub mod subscription {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceName {
@@ -5382,7 +5319,6 @@ pub struct ListDataExchangesRequest {
 }
 
 impl ListDataExchangesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5444,7 +5380,6 @@ pub struct ListDataExchangesResponse {
 }
 
 impl ListDataExchangesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5525,7 +5460,6 @@ pub struct ListOrgDataExchangesRequest {
 }
 
 impl ListOrgDataExchangesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5588,7 +5522,6 @@ pub struct ListOrgDataExchangesResponse {
 }
 
 impl ListOrgDataExchangesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5660,7 +5593,6 @@ pub struct GetDataExchangeRequest {
 }
 
 impl GetDataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5704,7 +5636,6 @@ pub struct CreateDataExchangeRequest {
 }
 
 impl CreateDataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5792,7 +5723,6 @@ pub struct UpdateDataExchangeRequest {
 }
 
 impl UpdateDataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5882,7 +5812,6 @@ pub struct DeleteDataExchangeRequest {
 }
 
 impl DeleteDataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5926,7 +5855,6 @@ pub struct ListListingsRequest {
 }
 
 impl ListListingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5988,7 +5916,6 @@ pub struct ListListingsResponse {
 }
 
 impl ListListingsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6060,7 +5987,6 @@ pub struct GetListingRequest {
 }
 
 impl GetListingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6104,7 +6030,6 @@ pub struct CreateListingRequest {
 }
 
 impl CreateListingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6189,7 +6114,6 @@ pub struct UpdateListingRequest {
 }
 
 impl UpdateListingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6284,7 +6208,6 @@ pub struct DeleteListingRequest {
 }
 
 impl DeleteListingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6335,7 +6258,6 @@ pub struct SubscribeListingRequest {
 }
 
 impl SubscribeListingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6495,7 +6417,6 @@ pub struct SubscribeListingResponse {
 }
 
 impl SubscribeListingResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6566,7 +6487,6 @@ pub struct SubscribeDataExchangeRequest {
 }
 
 impl SubscribeDataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6673,7 +6593,6 @@ pub struct SubscribeDataExchangeResponse {
 }
 
 impl SubscribeDataExchangeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6730,7 +6649,6 @@ pub struct RefreshSubscriptionRequest {
 }
 
 impl RefreshSubscriptionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6765,7 +6683,6 @@ pub struct RefreshSubscriptionResponse {
 }
 
 impl RefreshSubscriptionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6822,7 +6739,6 @@ pub struct GetSubscriptionRequest {
 }
 
 impl GetSubscriptionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6881,7 +6797,6 @@ pub struct ListSubscriptionsRequest {
 }
 
 impl ListSubscriptionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6955,7 +6870,6 @@ pub struct ListSubscriptionsResponse {
 }
 
 impl ListSubscriptionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7039,7 +6953,6 @@ pub struct ListSharedResourceSubscriptionsRequest {
 }
 
 impl ListSharedResourceSubscriptionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7113,7 +7026,6 @@ pub struct ListSharedResourceSubscriptionsResponse {
 }
 
 impl ListSharedResourceSubscriptionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7192,7 +7104,6 @@ pub struct RevokeSubscriptionRequest {
 }
 
 impl RevokeSubscriptionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7237,7 +7148,6 @@ pub struct RevokeSubscriptionResponse {
 }
 
 impl RevokeSubscriptionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7261,7 +7171,6 @@ pub struct DeleteSubscriptionRequest {
 }
 
 impl DeleteSubscriptionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7320,7 +7229,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7599,7 +7507,6 @@ pub struct PubSubSubscription {
 }
 
 impl PubSubSubscription {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8017,7 +7924,6 @@ pub struct RetryPolicy {
 }
 
 impl RetryPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8133,7 +8039,6 @@ pub struct DeadLetterPolicy {
 }
 
 impl DeadLetterPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8189,7 +8094,6 @@ pub struct ExpirationPolicy {
 }
 
 impl ExpirationPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8280,7 +8184,6 @@ pub struct PushConfig {
 }
 
 impl PushConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8516,7 +8419,6 @@ pub mod push_config {
     }
 
     impl OidcToken {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8565,7 +8467,6 @@ pub mod push_config {
     }
 
     impl PubsubWrapper {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8590,7 +8491,6 @@ pub mod push_config {
     }
 
     impl NoWrapper {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8686,7 +8586,6 @@ pub struct BigQueryConfig {
 }
 
 impl BigQueryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8831,7 +8730,6 @@ pub struct CloudStorageConfig {
 }
 
 impl CloudStorageConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9085,7 +8983,6 @@ pub mod cloud_storage_config {
     }
 
     impl TextConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9118,7 +9015,6 @@ pub mod cloud_storage_config {
     }
 
     impl AvroConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9187,7 +9083,6 @@ pub struct MessageTransform {
 }
 
 impl MessageTransform {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9346,7 +9241,6 @@ pub struct JavaScriptUDF {
 }
 
 impl JavaScriptUDF {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

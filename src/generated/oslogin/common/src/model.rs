@@ -70,7 +70,6 @@ pub struct PosixAccount {
 }
 
 impl PosixAccount {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -240,7 +239,6 @@ pub struct SshPublicKey {
 }
 
 impl SshPublicKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

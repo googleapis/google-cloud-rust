@@ -66,7 +66,6 @@ pub struct AptArtifact {
 }
 
 impl AptArtifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,7 +306,6 @@ pub struct ImportAptArtifactsGcsSource {
 }
 
 impl ImportAptArtifactsGcsSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -362,7 +360,6 @@ pub struct ImportAptArtifactsRequest {
 }
 
 impl ImportAptArtifactsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -476,7 +473,6 @@ pub struct ImportAptArtifactsErrorInfo {
 }
 
 impl ImportAptArtifactsErrorInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -613,7 +609,6 @@ pub struct ImportAptArtifactsResponse {
 }
 
 impl ImportAptArtifactsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -677,7 +672,6 @@ pub struct ImportAptArtifactsMetadata {
 }
 
 impl ImportAptArtifactsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -757,7 +751,6 @@ pub struct DockerImage {
 }
 
 impl DockerImage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1005,7 +998,6 @@ pub struct ImageManifest {
 }
 
 impl ImageManifest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1127,7 +1119,6 @@ pub struct ListDockerImagesRequest {
 }
 
 impl ListDockerImagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1202,7 +1193,6 @@ pub struct ListDockerImagesResponse {
 }
 
 impl ListDockerImagesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1273,7 +1263,6 @@ pub struct GetDockerImageRequest {
 }
 
 impl GetDockerImageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1337,7 +1326,6 @@ pub struct MavenArtifact {
 }
 
 impl MavenArtifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1493,7 +1481,6 @@ pub struct ListMavenArtifactsRequest {
 }
 
 impl ListMavenArtifactsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1556,7 +1543,6 @@ pub struct ListMavenArtifactsResponse {
 }
 
 impl ListMavenArtifactsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1627,7 +1613,6 @@ pub struct GetMavenArtifactRequest {
 }
 
 impl GetMavenArtifactRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1683,7 +1668,6 @@ pub struct NpmPackage {
 }
 
 impl NpmPackage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1832,7 +1816,6 @@ pub struct ListNpmPackagesRequest {
 }
 
 impl ListNpmPackagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1895,7 +1878,6 @@ pub struct ListNpmPackagesResponse {
 }
 
 impl ListNpmPackagesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1966,7 +1948,6 @@ pub struct GetNpmPackageRequest {
 }
 
 impl GetNpmPackageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2026,7 +2007,6 @@ pub struct PythonPackage {
 }
 
 impl PythonPackage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2170,7 +2150,6 @@ pub struct ListPythonPackagesRequest {
 }
 
 impl ListPythonPackagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2233,7 +2212,6 @@ pub struct ListPythonPackagesResponse {
 }
 
 impl ListPythonPackagesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2304,7 +2282,6 @@ pub struct GetPythonPackageRequest {
 }
 
 impl GetPythonPackageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2377,7 +2354,6 @@ pub struct Attachment {
 }
 
 impl Attachment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2584,7 +2560,6 @@ pub struct ListAttachmentsRequest {
 }
 
 impl ListAttachmentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2659,7 +2634,6 @@ pub struct ListAttachmentsResponse {
 }
 
 impl ListAttachmentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2730,7 +2704,6 @@ pub struct GetAttachmentRequest {
 }
 
 impl GetAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2772,7 +2745,6 @@ pub struct CreateAttachmentRequest {
 }
 
 impl CreateAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2852,7 +2824,6 @@ pub struct DeleteAttachmentRequest {
 }
 
 impl DeleteAttachmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2894,7 +2865,6 @@ pub struct ExportArtifactRequest {
 }
 
 impl ExportArtifactRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3102,7 +3072,6 @@ pub struct ExportArtifactResponse {
 }
 
 impl ExportArtifactResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3158,7 +3127,6 @@ pub struct ExportArtifactMetadata {
 }
 
 impl ExportArtifactMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3216,7 +3184,6 @@ pub mod export_artifact_metadata {
     }
 
     impl ExportedFile {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3352,7 +3319,6 @@ pub struct Hash {
 }
 
 impl Hash {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3571,7 +3537,6 @@ pub struct File {
 }
 
 impl File {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3834,7 +3799,6 @@ pub struct ListFilesRequest {
 }
 
 impl ListFilesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3921,7 +3885,6 @@ pub struct ListFilesResponse {
 }
 
 impl ListFilesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3992,7 +3955,6 @@ pub struct GetFileRequest {
 }
 
 impl GetFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4027,7 +3989,6 @@ pub struct DeleteFileRequest {
 }
 
 impl DeleteFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4067,7 +4028,6 @@ pub struct UpdateFileRequest {
 }
 
 impl UpdateFileRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4169,7 +4129,6 @@ pub struct GenericArtifact {
 }
 
 impl GenericArtifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4292,7 +4251,6 @@ pub struct GoModule {
 }
 
 impl GoModule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4412,7 +4370,6 @@ pub struct KfpArtifact {
 }
 
 impl KfpArtifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4474,7 +4431,6 @@ pub struct Package {
 }
 
 impl Package {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4664,7 +4620,6 @@ pub struct ListPackagesRequest {
 }
 
 impl ListPackagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4751,7 +4706,6 @@ pub struct ListPackagesResponse {
 }
 
 impl ListPackagesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4822,7 +4776,6 @@ pub struct GetPackageRequest {
 }
 
 impl GetPackageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4857,7 +4810,6 @@ pub struct DeletePackageRequest {
 }
 
 impl DeletePackageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4897,7 +4849,6 @@ pub struct UpdatePackageRequest {
 }
 
 impl UpdatePackageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4993,7 +4944,6 @@ pub struct UpstreamPolicy {
 }
 
 impl UpstreamPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5069,7 +5019,6 @@ pub struct CleanupPolicyCondition {
 }
 
 impl CleanupPolicyCondition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5395,7 +5344,6 @@ pub struct CleanupPolicyMostRecentVersions {
 }
 
 impl CleanupPolicyMostRecentVersions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5465,14 +5413,12 @@ pub struct CleanupPolicy {
     /// Policy action.
     pub action: crate::model::cleanup_policy::Action,
 
-    #[allow(missing_docs)]
     pub condition_type: std::option::Option<crate::model::cleanup_policy::ConditionType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CleanupPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5754,7 +5700,6 @@ pub mod cleanup_policy {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ConditionType {
@@ -5778,7 +5723,6 @@ pub struct VirtualRepositoryConfig {
 }
 
 impl VirtualRepositoryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5834,7 +5778,6 @@ pub struct RemoteRepositoryConfig {
 }
 
 impl RemoteRepositoryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6277,7 +6220,6 @@ pub mod remote_repository_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct UpstreamCredentials {
-        #[allow(missing_docs)]
         pub credentials: std::option::Option<
             crate::model::remote_repository_config::upstream_credentials::Credentials,
         >,
@@ -6286,7 +6228,6 @@ pub mod remote_repository_config {
     }
 
     impl UpstreamCredentials {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6378,7 +6319,6 @@ pub mod remote_repository_config {
         }
 
         impl UsernamePasswordCredentials {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6420,7 +6360,6 @@ pub mod remote_repository_config {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Credentials {
@@ -6442,7 +6381,6 @@ pub mod remote_repository_config {
     }
 
     impl DockerRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6591,7 +6529,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6773,7 +6710,6 @@ pub mod remote_repository_config {
     }
 
     impl MavenRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6922,7 +6858,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7104,7 +7039,6 @@ pub mod remote_repository_config {
     }
 
     impl NpmRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7253,7 +7187,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7435,7 +7368,6 @@ pub mod remote_repository_config {
     }
 
     impl PythonRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7584,7 +7516,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7765,7 +7696,6 @@ pub mod remote_repository_config {
     }
 
     impl AptRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7922,7 +7852,6 @@ pub mod remote_repository_config {
         }
 
         impl PublicRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8125,7 +8054,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8181,7 +8109,6 @@ pub mod remote_repository_config {
     }
 
     impl YumRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8338,7 +8265,6 @@ pub mod remote_repository_config {
         }
 
         impl PublicRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8562,7 +8488,6 @@ pub mod remote_repository_config {
         }
 
         impl CustomRepository {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8617,7 +8542,6 @@ pub mod remote_repository_config {
     }
 
     impl CommonRemoteRepository {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8748,7 +8672,6 @@ pub struct Repository {
 }
 
 impl Repository {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9274,7 +9197,6 @@ pub mod repository {
     }
 
     impl MavenRepositoryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9474,7 +9396,6 @@ pub mod repository {
     }
 
     impl DockerRepositoryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9523,7 +9444,6 @@ pub mod repository {
     }
 
     impl VulnerabilityScanningConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10304,7 +10224,6 @@ pub struct ListRepositoriesRequest {
 }
 
 impl ListRepositoriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10391,7 +10310,6 @@ pub struct ListRepositoriesResponse {
 }
 
 impl ListRepositoriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10462,7 +10380,6 @@ pub struct GetRepositoryRequest {
 }
 
 impl GetRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10504,7 +10421,6 @@ pub struct CreateRepositoryRequest {
 }
 
 impl CreateRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10589,7 +10505,6 @@ pub struct UpdateRepositoryRequest {
 }
 
 impl UpdateRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10678,7 +10593,6 @@ pub struct DeleteRepositoryRequest {
 }
 
 impl DeleteRepositoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10715,7 +10629,6 @@ pub struct Rule {
     /// The action this rule takes.
     pub action: crate::model::rule::Action,
 
-    #[allow(missing_docs)]
     pub operation: crate::model::rule::Operation,
 
     /// Optional. A CEL expression for conditions that must be met in order for the
@@ -10730,7 +10643,6 @@ pub struct Rule {
 }
 
 impl Rule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11111,7 +11023,6 @@ pub struct ListRulesRequest {
 }
 
 impl ListRulesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11174,7 +11085,6 @@ pub struct ListRulesResponse {
 }
 
 impl ListRulesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11245,7 +11155,6 @@ pub struct GetRuleRequest {
 }
 
 impl GetRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11286,7 +11195,6 @@ pub struct CreateRuleRequest {
 }
 
 impl CreateRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11371,7 +11279,6 @@ pub struct UpdateRuleRequest {
 }
 
 impl UpdateRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11460,7 +11367,6 @@ pub struct DeleteRuleRequest {
 }
 
 impl DeleteRuleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11492,7 +11398,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11528,7 +11433,6 @@ pub struct ProjectSettings {
 }
 
 impl ProjectSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11769,7 +11673,6 @@ pub struct GetProjectSettingsRequest {
 }
 
 impl GetProjectSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11807,7 +11710,6 @@ pub struct UpdateProjectSettingsRequest {
 }
 
 impl UpdateProjectSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11907,7 +11809,6 @@ pub struct Tag {
 }
 
 impl Tag {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11991,7 +11892,6 @@ pub struct ListTagsRequest {
 }
 
 impl ListTagsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12066,7 +11966,6 @@ pub struct ListTagsResponse {
 }
 
 impl ListTagsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12137,7 +12036,6 @@ pub struct GetTagRequest {
 }
 
 impl GetTagRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12178,7 +12076,6 @@ pub struct CreateTagRequest {
 }
 
 impl CreateTagRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12263,7 +12160,6 @@ pub struct UpdateTagRequest {
 }
 
 impl UpdateTagRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12352,7 +12248,6 @@ pub struct DeleteTagRequest {
 }
 
 impl DeleteTagRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12423,7 +12318,6 @@ pub struct Version {
 }
 
 impl Version {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12693,7 +12587,6 @@ pub struct ListVersionsRequest {
 }
 
 impl ListVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12794,7 +12687,6 @@ pub struct ListVersionsResponse {
 }
 
 impl ListVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12868,7 +12760,6 @@ pub struct GetVersionRequest {
 }
 
 impl GetVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12921,7 +12812,6 @@ pub struct DeleteVersionRequest {
 }
 
 impl DeleteVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12976,7 +12866,6 @@ pub struct BatchDeleteVersionsRequest {
 }
 
 impl BatchDeleteVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13040,7 +12929,6 @@ pub struct BatchDeleteVersionsMetadata {
 }
 
 impl BatchDeleteVersionsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13085,7 +12973,6 @@ pub struct UpdateVersionRequest {
 }
 
 impl UpdateVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13184,7 +13071,6 @@ pub struct VPCSCConfig {
 }
 
 impl VPCSCConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13378,7 +13264,6 @@ pub struct GetVPCSCConfigRequest {
 }
 
 impl GetVPCSCConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13416,7 +13301,6 @@ pub struct UpdateVPCSCConfigRequest {
 }
 
 impl UpdateVPCSCConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13514,7 +13398,6 @@ pub struct YumArtifact {
 }
 
 impl YumArtifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13731,7 +13614,6 @@ pub struct ImportYumArtifactsGcsSource {
 }
 
 impl ImportYumArtifactsGcsSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13786,7 +13668,6 @@ pub struct ImportYumArtifactsRequest {
 }
 
 impl ImportYumArtifactsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13900,7 +13781,6 @@ pub struct ImportYumArtifactsErrorInfo {
 }
 
 impl ImportYumArtifactsErrorInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14037,7 +13917,6 @@ pub struct ImportYumArtifactsResponse {
 }
 
 impl ImportYumArtifactsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14101,7 +13980,6 @@ pub struct ImportYumArtifactsMetadata {
 }
 
 impl ImportYumArtifactsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

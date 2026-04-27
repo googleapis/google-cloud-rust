@@ -96,7 +96,6 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -335,7 +334,6 @@ pub mod policy {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [GlobalPolicyEvaluationMode].
     ///
     /// # Working with unknown values
     ///
@@ -490,7 +488,6 @@ pub struct AdmissionWhitelistPattern {
 }
 
 impl AdmissionWhitelistPattern {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -548,7 +545,6 @@ pub struct AdmissionRule {
 }
 
 impl AdmissionRule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -621,7 +617,6 @@ pub mod admission_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [EvaluationMode].
     ///
     /// # Working with unknown values
     ///
@@ -918,14 +913,12 @@ pub struct Attestor {
     /// Output only. Time when the attestor was last updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    #[allow(missing_docs)]
     pub attestor_type: std::option::Option<crate::model::attestor::AttestorType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Attestor {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1061,7 +1054,6 @@ pub mod attestor {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttestorType {
@@ -1113,7 +1105,6 @@ pub struct UserOwnedGrafeasNote {
 }
 
 impl UserOwnedGrafeasNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1196,7 +1187,6 @@ pub struct PkixPublicKey {
 }
 
 impl PkixPublicKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1491,14 +1481,12 @@ pub struct AttestorPublicKey {
     /// for details.
     pub id: std::string::String,
 
-    #[allow(missing_docs)]
     pub public_key: std::option::Option<crate::model::attestor_public_key::PublicKey>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AttestorPublicKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1637,7 +1625,6 @@ pub mod attestor_public_key {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PublicKey {
@@ -1674,7 +1661,6 @@ pub struct GetPolicyRequest {
 }
 
 impl GetPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1714,7 +1700,6 @@ pub struct UpdatePolicyRequest {
 }
 
 impl UpdatePolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1785,7 +1770,6 @@ pub struct CreateAttestorRequest {
 }
 
 impl CreateAttestorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1868,7 +1852,6 @@ pub struct GetAttestorRequest {
 }
 
 impl GetAttestorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1908,7 +1891,6 @@ pub struct UpdateAttestorRequest {
 }
 
 impl UpdateAttestorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1978,7 +1960,6 @@ pub struct ListAttestorsRequest {
 }
 
 impl ListAttestorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2046,7 +2027,6 @@ pub struct ListAttestorsResponse {
 }
 
 impl ListAttestorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2120,7 +2100,6 @@ pub struct DeleteAttestorRequest {
 }
 
 impl DeleteAttestorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2156,7 +2135,6 @@ pub struct GetSystemPolicyRequest {
 }
 
 impl GetSystemPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2214,7 +2192,6 @@ pub struct ValidateAttestationOccurrenceRequest {
 }
 
 impl ValidateAttestationOccurrenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2315,7 +2292,6 @@ pub struct ValidateAttestationOccurrenceResponse {
 }
 
 impl ValidateAttestationOccurrenceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

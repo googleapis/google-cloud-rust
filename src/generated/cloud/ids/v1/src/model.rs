@@ -77,7 +77,6 @@ pub struct Endpoint {
 }
 
 impl Endpoint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,7 +581,6 @@ pub mod endpoint {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsRequest {
@@ -612,7 +610,6 @@ pub struct ListEndpointsRequest {
 }
 
 impl ListEndpointsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -684,7 +681,6 @@ impl wkt::message::Message for ListEndpointsRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListEndpointsResponse {
@@ -702,7 +698,6 @@ pub struct ListEndpointsResponse {
 }
 
 impl ListEndpointsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -779,7 +774,6 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListEndpointsRe
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetEndpointRequest {
@@ -791,7 +785,6 @@ pub struct GetEndpointRequest {
 }
 
 impl GetEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -815,7 +808,6 @@ impl wkt::message::Message for GetEndpointRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateEndpointRequest {
@@ -852,7 +844,6 @@ pub struct CreateEndpointRequest {
 }
 
 impl CreateEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -933,7 +924,6 @@ impl wkt::message::Message for CreateEndpointRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteEndpointRequest {
@@ -959,7 +949,6 @@ pub struct DeleteEndpointRequest {
 }
 
 impl DeleteEndpointRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1029,7 +1018,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

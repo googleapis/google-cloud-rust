@@ -65,7 +65,6 @@ pub struct OpMetadata {
 }
 
 impl OpMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -221,7 +220,6 @@ pub struct CreateMicrosoftAdDomainRequest {
 }
 
 impl CreateMicrosoftAdDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -303,7 +301,6 @@ pub struct ResetAdminPasswordRequest {
 }
 
 impl ResetAdminPasswordRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -341,7 +338,6 @@ pub struct ResetAdminPasswordResponse {
 }
 
 impl ResetAdminPasswordResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -402,7 +398,6 @@ pub struct ListDomainsRequest {
 }
 
 impl ListDomainsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -493,7 +488,6 @@ pub struct ListDomainsResponse {
 }
 
 impl ListDomainsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,7 +576,6 @@ pub struct GetDomainRequest {
 }
 
 impl GetDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -630,7 +623,6 @@ pub struct UpdateDomainRequest {
 }
 
 impl UpdateDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -721,7 +713,6 @@ pub struct DeleteDomainRequest {
 }
 
 impl DeleteDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -761,7 +752,6 @@ pub struct AttachTrustRequest {
 }
 
 impl AttachTrustRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -839,7 +829,6 @@ pub struct ReconfigureTrustRequest {
 }
 
 impl ReconfigureTrustRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -911,7 +900,6 @@ pub struct DetachTrustRequest {
 }
 
 impl DetachTrustRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -984,7 +972,6 @@ pub struct ValidateTrustRequest {
 }
 
 impl ValidateTrustRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1101,7 +1088,6 @@ pub struct Domain {
 }
 
 impl Domain {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1556,7 +1542,6 @@ pub struct Trust {
 }
 
 impl Trust {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -69,7 +69,6 @@ pub struct Api {
 }
 
 impl Api {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -444,7 +443,6 @@ pub struct ApiConfig {
 }
 
 impl ApiConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -701,7 +699,6 @@ pub mod api_config {
     }
 
     impl File {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -748,7 +745,6 @@ pub mod api_config {
     }
 
     impl OpenApiDocument {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -816,7 +812,6 @@ pub mod api_config {
     }
 
     impl GrpcServiceDefinition {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1084,7 +1079,6 @@ pub struct Gateway {
 }
 
 impl Gateway {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1432,7 +1426,6 @@ pub struct ListGatewaysRequest {
 }
 
 impl ListGatewaysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1521,7 +1514,6 @@ pub struct ListGatewaysResponse {
 }
 
 impl ListGatewaysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1610,7 +1602,6 @@ pub struct GetGatewayRequest {
 }
 
 impl GetGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1653,7 +1644,6 @@ pub struct CreateGatewayRequest {
 }
 
 impl CreateGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1740,7 +1730,6 @@ pub struct UpdateGatewayRequest {
 }
 
 impl UpdateGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1830,7 +1819,6 @@ pub struct DeleteGatewayRequest {
 }
 
 impl DeleteGatewayRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1878,7 +1866,6 @@ pub struct ListApisRequest {
 }
 
 impl ListApisRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1967,7 +1954,6 @@ pub struct ListApisResponse {
 }
 
 impl ListApisResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2056,7 +2042,6 @@ pub struct GetApiRequest {
 }
 
 impl GetApiRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2099,7 +2084,6 @@ pub struct CreateApiRequest {
 }
 
 impl CreateApiRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2186,7 +2170,6 @@ pub struct UpdateApiRequest {
 }
 
 impl UpdateApiRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2276,7 +2259,6 @@ pub struct DeleteApiRequest {
 }
 
 impl DeleteApiRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2324,7 +2306,6 @@ pub struct ListApiConfigsRequest {
 }
 
 impl ListApiConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2413,7 +2394,6 @@ pub struct ListApiConfigsResponse {
 }
 
 impl ListApiConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2506,7 +2486,6 @@ pub struct GetApiConfigRequest {
 }
 
 impl GetApiConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2570,7 +2549,6 @@ pub mod get_api_config_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ConfigView {
-        #[allow(missing_docs)]
         Unspecified,
         /// Do not include configuration source files.
         Basic,
@@ -2704,7 +2682,6 @@ pub struct CreateApiConfigRequest {
 }
 
 impl CreateApiConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2791,7 +2768,6 @@ pub struct UpdateApiConfigRequest {
 }
 
 impl UpdateApiConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2881,7 +2857,6 @@ pub struct DeleteApiConfigRequest {
 }
 
 impl DeleteApiConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2942,7 +2917,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3121,7 +3095,6 @@ pub mod operation_metadata {
     }
 
     impl Diagnostic {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

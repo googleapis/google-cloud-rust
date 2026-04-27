@@ -41,7 +41,6 @@ pub struct MessageWithEnum {
 }
 
 impl MessageWithEnum {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -252,23 +251,18 @@ pub mod message_with_enum {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageWithOneOf {
-    #[allow(missing_docs)]
     pub single_string: std::option::Option<crate::generated::message_with_one_of::SingleString>,
 
-    #[allow(missing_docs)]
     pub two_strings: std::option::Option<crate::generated::message_with_one_of::TwoStrings>,
 
-    #[allow(missing_docs)]
     pub one_message: std::option::Option<crate::generated::message_with_one_of::OneMessage>,
 
-    #[allow(missing_docs)]
     pub mixed: std::option::Option<crate::generated::message_with_one_of::Mixed>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MessageWithOneOf {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -539,18 +533,15 @@ pub mod message_with_one_of {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Message {
-        #[allow(missing_docs)]
         pub parent: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Message {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -568,41 +559,30 @@ pub mod message_with_one_of {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SingleString {
-        #[allow(missing_docs)]
         StringContents(std::string::String),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TwoStrings {
-        #[allow(missing_docs)]
         StringContentsOne(std::string::String),
-        #[allow(missing_docs)]
         StringContentsTwo(std::string::String),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OneMessage {
-        #[allow(missing_docs)]
         MessageValue(std::boxed::Box<crate::generated::message_with_one_of::Message>),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Mixed {
-        #[allow(missing_docs)]
         AnotherMessage(std::boxed::Box<crate::generated::message_with_one_of::Message>),
-        #[allow(missing_docs)]
         String(std::string::String),
-        #[allow(missing_docs)]
         Duration(std::boxed::Box<wkt::Duration>),
     }
 }
@@ -611,14 +591,12 @@ pub mod message_with_one_of {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageWithComplexOneOf {
-    #[allow(missing_docs)]
     pub complex: std::option::Option<crate::generated::message_with_complex_one_of::Complex>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MessageWithComplexOneOf {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -997,18 +975,15 @@ pub mod message_with_complex_one_of {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Inner {
-        #[allow(missing_docs)]
         pub strings: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Inner {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1031,7 +1006,6 @@ pub mod message_with_complex_one_of {
         }
     }
 
-    /// Enum for [TestEnum].
     ///
     /// # Working with unknown values
     ///
@@ -1049,9 +1023,7 @@ pub mod message_with_complex_one_of {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TestEnum {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Black,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1156,35 +1128,21 @@ pub mod message_with_complex_one_of {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Complex {
-        #[allow(missing_docs)]
         Null(wkt::NullValue),
-        #[allow(missing_docs)]
         BoolValue(bool),
-        #[allow(missing_docs)]
         BytesValue(::bytes::Bytes),
-        #[allow(missing_docs)]
         StringValue(std::string::String),
-        #[allow(missing_docs)]
         FloatValue(f32),
-        #[allow(missing_docs)]
         DoubleValue(f64),
-        #[allow(missing_docs)]
         Int32(i32),
-        #[allow(missing_docs)]
         Int64(i64),
-        #[allow(missing_docs)]
         Enum(crate::generated::message_with_complex_one_of::TestEnum),
-        #[allow(missing_docs)]
         Inner(std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>),
-        #[allow(missing_docs)]
         Duration(std::boxed::Box<wkt::Duration>),
-        #[allow(missing_docs)]
         Value(std::boxed::Box<wkt::Value>),
-        #[allow(missing_docs)]
         OptionalDouble(std::boxed::Box<wkt::DoubleValue>),
     }
 }
@@ -1210,7 +1168,6 @@ pub struct MessageWithF32 {
 }
 
 impl MessageWithF32 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1290,7 +1247,6 @@ pub struct MessageWithF64 {
 }
 
 impl MessageWithF64 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1375,7 +1331,6 @@ pub struct MessageWithI32 {
 }
 
 impl MessageWithI32 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1484,7 +1439,6 @@ pub struct MessageWithU32 {
 }
 
 impl MessageWithU32 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1593,7 +1547,6 @@ pub struct MessageWithI64 {
 }
 
 impl MessageWithI64 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1702,7 +1655,6 @@ pub struct MessageWithU64 {
 }
 
 impl MessageWithU64 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1806,7 +1758,6 @@ pub struct MessageWithBytes {
 }
 
 impl MessageWithBytes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1891,7 +1842,6 @@ pub struct MessageWithBool {
 }
 
 impl MessageWithBool {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2000,7 +1950,6 @@ pub struct MessageWithString {
 }
 
 impl MessageWithString {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2108,7 +2057,6 @@ pub struct MessageWithRecursion {
 }
 
 impl MessageWithRecursion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2184,22 +2132,18 @@ pub mod message_with_recursion {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Level0 {
-        #[allow(missing_docs)]
         pub level_1:
             std::option::Option<std::boxed::Box<crate::generated::message_with_recursion::Level1>>,
 
-        #[allow(missing_docs)]
         pub side: std::option::Option<crate::generated::message_with_recursion::NonRecursive>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Level0 {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2247,18 +2191,15 @@ pub mod message_with_recursion {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Level1 {
-        #[allow(missing_docs)]
         pub recurse: std::option::Option<std::boxed::Box<crate::generated::MessageWithRecursion>>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Level1 {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2288,18 +2229,15 @@ pub mod message_with_recursion {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NonRecursive {
-        #[allow(missing_docs)]
         pub value: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NonRecursive {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2338,7 +2276,6 @@ pub struct MessageWithValue {
 }
 
 impl MessageWithValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2429,7 +2366,6 @@ pub struct MessageWithStruct {
 }
 
 impl MessageWithStruct {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2520,7 +2456,6 @@ pub struct MessageWithListValue {
 }
 
 impl MessageWithListValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2611,7 +2546,6 @@ pub struct MessageWithNullValue {
 }
 
 impl MessageWithNullValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2690,7 +2624,6 @@ pub struct MessageWithFieldMask {
 }
 
 impl MessageWithFieldMask {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2778,7 +2711,6 @@ pub struct MessageWithFloatValue {
 }
 
 impl MessageWithFloatValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2848,7 +2780,6 @@ pub struct MessageWithDoubleValue {
 }
 
 impl MessageWithDoubleValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2918,7 +2849,6 @@ pub struct MessageWithInt32Value {
 }
 
 impl MessageWithInt32Value {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2988,7 +2918,6 @@ pub struct MessageWithUInt32Value {
 }
 
 impl MessageWithUInt32Value {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3058,7 +2987,6 @@ pub struct MessageWithInt64Value {
 }
 
 impl MessageWithInt64Value {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3128,7 +3056,6 @@ pub struct MessageWithUInt64Value {
 }
 
 impl MessageWithUInt64Value {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3199,7 +3126,6 @@ pub struct MessageWithBytesValue {
 }
 
 impl MessageWithBytesValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3269,7 +3195,6 @@ pub struct MessageWithBoolValue {
 }
 
 impl MessageWithBoolValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3339,7 +3264,6 @@ pub struct MessageWithStringValue {
 }
 
 impl MessageWithStringValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

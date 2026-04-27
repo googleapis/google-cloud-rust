@@ -66,7 +66,6 @@ pub struct Service {
 }
 
 impl Service {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -196,7 +195,6 @@ pub struct ServiceConfig {
 }
 
 impl ServiceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -475,7 +473,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -525,7 +522,6 @@ pub struct EnableServiceRequest {
 }
 
 impl EnableServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -562,7 +558,6 @@ pub struct EnableServiceResponse {
 }
 
 impl EnableServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -634,7 +629,6 @@ pub struct DisableServiceRequest {
 }
 
 impl DisableServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -845,7 +839,6 @@ pub struct DisableServiceResponse {
 }
 
 impl DisableServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -905,7 +898,6 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -956,7 +948,6 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1031,7 +1022,6 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1120,7 +1110,6 @@ pub struct BatchEnableServicesRequest {
 }
 
 impl BatchEnableServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1178,7 +1167,6 @@ pub struct BatchEnableServicesResponse {
 }
 
 impl BatchEnableServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1253,7 +1241,6 @@ pub mod batch_enable_services_response {
     }
 
     impl EnableFailure {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1316,7 +1303,6 @@ pub struct BatchGetServicesRequest {
 }
 
 impl BatchGetServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1368,7 +1354,6 @@ pub struct BatchGetServicesResponse {
 }
 
 impl BatchGetServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

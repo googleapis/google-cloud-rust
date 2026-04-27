@@ -53,7 +53,6 @@ pub struct ManagedService {
 }
 
 impl ManagedService {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -113,7 +112,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -228,7 +226,6 @@ pub mod operation_metadata {
     }
 
     impl Step {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -442,7 +439,6 @@ pub struct Diagnostic {
 }
 
 impl Diagnostic {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -640,7 +636,6 @@ pub struct ConfigSource {
 }
 
 impl ConfigSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -703,7 +698,6 @@ pub struct ConfigFile {
 }
 
 impl ConfigFile {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -762,7 +756,6 @@ pub mod config_file {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [FileType].
     ///
     /// # Working with unknown values
     ///
@@ -940,7 +933,6 @@ pub struct ConfigRef {
 }
 
 impl ConfigRef {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -982,7 +974,6 @@ pub struct ChangeReport {
 }
 
 impl ChangeReport {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1056,7 +1047,6 @@ pub struct Rollout {
 }
 
 impl Rollout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1310,7 +1300,6 @@ pub mod rollout {
     }
 
     impl TrafficPercentStrategy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1352,7 +1341,6 @@ pub mod rollout {
     }
 
     impl DeleteServiceStrategy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1569,7 +1557,6 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1647,7 +1634,6 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1719,7 +1705,6 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1754,7 +1739,6 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1812,7 +1796,6 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1849,7 +1832,6 @@ pub struct UndeleteServiceRequest {
 }
 
 impl UndeleteServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1884,7 +1866,6 @@ pub struct UndeleteServiceResponse {
 }
 
 impl UndeleteServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1952,7 +1933,6 @@ pub struct GetServiceConfigRequest {
 }
 
 impl GetServiceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2009,7 +1989,6 @@ pub mod get_service_config_request {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [ConfigView].
     ///
     /// # Working with unknown values
     ///
@@ -2158,7 +2137,6 @@ pub struct ListServiceConfigsRequest {
 }
 
 impl ListServiceConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2220,7 +2198,6 @@ pub struct ListServiceConfigsResponse {
 }
 
 impl ListServiceConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2296,7 +2273,6 @@ pub struct CreateServiceConfigRequest {
 }
 
 impl CreateServiceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2374,7 +2350,6 @@ pub struct SubmitConfigSourceRequest {
 }
 
 impl SubmitConfigSourceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2454,7 +2429,6 @@ pub struct SubmitConfigSourceResponse {
 }
 
 impl SubmitConfigSourceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2515,7 +2489,6 @@ pub struct CreateServiceRolloutRequest {
 }
 
 impl CreateServiceRolloutRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2604,7 +2577,6 @@ pub struct ListServiceRolloutsRequest {
 }
 
 impl ListServiceRolloutsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2678,7 +2650,6 @@ pub struct ListServiceRolloutsResponse {
 }
 
 impl ListServiceRolloutsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2754,7 +2725,6 @@ pub struct GetServiceRolloutRequest {
 }
 
 impl GetServiceRolloutRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2798,7 +2768,6 @@ pub struct EnableServiceResponse {
 }
 
 impl EnableServiceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2840,7 +2809,6 @@ pub struct GenerateConfigReportRequest {
 }
 
 impl GenerateConfigReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2941,7 +2909,6 @@ pub struct GenerateConfigReportResponse {
 }
 
 impl GenerateConfigReportResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

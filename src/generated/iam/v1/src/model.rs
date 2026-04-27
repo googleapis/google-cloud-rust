@@ -58,7 +58,6 @@ pub struct SetIamPolicyRequest {
 }
 
 impl SetIamPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -164,7 +163,6 @@ pub struct GetIamPolicyRequest {
 }
 
 impl GetIamPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -239,7 +237,6 @@ pub struct TestIamPermissionsRequest {
 }
 
 impl TestIamPermissionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -292,7 +289,6 @@ pub struct TestIamPermissionsResponse {
 }
 
 impl TestIamPermissionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -349,7 +345,6 @@ pub struct GetPolicyOptions {
 }
 
 impl GetPolicyOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -508,7 +503,6 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -657,7 +651,6 @@ pub struct Binding {
 }
 
 impl Binding {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -799,7 +792,6 @@ pub struct AuditConfig {
 }
 
 impl AuditConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -884,7 +876,6 @@ pub struct AuditLogConfig {
 }
 
 impl AuditLogConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1091,7 +1082,6 @@ pub struct PolicyDelta {
 }
 
 impl PolicyDelta {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1173,7 +1163,6 @@ pub struct BindingDelta {
 }
 
 impl BindingDelta {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1426,7 +1415,6 @@ pub struct AuditConfigDelta {
 }
 
 impl AuditConfigDelta {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1656,7 +1644,6 @@ pub struct ResourcePolicyMember {
 }
 
 impl ResourcePolicyMember {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

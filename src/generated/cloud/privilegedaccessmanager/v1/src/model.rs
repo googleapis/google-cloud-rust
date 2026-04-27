@@ -52,7 +52,6 @@ pub struct CheckOnboardingStatusRequest {
 }
 
 impl CheckOnboardingStatusRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -92,7 +91,6 @@ pub struct CheckOnboardingStatusResponse {
 }
 
 impl CheckOnboardingStatusResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -148,7 +146,6 @@ pub mod check_onboarding_status_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Finding {
-        #[allow(missing_docs)]
         pub finding_type: std::option::Option<
             crate::model::check_onboarding_status_response::finding::FindingType,
         >,
@@ -157,7 +154,6 @@ pub mod check_onboarding_status_response {
     }
 
     impl Finding {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -262,7 +258,6 @@ pub mod check_onboarding_status_response {
         }
 
         impl IAMAccessDenied {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -291,7 +286,6 @@ pub mod check_onboarding_status_response {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum FindingType {
@@ -364,7 +358,6 @@ pub struct Entitlement {
 }
 
 impl Entitlement {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -697,7 +690,6 @@ pub mod entitlement {
     }
 
     impl RequesterJustificationConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -839,7 +831,6 @@ pub mod entitlement {
         }
 
         impl NotMandatory {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -859,7 +850,6 @@ pub mod entitlement {
         }
 
         impl Unstructured {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -910,7 +900,6 @@ pub mod entitlement {
     }
 
     impl AdditionalNotificationTargets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1123,7 +1112,6 @@ pub struct AccessControlEntry {
 }
 
 impl AccessControlEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1157,14 +1145,12 @@ impl wkt::message::Message for AccessControlEntry {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ApprovalWorkflow {
-    #[allow(missing_docs)]
     pub approval_workflow: std::option::Option<crate::model::approval_workflow::ApprovalWorkflow>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ApprovalWorkflow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1243,7 +1229,6 @@ pub mod approval_workflow {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ApprovalWorkflow {
@@ -1283,7 +1268,6 @@ pub struct ManualApprovals {
 }
 
 impl ManualApprovals {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1355,7 +1339,6 @@ pub mod manual_approvals {
     }
 
     impl Step {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1423,14 +1406,12 @@ pub mod manual_approvals {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PrivilegedAccess {
-    #[allow(missing_docs)]
     pub access_type: std::option::Option<crate::model::privileged_access::AccessType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PrivilegedAccess {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1529,7 +1510,6 @@ pub mod privileged_access {
     }
 
     impl GcpIamAccess {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1617,7 +1597,6 @@ pub mod privileged_access {
         }
 
         impl RoleBinding {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1657,7 +1636,6 @@ pub mod privileged_access {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AccessType {
@@ -1690,7 +1668,6 @@ pub struct ListEntitlementsRequest {
 }
 
 impl ListEntitlementsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1779,7 +1756,6 @@ pub struct ListEntitlementsResponse {
 }
 
 impl ListEntitlementsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1882,7 +1858,6 @@ pub struct SearchEntitlementsRequest {
 }
 
 impl SearchEntitlementsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2113,7 +2088,6 @@ pub struct SearchEntitlementsResponse {
 }
 
 impl SearchEntitlementsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2184,7 +2158,6 @@ pub struct GetEntitlementRequest {
 }
 
 impl GetEntitlementRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2253,7 +2226,6 @@ pub struct CreateEntitlementRequest {
 }
 
 impl CreateEntitlementRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2364,7 +2336,6 @@ pub struct DeleteEntitlementRequest {
 }
 
 impl DeleteEntitlementRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2434,7 +2405,6 @@ pub struct UpdateEntitlementRequest {
 }
 
 impl UpdateEntitlementRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2572,7 +2542,6 @@ pub struct Grant {
 }
 
 impl Grant {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2902,7 +2871,6 @@ pub mod grant {
     }
 
     impl Timeline {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2948,14 +2916,12 @@ pub mod grant {
             /// Output only. The time (as recorded at server) when this event occurred.
             pub event_time: std::option::Option<wkt::Timestamp>,
 
-            #[allow(missing_docs)]
             pub event: std::option::Option<crate::model::grant::timeline::event::Event>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl Event {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3620,7 +3586,6 @@ pub mod grant {
             }
 
             impl Requested {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3680,7 +3645,6 @@ pub mod grant {
             }
 
             impl Approved {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3737,7 +3701,6 @@ pub mod grant {
             }
 
             impl Denied {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3793,7 +3756,6 @@ pub mod grant {
             }
 
             impl Revoked {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3843,7 +3805,6 @@ pub mod grant {
             }
 
             impl Withdrawn {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3867,7 +3828,6 @@ pub mod grant {
             }
 
             impl Scheduled {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3924,7 +3884,6 @@ pub mod grant {
             }
 
             impl Activated {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -3947,7 +3906,6 @@ pub mod grant {
             }
 
             impl ActivationFailed {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4000,7 +3958,6 @@ pub mod grant {
             }
 
             impl Expired {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4020,7 +3977,6 @@ pub mod grant {
             }
 
             impl Ended {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4041,7 +3997,6 @@ pub mod grant {
             }
 
             impl ExternallyModified {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -4053,7 +4008,6 @@ pub mod grant {
                 }
             }
 
-            #[allow(missing_docs)]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Event {
@@ -4106,7 +4060,6 @@ pub mod grant {
     }
 
     impl AuditTrail {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4397,14 +4350,12 @@ pub mod grant {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Justification {
-    #[allow(missing_docs)]
     pub justification: std::option::Option<crate::model::justification::Justification>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Justification {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4477,7 +4428,6 @@ pub mod justification {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Justification {
@@ -4511,7 +4461,6 @@ pub struct ListGrantsRequest {
 }
 
 impl ListGrantsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4600,7 +4549,6 @@ pub struct ListGrantsResponse {
 }
 
 impl ListGrantsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4702,7 +4650,6 @@ pub struct SearchGrantsRequest {
 }
 
 impl SearchGrantsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4943,7 +4890,6 @@ pub struct SearchGrantsResponse {
 }
 
 impl SearchGrantsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5014,7 +4960,6 @@ pub struct GetGrantRequest {
 }
 
 impl GetGrantRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5054,7 +4999,6 @@ pub struct ApproveGrantRequest {
 }
 
 impl ApproveGrantRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5106,7 +5050,6 @@ pub struct DenyGrantRequest {
 }
 
 impl DenyGrantRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5156,7 +5099,6 @@ pub struct RevokeGrantRequest {
 }
 
 impl RevokeGrantRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5222,7 +5164,6 @@ pub struct CreateGrantRequest {
 }
 
 impl CreateGrantRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5326,7 +5267,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

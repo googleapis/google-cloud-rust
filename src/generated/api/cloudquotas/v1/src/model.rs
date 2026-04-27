@@ -57,7 +57,6 @@ pub struct ListQuotaInfosRequest {
 }
 
 impl ListQuotaInfosRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -120,7 +119,6 @@ pub struct ListQuotaInfosResponse {
 }
 
 impl ListQuotaInfosResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -194,7 +192,6 @@ pub struct GetQuotaInfoRequest {
 }
 
 impl GetQuotaInfoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -261,7 +258,6 @@ pub struct ListQuotaPreferencesRequest {
 }
 
 impl ListQuotaPreferencesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -351,7 +347,6 @@ pub struct ListQuotaPreferencesResponse {
 }
 
 impl ListQuotaPreferencesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -442,7 +437,6 @@ pub struct GetQuotaPreferenceRequest {
 }
 
 impl GetQuotaPreferenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -490,7 +484,6 @@ pub struct CreateQuotaPreferenceRequest {
 }
 
 impl CreateQuotaPreferenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -613,7 +606,6 @@ pub struct UpdateQuotaPreferenceRequest {
 }
 
 impl UpdateQuotaPreferenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -808,7 +800,6 @@ pub struct QuotaInfo {
 }
 
 impl QuotaInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1227,7 +1218,6 @@ pub struct QuotaIncreaseEligibility {
 }
 
 impl QuotaIncreaseEligibility {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1501,7 +1491,6 @@ pub struct QuotaPreference {
 }
 
 impl QuotaPreference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1750,7 +1739,6 @@ pub struct QuotaConfig {
 }
 
 impl QuotaConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2035,7 +2023,6 @@ pub struct DimensionsInfo {
 }
 
 impl DimensionsInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2134,7 +2121,6 @@ pub struct QuotaDetails {
 }
 
 impl QuotaDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2202,7 +2188,6 @@ pub struct RolloutInfo {
 }
 
 impl RolloutInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -92,7 +92,6 @@ pub struct DataSourceParameter {
 }
 
 impl DataSourceParameter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -619,7 +618,6 @@ pub struct DataSource {
 }
 
 impl DataSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1209,7 +1207,6 @@ pub struct GetDataSourceRequest {
 }
 
 impl GetDataSourceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1256,7 +1253,6 @@ pub struct ListDataSourcesRequest {
 }
 
 impl ListDataSourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1321,7 +1317,6 @@ pub struct ListDataSourcesResponse {
 }
 
 impl ListDataSourcesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1454,7 +1449,6 @@ pub struct CreateTransferConfigRequest {
 }
 
 impl CreateTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1619,7 +1613,6 @@ pub struct UpdateTransferConfigRequest {
 }
 
 impl UpdateTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1753,7 +1746,6 @@ pub struct GetTransferConfigRequest {
 }
 
 impl GetTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1791,7 +1783,6 @@ pub struct DeleteTransferConfigRequest {
 }
 
 impl DeleteTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1829,7 +1820,6 @@ pub struct GetTransferRunRequest {
 }
 
 impl GetTransferRunRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1867,7 +1857,6 @@ pub struct DeleteTransferRunRequest {
 }
 
 impl DeleteTransferRunRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1917,7 +1906,6 @@ pub struct ListTransferConfigsRequest {
 }
 
 impl ListTransferConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1999,7 +1987,6 @@ pub struct ListTransferConfigsResponse {
 }
 
 impl ListTransferConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2089,7 +2076,6 @@ pub struct ListTransferRunsRequest {
 }
 
 impl ListTransferRunsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2325,7 +2311,6 @@ pub struct ListTransferRunsResponse {
 }
 
 impl ListTransferRunsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2412,7 +2397,6 @@ pub struct ListTransferLogsRequest {
 }
 
 impl ListTransferLogsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2499,7 +2483,6 @@ pub struct ListTransferLogsResponse {
 }
 
 impl ListTransferLogsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2577,7 +2560,6 @@ pub struct CheckValidCredsRequest {
 }
 
 impl CheckValidCredsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2612,7 +2594,6 @@ pub struct CheckValidCredsResponse {
 }
 
 impl CheckValidCredsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2657,7 +2638,6 @@ pub struct ScheduleTransferRunsRequest {
 }
 
 impl ScheduleTransferRunsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2758,7 +2738,6 @@ pub struct ScheduleTransferRunsResponse {
 }
 
 impl ScheduleTransferRunsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2809,7 +2788,6 @@ pub struct StartManualTransferRunsRequest {
 }
 
 impl StartManualTransferRunsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2965,7 +2943,6 @@ pub mod start_manual_transfer_runs_request {
     }
 
     impl TimeRange {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3074,7 +3051,6 @@ pub struct StartManualTransferRunsResponse {
 }
 
 impl StartManualTransferRunsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3125,7 +3101,6 @@ pub struct EnrollDataSourcesRequest {
 }
 
 impl EnrollDataSourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3183,7 +3158,6 @@ pub struct UnenrollDataSourcesRequest {
 }
 
 impl UnenrollDataSourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3236,7 +3210,6 @@ pub struct EmailPreferences {
 }
 
 impl EmailPreferences {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3287,7 +3260,6 @@ pub struct ScheduleOptions {
 }
 
 impl ScheduleOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3391,7 +3363,6 @@ pub struct ScheduleOptionsV2 {
 }
 
 impl ScheduleOptionsV2 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3609,7 +3580,6 @@ pub struct TimeBasedSchedule {
 }
 
 impl TimeBasedSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3707,7 +3677,6 @@ pub struct ManualSchedule {
 }
 
 impl ManualSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3732,7 +3701,6 @@ pub struct EventDrivenSchedule {
 }
 
 impl EventDrivenSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3770,7 +3738,6 @@ pub struct UserInfo {
 }
 
 impl UserInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3929,7 +3896,6 @@ pub struct TransferConfig {
 }
 
 impl TransferConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4445,7 +4411,6 @@ pub struct EncryptionConfiguration {
 }
 
 impl EncryptionConfiguration {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4563,7 +4528,6 @@ pub struct TransferRun {
 }
 
 impl TransferRun {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5004,7 +4968,6 @@ pub struct TransferMessage {
 }
 
 impl TransferMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -65,7 +65,6 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -155,7 +154,6 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -243,7 +241,6 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,7 +304,6 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -422,7 +418,6 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -539,7 +534,6 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -599,7 +593,6 @@ pub struct ListTopicsRequest {
 }
 
 impl ListTopicsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -663,7 +656,6 @@ pub struct ListTopicsResponse {
 }
 
 impl ListTopicsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -736,7 +728,6 @@ pub struct GetTopicRequest {
 }
 
 impl GetTopicRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -783,7 +774,6 @@ pub struct CreateTopicRequest {
 }
 
 impl CreateTopicRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -870,7 +860,6 @@ pub struct UpdateTopicRequest {
 }
 
 impl UpdateTopicRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -960,7 +949,6 @@ pub struct DeleteTopicRequest {
 }
 
 impl DeleteTopicRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1009,7 +997,6 @@ pub struct ListConsumerGroupsRequest {
 }
 
 impl ListConsumerGroupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1073,7 +1060,6 @@ pub struct ListConsumerGroupsResponse {
 }
 
 impl ListConsumerGroupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1145,7 +1131,6 @@ pub struct GetConsumerGroupRequest {
 }
 
 impl GetConsumerGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1187,7 +1172,6 @@ pub struct UpdateConsumerGroupRequest {
 }
 
 impl UpdateConsumerGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1277,7 +1261,6 @@ pub struct DeleteConsumerGroupRequest {
 }
 
 impl DeleteConsumerGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1326,7 +1309,6 @@ pub struct ListAclsRequest {
 }
 
 impl ListAclsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1390,7 +1372,6 @@ pub struct ListAclsResponse {
 }
 
 impl ListAclsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1467,7 +1448,6 @@ pub struct GetAclRequest {
 }
 
 impl GetAclRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1531,7 +1511,6 @@ pub struct CreateAclRequest {
 }
 
 impl CreateAclRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1619,7 +1598,6 @@ pub struct UpdateAclRequest {
 }
 
 impl UpdateAclRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1713,7 +1691,6 @@ pub struct DeleteAclRequest {
 }
 
 impl DeleteAclRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1757,7 +1734,6 @@ pub struct AddAclEntryRequest {
 }
 
 impl AddAclEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1828,7 +1804,6 @@ pub struct AddAclEntryResponse {
 }
 
 impl AddAclEntryResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1905,7 +1880,6 @@ pub struct RemoveAclEntryRequest {
 }
 
 impl RemoveAclEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1974,7 +1948,6 @@ pub struct RemoveAclEntryResponse {
 }
 
 impl RemoveAclEntryResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2107,7 +2080,6 @@ pub struct GetConnectClusterRequest {
 }
 
 impl GetConnectClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2172,7 +2144,6 @@ pub struct CreateConnectClusterRequest {
 }
 
 impl CreateConnectClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2291,7 +2262,6 @@ pub struct UpdateConnectClusterRequest {
 }
 
 impl UpdateConnectClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2410,7 +2380,6 @@ pub struct DeleteConnectClusterRequest {
 }
 
 impl DeleteConnectClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2476,7 +2445,6 @@ pub struct ListConnectClustersRequest {
 }
 
 impl ListConnectClustersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2566,7 +2534,6 @@ pub struct ListConnectClustersResponse {
 }
 
 impl ListConnectClustersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2656,7 +2623,6 @@ pub struct GetConnectorRequest {
 }
 
 impl GetConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2704,7 +2670,6 @@ pub struct CreateConnectorRequest {
 }
 
 impl CreateConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2791,7 +2756,6 @@ pub struct UpdateConnectorRequest {
 }
 
 impl UpdateConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2882,7 +2846,6 @@ pub struct DeleteConnectorRequest {
 }
 
 impl DeleteConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2931,7 +2894,6 @@ pub struct ListConnectorsRequest {
 }
 
 impl ListConnectorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2994,7 +2956,6 @@ pub struct ListConnectorsResponse {
 }
 
 impl ListConnectorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3067,7 +3028,6 @@ pub struct PauseConnectorRequest {
 }
 
 impl PauseConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3099,7 +3059,6 @@ pub struct PauseConnectorResponse {
 }
 
 impl PauseConnectorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3124,7 +3083,6 @@ pub struct ResumeConnectorRequest {
 }
 
 impl ResumeConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3156,7 +3114,6 @@ pub struct ResumeConnectorResponse {
 }
 
 impl ResumeConnectorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3181,7 +3138,6 @@ pub struct RestartConnectorRequest {
 }
 
 impl RestartConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3213,7 +3169,6 @@ pub struct RestartConnectorResponse {
 }
 
 impl RestartConnectorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3238,7 +3193,6 @@ pub struct StopConnectorRequest {
 }
 
 impl StopConnectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3270,7 +3224,6 @@ pub struct StopConnectorResponse {
 }
 
 impl StopConnectorResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3324,7 +3277,6 @@ pub struct Cluster {
 }
 
 impl Cluster {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3836,7 +3788,6 @@ pub struct CapacityConfig {
 }
 
 impl CapacityConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3884,7 +3835,6 @@ pub struct RebalanceConfig {
 }
 
 impl RebalanceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4072,7 +4022,6 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4109,7 +4058,6 @@ pub struct AccessConfig {
 }
 
 impl AccessConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4161,7 +4109,6 @@ pub struct GcpConfig {
 }
 
 impl GcpConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4241,7 +4188,6 @@ pub struct TlsConfig {
 }
 
 impl TlsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4313,7 +4259,6 @@ pub struct TrustConfig {
 }
 
 impl TrustConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4367,7 +4312,6 @@ pub mod trust_config {
     }
 
     impl CertificateAuthorityServiceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4420,7 +4364,6 @@ pub struct Topic {
 }
 
 impl Topic {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4501,7 +4444,6 @@ pub struct ConsumerTopicMetadata {
 }
 
 impl ConsumerTopicMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4551,7 +4493,6 @@ pub struct ConsumerPartitionMetadata {
 }
 
 impl ConsumerPartitionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4605,7 +4546,6 @@ pub struct ConsumerGroup {
 }
 
 impl ConsumerGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4686,7 +4626,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4864,7 +4803,6 @@ pub struct ConnectCluster {
 }
 
 impl ConnectCluster {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5310,7 +5248,6 @@ pub struct ConnectNetworkConfig {
 }
 
 impl ConnectNetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5382,7 +5319,6 @@ pub struct ConnectAccessConfig {
 }
 
 impl ConnectAccessConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5434,7 +5370,6 @@ pub struct ConnectGcpConfig {
 }
 
 impl ConnectGcpConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5522,7 +5457,6 @@ pub struct Connector {
 }
 
 impl Connector {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5847,7 +5781,6 @@ pub struct TaskRetryPolicy {
 }
 
 impl TaskRetryPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5988,7 +5921,6 @@ pub struct Acl {
 }
 
 impl Acl {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6112,7 +6044,6 @@ pub struct AclEntry {
 }
 
 impl AclEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

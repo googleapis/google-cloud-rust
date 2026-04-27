@@ -73,7 +73,6 @@ pub struct Configuration {
 }
 
 impl Configuration {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -464,14 +463,12 @@ pub struct BillingInfo {
     /// Output only. When the billing ends.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
-    #[allow(missing_docs)]
     pub current_billing_info: std::option::Option<crate::model::billing_info::CurrentBillingInfo>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BillingInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -616,7 +613,6 @@ pub mod billing_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CurrentBillingInfo {
@@ -637,7 +633,6 @@ pub struct UserCountBillingInfo {
 }
 
 impl UserCountBillingInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -673,7 +668,6 @@ pub struct UserCountUsage {
 }
 
 impl UserCountUsage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -727,7 +721,6 @@ pub struct Product {
 }
 
 impl Product {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1015,7 +1008,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1396,7 +1388,6 @@ pub struct Usage {
 }
 
 impl Usage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1456,7 +1447,6 @@ pub struct ListConfigurationsRequest {
 }
 
 impl ListConfigurationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1545,7 +1535,6 @@ pub struct ListConfigurationsResponse {
 }
 
 impl ListConfigurationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1633,7 +1622,6 @@ pub struct GetConfigurationRequest {
 }
 
 impl GetConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1689,7 +1677,6 @@ pub struct CreateConfigurationRequest {
 }
 
 impl CreateConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1806,7 +1793,6 @@ pub struct UpdateConfigurationRequest {
 }
 
 impl UpdateConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1922,7 +1908,6 @@ pub struct DeleteConfigurationRequest {
 }
 
 impl DeleteConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1982,7 +1967,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2071,7 +2055,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2159,7 +2142,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2202,7 +2184,6 @@ pub struct QueryConfigurationLicenseUsageRequest {
 }
 
 impl QueryConfigurationLicenseUsageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2305,7 +2286,6 @@ pub struct QueryConfigurationLicenseUsageResponse {
 }
 
 impl QueryConfigurationLicenseUsageResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2426,7 +2406,6 @@ pub struct DeactivateConfigurationRequest {
 }
 
 impl DeactivateConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2488,7 +2467,6 @@ pub struct ReactivateConfigurationRequest {
 }
 
 impl ReactivateConfigurationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2556,7 +2534,6 @@ pub struct AggregateUsageRequest {
 }
 
 impl AggregateUsageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2711,7 +2688,6 @@ pub struct AggregateUsageResponse {
 }
 
 impl AggregateUsageResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2812,7 +2788,6 @@ pub struct ListProductsRequest {
 }
 
 impl ListProductsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2901,7 +2876,6 @@ pub struct ListProductsResponse {
 }
 
 impl ListProductsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2989,7 +2963,6 @@ pub struct GetProductRequest {
 }
 
 impl GetProductRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3050,7 +3023,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

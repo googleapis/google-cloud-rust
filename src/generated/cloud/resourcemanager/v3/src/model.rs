@@ -87,7 +87,6 @@ pub struct Folder {
 }
 
 impl Folder {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -410,7 +409,6 @@ pub struct GetFolderRequest {
 }
 
 impl GetFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -469,7 +467,6 @@ pub struct ListFoldersRequest {
 }
 
 impl ListFoldersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -545,7 +542,6 @@ pub struct ListFoldersResponse {
 }
 
 impl ListFoldersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -655,7 +651,6 @@ pub struct SearchFoldersRequest {
 }
 
 impl SearchFoldersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -719,7 +714,6 @@ pub struct SearchFoldersResponse {
 }
 
 impl SearchFoldersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -791,7 +785,6 @@ pub struct CreateFolderRequest {
 }
 
 impl CreateFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -851,7 +844,6 @@ pub struct CreateFolderMetadata {
 }
 
 impl CreateFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -912,7 +904,6 @@ pub struct UpdateFolderRequest {
 }
 
 impl UpdateFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -999,7 +990,6 @@ pub struct UpdateFolderMetadata {
 }
 
 impl UpdateFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1028,7 +1018,6 @@ pub struct MoveFolderRequest {
 }
 
 impl MoveFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1084,7 +1073,6 @@ pub struct MoveFolderMetadata {
 }
 
 impl MoveFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1147,7 +1135,6 @@ pub struct DeleteFolderRequest {
 }
 
 impl DeleteFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1180,7 +1167,6 @@ pub struct DeleteFolderMetadata {
 }
 
 impl DeleteFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1204,7 +1190,6 @@ pub struct UndeleteFolderRequest {
 }
 
 impl UndeleteFolderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1237,7 +1222,6 @@ pub struct UndeleteFolderMetadata {
 }
 
 impl UndeleteFolderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1294,7 +1278,6 @@ pub struct Organization {
 }
 
 impl Organization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1679,7 +1662,6 @@ pub struct GetOrganizationRequest {
 }
 
 impl GetOrganizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1740,7 +1722,6 @@ pub struct SearchOrganizationsRequest {
 }
 
 impl SearchOrganizationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1807,7 +1788,6 @@ pub struct SearchOrganizationsResponse {
 }
 
 impl SearchOrganizationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1876,7 +1856,6 @@ pub struct DeleteOrganizationMetadata {
 }
 
 impl DeleteOrganizationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1897,7 +1876,6 @@ pub struct UndeleteOrganizationMetadata {
 }
 
 impl UndeleteOrganizationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1978,7 +1956,6 @@ pub struct Project {
 }
 
 impl Project {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2345,7 +2322,6 @@ pub struct GetProjectRequest {
 }
 
 impl GetProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2403,7 +2379,6 @@ pub struct ListProjectsRequest {
 }
 
 impl ListProjectsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2498,7 +2473,6 @@ pub struct ListProjectsResponse {
 }
 
 impl ListProjectsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2614,7 +2588,6 @@ pub struct SearchProjectsRequest {
 }
 
 impl SearchProjectsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2695,7 +2668,6 @@ pub struct SearchProjectsResponse {
 }
 
 impl SearchProjectsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2778,7 +2750,6 @@ pub struct CreateProjectRequest {
 }
 
 impl CreateProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2844,7 +2815,6 @@ pub struct CreateProjectMetadata {
 }
 
 impl CreateProjectMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2936,7 +2906,6 @@ pub struct UpdateProjectRequest {
 }
 
 impl UpdateProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3023,7 +2992,6 @@ pub struct UpdateProjectMetadata {
 }
 
 impl UpdateProjectMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3053,7 +3021,6 @@ pub struct MoveProjectRequest {
 }
 
 impl MoveProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3101,7 +3068,6 @@ pub struct MoveProjectMetadata {
 }
 
 impl MoveProjectMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3127,7 +3093,6 @@ pub struct DeleteProjectRequest {
 }
 
 impl DeleteProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3160,7 +3125,6 @@ pub struct DeleteProjectMetadata {
 }
 
 impl DeleteProjectMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3187,7 +3151,6 @@ pub struct UndeleteProjectRequest {
 }
 
 impl UndeleteProjectRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3220,7 +3183,6 @@ pub struct UndeleteProjectMetadata {
 }
 
 impl UndeleteProjectMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3264,7 +3226,6 @@ pub struct TagBinding {
 }
 
 impl TagBinding {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3335,7 +3296,6 @@ pub struct CreateTagBindingMetadata {
 }
 
 impl CreateTagBindingMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3362,7 +3322,6 @@ pub struct CreateTagBindingRequest {
 }
 
 impl CreateTagBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3427,7 +3386,6 @@ pub struct DeleteTagBindingMetadata {
 }
 
 impl DeleteTagBindingMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3452,7 +3410,6 @@ pub struct DeleteTagBindingRequest {
 }
 
 impl DeleteTagBindingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3498,7 +3455,6 @@ pub struct ListTagBindingsRequest {
 }
 
 impl ListTagBindingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3570,7 +3526,6 @@ pub struct ListTagBindingsResponse {
 }
 
 impl ListTagBindingsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3652,7 +3607,6 @@ pub struct ListEffectiveTagsRequest {
 }
 
 impl ListEffectiveTagsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3724,7 +3678,6 @@ pub struct ListEffectiveTagsResponse {
 }
 
 impl ListEffectiveTagsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3826,7 +3779,6 @@ pub struct EffectiveTag {
 }
 
 impl EffectiveTag {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3955,7 +3907,6 @@ pub struct TagHold {
 }
 
 impl TagHold {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4067,7 +4018,6 @@ pub struct CreateTagHoldRequest {
 }
 
 impl CreateTagHoldRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4146,7 +4096,6 @@ pub struct CreateTagHoldMetadata {
 }
 
 impl CreateTagHoldMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4174,7 +4123,6 @@ pub struct DeleteTagHoldRequest {
 }
 
 impl DeleteTagHoldRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4220,7 +4168,6 @@ pub struct DeleteTagHoldMetadata {
 }
 
 impl DeleteTagHoldMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4266,7 +4213,6 @@ pub struct ListTagHoldsRequest {
 }
 
 impl ListTagHoldsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4350,7 +4296,6 @@ pub struct ListTagHoldsResponse {
 }
 
 impl ListTagHoldsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4473,7 +4418,6 @@ pub struct TagKey {
 }
 
 impl TagKey {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4679,7 +4623,6 @@ pub struct ListTagKeysRequest {
 }
 
 impl ListTagKeysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4742,7 +4685,6 @@ pub struct ListTagKeysResponse {
 }
 
 impl ListTagKeysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4814,7 +4756,6 @@ pub struct GetTagKeyRequest {
 }
 
 impl GetTagKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4852,7 +4793,6 @@ pub struct GetNamespacedTagKeyRequest {
 }
 
 impl GetNamespacedTagKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4892,7 +4832,6 @@ pub struct CreateTagKeyRequest {
 }
 
 impl CreateTagKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4957,7 +4896,6 @@ pub struct CreateTagKeyMetadata {
 }
 
 impl CreateTagKeyMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4992,7 +4930,6 @@ pub struct UpdateTagKeyRequest {
 }
 
 impl UpdateTagKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5090,7 +5027,6 @@ pub struct UpdateTagKeyMetadata {
 }
 
 impl UpdateTagKeyMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5123,7 +5059,6 @@ pub struct DeleteTagKeyRequest {
 }
 
 impl DeleteTagKeyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5179,7 +5114,6 @@ pub struct DeleteTagKeyMetadata {
 }
 
 impl DeleteTagKeyMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5238,7 +5172,6 @@ pub struct TagValue {
 }
 
 impl TagValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5410,7 +5343,6 @@ pub struct ListTagValuesRequest {
 }
 
 impl ListTagValuesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5475,7 +5407,6 @@ pub struct ListTagValuesResponse {
 }
 
 impl ListTagValuesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5547,7 +5478,6 @@ pub struct GetTagValueRequest {
 }
 
 impl GetTagValueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5591,7 +5521,6 @@ pub struct GetNamespacedTagValueRequest {
 }
 
 impl GetNamespacedTagValueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5631,7 +5560,6 @@ pub struct CreateTagValueRequest {
 }
 
 impl CreateTagValueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5696,7 +5624,6 @@ pub struct CreateTagValueMetadata {
 }
 
 impl CreateTagValueMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5729,7 +5656,6 @@ pub struct UpdateTagValueRequest {
 }
 
 impl UpdateTagValueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5827,7 +5753,6 @@ pub struct UpdateTagValueMetadata {
 }
 
 impl UpdateTagValueMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5859,7 +5784,6 @@ pub struct DeleteTagValueRequest {
 }
 
 impl DeleteTagValueRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5915,7 +5839,6 @@ pub struct DeleteTagValueMetadata {
 }
 
 impl DeleteTagValueMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

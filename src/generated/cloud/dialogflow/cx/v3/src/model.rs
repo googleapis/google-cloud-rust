@@ -107,7 +107,6 @@ pub struct AdvancedSettings {
     feature = "transition-route-groups",
 ))]
 impl AdvancedSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -318,7 +317,6 @@ pub mod advanced_settings {
         feature = "transition-route-groups",
     ))]
     impl SpeechSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -466,7 +464,6 @@ pub mod advanced_settings {
         feature = "transition-route-groups",
     ))]
     impl DtmfSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -635,7 +632,6 @@ pub mod advanced_settings {
         feature = "transition-route-groups",
     ))]
     impl LoggingSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -709,7 +705,6 @@ pub struct SpeechToTextSettings {
 
 #[cfg(feature = "agents")]
 impl SpeechToTextSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -875,7 +870,6 @@ pub struct Agent {
 
 #[cfg(feature = "agents")]
 impl Agent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1475,7 +1469,6 @@ pub mod agent {
 
     #[cfg(feature = "agents")]
     impl GitIntegrationSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1590,7 +1583,6 @@ pub mod agent {
 
         #[cfg(feature = "agents")]
         impl GithubSettings {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1707,7 +1699,6 @@ pub mod agent {
 
     #[cfg(feature = "agents")]
     impl GenAppBuilderSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1750,7 +1741,6 @@ pub mod agent {
 
     #[cfg(feature = "agents")]
     impl AnswerFeedbackSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1798,7 +1788,6 @@ pub mod agent {
 
     #[cfg(feature = "agents")]
     impl PersonalizationSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1872,7 +1861,6 @@ pub mod agent {
 
     #[cfg(feature = "agents")]
     impl ClientCertificateSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1973,7 +1961,6 @@ pub struct ListAgentsRequest {
 
 #[cfg(feature = "agents")]
 impl ListAgentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2043,7 +2030,6 @@ pub struct ListAgentsResponse {
 
 #[cfg(feature = "agents")]
 impl ListAgentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2122,7 +2108,6 @@ pub struct GetAgentRequest {
 
 #[cfg(feature = "agents")]
 impl GetAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2167,7 +2152,6 @@ pub struct CreateAgentRequest {
 
 #[cfg(feature = "agents")]
 impl CreateAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2245,7 +2229,6 @@ pub struct UpdateAgentRequest {
 
 #[cfg(feature = "agents")]
 impl UpdateAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2341,7 +2324,6 @@ pub struct DeleteAgentRequest {
 
 #[cfg(feature = "agents")]
 impl DeleteAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2410,7 +2392,6 @@ pub struct ExportAgentRequest {
 
 #[cfg(feature = "agents")]
 impl ExportAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2548,7 +2529,6 @@ pub mod export_agent_request {
 
     #[cfg(feature = "agents")]
     impl GitDestination {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2749,7 +2729,6 @@ pub struct ExportAgentResponse {
 
 #[cfg(feature = "agents")]
 impl ExportAgentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2938,7 +2917,6 @@ pub struct RestoreAgentRequest {
 
 #[cfg(feature = "agents")]
 impl RestoreAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3130,7 +3108,6 @@ pub mod restore_agent_request {
 
     #[cfg(feature = "agents")]
     impl GitSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3344,7 +3321,6 @@ pub struct ValidateAgentRequest {
 
 #[cfg(feature = "agents")]
 impl ValidateAgentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3402,7 +3378,6 @@ pub struct GetAgentValidationResultRequest {
 
 #[cfg(feature = "agents")]
 impl GetAgentValidationResultRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3460,7 +3435,6 @@ pub struct AgentValidationResult {
 
 #[cfg(feature = "agents")]
 impl AgentValidationResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3528,7 +3502,6 @@ pub struct GetGenerativeSettingsRequest {
 
 #[cfg(feature = "agents")]
 impl GetGenerativeSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3586,7 +3559,6 @@ pub struct UpdateGenerativeSettingsRequest {
 
 #[cfg(feature = "agents")]
 impl UpdateGenerativeSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3697,7 +3669,6 @@ pub struct SpeechWordInfo {
 
 #[cfg(feature = "sessions")]
 impl SpeechWordInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3841,7 +3812,6 @@ pub struct BargeInConfig {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl BargeInConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3990,7 +3960,6 @@ pub struct InputAudioConfig {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl InputAudioConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4182,7 +4151,6 @@ pub struct VoiceSelectionParams {
 
 #[cfg(any(feature = "agents", feature = "sessions",))]
 impl VoiceSelectionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4264,7 +4232,6 @@ pub struct SynthesizeSpeechConfig {
 
 #[cfg(any(feature = "agents", feature = "sessions",))]
 impl SynthesizeSpeechConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4391,7 +4358,6 @@ pub struct OutputAudioConfig {
 
 #[cfg(feature = "sessions")]
 impl OutputAudioConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4502,7 +4468,6 @@ pub struct TextToSpeechSettings {
 
 #[cfg(feature = "agents")]
 impl TextToSpeechSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4584,7 +4549,6 @@ pub struct ListChangelogsRequest {
 
 #[cfg(feature = "changelogs")]
 impl ListChangelogsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4667,7 +4631,6 @@ pub struct ListChangelogsResponse {
 
 #[cfg(feature = "changelogs")]
 impl ListChangelogsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4747,7 +4710,6 @@ pub struct GetChangelogRequest {
 
 #[cfg(feature = "changelogs")]
 impl GetChangelogRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4808,7 +4770,6 @@ pub struct Changelog {
 
 #[cfg(feature = "changelogs")]
 impl Changelog {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4951,7 +4912,6 @@ pub struct CodeBlock {
 
 #[cfg(feature = "playbooks")]
 impl CodeBlock {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5013,7 +4973,6 @@ pub struct DataStoreConnection {
     feature = "tools",
 ))]
 impl DataStoreConnection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5129,7 +5088,6 @@ pub struct DataStoreConnectionSignals {
 
 #[cfg(feature = "sessions")]
 impl DataStoreConnectionSignals {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5401,7 +5359,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl RewriterModelCallSignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5478,7 +5435,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl SearchSnippet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5586,7 +5542,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl AnswerGenerationModelCallSignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5657,7 +5612,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl AnswerPart {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5716,7 +5670,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl CitedSnippet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5792,7 +5745,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl GroundingSignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6172,7 +6124,6 @@ pub mod data_store_connection_signals {
 
     #[cfg(feature = "sessions")]
     impl SafetySignals {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6587,7 +6538,6 @@ pub struct Deployment {
 
 #[cfg(feature = "deployments")]
 impl Deployment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6767,7 +6717,6 @@ pub mod deployment {
 
     #[cfg(feature = "deployments")]
     impl Result {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6985,7 +6934,6 @@ pub struct ListDeploymentsRequest {
 
 #[cfg(feature = "deployments")]
 impl ListDeploymentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7057,7 +7005,6 @@ pub struct ListDeploymentsResponse {
 
 #[cfg(feature = "deployments")]
 impl ListDeploymentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7139,7 +7086,6 @@ pub struct GetDeploymentRequest {
 
 #[cfg(feature = "deployments")]
 impl GetDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7250,7 +7196,6 @@ pub struct EntityType {
     feature = "sessions",
 ))]
 impl EntityType {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7446,7 +7391,6 @@ pub mod entity_type {
         feature = "sessions",
     ))]
     impl Entity {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7513,7 +7457,6 @@ pub mod entity_type {
         feature = "sessions",
     ))]
     impl ExcludedPhrase {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7947,7 +7890,6 @@ pub struct ExportEntityTypesRequest {
 
 #[cfg(feature = "entity-types")]
 impl ExportEntityTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8299,7 +8241,6 @@ pub struct ExportEntityTypesResponse {
 
 #[cfg(feature = "entity-types")]
 impl ExportEntityTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8458,7 +8399,6 @@ pub struct ExportEntityTypesMetadata {
 
 #[cfg(feature = "entity-types")]
 impl ExportEntityTypesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8507,7 +8447,6 @@ pub struct ImportEntityTypesRequest {
 
 #[cfg(feature = "entity-types")]
 impl ImportEntityTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8884,7 +8823,6 @@ pub struct ImportEntityTypesResponse {
 
 #[cfg(feature = "entity-types")]
 impl ImportEntityTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8971,7 +8909,6 @@ pub mod import_entity_types_response {
 
     #[cfg(feature = "entity-types")]
     impl ConflictingResources {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9033,7 +8970,6 @@ pub struct ImportEntityTypesMetadata {
 
 #[cfg(feature = "entity-types")]
 impl ImportEntityTypesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9084,7 +9020,6 @@ pub struct ListEntityTypesRequest {
 
 #[cfg(feature = "entity-types")]
 impl ListEntityTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9166,7 +9101,6 @@ pub struct ListEntityTypesResponse {
 
 #[cfg(feature = "entity-types")]
 impl ListEntityTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9260,7 +9194,6 @@ pub struct GetEntityTypeRequest {
 
 #[cfg(feature = "entity-types")]
 impl GetEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9330,7 +9263,6 @@ pub struct CreateEntityTypeRequest {
 
 #[cfg(feature = "entity-types")]
 impl CreateEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9432,7 +9364,6 @@ pub struct UpdateEntityTypeRequest {
 
 #[cfg(feature = "entity-types")]
 impl UpdateEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9558,7 +9489,6 @@ pub struct DeleteEntityTypeRequest {
 
 #[cfg(feature = "entity-types")]
 impl DeleteEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9642,7 +9572,6 @@ pub struct Environment {
 
 #[cfg(feature = "environments")]
 impl Environment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9837,7 +9766,6 @@ pub mod environment {
 
     #[cfg(feature = "environments")]
     impl VersionConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9891,7 +9819,6 @@ pub mod environment {
 
     #[cfg(feature = "environments")]
     impl TestCasesConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9965,7 +9892,6 @@ pub mod environment {
 
     #[cfg(feature = "environments")]
     impl WebhookConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10028,7 +9954,6 @@ pub struct ListEnvironmentsRequest {
 
 #[cfg(feature = "environments")]
 impl ListEnvironmentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10100,7 +10025,6 @@ pub struct ListEnvironmentsResponse {
 
 #[cfg(feature = "environments")]
 impl ListEnvironmentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10182,7 +10106,6 @@ pub struct GetEnvironmentRequest {
 
 #[cfg(feature = "environments")]
 impl GetEnvironmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10231,7 +10154,6 @@ pub struct CreateEnvironmentRequest {
 
 #[cfg(feature = "environments")]
 impl CreateEnvironmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10308,7 +10230,6 @@ pub struct UpdateEnvironmentRequest {
 
 #[cfg(feature = "environments")]
 impl UpdateEnvironmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10407,7 +10328,6 @@ pub struct DeleteEnvironmentRequest {
 
 #[cfg(feature = "environments")]
 impl DeleteEnvironmentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10457,7 +10377,6 @@ pub struct LookupEnvironmentHistoryRequest {
 
 #[cfg(feature = "environments")]
 impl LookupEnvironmentHistoryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10530,7 +10449,6 @@ pub struct LookupEnvironmentHistoryResponse {
 
 #[cfg(feature = "environments")]
 impl LookupEnvironmentHistoryResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10616,7 +10534,6 @@ pub struct ContinuousTestResult {
 
 #[cfg(feature = "environments")]
 impl ContinuousTestResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10877,7 +10794,6 @@ pub struct RunContinuousTestRequest {
 
 #[cfg(feature = "environments")]
 impl RunContinuousTestRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10918,7 +10834,6 @@ pub struct RunContinuousTestResponse {
 
 #[cfg(feature = "environments")]
 impl RunContinuousTestResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10981,7 +10896,6 @@ pub struct RunContinuousTestMetadata {
 
 #[cfg(feature = "environments")]
 impl RunContinuousTestMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11041,7 +10955,6 @@ pub struct ListContinuousTestResultsRequest {
 
 #[cfg(feature = "environments")]
 impl ListContinuousTestResultsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11107,7 +11020,6 @@ pub struct ListContinuousTestResultsResponse {
 
 #[cfg(feature = "environments")]
 impl ListContinuousTestResultsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11192,7 +11104,6 @@ pub struct DeployFlowRequest {
 
 #[cfg(feature = "environments")]
 impl DeployFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11252,7 +11163,6 @@ pub struct DeployFlowResponse {
 
 #[cfg(feature = "environments")]
 impl DeployFlowResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11327,7 +11237,6 @@ pub struct DeployFlowMetadata {
 
 #[cfg(feature = "environments")]
 impl DeployFlowMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11383,7 +11292,6 @@ pub struct CreateExampleRequest {
 
 #[cfg(feature = "examples")]
 impl CreateExampleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11459,7 +11367,6 @@ pub struct DeleteExampleRequest {
 
 #[cfg(feature = "examples")]
 impl DeleteExampleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11515,7 +11422,6 @@ pub struct ListExamplesRequest {
 
 #[cfg(feature = "examples")]
 impl ListExamplesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11601,7 +11507,6 @@ pub struct ListExamplesResponse {
 
 #[cfg(feature = "examples")]
 impl ListExamplesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11681,7 +11586,6 @@ pub struct GetExampleRequest {
 
 #[cfg(feature = "examples")]
 impl GetExampleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11726,7 +11630,6 @@ pub struct UpdateExampleRequest {
 
 #[cfg(feature = "examples")]
 impl UpdateExampleRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11859,7 +11762,6 @@ pub struct Example {
 
 #[cfg(any(feature = "examples", feature = "playbooks",))]
 impl Example {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12172,7 +12074,6 @@ pub struct Experiment {
 
 #[cfg(feature = "experiments")]
 impl Experiment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12599,7 +12500,6 @@ pub mod experiment {
 
     #[cfg(feature = "experiments")]
     impl Definition {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12721,7 +12621,6 @@ pub mod experiment {
 
     #[cfg(feature = "experiments")]
     impl Result {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12820,7 +12719,6 @@ pub mod experiment {
 
         #[cfg(feature = "experiments")]
         impl ConfidenceInterval {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -12907,7 +12805,6 @@ pub mod experiment {
 
         #[cfg(feature = "experiments")]
         impl Metric {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -13122,7 +13019,6 @@ pub mod experiment {
 
         #[cfg(feature = "experiments")]
         impl VersionMetrics {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -13674,7 +13570,6 @@ pub struct VersionVariants {
 
 #[cfg(feature = "experiments")]
 impl VersionVariants {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13737,7 +13632,6 @@ pub mod version_variants {
 
     #[cfg(feature = "experiments")]
     impl Variant {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -13804,7 +13698,6 @@ pub struct VariantsHistory {
 
 #[cfg(feature = "experiments")]
 impl VariantsHistory {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13956,7 +13849,6 @@ pub struct RolloutConfig {
 
 #[cfg(feature = "experiments")]
 impl RolloutConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14049,7 +13941,6 @@ pub mod rollout_config {
 
     #[cfg(feature = "experiments")]
     impl RolloutStep {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14142,7 +14033,6 @@ pub struct RolloutState {
 
 #[cfg(feature = "experiments")]
 impl RolloutState {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14239,7 +14129,6 @@ pub struct ListExperimentsRequest {
 
 #[cfg(feature = "experiments")]
 impl ListExperimentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14311,7 +14200,6 @@ pub struct ListExperimentsResponse {
 
 #[cfg(feature = "experiments")]
 impl ListExperimentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14393,7 +14281,6 @@ pub struct GetExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl GetExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14442,7 +14329,6 @@ pub struct CreateExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl CreateExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14519,7 +14405,6 @@ pub struct UpdateExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl UpdateExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14618,7 +14503,6 @@ pub struct DeleteExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl DeleteExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14661,7 +14545,6 @@ pub struct StartExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl StartExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14704,7 +14587,6 @@ pub struct StopExperimentRequest {
 
 #[cfg(feature = "experiments")]
 impl StopExperimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14764,7 +14646,6 @@ pub struct NluSettings {
     feature = "versions",
 ))]
 impl NluSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15329,7 +15210,6 @@ pub struct Flow {
 
 #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 impl Flow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15663,7 +15543,6 @@ pub mod flow {
 
     #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
     impl MultiLanguageSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15743,7 +15622,6 @@ pub struct CreateFlowRequest {
 
 #[cfg(feature = "flows")]
 impl CreateFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15846,7 +15724,6 @@ pub struct DeleteFlowRequest {
 
 #[cfg(feature = "flows")]
 impl DeleteFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15922,7 +15799,6 @@ pub struct ListFlowsRequest {
 
 #[cfg(feature = "flows")]
 impl ListFlowsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16004,7 +15880,6 @@ pub struct ListFlowsResponse {
 
 #[cfg(feature = "flows")]
 impl ListFlowsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16099,7 +15974,6 @@ pub struct GetFlowRequest {
 
 #[cfg(feature = "flows")]
 impl GetFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16170,7 +16044,6 @@ pub struct UpdateFlowRequest {
 
 #[cfg(feature = "flows")]
 impl UpdateFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16279,7 +16152,6 @@ pub struct TrainFlowRequest {
 
 #[cfg(feature = "flows")]
 impl TrainFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16325,7 +16197,6 @@ pub struct ValidateFlowRequest {
 
 #[cfg(feature = "flows")]
 impl ValidateFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16383,7 +16254,6 @@ pub struct GetFlowValidationResultRequest {
 
 #[cfg(feature = "flows")]
 impl GetFlowValidationResultRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16444,7 +16314,6 @@ pub struct FlowValidationResult {
 
 #[cfg(any(feature = "agents", feature = "flows",))]
 impl FlowValidationResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16551,7 +16420,6 @@ pub struct ImportFlowRequest {
 
 #[cfg(feature = "flows")]
 impl ImportFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16900,7 +16768,6 @@ pub struct FlowImportStrategy {
 
 #[cfg(feature = "flows")]
 impl FlowImportStrategy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16949,7 +16816,6 @@ pub struct ImportFlowResponse {
 
 #[cfg(feature = "flows")]
 impl ImportFlowResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17007,7 +16873,6 @@ pub struct ExportFlowRequest {
 
 #[cfg(feature = "flows")]
 impl ExportFlowRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17072,7 +16937,6 @@ pub struct ExportFlowResponse {
 
 #[cfg(feature = "flows")]
 impl ExportFlowResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17288,7 +17152,6 @@ pub struct Fulfillment {
     feature = "transition-route-groups",
 ))]
 impl Fulfillment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17520,7 +17383,6 @@ pub mod fulfillment {
         feature = "transition-route-groups",
     ))]
     impl SetParameterAction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17613,7 +17475,6 @@ pub mod fulfillment {
         feature = "transition-route-groups",
     ))]
     impl ConditionalCases {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17709,7 +17570,6 @@ pub mod fulfillment {
             feature = "transition-route-groups",
         ))]
         impl Case {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -17809,7 +17669,6 @@ pub mod fulfillment {
                 feature = "transition-route-groups",
             ))]
             impl CaseContent {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -18015,7 +17874,6 @@ pub mod fulfillment {
         feature = "transition-route-groups",
     ))]
     impl GeneratorSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18116,7 +17974,6 @@ pub struct GcsDestination {
     feature = "transition-route-groups",
 ))]
 impl GcsDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18179,7 +18036,6 @@ pub struct GenerativeSettings {
 
 #[cfg(feature = "agents")]
 impl GenerativeSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18372,7 +18228,6 @@ pub mod generative_settings {
 
     #[cfg(feature = "agents")]
     impl FallbackSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18452,7 +18307,6 @@ pub mod generative_settings {
 
         #[cfg(feature = "agents")]
         impl PromptTemplate {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -18544,7 +18398,6 @@ pub mod generative_settings {
 
     #[cfg(feature = "agents")]
     impl KnowledgeConnectorSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18665,7 +18518,6 @@ pub struct LlmModelSettings {
     feature = "sessions",
 ))]
 impl LlmModelSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18748,7 +18600,6 @@ pub struct Generator {
 
 #[cfg(feature = "generators")]
 impl Generator {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18928,7 +18779,6 @@ pub mod generator {
 
     #[cfg(feature = "generators")]
     impl Placeholder {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18999,7 +18849,6 @@ pub mod generator {
 
     #[cfg(feature = "generators")]
     impl ModelParameter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -19150,7 +18999,6 @@ pub struct Phrase {
 
 #[cfg(feature = "generators")]
 impl Phrase {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19202,7 +19050,6 @@ pub struct ListGeneratorsRequest {
 
 #[cfg(feature = "generators")]
 impl ListGeneratorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19284,7 +19131,6 @@ pub struct ListGeneratorsResponse {
 
 #[cfg(feature = "generators")]
 impl ListGeneratorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19367,7 +19213,6 @@ pub struct GetGeneratorRequest {
 
 #[cfg(feature = "generators")]
 impl GetGeneratorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19430,7 +19275,6 @@ pub struct CreateGeneratorRequest {
 
 #[cfg(feature = "generators")]
 impl CreateGeneratorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19523,7 +19367,6 @@ pub struct UpdateGeneratorRequest {
 
 #[cfg(feature = "generators")]
 impl UpdateGeneratorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19642,7 +19485,6 @@ pub struct DeleteGeneratorRequest {
 
 #[cfg(feature = "generators")]
 impl DeleteGeneratorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19696,7 +19538,6 @@ pub struct InlineDestination {
 
 #[cfg(any(feature = "entity-types", feature = "intents",))]
 impl InlineDestination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19737,7 +19578,6 @@ pub struct InlineSource {
 
 #[cfg(any(feature = "entity-types", feature = "intents",))]
 impl InlineSource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19839,7 +19679,6 @@ pub struct Intent {
 
 #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 impl Intent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20035,7 +19874,6 @@ pub mod intent {
 
     #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl TrainingPhrase {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -20120,7 +19958,6 @@ pub mod intent {
 
         #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
         impl Part {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -20202,7 +20039,6 @@ pub mod intent {
 
     #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl Parameter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -20303,7 +20139,6 @@ pub struct ListIntentsRequest {
 
 #[cfg(feature = "intents")]
 impl ListIntentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20402,7 +20237,6 @@ pub struct ListIntentsResponse {
 
 #[cfg(feature = "intents")]
 impl ListIntentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20494,7 +20328,6 @@ pub struct GetIntentRequest {
 
 #[cfg(feature = "intents")]
 impl GetIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20562,7 +20395,6 @@ pub struct CreateIntentRequest {
 
 #[cfg(feature = "intents")]
 impl CreateIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20663,7 +20495,6 @@ pub struct UpdateIntentRequest {
 
 #[cfg(feature = "intents")]
 impl UpdateIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20772,7 +20603,6 @@ pub struct DeleteIntentRequest {
 
 #[cfg(feature = "intents")]
 impl DeleteIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20820,7 +20650,6 @@ pub struct ImportIntentsRequest {
 
 #[cfg(feature = "intents")]
 impl ImportIntentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21188,7 +21017,6 @@ pub struct ImportIntentsResponse {
 
 #[cfg(feature = "intents")]
 impl ImportIntentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21275,7 +21103,6 @@ pub mod import_intents_response {
 
     #[cfg(feature = "intents")]
     impl ConflictingResources {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -21337,7 +21164,6 @@ pub struct ImportIntentsMetadata {
 
 #[cfg(feature = "intents")]
 impl ImportIntentsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21379,7 +21205,6 @@ pub struct ExportIntentsRequest {
 
 #[cfg(feature = "intents")]
 impl ExportIntentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21719,7 +21544,6 @@ pub struct ExportIntentsResponse {
 
 #[cfg(feature = "intents")]
 impl ExportIntentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21867,7 +21691,6 @@ pub struct ExportIntentsMetadata {
 
 #[cfg(feature = "intents")]
 impl ExportIntentsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21991,7 +21814,6 @@ pub struct Page {
 
 #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl Page {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22254,7 +22076,6 @@ pub struct Form {
 
 #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl Form {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22347,7 +22168,6 @@ pub mod form {
 
     #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     impl Parameter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -22577,7 +22397,6 @@ pub mod form {
 
         #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
         impl FillBehavior {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -22710,7 +22529,6 @@ pub struct EventHandler {
     feature = "test-cases",
 ))]
 impl EventHandler {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23029,7 +22847,6 @@ pub struct TransitionRoute {
     feature = "transition-route-groups",
 ))]
 impl TransitionRoute {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23299,7 +23116,6 @@ pub struct ListPagesRequest {
 
 #[cfg(feature = "pages")]
 impl ListPagesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23381,7 +23197,6 @@ pub struct ListPagesResponse {
 
 #[cfg(feature = "pages")]
 impl ListPagesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23486,7 +23301,6 @@ pub struct GetPageRequest {
 
 #[cfg(feature = "pages")]
 impl GetPageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23568,7 +23382,6 @@ pub struct CreatePageRequest {
 
 #[cfg(feature = "pages")]
 impl CreatePageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23682,7 +23495,6 @@ pub struct UpdatePageRequest {
 
 #[cfg(feature = "pages")]
 impl UpdatePageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23806,7 +23618,6 @@ pub struct DeletePageRequest {
 
 #[cfg(feature = "pages")]
 impl DeletePageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23888,7 +23699,6 @@ pub struct KnowledgeConnectorSettings {
     feature = "test-cases",
 ))]
 impl KnowledgeConnectorSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24132,7 +23942,6 @@ pub struct ParameterDefinition {
     feature = "test-cases",
 ))]
 impl ParameterDefinition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24480,7 +24289,6 @@ pub struct TypeSchema {
     feature = "test-cases",
 ))]
 impl TypeSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24633,7 +24441,6 @@ pub mod type_schema {
         feature = "test-cases",
     ))]
     impl SchemaReference {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -24718,7 +24525,6 @@ pub struct InlineSchema {
     feature = "test-cases",
 ))]
 impl InlineSchema {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24804,7 +24610,6 @@ pub struct CreatePlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl CreatePlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24880,7 +24685,6 @@ pub struct DeletePlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl DeletePlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24929,7 +24733,6 @@ pub struct ListPlaybooksRequest {
 
 #[cfg(feature = "playbooks")]
 impl ListPlaybooksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24999,7 +24802,6 @@ pub struct ListPlaybooksResponse {
 
 #[cfg(feature = "playbooks")]
 impl ListPlaybooksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25079,7 +24881,6 @@ pub struct GetPlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl GetPlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25124,7 +24925,6 @@ pub struct UpdatePlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl UpdatePlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25285,7 +25085,6 @@ pub struct Playbook {
 
 #[cfg(feature = "playbooks")]
 impl Playbook {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25684,7 +25483,6 @@ pub mod playbook {
 
     #[cfg(feature = "playbooks")]
     impl Step {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25804,7 +25602,6 @@ pub mod playbook {
 
     #[cfg(feature = "playbooks")]
     impl Instruction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -26014,7 +25811,6 @@ pub struct CreatePlaybookVersionRequest {
 
 #[cfg(feature = "playbooks")]
 impl CreatePlaybookVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26100,7 +25896,6 @@ pub struct PlaybookVersion {
 
 #[cfg(feature = "playbooks")]
 impl PlaybookVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26243,7 +26038,6 @@ pub struct GetPlaybookVersionRequest {
 
 #[cfg(feature = "playbooks")]
 impl GetPlaybookVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26286,7 +26080,6 @@ pub struct RestorePlaybookVersionRequest {
 
 #[cfg(feature = "playbooks")]
 impl RestorePlaybookVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26327,7 +26120,6 @@ pub struct RestorePlaybookVersionResponse {
 
 #[cfg(feature = "playbooks")]
 impl RestorePlaybookVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26398,7 +26190,6 @@ pub struct ListPlaybookVersionsRequest {
 
 #[cfg(feature = "playbooks")]
 impl ListPlaybookVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26468,7 +26259,6 @@ pub struct ListPlaybookVersionsResponse {
 
 #[cfg(feature = "playbooks")]
 impl ListPlaybookVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26548,7 +26338,6 @@ pub struct DeletePlaybookVersionRequest {
 
 #[cfg(feature = "playbooks")]
 impl DeletePlaybookVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26607,7 +26396,6 @@ pub struct ExportPlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl ExportPlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26842,7 +26630,6 @@ pub struct ImportPlaybookRequest {
 
 #[cfg(feature = "playbooks")]
 impl ImportPlaybookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27043,7 +26830,6 @@ pub struct PlaybookImportStrategy {
 
 #[cfg(feature = "playbooks")]
 impl PlaybookImportStrategy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27138,7 +26924,6 @@ pub struct ImportPlaybookResponse {
 
 #[cfg(feature = "playbooks")]
 impl ImportPlaybookResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27223,7 +27008,6 @@ pub mod import_playbook_response {
 
     #[cfg(feature = "playbooks")]
     impl ConflictingResources {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -27302,7 +27086,6 @@ pub struct ExportPlaybookResponse {
 
 #[cfg(feature = "playbooks")]
 impl ExportPlaybookResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27438,7 +27221,6 @@ pub struct Handler {
 
 #[cfg(feature = "playbooks")]
 impl Handler {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27577,7 +27359,6 @@ pub mod handler {
 
     #[cfg(feature = "playbooks")]
     impl EventHandler {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -27675,7 +27456,6 @@ pub mod handler {
 
     #[cfg(feature = "playbooks")]
     impl LifecycleHandler {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -27814,7 +27594,6 @@ pub struct ResponseMessage {
     feature = "transition-route-groups",
 ))]
 impl ResponseMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28467,7 +28246,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl Text {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -28564,7 +28342,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl LiveAgentHandoff {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -28664,7 +28441,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl ConversationSuccess {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -28750,7 +28526,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl OutputAudioText {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -28933,7 +28708,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl EndInteraction {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -28986,7 +28760,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl PlayAudio {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -29068,7 +28841,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl MixedAudio {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -29156,7 +28928,6 @@ pub mod response_message {
             feature = "transition-route-groups",
         ))]
         impl Segment {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -29346,7 +29117,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl TelephonyTransferCall {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -29487,7 +29257,6 @@ pub mod response_message {
         feature = "transition-route-groups",
     ))]
     impl KnowledgeInfoCard {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -29819,7 +29588,6 @@ pub struct SafetySettings {
 
 #[cfg(feature = "agents")]
 impl SafetySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29994,7 +29762,6 @@ pub mod safety_settings {
 
     #[cfg(feature = "agents")]
     impl Phrase {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -30048,7 +29815,6 @@ pub mod safety_settings {
 
     #[cfg(feature = "agents")]
     impl RaiSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -30105,7 +29871,6 @@ pub mod safety_settings {
 
         #[cfg(feature = "agents")]
         impl CategoryFilter {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -30492,7 +30257,6 @@ pub mod safety_settings {
 
     #[cfg(feature = "agents")]
     impl PromptSecuritySettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -30679,7 +30443,6 @@ pub struct GetSecuritySettingsRequest {
 
 #[cfg(feature = "security-settings-service")]
 impl GetSecuritySettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30725,7 +30488,6 @@ pub struct UpdateSecuritySettingsRequest {
 
 #[cfg(feature = "security-settings-service")]
 impl UpdateSecuritySettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30825,7 +30587,6 @@ pub struct ListSecuritySettingsRequest {
 
 #[cfg(feature = "security-settings-service")]
 impl ListSecuritySettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30891,7 +30652,6 @@ pub struct ListSecuritySettingsResponse {
 
 #[cfg(feature = "security-settings-service")]
 impl ListSecuritySettingsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30973,7 +30733,6 @@ pub struct CreateSecuritySettingsRequest {
 
 #[cfg(feature = "security-settings-service")]
 impl CreateSecuritySettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31049,7 +30808,6 @@ pub struct DeleteSecuritySettingsRequest {
 
 #[cfg(feature = "security-settings-service")]
 impl DeleteSecuritySettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31191,7 +30949,6 @@ pub struct SecuritySettings {
 
 #[cfg(feature = "security-settings-service")]
 impl SecuritySettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31517,7 +31274,6 @@ pub mod security_settings {
 
     #[cfg(feature = "security-settings-service")]
     impl AudioExportSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -31774,7 +31530,6 @@ pub mod security_settings {
 
     #[cfg(feature = "security-settings-service")]
     impl InsightsExportSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -32388,7 +32143,6 @@ pub struct AnswerFeedback {
 
 #[cfg(feature = "sessions")]
 impl AnswerFeedback {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32488,7 +32242,6 @@ pub mod answer_feedback {
 
     #[cfg(feature = "sessions")]
     impl RatingReason {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -32696,7 +32449,6 @@ pub struct SubmitAnswerFeedbackRequest {
 
 #[cfg(feature = "sessions")]
 impl SubmitAnswerFeedbackRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32844,7 +32596,6 @@ pub struct DetectIntentRequest {
 
 #[cfg(feature = "sessions")]
 impl DetectIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33029,7 +32780,6 @@ pub struct DetectIntentResponse {
 
 #[cfg(feature = "sessions")]
 impl DetectIntentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33408,7 +33158,6 @@ pub struct StreamingDetectIntentRequest {
 
 #[cfg(feature = "sessions")]
 impl StreamingDetectIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33649,7 +33398,6 @@ pub struct CloudConversationDebuggingInfo {
 
 #[cfg(feature = "sessions")]
 impl CloudConversationDebuggingInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34119,7 +33867,6 @@ pub struct StreamingDetectIntentResponse {
 
 #[cfg(feature = "sessions")]
 impl StreamingDetectIntentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34385,7 +34132,6 @@ pub struct StreamingRecognitionResult {
 
 #[cfg(feature = "sessions")]
 impl StreamingRecognitionResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34877,7 +34623,6 @@ pub struct QueryParameters {
 
 #[cfg(feature = "sessions")]
 impl QueryParameters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -35309,7 +35054,6 @@ pub struct SearchConfig {
 
 #[cfg(feature = "sessions")]
 impl SearchConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -35385,7 +35129,6 @@ pub struct BoostSpec {
 
 #[cfg(feature = "sessions")]
 impl BoostSpec {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -35470,7 +35213,6 @@ pub mod boost_spec {
 
     #[cfg(feature = "sessions")]
     impl ConditionBoostSpec {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -35579,7 +35321,6 @@ pub mod boost_spec {
 
         #[cfg(feature = "sessions")]
         impl BoostControlSpec {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -35687,7 +35428,6 @@ pub mod boost_spec {
 
             #[cfg(feature = "sessions")]
             impl ControlPoint {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -36043,7 +35783,6 @@ pub struct BoostSpecs {
 
 #[cfg(feature = "sessions")]
 impl BoostSpecs {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36116,7 +35855,6 @@ pub struct FilterSpecs {
 
 #[cfg(feature = "sessions")]
 impl FilterSpecs {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36190,7 +35928,6 @@ pub struct QueryInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl QueryInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36634,7 +36371,6 @@ pub struct QueryResult {
 
 #[cfg(feature = "sessions")]
 impl QueryResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37317,7 +37053,6 @@ pub struct TextInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl TextInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37358,7 +37093,6 @@ pub struct IntentInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl IntentInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37410,7 +37144,6 @@ pub struct AudioInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl AudioInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37481,7 +37214,6 @@ pub struct EventInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl EventInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37522,7 +37254,6 @@ pub struct DtmfInput {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl DtmfInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37620,7 +37351,6 @@ pub struct Match {
 
 #[cfg(feature = "sessions")]
 impl Match {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37980,7 +37710,6 @@ pub struct MatchIntentRequest {
 
 #[cfg(feature = "sessions")]
 impl MatchIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38107,7 +37836,6 @@ pub struct MatchIntentResponse {
 
 #[cfg(feature = "sessions")]
 impl MatchIntentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38389,7 +38117,6 @@ pub struct FulfillIntentRequest {
 
 #[cfg(feature = "sessions")]
 impl FulfillIntentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38536,7 +38263,6 @@ pub struct FulfillIntentResponse {
 
 #[cfg(feature = "sessions")]
 impl FulfillIntentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38659,7 +38385,6 @@ pub struct SentimentAnalysisResult {
 
 #[cfg(feature = "sessions")]
 impl SentimentAnalysisResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38737,7 +38462,6 @@ pub struct SessionEntityType {
 
 #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 impl SessionEntityType {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38992,7 +38716,6 @@ pub struct ListSessionEntityTypesRequest {
 
 #[cfg(feature = "session-entity-types")]
 impl ListSessionEntityTypesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39062,7 +38785,6 @@ pub struct ListSessionEntityTypesResponse {
 
 #[cfg(feature = "session-entity-types")]
 impl ListSessionEntityTypesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39146,7 +38868,6 @@ pub struct GetSessionEntityTypeRequest {
 
 #[cfg(feature = "session-entity-types")]
 impl GetSessionEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39196,7 +38917,6 @@ pub struct CreateSessionEntityTypeRequest {
 
 #[cfg(feature = "session-entity-types")]
 impl CreateSessionEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39279,7 +38999,6 @@ pub struct UpdateSessionEntityTypeRequest {
 
 #[cfg(feature = "session-entity-types")]
 impl UpdateSessionEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39380,7 +39099,6 @@ pub struct DeleteSessionEntityTypeRequest {
 
 #[cfg(feature = "session-entity-types")]
 impl DeleteSessionEntityTypeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39449,7 +39167,6 @@ pub struct TestCase {
 
 #[cfg(feature = "test-cases")]
 impl TestCase {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39664,7 +39381,6 @@ pub struct TestCaseResult {
 
 #[cfg(feature = "test-cases")]
 impl TestCaseResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39806,7 +39522,6 @@ pub struct TestConfig {
 
 #[cfg(feature = "test-cases")]
 impl TestConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39878,7 +39593,6 @@ pub struct ConversationTurn {
 
 #[cfg(feature = "test-cases")]
 impl ConversationTurn {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39994,7 +39708,6 @@ pub mod conversation_turn {
 
     #[cfg(feature = "test-cases")]
     impl UserInput {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -40144,7 +39857,6 @@ pub mod conversation_turn {
 
     #[cfg(feature = "test-cases")]
     impl VirtualAgentOutput {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -40384,7 +40096,6 @@ pub struct TestRunDifference {
 
 #[cfg(feature = "test-cases")]
 impl TestRunDifference {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40614,7 +40325,6 @@ pub struct TransitionCoverage {
 
 #[cfg(feature = "test-cases")]
 impl TransitionCoverage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40680,7 +40390,6 @@ pub mod transition_coverage {
 
     #[cfg(feature = "test-cases")]
     impl TransitionNode {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -40841,7 +40550,6 @@ pub mod transition_coverage {
 
     #[cfg(feature = "test-cases")]
     impl Transition {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -41088,7 +40796,6 @@ pub struct TransitionRouteGroupCoverage {
 
 #[cfg(feature = "test-cases")]
 impl TransitionRouteGroupCoverage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41162,7 +40869,6 @@ pub mod transition_route_group_coverage {
 
     #[cfg(feature = "test-cases")]
     impl Coverage {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -41267,7 +40973,6 @@ pub mod transition_route_group_coverage {
 
         #[cfg(feature = "test-cases")]
         impl Transition {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -41344,7 +41049,6 @@ pub struct IntentCoverage {
 
 #[cfg(feature = "test-cases")]
 impl IntentCoverage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41414,7 +41118,6 @@ pub mod intent_coverage {
 
     #[cfg(feature = "test-cases")]
     impl Intent {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -41472,7 +41175,6 @@ pub struct CalculateCoverageRequest {
 
 #[cfg(feature = "test-cases")]
 impl CalculateCoverageRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41692,7 +41394,6 @@ pub struct CalculateCoverageResponse {
 
 #[cfg(feature = "test-cases")]
 impl CalculateCoverageResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41915,7 +41616,6 @@ pub struct ListTestCasesRequest {
 
 #[cfg(feature = "test-cases")]
 impl ListTestCasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42152,7 +41852,6 @@ pub struct ListTestCasesResponse {
 
 #[cfg(feature = "test-cases")]
 impl ListTestCasesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42235,7 +41934,6 @@ pub struct BatchDeleteTestCasesRequest {
 
 #[cfg(feature = "test-cases")]
 impl BatchDeleteTestCasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42297,7 +41995,6 @@ pub struct CreateTestCaseRequest {
 
 #[cfg(feature = "test-cases")]
 impl CreateTestCaseRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42380,7 +42077,6 @@ pub struct UpdateTestCaseRequest {
 
 #[cfg(feature = "test-cases")]
 impl UpdateTestCaseRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42477,7 +42173,6 @@ pub struct GetTestCaseRequest {
 
 #[cfg(feature = "test-cases")]
 impl GetTestCaseRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42524,7 +42219,6 @@ pub struct RunTestCaseRequest {
 
 #[cfg(feature = "test-cases")]
 impl RunTestCaseRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42577,7 +42271,6 @@ pub struct RunTestCaseResponse {
 
 #[cfg(feature = "test-cases")]
 impl RunTestCaseResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42637,7 +42330,6 @@ pub struct RunTestCaseMetadata {
 
 #[cfg(feature = "test-cases")]
 impl RunTestCaseMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42675,7 +42367,6 @@ pub struct BatchRunTestCasesRequest {
 
 #[cfg(feature = "test-cases")]
 impl BatchRunTestCasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42750,7 +42441,6 @@ pub struct BatchRunTestCasesResponse {
 
 #[cfg(feature = "test-cases")]
 impl BatchRunTestCasesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42802,7 +42492,6 @@ pub struct BatchRunTestCasesMetadata {
 
 #[cfg(feature = "test-cases")]
 impl BatchRunTestCasesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42856,7 +42545,6 @@ pub struct TestError {
 
 #[cfg(any(feature = "environments", feature = "test-cases",))]
 impl TestError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42967,7 +42655,6 @@ pub struct ImportTestCasesRequest {
 
 #[cfg(feature = "test-cases")]
 impl ImportTestCasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43123,7 +42810,6 @@ pub struct ImportTestCasesResponse {
 
 #[cfg(feature = "test-cases")]
 impl ImportTestCasesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43170,7 +42856,6 @@ pub struct ImportTestCasesMetadata {
 
 #[cfg(feature = "test-cases")]
 impl ImportTestCasesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43221,7 +42906,6 @@ pub struct TestCaseError {
 
 #[cfg(feature = "test-cases")]
 impl TestCaseError {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43336,7 +43020,6 @@ pub struct ExportTestCasesRequest {
 
 #[cfg(feature = "test-cases")]
 impl ExportTestCasesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43629,7 +43312,6 @@ pub struct ExportTestCasesResponse {
 
 #[cfg(feature = "test-cases")]
 impl ExportTestCasesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43767,7 +43449,6 @@ pub struct ExportTestCasesMetadata {
 
 #[cfg(feature = "test-cases")]
 impl ExportTestCasesMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43834,7 +43515,6 @@ pub struct ListTestCaseResultsRequest {
 
 #[cfg(feature = "test-cases")]
 impl ListTestCaseResultsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43915,7 +43595,6 @@ pub struct ListTestCaseResultsResponse {
 
 #[cfg(feature = "test-cases")]
 impl ListTestCaseResultsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -43995,7 +43674,6 @@ pub struct GetTestCaseResultRequest {
 
 #[cfg(feature = "test-cases")]
 impl GetTestCaseResultRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44040,7 +43718,6 @@ pub struct CreateToolRequest {
 
 #[cfg(feature = "tools")]
 impl CreateToolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44122,7 +43799,6 @@ pub struct ListToolsRequest {
 
 #[cfg(feature = "tools")]
 impl ListToolsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44192,7 +43868,6 @@ pub struct ListToolsResponse {
 
 #[cfg(feature = "tools")]
 impl ListToolsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44272,7 +43947,6 @@ pub struct GetToolRequest {
 
 #[cfg(feature = "tools")]
 impl GetToolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44317,7 +43991,6 @@ pub struct UpdateToolRequest {
 
 #[cfg(feature = "tools")]
 impl UpdateToolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44423,7 +44096,6 @@ pub struct DeleteToolRequest {
 
 #[cfg(feature = "tools")]
 impl DeleteToolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44492,7 +44164,6 @@ pub struct Tool {
 
 #[cfg(feature = "tools")]
 impl Tool {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -44727,7 +44398,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl OpenApiTool {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -44926,7 +44596,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl DataStoreTool {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -45011,7 +44680,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl FallbackPrompt {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -45051,7 +44719,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl FunctionTool {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -45143,7 +44810,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl Authentication {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -45445,7 +45111,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl ApiKeyConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -45553,7 +45218,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl OAuthConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -45831,7 +45495,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl ServiceAgentAuthConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -46043,7 +45706,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl BearerTokenConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -46104,7 +45766,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl ServiceAccountAuthConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -46316,7 +45977,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl TLSConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -46386,7 +46046,6 @@ pub mod tool {
 
         #[cfg(feature = "tools")]
         impl CACert {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -46445,7 +46104,6 @@ pub mod tool {
 
     #[cfg(feature = "tools")]
     impl ServiceDirectoryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -46650,7 +46308,6 @@ pub struct ListToolVersionsRequest {
 
 #[cfg(feature = "tools")]
 impl ListToolVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -46720,7 +46377,6 @@ pub struct ListToolVersionsResponse {
 
 #[cfg(feature = "tools")]
 impl ListToolVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -46805,7 +46461,6 @@ pub struct CreateToolVersionRequest {
 
 #[cfg(feature = "tools")]
 impl CreateToolVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -46881,7 +46536,6 @@ pub struct GetToolVersionRequest {
 
 #[cfg(feature = "tools")]
 impl GetToolVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -46933,7 +46587,6 @@ pub struct DeleteToolVersionRequest {
 
 #[cfg(feature = "tools")]
 impl DeleteToolVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -46988,7 +46641,6 @@ pub struct RestoreToolVersionRequest {
 
 #[cfg(feature = "tools")]
 impl RestoreToolVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47029,7 +46681,6 @@ pub struct RestoreToolVersionResponse {
 
 #[cfg(feature = "tools")]
 impl RestoreToolVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47102,7 +46753,6 @@ pub struct ToolVersion {
 
 #[cfg(feature = "tools")]
 impl ToolVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47275,7 +46925,6 @@ pub struct ToolCall {
     feature = "transition-route-groups",
 ))]
 impl ToolCall {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47375,7 +47024,6 @@ pub struct ToolCallResult {
 
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl ToolCallResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47528,7 +47176,6 @@ pub mod tool_call_result {
 
     #[cfg(any(feature = "sessions", feature = "test-cases",))]
     impl Error {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -47597,7 +47244,6 @@ pub struct TraceBlock {
 
 #[cfg(feature = "sessions")]
 impl TraceBlock {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -47960,7 +47606,6 @@ pub struct SpeechProcessingMetadata {
 
 #[cfg(feature = "sessions")]
 impl SpeechProcessingMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48003,7 +47648,6 @@ pub struct PlaybookTraceMetadata {
 
 #[cfg(feature = "sessions")]
 impl PlaybookTraceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48058,7 +47702,6 @@ pub struct FlowTraceMetadata {
 
 #[cfg(feature = "sessions")]
 impl FlowTraceMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48109,7 +47752,6 @@ pub struct PlaybookInput {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48150,7 +47792,6 @@ pub struct PlaybookOutput {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookOutput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48191,7 +47832,6 @@ pub struct Action {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl Action {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48565,7 +48205,6 @@ pub struct UserUtterance {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl UserUtterance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48603,7 +48242,6 @@ pub struct AgentUtterance {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl AgentUtterance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48657,7 +48295,6 @@ pub struct ToolUse {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl ToolUse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48799,7 +48436,6 @@ pub struct PlaybookInvocation {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookInvocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -48941,7 +48577,6 @@ pub struct FlowInvocation {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl FlowInvocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49015,7 +48650,6 @@ pub struct PlaybookTransition {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl PlaybookTransition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49071,7 +48705,6 @@ pub struct FlowTransition {
 
 #[cfg(any(feature = "examples", feature = "playbooks", feature = "sessions",))]
 impl FlowTransition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49142,7 +48775,6 @@ pub struct TransitionRouteGroup {
 
 #[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
 impl TransitionRouteGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49241,7 +48873,6 @@ pub struct ListTransitionRouteGroupsRequest {
 
 #[cfg(feature = "transition-route-groups")]
 impl ListTransitionRouteGroupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49325,7 +48956,6 @@ pub struct ListTransitionRouteGroupsResponse {
 
 #[cfg(feature = "transition-route-groups")]
 impl ListTransitionRouteGroupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49424,7 +49054,6 @@ pub struct GetTransitionRouteGroupRequest {
 
 #[cfg(feature = "transition-route-groups")]
 impl GetTransitionRouteGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49500,7 +49129,6 @@ pub struct CreateTransitionRouteGroupRequest {
 
 #[cfg(feature = "transition-route-groups")]
 impl CreateTransitionRouteGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49602,7 +49230,6 @@ pub struct UpdateTransitionRouteGroupRequest {
 
 #[cfg(feature = "transition-route-groups")]
 impl UpdateTransitionRouteGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49725,7 +49352,6 @@ pub struct DeleteTransitionRouteGroupRequest {
 
 #[cfg(feature = "transition-route-groups")]
 impl DeleteTransitionRouteGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -49788,7 +49414,6 @@ pub struct ValidationMessage {
 
 #[cfg(any(feature = "agents", feature = "flows",))]
 impl ValidationMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50289,7 +49914,6 @@ pub struct ResourceName {
 
 #[cfg(any(feature = "agents", feature = "flows",))]
 impl ResourceName {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50344,7 +49968,6 @@ pub struct CreateVersionOperationMetadata {
 
 #[cfg(feature = "versions")]
 impl CreateVersionOperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50402,7 +50025,6 @@ pub struct Version {
 
 #[cfg(feature = "versions")]
 impl Version {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50714,7 +50336,6 @@ pub struct ListVersionsRequest {
 
 #[cfg(feature = "versions")]
 impl ListVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50785,7 +50406,6 @@ pub struct ListVersionsResponse {
 
 #[cfg(feature = "versions")]
 impl ListVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50867,7 +50487,6 @@ pub struct GetVersionRequest {
 
 #[cfg(feature = "versions")]
 impl GetVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50916,7 +50535,6 @@ pub struct CreateVersionRequest {
 
 #[cfg(feature = "versions")]
 impl CreateVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -50994,7 +50612,6 @@ pub struct UpdateVersionRequest {
 
 #[cfg(feature = "versions")]
 impl UpdateVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51093,7 +50710,6 @@ pub struct DeleteVersionRequest {
 
 #[cfg(feature = "versions")]
 impl DeleteVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51144,7 +50760,6 @@ pub struct LoadVersionRequest {
 
 #[cfg(feature = "versions")]
 impl LoadVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51216,7 +50831,6 @@ pub struct CompareVersionsRequest {
 
 #[cfg(feature = "versions")]
 impl CompareVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51287,7 +50901,6 @@ pub struct CompareVersionsResponse {
 
 #[cfg(feature = "versions")]
 impl CompareVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51402,7 +51015,6 @@ pub struct Webhook {
 
 #[cfg(any(feature = "environments", feature = "webhooks",))]
 impl Webhook {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -51679,7 +51291,6 @@ pub mod webhook {
 
     #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl GenericWebService {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -52001,7 +51612,6 @@ pub mod webhook {
 
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl SecretVersionHeaderValue {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -52059,7 +51669,6 @@ pub mod webhook {
 
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl OAuthConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -52172,7 +51781,6 @@ pub mod webhook {
 
         #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl ServiceAccountAuthConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -52708,7 +52316,6 @@ pub mod webhook {
 
     #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl ServiceDirectoryConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -52803,7 +52410,6 @@ pub struct ListWebhooksRequest {
 
 #[cfg(feature = "webhooks")]
 impl ListWebhooksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -52873,7 +52479,6 @@ pub struct ListWebhooksResponse {
 
 #[cfg(feature = "webhooks")]
 impl ListWebhooksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -52953,7 +52558,6 @@ pub struct GetWebhookRequest {
 
 #[cfg(feature = "webhooks")]
 impl GetWebhookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -52998,7 +52602,6 @@ pub struct CreateWebhookRequest {
 
 #[cfg(feature = "webhooks")]
 impl CreateWebhookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -53076,7 +52679,6 @@ pub struct UpdateWebhookRequest {
 
 #[cfg(feature = "webhooks")]
 impl UpdateWebhookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -53188,7 +52790,6 @@ pub struct DeleteWebhookRequest {
 
 #[cfg(feature = "webhooks")]
 impl DeleteWebhookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -53331,7 +52932,6 @@ pub struct WebhookRequest {
     feature = "webhooks",
 ))]
 impl WebhookRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -53922,7 +53522,6 @@ pub mod webhook_request {
         feature = "webhooks",
     ))]
     impl FulfillmentInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -54047,7 +53646,6 @@ pub mod webhook_request {
         feature = "webhooks",
     ))]
     impl IntentInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -54231,7 +53829,6 @@ pub mod webhook_request {
             feature = "webhooks",
         ))]
         impl IntentParameterValue {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -54375,7 +53972,6 @@ pub mod webhook_request {
         feature = "webhooks",
     ))]
     impl SentimentAnalysisResult {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -54543,7 +54139,6 @@ pub struct WebhookResponse {
     feature = "webhooks",
 ))]
 impl WebhookResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -54881,7 +54476,6 @@ pub mod webhook_response {
         feature = "webhooks",
     ))]
     impl FulfillmentResponse {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -55415,7 +55009,6 @@ pub struct PageInfo {
     feature = "webhooks",
 ))]
 impl PageInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -55595,7 +55188,6 @@ pub mod page_info {
         feature = "webhooks",
     ))]
     impl FormInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -55786,7 +55378,6 @@ pub mod page_info {
             feature = "webhooks",
         ))]
         impl ParameterInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -56369,7 +55960,6 @@ pub struct SessionInfo {
     feature = "webhooks",
 ))]
 impl SessionInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -56502,7 +56092,6 @@ pub struct LanguageInfo {
     feature = "webhooks",
 ))]
 impl LanguageInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

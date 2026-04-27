@@ -64,7 +64,6 @@ pub struct ListReportConfigsRequest {
 }
 
 impl ListReportConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -153,7 +152,6 @@ pub struct ListReportConfigsResponse {
 }
 
 impl ListReportConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -241,7 +239,6 @@ pub struct GetReportConfigRequest {
 }
 
 impl GetReportConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -294,7 +291,6 @@ pub struct CreateReportConfigRequest {
 }
 
 impl CreateReportConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -396,7 +392,6 @@ pub struct UpdateReportConfigRequest {
 }
 
 impl UpdateReportConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -515,7 +510,6 @@ pub struct DeleteReportConfigRequest {
 }
 
 impl DeleteReportConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -606,7 +600,6 @@ pub struct ReportDetail {
 }
 
 impl ReportDetail {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -826,7 +819,6 @@ pub mod report_detail {
     }
 
     impl Metrics {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -875,7 +867,6 @@ pub struct ListReportDetailsRequest {
 }
 
 impl ListReportDetailsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -964,7 +955,6 @@ pub struct ListReportDetailsResponse {
 }
 
 impl ListReportDetailsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1052,7 +1042,6 @@ pub struct GetReportDetailRequest {
 }
 
 impl GetReportDetailRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1111,7 +1100,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1270,7 +1258,6 @@ pub struct FrequencyOptions {
 }
 
 impl FrequencyOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1520,7 +1507,6 @@ pub struct CSVOptions {
 }
 
 impl CSVOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1579,7 +1565,6 @@ pub struct ParquetOptions {
 }
 
 impl ParquetOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1603,7 +1588,6 @@ pub struct CloudStorageFilters {
 }
 
 impl CloudStorageFilters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1643,7 +1627,6 @@ pub struct CloudStorageDestinationOptions {
 }
 
 impl CloudStorageDestinationOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1701,7 +1684,6 @@ pub struct ObjectMetadataReportOptions {
 }
 
 impl ObjectMetadataReportOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1921,7 +1903,6 @@ pub struct ReportConfig {
 }
 
 impl ReportConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2278,7 +2259,6 @@ pub struct Identity {
 }
 
 impl Identity {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2531,7 +2511,6 @@ pub struct DatasetConfig {
 }
 
 impl DatasetConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3243,14 +3222,12 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SourceProjects {
-        #[allow(missing_docs)]
         pub project_numbers: std::vec::Vec<i64>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SourceProjects {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3290,7 +3267,6 @@ pub mod dataset_config {
     }
 
     impl SourceFolders {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3323,14 +3299,12 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageLocations {
-        #[allow(missing_docs)]
         pub locations: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CloudStorageLocations {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3363,7 +3337,6 @@ pub mod dataset_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CloudStorageBuckets {
-        #[allow(missing_docs)]
         pub cloud_storage_buckets:
             std::vec::Vec<crate::model::dataset_config::cloud_storage_buckets::CloudStorageBucket>,
 
@@ -3371,7 +3344,6 @@ pub mod dataset_config {
     }
 
     impl CloudStorageBuckets {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3417,14 +3389,12 @@ pub mod dataset_config {
         #[non_exhaustive]
         pub struct CloudStorageBucket {
 
-            #[allow(missing_docs)]
             pub cloud_storage_bucket: std::option::Option<crate::model::dataset_config::cloud_storage_buckets::cloud_storage_bucket::CloudStorageBucket>,
 
             pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
         impl CloudStorageBucket {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3530,7 +3500,6 @@ pub mod dataset_config {
             #[allow(unused_imports)]
             use super::*;
 
-            #[allow(missing_docs)]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum CloudStorageBucket {
@@ -3557,7 +3526,6 @@ pub mod dataset_config {
     }
 
     impl Link {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3628,7 +3596,6 @@ pub mod dataset_config {
     }
 
     impl BucketErrors {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3789,7 +3756,6 @@ pub mod dataset_config {
     }
 
     impl ProjectErrors {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4151,7 +4117,6 @@ pub mod dataset_config {
     }
 
     impl ValidationErrorsBeforeIngestion {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4408,11 +4373,9 @@ pub mod dataset_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageLocationsOneOf {
-        #[allow(missing_docs)]
         IncludeCloudStorageLocations(
             std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
         ),
-        #[allow(missing_docs)]
         ExcludeCloudStorageLocations(
             std::boxed::Box<crate::model::dataset_config::CloudStorageLocations>,
         ),
@@ -4422,11 +4385,9 @@ pub mod dataset_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CloudStorageBucketsOneOf {
-        #[allow(missing_docs)]
         IncludeCloudStorageBuckets(
             std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
         ),
-        #[allow(missing_docs)]
         ExcludeCloudStorageBuckets(
             std::boxed::Box<crate::model::dataset_config::CloudStorageBuckets>,
         ),
@@ -4460,7 +4421,6 @@ pub struct ListDatasetConfigsRequest {
 }
 
 impl ListDatasetConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4552,7 +4512,6 @@ pub struct ListDatasetConfigsResponse {
 }
 
 impl ListDatasetConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4643,7 +4602,6 @@ pub struct GetDatasetConfigRequest {
 }
 
 impl GetDatasetConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4703,7 +4661,6 @@ pub struct CreateDatasetConfigRequest {
 }
 
 impl CreateDatasetConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4821,7 +4778,6 @@ pub struct UpdateDatasetConfigRequest {
 }
 
 impl UpdateDatasetConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4938,7 +4894,6 @@ pub struct DeleteDatasetConfigRequest {
 }
 
 impl DeleteDatasetConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4988,7 +4943,6 @@ pub struct LinkDatasetRequest {
 }
 
 impl LinkDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5023,7 +4977,6 @@ pub struct LinkDatasetResponse {
 }
 
 impl LinkDatasetResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5049,7 +5002,6 @@ pub struct UnlinkDatasetRequest {
 }
 
 impl UnlinkDatasetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5089,7 +5041,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

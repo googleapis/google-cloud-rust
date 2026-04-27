@@ -99,7 +99,6 @@ pub struct Execution {
 }
 
 impl Execution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -439,7 +438,6 @@ pub mod execution {
     }
 
     impl StackTraceElement {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -533,7 +531,6 @@ pub mod execution {
         }
 
         impl Position {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -593,7 +590,6 @@ pub mod execution {
     }
 
     impl StackTrace {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -644,7 +640,6 @@ pub mod execution {
     }
 
     impl Error {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -730,7 +725,6 @@ pub mod execution {
     }
 
     impl Status {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -783,7 +777,6 @@ pub mod execution {
         }
 
         impl Step {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -834,7 +827,6 @@ pub mod execution {
     }
 
     impl StateError {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1358,7 +1350,6 @@ pub struct ListExecutionsRequest {
 }
 
 impl ListExecutionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1463,7 +1454,6 @@ pub struct ListExecutionsResponse {
 }
 
 impl ListExecutionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1543,7 +1533,6 @@ pub struct CreateExecutionRequest {
 }
 
 impl CreateExecutionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1621,7 +1610,6 @@ pub struct GetExecutionRequest {
 }
 
 impl GetExecutionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1676,7 +1664,6 @@ pub struct CancelExecutionRequest {
 }
 
 impl CancelExecutionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

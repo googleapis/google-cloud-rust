@@ -83,7 +83,6 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -467,7 +466,6 @@ pub struct FileShareConfig {
 }
 
 impl FileShareConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -635,7 +633,6 @@ pub struct NfsExportOptions {
 }
 
 impl NfsExportOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1014,7 +1011,6 @@ pub struct ReplicaConfig {
 }
 
 impl ReplicaConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1413,7 +1409,6 @@ pub struct Replication {
 }
 
 impl Replication {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1697,7 +1692,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2155,7 +2149,6 @@ pub mod instance {
     }
 
     impl IOPSPerTB {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2190,7 +2183,6 @@ pub mod instance {
     }
 
     impl FixedIOPS {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2224,14 +2216,12 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PerformanceConfig {
-        #[allow(missing_docs)]
         pub mode: std::option::Option<crate::model::instance::performance_config::Mode>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl PerformanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2354,7 +2344,6 @@ pub mod instance {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Mode {
@@ -2407,7 +2396,6 @@ pub mod instance {
     }
 
     impl PerformanceLimits {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3142,7 +3130,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3223,7 +3210,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3270,7 +3256,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3361,14 +3346,12 @@ pub struct RestoreInstanceRequest {
     /// is being restored to.
     pub file_share: std::string::String,
 
-    #[allow(missing_docs)]
     pub source: std::option::Option<crate::model::restore_instance_request::Source>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RestoreInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3462,7 +3445,6 @@ pub mod restore_instance_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
@@ -3490,7 +3472,6 @@ pub struct RevertInstanceRequest {
 }
 
 impl RevertInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3545,7 +3526,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3610,7 +3590,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3705,7 +3684,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3824,7 +3802,6 @@ pub struct Snapshot {
 }
 
 impl Snapshot {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4129,7 +4106,6 @@ pub struct CreateSnapshotRequest {
 }
 
 impl CreateSnapshotRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4210,7 +4186,6 @@ pub struct GetSnapshotRequest {
 }
 
 impl GetSnapshotRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4246,7 +4221,6 @@ pub struct DeleteSnapshotRequest {
 }
 
 impl DeleteSnapshotRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4285,7 +4259,6 @@ pub struct UpdateSnapshotRequest {
 }
 
 impl UpdateSnapshotRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4393,7 +4366,6 @@ pub struct ListSnapshotsRequest {
 }
 
 impl ListSnapshotsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4495,7 +4467,6 @@ pub struct ListSnapshotsResponse {
 }
 
 impl ListSnapshotsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4648,7 +4619,6 @@ pub struct Backup {
 }
 
 impl Backup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5117,7 +5087,6 @@ pub struct CreateBackupRequest {
 }
 
 impl CreateBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5198,7 +5167,6 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5239,7 +5207,6 @@ pub struct UpdateBackupRequest {
 }
 
 impl UpdateBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5335,7 +5302,6 @@ pub struct PromoteReplicaRequest {
 }
 
 impl PromoteReplicaRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5383,7 +5349,6 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5436,7 +5401,6 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5532,7 +5496,6 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

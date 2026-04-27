@@ -74,7 +74,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -272,7 +271,6 @@ pub struct ServiceConnectionMap {
 }
 
 impl ServiceConnectionMap {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -565,7 +563,6 @@ pub mod service_connection_map {
     }
 
     impl ProducerPscConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -644,7 +641,6 @@ pub mod service_connection_map {
     }
 
     impl ConsumerPscConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1058,7 +1054,6 @@ pub mod service_connection_map {
     }
 
     impl ConsumerPscConnection {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1561,7 +1556,6 @@ pub struct ListServiceConnectionMapsRequest {
 }
 
 impl ListServiceConnectionMapsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1651,7 +1645,6 @@ pub struct ListServiceConnectionMapsResponse {
 }
 
 impl ListServiceConnectionMapsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1739,7 +1732,6 @@ pub struct GetServiceConnectionMapRequest {
 }
 
 impl GetServiceConnectionMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1800,7 +1792,6 @@ pub struct CreateServiceConnectionMapRequest {
 }
 
 impl CreateServiceConnectionMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1917,7 +1908,6 @@ pub struct UpdateServiceConnectionMapRequest {
 }
 
 impl UpdateServiceConnectionMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2038,7 +2028,6 @@ pub struct DeleteServiceConnectionMapRequest {
 }
 
 impl DeleteServiceConnectionMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2162,7 +2151,6 @@ pub struct ServiceConnectionPolicy {
 }
 
 impl ServiceConnectionPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2456,7 +2444,6 @@ pub mod service_connection_policy {
     }
 
     impl PscConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2760,7 +2747,6 @@ pub mod service_connection_policy {
     }
 
     impl PscConnection {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3245,7 +3231,6 @@ pub struct ListServiceConnectionPoliciesRequest {
 }
 
 impl ListServiceConnectionPoliciesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3335,7 +3320,6 @@ pub struct ListServiceConnectionPoliciesResponse {
 }
 
 impl ListServiceConnectionPoliciesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3425,7 +3409,6 @@ pub struct GetServiceConnectionPolicyRequest {
 }
 
 impl GetServiceConnectionPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3485,7 +3468,6 @@ pub struct CreateServiceConnectionPolicyRequest {
 }
 
 impl CreateServiceConnectionPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3602,7 +3584,6 @@ pub struct UpdateServiceConnectionPolicyRequest {
 }
 
 impl UpdateServiceConnectionPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3723,7 +3704,6 @@ pub struct DeleteServiceConnectionPolicyRequest {
 }
 
 impl DeleteServiceConnectionPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3826,7 +3806,6 @@ pub struct ServiceClass {
 }
 
 impl ServiceClass {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4015,7 +3994,6 @@ pub struct ListServiceClassesRequest {
 }
 
 impl ListServiceClassesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4105,7 +4083,6 @@ pub struct ListServiceClassesResponse {
 }
 
 impl ListServiceClassesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4193,7 +4170,6 @@ pub struct GetServiceClassRequest {
 }
 
 impl GetServiceClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4250,7 +4226,6 @@ pub struct UpdateServiceClassRequest {
 }
 
 impl UpdateServiceClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4371,7 +4346,6 @@ pub struct DeleteServiceClassRequest {
 }
 
 impl DeleteServiceClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4480,7 +4454,6 @@ pub struct ServiceConnectionToken {
 }
 
 impl ServiceConnectionToken {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4714,7 +4687,6 @@ pub struct ListServiceConnectionTokensRequest {
 }
 
 impl ListServiceConnectionTokensRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4804,7 +4776,6 @@ pub struct ListServiceConnectionTokensResponse {
 }
 
 impl ListServiceConnectionTokensResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4894,7 +4865,6 @@ pub struct GetServiceConnectionTokenRequest {
 }
 
 impl GetServiceConnectionTokenRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4955,7 +4925,6 @@ pub struct CreateServiceConnectionTokenRequest {
 }
 
 impl CreateServiceConnectionTokenRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5070,7 +5039,6 @@ pub struct DeleteServiceConnectionTokenRequest {
 }
 
 impl DeleteServiceConnectionTokenRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5210,7 +5178,6 @@ pub struct MulticloudDataTransferConfig {
 }
 
 impl MulticloudDataTransferConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5430,7 +5397,6 @@ pub struct ListMulticloudDataTransferConfigsRequest {
 }
 
 impl ListMulticloudDataTransferConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5531,7 +5497,6 @@ pub struct ListMulticloudDataTransferConfigsResponse {
 }
 
 impl ListMulticloudDataTransferConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5622,7 +5587,6 @@ pub struct GetMulticloudDataTransferConfigRequest {
 }
 
 impl GetMulticloudDataTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5682,7 +5646,6 @@ pub struct CreateMulticloudDataTransferConfigRequest {
 }
 
 impl CreateMulticloudDataTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5804,7 +5767,6 @@ pub struct UpdateMulticloudDataTransferConfigRequest {
 }
 
 impl UpdateMulticloudDataTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5930,7 +5892,6 @@ pub struct DeleteMulticloudDataTransferConfigRequest {
 }
 
 impl DeleteMulticloudDataTransferConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6045,7 +6006,6 @@ pub struct Destination {
 }
 
 impl Destination {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6284,7 +6244,6 @@ pub mod destination {
     }
 
     impl DestinationEndpoint {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6541,7 +6500,6 @@ pub struct ListDestinationsRequest {
 }
 
 impl ListDestinationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6642,7 +6600,6 @@ pub struct ListDestinationsResponse {
 }
 
 impl ListDestinationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6730,7 +6687,6 @@ pub struct GetDestinationRequest {
 }
 
 impl GetDestinationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6788,7 +6744,6 @@ pub struct CreateDestinationRequest {
 }
 
 impl CreateDestinationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6901,7 +6856,6 @@ pub struct UpdateDestinationRequest {
 }
 
 impl UpdateDestinationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7021,7 +6975,6 @@ pub struct DeleteDestinationRequest {
 }
 
 impl DeleteDestinationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7080,7 +7033,6 @@ pub struct StateTimeline {
 }
 
 impl StateTimeline {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7137,7 +7089,6 @@ pub mod state_timeline {
     }
 
     impl StateMetadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7381,7 +7332,6 @@ pub struct MulticloudDataTransferSupportedService {
 }
 
 impl MulticloudDataTransferSupportedService {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7442,7 +7392,6 @@ pub struct ServiceConfig {
 }
 
 impl ServiceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7676,7 +7625,6 @@ pub struct GetMulticloudDataTransferSupportedServiceRequest {
 }
 
 impl GetMulticloudDataTransferSupportedServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7718,7 +7666,6 @@ pub struct ListMulticloudDataTransferSupportedServicesRequest {
 }
 
 impl ListMulticloudDataTransferSupportedServicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7782,7 +7729,6 @@ pub struct ListMulticloudDataTransferSupportedServicesResponse {
 }
 
 impl ListMulticloudDataTransferSupportedServicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7924,7 +7870,6 @@ pub struct Hub {
 }
 
 impl Hub {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8229,7 +8174,6 @@ pub struct RoutingVPC {
 }
 
 impl RoutingVPC {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8349,7 +8293,6 @@ pub struct Spoke {
 }
 
 impl Spoke {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8782,7 +8725,6 @@ pub mod spoke {
     }
 
     impl StateReason {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9018,7 +8960,6 @@ pub mod spoke {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouteTable {
@@ -9054,7 +8995,6 @@ pub struct RouteTable {
 }
 
 impl RouteTable {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9277,7 +9217,6 @@ pub struct Route {
 }
 
 impl Route {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9672,7 +9611,6 @@ pub struct Group {
 }
 
 impl Group {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9886,7 +9824,6 @@ pub struct AutoAccept {
 }
 
 impl AutoAccept {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9942,7 +9879,6 @@ pub struct ListHubsRequest {
 }
 
 impl ListHubsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10037,7 +9973,6 @@ pub struct ListHubsResponse {
 }
 
 impl ListHubsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10129,7 +10064,6 @@ pub struct GetHubRequest {
 }
 
 impl GetHubRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10190,7 +10124,6 @@ pub struct CreateHubRequest {
 }
 
 impl CreateHubRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10309,7 +10242,6 @@ pub struct UpdateHubRequest {
 }
 
 impl UpdateHubRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10429,7 +10361,6 @@ pub struct DeleteHubRequest {
 }
 
 impl DeleteHubRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10506,7 +10437,6 @@ pub struct ListHubSpokesRequest {
 }
 
 impl ListHubSpokesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10778,7 +10708,6 @@ pub struct ListHubSpokesResponse {
 }
 
 impl ListHubSpokesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10911,7 +10840,6 @@ pub struct QueryHubStatusRequest {
 }
 
 impl QueryHubStatusRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11014,7 +10942,6 @@ pub struct QueryHubStatusResponse {
 }
 
 impl QueryHubStatusResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11095,7 +11022,6 @@ pub struct HubStatusEntry {
 }
 
 impl HubStatusEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11195,7 +11121,6 @@ pub struct PscPropagationStatus {
 }
 
 impl PscPropagationStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11515,7 +11440,6 @@ pub struct ListSpokesRequest {
 }
 
 impl ListSpokesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11609,7 +11533,6 @@ pub struct ListSpokesResponse {
 }
 
 impl ListSpokesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11700,7 +11623,6 @@ pub struct GetSpokeRequest {
 }
 
 impl GetSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11760,7 +11682,6 @@ pub struct CreateSpokeRequest {
 }
 
 impl CreateSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11879,7 +11800,6 @@ pub struct UpdateSpokeRequest {
 }
 
 impl UpdateSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11999,7 +11919,6 @@ pub struct DeleteSpokeRequest {
 }
 
 impl DeleteSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12068,7 +11987,6 @@ pub struct AcceptHubSpokeRequest {
 }
 
 impl AcceptHubSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12130,7 +12048,6 @@ pub struct AcceptHubSpokeResponse {
 }
 
 impl AcceptHubSpokeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12211,7 +12128,6 @@ pub struct RejectHubSpokeRequest {
 }
 
 impl RejectHubSpokeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12285,7 +12201,6 @@ pub struct RejectHubSpokeResponse {
 }
 
 impl RejectHubSpokeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12366,7 +12281,6 @@ pub struct AcceptSpokeUpdateRequest {
 }
 
 impl AcceptSpokeUpdateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12440,7 +12354,6 @@ pub struct AcceptSpokeUpdateResponse {
 }
 
 impl AcceptSpokeUpdateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12524,7 +12437,6 @@ pub struct RejectSpokeUpdateRequest {
 }
 
 impl RejectSpokeUpdateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12610,7 +12522,6 @@ pub struct RejectSpokeUpdateResponse {
 }
 
 impl RejectSpokeUpdateResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12669,7 +12580,6 @@ pub struct GetRouteTableRequest {
 }
 
 impl GetRouteTableRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12707,7 +12617,6 @@ pub struct GetRouteRequest {
 }
 
 impl GetRouteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12758,7 +12667,6 @@ pub struct ListRoutesRequest {
 }
 
 impl ListRoutesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12853,7 +12761,6 @@ pub struct ListRoutesResponse {
 }
 
 impl ListRoutesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12957,7 +12864,6 @@ pub struct ListRouteTablesRequest {
 }
 
 impl ListRouteTablesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13052,7 +12958,6 @@ pub struct ListRouteTablesResponse {
 }
 
 impl ListRouteTablesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13156,7 +13061,6 @@ pub struct ListGroupsRequest {
 }
 
 impl ListGroupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13251,7 +13155,6 @@ pub struct ListGroupsResponse {
 }
 
 impl ListGroupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13355,7 +13258,6 @@ pub struct LinkedVpnTunnels {
 }
 
 impl LinkedVpnTunnels {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13452,7 +13354,6 @@ pub struct LinkedInterconnectAttachments {
 }
 
 impl LinkedInterconnectAttachments {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13550,7 +13451,6 @@ pub struct LinkedRouterApplianceInstances {
 }
 
 impl LinkedRouterApplianceInstances {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13659,7 +13559,6 @@ pub struct LinkedVpcNetwork {
 }
 
 impl LinkedVpcNetwork {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13768,7 +13667,6 @@ impl wkt::message::Message for LinkedVpcNetwork {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LinkedProducerVpcNetwork {
@@ -13805,7 +13703,6 @@ pub struct LinkedProducerVpcNetwork {
 }
 
 impl LinkedProducerVpcNetwork {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13956,7 +13853,6 @@ pub struct RouterApplianceInstance {
 }
 
 impl RouterApplianceInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14003,7 +13899,6 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14036,7 +13931,6 @@ impl wkt::message::Message for LocationMetadata {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NextHopVpcNetwork {
@@ -14047,7 +13941,6 @@ pub struct NextHopVpcNetwork {
 }
 
 impl NextHopVpcNetwork {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14090,7 +13983,6 @@ pub struct NextHopVPNTunnel {
 }
 
 impl NextHopVPNTunnel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14157,7 +14049,6 @@ pub struct NextHopRouterApplianceInstance {
 }
 
 impl NextHopRouterApplianceInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14225,7 +14116,6 @@ pub struct NextHopInterconnectAttachment {
 }
 
 impl NextHopInterconnectAttachment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14298,7 +14188,6 @@ pub struct SpokeSummary {
 }
 
 impl SpokeSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14398,7 +14287,6 @@ pub mod spoke_summary {
     }
 
     impl SpokeTypeCount {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14456,7 +14344,6 @@ pub mod spoke_summary {
     }
 
     impl SpokeStateCount {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14510,7 +14397,6 @@ pub mod spoke_summary {
     }
 
     impl SpokeStateReasonCount {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14569,7 +14455,6 @@ pub struct GetGroupRequest {
 }
 
 impl GetGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14631,7 +14516,6 @@ pub struct UpdateGroupRequest {
 }
 
 impl UpdateGroupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14820,7 +14704,6 @@ pub struct InternalRange {
 }
 
 impl InternalRange {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15190,7 +15073,6 @@ pub mod internal_range {
     }
 
     impl Migration {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15245,7 +15127,6 @@ pub mod internal_range {
     }
 
     impl AllocationOptions {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15913,7 +15794,6 @@ pub struct ListInternalRangesRequest {
 }
 
 impl ListInternalRangesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16003,7 +15883,6 @@ pub struct ListInternalRangesResponse {
 }
 
 impl ListInternalRangesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16091,7 +15970,6 @@ pub struct GetInternalRangeRequest {
 }
 
 impl GetInternalRangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16150,7 +16028,6 @@ pub struct CreateInternalRangeRequest {
 }
 
 impl CreateInternalRangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16267,7 +16144,6 @@ pub struct UpdateInternalRangeRequest {
 }
 
 impl UpdateInternalRangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16383,7 +16259,6 @@ pub struct DeleteInternalRangeRequest {
 }
 
 impl DeleteInternalRangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16473,14 +16348,12 @@ pub struct PolicyBasedRoute {
     /// endpoints (e.g. VMs, VPNs, and Interconnects) in the VPC.
     pub target: std::option::Option<crate::model::policy_based_route::Target>,
 
-    #[allow(missing_docs)]
     pub next_hop: std::option::Option<crate::model::policy_based_route::NextHop>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyBasedRoute {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16927,7 +16800,6 @@ pub mod policy_based_route {
     }
 
     impl VirtualMachine {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16968,7 +16840,6 @@ pub mod policy_based_route {
     }
 
     impl InterconnectAttachment {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17017,7 +16888,6 @@ pub mod policy_based_route {
     }
 
     impl Filter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17239,7 +17109,6 @@ pub mod policy_based_route {
     }
 
     impl Warnings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17594,7 +17463,6 @@ pub mod policy_based_route {
         ),
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum NextHop {
@@ -17635,7 +17503,6 @@ pub struct ListPolicyBasedRoutesRequest {
 }
 
 impl ListPolicyBasedRoutesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17729,7 +17596,6 @@ pub struct ListPolicyBasedRoutesResponse {
 }
 
 impl ListPolicyBasedRoutesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17821,7 +17687,6 @@ pub struct GetPolicyBasedRouteRequest {
 }
 
 impl GetPolicyBasedRouteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -17888,7 +17753,6 @@ pub struct CreatePolicyBasedRouteRequest {
 }
 
 impl CreatePolicyBasedRouteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18002,7 +17866,6 @@ pub struct DeletePolicyBasedRouteRequest {
 }
 
 impl DeletePolicyBasedRouteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

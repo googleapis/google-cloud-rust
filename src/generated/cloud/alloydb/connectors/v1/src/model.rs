@@ -51,7 +51,6 @@ pub struct MetadataExchangeRequest {
 }
 
 impl MetadataExchangeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -260,7 +259,6 @@ pub struct MetadataExchangeResponse {
 }
 
 impl MetadataExchangeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -120,7 +120,6 @@ pub struct Span {
 }
 
 impl Span {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -546,7 +545,6 @@ pub mod span {
     }
 
     impl Attributes {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -607,7 +605,6 @@ pub mod span {
     }
 
     impl TimeEvent {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -779,7 +776,6 @@ pub mod span {
         }
 
         impl Annotation {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -881,7 +877,6 @@ pub mod span {
         }
 
         impl MessageEvent {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1122,7 +1117,6 @@ pub mod span {
     }
 
     impl TimeEvents {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1207,7 +1201,6 @@ pub mod span {
     }
 
     impl Link {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1451,7 +1444,6 @@ pub mod span {
     }
 
     impl Links {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1672,7 +1664,6 @@ pub struct AttributeValue {
 }
 
 impl AttributeValue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1846,7 +1837,6 @@ pub struct StackTrace {
 }
 
 impl StackTrace {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1943,7 +1933,6 @@ pub mod stack_trace {
     }
 
     impl StackFrame {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2160,7 +2149,6 @@ pub mod stack_trace {
     }
 
     impl StackFrames {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2223,7 +2211,6 @@ pub struct Module {
 }
 
 impl Module {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2322,7 +2309,6 @@ pub struct TruncatableString {
 }
 
 impl TruncatableString {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2374,7 +2360,6 @@ pub struct BatchWriteSpansRequest {
 }
 
 impl BatchWriteSpansRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

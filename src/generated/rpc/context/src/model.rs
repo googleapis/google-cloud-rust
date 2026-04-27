@@ -84,7 +84,6 @@ pub struct AttributeContext {
 }
 
 impl AttributeContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,7 +383,6 @@ pub mod attribute_context {
     }
 
     impl Peer {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -493,7 +491,6 @@ pub mod attribute_context {
     }
 
     impl Api {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -618,7 +615,6 @@ pub mod attribute_context {
     }
 
     impl Auth {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -784,7 +780,6 @@ pub mod attribute_context {
     }
 
     impl Request {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1033,7 +1028,6 @@ pub mod attribute_context {
     }
 
     impl Response {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1242,7 +1236,6 @@ pub mod attribute_context {
     }
 
     impl Resource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1512,7 +1505,6 @@ pub struct AuditContext {
 }
 
 impl AuditContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

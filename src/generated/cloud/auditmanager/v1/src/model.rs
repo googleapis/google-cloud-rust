@@ -59,7 +59,6 @@ pub struct EnrollResourceRequest {
 }
 
 impl EnrollResourceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -123,7 +122,6 @@ pub mod enroll_resource_request {
     }
 
     impl EligibleDestination {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -228,7 +226,6 @@ pub struct GenerateAuditScopeReportRequest {
 }
 
 impl GenerateAuditScopeReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -461,7 +458,6 @@ pub struct GenerateAuditReportRequest {
 }
 
 impl GenerateAuditReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -743,7 +739,6 @@ pub struct GetResourceEnrollmentStatusRequest {
 }
 
 impl GetResourceEnrollmentStatusRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -787,7 +782,6 @@ pub struct ListResourceEnrollmentStatusesRequest {
 }
 
 impl ListResourceEnrollmentStatusesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -849,7 +843,6 @@ pub struct ListResourceEnrollmentStatusesResponse {
 }
 
 impl ListResourceEnrollmentStatusesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -929,7 +922,6 @@ pub struct ListAuditReportsRequest {
 }
 
 impl ListAuditReportsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -991,7 +983,6 @@ pub struct ListAuditReportsResponse {
 }
 
 impl ListAuditReportsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1064,7 +1055,6 @@ pub struct GetAuditReportRequest {
 }
 
 impl GetAuditReportRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1108,7 +1098,6 @@ pub struct ListControlsRequest {
 }
 
 impl ListControlsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1170,7 +1159,6 @@ pub struct ListControlsResponse {
 }
 
 impl ListControlsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1275,7 +1263,6 @@ pub struct ReportGenerationProgress {
 }
 
 impl ReportGenerationProgress {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1398,7 +1385,6 @@ pub struct Enrollment {
 }
 
 impl Enrollment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1459,7 +1445,6 @@ pub struct AuditScopeReport {
 }
 
 impl AuditScopeReport {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1588,7 +1573,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1751,7 +1735,6 @@ pub struct ResourceEnrollmentStatus {
 }
 
 impl ResourceEnrollmentStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2042,7 +2025,6 @@ pub struct AuditReport {
 }
 
 impl AuditReport {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2445,7 +2427,6 @@ pub struct ControlFamily {
 }
 
 impl ControlFamily {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2525,7 +2506,6 @@ pub struct Control {
 }
 
 impl Control {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2955,14 +2935,12 @@ pub mod control {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DestinationDetails {
-    #[allow(missing_docs)]
     pub destination: std::option::Option<crate::model::destination_details::Destination>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DestinationDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3032,7 +3010,6 @@ pub mod destination_details {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
@@ -3064,7 +3041,6 @@ pub struct ReportSummary {
 }
 
 impl ReportSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3153,7 +3129,6 @@ pub struct ControlDetails {
 }
 
 impl ControlDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

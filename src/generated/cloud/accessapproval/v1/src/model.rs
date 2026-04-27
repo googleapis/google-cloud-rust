@@ -72,7 +72,6 @@ pub struct AccessLocations {
 }
 
 impl AccessLocations {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -114,7 +113,6 @@ impl wkt::message::Message for AccessLocations {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessReason {
@@ -128,7 +126,6 @@ pub struct AccessReason {
 }
 
 impl AccessReason {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -366,7 +363,6 @@ pub struct SignatureInfo {
 }
 
 impl SignatureInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -524,7 +520,6 @@ pub struct ApproveDecision {
 }
 
 impl ApproveDecision {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -696,7 +691,6 @@ pub struct DismissDecision {
 }
 
 impl DismissDecision {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -765,7 +759,6 @@ pub struct ResourceProperties {
 }
 
 impl ResourceProperties {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -829,7 +822,6 @@ pub struct ApprovalRequest {
 }
 
 impl ApprovalRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1217,7 +1209,6 @@ pub struct EnrolledService {
 }
 
 impl EnrolledService {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1319,7 +1310,6 @@ pub struct AccessApprovalSettings {
 }
 
 impl AccessApprovalSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1454,7 +1444,6 @@ pub struct AccessApprovalServiceAccount {
 }
 
 impl AccessApprovalServiceAccount {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1522,7 +1511,6 @@ pub struct ListApprovalRequestsMessage {
 }
 
 impl ListApprovalRequestsMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1596,7 +1584,6 @@ pub struct ListApprovalRequestsResponse {
 }
 
 impl ListApprovalRequestsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1669,7 +1656,6 @@ pub struct GetApprovalRequestMessage {
 }
 
 impl GetApprovalRequestMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1707,7 +1693,6 @@ pub struct ApproveApprovalRequestMessage {
 }
 
 impl ApproveApprovalRequestMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1775,7 +1760,6 @@ pub struct DismissApprovalRequestMessage {
 }
 
 impl DismissApprovalRequestMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1810,7 +1794,6 @@ pub struct InvalidateApprovalRequestMessage {
 }
 
 impl InvalidateApprovalRequestMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1846,7 +1829,6 @@ pub struct GetAccessApprovalSettingsMessage {
 }
 
 impl GetAccessApprovalSettingsMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1893,7 +1875,6 @@ pub struct UpdateAccessApprovalSettingsMessage {
 }
 
 impl UpdateAccessApprovalSettingsMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1982,7 +1963,6 @@ pub struct DeleteAccessApprovalSettingsMessage {
 }
 
 impl DeleteAccessApprovalSettingsMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2017,7 +1997,6 @@ pub struct GetAccessApprovalServiceAccountMessage {
 }
 
 impl GetAccessApprovalServiceAccountMessage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

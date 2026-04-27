@@ -51,7 +51,6 @@ pub struct ImageClassificationPredictionInstance {
 }
 
 impl ImageClassificationPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -110,7 +109,6 @@ pub struct ImageObjectDetectionPredictionInstance {
 }
 
 impl ImageObjectDetectionPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -164,7 +162,6 @@ pub struct ImageSegmentationPredictionInstance {
 }
 
 impl ImageSegmentationPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -217,7 +214,6 @@ pub struct TextClassificationPredictionInstance {
 }
 
 impl TextClassificationPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -277,7 +273,6 @@ pub struct TextExtractionPredictionInstance {
 }
 
 impl TextExtractionPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -342,7 +337,6 @@ pub struct TextSentimentPredictionInstance {
 }
 
 impl TextSentimentPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -407,7 +401,6 @@ pub struct VideoActionRecognitionPredictionInstance {
 }
 
 impl VideoActionRecognitionPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -502,7 +495,6 @@ pub struct VideoClassificationPredictionInstance {
 }
 
 impl VideoClassificationPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -597,7 +589,6 @@ pub struct VideoObjectTrackingPredictionInstance {
 }
 
 impl VideoObjectTrackingPredictionInstance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

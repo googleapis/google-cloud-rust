@@ -32,7 +32,6 @@ mod debug;
 mod deserialize;
 mod serialize;
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenRequest {
@@ -70,7 +69,6 @@ pub struct GenerateAccessTokenRequest {
 }
 
 impl GenerateAccessTokenRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -161,7 +159,6 @@ impl wkt::message::Message for GenerateAccessTokenRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateAccessTokenResponse {
@@ -176,7 +173,6 @@ pub struct GenerateAccessTokenResponse {
 }
 
 impl GenerateAccessTokenResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -233,7 +229,6 @@ impl wkt::message::Message for GenerateAccessTokenResponse {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobRequest {
@@ -262,7 +257,6 @@ pub struct SignBlobRequest {
 }
 
 impl SignBlobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -315,7 +309,6 @@ impl wkt::message::Message for SignBlobRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignBlobResponse {
@@ -329,7 +322,6 @@ pub struct SignBlobResponse {
 }
 
 impl SignBlobResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -365,7 +357,6 @@ impl wkt::message::Message for SignBlobResponse {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtRequest {
@@ -394,7 +385,6 @@ pub struct SignJwtRequest {
 }
 
 impl SignJwtRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -447,7 +437,6 @@ impl wkt::message::Message for SignJwtRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SignJwtResponse {
@@ -461,7 +450,6 @@ pub struct SignJwtResponse {
 }
 
 impl SignJwtResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -497,7 +485,6 @@ impl wkt::message::Message for SignJwtResponse {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateIdTokenRequest {
@@ -531,7 +518,6 @@ pub struct GenerateIdTokenRequest {
 }
 
 impl GenerateIdTokenRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -596,7 +582,6 @@ impl wkt::message::Message for GenerateIdTokenRequest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateIdTokenResponse {
@@ -607,7 +592,6 @@ pub struct GenerateIdTokenResponse {
 }
 
 impl GenerateIdTokenResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -57,7 +57,6 @@ pub struct ListCryptoKeysRequest {
 }
 
 impl ListCryptoKeysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -125,7 +124,6 @@ pub struct ListCryptoKeysResponse {
 }
 
 impl ListCryptoKeysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -206,7 +204,6 @@ pub struct GetProtectedResourcesSummaryRequest {
 }
 
 impl GetProtectedResourcesSummaryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -285,7 +282,6 @@ pub struct ProtectedResourcesSummary {
 }
 
 impl ProtectedResourcesSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -478,7 +474,6 @@ pub struct SearchProtectedResourcesRequest {
 }
 
 impl SearchProtectedResourcesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -573,7 +568,6 @@ pub struct SearchProtectedResourcesResponse {
 }
 
 impl SearchProtectedResourcesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -687,7 +681,6 @@ pub struct ProtectedResource {
 }
 
 impl ProtectedResource {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -871,7 +864,6 @@ pub struct Warning {
 }
 
 impl Warning {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

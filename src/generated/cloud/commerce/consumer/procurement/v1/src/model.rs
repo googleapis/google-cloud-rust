@@ -45,7 +45,6 @@ pub struct AssignmentProtocol {
 }
 
 impl AssignmentProtocol {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -179,7 +178,6 @@ pub mod assignment_protocol {
     }
 
     impl ManualAssignmentType {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -204,7 +202,6 @@ pub mod assignment_protocol {
     }
 
     impl AutoAssignmentType {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -283,7 +280,6 @@ pub struct LicensePool {
 }
 
 impl LicensePool {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -376,7 +372,6 @@ pub struct GetLicensePoolRequest {
 }
 
 impl GetLicensePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -418,7 +413,6 @@ pub struct UpdateLicensePoolRequest {
 }
 
 impl UpdateLicensePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -514,7 +508,6 @@ pub struct AssignRequest {
 }
 
 impl AssignRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -566,7 +559,6 @@ pub struct AssignResponse {
 }
 
 impl AssignResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -596,7 +588,6 @@ pub struct UnassignRequest {
 }
 
 impl UnassignRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -648,7 +639,6 @@ pub struct UnassignResponse {
 }
 
 impl UnassignResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -682,7 +672,6 @@ pub struct EnumerateLicensedUsersRequest {
 }
 
 impl EnumerateLicensedUsersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -750,7 +739,6 @@ pub struct LicensedUser {
 }
 
 impl LicensedUser {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -858,7 +846,6 @@ pub struct EnumerateLicensedUsersResponse {
 }
 
 impl EnumerateLicensedUsersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -958,7 +945,6 @@ pub struct Order {
 }
 
 impl Order {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1142,7 +1128,6 @@ pub struct LineItem {
 }
 
 impl LineItem {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1302,7 +1287,6 @@ pub struct LineItemChange {
 }
 
 impl LineItemChange {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1578,7 +1562,6 @@ pub struct LineItemInfo {
 }
 
 impl LineItemInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1671,7 +1654,6 @@ pub struct Parameter {
 }
 
 impl Parameter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1733,7 +1715,6 @@ pub mod parameter {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Value {
@@ -1744,7 +1725,6 @@ pub mod parameter {
     }
 
     impl Value {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1918,7 +1898,6 @@ pub struct Subscription {
 }
 
 impl Subscription {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2038,7 +2017,6 @@ pub struct PlaceOrderRequest {
 }
 
 impl PlaceOrderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2119,7 +2097,6 @@ pub struct PlaceOrderMetadata {
 }
 
 impl PlaceOrderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2145,7 +2122,6 @@ pub struct GetOrderRequest {
 }
 
 impl GetOrderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2209,7 +2185,6 @@ pub struct ListOrdersRequest {
 }
 
 impl ListOrdersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2286,7 +2261,6 @@ pub struct ListOrdersResponse {
 }
 
 impl ListOrdersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2374,7 +2348,6 @@ pub struct ModifyOrderRequest {
 }
 
 impl ModifyOrderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2478,7 +2451,6 @@ pub mod modify_order_request {
     }
 
     impl Modification {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2587,7 +2559,6 @@ pub struct ModifyOrderMetadata {
 }
 
 impl ModifyOrderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2621,7 +2592,6 @@ pub struct CancelOrderRequest {
 }
 
 impl CancelOrderRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2834,7 +2804,6 @@ pub struct CancelOrderMetadata {
 }
 
 impl CancelOrderMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

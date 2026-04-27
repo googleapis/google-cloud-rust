@@ -76,7 +76,6 @@ pub struct DiagnosticConfig {
 }
 
 impl DiagnosticConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -165,7 +164,6 @@ pub struct Event {
 }
 
 impl Event {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -435,7 +433,6 @@ pub struct NetworkInterface {
 }
 
 impl NetworkInterface {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -643,7 +640,6 @@ pub struct VmImage {
 }
 
 impl VmImage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -778,7 +774,6 @@ pub struct ContainerImage {
 }
 
 impl ContainerImage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -833,7 +828,6 @@ pub struct AcceleratorConfig {
 }
 
 impl AcceleratorConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1100,7 +1094,6 @@ pub struct ShieldedInstanceConfig {
 }
 
 impl ShieldedInstanceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1166,7 +1159,6 @@ pub struct GPUDriverConfig {
 }
 
 impl GPUDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1231,7 +1223,6 @@ pub struct DataDisk {
 }
 
 impl DataDisk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1326,7 +1317,6 @@ pub struct BootDisk {
 }
 
 impl BootDisk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1409,7 +1399,6 @@ pub struct ServiceAccount {
 }
 
 impl ServiceAccount {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1510,7 +1499,6 @@ pub struct GceSetup {
 }
 
 impl GceSetup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1926,7 +1914,6 @@ pub struct UpgradeHistoryEntry {
 }
 
 impl UpgradeHistoryEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2425,7 +2412,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2785,7 +2771,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2961,7 +2946,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3053,7 +3037,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3142,7 +3125,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3187,7 +3169,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3285,7 +3266,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3390,7 +3370,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3438,7 +3417,6 @@ pub struct StartInstanceRequest {
 }
 
 impl StartInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3474,7 +3452,6 @@ pub struct StopInstanceRequest {
 }
 
 impl StopInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3510,7 +3487,6 @@ pub struct ResetInstanceRequest {
 }
 
 impl ResetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3546,7 +3522,6 @@ pub struct CheckInstanceUpgradabilityRequest {
 }
 
 impl CheckInstanceUpgradabilityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3596,7 +3571,6 @@ pub struct CheckInstanceUpgradabilityResponse {
 }
 
 impl CheckInstanceUpgradabilityResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3668,7 +3642,6 @@ pub struct UpgradeInstanceRequest {
 }
 
 impl UpgradeInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3711,7 +3684,6 @@ pub struct RollbackInstanceRequest {
 }
 
 impl RollbackInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3777,7 +3749,6 @@ pub struct DiagnoseInstanceRequest {
 }
 
 impl DiagnoseInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

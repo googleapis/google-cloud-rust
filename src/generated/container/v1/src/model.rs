@@ -134,7 +134,6 @@ pub struct LinuxNodeConfig {
 }
 
 impl LinuxNodeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -342,7 +341,6 @@ pub mod linux_node_config {
     }
 
     impl HugepagesConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -436,7 +434,6 @@ pub mod linux_node_config {
     }
 
     impl SwapConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -701,7 +698,6 @@ pub mod linux_node_config {
         }
 
         impl EncryptionConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -758,7 +754,6 @@ pub mod linux_node_config {
         }
 
         impl BootDiskProfile {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -884,7 +879,6 @@ pub mod linux_node_config {
         }
 
         impl EphemeralLocalSsdProfile {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1007,7 +1001,6 @@ pub mod linux_node_config {
         }
 
         impl DedicatedLocalSsdProfile {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1066,7 +1059,6 @@ pub mod linux_node_config {
     }
 
     impl NodeKernelModuleLoading {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1718,7 +1710,6 @@ pub struct WindowsNodeConfig {
 }
 
 impl WindowsNodeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2086,7 +2077,6 @@ pub struct NodeKubeletConfig {
 }
 
 impl NodeKubeletConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2638,7 +2628,6 @@ pub struct TopologyManager {
 }
 
 impl TopologyManager {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2695,7 +2684,6 @@ pub struct MemoryManager {
 }
 
 impl MemoryManager {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2779,7 +2767,6 @@ pub struct EvictionSignals {
 }
 
 impl EvictionSignals {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2916,7 +2903,6 @@ pub struct EvictionGracePeriod {
 }
 
 impl EvictionGracePeriod {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3057,7 +3043,6 @@ pub struct EvictionMinimumReclaim {
 }
 
 impl EvictionMinimumReclaim {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3424,7 +3409,6 @@ pub struct NodeConfig {
 }
 
 impl NodeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4922,7 +4906,6 @@ pub struct AdvancedMachineFeatures {
 }
 
 impl AdvancedMachineFeatures {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5285,7 +5268,6 @@ pub struct NodeNetworkConfig {
 }
 
 impl NodeNetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5555,7 +5537,6 @@ pub mod node_network_config {
     }
 
     impl NetworkPerformanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5757,7 +5738,6 @@ pub struct AdditionalNodeNetworkConfig {
 }
 
 impl AdditionalNodeNetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5812,7 +5792,6 @@ pub struct AdditionalPodNetworkConfig {
 }
 
 impl AdditionalPodNetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5907,7 +5886,6 @@ pub struct ShieldedInstanceConfig {
 }
 
 impl ShieldedInstanceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5954,7 +5932,6 @@ pub struct SandboxConfig {
 }
 
 impl SandboxConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6125,7 +6102,6 @@ pub struct GcfsConfig {
 }
 
 impl GcfsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6171,7 +6147,6 @@ pub struct ReservationAffinity {
 }
 
 impl ReservationAffinity {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6395,7 +6370,6 @@ pub struct SoleTenantConfig {
 }
 
 impl SoleTenantConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6484,7 +6458,6 @@ pub mod sole_tenant_config {
     }
 
     impl NodeAffinity {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6709,7 +6682,6 @@ pub struct ContainerdConfig {
 }
 
 impl ContainerdConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6833,7 +6805,6 @@ pub mod containerd_config {
     }
 
     impl PrivateRegistryAccessConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6908,7 +6879,6 @@ pub mod containerd_config {
         }
 
         impl CertificateAuthorityDomainConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7007,7 +6977,6 @@ pub mod containerd_config {
             }
 
             impl GCPSecretManagerCertificateConfig {
-                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7057,7 +7026,6 @@ pub mod containerd_config {
     }
 
     impl WritableCgroups {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7108,7 +7076,6 @@ pub mod containerd_config {
     }
 
     impl RegistryHostConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7173,7 +7140,6 @@ pub mod containerd_config {
         }
 
         impl CertificateConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7278,7 +7244,6 @@ pub mod containerd_config {
         }
 
         impl CertificateConfigPair {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7378,7 +7343,6 @@ pub mod containerd_config {
         }
 
         impl RegistryHeader {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7473,7 +7437,6 @@ pub mod containerd_config {
         }
 
         impl HostConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7802,7 +7765,6 @@ pub struct NodeTaint {
 }
 
 impl NodeTaint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8013,7 +7975,6 @@ pub struct NodeTaints {
 }
 
 impl NodeTaints {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8059,7 +8020,6 @@ pub struct NodeLabels {
 }
 
 impl NodeLabels {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8104,7 +8064,6 @@ pub struct ResourceLabels {
 }
 
 impl ResourceLabels {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8149,7 +8108,6 @@ pub struct NetworkTags {
 }
 
 impl NetworkTags {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8229,7 +8187,6 @@ pub struct MasterAuth {
 }
 
 impl MasterAuth {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8353,7 +8310,6 @@ pub struct ClientCertificateConfig {
 }
 
 impl ClientCertificateConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8454,7 +8410,6 @@ pub struct AddonsConfig {
 }
 
 impl AddonsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9055,7 +9010,6 @@ pub struct HttpLoadBalancing {
 }
 
 impl HttpLoadBalancing {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9094,7 +9048,6 @@ pub struct HorizontalPodAutoscaling {
 }
 
 impl HorizontalPodAutoscaling {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9129,7 +9082,6 @@ pub struct KubernetesDashboard {
 }
 
 impl KubernetesDashboard {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9166,7 +9118,6 @@ pub struct NetworkPolicyConfig {
 }
 
 impl NetworkPolicyConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9201,7 +9152,6 @@ pub struct DnsCacheConfig {
 }
 
 impl DnsCacheConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9236,7 +9186,6 @@ pub struct PrivateClusterMasterGlobalAccessConfig {
 }
 
 impl PrivateClusterMasterGlobalAccessConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9340,7 +9289,6 @@ pub struct PrivateClusterConfig {
 }
 
 impl PrivateClusterConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9501,7 +9449,6 @@ pub struct AuthenticatorGroupsConfig {
 }
 
 impl AuthenticatorGroupsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9551,7 +9498,6 @@ pub struct CloudRunConfig {
 }
 
 impl CloudRunConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9743,7 +9689,6 @@ pub struct ConfigConnectorConfig {
 }
 
 impl ConfigConnectorConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9778,7 +9723,6 @@ pub struct GcePersistentDiskCsiDriverConfig {
 }
 
 impl GcePersistentDiskCsiDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9813,7 +9757,6 @@ pub struct GcpFilestoreCsiDriverConfig {
 }
 
 impl GcpFilestoreCsiDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9848,7 +9791,6 @@ pub struct GcsFuseCsiDriverConfig {
 }
 
 impl GcsFuseCsiDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9884,7 +9826,6 @@ pub struct ParallelstoreCsiDriverConfig {
 }
 
 impl ParallelstoreCsiDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9920,7 +9861,6 @@ pub struct HighScaleCheckpointingConfig {
 }
 
 impl HighScaleCheckpointingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9970,7 +9910,6 @@ pub struct LustreCsiDriverConfig {
 }
 
 impl LustreCsiDriverConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10018,7 +9957,6 @@ pub struct SliceControllerConfig {
 }
 
 impl SliceControllerConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10060,7 +9998,6 @@ pub struct RayOperatorConfig {
 }
 
 impl RayOperatorConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10164,7 +10101,6 @@ pub struct GkeBackupAgentConfig {
 }
 
 impl GkeBackupAgentConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10199,7 +10135,6 @@ pub struct StatefulHAConfig {
 }
 
 impl StatefulHAConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10247,7 +10182,6 @@ pub struct MasterAuthorizedNetworksConfig {
 }
 
 impl MasterAuthorizedNetworksConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10380,7 +10314,6 @@ pub mod master_authorized_networks_config {
     }
 
     impl CidrBlock {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10435,7 +10368,6 @@ pub struct LegacyAbac {
 }
 
 impl LegacyAbac {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10474,7 +10406,6 @@ pub struct NetworkPolicy {
 }
 
 impl NetworkPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10663,7 +10594,6 @@ pub struct BinaryAuthorization {
 }
 
 impl BinaryAuthorization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10862,7 +10792,6 @@ pub struct PodCIDROverprovisionConfig {
 }
 
 impl PodCIDROverprovisionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11070,7 +10999,6 @@ pub struct IPAllocationPolicy {
 }
 
 impl IPAllocationPolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11907,7 +11835,6 @@ pub struct Cluster {
 }
 
 impl Cluster {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14093,7 +14020,6 @@ pub struct RBACBindingConfig {
 }
 
 impl RBACBindingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14224,7 +14150,6 @@ pub struct UserManagedKeysConfig {
 }
 
 impl UserManagedKeysConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14377,7 +14302,6 @@ pub struct AnonymousAuthenticationConfig {
 }
 
 impl AnonymousAuthenticationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14561,7 +14485,6 @@ pub struct CompliancePostureConfig {
 }
 
 impl CompliancePostureConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14646,7 +14569,6 @@ pub mod compliance_posture_config {
     }
 
     impl ComplianceStandard {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14833,7 +14755,6 @@ pub struct K8sBetaAPIConfig {
 }
 
 impl K8sBetaAPIConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14878,7 +14799,6 @@ pub struct SecurityPostureConfig {
 }
 
 impl SecurityPostureConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15278,7 +15198,6 @@ pub struct NodePoolAutoConfig {
 }
 
 impl NodePoolAutoConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15433,7 +15352,6 @@ pub struct NodePoolDefaults {
 }
 
 impl NodePoolDefaults {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15500,7 +15418,6 @@ pub struct NodeConfigDefaults {
 }
 
 impl NodeConfigDefaults {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16008,7 +15925,6 @@ pub struct ClusterUpdate {
 }
 
 impl ClusterUpdate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18396,7 +18312,6 @@ pub struct AdditionalPodRangesConfig {
 }
 
 impl AdditionalPodRangesConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18471,7 +18386,6 @@ pub struct AdditionalIPRangesConfig {
 }
 
 impl AdditionalIPRangesConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18687,7 +18601,6 @@ pub struct DesiredAdditionalIPRangesConfig {
 }
 
 impl DesiredAdditionalIPRangesConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18732,7 +18645,6 @@ pub struct AutoIpamConfig {
 }
 
 impl AutoIpamConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18789,7 +18701,6 @@ pub struct RangeInfo {
 }
 
 impl RangeInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18840,7 +18751,6 @@ pub struct DesiredEnterpriseConfig {
 }
 
 impl DesiredEnterpriseConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18956,7 +18866,6 @@ pub struct Operation {
 }
 
 impl Operation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19743,7 +19652,6 @@ pub struct OperationProgress {
 }
 
 impl OperationProgress {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19847,7 +19755,6 @@ pub mod operation_progress {
     }
 
     impl Metric {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -20047,7 +19954,6 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20160,7 +20066,6 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20256,7 +20161,6 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -20540,7 +20444,6 @@ pub struct UpdateNodePoolRequest {
 }
 
 impl UpdateNodePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21540,7 +21443,6 @@ pub struct SetNodePoolAutoscalingRequest {
 }
 
 impl SetNodePoolAutoscalingRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21692,7 +21594,6 @@ pub struct SetLoggingServiceRequest {
 }
 
 impl SetLoggingServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21810,7 +21711,6 @@ pub struct SetMonitoringServiceRequest {
 }
 
 impl SetMonitoringServiceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -21922,7 +21822,6 @@ pub struct SetAddonsConfigRequest {
 }
 
 impl SetAddonsConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22057,7 +21956,6 @@ pub struct SetLocationsRequest {
 }
 
 impl SetLocationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22179,7 +22077,6 @@ pub struct UpdateMasterRequest {
 }
 
 impl UpdateMasterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22290,7 +22187,6 @@ pub struct SetMasterAuthRequest {
 }
 
 impl SetMasterAuthRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22582,7 +22478,6 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22671,7 +22566,6 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22737,7 +22631,6 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22818,7 +22711,6 @@ pub struct GetOperationRequest {
 }
 
 impl GetOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22907,7 +22799,6 @@ pub struct ListOperationsRequest {
 }
 
 impl ListOperationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -22987,7 +22878,6 @@ pub struct CancelOperationRequest {
 }
 
 impl CancelOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23065,7 +22955,6 @@ pub struct ListOperationsResponse {
 }
 
 impl ListOperationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23141,7 +23030,6 @@ pub struct GetServerConfigRequest {
 }
 
 impl GetServerConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23217,7 +23105,6 @@ pub struct ServerConfig {
 }
 
 impl ServerConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23357,7 +23244,6 @@ pub mod server_config {
     }
 
     impl ReleaseChannelConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -23469,7 +23355,6 @@ pub struct CreateNodePoolRequest {
 }
 
 impl CreateNodePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23601,7 +23486,6 @@ pub struct DeleteNodePoolRequest {
 }
 
 impl DeleteNodePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23707,7 +23591,6 @@ pub struct ListNodePoolsRequest {
 }
 
 impl ListNodePoolsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23806,7 +23689,6 @@ pub struct GetNodePoolRequest {
 }
 
 impl GetNodePoolRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -23897,7 +23779,6 @@ pub struct BlueGreenSettings {
 }
 
 impl BlueGreenSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -24075,7 +23956,6 @@ pub mod blue_green_settings {
     }
 
     impl StandardRolloutPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -24242,7 +24122,6 @@ pub mod blue_green_settings {
     }
 
     impl AutoscaledRolloutPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -24409,7 +24288,6 @@ pub struct NodePool {
 }
 
 impl NodePool {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -25018,7 +24896,6 @@ pub mod node_pool {
     }
 
     impl UpgradeSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25137,7 +25014,6 @@ pub mod node_pool {
     }
 
     impl UpdateInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25215,7 +25091,6 @@ pub mod node_pool {
         }
 
         impl BlueGreenInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -25508,7 +25383,6 @@ pub mod node_pool {
     }
 
     impl PlacementPolicy {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25712,7 +25586,6 @@ pub mod node_pool {
     }
 
     impl QueuedProvisioning {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25748,7 +25621,6 @@ pub mod node_pool {
     }
 
     impl NodeDrainConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -25985,7 +25857,6 @@ pub struct NodeManagement {
 }
 
 impl NodeManagement {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26072,7 +25943,6 @@ pub struct BestEffortProvisioning {
 }
 
 impl BestEffortProvisioning {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26126,7 +25996,6 @@ pub struct AutoUpgradeOptions {
 }
 
 impl AutoUpgradeOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26183,7 +26052,6 @@ pub struct MaintenancePolicy {
 }
 
 impl MaintenancePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26252,14 +26120,12 @@ pub struct MaintenanceWindow {
     pub maintenance_exclusions:
         std::collections::HashMap<std::string::String, crate::model::TimeWindow>,
 
-    #[allow(missing_docs)]
     pub policy: std::option::Option<crate::model::maintenance_window::Policy>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl MaintenanceWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26402,7 +26268,6 @@ pub mod maintenance_window {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Policy {
@@ -26426,14 +26291,12 @@ pub struct TimeWindow {
     /// start time.
     pub end_time: std::option::Option<wkt::Timestamp>,
 
-    #[allow(missing_docs)]
     pub options: std::option::Option<crate::model::time_window::Options>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TimeWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26578,7 +26441,6 @@ pub mod time_window {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Options {
@@ -26603,7 +26465,6 @@ pub struct MaintenanceExclusionOptions {
 }
 
 impl MaintenanceExclusionOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -26969,7 +26830,6 @@ pub struct RecurringTimeWindow {
 }
 
 impl RecurringTimeWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27045,7 +26905,6 @@ pub struct DailyMaintenanceWindow {
 }
 
 impl DailyMaintenanceWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27121,7 +26980,6 @@ pub struct SetNodePoolManagementRequest {
 }
 
 impl SetNodePoolManagementRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27269,7 +27127,6 @@ pub struct SetNodePoolSizeRequest {
 }
 
 impl SetNodePoolSizeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27371,7 +27228,6 @@ pub struct CompleteNodePoolUpgradeRequest {
 }
 
 impl CompleteNodePoolUpgradeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27437,7 +27293,6 @@ pub struct RollbackNodePoolUpgradeRequest {
 }
 
 impl RollbackNodePoolUpgradeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27536,7 +27391,6 @@ pub struct ListNodePoolsResponse {
 }
 
 impl ListNodePoolsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -27608,7 +27462,6 @@ pub struct ClusterAutoscaling {
 }
 
 impl ClusterAutoscaling {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28110,7 +27963,6 @@ pub struct AutoprovisioningNodePoolDefaults {
 }
 
 impl AutoprovisioningNodePoolDefaults {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28369,7 +28221,6 @@ pub struct ResourceLimit {
 }
 
 impl ResourceLimit {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28429,7 +28280,6 @@ pub struct DefaultComputeClassConfig {
 }
 
 impl DefaultComputeClassConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28491,7 +28341,6 @@ pub struct NodePoolAutoscaling {
 }
 
 impl NodePoolAutoscaling {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28777,7 +28626,6 @@ pub struct SetLabelsRequest {
 }
 
 impl SetLabelsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -28910,7 +28758,6 @@ pub struct SetLegacyAbacRequest {
 }
 
 impl SetLegacyAbacRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29019,7 +28866,6 @@ pub struct StartIPRotationRequest {
 }
 
 impl StartIPRotationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29124,7 +28970,6 @@ pub struct CompleteIPRotationRequest {
 }
 
 impl CompleteIPRotationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29214,7 +29059,6 @@ pub struct AcceleratorConfig {
 }
 
 impl AcceleratorConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29353,7 +29197,6 @@ pub struct GPUSharingConfig {
 }
 
 impl GPUSharingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29563,7 +29406,6 @@ pub struct GPUDriverInstallationConfig {
 }
 
 impl GPUDriverInstallationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29770,7 +29612,6 @@ pub struct WorkloadMetadataConfig {
 }
 
 impl WorkloadMetadataConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -29975,7 +29816,6 @@ pub struct SetNetworkPolicyRequest {
 }
 
 impl SetNetworkPolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30100,7 +29940,6 @@ pub struct SetMaintenancePolicyRequest {
 }
 
 impl SetMaintenancePolicyRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30213,7 +30052,6 @@ pub struct StatusCondition {
 }
 
 impl StatusCondition {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -30546,7 +30384,6 @@ pub struct NetworkConfig {
 }
 
 impl NetworkConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31003,7 +30840,6 @@ pub mod network_config {
     }
 
     impl ClusterNetworkPerformanceConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -31201,7 +31037,6 @@ pub struct GatewayAPIConfig {
 }
 
 impl GatewayAPIConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31389,7 +31224,6 @@ pub struct ServiceExternalIPsConfig {
 }
 
 impl ServiceExternalIPsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31426,7 +31260,6 @@ pub struct GetOpenIDConfigRequest {
 }
 
 impl GetOpenIDConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31480,7 +31313,6 @@ pub struct GetOpenIDConfigResponse {
 }
 
 impl GetOpenIDConfigResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31616,7 +31448,6 @@ pub struct GetJSONWebKeysRequest {
 }
 
 impl GetJSONWebKeysRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31675,7 +31506,6 @@ pub struct Jwk {
 }
 
 impl Jwk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31807,7 +31637,6 @@ pub struct GetJSONWebKeysResponse {
 }
 
 impl GetJSONWebKeysResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31854,7 +31683,6 @@ pub struct CheckAutopilotCompatibilityRequest {
 }
 
 impl CheckAutopilotCompatibilityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -31905,7 +31733,6 @@ pub struct AutopilotCompatibilityIssue {
 }
 
 impl AutopilotCompatibilityIssue {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32193,7 +32020,6 @@ pub struct CheckAutopilotCompatibilityResponse {
 }
 
 impl CheckAutopilotCompatibilityResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32255,7 +32081,6 @@ pub struct ReleaseChannel {
 }
 
 impl ReleaseChannel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32457,7 +32282,6 @@ pub struct CostManagementConfig {
 }
 
 impl CostManagementConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32493,7 +32317,6 @@ pub struct IntraNodeVisibilityConfig {
 }
 
 impl IntraNodeVisibilityConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32529,7 +32352,6 @@ pub struct ILBSubsettingConfig {
 }
 
 impl ILBSubsettingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32573,7 +32395,6 @@ pub struct DNSConfig {
 }
 
 impl DNSConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32938,7 +32759,6 @@ pub struct MaxPodsConstraint {
 }
 
 impl MaxPodsConstraint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -32973,7 +32793,6 @@ pub struct WorkloadIdentityConfig {
 }
 
 impl WorkloadIdentityConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33009,7 +32828,6 @@ pub struct IdentityServiceConfig {
 }
 
 impl IdentityServiceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33054,7 +32872,6 @@ pub struct MeshCertificates {
 }
 
 impl MeshCertificates {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33127,7 +32944,6 @@ pub struct DatabaseEncryption {
 }
 
 impl DatabaseEncryption {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33267,7 +33083,6 @@ pub mod database_encryption {
     }
 
     impl OperationError {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -33673,7 +33488,6 @@ pub struct ListUsableSubnetworksRequest {
 }
 
 impl ListUsableSubnetworksRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33751,7 +33565,6 @@ pub struct ListUsableSubnetworksResponse {
 }
 
 impl ListUsableSubnetworksResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -33829,7 +33642,6 @@ pub struct UsableSubnetworkSecondaryRange {
 }
 
 impl UsableSubnetworkSecondaryRange {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34071,7 +33883,6 @@ pub struct UsableSubnetwork {
 }
 
 impl UsableSubnetwork {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34173,7 +33984,6 @@ pub struct ResourceUsageExportConfig {
 }
 
 impl ResourceUsageExportConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34283,7 +34093,6 @@ pub mod resource_usage_export_config {
     }
 
     impl BigQueryDestination {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -34320,7 +34129,6 @@ pub mod resource_usage_export_config {
     }
 
     impl ConsumptionMeteringConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -34358,7 +34166,6 @@ pub struct VerticalPodAutoscaling {
 }
 
 impl VerticalPodAutoscaling {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34394,7 +34201,6 @@ pub struct DefaultSnatStatus {
 }
 
 impl DefaultSnatStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34429,7 +34235,6 @@ pub struct ShieldedNodes {
 }
 
 impl ShieldedNodes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34464,7 +34269,6 @@ pub struct VirtualNIC {
 }
 
 impl VirtualNIC {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34499,7 +34303,6 @@ pub struct FastSocket {
 }
 
 impl FastSocket {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34535,7 +34338,6 @@ pub struct GPUDirectConfig {
 }
 
 impl GPUDirectConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34722,7 +34524,6 @@ pub struct NotificationConfig {
 }
 
 impl NotificationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -34792,7 +34593,6 @@ pub mod notification_config {
     }
 
     impl PubSub {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -34875,7 +34675,6 @@ pub mod notification_config {
     }
 
     impl Filter {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -35072,7 +34871,6 @@ pub struct ConfidentialNodes {
 }
 
 impl ConfidentialNodes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -35293,7 +35091,6 @@ pub struct UpgradeEvent {
 }
 
 impl UpgradeEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -35453,7 +35250,6 @@ pub struct UpgradeInfoEvent {
 }
 
 impl UpgradeInfoEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36072,7 +35868,6 @@ pub struct DisruptionEvent {
 }
 
 impl DisruptionEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36192,7 +35987,6 @@ pub mod disruption_event {
     }
 
     impl PdbBlockedPod {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -36386,7 +36180,6 @@ pub struct UpgradeAvailableEvent {
 }
 
 impl UpgradeAvailableEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36522,7 +36315,6 @@ pub struct SecurityBulletinEvent {
 }
 
 impl SecurityBulletinEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36713,7 +36505,6 @@ pub struct Autopilot {
 }
 
 impl Autopilot {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36825,7 +36616,6 @@ pub struct PrivilegedAdmissionConfig {
 }
 
 impl PrivilegedAdmissionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36869,7 +36659,6 @@ pub struct WorkloadPolicyConfig {
 }
 
 impl WorkloadPolicyConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -36957,7 +36746,6 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37013,7 +36801,6 @@ pub struct LoggingComponentConfig {
 }
 
 impl LoggingComponentConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37238,7 +37025,6 @@ pub struct RayClusterLoggingConfig {
 }
 
 impl RayClusterLoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37281,7 +37067,6 @@ pub struct MonitoringConfig {
 }
 
 impl MonitoringConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37413,7 +37198,6 @@ pub struct AdvancedDatapathObservabilityConfig {
 }
 
 impl AdvancedDatapathObservabilityConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37645,7 +37429,6 @@ pub struct RayClusterMonitoringConfig {
 }
 
 impl RayClusterMonitoringConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37680,7 +37463,6 @@ pub struct NodePoolLoggingConfig {
 }
 
 impl NodePoolLoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37736,7 +37518,6 @@ pub struct LoggingVariantConfig {
 }
 
 impl LoggingVariantConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -37915,7 +37696,6 @@ pub struct MonitoringComponentConfig {
 }
 
 impl MonitoringComponentConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38186,7 +37966,6 @@ pub struct ManagedPrometheusConfig {
 }
 
 impl ManagedPrometheusConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38255,7 +38034,6 @@ pub struct AutoMonitoringConfig {
 }
 
 impl AutoMonitoringConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38434,7 +38212,6 @@ pub struct PodAutoscaling {
 }
 
 impl PodAutoscaling {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38646,7 +38423,6 @@ pub struct Fleet {
 }
 
 impl Fleet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38858,7 +38634,6 @@ pub struct ControlPlaneEndpointsConfig {
 }
 
 impl ControlPlaneEndpointsConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -38968,7 +38743,6 @@ pub mod control_plane_endpoints_config {
     }
 
     impl DNSEndpointConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -39137,7 +38911,6 @@ pub mod control_plane_endpoints_config {
     }
 
     impl IPEndpointsConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -39352,7 +39125,6 @@ pub struct LocalNvmeSsdBlockConfig {
 }
 
 impl LocalNvmeSsdBlockConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39409,7 +39181,6 @@ pub struct EphemeralStorageLocalSsdConfig {
 }
 
 impl EphemeralStorageLocalSsdConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39465,7 +39236,6 @@ pub struct ResourceManagerTags {
 }
 
 impl ResourceManagerTags {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39516,7 +39286,6 @@ pub struct EnterpriseConfig {
 }
 
 impl EnterpriseConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39718,7 +39487,6 @@ pub struct SecretManagerConfig {
 }
 
 impl SecretManagerConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39814,7 +39582,6 @@ pub mod secret_manager_config {
     }
 
     impl RotationConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -39912,7 +39679,6 @@ pub struct BootDisk {
 }
 
 impl BootDisk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -39987,7 +39753,6 @@ pub struct SecondaryBootDisk {
 }
 
 impl SecondaryBootDisk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40169,7 +39934,6 @@ pub struct SecondaryBootDiskUpdateStrategy {
 }
 
 impl SecondaryBootDiskUpdateStrategy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40197,7 +39961,6 @@ pub struct FetchClusterUpgradeInfoRequest {
 }
 
 impl FetchClusterUpgradeInfoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40262,7 +40025,6 @@ pub struct ClusterUpgradeInfo {
 }
 
 impl ClusterUpgradeInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -40825,7 +40587,6 @@ pub struct UpgradeDetails {
 }
 
 impl UpgradeDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41264,7 +41025,6 @@ pub struct FetchNodePoolUpgradeInfoRequest {
 }
 
 impl FetchNodePoolUpgradeInfoRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41329,7 +41089,6 @@ pub struct NodePoolUpgradeInfo {
 }
 
 impl NodePoolUpgradeInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -41855,7 +41614,6 @@ pub struct GkeAutoUpgradeConfig {
 }
 
 impl GkeAutoUpgradeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42031,7 +41789,6 @@ pub struct NetworkTierConfig {
 }
 
 impl NetworkTierConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -42226,7 +41983,6 @@ pub struct ManagedOpenTelemetryConfig {
 }
 
 impl ManagedOpenTelemetryConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -54,14 +54,12 @@ pub struct PolicyRule {
     /// 'tagValues/456')".
     pub condition: std::option::Option<google_cloud_type::model::Expr>,
 
-    #[allow(missing_docs)]
     pub kind: std::option::Option<crate::model::policy_rule::Kind>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl PolicyRule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -292,7 +290,6 @@ pub mod policy_rule {
     }
 
     impl StringValues {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -338,7 +335,6 @@ pub mod policy_rule {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -415,7 +411,6 @@ pub struct CustomConstraint {
 }
 
 impl CustomConstraint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -862,7 +857,6 @@ pub struct OrgPolicyConstraint {
 }
 
 impl OrgPolicyConstraint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -925,7 +919,6 @@ pub struct OrgPolicyConstraintCustom {
 }
 
 impl OrgPolicyConstraintCustom {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1032,7 +1025,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1236,7 +1228,6 @@ pub struct Posture {
 }
 
 impl Posture {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1594,7 +1585,6 @@ pub struct PolicySet {
 }
 
 impl PolicySet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1673,7 +1663,6 @@ pub struct Policy {
 }
 
 impl Policy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1783,7 +1772,6 @@ pub mod policy {
     }
 
     impl ComplianceStandard {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1824,14 +1812,12 @@ pub mod policy {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Constraint {
-    #[allow(missing_docs)]
     pub implementation: std::option::Option<crate::model::constraint::Implementation>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Constraint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2043,7 +2029,6 @@ pub mod constraint {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Implementation {
@@ -2078,7 +2063,6 @@ pub struct ListPosturesRequest {
 }
 
 impl ListPosturesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2143,7 +2127,6 @@ pub struct ListPosturesResponse {
 }
 
 impl ListPosturesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2238,7 +2221,6 @@ pub struct ListPostureRevisionsRequest {
 }
 
 impl ListPostureRevisionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2300,7 +2282,6 @@ pub struct ListPostureRevisionsResponse {
 }
 
 impl ListPostureRevisionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2374,7 +2355,6 @@ pub struct GetPostureRequest {
 }
 
 impl GetPostureRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2428,7 +2408,6 @@ pub struct CreatePostureRequest {
 }
 
 impl CreatePostureRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2518,7 +2497,6 @@ pub struct UpdatePostureRequest {
 }
 
 impl UpdatePostureRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2622,7 +2600,6 @@ pub struct DeletePostureRequest {
 }
 
 impl DeletePostureRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2683,7 +2660,6 @@ pub struct ExtractPostureRequest {
 }
 
 impl ExtractPostureRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2807,7 +2783,6 @@ pub struct PostureDeployment {
 }
 
 impl PostureDeployment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3248,7 +3223,6 @@ pub struct ListPostureDeploymentsRequest {
 }
 
 impl ListPostureDeploymentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3325,7 +3299,6 @@ pub struct ListPostureDeploymentsResponse {
 }
 
 impl ListPostureDeploymentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3413,7 +3386,6 @@ pub struct GetPostureDeploymentRequest {
 }
 
 impl GetPostureDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3456,7 +3428,6 @@ pub struct CreatePostureDeploymentRequest {
 }
 
 impl CreatePostureDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3546,7 +3517,6 @@ pub struct UpdatePostureDeploymentRequest {
 }
 
 impl UpdatePostureDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3638,7 +3608,6 @@ pub struct DeletePostureDeploymentRequest {
 }
 
 impl DeletePostureDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3700,7 +3669,6 @@ pub struct PostureTemplate {
 }
 
 impl PostureTemplate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3948,7 +3916,6 @@ pub struct ListPostureTemplatesRequest {
 }
 
 impl ListPostureTemplatesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4022,7 +3989,6 @@ pub struct ListPostureTemplatesResponse {
 }
 
 impl ListPostureTemplatesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4097,7 +4063,6 @@ pub struct GetPostureTemplateRequest {
 }
 
 impl GetPostureTemplateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4148,7 +4113,6 @@ pub struct SecurityHealthAnalyticsModule {
 }
 
 impl SecurityHealthAnalyticsModule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4216,7 +4180,6 @@ pub struct SecurityHealthAnalyticsCustomModule {
 }
 
 impl SecurityHealthAnalyticsCustomModule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4338,7 +4301,6 @@ pub struct CustomConfig {
 }
 
 impl CustomConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4510,7 +4472,6 @@ pub mod custom_config {
     }
 
     impl CustomOutputSpec {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4565,7 +4526,6 @@ pub mod custom_config {
         }
 
         impl Property {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4634,7 +4594,6 @@ pub mod custom_config {
     }
 
     impl ResourceSelector {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

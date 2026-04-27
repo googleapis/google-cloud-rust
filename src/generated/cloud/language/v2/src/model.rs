@@ -58,7 +58,6 @@ pub struct Document {
 }
 
 impl Document {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -347,7 +346,6 @@ pub struct Sentence {
 }
 
 impl Sentence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -457,7 +455,6 @@ pub struct Entity {
 }
 
 impl Entity {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -834,7 +831,6 @@ pub struct Sentiment {
 }
 
 impl Sentiment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -897,7 +893,6 @@ pub struct EntityMention {
 }
 
 impl EntityMention {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1161,7 +1156,6 @@ pub struct TextSpan {
 }
 
 impl TextSpan {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1217,7 +1211,6 @@ pub struct ClassificationCategory {
 }
 
 impl ClassificationCategory {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1279,7 +1272,6 @@ pub struct AnalyzeSentimentRequest {
 }
 
 impl AnalyzeSentimentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1366,7 +1358,6 @@ pub struct AnalyzeSentimentResponse {
 }
 
 impl AnalyzeSentimentResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1471,7 +1462,6 @@ pub struct AnalyzeEntitiesRequest {
 }
 
 impl AnalyzeEntitiesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1555,7 +1545,6 @@ pub struct AnalyzeEntitiesResponse {
 }
 
 impl AnalyzeEntitiesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1624,7 +1613,6 @@ pub struct ClassifyTextRequest {
 }
 
 impl ClassifyTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1690,7 +1678,6 @@ pub struct ClassifyTextResponse {
 }
 
 impl ClassifyTextResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1762,7 +1749,6 @@ pub struct ModerateTextRequest {
 }
 
 impl ModerateTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1989,7 +1975,6 @@ pub struct ModerateTextResponse {
 }
 
 impl ModerateTextResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2065,7 +2050,6 @@ pub struct AnnotateTextRequest {
 }
 
 impl AnnotateTextRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2187,7 +2171,6 @@ pub mod annotate_text_request {
     }
 
     impl Features {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2293,7 +2276,6 @@ pub struct AnnotateTextResponse {
 }
 
 impl AnnotateTextResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

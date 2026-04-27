@@ -27,10 +27,8 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestStatus {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
-    #[allow(missing_docs)]
     pub failure_message: std::string::String,
 
     /// What an actual test name matched to in a failure list. Can be wildcarded or
@@ -41,7 +39,6 @@ pub struct TestStatus {
 }
 
 impl TestStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -77,14 +74,12 @@ impl wkt::message::Message for TestStatus {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailureSet {
-    #[allow(missing_docs)]
     pub test: std::vec::Vec<crate::generated::gapic::model::TestStatus>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FailureSet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -148,7 +143,6 @@ pub struct ConformanceRequest {
 }
 
 impl ConformanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -339,13 +333,10 @@ pub mod conformance_request {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Payload {
-        #[allow(missing_docs)]
         ProtobufPayload(::bytes::Bytes),
-        #[allow(missing_docs)]
         JsonPayload(std::string::String),
         /// Only used inside Google.  Opensource testees just skip it.
         JspbPayload(std::string::String),
-        #[allow(missing_docs)]
         TextPayload(std::string::String),
     }
 
@@ -373,14 +364,12 @@ pub mod conformance_request {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceResponse {
-    #[allow(missing_docs)]
     pub result: std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ConformanceResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -638,7 +627,6 @@ pub mod conformance_response {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
@@ -729,7 +717,6 @@ pub struct JspbEncodingConfig {
 }
 
 impl JspbEncodingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -747,7 +734,6 @@ impl wkt::message::Message for JspbEncodingConfig {
     }
 }
 
-/// Enum for [WireFormat].
 ///
 /// # Working with unknown values
 ///
@@ -765,15 +751,10 @@ impl wkt::message::Message for JspbEncodingConfig {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum WireFormat {
-    #[allow(missing_docs)]
     Unspecified,
-    #[allow(missing_docs)]
     Protobuf,
-    #[allow(missing_docs)]
     Json,
-    #[allow(missing_docs)]
     Jspb,
-    #[allow(missing_docs)]
     TextFormat,
     /// If set, the enum was initialized with an unknown value.
     ///
@@ -893,7 +874,6 @@ impl<'de> serde::de::Deserialize<'de> for WireFormat {
     }
 }
 
-/// Enum for [TestCategory].
 ///
 /// # Working with unknown values
 ///
@@ -911,11 +891,8 @@ impl<'de> serde::de::Deserialize<'de> for WireFormat {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TestCategory {
-    #[allow(missing_docs)]
     UnspecifiedTest,
-    #[allow(missing_docs)]
     BinaryTest,
-    #[allow(missing_docs)]
     JsonTest,
     /// Similar to JSON_TEST. However, during parsing json, testee should ignore
     /// unknown fields. This feature is optional. Each implementation can decide

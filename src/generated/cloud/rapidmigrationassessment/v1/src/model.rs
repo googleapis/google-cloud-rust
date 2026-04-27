@@ -46,7 +46,6 @@ pub struct GuestOsScan {
 }
 
 impl GuestOsScan {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -81,7 +80,6 @@ pub struct VSphereScan {
 }
 
 impl VSphereScan {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -159,7 +157,6 @@ pub struct Collector {
 }
 
 impl Collector {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -660,7 +657,6 @@ pub struct Annotation {
 }
 
 impl Annotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -942,7 +938,6 @@ pub struct CreateAnnotationRequest {
 }
 
 impl CreateAnnotationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1022,7 +1017,6 @@ pub struct GetAnnotationRequest {
 }
 
 impl GetAnnotationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1066,7 +1060,6 @@ pub struct CreateCollectorRequest {
 }
 
 impl CreateCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1171,7 +1164,6 @@ pub struct ListCollectorsRequest {
 }
 
 impl ListCollectorsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1260,7 +1252,6 @@ pub struct ListCollectorsResponse {
 }
 
 impl ListCollectorsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1348,7 +1339,6 @@ pub struct GetCollectorRequest {
 }
 
 impl GetCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1398,7 +1388,6 @@ pub struct DeleteCollectorRequest {
 }
 
 impl DeleteCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1467,7 +1456,6 @@ pub struct UpdateCollectorRequest {
 }
 
 impl UpdateCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1583,7 +1571,6 @@ pub struct ResumeCollectorRequest {
 }
 
 impl ResumeCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1645,7 +1632,6 @@ pub struct RegisterCollectorRequest {
 }
 
 impl RegisterCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1707,7 +1693,6 @@ pub struct PauseCollectorRequest {
 }
 
 impl PauseCollectorRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1778,7 +1763,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

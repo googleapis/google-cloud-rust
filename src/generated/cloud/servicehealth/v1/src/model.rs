@@ -93,7 +93,6 @@ pub struct Event {
 }
 
 impl Event {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1209,7 +1208,6 @@ pub struct OrganizationEvent {
 }
 
 impl OrganizationEvent {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2116,7 +2114,6 @@ pub struct EventUpdate {
 }
 
 impl EventUpdate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2220,7 +2217,6 @@ pub struct Location {
 }
 
 impl Location {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2258,7 +2254,6 @@ pub struct Product {
 }
 
 impl Product {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2308,7 +2303,6 @@ pub struct EventImpact {
 }
 
 impl EventImpact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2416,7 +2410,6 @@ pub struct OrganizationImpact {
 }
 
 impl OrganizationImpact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2540,7 +2533,6 @@ pub struct Asset {
 }
 
 impl Asset {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2629,7 +2621,6 @@ pub struct ListEventsRequest {
 }
 
 impl ListEventsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2724,7 +2715,6 @@ pub struct ListEventsResponse {
 }
 
 impl ListEventsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2818,7 +2808,6 @@ pub struct GetEventRequest {
 }
 
 impl GetEventRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2899,7 +2888,6 @@ pub struct ListOrganizationEventsRequest {
 }
 
 impl ListOrganizationEventsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2997,7 +2985,6 @@ pub struct ListOrganizationEventsResponse {
 }
 
 impl ListOrganizationEventsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3093,7 +3080,6 @@ pub struct GetOrganizationEventRequest {
 }
 
 impl GetOrganizationEventRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3171,7 +3157,6 @@ pub struct ListOrganizationImpactsRequest {
 }
 
 impl ListOrganizationImpactsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3255,7 +3240,6 @@ pub struct ListOrganizationImpactsResponse {
 }
 
 impl ListOrganizationImpactsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3351,7 +3335,6 @@ pub struct GetOrganizationImpactRequest {
 }
 
 impl GetOrganizationImpactRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

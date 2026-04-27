@@ -51,7 +51,6 @@ pub struct AttestationNote {
 }
 
 impl AttestationNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -119,7 +118,6 @@ pub mod attestation_note {
     }
 
     impl Hint {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -147,7 +145,6 @@ pub mod attestation_note {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Jwt {
@@ -160,7 +157,6 @@ pub struct Jwt {
 }
 
 impl Jwt {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -220,7 +216,6 @@ pub struct AttestationOccurrence {
 }
 
 impl AttestationOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -300,7 +295,6 @@ pub struct BuildNote {
 }
 
 impl BuildNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -364,7 +358,6 @@ pub struct BuildOccurrence {
 }
 
 impl BuildOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -537,7 +530,6 @@ pub struct RelatedUrl {
 }
 
 impl RelatedUrl {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -633,7 +625,6 @@ pub struct Signature {
 }
 
 impl Signature {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -675,20 +666,16 @@ impl wkt::message::Message for Signature {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Envelope {
-    #[allow(missing_docs)]
     pub payload: ::bytes::Bytes,
 
-    #[allow(missing_docs)]
     pub payload_type: std::string::String,
 
-    #[allow(missing_docs)]
     pub signatures: std::vec::Vec<crate::model::EnvelopeSignature>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Envelope {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -746,21 +733,17 @@ impl wkt::message::Message for Envelope {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnvelopeSignature {
-    #[allow(missing_docs)]
     pub sig: ::bytes::Bytes,
 
-    #[allow(missing_docs)]
     pub keyid: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnvelopeSignature {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -816,7 +799,6 @@ pub struct FileLocation {
 }
 
 impl FileLocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -905,7 +887,6 @@ pub struct BaseImage {
 }
 
 impl BaseImage {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -990,7 +971,6 @@ pub struct LayerDetails {
 }
 
 impl LayerDetails {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1090,7 +1070,6 @@ pub struct License {
 }
 
 impl License {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1140,7 +1119,6 @@ pub struct Digest {
 }
 
 impl Digest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1176,7 +1154,6 @@ impl wkt::message::Message for Digest {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceNote {
@@ -1198,7 +1175,6 @@ pub struct ComplianceNote {
     /// Serialized scan instructions with a predefined format.
     pub scan_instructions: ::bytes::Bytes,
 
-    #[allow(missing_docs)]
     pub compliance_type: std::option::Option<crate::model::compliance_note::ComplianceType>,
 
     /// Potential impact of the suggested remediation
@@ -1208,7 +1184,6 @@ pub struct ComplianceNote {
 }
 
 impl ComplianceNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1426,17 +1401,14 @@ pub mod compliance_note {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CisBenchmark {
-        #[allow(missing_docs)]
         pub profile_level: i32,
 
-        #[allow(missing_docs)]
         pub severity: crate::model::Severity,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl CisBenchmark {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1475,11 +1447,9 @@ pub mod compliance_note {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ComplianceType {
-        #[allow(missing_docs)]
         CisBenchmark(std::boxed::Box<crate::model::compliance_note::CisBenchmark>),
     }
 
@@ -1487,7 +1457,6 @@ pub mod compliance_note {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PotentialImpact {
-        #[allow(missing_docs)]
         Impact(std::string::String),
     }
 }
@@ -1513,7 +1482,6 @@ pub struct ComplianceVersion {
 }
 
 impl ComplianceVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1569,10 +1537,8 @@ impl wkt::message::Message for ComplianceVersion {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComplianceOccurrence {
-    #[allow(missing_docs)]
     pub non_compliant_files: std::vec::Vec<crate::model::NonCompliantFile>,
 
-    #[allow(missing_docs)]
     pub non_compliance_reason: std::string::String,
 
     /// The OS and config version the benchmark was run on.
@@ -1582,7 +1548,6 @@ pub struct ComplianceOccurrence {
 }
 
 impl ComplianceOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1681,7 +1646,6 @@ pub struct NonCompliantFile {
 }
 
 impl NonCompliantFile {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1737,10 +1701,8 @@ pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     pub base_score: f32,
 
-    #[allow(missing_docs)]
     pub exploitability_score: f32,
 
-    #[allow(missing_docs)]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -1748,32 +1710,24 @@ pub struct CVSSv3 {
     /// constant over time and across user environments.
     pub attack_vector: crate::model::cvs_sv_3::AttackVector,
 
-    #[allow(missing_docs)]
     pub attack_complexity: crate::model::cvs_sv_3::AttackComplexity,
 
-    #[allow(missing_docs)]
     pub privileges_required: crate::model::cvs_sv_3::PrivilegesRequired,
 
-    #[allow(missing_docs)]
     pub user_interaction: crate::model::cvs_sv_3::UserInteraction,
 
-    #[allow(missing_docs)]
     pub scope: crate::model::cvs_sv_3::Scope,
 
-    #[allow(missing_docs)]
     pub confidentiality_impact: crate::model::cvs_sv_3::Impact,
 
-    #[allow(missing_docs)]
     pub integrity_impact: crate::model::cvs_sv_3::Impact,
 
-    #[allow(missing_docs)]
     pub availability_impact: crate::model::cvs_sv_3::Impact,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CVSSv3 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1968,7 +1922,6 @@ pub mod cvs_sv_3 {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [AttackVector].
     ///
     /// # Working with unknown values
     ///
@@ -1986,15 +1939,10 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackVector {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Network,
-        #[allow(missing_docs)]
         Adjacent,
-        #[allow(missing_docs)]
         Local,
-        #[allow(missing_docs)]
         Physical,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2114,7 +2062,6 @@ pub mod cvs_sv_3 {
         }
     }
 
-    /// Enum for [AttackComplexity].
     ///
     /// # Working with unknown values
     ///
@@ -2132,11 +2079,8 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackComplexity {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         High,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2246,7 +2190,6 @@ pub mod cvs_sv_3 {
         }
     }
 
-    /// Enum for [PrivilegesRequired].
     ///
     /// # Working with unknown values
     ///
@@ -2264,13 +2207,9 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PrivilegesRequired {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         None,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         High,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2385,7 +2324,6 @@ pub mod cvs_sv_3 {
         }
     }
 
-    /// Enum for [UserInteraction].
     ///
     /// # Working with unknown values
     ///
@@ -2403,11 +2341,8 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserInteraction {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         None,
-        #[allow(missing_docs)]
         Required,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2517,7 +2452,6 @@ pub mod cvs_sv_3 {
         }
     }
 
-    /// Enum for [Scope].
     ///
     /// # Working with unknown values
     ///
@@ -2535,11 +2469,8 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Unchanged,
-        #[allow(missing_docs)]
         Changed,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2649,7 +2580,6 @@ pub mod cvs_sv_3 {
         }
     }
 
-    /// Enum for [Impact].
     ///
     /// # Working with unknown values
     ///
@@ -2667,13 +2597,9 @@ pub mod cvs_sv_3 {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Impact {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         High,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         None,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2799,10 +2725,8 @@ pub struct Cvss {
     /// The base score is a function of the base metric scores.
     pub base_score: f32,
 
-    #[allow(missing_docs)]
     pub exploitability_score: f32,
 
-    #[allow(missing_docs)]
     pub impact_score: f32,
 
     /// Base Metrics
@@ -2810,35 +2734,26 @@ pub struct Cvss {
     /// constant over time and across user environments.
     pub attack_vector: crate::model::cvss::AttackVector,
 
-    #[allow(missing_docs)]
     pub attack_complexity: crate::model::cvss::AttackComplexity,
 
-    #[allow(missing_docs)]
     pub authentication: crate::model::cvss::Authentication,
 
-    #[allow(missing_docs)]
     pub privileges_required: crate::model::cvss::PrivilegesRequired,
 
-    #[allow(missing_docs)]
     pub user_interaction: crate::model::cvss::UserInteraction,
 
-    #[allow(missing_docs)]
     pub scope: crate::model::cvss::Scope,
 
-    #[allow(missing_docs)]
     pub confidentiality_impact: crate::model::cvss::Impact,
 
-    #[allow(missing_docs)]
     pub integrity_impact: crate::model::cvss::Impact,
 
-    #[allow(missing_docs)]
     pub availability_impact: crate::model::cvss::Impact,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Cvss {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3050,7 +2965,6 @@ pub mod cvss {
     #[allow(unused_imports)]
     use super::*;
 
-    /// Enum for [AttackVector].
     ///
     /// # Working with unknown values
     ///
@@ -3068,15 +2982,10 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackVector {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Network,
-        #[allow(missing_docs)]
         Adjacent,
-        #[allow(missing_docs)]
         Local,
-        #[allow(missing_docs)]
         Physical,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3196,7 +3105,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [AttackComplexity].
     ///
     /// # Working with unknown values
     ///
@@ -3214,13 +3122,9 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AttackComplexity {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         High,
-        #[allow(missing_docs)]
         Medium,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3335,7 +3239,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Authentication].
     ///
     /// # Working with unknown values
     ///
@@ -3353,13 +3256,9 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Authentication {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Multiple,
-        #[allow(missing_docs)]
         Single,
-        #[allow(missing_docs)]
         None,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3474,7 +3373,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [PrivilegesRequired].
     ///
     /// # Working with unknown values
     ///
@@ -3492,13 +3390,9 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PrivilegesRequired {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         None,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         High,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3613,7 +3507,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [UserInteraction].
     ///
     /// # Working with unknown values
     ///
@@ -3631,11 +3524,8 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum UserInteraction {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         None,
-        #[allow(missing_docs)]
         Required,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3745,7 +3635,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Scope].
     ///
     /// # Working with unknown values
     ///
@@ -3763,11 +3652,8 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Scope {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         Unchanged,
-        #[allow(missing_docs)]
         Changed,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3877,7 +3763,6 @@ pub mod cvss {
         }
     }
 
-    /// Enum for [Impact].
     ///
     /// # Working with unknown values
     ///
@@ -3895,17 +3780,11 @@ pub mod cvss {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Impact {
-        #[allow(missing_docs)]
         Unspecified,
-        #[allow(missing_docs)]
         High,
-        #[allow(missing_docs)]
         Low,
-        #[allow(missing_docs)]
         None,
-        #[allow(missing_docs)]
         Partial,
-        #[allow(missing_docs)]
         Complete,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4042,7 +3921,6 @@ pub struct DeploymentNote {
 }
 
 impl DeploymentNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4101,7 +3979,6 @@ pub struct DeploymentOccurrence {
 }
 
 impl DeploymentOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4409,7 +4286,6 @@ pub struct DiscoveryNote {
 }
 
 impl DiscoveryNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4449,7 +4325,6 @@ pub struct DiscoveryOccurrence {
     /// The status of discovery for the resource.
     pub analysis_status: crate::model::discovery_occurrence::AnalysisStatus,
 
-    #[allow(missing_docs)]
     pub analysis_completed:
         std::option::Option<crate::model::discovery_occurrence::AnalysisCompleted>,
 
@@ -4488,7 +4363,6 @@ pub struct DiscoveryOccurrence {
 }
 
 impl DiscoveryOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4839,14 +4713,12 @@ pub mod discovery_occurrence {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AnalysisCompleted {
-        #[allow(missing_docs)]
         pub analysis_type: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl AnalysisCompleted {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4890,7 +4762,6 @@ pub mod discovery_occurrence {
     }
 
     impl SBOMStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5092,7 +4963,6 @@ pub mod discovery_occurrence {
     }
 
     impl VulnerabilityAttestation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5305,21 +5175,17 @@ pub mod discovery_occurrence {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct File {
-        #[allow(missing_docs)]
         pub name: std::string::String,
 
-        #[allow(missing_docs)]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl File {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5658,7 +5524,6 @@ pub mod discovery_occurrence {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DSSEAttestationNote {
@@ -5669,7 +5534,6 @@ pub struct DSSEAttestationNote {
 }
 
 impl DSSEAttestationNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5737,7 +5601,6 @@ pub mod dsse_attestation_note {
     }
 
     impl DSSEHint {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5774,7 +5637,6 @@ pub struct DSSEAttestationOccurrence {
     /// this metadata.
     pub envelope: std::option::Option<crate::model::Envelope>,
 
-    #[allow(missing_docs)]
     pub decoded_payload:
         std::option::Option<crate::model::dsse_attestation_occurrence::DecodedPayload>,
 
@@ -5782,7 +5644,6 @@ pub struct DSSEAttestationOccurrence {
 }
 
 impl DSSEAttestationOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5894,11 +5755,9 @@ pub mod dsse_attestation_occurrence {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DecodedPayload {
-        #[allow(missing_docs)]
         Statement(std::boxed::Box<crate::model::InTotoStatement>),
     }
 }
@@ -5945,7 +5804,6 @@ pub struct Occurrence {
 }
 
 impl Occurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6781,7 +6639,6 @@ pub struct Note {
 }
 
 impl Note {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7656,7 +7513,6 @@ pub struct GetOccurrenceRequest {
 }
 
 impl GetOccurrenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7709,7 +7565,6 @@ pub struct ListOccurrencesRequest {
 }
 
 impl ListOccurrencesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7803,7 +7658,6 @@ pub struct ListOccurrencesResponse {
 }
 
 impl ListOccurrencesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7892,7 +7746,6 @@ pub struct DeleteOccurrenceRequest {
 }
 
 impl DeleteOccurrenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7931,7 +7784,6 @@ pub struct CreateOccurrenceRequest {
 }
 
 impl CreateOccurrenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8006,7 +7858,6 @@ pub struct UpdateOccurrenceRequest {
 }
 
 impl UpdateOccurrenceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8108,7 +7959,6 @@ pub struct GetNoteRequest {
 }
 
 impl GetNoteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8144,7 +7994,6 @@ pub struct GetOccurrenceNoteRequest {
 }
 
 impl GetOccurrenceNoteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8197,7 +8046,6 @@ pub struct ListNotesRequest {
 }
 
 impl ListNotesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8291,7 +8139,6 @@ pub struct ListNotesResponse {
 }
 
 impl ListNotesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8380,7 +8227,6 @@ pub struct DeleteNoteRequest {
 }
 
 impl DeleteNoteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8422,7 +8268,6 @@ pub struct CreateNoteRequest {
 }
 
 impl CreateNoteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8509,7 +8354,6 @@ pub struct UpdateNoteRequest {
 }
 
 impl UpdateNoteRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8620,7 +8464,6 @@ pub struct ListNoteOccurrencesRequest {
 }
 
 impl ListNoteOccurrencesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8694,7 +8537,6 @@ pub struct ListNoteOccurrencesResponse {
 }
 
 impl ListNoteOccurrencesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8769,7 +8611,6 @@ pub struct BatchCreateNotesRequest {
 }
 
 impl BatchCreateNotesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8826,7 +8667,6 @@ pub struct BatchCreateNotesResponse {
 }
 
 impl BatchCreateNotesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8875,7 +8715,6 @@ pub struct BatchCreateOccurrencesRequest {
 }
 
 impl BatchCreateOccurrencesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8932,7 +8771,6 @@ pub struct BatchCreateOccurrencesResponse {
 }
 
 impl BatchCreateOccurrencesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8981,7 +8819,6 @@ pub struct Layer {
 }
 
 impl Layer {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9038,7 +8875,6 @@ pub struct Fingerprint {
 }
 
 impl Fingerprint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9110,7 +8946,6 @@ pub struct ImageNote {
 }
 
 impl ImageNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9193,7 +9028,6 @@ pub struct ImageOccurrence {
 }
 
 impl ImageOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9329,7 +9163,6 @@ pub struct Recipe {
 }
 
 impl Recipe {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9442,7 +9275,6 @@ pub struct Completeness {
 }
 
 impl Completeness {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9517,7 +9349,6 @@ pub struct Metadata {
 }
 
 impl Metadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9655,18 +9486,15 @@ impl wkt::message::Message for Metadata {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BuilderConfig {
-    #[allow(missing_docs)]
     pub id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BuilderConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9690,11 +9518,9 @@ impl wkt::message::Message for BuilderConfig {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InTotoProvenance {
-    #[allow(missing_docs)]
     pub builder_config: std::option::Option<crate::model::BuilderConfig>,
 
     /// Identifies the configuration used for the build.
@@ -9703,7 +9529,6 @@ pub struct InTotoProvenance {
     /// (if the build is reproducible).
     pub recipe: std::option::Option<crate::model::Recipe>,
 
-    #[allow(missing_docs)]
     pub metadata: std::option::Option<crate::model::Metadata>,
 
     /// The collection of artifacts that influenced the build including sources,
@@ -9716,7 +9541,6 @@ pub struct InTotoProvenance {
 }
 
 impl InTotoProvenance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9854,20 +9678,17 @@ pub struct InTotoStatement {
     /// Always `<https://in-toto.io/Statement/v0.1>`.
     pub r#type: std::string::String,
 
-    #[allow(missing_docs)]
     pub subject: std::vec::Vec<crate::model::Subject>,
 
     /// `<https://slsa.dev/provenance/v0.1>` for SlsaProvenance.
     pub predicate_type: std::string::String,
 
-    #[allow(missing_docs)]
     pub predicate: std::option::Option<crate::model::in_toto_statement::Predicate>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InTotoStatement {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10078,24 +9899,18 @@ pub mod in_toto_statement {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Predicate {
-        #[allow(missing_docs)]
         Provenance(std::boxed::Box<crate::model::InTotoProvenance>),
-        #[allow(missing_docs)]
         SlsaProvenance(std::boxed::Box<crate::model::SlsaProvenance>),
-        #[allow(missing_docs)]
         SlsaProvenanceZeroTwo(std::boxed::Box<crate::model::SlsaProvenanceZeroTwo>),
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subject {
-    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// `"<ALGORITHM>": "<HEX_VALUE>"`
@@ -10108,7 +9923,6 @@ pub struct Subject {
 }
 
 impl Subject {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10153,7 +9967,6 @@ impl wkt::message::Message for Subject {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InTotoSlsaProvenanceV1 {
@@ -10161,20 +9974,16 @@ pub struct InTotoSlsaProvenanceV1 {
     /// <https://github.com/in-toto/attestation/tree/main/spec#statement>
     pub r#type: std::string::String,
 
-    #[allow(missing_docs)]
     pub subject: std::vec::Vec<crate::model::Subject>,
 
-    #[allow(missing_docs)]
     pub predicate_type: std::string::String,
 
-    #[allow(missing_docs)]
     pub predicate: std::option::Option<crate::model::in_toto_slsa_provenance_v_1::SlsaProvenanceV1>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl InTotoSlsaProvenanceV1 {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10276,18 +10085,15 @@ pub mod in_toto_slsa_provenance_v_1 {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaProvenanceV1 {
-        #[allow(missing_docs)]
         pub build_definition:
             std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildDefinition>,
 
-        #[allow(missing_docs)]
         pub run_details: std::option::Option<crate::model::in_toto_slsa_provenance_v_1::RunDetails>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaProvenanceV1 {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10365,20 +10171,15 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BuildDefinition {
-        #[allow(missing_docs)]
         pub build_type: std::string::String,
 
-        #[allow(missing_docs)]
         pub external_parameters: std::option::Option<wkt::Struct>,
 
-        #[allow(missing_docs)]
         pub internal_parameters: std::option::Option<wkt::Struct>,
 
-        #[allow(missing_docs)]
         pub resolved_dependencies:
             std::vec::Vec<crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor>,
 
@@ -10386,7 +10187,6 @@ pub mod in_toto_slsa_provenance_v_1 {
     }
 
     impl BuildDefinition {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10498,36 +10298,27 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ResourceDescriptor {
-        #[allow(missing_docs)]
         pub name: std::string::String,
 
-        #[allow(missing_docs)]
         pub uri: std::string::String,
 
-        #[allow(missing_docs)]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
-        #[allow(missing_docs)]
         pub content: ::bytes::Bytes,
 
-        #[allow(missing_docs)]
         pub download_location: std::string::String,
 
-        #[allow(missing_docs)]
         pub media_type: std::string::String,
 
-        #[allow(missing_docs)]
         pub annotations: std::collections::HashMap<std::string::String, wkt::Value>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ResourceDescriptor {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10645,18 +10436,14 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RunDetails {
-        #[allow(missing_docs)]
         pub builder:
             std::option::Option<crate::model::in_toto_slsa_provenance_v_1::ProvenanceBuilder>,
 
-        #[allow(missing_docs)]
         pub metadata: std::option::Option<crate::model::in_toto_slsa_provenance_v_1::BuildMetadata>,
 
-        #[allow(missing_docs)]
         pub byproducts:
             std::vec::Vec<crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor>,
 
@@ -10664,7 +10451,6 @@ pub mod in_toto_slsa_provenance_v_1 {
     }
 
     impl RunDetails {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10764,17 +10550,13 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ProvenanceBuilder {
-        #[allow(missing_docs)]
         pub id: std::string::String,
 
-        #[allow(missing_docs)]
         pub version: std::collections::HashMap<std::string::String, std::string::String>,
 
-        #[allow(missing_docs)]
         pub builder_dependencies:
             std::vec::Vec<crate::model::in_toto_slsa_provenance_v_1::ResourceDescriptor>,
 
@@ -10782,7 +10564,6 @@ pub mod in_toto_slsa_provenance_v_1 {
     }
 
     impl ProvenanceBuilder {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10849,24 +10630,19 @@ pub mod in_toto_slsa_provenance_v_1 {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BuildMetadata {
-        #[allow(missing_docs)]
         pub invocation_id: std::string::String,
 
-        #[allow(missing_docs)]
         pub started_on: std::option::Option<wkt::Timestamp>,
 
-        #[allow(missing_docs)]
         pub finished_on: std::option::Option<wkt::Timestamp>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl BuildMetadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10989,7 +10765,6 @@ pub struct Distribution {
 }
 
 impl Distribution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11119,7 +10894,6 @@ pub struct Location {
 }
 
 impl Location {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11235,7 +11009,6 @@ pub struct PackageNote {
 }
 
 impl PackageNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11480,7 +11253,6 @@ pub struct PackageOccurrence {
 }
 
 impl PackageOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11667,7 +11439,6 @@ pub struct Version {
 }
 
 impl Version {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11953,7 +11724,6 @@ pub struct BuildProvenance {
 }
 
 impl BuildProvenance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12265,7 +12035,6 @@ pub struct Source {
 }
 
 impl Source {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12381,7 +12150,6 @@ pub struct FileHashes {
 }
 
 impl FileHashes {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12429,7 +12197,6 @@ pub struct Hash {
 }
 
 impl Hash {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12494,7 +12261,6 @@ pub struct Command {
 }
 
 impl Command {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12616,7 +12382,6 @@ pub struct Artifact {
 }
 
 impl Artifact {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12684,7 +12449,6 @@ pub struct SourceContext {
 }
 
 impl SourceContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12882,7 +12646,6 @@ pub struct AliasContext {
 }
 
 impl AliasContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13086,7 +12849,6 @@ pub struct CloudRepoSourceContext {
 }
 
 impl CloudRepoSourceContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13261,7 +13023,6 @@ pub struct GerritSourceContext {
 }
 
 impl GerritSourceContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13422,7 +13183,6 @@ pub struct GitSourceContext {
 }
 
 impl GitSourceContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13470,7 +13230,6 @@ pub struct RepoId {
 }
 
 impl RepoId {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13599,7 +13358,6 @@ pub struct ProjectRepoId {
 }
 
 impl ProjectRepoId {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13635,7 +13393,6 @@ impl wkt::message::Message for ProjectRepoId {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Risk {
@@ -13651,7 +13408,6 @@ pub struct Risk {
 }
 
 impl Risk {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13729,7 +13485,6 @@ impl wkt::message::Message for Risk {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CISAKnownExploitedVulnerabilities {
@@ -13741,7 +13496,6 @@ pub struct CISAKnownExploitedVulnerabilities {
 }
 
 impl CISAKnownExploitedVulnerabilities {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13768,7 +13522,6 @@ impl wkt::message::Message for CISAKnownExploitedVulnerabilities {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExploitPredictionScoringSystem {
@@ -13784,7 +13537,6 @@ pub struct ExploitPredictionScoringSystem {
 }
 
 impl ExploitPredictionScoringSystem {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13835,7 +13587,6 @@ pub struct SBOMReferenceNote {
 }
 
 impl SBOMReferenceNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13893,7 +13644,6 @@ pub struct SBOMReferenceOccurrence {
 }
 
 impl SBOMReferenceOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13997,7 +13747,6 @@ pub struct SbomReferenceIntotoPayload {
 }
 
 impl SbomReferenceIntotoPayload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14108,7 +13857,6 @@ pub struct SbomReferenceIntotoPredicate {
 }
 
 impl SbomReferenceIntotoPredicate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14185,7 +13933,6 @@ pub struct SecretNote {
 }
 
 impl SecretNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14221,7 +13968,6 @@ pub struct SecretOccurrence {
 }
 
 impl SecretOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14369,7 +14115,6 @@ pub struct SecretLocation {
 }
 
 impl SecretLocation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14472,7 +14217,6 @@ pub struct SecretStatus {
 }
 
 impl SecretStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14692,11 +14436,9 @@ pub mod secret_status {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SlsaProvenance {
-    #[allow(missing_docs)]
     pub builder: std::option::Option<crate::model::slsa_provenance::SlsaBuilder>,
 
     /// Identifies the configuration used for the build.
@@ -14705,7 +14447,6 @@ pub struct SlsaProvenance {
     /// (if the build is reproducible).
     pub recipe: std::option::Option<crate::model::slsa_provenance::SlsaRecipe>,
 
-    #[allow(missing_docs)]
     pub metadata: std::option::Option<crate::model::slsa_provenance::SlsaMetadata>,
 
     /// The collection of artifacts that influenced the build including sources,
@@ -14718,7 +14459,6 @@ pub struct SlsaProvenance {
 }
 
 impl SlsaProvenance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14898,7 +14638,6 @@ pub mod slsa_provenance {
     }
 
     impl SlsaRecipe {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15033,7 +14772,6 @@ pub mod slsa_provenance {
     }
 
     impl SlsaCompleteness {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15108,7 +14846,6 @@ pub mod slsa_provenance {
     }
 
     impl SlsaMetadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15246,18 +14983,15 @@ pub mod slsa_provenance {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaBuilder {
-        #[allow(missing_docs)]
         pub id: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaBuilder {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15281,21 +15015,17 @@ pub mod slsa_provenance {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Material {
-        #[allow(missing_docs)]
         pub uri: std::string::String,
 
-        #[allow(missing_docs)]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Material {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15341,33 +15071,25 @@ pub mod slsa_provenance {
     }
 }
 
-#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SlsaProvenanceZeroTwo {
-    #[allow(missing_docs)]
     pub builder: std::option::Option<crate::model::slsa_provenance_zero_two::SlsaBuilder>,
 
-    #[allow(missing_docs)]
     pub build_type: std::string::String,
 
-    #[allow(missing_docs)]
     pub invocation: std::option::Option<crate::model::slsa_provenance_zero_two::SlsaInvocation>,
 
-    #[allow(missing_docs)]
     pub build_config: std::option::Option<wkt::Struct>,
 
-    #[allow(missing_docs)]
     pub metadata: std::option::Option<crate::model::slsa_provenance_zero_two::SlsaMetadata>,
 
-    #[allow(missing_docs)]
     pub materials: std::vec::Vec<crate::model::slsa_provenance_zero_two::SlsaMaterial>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl SlsaProvenanceZeroTwo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15555,14 +15277,12 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaBuilder {
-        #[allow(missing_docs)]
         pub id: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaBuilder {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15591,17 +15311,14 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaMaterial {
-        #[allow(missing_docs)]
         pub uri: std::string::String,
 
-        #[allow(missing_docs)]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaMaterial {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15650,21 +15367,17 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaInvocation {
-        #[allow(missing_docs)]
         pub config_source:
             std::option::Option<crate::model::slsa_provenance_zero_two::SlsaConfigSource>,
 
-        #[allow(missing_docs)]
         pub parameters: std::option::Option<wkt::Struct>,
 
-        #[allow(missing_docs)]
         pub environment: std::option::Option<wkt::Struct>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaInvocation {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15780,20 +15493,16 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaConfigSource {
-        #[allow(missing_docs)]
         pub uri: std::string::String,
 
-        #[allow(missing_docs)]
         pub digest: std::collections::HashMap<std::string::String, std::string::String>,
 
-        #[allow(missing_docs)]
         pub entry_point: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaConfigSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15854,27 +15563,21 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaMetadata {
-        #[allow(missing_docs)]
         pub build_invocation_id: std::string::String,
 
-        #[allow(missing_docs)]
         pub build_started_on: std::option::Option<wkt::Timestamp>,
 
-        #[allow(missing_docs)]
         pub build_finished_on: std::option::Option<wkt::Timestamp>,
 
-        #[allow(missing_docs)]
         pub completeness:
             std::option::Option<crate::model::slsa_provenance_zero_two::SlsaCompleteness>,
 
-        #[allow(missing_docs)]
         pub reproducible: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaMetadata {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16017,20 +15720,16 @@ pub mod slsa_provenance_zero_two {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SlsaCompleteness {
-        #[allow(missing_docs)]
         pub parameters: bool,
 
-        #[allow(missing_docs)]
         pub environment: bool,
 
-        #[allow(missing_docs)]
         pub materials: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl SlsaCompleteness {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16103,7 +15802,6 @@ pub struct UpgradeNote {
 }
 
 impl UpgradeNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16241,7 +15939,6 @@ pub struct UpgradeDistribution {
 }
 
 impl UpgradeDistribution {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16339,7 +16036,6 @@ pub struct WindowsUpdate {
 }
 
 impl WindowsUpdate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16511,7 +16207,6 @@ pub mod windows_update {
     }
 
     impl Identity {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16561,7 +16256,6 @@ pub mod windows_update {
     }
 
     impl Category {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16625,7 +16319,6 @@ pub struct UpgradeOccurrence {
 }
 
 impl UpgradeOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16779,7 +16472,6 @@ pub struct VulnerabilityAssessmentNote {
 }
 
 impl VulnerabilityAssessmentNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16975,7 +16667,6 @@ pub mod vulnerability_assessment_note {
     }
 
     impl Publisher {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17044,7 +16735,6 @@ pub mod vulnerability_assessment_note {
         /// uniquely identifies a group in the context of the current document.
         pub id: std::string::String,
 
-        #[allow(missing_docs)]
         pub identifier:
             std::option::Option<crate::model::vulnerability_assessment_note::product::Identifier>,
 
@@ -17052,7 +16742,6 @@ pub mod vulnerability_assessment_note {
     }
 
     impl Product {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17152,7 +16841,6 @@ pub mod vulnerability_assessment_note {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Identifier {
@@ -17210,7 +16898,6 @@ pub mod vulnerability_assessment_note {
     }
 
     impl Assessment {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -17421,7 +17108,6 @@ pub mod vulnerability_assessment_note {
         }
 
         impl Justification {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -17670,7 +17356,6 @@ pub mod vulnerability_assessment_note {
         }
 
         impl Remediation {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -18098,7 +17783,6 @@ pub struct VulnerabilityNote {
 }
 
 impl VulnerabilityNote {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -18409,7 +18093,6 @@ pub mod vulnerability_note {
     }
 
     impl Detail {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18691,7 +18374,6 @@ pub mod vulnerability_note {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct WindowsDetail {
@@ -18716,7 +18398,6 @@ pub mod vulnerability_note {
     }
 
     impl WindowsDetail {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -18791,7 +18472,6 @@ pub mod vulnerability_note {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct KnowledgeBase {
@@ -18806,7 +18486,6 @@ pub mod vulnerability_note {
         }
 
         impl KnowledgeBase {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -18898,7 +18577,6 @@ pub struct VulnerabilityOccurrence {
     /// The cvss v2 score for the vulnerability.
     pub cvss_v2: std::option::Option<crate::model::Cvss>,
 
-    #[allow(missing_docs)]
     pub vex_assessment: std::option::Option<crate::model::vulnerability_occurrence::VexAssessment>,
 
     /// Occurrence-specific extra details about the vulnerability.
@@ -18911,7 +18589,6 @@ pub struct VulnerabilityOccurrence {
 }
 
 impl VulnerabilityOccurrence {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -19279,7 +18956,6 @@ pub mod vulnerability_occurrence {
     }
 
     impl PackageIssue {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -19531,7 +19207,6 @@ pub mod vulnerability_occurrence {
     }
 
     impl VexAssessment {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -19931,11 +19606,8 @@ impl<'de> serde::de::Deserialize<'de> for NoteKind {
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum CVSSVersion {
-    #[allow(missing_docs)]
     Unspecified,
-    #[allow(missing_docs)]
     CvssVersion2,
-    #[allow(missing_docs)]
     CvssVersion3,
     /// If set, the enum was initialized with an unknown value.
     ///

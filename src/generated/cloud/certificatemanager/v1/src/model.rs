@@ -64,7 +64,6 @@ pub struct ListCertificateIssuanceConfigsRequest {
 }
 
 impl ListCertificateIssuanceConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -155,7 +154,6 @@ pub struct ListCertificateIssuanceConfigsResponse {
 }
 
 impl ListCertificateIssuanceConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -246,7 +244,6 @@ pub struct GetCertificateIssuanceConfigRequest {
 }
 
 impl GetCertificateIssuanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -288,7 +285,6 @@ pub struct CreateCertificateIssuanceConfigRequest {
 }
 
 impl CreateCertificateIssuanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -372,7 +368,6 @@ pub struct DeleteCertificateIssuanceConfigRequest {
 }
 
 impl DeleteCertificateIssuanceConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -437,7 +432,6 @@ pub struct CertificateIssuanceConfig {
 }
 
 impl CertificateIssuanceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -671,7 +665,6 @@ pub mod certificate_issuance_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct CertificateAuthorityConfig {
-        #[allow(missing_docs)]
         pub kind: std::option::Option<
             crate::model::certificate_issuance_config::certificate_authority_config::Kind,
         >,
@@ -680,7 +673,6 @@ pub mod certificate_issuance_config {
     }
 
     impl CertificateAuthorityConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -761,7 +753,6 @@ pub mod certificate_issuance_config {
         }
 
         impl CertificateAuthorityServiceConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -785,7 +776,6 @@ pub mod certificate_issuance_config {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -955,7 +945,6 @@ pub struct ListCertificatesRequest {
 }
 
 impl ListCertificatesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1046,7 +1035,6 @@ pub struct ListCertificatesResponse {
 }
 
 impl ListCertificatesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1135,7 +1123,6 @@ pub struct GetCertificateRequest {
 }
 
 impl GetCertificateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1177,7 +1164,6 @@ pub struct CreateCertificateRequest {
 }
 
 impl CreateCertificateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1262,7 +1248,6 @@ pub struct UpdateCertificateRequest {
 }
 
 impl UpdateCertificateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1352,7 +1337,6 @@ pub struct DeleteCertificateRequest {
 }
 
 impl DeleteCertificateRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1404,7 +1388,6 @@ pub struct ListCertificateMapsRequest {
 }
 
 impl ListCertificateMapsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1495,7 +1478,6 @@ pub struct ListCertificateMapsResponse {
 }
 
 impl ListCertificateMapsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1584,7 +1566,6 @@ pub struct GetCertificateMapRequest {
 }
 
 impl GetCertificateMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1626,7 +1607,6 @@ pub struct CreateCertificateMapRequest {
 }
 
 impl CreateCertificateMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1714,7 +1694,6 @@ pub struct UpdateCertificateMapRequest {
 }
 
 impl UpdateCertificateMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1804,7 +1783,6 @@ pub struct DeleteCertificateMapRequest {
 }
 
 impl DeleteCertificateMapRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1861,7 +1839,6 @@ pub struct ListCertificateMapEntriesRequest {
 }
 
 impl ListCertificateMapEntriesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1952,7 +1929,6 @@ pub struct ListCertificateMapEntriesResponse {
 }
 
 impl ListCertificateMapEntriesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2041,7 +2017,6 @@ pub struct GetCertificateMapEntryRequest {
 }
 
 impl GetCertificateMapEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2083,7 +2058,6 @@ pub struct CreateCertificateMapEntryRequest {
 }
 
 impl CreateCertificateMapEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2171,7 +2145,6 @@ pub struct UpdateCertificateMapEntryRequest {
 }
 
 impl UpdateCertificateMapEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2261,7 +2234,6 @@ pub struct DeleteCertificateMapEntryRequest {
 }
 
 impl DeleteCertificateMapEntryRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2313,7 +2285,6 @@ pub struct ListDnsAuthorizationsRequest {
 }
 
 impl ListDnsAuthorizationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2404,7 +2375,6 @@ pub struct ListDnsAuthorizationsResponse {
 }
 
 impl ListDnsAuthorizationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2493,7 +2463,6 @@ pub struct GetDnsAuthorizationRequest {
 }
 
 impl GetDnsAuthorizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2535,7 +2504,6 @@ pub struct CreateDnsAuthorizationRequest {
 }
 
 impl CreateDnsAuthorizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2623,7 +2591,6 @@ pub struct UpdateDnsAuthorizationRequest {
 }
 
 impl UpdateDnsAuthorizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2713,7 +2680,6 @@ pub struct DeleteDnsAuthorizationRequest {
 }
 
 impl DeleteDnsAuthorizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2772,7 +2738,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2945,14 +2910,12 @@ pub struct Certificate {
     /// Immutable. The scope of the certificate.
     pub scope: crate::model::certificate::Scope,
 
-    #[allow(missing_docs)]
     pub r#type: std::option::Option<crate::model::certificate::Type>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Certificate {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3272,7 +3235,6 @@ pub mod certificate {
     }
 
     impl SelfManagedCertificate {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3357,7 +3319,6 @@ pub mod certificate {
     }
 
     impl ManagedCertificate {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3520,7 +3481,6 @@ pub mod certificate {
         }
 
         impl ProvisioningIssue {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -3736,7 +3696,6 @@ pub mod certificate {
         }
 
         impl AuthorizationAttemptInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4383,7 +4342,6 @@ pub mod certificate {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -4424,7 +4382,6 @@ pub struct CertificateMap {
 }
 
 impl CertificateMap {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4590,7 +4547,6 @@ pub mod certificate_map {
     }
 
     impl GclbTarget {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4738,7 +4694,6 @@ pub mod certificate_map {
         }
 
         impl IpConfig {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -4827,14 +4782,12 @@ pub struct CertificateMapEntry {
     /// Output only. A serving state of this Certificate Map Entry.
     pub state: crate::model::ServingState,
 
-    #[allow(missing_docs)]
     pub r#match: std::option::Option<crate::model::certificate_map_entry::Match>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl CertificateMapEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5207,7 +5160,6 @@ pub mod certificate_map_entry {
         }
     }
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Match {
@@ -5263,7 +5215,6 @@ pub struct DnsAuthorization {
 }
 
 impl DnsAuthorization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5474,7 +5425,6 @@ pub mod dns_authorization {
     }
 
     impl DnsResourceRecord {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5685,7 +5635,6 @@ pub struct ListTrustConfigsRequest {
 }
 
 impl ListTrustConfigsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5776,7 +5725,6 @@ pub struct ListTrustConfigsResponse {
 }
 
 impl ListTrustConfigsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5865,7 +5813,6 @@ pub struct GetTrustConfigRequest {
 }
 
 impl GetTrustConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5908,7 +5855,6 @@ pub struct CreateTrustConfigRequest {
 }
 
 impl CreateTrustConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5993,7 +5939,6 @@ pub struct UpdateTrustConfigRequest {
 }
 
 impl UpdateTrustConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6088,7 +6033,6 @@ pub struct DeleteTrustConfigRequest {
 }
 
 impl DeleteTrustConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6162,7 +6106,6 @@ pub struct TrustConfig {
 }
 
 impl TrustConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6328,14 +6271,12 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct TrustAnchor {
-        #[allow(missing_docs)]
         pub kind: std::option::Option<crate::model::trust_config::trust_anchor::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl TrustAnchor {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6408,7 +6349,6 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -6423,14 +6363,12 @@ pub mod trust_config {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IntermediateCA {
-        #[allow(missing_docs)]
         pub kind: std::option::Option<crate::model::trust_config::intermediate_ca::Kind>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IntermediateCA {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6505,7 +6443,6 @@ pub mod trust_config {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
@@ -6536,7 +6473,6 @@ pub mod trust_config {
     }
 
     impl TrustStore {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

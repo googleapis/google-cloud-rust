@@ -176,7 +176,6 @@ pub struct Secret {
 }
 
 impl Secret {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -690,7 +689,6 @@ pub struct SecretVersion {
 }
 
 impl SecretVersion {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1098,7 +1096,6 @@ pub struct Replication {
 }
 
 impl Replication {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1241,7 +1238,6 @@ pub mod replication {
     }
 
     impl Automatic {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1311,7 +1307,6 @@ pub mod replication {
     }
 
     impl UserManaged {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1381,7 +1376,6 @@ pub mod replication {
         }
 
         impl Replica {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1489,7 +1483,6 @@ pub struct CustomerManagedEncryption {
 }
 
 impl CustomerManagedEncryption {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1531,7 +1524,6 @@ pub struct ReplicationStatus {
 }
 
 impl ReplicationStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1680,7 +1672,6 @@ pub mod replication_status {
     }
 
     impl AutomaticStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1751,7 +1742,6 @@ pub mod replication_status {
     }
 
     impl UserManagedStatus {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1815,7 +1805,6 @@ pub mod replication_status {
         }
 
         impl ReplicaStatus {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1924,7 +1913,6 @@ pub struct CustomerManagedEncryptionStatus {
 }
 
 impl CustomerManagedEncryptionStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1967,7 +1955,6 @@ pub struct Topic {
 }
 
 impl Topic {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2037,7 +2024,6 @@ pub struct Rotation {
 }
 
 impl Rotation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2153,7 +2139,6 @@ pub struct SecretPayload {
 }
 
 impl SecretPayload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2244,7 +2229,6 @@ pub struct ListSecretsRequest {
 }
 
 impl ListSecretsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2337,7 +2321,6 @@ pub struct ListSecretsResponse {
 }
 
 impl ListSecretsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2440,7 +2423,6 @@ pub struct CreateSecretRequest {
 }
 
 impl CreateSecretRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2535,7 +2517,6 @@ pub struct AddSecretVersionRequest {
 }
 
 impl AddSecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2610,7 +2591,6 @@ pub struct GetSecretRequest {
 }
 
 impl GetSecretRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2670,7 +2650,6 @@ pub struct ListSecretVersionsRequest {
 }
 
 impl ListSecretVersionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2764,7 +2743,6 @@ pub struct ListSecretVersionsResponse {
 }
 
 impl ListSecretVersionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2860,7 +2838,6 @@ pub struct GetSecretVersionRequest {
 }
 
 impl GetSecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2904,7 +2881,6 @@ pub struct UpdateSecretRequest {
 }
 
 impl UpdateSecretRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3006,7 +2982,6 @@ pub struct AccessSecretVersionRequest {
 }
 
 impl AccessSecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3052,7 +3027,6 @@ pub struct AccessSecretVersionResponse {
 }
 
 impl AccessSecretVersionResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3134,7 +3108,6 @@ pub struct DeleteSecretRequest {
 }
 
 impl DeleteSecretRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3197,7 +3170,6 @@ pub struct DisableSecretVersionRequest {
 }
 
 impl DisableSecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3260,7 +3232,6 @@ pub struct EnableSecretVersionRequest {
 }
 
 impl EnableSecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3323,7 +3294,6 @@ pub struct DestroySecretVersionRequest {
 }
 
 impl DestroySecretVersionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

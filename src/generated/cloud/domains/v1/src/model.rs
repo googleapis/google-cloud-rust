@@ -109,7 +109,6 @@ pub struct Registration {
 }
 
 impl Registration {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -760,7 +759,6 @@ pub struct ManagementSettings {
 }
 
 impl ManagementSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -969,7 +967,6 @@ pub struct DnsSettings {
 }
 
 impl DnsSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1127,7 +1124,6 @@ pub mod dns_settings {
     }
 
     impl CustomDns {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1204,7 +1200,6 @@ pub mod dns_settings {
     }
 
     impl GoogleDomainsDns {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1294,7 +1289,6 @@ pub mod dns_settings {
     }
 
     impl DsRecord {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1793,7 +1787,6 @@ pub mod dns_settings {
     }
 
     impl GlueRecord {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2030,7 +2023,6 @@ pub struct ContactSettings {
 }
 
 impl ContactSettings {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2186,7 +2178,6 @@ pub mod contact_settings {
     }
 
     impl Contact {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2285,7 +2276,6 @@ pub struct SearchDomainsRequest {
 }
 
 impl SearchDomainsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2332,7 +2322,6 @@ pub struct SearchDomainsResponse {
 }
 
 impl SearchDomainsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2380,7 +2369,6 @@ pub struct RetrieveRegisterParametersRequest {
 }
 
 impl RetrieveRegisterParametersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2427,7 +2415,6 @@ pub struct RetrieveRegisterParametersResponse {
 }
 
 impl RetrieveRegisterParametersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2506,7 +2493,6 @@ pub struct RegisterDomainRequest {
 }
 
 impl RegisterDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2662,7 +2648,6 @@ pub struct RetrieveTransferParametersRequest {
 }
 
 impl RetrieveTransferParametersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2709,7 +2694,6 @@ pub struct RetrieveTransferParametersResponse {
 }
 
 impl RetrieveTransferParametersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2792,7 +2776,6 @@ pub struct TransferDomainRequest {
 }
 
 impl TransferDomainRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2984,7 +2967,6 @@ pub struct ListRegistrationsRequest {
 }
 
 impl ListRegistrationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3059,7 +3041,6 @@ pub struct ListRegistrationsResponse {
 }
 
 impl ListRegistrationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3131,7 +3112,6 @@ pub struct GetRegistrationRequest {
 }
 
 impl GetRegistrationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3171,7 +3151,6 @@ pub struct UpdateRegistrationRequest {
 }
 
 impl UpdateRegistrationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3269,7 +3248,6 @@ pub struct ConfigureManagementSettingsRequest {
 }
 
 impl ConfigureManagementSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3388,7 +3366,6 @@ pub struct ConfigureDnsSettingsRequest {
 }
 
 impl ConfigureDnsSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3517,7 +3494,6 @@ pub struct ConfigureContactSettingsRequest {
 }
 
 impl ConfigureContactSettingsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3651,7 +3627,6 @@ pub struct ExportRegistrationRequest {
 }
 
 impl ExportRegistrationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3687,7 +3662,6 @@ pub struct DeleteRegistrationRequest {
 }
 
 impl DeleteRegistrationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3723,7 +3697,6 @@ pub struct RetrieveAuthorizationCodeRequest {
 }
 
 impl RetrieveAuthorizationCodeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3759,7 +3732,6 @@ pub struct ResetAuthorizationCodeRequest {
 }
 
 impl ResetAuthorizationCodeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3808,7 +3780,6 @@ pub struct RegisterParameters {
 }
 
 impl RegisterParameters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4110,7 +4081,6 @@ pub struct TransferParameters {
 }
 
 impl TransferParameters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4250,7 +4220,6 @@ pub struct AuthorizationCode {
 }
 
 impl AuthorizationCode {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4300,7 +4269,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

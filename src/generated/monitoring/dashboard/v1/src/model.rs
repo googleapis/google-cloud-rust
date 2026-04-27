@@ -49,7 +49,6 @@ pub struct AlertChart {
 }
 
 impl AlertChart {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -85,7 +84,6 @@ pub struct CollapsibleGroup {
 }
 
 impl CollapsibleGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -206,7 +204,6 @@ pub struct Aggregation {
 }
 
 impl Aggregation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -940,7 +937,6 @@ pub struct PickTimeSeriesFilter {
 }
 
 impl PickTimeSeriesFilter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1349,7 +1345,6 @@ pub struct StatisticalTimeSeriesFilter {
 }
 
 impl StatisticalTimeSeriesFilter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1555,7 +1550,6 @@ pub struct Dashboard {
 }
 
 impl Dashboard {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1862,7 +1856,6 @@ pub struct DashboardFilter {
 }
 
 impl DashboardFilter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2163,7 +2156,6 @@ pub struct CreateDashboardRequest {
 }
 
 impl CreateDashboardRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2257,7 +2249,6 @@ pub struct ListDashboardsRequest {
 }
 
 impl ListDashboardsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2321,7 +2312,6 @@ pub struct ListDashboardsResponse {
 }
 
 impl ListDashboardsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2396,7 +2386,6 @@ pub struct GetDashboardRequest {
 }
 
 impl GetDashboardRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2435,7 +2424,6 @@ pub struct DeleteDashboardRequest {
 }
 
 impl DeleteDashboardRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2474,7 +2462,6 @@ pub struct UpdateDashboardRequest {
 }
 
 impl UpdateDashboardRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2562,7 +2549,6 @@ pub struct ErrorReportingPanel {
 }
 
 impl ErrorReportingPanel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2644,7 +2630,6 @@ pub struct IncidentList {
 }
 
 impl IncidentList {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2711,7 +2696,6 @@ pub struct GridLayout {
 }
 
 impl GridLayout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2774,7 +2758,6 @@ pub struct MosaicLayout {
 }
 
 impl MosaicLayout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2854,7 +2837,6 @@ pub mod mosaic_layout {
     }
 
     impl Tile {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2960,7 +2942,6 @@ pub struct RowLayout {
 }
 
 impl RowLayout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3016,7 +2997,6 @@ pub mod row_layout {
     }
 
     impl Row {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3075,7 +3055,6 @@ pub struct ColumnLayout {
 }
 
 impl ColumnLayout {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3131,7 +3110,6 @@ pub mod column_layout {
     }
 
     impl Column {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3196,7 +3174,6 @@ pub struct LogsPanel {
 }
 
 impl LogsPanel {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3266,7 +3243,6 @@ pub struct TimeSeriesQuery {
 }
 
 impl TimeSeriesQuery {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3532,7 +3508,6 @@ pub struct TimeSeriesFilter {
 }
 
 impl TimeSeriesFilter {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3769,7 +3744,6 @@ pub struct TimeSeriesFilterRatio {
 }
 
 impl TimeSeriesFilterRatio {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4014,7 +3988,6 @@ pub mod time_series_filter_ratio {
     }
 
     impl RatioPart {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4111,7 +4084,6 @@ pub struct Threshold {
 }
 
 impl Threshold {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4622,7 +4594,6 @@ pub struct PieChart {
 }
 
 impl PieChart {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4717,7 +4688,6 @@ pub mod pie_chart {
     }
 
     impl PieChartDataSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5000,7 +4970,6 @@ pub struct Scorecard {
 }
 
 impl Scorecard {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5225,7 +5194,6 @@ pub mod scorecard {
     }
 
     impl GaugeView {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5282,7 +5250,6 @@ pub mod scorecard {
     }
 
     impl SparkChartView {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5374,7 +5341,6 @@ pub struct SectionHeader {
 }
 
 impl SectionHeader {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5420,7 +5386,6 @@ pub struct SingleViewGroup {
 }
 
 impl SingleViewGroup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5449,7 +5414,6 @@ pub struct TimeSeriesTable {
 }
 
 impl TimeSeriesTable {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5558,7 +5522,6 @@ pub mod time_series_table {
     }
 
     impl TableDataSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5698,7 +5661,6 @@ pub mod time_series_table {
     }
 
     impl ColumnSettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5880,7 +5842,6 @@ pub struct TableDisplayOptions {
 }
 
 impl TableDisplayOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5927,7 +5888,6 @@ pub struct Text {
 }
 
 impl Text {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6033,7 +5993,6 @@ pub mod text {
     }
 
     impl TextStyle {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7134,7 +7093,6 @@ pub struct Widget {
 }
 
 impl Widget {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7865,7 +7823,6 @@ pub struct XyChart {
 }
 
 impl XyChart {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8121,7 +8078,6 @@ pub mod xy_chart {
     }
 
     impl DataSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8564,7 +8520,6 @@ pub mod xy_chart {
     }
 
     impl Axis {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8758,7 +8713,6 @@ pub struct ChartOptions {
 }
 
 impl ChartOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

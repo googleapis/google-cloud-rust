@@ -59,7 +59,6 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -148,7 +147,6 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -237,7 +235,6 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -288,7 +285,6 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -388,7 +384,6 @@ pub struct CancelJobRequest {
 }
 
 impl CancelJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -449,7 +444,6 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -505,7 +499,6 @@ pub struct CancelJobResponse {
 }
 
 impl CancelJobResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -540,7 +533,6 @@ pub struct ListBucketOperationsRequest {
 }
 
 impl ListBucketOperationsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -629,7 +621,6 @@ pub struct ListBucketOperationsResponse {
 }
 
 impl ListBucketOperationsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -719,7 +710,6 @@ pub struct GetBucketOperationRequest {
 }
 
 impl GetBucketOperationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -780,7 +770,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -982,7 +971,6 @@ pub struct Job {
 }
 
 impl Job {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1746,7 +1734,6 @@ pub struct BucketOperation {
 }
 
 impl BucketOperation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2488,7 +2475,6 @@ pub struct BucketList {
 }
 
 impl BucketList {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2543,7 +2529,6 @@ pub mod bucket_list {
     }
 
     impl Bucket {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2704,7 +2689,6 @@ pub struct Manifest {
 }
 
 impl Manifest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2747,7 +2731,6 @@ pub struct PrefixList {
 }
 
 impl PrefixList {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2793,7 +2776,6 @@ pub struct PutObjectHold {
 }
 
 impl PutObjectHold {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2998,7 +2980,6 @@ pub struct DeleteObject {
 }
 
 impl DeleteObject {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3044,7 +3025,6 @@ pub struct RewriteObject {
 }
 
 impl RewriteObject {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3103,7 +3083,6 @@ pub struct ObjectRetention {
 }
 
 impl ObjectRetention {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3376,7 +3355,6 @@ pub struct PutMetadata {
 }
 
 impl PutMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3642,7 +3620,6 @@ pub struct ObjectCustomContextPayload {
 }
 
 impl ObjectCustomContextPayload {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3702,7 +3679,6 @@ pub struct CustomContextUpdates {
 }
 
 impl CustomContextUpdates {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3764,7 +3740,6 @@ pub struct UpdateObjectCustomContext {
 }
 
 impl UpdateObjectCustomContext {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3907,7 +3882,6 @@ pub struct ErrorSummary {
 }
 
 impl ErrorSummary {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3986,7 +3960,6 @@ pub struct ErrorLogEntry {
 }
 
 impl ErrorLogEntry {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4048,7 +4021,6 @@ pub struct Counters {
 }
 
 impl Counters {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4142,7 +4114,6 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -199,7 +199,6 @@ pub struct Instance {
 }
 
 impl Instance {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1430,14 +1429,12 @@ pub mod instance {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateInfo {
-        #[allow(missing_docs)]
         pub info: std::option::Option<crate::model::instance::state_info::Info>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateInfo {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1537,7 +1534,6 @@ pub mod instance {
         }
 
         impl UpdateInfo {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1682,7 +1678,6 @@ pub mod instance {
             }
         }
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Info {
@@ -1703,7 +1698,6 @@ pub mod instance {
     }
 
     impl GcsBackupSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1748,7 +1742,6 @@ pub mod instance {
     }
 
     impl ManagedBackupSource {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1786,7 +1779,6 @@ pub mod instance {
     }
 
     impl InstanceEndpoint {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1833,7 +1825,6 @@ pub mod instance {
     }
 
     impl ConnectionDetail {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2853,7 +2844,6 @@ pub struct AutomatedBackupConfig {
 }
 
 impl AutomatedBackupConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3001,7 +2991,6 @@ pub mod automated_backup_config {
     }
 
     impl FixedFrequencySchedule {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3227,7 +3216,6 @@ pub struct BackupCollection {
 }
 
 impl BackupCollection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3445,7 +3433,6 @@ pub struct Backup {
 }
 
 impl Backup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4026,7 +4013,6 @@ pub struct BackupFile {
 }
 
 impl BackupFile {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4137,7 +4123,6 @@ pub struct CrossInstanceReplicationConfig {
 }
 
 impl CrossInstanceReplicationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4311,7 +4296,6 @@ pub mod cross_instance_replication_config {
     }
 
     impl RemoteInstance {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4366,7 +4350,6 @@ pub mod cross_instance_replication_config {
     }
 
     impl Membership {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4597,7 +4580,6 @@ pub struct MaintenancePolicy {
 }
 
 impl MaintenancePolicy {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4711,7 +4693,6 @@ pub struct WeeklyMaintenanceWindow {
 }
 
 impl WeeklyMaintenanceWindow {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4790,7 +4771,6 @@ pub struct MaintenanceSchedule {
 }
 
 impl MaintenanceSchedule {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4884,7 +4864,6 @@ pub struct PscAttachmentDetail {
 }
 
 impl PscAttachmentDetail {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4975,7 +4954,6 @@ pub struct PscAutoConnection {
 }
 
 impl PscAutoConnection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5210,7 +5188,6 @@ pub struct PscConnection {
 }
 
 impl PscConnection {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5417,7 +5394,6 @@ pub struct DiscoveryEndpoint {
 }
 
 impl DiscoveryEndpoint {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5482,7 +5458,6 @@ pub struct PersistenceConfig {
 }
 
 impl PersistenceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5599,7 +5574,6 @@ pub mod persistence_config {
     }
 
     impl RDBConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5830,7 +5804,6 @@ pub mod persistence_config {
     }
 
     impl AOFConfig {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6164,7 +6137,6 @@ pub struct NodeConfig {
 }
 
 impl NodeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6203,7 +6175,6 @@ pub struct ZoneDistributionConfig {
 }
 
 impl ZoneDistributionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6407,7 +6378,6 @@ pub struct RescheduleMaintenanceRequest {
 }
 
 impl RescheduleMaintenanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6647,7 +6617,6 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6739,7 +6708,6 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6828,7 +6796,6 @@ pub struct GetInstanceRequest {
 }
 
 impl GetInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6894,7 +6861,6 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7005,7 +6971,6 @@ pub struct UpdateInstanceRequest {
 }
 
 impl UpdateInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7122,7 +7087,6 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7187,7 +7151,6 @@ pub struct ListBackupCollectionsRequest {
 }
 
 impl ListBackupCollectionsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7262,7 +7225,6 @@ pub struct ListBackupCollectionsResponse {
 }
 
 impl ListBackupCollectionsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7352,7 +7314,6 @@ pub struct GetBackupCollectionRequest {
 }
 
 impl GetBackupCollectionRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7403,7 +7364,6 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7469,7 +7429,6 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7558,7 +7517,6 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7597,7 +7555,6 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7648,7 +7605,6 @@ pub struct ExportBackupRequest {
 }
 
 impl ExportBackupRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7760,7 +7716,6 @@ pub struct BackupInstanceRequest {
 }
 
 impl BackupInstanceRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7861,7 +7816,6 @@ pub struct GetCertificateAuthorityRequest {
 }
 
 impl GetCertificateAuthorityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7901,7 +7855,6 @@ pub struct CertificateAuthority {
 }
 
 impl CertificateAuthority {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8009,7 +7962,6 @@ pub mod certificate_authority {
     }
 
     impl ManagedCertificateAuthority {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8061,7 +8013,6 @@ pub mod certificate_authority {
         }
 
         impl CertChain {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8119,7 +8070,6 @@ pub struct SharedRegionalCertificateAuthority {
 }
 
 impl SharedRegionalCertificateAuthority {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8220,7 +8170,6 @@ pub mod shared_regional_certificate_authority {
     }
 
     impl RegionalManagedCertificateAuthority {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8270,7 +8219,6 @@ pub mod shared_regional_certificate_authority {
         }
 
         impl RegionalCertChain {
-            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8325,7 +8273,6 @@ pub struct GetSharedRegionalCertificateAuthorityRequest {
 }
 
 impl GetSharedRegionalCertificateAuthorityRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8384,7 +8331,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8544,7 +8490,6 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

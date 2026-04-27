@@ -65,7 +65,6 @@ pub struct CreateRecognizerRequest {
 }
 
 impl CreateRecognizerRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -188,7 +187,6 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1240,7 +1238,6 @@ pub struct ListRecognizersRequest {
 }
 
 impl ListRecognizersRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1322,7 +1319,6 @@ pub struct ListRecognizersResponse {
 }
 
 impl ListRecognizersResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1397,7 +1393,6 @@ pub struct GetRecognizerRequest {
 }
 
 impl GetRecognizerRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1446,7 +1441,6 @@ pub struct UpdateRecognizerRequest {
 }
 
 impl UpdateRecognizerRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1564,7 +1558,6 @@ pub struct DeleteRecognizerRequest {
 }
 
 impl DeleteRecognizerRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1649,7 +1642,6 @@ pub struct UndeleteRecognizerRequest {
 }
 
 impl UndeleteRecognizerRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1807,7 +1799,6 @@ pub struct Recognizer {
 }
 
 impl Recognizer {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2312,7 +2303,6 @@ pub struct AutoDetectDecodingConfig {
 }
 
 impl AutoDetectDecodingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2350,7 +2340,6 @@ pub struct ExplicitDecodingConfig {
 }
 
 impl ExplicitDecodingConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2630,7 +2619,6 @@ pub struct SpeakerDiarizationConfig {
 }
 
 impl SpeakerDiarizationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2678,7 +2666,6 @@ pub struct CustomPromptConfig {
 }
 
 impl CustomPromptConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2760,7 +2747,6 @@ pub struct RecognitionFeatures {
 }
 
 impl RecognitionFeatures {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3096,7 +3082,6 @@ pub struct TranscriptNormalization {
 }
 
 impl TranscriptNormalization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3152,7 +3137,6 @@ pub mod transcript_normalization {
     }
 
     impl Entry {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3213,7 +3197,6 @@ pub struct TranslationConfig {
 }
 
 impl TranslationConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3254,7 +3237,6 @@ pub struct SpeechAdaptation {
 }
 
 impl SpeechAdaptation {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3320,7 +3302,6 @@ pub mod speech_adaptation {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AdaptationPhraseSet {
-        #[allow(missing_docs)]
         pub value:
             std::option::Option<crate::model::speech_adaptation::adaptation_phrase_set::Value>,
 
@@ -3328,7 +3309,6 @@ pub mod speech_adaptation {
     }
 
     impl AdaptationPhraseSet {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3446,7 +3426,6 @@ pub mod speech_adaptation {
         #[allow(unused_imports)]
         use super::*;
 
-        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Value {
@@ -3479,7 +3458,6 @@ pub struct DenoiserConfig {
 }
 
 impl DenoiserConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3572,7 +3550,6 @@ pub struct RecognitionConfig {
 }
 
 impl RecognitionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3953,7 +3930,6 @@ pub struct RecognizeRequest {
 }
 
 impl RecognizeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4176,7 +4152,6 @@ pub struct RecognitionResponseMetadata {
 }
 
 impl RecognitionResponseMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4295,7 +4270,6 @@ pub struct SpeechRecognitionAlternative {
 }
 
 impl SpeechRecognitionAlternative {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4405,7 +4379,6 @@ pub struct WordInfo {
 }
 
 impl WordInfo {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4547,7 +4520,6 @@ pub struct SpeechRecognitionResult {
 }
 
 impl SpeechRecognitionResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4656,7 +4628,6 @@ pub struct RecognizeResponse {
 }
 
 impl RecognizeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4750,7 +4721,6 @@ pub struct StreamingRecognitionFeatures {
 }
 
 impl StreamingRecognitionFeatures {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4862,7 +4832,6 @@ pub mod streaming_recognition_features {
     }
 
     impl VoiceActivityTimeout {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5130,7 +5099,6 @@ pub struct StreamingRecognitionConfig {
 }
 
 impl StreamingRecognitionConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5276,7 +5244,6 @@ pub struct StreamingRecognizeRequest {
     /// {recognizer} segment may be set to `_` to use an empty implicit Recognizer.
     pub recognizer: std::string::String,
 
-    #[allow(missing_docs)]
     pub streaming_request:
         std::option::Option<crate::model::streaming_recognize_request::StreamingRequest>,
 
@@ -5284,7 +5251,6 @@ pub struct StreamingRecognizeRequest {
 }
 
 impl StreamingRecognizeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5410,7 +5376,6 @@ pub mod streaming_recognize_request {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum StreamingRequest {
@@ -5481,7 +5446,6 @@ pub struct BatchRecognizeRequest {
 }
 
 impl BatchRecognizeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5789,7 +5753,6 @@ pub struct GcsOutputConfig {
 }
 
 impl GcsOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5821,7 +5784,6 @@ pub struct InlineOutputConfig {
 }
 
 impl InlineOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5841,7 +5803,6 @@ pub struct NativeOutputFileFormatConfig {
 }
 
 impl NativeOutputFileFormatConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5862,7 +5823,6 @@ pub struct VttOutputFileFormatConfig {
 }
 
 impl VttOutputFileFormatConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5884,7 +5844,6 @@ pub struct SrtOutputFileFormatConfig {
 }
 
 impl SrtOutputFileFormatConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5917,7 +5876,6 @@ pub struct OutputFormatConfig {
 }
 
 impl OutputFormatConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6036,14 +5994,12 @@ pub struct RecognitionOutputConfig {
     /// If unspecified transcripts will be written in the `NATIVE` format only.
     pub output_format_config: std::option::Option<crate::model::OutputFormatConfig>,
 
-    #[allow(missing_docs)]
     pub output: std::option::Option<crate::model::recognition_output_config::Output>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl RecognitionOutputConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6197,7 +6153,6 @@ pub mod recognition_output_config {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Output {
@@ -6236,7 +6191,6 @@ pub struct BatchRecognizeResponse {
 }
 
 impl BatchRecognizeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6320,7 +6274,6 @@ pub struct BatchRecognizeResults {
 }
 
 impl BatchRecognizeResults {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6406,7 +6359,6 @@ pub struct CloudStorageResult {
 }
 
 impl CloudStorageResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6473,7 +6425,6 @@ pub struct InlineResult {
 }
 
 impl InlineResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6549,7 +6500,6 @@ pub struct BatchRecognizeFileResult {
     /// Error if one was encountered.
     pub error: std::option::Option<google_cloud_rpc::model::Status>,
 
-    #[allow(missing_docs)]
     pub metadata: std::option::Option<crate::model::RecognitionResponseMetadata>,
 
     /// Deprecated. Use `cloud_storage_result.native_format_uri` instead.
@@ -6560,14 +6510,12 @@ pub struct BatchRecognizeFileResult {
     #[deprecated]
     pub transcript: std::option::Option<crate::model::BatchRecognizeResults>,
 
-    #[allow(missing_docs)]
     pub result: std::option::Option<crate::model::batch_recognize_file_result::Result>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BatchRecognizeFileResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6800,7 +6748,6 @@ pub mod batch_recognize_file_result {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
@@ -6840,7 +6787,6 @@ pub struct BatchRecognizeTranscriptionMetadata {
 }
 
 impl BatchRecognizeTranscriptionMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6926,7 +6872,6 @@ pub struct BatchRecognizeMetadata {
 }
 
 impl BatchRecognizeMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7003,7 +6948,6 @@ pub struct BatchRecognizeFileMetadata {
 }
 
 impl BatchRecognizeFileMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7199,7 +7143,6 @@ pub struct StreamingRecognitionResult {
 }
 
 impl StreamingRecognitionResult {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7391,7 +7334,6 @@ pub struct StreamingRecognizeResponse {
 }
 
 impl StreamingRecognizeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7695,7 +7637,6 @@ pub struct Config {
 }
 
 impl Config {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7780,7 +7721,6 @@ pub struct GetConfigRequest {
 }
 
 impl GetConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7824,7 +7764,6 @@ pub struct UpdateConfigRequest {
 }
 
 impl UpdateConfigRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7968,7 +7907,6 @@ pub struct CustomClass {
 }
 
 impl CustomClass {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8275,7 +8213,6 @@ pub mod custom_class {
     }
 
     impl ClassItem {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8506,7 +8443,6 @@ pub struct PhraseSet {
 }
 
 impl PhraseSet {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8844,7 +8780,6 @@ pub mod phrase_set {
     }
 
     impl Phrase {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9043,7 +8978,6 @@ pub struct CreateCustomClassRequest {
 }
 
 impl CreateCustomClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9159,7 +9093,6 @@ pub struct ListCustomClassesRequest {
 }
 
 impl ListCustomClassesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9241,7 +9174,6 @@ pub struct ListCustomClassesResponse {
 }
 
 impl ListCustomClassesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9316,7 +9248,6 @@ pub struct GetCustomClassRequest {
 }
 
 impl GetCustomClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9366,7 +9297,6 @@ pub struct UpdateCustomClassRequest {
 }
 
 impl UpdateCustomClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9485,7 +9415,6 @@ pub struct DeleteCustomClassRequest {
 }
 
 impl DeleteCustomClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9571,7 +9500,6 @@ pub struct UndeleteCustomClassRequest {
 }
 
 impl UndeleteCustomClassRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9648,7 +9576,6 @@ pub struct CreatePhraseSetRequest {
 }
 
 impl CreatePhraseSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9763,7 +9690,6 @@ pub struct ListPhraseSetsRequest {
 }
 
 impl ListPhraseSetsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9845,7 +9771,6 @@ pub struct ListPhraseSetsResponse {
 }
 
 impl ListPhraseSetsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9920,7 +9845,6 @@ pub struct GetPhraseSetRequest {
 }
 
 impl GetPhraseSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9969,7 +9893,6 @@ pub struct UpdatePhraseSetRequest {
 }
 
 impl UpdatePhraseSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10087,7 +10010,6 @@ pub struct DeletePhraseSetRequest {
 }
 
 impl DeletePhraseSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10172,7 +10094,6 @@ pub struct UndeletePhraseSetRequest {
 }
 
 impl UndeletePhraseSetRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10235,7 +10156,6 @@ pub struct ModelFeature {
 }
 
 impl ModelFeature {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10282,7 +10202,6 @@ pub struct ModelFeatures {
 }
 
 impl ModelFeatures {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10328,7 +10247,6 @@ pub struct ModelMetadata {
 }
 
 impl ModelMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10374,7 +10292,6 @@ pub struct LanguageMetadata {
 }
 
 impl LanguageMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10420,7 +10337,6 @@ pub struct AccessMetadata {
 }
 
 impl AccessMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10602,7 +10518,6 @@ pub struct LocationsMetadata {
 }
 
 impl LocationsMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

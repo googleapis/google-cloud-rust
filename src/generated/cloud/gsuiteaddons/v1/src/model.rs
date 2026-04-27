@@ -53,7 +53,6 @@ pub struct GetAuthorizationRequest {
 }
 
 impl GetAuthorizationRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -97,7 +96,6 @@ pub struct Authorization {
 }
 
 impl Authorization {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -168,7 +166,6 @@ pub struct CreateDeploymentRequest {
 }
 
 impl CreateDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -248,7 +245,6 @@ pub struct ReplaceDeploymentRequest {
 }
 
 impl ReplaceDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -306,7 +302,6 @@ pub struct GetDeploymentRequest {
 }
 
 impl GetDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -356,7 +351,6 @@ pub struct ListDeploymentsRequest {
 }
 
 impl ListDeploymentsRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -419,7 +413,6 @@ pub struct ListDeploymentsResponse {
 }
 
 impl ListDeploymentsResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -496,7 +489,6 @@ pub struct DeleteDeploymentRequest {
 }
 
 impl DeleteDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -545,7 +537,6 @@ pub struct InstallDeploymentRequest {
 }
 
 impl InstallDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -582,7 +573,6 @@ pub struct UninstallDeploymentRequest {
 }
 
 impl UninstallDeploymentRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -619,7 +609,6 @@ pub struct GetInstallStatusRequest {
 }
 
 impl GetInstallStatusRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -659,7 +648,6 @@ pub struct InstallStatus {
 }
 
 impl InstallStatus {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -740,7 +728,6 @@ pub struct Deployment {
 }
 
 impl Deployment {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -861,7 +848,6 @@ pub struct AddOns {
 }
 
 impl AddOns {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

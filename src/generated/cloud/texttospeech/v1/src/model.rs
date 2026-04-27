@@ -52,7 +52,6 @@ pub struct ListVoicesRequest {
 }
 
 impl ListVoicesRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -87,7 +86,6 @@ pub struct ListVoicesResponse {
 }
 
 impl ListVoicesResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -143,7 +141,6 @@ pub struct Voice {
 }
 
 impl Voice {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -241,7 +238,6 @@ pub struct AdvancedVoiceOptions {
 }
 
 impl AdvancedVoiceOptions {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -383,7 +379,6 @@ pub mod advanced_voice_options {
     }
 
     impl SafetySetting {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -446,7 +441,6 @@ pub mod advanced_voice_options {
     }
 
     impl SafetySettings {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -805,7 +799,6 @@ pub struct SynthesizeSpeechRequest {
 }
 
 impl SynthesizeSpeechRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -970,7 +963,6 @@ pub struct CustomPronunciationParams {
 }
 
 impl CustomPronunciationParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1267,7 +1259,6 @@ pub struct CustomPronunciations {
 }
 
 impl CustomPronunciations {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1312,7 +1303,6 @@ pub struct MultiSpeakerMarkup {
 }
 
 impl MultiSpeakerMarkup {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1366,7 +1356,6 @@ pub mod multi_speaker_markup {
     }
 
     impl Turn {
-        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1421,7 +1410,6 @@ pub struct MultispeakerPrebuiltVoice {
 }
 
 impl MultispeakerPrebuiltVoice {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1470,7 +1458,6 @@ pub struct MultiSpeakerVoiceConfig {
 }
 
 impl MultiSpeakerVoiceConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1536,7 +1523,6 @@ pub struct SynthesisInput {
 }
 
 impl SynthesisInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1850,7 +1836,6 @@ pub struct VoiceSelectionParams {
 }
 
 impl VoiceSelectionParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2064,7 +2049,6 @@ pub struct AudioConfig {
 }
 
 impl AudioConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2174,7 +2158,6 @@ pub struct CustomVoiceParams {
 }
 
 impl CustomVoiceParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2371,7 +2354,6 @@ pub struct VoiceCloneParams {
 }
 
 impl VoiceCloneParams {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2413,7 +2395,6 @@ pub struct SynthesizeSpeechResponse {
 }
 
 impl SynthesizeSpeechResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2459,7 +2440,6 @@ pub struct StreamingAudioConfig {
 }
 
 impl StreamingAudioConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2542,7 +2522,6 @@ pub struct StreamingSynthesizeConfig {
 }
 
 impl StreamingSynthesizeConfig {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2693,14 +2672,12 @@ pub struct StreamingSynthesisInput {
     /// This is system instruction supported only for controllable voice models.
     pub prompt: std::option::Option<std::string::String>,
 
-    #[allow(missing_docs)]
     pub input_source: std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl StreamingSynthesisInput {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2881,7 +2858,6 @@ pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
     use super::*;
 
-    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InputSource {
@@ -2915,7 +2891,6 @@ pub struct StreamingSynthesizeRequest {
 }
 
 impl StreamingSynthesizeRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3066,7 +3041,6 @@ pub struct StreamingSynthesizeResponse {
 }
 
 impl StreamingSynthesizeResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3117,7 +3091,6 @@ pub struct SynthesizeLongAudioRequest {
 }
 
 impl SynthesizeLongAudioRequest {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3260,7 +3233,6 @@ pub struct SynthesizeLongAudioResponse {
 }
 
 impl SynthesizeLongAudioResponse {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3290,7 +3262,6 @@ pub struct SynthesizeLongAudioMetadata {
 }
 
 impl SynthesizeLongAudioMetadata {
-    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
