@@ -435,7 +435,7 @@ tracing-serde = { default-features = false, version = "0.2" }
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
-aws-lc-rs = { default-features = false, version = "1.16.2" }
+aws-lc-rs = { default-features = false, version = "1.16.3" }
 
 # sharded-slab fails to declare the minimum dependency for `lazy_static`
 #     https://github.com/hawkw/sharded-slab/pull/81
