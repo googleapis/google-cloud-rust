@@ -452,7 +452,7 @@ mockall           = { default-features = false, version = "0.14" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.4" }
 once_cell         = { default-features = false, version = "1.19.0" }
-pastey            = { default-features = false, version = "0.2.1" }
+pastey            = { default-features = false, version = "0.2.2" }
 pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
 proc-macro2       = { default-features = false, version = "1.0.106" }
 quote             = { default-features = false, version = "1.0.35" }
