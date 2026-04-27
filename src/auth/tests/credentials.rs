@@ -258,6 +258,53 @@ mod tests {
     }
 
     #[tokio::test]
+    #[serial]
+    #[cfg(all(test, feature = "idtoken"))]
+    async fn create_id_token_credentials_adc_gdch_service_account_credentials() {
+        let contents = r#"{
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIEUByN/Cd73iTqf85VeQ74wWaZr6sMnkMY25RvOIUJ94oAoGCCqGSM49\nAwEHoUQDQgAEHf1LlK7P4qdsjslUqKVx5AlEBXN9VLzYYhC700o2DOthBjBFU7Yu\nmohy0DCDBPJ9pfiCPe/lZSFlvdl8Xyz9Lg==\n-----END EC PRIVATE KEY-----\n",
+            "name": "test-name",
+            "token_uri": "https://service-accounts.example.com/authenticate"
+        }"#;
+
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let credentials = google_cloud_auth::credentials::idtoken::Builder::new(
+            "https://example.com/test-audience",
+        )
+        .build()
+        .unwrap();
+        let fmt = format!("{credentials:?}");
+        assert!(fmt.contains("GdchServiceAccountCredentials"), "{fmt}");
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn generic_access_token_credentials_adc_gdch_service_account_is_not_supported() {
+        let contents = r#"{
+            "type": "gdch_service_account",
+            "format_version": "1",
+            "project": "test-project",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIEUByN/Cd73iTqf85VeQ74wWaZr6sMnkMY25RvOIUJ94oAoGCCqGSM49\nAwEHoUQDQgAEHf1LlK7P4qdsjslUqKVx5AlEBXN9VLzYYhC700o2DOthBjBFU7Yu\nmohy0DCDBPJ9pfiCPe/lZSFlvdl8Xyz9Lg==\n-----END EC PRIVATE KEY-----\n",
+            "name": "test-name",
+            "token_uri": "https://service-accounts.example.com/authenticate"
+        }"#;
+
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
+        assert!(err.to_string().contains("gdch_service_account"), "{err:?}");
+    }
+
+    #[tokio::test]
     #[parallel]
     async fn create_api_key_credentials_success() {
         let creds = ApiKeyCredentialsBuilder::new("test-api-key").build();

@@ -31,6 +31,8 @@ pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
 #[cfg(feature = "idtoken")]
+pub(crate) mod gdch_service_account;
+#[cfg(feature = "idtoken")]
 pub mod idtoken;
 pub mod impersonated;
 pub(crate) mod internal;
@@ -780,6 +782,9 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
+                "gdch_service_account" => Err(BuilderError::not_supported(
+                    "gdch_service_account is supported by credentials::idtoken::Builder::new(audience)",
+                )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
@@ -825,6 +830,9 @@ fn build_signer(
                 }
                 "external_account" => Err(BuilderError::not_supported(
                     "external_account signer is not supported",
+                )),
+                "gdch_service_account" => Err(BuilderError::not_supported(
+                    "gdch_service_account signer is not supported",
                 )),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
