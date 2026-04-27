@@ -233,6 +233,12 @@ impl Statement {
         &self.gax_options
     }
 
+    /// Returns a new `Statement` with the given `GaxRequestOptions`.
+    pub(crate) fn with_gax_options(mut self, options: GaxRequestOptions) -> Self {
+        self.gax_options = options;
+        self
+    }
+
     /// Sets the query mode to use for this statement.
     ///
     /// # Example
