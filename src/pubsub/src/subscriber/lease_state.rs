@@ -229,23 +229,25 @@ where
             return LeaseEvent::Flush;
         }
 
-        tokio::select! {
-            _ = self.flush_interval.tick() => LeaseEvent::Flush,
-            _ = self.extend_interval.tick() => LeaseEvent::Extend,
-            res = self.pending_extends.join_next(), if !self.pending_extends.is_empty() => {
-                if let Some(Ok(ack_ids)) = res {
-                    LeaseEvent::ExtendCompleted(ack_ids)
-                } else {
-                    // swallow the JoinError.
-                    LeaseEvent::ExtendCompleted(Vec::new())
+        loop {
+            tokio::select! {
+                _ = self.flush_interval.tick() => return LeaseEvent::Flush,
+                _ = self.extend_interval.tick() => return LeaseEvent::Extend,
+                res = self.pending_extends.join_next(), if !self.pending_extends.is_empty() => {
+                    if let Some(Ok(ack_ids)) = res {
+                        return LeaseEvent::ExtendCompleted(ack_ids);
+                    } else {
+                        // swallow the JoinError.
+                        continue;
+                    }
                 }
-            }
-            res = self.eo_pending_extends.join_next(), if !self.eo_pending_extends.is_empty() => {
-                if let Some(Ok(ack_ids)) = res {
-                    LeaseEvent::ExtendCompletedEO(ack_ids)
-                } else {
-                    // swallow the JoinError.
-                    LeaseEvent::ExtendCompletedEO(Vec::new())
+                res = self.eo_pending_extends.join_next(), if !self.eo_pending_extends.is_empty() => {
+                    if let Some(Ok(ack_ids)) = res {
+                        return LeaseEvent::ExtendCompletedEO(ack_ids);
+                    } else {
+                        // swallow the JoinError.
+                        continue;
+                    }
                 }
             }
         }
@@ -323,10 +325,6 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) fn extend(&mut self) {
-        // Old pending extensions and their results are no longer needed.
-        self.pending_extends = JoinSet::new();
-        self.eo_pending_extends = JoinSet::new();
-
         let batches = self.leases.retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
@@ -505,28 +503,6 @@ pub(super) mod tests {
             .retain(Duration::from_secs(600), Duration::from_secs(60));
         let flattened = Batches::flatten(batches);
         assert_eq!(flattened.ack_ids, test_ids(2..3));
-    }
-
-    #[tokio::test(start_paused = true)]
-    async fn extend_clears_pending() {
-        let mut mock = MockLeaser::new();
-        mock.expect_extend().returning(|ack_ids| ack_ids);
-
-        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-
-        state.add(test_id(1), at_least_once_info());
-        state.add(test_id(2), exactly_once_info());
-
-        tokio::time::advance(Duration::from_secs(61)).await;
-
-        state.extend();
-        assert_eq!(state.pending_extends.len(), 1);
-        assert_eq!(state.eo_pending_extends.len(), 1);
-
-        state.extend();
-        // The previous pending extend tasks should be cleared and a new one spawned.
-        assert_eq!(state.pending_extends.len(), 1);
-        assert_eq!(state.eo_pending_extends.len(), 1);
     }
 
     async fn flush_and_await<L>(state: &mut LeaseState<L>)
