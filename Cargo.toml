@@ -401,7 +401,7 @@ serde_with            = { default-features = false, version = "3", features = ["
 sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.48.0" }
+tokio                 = { default-features = false, version = "1.52.1" }
 tokio-metrics         = { default-features = false, version = "0.5.0" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
