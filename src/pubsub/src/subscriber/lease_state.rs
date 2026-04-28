@@ -19,8 +19,7 @@ pub(super) use exactly_once::NACK_SHUTDOWN_ERROR;
 
 use super::handler::AckResult;
 use super::handler::Action;
-use super::leaser::ConfirmedAcks;
-use super::leaser::Leaser;
+use super::leaser::{ConfirmedAcks, Leaser};
 use super::shutdown_behavior::ShutdownBehavior;
 use at_least_once::Leases;
 use exactly_once::Leases as EoLeases;
