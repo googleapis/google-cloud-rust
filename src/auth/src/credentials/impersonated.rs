@@ -206,7 +206,7 @@ impl ImpersonationUrl {
                     .await
             }
             ImpersonationUrlKind::Exact(url) => {
-                let url = self.replace_endpoint(&url);
+                let url = self.replace_endpoint(url);
                 url.replace("generateAccessToken", "generateIdToken")
             }
         }
@@ -1018,7 +1018,6 @@ mod tests {
             self
         }
 
-        #[allow(dead_code)]
         fn with_impersonation_endpoint(mut self, endpoint: &str) -> Self {
             self.service_account_impersonation_url = self
                 .service_account_impersonation_url
@@ -1028,7 +1027,6 @@ mod tests {
     }
 
     impl ImpersonationUrl {
-        #[allow(dead_code)]
         pub(crate) fn with_endpoint(mut self, endpoint: &str) -> Self {
             self.endpoint = Some(endpoint.to_string());
             self
