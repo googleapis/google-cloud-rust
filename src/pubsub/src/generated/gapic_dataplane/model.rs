@@ -16,7 +16,6 @@
 
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
-#![allow(missing_docs)]
 
 mod debug;
 mod deserialize;
@@ -67,6 +66,7 @@ pub struct PubsubMessage {
 }
 
 impl PubsubMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -141,6 +141,7 @@ pub struct PublishRequest {
 }
 
 impl PublishRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -182,6 +183,7 @@ pub struct PublishResponse {
 }
 
 impl PublishResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -236,6 +238,7 @@ pub struct ReceivedMessage {
 }
 
 impl ReceivedMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -303,6 +306,7 @@ pub struct ModifyAckDeadlineRequest {
 }
 
 impl ModifyAckDeadlineRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -354,6 +358,7 @@ pub struct AcknowledgeRequest {
 }
 
 impl AcknowledgeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -466,6 +471,7 @@ pub struct StreamingPullRequest {
 }
 
 impl StreamingPullRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -572,6 +578,7 @@ pub struct StreamingPullResponse {
 }
 
 impl StreamingPullResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -679,6 +686,7 @@ pub mod streaming_pull_response {
     }
 
     impl AcknowledgeConfirmation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -754,6 +762,7 @@ pub mod streaming_pull_response {
     }
 
     impl ModifyAckDeadlineConfirmation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -813,6 +822,7 @@ pub mod streaming_pull_response {
     }
 
     impl SubscriptionProperties {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

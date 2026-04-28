@@ -36,12 +36,14 @@ mod serialize;
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeviceMessage {
+    #[allow(missing_docs)]
     pub contents: std::option::Option<crate::model::device_message::Contents>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl DeviceMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -191,6 +193,7 @@ pub mod device_message {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Contents {
@@ -207,12 +210,14 @@ pub mod device_message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdbMessage {
+    #[allow(missing_docs)]
     pub contents: std::option::Option<crate::model::adb_message::Contents>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl AdbMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -319,6 +324,7 @@ pub mod adb_message {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Contents {
@@ -346,6 +352,7 @@ pub struct StatusUpdate {
 }
 
 impl StatusUpdate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -609,6 +616,7 @@ pub struct StreamStatus {
 }
 
 impl StreamStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -753,6 +761,7 @@ pub struct Open {
 }
 
 impl Open {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -803,6 +812,7 @@ pub struct StreamData {
 }
 
 impl StreamData {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -936,6 +946,7 @@ pub struct Okay {
 }
 
 impl Okay {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -958,6 +969,7 @@ pub struct Fail {
 }
 
 impl Fail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -989,6 +1001,7 @@ pub struct Close {
 }
 
 impl Close {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1022,6 +1035,7 @@ pub struct CreateDeviceSessionRequest {
 }
 
 impl CreateDeviceSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1114,6 +1128,7 @@ pub struct ListDeviceSessionsRequest {
 }
 
 impl ListDeviceSessionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1188,6 +1203,7 @@ pub struct ListDeviceSessionsResponse {
 }
 
 impl ListDeviceSessionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1259,6 +1275,7 @@ pub struct GetDeviceSessionRequest {
 }
 
 impl GetDeviceSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1294,6 +1311,7 @@ pub struct CancelDeviceSessionRequest {
 }
 
 impl CancelDeviceSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1333,6 +1351,7 @@ pub struct UpdateDeviceSessionRequest {
 }
 
 impl UpdateDeviceSessionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1448,6 +1467,7 @@ pub struct DeviceSession {
 }
 
 impl DeviceSession {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1767,6 +1787,7 @@ pub mod device_session {
     }
 
     impl SessionStateEvent {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2061,6 +2082,7 @@ pub struct AndroidDevice {
 }
 
 impl AndroidDevice {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

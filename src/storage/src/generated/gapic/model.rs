@@ -16,7 +16,6 @@
 
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
-#![allow(missing_docs)]
 
 mod debug;
 mod deserialize;
@@ -42,6 +41,7 @@ pub struct DeleteBucketRequest {
 }
 
 impl DeleteBucketRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -153,6 +153,7 @@ pub struct GetBucketRequest {
 }
 
 impl GetBucketRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -313,6 +314,7 @@ pub struct CreateBucketRequest {
 }
 
 impl CreateBucketRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -456,6 +458,7 @@ pub struct ListBucketsRequest {
 }
 
 impl ListBucketsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -589,6 +592,7 @@ pub struct ListBucketsResponse {
 }
 
 impl ListBucketsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -683,6 +687,7 @@ pub struct LockBucketRetentionPolicyRequest {
 }
 
 impl LockBucketRetentionPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -760,6 +765,7 @@ pub struct UpdateBucketRequest {
 }
 
 impl UpdateBucketRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -974,6 +980,7 @@ pub struct ComposeObjectRequest {
 }
 
 impl ComposeObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1251,6 +1258,7 @@ pub mod compose_object_request {
     }
 
     impl SourceObject {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1341,6 +1349,7 @@ pub mod compose_object_request {
         }
 
         impl ObjectPreconditions {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1428,6 +1437,7 @@ pub struct DeleteObjectRequest {
 }
 
 impl DeleteObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1688,6 +1698,7 @@ pub struct RestoreObjectRequest {
 }
 
 impl RestoreObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2004,6 +2015,7 @@ pub struct ReadObjectRequest {
 }
 
 impl ReadObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2324,6 +2336,7 @@ pub struct GetObjectRequest {
 }
 
 impl GetObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2652,6 +2665,7 @@ pub struct WriteObjectSpec {
 }
 
 impl WriteObjectSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2974,6 +2988,7 @@ pub struct ListObjectsRequest {
 }
 
 impl ListObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3315,6 +3330,7 @@ pub struct RewriteObjectRequest {
 }
 
 impl RewriteObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3875,6 +3891,7 @@ pub struct RewriteResponse {
 }
 
 impl RewriteResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4042,6 +4059,7 @@ pub struct MoveObjectRequest {
 }
 
 impl MoveObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4407,6 +4425,7 @@ pub struct UpdateObjectRequest {
 }
 
 impl UpdateObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4685,6 +4704,7 @@ pub struct CommonObjectRequestParams {
 }
 
 impl CommonObjectRequestParams {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4904,6 +4924,7 @@ pub struct Bucket {
 }
 
 impl Bucket {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5711,6 +5732,7 @@ pub mod bucket {
     }
 
     impl Billing {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5767,6 +5789,7 @@ pub mod bucket {
     }
 
     impl Cors {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5877,6 +5900,7 @@ pub mod bucket {
     }
 
     impl Encryption {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6049,6 +6073,7 @@ pub mod bucket {
         }
 
         impl GoogleManagedEncryptionEnforcementConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6143,6 +6168,7 @@ pub mod bucket {
         }
 
         impl CustomerManagedEncryptionEnforcementConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6238,6 +6264,7 @@ pub mod bucket {
         }
 
         impl CustomerSuppliedEncryptionEnforcementConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6330,6 +6357,7 @@ pub mod bucket {
     }
 
     impl IamConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6416,6 +6444,7 @@ pub mod bucket {
         }
 
         impl UniformBucketLevelAccess {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6487,6 +6516,7 @@ pub mod bucket {
     }
 
     impl Lifecycle {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6540,6 +6570,7 @@ pub mod bucket {
         }
 
         impl Rule {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6639,6 +6670,7 @@ pub mod bucket {
             }
 
             impl Action {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -6743,6 +6775,7 @@ pub mod bucket {
             }
 
             impl Condition {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -7091,6 +7124,7 @@ pub mod bucket {
     }
 
     impl Logging {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7141,6 +7175,7 @@ pub mod bucket {
     }
 
     impl ObjectRetention {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7186,6 +7221,7 @@ pub mod bucket {
     }
 
     impl RetentionPolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7291,6 +7327,7 @@ pub mod bucket {
     }
 
     impl SoftDeletePolicy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7381,6 +7418,7 @@ pub mod bucket {
     }
 
     impl Versioning {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7427,6 +7465,7 @@ pub mod bucket {
     }
 
     impl Website {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7483,6 +7522,7 @@ pub mod bucket {
     }
 
     impl CustomPlacementConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7537,6 +7577,7 @@ pub mod bucket {
     }
 
     impl Autoclass {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7697,6 +7738,7 @@ pub mod bucket {
     }
 
     impl IpFilter {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7858,6 +7900,7 @@ pub mod bucket {
         }
 
         impl PublicNetworkSource {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7907,6 +7950,7 @@ pub mod bucket {
         }
 
         impl VpcNetworkSource {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -7978,6 +8022,7 @@ pub mod bucket {
     }
 
     impl HierarchicalNamespace {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8059,6 +8104,7 @@ pub struct BucketAccessControl {
 }
 
 impl BucketAccessControl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8221,6 +8267,7 @@ pub struct ObjectChecksums {
 }
 
 impl ObjectChecksums {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8292,6 +8339,7 @@ pub struct ObjectCustomContextPayload {
 }
 
 impl ObjectCustomContextPayload {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8396,6 +8444,7 @@ pub struct ObjectContexts {
 }
 
 impl ObjectContexts {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8445,6 +8494,7 @@ pub struct CustomerEncryption {
 }
 
 impl CustomerEncryption {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8661,6 +8711,7 @@ pub struct Object {
 }
 
 impl Object {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9449,6 +9500,7 @@ pub mod object {
     }
 
     impl Retention {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9718,6 +9770,7 @@ pub struct ObjectAccessControl {
 }
 
 impl ObjectAccessControl {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9877,6 +9930,7 @@ pub struct ListObjectsResponse {
 }
 
 impl ListObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9967,6 +10021,7 @@ pub struct ProjectTeam {
 }
 
 impl ProjectTeam {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10016,6 +10071,7 @@ pub struct Owner {
 }
 
 impl Owner {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
