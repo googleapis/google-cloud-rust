@@ -71,8 +71,8 @@ use crate::{
             IDTokenCredentials, dynamic::IDTokenCredentialsProvider, parse_id_token_from_str,
         },
         impersonated::{
-            BuilderSource, IMPERSONATED_CREDENTIAL_TYPE, MSG, build_components_from_credentials,
-            build_components_from_json,
+            BuilderSource, IMPERSONATED_CREDENTIAL_TYPE, ImpersonationUrl, MSG,
+            build_components_from_credentials, build_components_from_json,
         },
     },
     errors,
@@ -117,7 +117,7 @@ pub struct Builder {
     delegates: Option<Vec<String>>,
     pub(crate) include_email: Option<bool>,
     target_audience: String,
-    service_account_impersonation_url: Option<String>,
+    service_account_impersonation_url: Option<ImpersonationUrl>,
     retry_builder: RetryTokenProviderBuilder,
 }
 
@@ -168,9 +168,8 @@ impl Builder {
             delegates: None,
             include_email: None,
             target_audience: target_audience.into(),
-            service_account_impersonation_url: Some(format!(
-                "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateIdToken",
-                target_principal.into()
+            service_account_impersonation_url: Some(ImpersonationUrl::target_principal(
+                target_principal.into(),
             )),
             retry_builder: RetryTokenProviderBuilder::default(),
         }
@@ -312,13 +311,7 @@ impl Builder {
     /// [use service account impersonation]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#adc
     pub fn build(self) -> BuildResult<IDTokenCredentials> {
         let components = match self.source {
-            BuilderSource::FromJson(json) => {
-                let mut components = build_components_from_json(json)?;
-                components.service_account_impersonation_url = components
-                    .service_account_impersonation_url
-                    .replace("generateAccessToken", "generateIdToken");
-                components
-            }
+            BuilderSource::FromJson(json) => build_components_from_json(json)?,
             BuilderSource::FromCredentials(source_credentials) => {
                 build_components_from_credentials(
                     source_credentials,
@@ -369,7 +362,7 @@ where
 #[derive(Debug)]
 pub(crate) struct ImpersonatedTokenProvider {
     pub(crate) source_credentials: Credentials,
-    pub(crate) service_account_impersonation_url: String,
+    pub(crate) service_account_impersonation_url: ImpersonationUrl,
     pub(crate) delegates: Option<Vec<String>>,
     pub(crate) target_audience: String,
     pub(crate) include_email: Option<bool>,
@@ -439,12 +432,14 @@ impl TokenProvider for ImpersonatedTokenProvider {
             }
         };
 
+        let url = self.service_account_impersonation_url.id_token_url();
+
         generate_id_token(
             source_headers,
             self.delegates.clone(),
             self.target_audience.clone(),
             self.include_email,
-            &self.service_account_impersonation_url,
+            &url,
         )
         .await
     }
@@ -469,10 +464,10 @@ mod tests {
     type TestResult = anyhow::Result<()>;
 
     impl Builder {
-        fn with_impersonation_url_host<S: Into<String>>(mut self, host: S) -> Self {
+        fn with_impersonation_endpoint(mut self, endpoint: &str) -> Self {
             self.service_account_impersonation_url = self
                 .service_account_impersonation_url
-                .map(|s| s.replace("https://iamcredentials.googleapis.com/", &host.into()));
+                .map(|u| u.with_endpoint(endpoint));
             self
         }
     }
@@ -631,9 +626,11 @@ mod tests {
         }))
         .build()?;
 
+        let endpoint = server.url("/").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
         let creds =
             Builder::from_source_credentials(audience, "test-principal", source_credentials)
-                .with_impersonation_url_host(server.url("/").to_string())
+                .with_impersonation_endpoint(endpoint)
                 .build()?;
 
         let token = creds.id_token().await?;
