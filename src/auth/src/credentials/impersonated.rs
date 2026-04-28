@@ -230,7 +230,7 @@ impl ImpersonationUrl {
 
     pub(crate) fn replace_endpoint(&self, url: &str) -> String {
         if let Some(endpoint) = &self.endpoint {
-            url.replace("https://iamcredentials.", endpoint)
+            url.replace("https://iamcredentials.googleapis.com", endpoint)
         } else {
             url.to_string()
         }
@@ -2622,8 +2622,8 @@ mod tests {
     }
 
     #[test_case(None, "https://iamcredentials.googleapis.com", "https://iamcredentials.googleapis.com" ; "no override")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com", "https://custom.endpointgoogleapis.com" ; "with override")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com/v1/foo", "https://custom.endpointgoogleapis.com/v1/foo" ; "with override and path")]
+    #[test_case(Some("http://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com", "http://custom.endpoint" ; "with override")]
+    #[test_case(Some("http://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com/v1/foo", "http://custom.endpoint/v1/foo" ; "with override and path")]
     fn impersonation_url_replace_endpoint(endpoint: Option<String>, url: &str, expected: &str) {
         let impersonation_url = ImpersonationUrl {
             endpoint,
