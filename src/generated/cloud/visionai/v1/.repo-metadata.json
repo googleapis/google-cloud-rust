@@ -1,4 +1,5 @@
 {
+    "api_description": "Vertex AI Vision is an AI-powered platform to ingest, analyze and store video data.",
     "api_id": "visionai.googleapis.com",
     "api_shortname": "visionai",
     "client_documentation": "https://docs.rs/google-cloud-visionai-v1/latest",

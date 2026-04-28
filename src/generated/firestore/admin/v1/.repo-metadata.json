@@ -4,6 +4,7 @@
     "api_shortname": "firestore",
     "client_documentation": "https://docs.rs/google-cloud-firestore-admin-v1/latest",
     "distribution_name": "google-cloud-firestore-admin-v1",
+    "issue_tracker": "https://issuetracker.google.com/savedsearches/5337669",
     "language": "rust",
     "library_type": "GAPIC_AUTO",
     "name": "firestore",

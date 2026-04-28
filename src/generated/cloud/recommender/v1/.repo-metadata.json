@@ -1,4 +1,5 @@
 {
+    "api_description": "Recommenders generate recommendations that fall into six value categories that can help you optimize your cloud in a variety of ways.",
     "api_id": "recommender.googleapis.com",
     "api_shortname": "recommender",
     "client_documentation": "https://docs.rs/google-cloud-recommender-v1/latest",

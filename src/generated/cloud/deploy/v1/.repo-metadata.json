@@ -1,4 +1,5 @@
 {
+    "api_description": "Cloud Deploy is a service that automates delivery of your applications to a series of target environments in a defined sequence.",
     "api_id": "clouddeploy.googleapis.com",
     "api_shortname": "clouddeploy",
     "client_documentation": "https://docs.rs/google-cloud-deploy-v1/latest",
