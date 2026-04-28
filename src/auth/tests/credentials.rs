@@ -259,8 +259,7 @@ mod tests {
 
     #[tokio::test]
     #[serial]
-    #[cfg(all(test, feature = "idtoken"))]
-    async fn create_id_token_credentials_adc_gdch_service_account_credentials() {
+    async fn create_access_token_credentials_adc_gdch_service_account_credentials() {
         let contents = r#"{
             "type": "gdch_service_account",
             "format_version": "1",
@@ -274,18 +273,17 @@ mod tests {
         let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
-        let credentials = google_cloud_auth::credentials::idtoken::Builder::new(
-            "https://example.com/test-audience",
-        )
-        .build()
-        .unwrap();
+        let credentials = AccessTokenCredentialBuilder::default()
+            .with_gdch_audience("https://example.com/test-audience")
+            .build()
+            .unwrap();
         let fmt = format!("{credentials:?}");
         assert!(fmt.contains("GdchServiceAccountCredentials"), "{fmt}");
     }
 
     #[tokio::test]
     #[serial]
-    async fn generic_access_token_credentials_adc_gdch_service_account_is_not_supported() {
+    async fn access_token_credentials_adc_gdch_service_account_requires_audience() {
         let contents = r#"{
             "type": "gdch_service_account",
             "format_version": "1",
@@ -300,8 +298,8 @@ mod tests {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let err = AccessTokenCredentialBuilder::default().build().unwrap_err();
-        assert!(err.is_not_supported(), "{err:?}");
-        assert!(err.to_string().contains("gdch_service_account"), "{err:?}");
+        assert!(err.is_missing_field(), "{err:?}");
+        assert!(err.to_string().contains("gdch_audience"), "{err:?}");
     }
 
     #[tokio::test]

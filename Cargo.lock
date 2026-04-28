@@ -1622,6 +1622,7 @@ dependencies = [
  "base64",
  "bytes",
  "chrono",
+ "der",
  "google-cloud-gax",
  "hex",
  "hmac 0.13.0",

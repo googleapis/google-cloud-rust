@@ -86,7 +86,6 @@ use std::sync::Arc;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 use tokio::time::Instant;
 
-pub mod gdch_service_account;
 pub mod impersonated;
 pub mod mds;
 pub mod service_account;
@@ -231,7 +230,6 @@ impl Builder {
     }
 }
 enum IDTokenBuilder {
-    GdchServiceAccount(gdch_service_account::Builder),
     Mds(mds::Builder),
     ServiceAccount(service_account::Builder),
     Impersonated(impersonated::Builder),
@@ -244,7 +242,6 @@ fn build_id_token_credentials(
 ) -> BuildResult<IDTokenCredentials> {
     let builder = build_id_token_credentials_internal(audience, include_email, json)?;
     match builder {
-        IDTokenBuilder::GdchServiceAccount(builder) => builder.build(),
         IDTokenBuilder::Mds(builder) => builder.build(),
         IDTokenBuilder::ServiceAccount(builder) => builder.build(),
         IDTokenBuilder::Impersonated(builder) => builder.build(),
@@ -290,9 +287,9 @@ fn build_id_token_credentials_internal(
                     // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
                 }
-                "gdch_service_account" => Ok(IDTokenBuilder::GdchServiceAccount(
-                    gdch_service_account::Builder::new(audience, json),
-                )),
+                "gdch_service_account" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use credentials::Builder::default().with_gdch_audience(audience) for GDCH credentials."
+                ))),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
@@ -509,7 +506,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[parallel]
-    async fn test_build_id_token_credentials_gdch_service_account_success() -> TestResult {
+    async fn test_build_id_token_credentials_gdch_service_account_not_supported() -> TestResult {
         let audience = "test_audience".to_string();
         let json = serde_json::json!({
             "type": "gdch_service_account",
@@ -522,7 +519,11 @@ pub(crate) mod tests {
         });
 
         let result = build_id_token_credentials(audience, false, Some(json));
-        assert!(result.is_ok(), "{result:?}");
+        assert!(result.is_err(), "{result:?}");
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
+        assert!(err.to_string().contains("gdch_service_account"), "{err:?}");
+        assert!(err.to_string().contains("with_gdch_audience"), "{err:?}");
         Ok(())
     }
 

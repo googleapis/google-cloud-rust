@@ -18,10 +18,19 @@
 
 use crate::build_errors::Error as BuilderError;
 use crate::credentials::extract_credential_type;
+use crate::credentials::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
+use crate::credentials::subject_token::{self, Builder as SubjectTokenBuilder, SubjectToken};
+use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource};
+use crate::credentials::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::errors::{self, CredentialsError};
+use crate::headers_util::AuthHeadersBuilder;
+use crate::token::CachedTokenProvider;
 use crate::token::{Token, TokenProvider};
+use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
+use der::{Reader as _, SliceReader, asn1::UintRef};
+use http::{Extensions, HeaderMap};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pki_types::{PrivateKeyDer, pem::PemObject};
@@ -31,9 +40,42 @@ use tokio::time::{Duration, Instant};
 
 const FORMAT_VERSION: &str = "1";
 const TOKEN_TIMEOUT: Duration = Duration::from_secs(3600);
-const GRANT_TYPE: &str = "urn:ietf:params:oauth:token-type:token-exchange";
-const REQUESTED_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 const SUBJECT_TOKEN_TYPE: &str = "urn:k8s:params:oauth:token-type:serviceaccount";
+
+#[derive(Debug)]
+pub(crate) struct Builder {
+    audience: String,
+    quota_project_id: Option<String>,
+    service_account_key: Value,
+}
+
+impl Builder {
+    pub(crate) fn new<S: Into<String>>(audience: S, service_account_key: Value) -> Self {
+        Self {
+            audience: audience.into(),
+            quota_project_id: None,
+            service_account_key,
+        }
+    }
+
+    pub(crate) fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    pub(crate) fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(self) -> BuildResult<GdchServiceAccountCredentials<TokenCache>> {
+        let token_provider =
+            GdchServiceAccountTokenProvider::from_json(self.audience, self.service_account_key)?;
+        Ok(GdchServiceAccountCredentials {
+            token_provider: TokenCache::new(token_provider),
+            quota_project_id: self.quota_project_id,
+        })
+    }
+}
 
 #[derive(Clone, serde::Deserialize)]
 struct GdchServiceAccountKey {
@@ -96,44 +138,47 @@ impl std::fmt::Debug for GdchServiceAccountKey {
 }
 
 #[derive(Debug)]
+struct GdchServiceAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    token_provider: T,
+    quota_project_id: Option<String>,
+}
+
+#[derive(Debug)]
 pub(crate) struct GdchServiceAccountTokenProvider {
-    service_account_key: GdchServiceAccountKey,
+    subject_token_provider: GdchServiceAccountSubjectTokenProvider,
     audience: String,
 }
 
 #[async_trait::async_trait]
 impl TokenProvider for GdchServiceAccountTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let subject_token = self.generate_subject_token()?;
-        let request = TokenRequest {
-            grant_type: GRANT_TYPE,
-            audience: &self.audience,
-            requested_token_type: REQUESTED_TOKEN_TYPE,
-            subject_token: &subject_token,
-            subject_token_type: SUBJECT_TOKEN_TYPE,
-        };
         let client = self.client().await?;
-        let response = client
-            .post(&self.service_account_key.token_uri)
-            .json(&request)
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, MSG))?;
+        let subject_token = subject_token::dynamic::SubjectTokenProvider::subject_token(
+            &self.subject_token_provider,
+        )
+        .await?;
+        let response = STSHandler::exchange_token(ExchangeTokenRequest {
+            url: self
+                .subject_token_provider
+                .service_account_key
+                .token_uri
+                .clone(),
+            client: Some(client),
+            use_json: true,
+            audience: Some(self.audience.clone()),
+            subject_token: subject_token.token,
+            subject_token_type: SUBJECT_TOKEN_TYPE.to_string(),
+            ..ExchangeTokenRequest::default()
+        })
+        .await?;
 
-        if !response.status().is_success() {
-            return Err(errors::from_http_response(response, MSG).await);
-        }
-
-        let response = response
-            .json::<TokenResponse>()
-            .await
-            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
-
-        let expires_at = Instant::now() + Duration::from_secs(response.expires_in.unwrap_or(3600));
         Ok(Token {
             token: response.access_token,
             token_type: response.token_type,
-            expires_at: Some(expires_at),
+            expires_at: Some(Instant::now() + Duration::from_secs(response.expires_in)),
             metadata: None,
         })
     }
@@ -156,14 +201,21 @@ impl GdchServiceAccountTokenProvider {
             )));
         }
         Ok(Self {
-            service_account_key,
+            subject_token_provider: GdchServiceAccountSubjectTokenProvider {
+                service_account_key,
+            },
             audience: audience.into(),
         })
     }
 
     async fn client(&self) -> Result<reqwest::Client> {
         let mut builder = reqwest::Client::builder();
-        if let Some(path) = self.service_account_key.ca_cert_path.as_deref() {
+        if let Some(path) = self
+            .subject_token_provider
+            .service_account_key
+            .ca_cert_path
+            .as_deref()
+        {
             let pem = tokio::fs::read(path).await.map_err(|e| {
                 CredentialsError::new(false, "failed to read GDCH CA certificate", e)
             })?;
@@ -176,7 +228,22 @@ impl GdchServiceAccountTokenProvider {
             .build()
             .map_err(|e| CredentialsError::new(false, "failed to create GDCH HTTP client", e))
     }
+}
 
+#[derive(Debug)]
+struct GdchServiceAccountSubjectTokenProvider {
+    service_account_key: GdchServiceAccountKey,
+}
+
+impl subject_token::SubjectTokenProvider for GdchServiceAccountSubjectTokenProvider {
+    type Error = CredentialsError;
+
+    async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+        Ok(SubjectTokenBuilder::new(self.generate_subject_token()?).build())
+    }
+}
+
+impl GdchServiceAccountSubjectTokenProvider {
     fn generate_subject_token(&self) -> Result<String> {
         let signer = self.service_account_key.signer()?;
         let now = time::OffsetDateTime::now_utc();
@@ -202,10 +269,35 @@ impl GdchServiceAccountTokenProvider {
         let signature = signer
             .sign(signing_input.as_bytes())
             .map_err(errors::non_retryable)?;
-        let signature =
-            p256::ecdsa::Signature::from_der(&signature).map_err(errors::non_retryable)?;
-        let encoded_signature = BASE64_URL_SAFE_NO_PAD.encode(signature.to_bytes());
+        let signature = ecdsa_der_to_jose(&signature, 32)?;
+        let encoded_signature = BASE64_URL_SAFE_NO_PAD.encode(signature);
         Ok(format!("{signing_input}.{encoded_signature}"))
+    }
+}
+
+impl<T> CredentialsProvider for GdchServiceAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let token = self.token_provider.token(extensions).await?;
+        AuthHeadersBuilder::new(&token)
+            .maybe_quota_project_id(self.quota_project_id.as_deref())
+            .build()
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        None
+    }
+}
+
+impl<T> AccessTokenCredentialsProvider for GdchServiceAccountCredentials<T>
+where
+    T: CachedTokenProvider,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        let token = self.token_provider.token(Extensions::new()).await?;
+        token.into()
     }
 }
 
@@ -225,27 +317,6 @@ struct GdchClaims<'a> {
     iat: i64,
 }
 
-#[derive(serde::Deserialize, Serialize)]
-struct TokenRequest<'a> {
-    #[serde(borrow)]
-    grant_type: &'a str,
-    #[serde(borrow)]
-    audience: &'a str,
-    #[serde(borrow)]
-    requested_token_type: &'a str,
-    #[serde(borrow)]
-    subject_token: &'a str,
-    #[serde(borrow)]
-    subject_token_type: &'a str,
-}
-
-#[derive(serde::Deserialize)]
-struct TokenResponse {
-    access_token: String,
-    token_type: String,
-    expires_in: Option<u64>,
-}
-
 fn encode_json<T>(value: &T) -> Result<String>
 where
     T: Serialize,
@@ -254,19 +325,44 @@ where
     Ok(BASE64_URL_SAFE_NO_PAD.encode(json.as_bytes()))
 }
 
-const MSG: &str = "failed to exchange GDCH service account token";
+fn ecdsa_der_to_jose(der: &[u8], field_len: usize) -> Result<Vec<u8>> {
+    let mut reader = SliceReader::new(der).map_err(errors::non_retryable)?;
+    let (r, s) = reader
+        .sequence(|reader| {
+            let r = reader.decode::<UintRef<'_>>()?;
+            let s = reader.decode::<UintRef<'_>>()?;
+            Ok((r, s))
+        })
+        .and_then(|signature| reader.finish(signature))
+        .map_err(errors::non_retryable)?;
+
+    let mut jose = Vec::with_capacity(field_len * 2);
+    append_jose_integer(&mut jose, r.as_bytes(), field_len)?;
+    append_jose_integer(&mut jose, s.as_bytes(), field_len)?;
+    Ok(jose)
+}
+
+fn append_jose_integer(out: &mut Vec<u8>, value: &[u8], field_len: usize) -> Result<()> {
+    if value.len() > field_len {
+        return Err(errors::non_retryable_from_str(
+            "invalid GDCH ECDSA signature integer length",
+        ));
+    }
+    out.extend(std::iter::repeat_n(0, field_len - value.len()));
+    out.extend_from_slice(value);
+    Ok(())
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::constants::{ACCESS_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE};
     use crate::credentials::tests::b64_decode_to_json;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
     use std::error::Error;
 
     type TestResult = std::result::Result<(), Box<dyn Error>>;
-
-    const ES256_PRIVATE_KEY: &str = "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIEUByN/Cd73iTqf85VeQ74wWaZr6sMnkMY25RvOIUJ94oAoGCCqGSM49\nAwEHoUQDQgAEHf1LlK7P4qdsjslUqKVx5AlEBXN9VLzYYhC700o2DOthBjBFU7Yu\nmohy0DCDBPJ9pfiCPe/lZSFlvdl8Xyz9Lg==\n-----END EC PRIVATE KEY-----\n";
 
     #[derive(Debug, serde::Deserialize)]
     struct TestTokenRequest {
@@ -283,7 +379,7 @@ mod tests {
             "format_version": "1",
             "project": "test-project",
             "private_key_id": "test-private-key-id",
-            "private_key": ES256_PRIVATE_KEY,
+            "private_key": crate::credentials::tests::EC_PRIVATE_KEY.as_str(),
             "name": "test-name",
             "token_uri": token_uri,
         })
@@ -298,15 +394,16 @@ mod tests {
             Expectation::matching(all_of![
                 request::method_path("POST", "/authenticate"),
                 request::body(json_decoded(move |req: &TestTokenRequest| {
-                    req.grant_type == GRANT_TYPE
+                    req.grant_type == TOKEN_EXCHANGE_GRANT_TYPE
                         && req.audience == expected_audience
-                        && req.requested_token_type == REQUESTED_TOKEN_TYPE
+                        && req.requested_token_type == ACCESS_TOKEN_TYPE
                         && !req.subject_token.is_empty()
                         && req.subject_token_type == SUBJECT_TOKEN_TYPE
                 })),
             ])
             .respond_with(json_encoded(json!({
                 "access_token": "test-access-token",
+                "issued_token_type": ACCESS_TOKEN_TYPE,
                 "token_type": "Bearer",
                 "expires_in": 3600_u64,
             }))),
@@ -328,11 +425,13 @@ mod tests {
         let service_account_key =
             serde_json::from_value::<GdchServiceAccountKey>(gdch_json(token_uri.clone()))?;
         let provider = GdchServiceAccountTokenProvider {
-            service_account_key,
+            subject_token_provider: GdchServiceAccountSubjectTokenProvider {
+                service_account_key,
+            },
             audience: "test-audience".to_string(),
         };
 
-        let token = provider.generate_subject_token()?;
+        let token = provider.subject_token_provider.generate_subject_token()?;
         let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let header = b64_decode_to_json(parts[0].to_string());

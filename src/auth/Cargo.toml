@@ -38,10 +38,10 @@ async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
 chrono                = { workspace = true, features = ["clock"] }
+der                   = { workspace = true, features = ["std"] }
 hex                   = { workspace = true, features = ["std"] }
 hmac.workspace        = true
 http.workspace        = true
-p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 reqwest               = { workspace = true, features = ["form", "json", "query", "rustls-no-provider"] }
 rustls                = { workspace = true, features = ["logging", "std", "tls12"] }
 rustls-pki-types      = { workspace = true, features = ["std"] }
@@ -65,6 +65,7 @@ httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
+p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true

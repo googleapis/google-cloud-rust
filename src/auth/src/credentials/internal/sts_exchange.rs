@@ -29,6 +29,7 @@ pub struct STSHandler {}
 impl STSHandler {
     /// Performs an oauth2 token exchange with the provided [ExchangeTokenRequest] information.
     pub(crate) async fn exchange_token(req: ExchangeTokenRequest) -> Result<TokenResponse> {
+        let client = req.client.unwrap_or_default();
         let mut params = HashMap::new();
 
         params.insert("grant_type", TOKEN_EXCHANGE_GRANT_TYPE.to_string());
@@ -60,7 +61,15 @@ impl STSHandler {
             }
         }
 
-        Self::execute(req.url, req.authentication, req.headers, params).await
+        Self::execute(
+            req.url,
+            req.authentication,
+            req.headers,
+            params,
+            client,
+            req.use_json,
+        )
+        .await
     }
 
     /// Execute http request and token exchange
@@ -69,16 +78,19 @@ impl STSHandler {
         client_auth: ClientAuthentication,
         headers: http::HeaderMap,
         params: HashMap<&str, String>,
+        client: reqwest::Client,
+        use_json: bool,
     ) -> Result<TokenResponse> {
-        let client = reqwest::Client::new();
-
         let mut headers = headers.clone();
         client_auth.inject_auth(&mut headers)?;
 
-        let res = client
-            .post(url)
-            .form(&params)
-            .headers(headers)
+        let request = client.post(url).headers(headers);
+        let request = if use_json {
+            request.json(&params)
+        } else {
+            request.form(&params)
+        };
+        let res = request
             .send()
             .await
             .map_err(|e| errors::from_http_error(e, MSG))?;
@@ -141,6 +153,8 @@ impl ClientAuthentication {
 #[derive(Default)]
 pub struct ExchangeTokenRequest {
     pub url: String,
+    pub client: Option<reqwest::Client>,
+    pub use_json: bool,
     pub authentication: ClientAuthentication,
     pub headers: http::HeaderMap,
     pub resource: Option<String>,

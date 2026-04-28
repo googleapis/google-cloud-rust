@@ -30,7 +30,6 @@ pub mod anonymous;
 pub mod api_key_credentials;
 pub mod external_account;
 pub(crate) mod external_account_sources;
-#[cfg(feature = "idtoken")]
 pub(crate) mod gdch_service_account;
 #[cfg(feature = "idtoken")]
 pub mod idtoken;
@@ -475,6 +474,7 @@ pub(crate) mod dynamic {
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 #[derive(Debug)]
 pub struct Builder {
+    gdch_audience: Option<String>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
@@ -494,6 +494,7 @@ impl Default for Builder {
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     fn default() -> Self {
         Self {
+            gdch_audience: None,
             quota_project_id: None,
             scopes: None,
             universe_domain: None,
@@ -553,6 +554,15 @@ impl Builder {
         S: Into<String>,
     {
         self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Sets the GDCH audience for `gdch_service_account` credentials.
+    ///
+    /// GDCH service account credentials require an audience when exchanging the
+    /// signed subject token for a bearer token.
+    pub fn with_gdch_audience<S: Into<String>>(mut self, audience: S) -> Self {
+        self.gdch_audience = Some(audience.into());
         self
     }
 
@@ -617,6 +627,7 @@ impl Builder {
             .or(self.quota_project_id);
         build_credentials(
             json_data,
+            self.gdch_audience,
             quota_project_id,
             self.scopes,
             self.universe_domain,
@@ -734,6 +745,7 @@ macro_rules! config_common_builder {
 
 fn build_credentials(
     json: Option<Value>,
+    gdch_audience: Option<String>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     universe_domain: Option<String>,
@@ -782,9 +794,15 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
-                "gdch_service_account" => Err(BuilderError::not_supported(
-                    "gdch_service_account is supported by credentials::idtoken::Builder::new(audience)",
-                )),
+                "gdch_service_account" => {
+                    let audience = gdch_audience
+                        .ok_or_else(|| BuilderError::missing_field("gdch_audience"))?;
+                    let builder = gdch_service_account::Builder::new(audience, json);
+                    let builder = quota_project_id
+                        .into_iter()
+                        .fold(builder, |b, qp| b.with_quota_project_id(qp));
+                    builder.build_access_token_credentials()
+                }
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
@@ -1110,7 +1128,6 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
-    #[cfg(feature = "idtoken")]
     pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
         let secret_key_bytes = [
             0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
@@ -1118,6 +1135,13 @@ pub(crate) mod tests {
             0x26, 0x6c, 0x75, 0xdf,
         ];
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
+    });
+
+    pub static EC_PRIVATE_KEY: LazyLock<String> = LazyLock::new(|| {
+        ES256_PRIVATE_KEY
+            .to_sec1_pem(LineEnding::LF)
+            .expect("Failed to encode key to SEC1 PEM")
+            .to_string()
     });
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
