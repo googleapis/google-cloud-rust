@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OrgPolicyViolationsPreviewService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_org_policy_violations_previews()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -153,10 +156,10 @@ impl OrgPolicyViolationsPreviewService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    ///    client: &OrgPolicyViolationsPreviewService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_org_policy_violations_previews()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -186,10 +189,10 @@ impl OrgPolicyViolationsPreviewService {
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &OrgPolicyViolationsPreviewService, name: &str
+    ///    client: &OrgPolicyViolationsPreviewService, organization_id: &str, location_id: &str, org_policy_violations_preview_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_org_policy_violations_preview()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -229,10 +232,10 @@ impl OrgPolicyViolationsPreviewService {
     /// use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    ///    client: &OrgPolicyViolationsPreviewService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_org_policy_violations_preview()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_org_policy_violations_preview(
     ///             OrgPolicyViolationsPreview::new()/* set fields */
     ///         )
@@ -262,10 +265,10 @@ impl OrgPolicyViolationsPreviewService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    ///    client: &OrgPolicyViolationsPreviewService, organization_id: &str, location_id: &str, org_policy_violations_preview_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_org_policy_violations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}/orgPolicyViolationsPreviews/{org_policy_violations_preview_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -341,16 +344,20 @@ impl OrgPolicyViolationsPreviewService {
 /// ```
 /// # use google_cloud_policysimulator_v1::client::Simulator;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    replay_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Simulator::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_replay_results()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -465,10 +472,10 @@ impl Simulator {
     /// # use google_cloud_policysimulator_v1::client::Simulator;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &Simulator, name: &str
+    ///    client: &Simulator, project_id: &str, location_id: &str, replay_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replay()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -528,10 +535,10 @@ impl Simulator {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &Simulator, parent: &str
+    ///    client: &Simulator, project_id: &str, location_id: &str, replay_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_replay_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/replays/{replay_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

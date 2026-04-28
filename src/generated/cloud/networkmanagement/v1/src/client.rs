@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ReachabilityService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connectivity_tests()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -163,10 +165,10 @@ impl ReachabilityService {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &ReachabilityService, name: &str
+    ///    client: &ReachabilityService, project_id: &str, test_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connectivity_test()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -261,11 +263,11 @@ impl ReachabilityService {
     /// use google_cloud_networkmanagement_v1::model::ConnectivityTest;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &ReachabilityService, name: &str
+    ///    client: &ReachabilityService, project_id: &str, test_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connectivity_test()
     ///         .set_resource(
-    ///             ConnectivityTest::new().set_name(name)/* set fields */
+    ///             ConnectivityTest::new().set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -341,10 +343,10 @@ impl ReachabilityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &ReachabilityService, name: &str
+    ///    client: &ReachabilityService, project_id: &str, test_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connectivity_test()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/global/connectivityTests/{test_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -572,16 +574,19 @@ impl ReachabilityService {
 /// ```
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VpcFlowLogsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_vpc_flow_logs_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -684,10 +689,10 @@ impl VpcFlowLogsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, parent: &str
+    ///    client: &VpcFlowLogsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vpc_flow_logs_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -708,10 +713,10 @@ impl VpcFlowLogsService {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, name: &str
+    ///    client: &VpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpc_flow_logs_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -756,10 +761,10 @@ impl VpcFlowLogsService {
     /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, parent: &str
+    ///    client: &VpcFlowLogsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vpc_flow_logs_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vpc_flow_logs_config(
     ///             VpcFlowLogsConfig::new()/* set fields */
     ///         )
@@ -809,11 +814,11 @@ impl VpcFlowLogsService {
     /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, name: &str
+    ///    client: &VpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_vpc_flow_logs_config()
     ///         .set_vpc_flow_logs_config(
-    ///             VpcFlowLogsConfig::new().set_name(name)/* set fields */
+    ///             VpcFlowLogsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -845,10 +850,10 @@ impl VpcFlowLogsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, name: &str
+    ///    client: &VpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_vpc_flow_logs_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1130,16 +1135,19 @@ impl VpcFlowLogsService {
 /// ```
 /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OrganizationVpcFlowLogsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_vpc_flow_logs_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1246,10 +1254,10 @@ impl OrganizationVpcFlowLogsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, parent: &str
+    ///    client: &OrganizationVpcFlowLogsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_vpc_flow_logs_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1272,10 +1280,10 @@ impl OrganizationVpcFlowLogsService {
     /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, name: &str
+    ///    client: &OrganizationVpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpc_flow_logs_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1322,10 +1330,10 @@ impl OrganizationVpcFlowLogsService {
     /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, parent: &str
+    ///    client: &OrganizationVpcFlowLogsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vpc_flow_logs_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vpc_flow_logs_config(
     ///             VpcFlowLogsConfig::new()/* set fields */
     ///         )
@@ -1377,11 +1385,11 @@ impl OrganizationVpcFlowLogsService {
     /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, name: &str
+    ///    client: &OrganizationVpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_vpc_flow_logs_config()
     ///         .set_vpc_flow_logs_config(
-    ///             VpcFlowLogsConfig::new().set_name(name)/* set fields */
+    ///             VpcFlowLogsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1415,10 +1423,10 @@ impl OrganizationVpcFlowLogsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, name: &str
+    ///    client: &OrganizationVpcFlowLogsService, project_id: &str, location_id: &str, vpc_flow_logs_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_vpc_flow_logs_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpcFlowLogsConfigs/{vpc_flow_logs_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

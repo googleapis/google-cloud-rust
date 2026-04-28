@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_deploy_v1::client::CloudDeploy;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudDeploy::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_delivery_pipelines()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_delivery_pipelines()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_delivery_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::DeliveryPipeline;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_delivery_pipeline()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_delivery_pipeline(
     ///             DeliveryPipeline::new()/* set fields */
     ///         )
@@ -223,11 +226,11 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::DeliveryPipeline;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_delivery_pipeline()
     ///         .set_delivery_pipeline(
-    ///             DeliveryPipeline::new().set_name(name)/* set fields */
+    ///             DeliveryPipeline::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +260,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     client.delete_delivery_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -277,10 +280,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_targets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -319,10 +322,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, target_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -351,10 +354,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Target;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_target()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_target_id("target_id_value")
     ///         .set_target(
     ///             Target::new()/* set fields */
@@ -389,11 +392,11 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Target;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, target_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_target()
     ///         .set_target(
-    ///             Target::new().set_name(name)/* set fields */
+    ///             Target::new().set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -423,10 +426,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, target_id: &str
     /// ) -> Result<()> {
     ///     client.delete_target()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/targets/{target_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -443,10 +446,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_custom_target_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -465,10 +468,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, custom_target_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_target_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -497,10 +500,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::CustomTargetType;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_custom_target_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_custom_target_type(
     ///             CustomTargetType::new()/* set fields */
     ///         )
@@ -536,11 +539,11 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::CustomTargetType;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, custom_target_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_custom_target_type()
     ///         .set_custom_target_type(
-    ///             CustomTargetType::new().set_name(name)/* set fields */
+    ///             CustomTargetType::new().set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -572,10 +575,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, custom_target_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_custom_target_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/customTargetTypes/{custom_target_type_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -594,10 +597,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_releases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -616,10 +619,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -648,10 +651,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Release;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .set_release_id("release_id_value")
     ///         .set_release(
     ///             Release::new()/* set fields */
@@ -704,10 +707,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::DeployPolicy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deploy_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_deploy_policy(
     ///             DeployPolicy::new()/* set fields */
     ///         )
@@ -741,11 +744,11 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::DeployPolicy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, deploy_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deploy_policy()
     ///         .set_deploy_policy(
-    ///             DeployPolicy::new().set_name(name)/* set fields */
+    ///             DeployPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -775,10 +778,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, deploy_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deploy_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -795,10 +798,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deploy_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -817,10 +820,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, deploy_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deploy_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployPolicies/{deploy_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -898,10 +901,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rollouts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -920,10 +923,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str, rollout_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rollout()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -952,10 +955,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Rollout;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rollout()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}"))
     ///         .set_rollout_id("rollout_id_value")
     ///         .set_rollout(
     ///             Rollout::new()/* set fields */
@@ -1017,10 +1020,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str, rollout_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_job_runs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1039,10 +1042,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, release_id: &str, rollout_id: &str, job_run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/releases/{release_id}/rollouts/{rollout_id}/jobRuns/{job_run_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1079,10 +1082,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/config"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1111,10 +1114,10 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Automation;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_automation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .set_automation_id("automation_id_value")
     ///         .set_automation(
     ///             Automation::new()/* set fields */
@@ -1149,11 +1152,11 @@ impl CloudDeploy {
     /// use google_cloud_deploy_v1::model::Automation;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, automation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_automation()
     ///         .set_automation(
-    ///             Automation::new().set_name(name)/* set fields */
+    ///             Automation::new().set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1183,10 +1186,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, automation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_automation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1202,10 +1205,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, automation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_automation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automations/{automation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1223,10 +1226,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_automations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1245,10 +1248,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, name: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str, automation_run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_automation_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}/automationRuns/{automation_run_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1266,10 +1269,10 @@ impl CloudDeploy {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, parent: &str
+    ///    client: &CloudDeploy, project_id: &str, location_id: &str, delivery_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_automation_runs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deliveryPipelines/{delivery_pipeline_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

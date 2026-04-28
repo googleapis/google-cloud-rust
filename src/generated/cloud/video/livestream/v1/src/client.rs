@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = LivestreamService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_channels()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -148,10 +151,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Channel;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_channel()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_channel_id("channel_id_value")
     ///         .set_channel(
     ///             Channel::new()/* set fields */
@@ -173,10 +176,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_channels()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -195,10 +198,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -226,10 +229,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     client.delete_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -259,11 +262,11 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Channel;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_channel()
     ///         .set_channel(
-    ///             Channel::new().set_name(name)/* set fields */
+    ///             Channel::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -421,10 +424,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Input;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_input()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_input_id("input_id_value")
     ///         .set_input(
     ///             Input::new()/* set fields */
@@ -446,10 +449,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_inputs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -468,10 +471,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, input_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_input()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -499,10 +502,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, input_id: &str
     /// ) -> Result<()> {
     ///     client.delete_input()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -532,11 +535,11 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Input;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, input_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_input()
     ///         .set_input(
-    ///             Input::new().set_name(name)/* set fields */
+    ///             Input::new().set_name(format!("projects/{project_id}/locations/{location_id}/inputs/{input_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -576,10 +579,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Event;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_event()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .set_event_id("event_id_value")
     ///         .set_event(
     ///             Event::new()/* set fields */
@@ -601,10 +604,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -623,10 +626,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/events/{event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -643,10 +646,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     client.delete_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/events/{event_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -663,10 +666,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clips()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -685,10 +688,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, clip_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_clip()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/clips/{clip_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -717,10 +720,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Clip;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_clip()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .set_clip_id("clip_id_value")
     ///         .set_clip(
     ///             Clip::new()/* set fields */
@@ -753,10 +756,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, clip_id: &str
     /// ) -> Result<()> {
     ///     client.delete_clip()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/clips/{clip_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -784,10 +787,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::DvrSession;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dvr_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .set_dvr_session(
     ///             DvrSession::new()/* set fields */
     ///         )
@@ -808,10 +811,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dvr_sessions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -830,10 +833,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, dvr_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dvr_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -861,10 +864,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, dvr_session_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dvr_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -894,11 +897,11 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::DvrSession;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, channel_id: &str, dvr_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dvr_session()
     ///         .set_dvr_session(
-    ///             DvrSession::new().set_name(name)/* set fields */
+    ///             DvrSession::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}/dvrSessions/{dvr_session_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -930,10 +933,10 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Asset;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
@@ -965,10 +968,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -984,10 +987,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/assets/{asset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1005,10 +1008,10 @@ impl LivestreamService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, parent: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_assets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1027,10 +1030,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pools/{pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1061,11 +1064,11 @@ impl LivestreamService {
     /// use google_cloud_video_livestream_v1::model::Pool;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, name: &str
+    ///    client: &LivestreamService, project_id: &str, location_id: &str, pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_pool()
     ///         .set_pool(
-    ///             Pool::new().set_name(name)/* set fields */
+    ///             Pool::new().set_name(format!("projects/{project_id}/locations/{location_id}/pools/{pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;

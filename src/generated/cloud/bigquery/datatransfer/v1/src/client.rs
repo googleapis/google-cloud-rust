@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataTransferService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_sources()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +133,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, data_source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/dataSources/{data_source_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -152,10 +154,10 @@ impl DataTransferService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -175,10 +177,10 @@ impl DataTransferService {
     /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_transfer_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_transfer_config(
     ///             TransferConfig::new()/* set fields */
     ///         )
@@ -204,11 +206,11 @@ impl DataTransferService {
     /// use google_cloud_bigquery_datatransfer_v1::model::TransferConfig;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_transfer_config()
     ///         .set_transfer_config(
-    ///             TransferConfig::new().set_name(name)/* set fields */
+    ///             TransferConfig::new().set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -230,10 +232,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_transfer_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -251,10 +253,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_transfer_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -273,10 +275,10 @@ impl DataTransferService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_transfer_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -349,10 +351,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_transfer_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -369,10 +371,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, name: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     client.delete_transfer_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/transferConfigs/{transfer_config_id}/runs/{run_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -389,10 +391,10 @@ impl DataTransferService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, parent: &str
+    ///    client: &DataTransferService, project_id: &str, transfer_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_transfer_runs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/transferConfigs/{transfer_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

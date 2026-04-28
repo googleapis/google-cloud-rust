@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudBilling::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_billing_accounts()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -133,10 +135,10 @@ impl CloudBilling {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// use google_cloud_billing_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBilling, name: &str
+    ///    client: &CloudBilling, billing_account_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_billing_account()
-    ///         .set_name(name)
+    ///         .set_name(format!("billingAccounts/{billing_account_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,11 +188,11 @@ impl CloudBilling {
     /// use google_cloud_billing_v1::model::BillingAccount;
     /// use google_cloud_billing_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBilling, name: &str
+    ///    client: &CloudBilling, billing_account_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_billing_account()
     ///         .set_account(
-    ///             BillingAccount::new().set_name(name)/* set fields */
+    ///             BillingAccount::new().set_name(format!("billingAccounts/{billing_account_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -331,11 +333,11 @@ impl CloudBilling {
     /// use google_cloud_billing_v1::model::ProjectBillingInfo;
     /// use google_cloud_billing_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBilling, name: &str
+    ///    client: &CloudBilling, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_project_billing_info()
     ///         .set_project_billing_info(
-    ///             ProjectBillingInfo::new().set_name(name)/* set fields */
+    ///             ProjectBillingInfo::new().set_name(format!("projects/{project_id}/billingInfo"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -444,16 +446,18 @@ impl CloudBilling {
 /// ```
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    service_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudCatalog::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_skus()
-///         .set_parent(parent)
+///         .set_parent(format!("services/{service_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -578,10 +582,10 @@ impl CloudCatalog {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_billing_v1::Result;
     /// async fn sample(
-    ///    client: &CloudCatalog, parent: &str
+    ///    client: &CloudCatalog, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_skus()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

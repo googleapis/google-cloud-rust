@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    simulation_id: &str,
+///    valued_resource_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SecurityCenter::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_attack_paths()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -188,10 +192,10 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::BigQueryExport;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_big_query_export()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_big_query_export(
     ///             BigQueryExport::new()/* set fields */
     ///         )
@@ -213,10 +217,10 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::Finding;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_finding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/sources/{source_id}"))
     ///         .set_finding_id("finding_id_value")
     ///         .set_finding(
     ///             Finding::new()/* set fields */
@@ -238,10 +242,10 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::MuteConfig;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mute_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .set_mute_config(
     ///             MuteConfig::new()/* set fields */
     ///         )
@@ -262,10 +266,10 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::NotificationConfig;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_notification_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_notification_config(
     ///             NotificationConfig::new()/* set fields */
     ///         )
@@ -311,10 +315,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, export_id: &str
     /// ) -> Result<()> {
     ///     client.delete_big_query_export()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -331,10 +335,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, mute_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mute_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -350,10 +354,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, notification_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_notification_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -371,10 +375,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, resource_value_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_resource_value_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -392,10 +396,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, export_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_big_query_export()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -413,10 +417,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, simulation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_simulation()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/simulations/{simulation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -433,10 +437,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, simulation_id: &str, valued_resource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_valued_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -474,10 +478,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, mute_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mute_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -494,10 +498,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, notification_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -516,10 +520,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, resource_value_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_value_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -538,10 +542,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/sources/{source_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -597,10 +601,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, simulation_id: &str, valued_resource_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_attack_paths()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/simulations/{simulation_id}/valuedResources/{valued_resource_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -624,10 +628,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_big_query_exports()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -679,10 +683,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mute_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -702,10 +706,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notification_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -727,10 +731,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_resource_value_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -752,10 +756,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -775,10 +779,10 @@ impl SecurityCenter {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, parent: &str
+    ///    client: &SecurityCenter, organization_id: &str, simulation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_valued_resources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/simulations/{simulation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -882,11 +886,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::BigQueryExport;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, export_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_big_query_export()
     ///         .set_big_query_export(
-    ///             BigQueryExport::new().set_name(name)/* set fields */
+    ///             BigQueryExport::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/bigQueryExports/{export_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -909,11 +913,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::ExternalSystem;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, source_id: &str, finding_id: &str, externalsystem_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_external_system()
     ///         .set_external_system(
-    ///             ExternalSystem::new().set_name(name)/* set fields */
+    ///             ExternalSystem::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}/externalSystems/{externalsystem_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -937,11 +941,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::Finding;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, source_id: &str, finding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_finding()
     ///         .set_finding(
-    ///             Finding::new().set_name(name)/* set fields */
+    ///             Finding::new().set_name(format!("organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -964,11 +968,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::MuteConfig;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, mute_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mute_config()
     ///         .set_mute_config(
-    ///             MuteConfig::new().set_name(name)/* set fields */
+    ///             MuteConfig::new().set_name(format!("organizations/{organization_id}/muteConfigs/{mute_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -991,11 +995,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::NotificationConfig;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, location_id: &str, notification_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_notification_config()
     ///         .set_notification_config(
-    ///             NotificationConfig::new().set_name(name)/* set fields */
+    ///             NotificationConfig::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/notificationConfigs/{notification_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1019,11 +1023,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::ResourceValueConfig;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, resource_value_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_resource_value_config()
     ///         .set_resource_value_config(
-    ///             ResourceValueConfig::new().set_name(name)/* set fields */
+    ///             ResourceValueConfig::new().set_name(format!("organizations/{organization_id}/resourceValueConfigs/{resource_value_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1049,11 +1053,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::SecurityMarks;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, asset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_marks()
     ///         .set_security_marks(
-    ///             SecurityMarks::new().set_name(name)/* set fields */
+    ///             SecurityMarks::new().set_name(format!("organizations/{organization_id}/assets/{asset_id}/securityMarks"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1075,11 +1079,11 @@ impl SecurityCenter {
     /// use google_cloud_securitycenter_v2::model::Source;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, name: &str
+    ///    client: &SecurityCenter, organization_id: &str, source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_source()
     ///         .set_source(
-    ///             Source::new().set_name(name)/* set fields */
+    ///             Source::new().set_name(format!("organizations/{organization_id}/sources/{source_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

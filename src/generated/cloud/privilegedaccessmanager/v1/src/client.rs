@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PrivilegedAccessManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_entitlements()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -175,10 +178,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, parent: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entitlements()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -223,10 +226,10 @@ impl PrivilegedAccessManager {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, name: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entitlement()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -256,10 +259,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, parent: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entitlement()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_entitlement_id("entitlement_id_value")
     ///         .set_entitlement(
     ///             Entitlement::new()/* set fields */
@@ -295,10 +298,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, name: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entitlement()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -350,11 +353,11 @@ impl PrivilegedAccessManager {
     /// use google_cloud_privilegedaccessmanager_v1::model::Entitlement;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, name: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entitlement()
     ///         .set_entitlement(
-    ///             Entitlement::new().set_name(name)/* set fields */
+    ///             Entitlement::new().set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -376,10 +379,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, parent: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_grants()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -422,10 +425,10 @@ impl PrivilegedAccessManager {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, name: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str, grant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_grant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}/grants/{grant_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -444,10 +447,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_privilegedaccessmanager_v1::model::Grant;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, parent: &str
+    ///    client: &PrivilegedAccessManager, project_id: &str, location_id: &str, entitlement_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_grant()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/entitlements/{entitlement_id}"))
     ///         .set_grant(
     ///             Grant::new()/* set fields */
     ///         )

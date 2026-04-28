@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_redis_v1::client::CloudRedis;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudRedis::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -177,10 +179,10 @@ impl CloudRedis {
     /// # use google_cloud_redis_v1::client::CloudRedis;
     /// use google_cloud_redis_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedis, name: &str
+    ///    client: &CloudRedis, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -284,11 +286,11 @@ impl CloudRedis {
     /// use google_cloud_redis_v1::model::Instance;
     /// use google_cloud_redis_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedis, name: &str
+    ///    client: &CloudRedis, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -457,10 +459,10 @@ impl CloudRedis {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_redis_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedis, name: &str
+    ///    client: &CloudRedis, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AnalyticsHubService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_exchanges()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -137,10 +140,10 @@ impl AnalyticsHubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_exchanges()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -185,10 +188,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_exchange()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -206,10 +209,10 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_exchange()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_data_exchange(
     ///             DataExchange::new()/* set fields */
     ///         )
@@ -234,11 +237,11 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_exchange()
     ///         .set_data_exchange(
-    ///             DataExchange::new().set_name(name)/* set fields */
+    ///             DataExchange::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -259,10 +262,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_exchange()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -281,10 +284,10 @@ impl AnalyticsHubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_listings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -303,10 +306,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, listing_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_listing()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -324,10 +327,10 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_listing()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .set_listing_id("listing_id_value")
     ///         .set_listing(
     ///             Listing::new()/* set fields */
@@ -351,11 +354,11 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, listing_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_listing()
     ///         .set_listing(
-    ///             Listing::new().set_name(name)/* set fields */
+    ///             Listing::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -374,10 +377,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, listing_id: &str
     /// ) -> Result<()> {
     ///     client.delete_listing()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/listings/{listing_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -489,10 +492,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, subscription_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subscription()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -510,10 +513,10 @@ impl AnalyticsHubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_subscriptions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -590,10 +593,10 @@ impl AnalyticsHubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, subscription_id: &str
     /// ) -> Result<()> {
     ///     client.delete_subscription()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/subscriptions/{subscription_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -672,10 +675,10 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_query_template()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .set_query_template(
     ///             QueryTemplate::new()/* set fields */
     ///         )
@@ -697,10 +700,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, query_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_query_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -718,10 +721,10 @@ impl AnalyticsHubService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, parent: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_query_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -745,11 +748,11 @@ impl AnalyticsHubService {
     /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, query_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_query_template()
     ///         .set_query_template(
-    ///             QueryTemplate::new().set_name(name)/* set fields */
+    ///             QueryTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -770,10 +773,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, name: &str
+    ///    client: &AnalyticsHubService, project_id: &str, location_id: &str, data_exchange_id: &str, query_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_query_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataExchanges/{data_exchange_id}/queryTemplates/{query_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TextToSpeech::builder().build().await?;
 ///     let response = client.list_voices()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -214,13 +216,15 @@ impl TextToSpeech {
 /// ```
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
 ///     let response = client.synthesize_long_audio()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceHealth::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_events()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl ServiceHealth {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, parent: &str
+    ///    client: &ServiceHealth, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, name: &str
+    ///    client: &ServiceHealth, project_id: &str, location_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/events/{event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -174,10 +177,10 @@ impl ServiceHealth {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, parent: &str
+    ///    client: &ServiceHealth, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_organization_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -199,10 +202,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, name: &str
+    ///    client: &ServiceHealth, organization_id: &str, location_id: &str, event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationEvents/{event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -221,10 +224,10 @@ impl ServiceHealth {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, parent: &str
+    ///    client: &ServiceHealth, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_organization_impacts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -246,10 +249,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, name: &str
+    ///    client: &ServiceHealth, organization_id: &str, location_id: &str, organization_impact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization_impact()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/organizationImpacts/{organization_impact_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

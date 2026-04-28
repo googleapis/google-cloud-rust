@@ -66,13 +66,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlInstancesService::builder().build().await?;
 ///     let response = client.add_server_ca()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

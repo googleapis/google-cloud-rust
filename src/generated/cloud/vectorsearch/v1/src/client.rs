@@ -22,7 +22,8 @@
 /// ```
 /// # use google_cloud_vectorsearch_v1::client::DataObjectSearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DataObjectSearchService::builder().build().await?;
 ///     let mut list = client.search_data_objects()
 ///         /* set fields */
@@ -30,7 +31,8 @@
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -371,14 +373,19 @@ impl DataObjectSearchService {
 /// # Example
 /// ```
 /// # use google_cloud_vectorsearch_v1::client::DataObjectService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    collection_id: &str,
+///    data_object_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataObjectService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_data_object()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -479,10 +486,10 @@ impl DataObjectService {
     /// use google_cloud_vectorsearch_v1::model::DataObject;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &DataObjectService, parent: &str
+    ///    client: &DataObjectService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_object()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .set_data_object(
     ///             DataObject::new()/* set fields */
     ///         )
@@ -524,10 +531,10 @@ impl DataObjectService {
     /// # use google_cloud_vectorsearch_v1::client::DataObjectService;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &DataObjectService, name: &str
+    ///    client: &DataObjectService, project_id: &str, location_id: &str, collection_id: &str, data_object_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_object()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -547,11 +554,11 @@ impl DataObjectService {
     /// use google_cloud_vectorsearch_v1::model::DataObject;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &DataObjectService, name: &str
+    ///    client: &DataObjectService, project_id: &str, location_id: &str, collection_id: &str, data_object_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_object()
     ///         .set_data_object(
-    ///             DataObject::new().set_name(name)/* set fields */
+    ///             DataObject::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -592,10 +599,10 @@ impl DataObjectService {
     /// # use google_cloud_vectorsearch_v1::client::DataObjectService;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &DataObjectService, name: &str
+    ///    client: &DataObjectService, project_id: &str, location_id: &str, collection_id: &str, data_object_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_object()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/dataObjects/{data_object_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -780,16 +787,19 @@ impl DataObjectService {
 /// ```
 /// # use google_cloud_vectorsearch_v1::client::VectorSearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VectorSearchService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_collections()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -894,10 +904,10 @@ impl VectorSearchService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, parent: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_collections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -916,10 +926,10 @@ impl VectorSearchService {
     /// # use google_cloud_vectorsearch_v1::client::VectorSearchService;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_collection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -948,10 +958,10 @@ impl VectorSearchService {
     /// use google_cloud_vectorsearch_v1::model::Collection;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, parent: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_collection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_collection_id("collection_id_value")
     ///         .set_collection(
     ///             Collection::new()/* set fields */
@@ -986,11 +996,11 @@ impl VectorSearchService {
     /// use google_cloud_vectorsearch_v1::model::Collection;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_collection()
     ///         .set_collection(
-    ///             Collection::new().set_name(name)/* set fields */
+    ///             Collection::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1020,10 +1030,10 @@ impl VectorSearchService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_collection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1040,10 +1050,10 @@ impl VectorSearchService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, parent: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_indexes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1062,10 +1072,10 @@ impl VectorSearchService {
     /// # use google_cloud_vectorsearch_v1::client::VectorSearchService;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1094,10 +1104,10 @@ impl VectorSearchService {
     /// use google_cloud_vectorsearch_v1::model::Index;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, parent: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_index()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}"))
     ///         .set_index_id("index_id_value")
     ///         .set_index(
     ///             Index::new()/* set fields */
@@ -1132,11 +1142,11 @@ impl VectorSearchService {
     /// use google_cloud_vectorsearch_v1::model::Index;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_index()
     ///         .set_index(
-    ///             Index::new().set_name(name)/* set fields */
+    ///             Index::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1166,10 +1176,10 @@ impl VectorSearchService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vectorsearch_v1::Result;
     /// async fn sample(
-    ///    client: &VectorSearchService, name: &str
+    ///    client: &VectorSearchService, project_id: &str, location_id: &str, collection_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/indexes/{index_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

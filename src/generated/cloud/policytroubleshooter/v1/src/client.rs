@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = IamChecker::builder().build().await?;
 ///     let response = client.troubleshoot_iam_policy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

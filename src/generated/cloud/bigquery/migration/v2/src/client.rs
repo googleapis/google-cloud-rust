@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MigrationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_migration_workflows()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -157,10 +159,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, name: &str
+    ///    client: &MigrationService, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_workflow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -204,10 +206,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, name: &str
+    ///    client: &MigrationService, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     client.delete_migration_workflow()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -249,10 +251,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, name: &str
+    ///    client: &MigrationService, project_id: &str, location_id: &str, workflow_id: &str, subtask_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_subtask()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}/subtasks/{subtask_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -270,10 +272,10 @@ impl MigrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, parent: &str
+    ///    client: &MigrationService, project_id: &str, location_id: &str, workflow_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_migration_subtasks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

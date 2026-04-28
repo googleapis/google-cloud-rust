@@ -55,14 +55,18 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    schema_registry_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ManagedSchemaRegistry::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_schema_registry()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/schemaRegistries/{schema_registry_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    case_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CaseAttachmentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_attachments()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl CaseAttachmentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseAttachmentService, parent: &str
+    ///    client: &CaseAttachmentService, organization_id: &str, case_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_attachments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,16 +157,18 @@ impl CaseAttachmentService {
 /// ```
 /// # use google_cloud_support_v2::client::CaseService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CaseService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_cases()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -262,10 +267,10 @@ impl CaseService {
     /// # use google_cloud_support_v2::client::CaseService;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseService, name: &str
+    ///    client: &CaseService, organization_id: &str, case_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_case()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/cases/{case_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -287,10 +292,10 @@ impl CaseService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseService, parent: &str
+    ///    client: &CaseService, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -337,10 +342,10 @@ impl CaseService {
     /// use google_cloud_support_v2::model::Case;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseService, parent: &str
+    ///    client: &CaseService, organization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_case()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .set_case(
     ///             Case::new()/* set fields */
     ///         )
@@ -363,11 +368,11 @@ impl CaseService {
     /// use google_cloud_support_v2::model::Case;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseService, name: &str
+    ///    client: &CaseService, organization_id: &str, case_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_case()
     ///         .set_case(
-    ///             Case::new().set_name(name)/* set fields */
+    ///             Case::new().set_name(format!("organizations/{organization_id}/cases/{case_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -466,16 +471,19 @@ impl CaseService {
 /// ```
 /// # use google_cloud_support_v2::client::CommentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    case_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CommentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_comments()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -575,10 +583,10 @@ impl CommentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CommentService, parent: &str
+    ///    client: &CommentService, organization_id: &str, case_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_comments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -600,10 +608,10 @@ impl CommentService {
     /// use google_cloud_support_v2::model::Comment;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CommentService, parent: &str
+    ///    client: &CommentService, organization_id: &str, case_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_comment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/cases/{case_id}"))
     ///         .set_comment(
     ///             Comment::new()/* set fields */
     ///         )

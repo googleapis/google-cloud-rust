@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PolicyBindings::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_policy_bindings()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -145,10 +148,10 @@ impl PolicyBindings {
     /// use google_cloud_iam_v3::model::PolicyBinding;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, parent: &str
+    ///    client: &PolicyBindings, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_policy_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_policy_binding(
     ///             PolicyBinding::new()/* set fields */
     ///         )
@@ -168,10 +171,10 @@ impl PolicyBindings {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, name: &str
+    ///    client: &PolicyBindings, organization_id: &str, location_id: &str, policy_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -206,11 +209,11 @@ impl PolicyBindings {
     /// use google_cloud_iam_v3::model::PolicyBinding;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, name: &str
+    ///    client: &PolicyBindings, organization_id: &str, location_id: &str, policy_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_policy_binding()
     ///         .set_policy_binding(
-    ///             PolicyBinding::new().set_name(name)/* set fields */
+    ///             PolicyBinding::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -242,10 +245,10 @@ impl PolicyBindings {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, name: &str
+    ///    client: &PolicyBindings, organization_id: &str, location_id: &str, policy_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/policyBindings/{policy_binding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -262,10 +265,10 @@ impl PolicyBindings {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, parent: &str
+    ///    client: &PolicyBindings, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_policy_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -332,16 +335,19 @@ impl PolicyBindings {
 /// ```
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_principal_access_boundary_policies()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -458,10 +464,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, parent: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_principal_access_boundary_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_principal_access_boundary_policy(
     ///             PrincipalAccessBoundaryPolicy::new()/* set fields */
     ///         )
@@ -486,10 +492,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, organization_id: &str, location_id: &str, principal_access_boundary_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_principal_access_boundary_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -524,11 +530,11 @@ impl PrincipalAccessBoundaryPolicies {
     /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, organization_id: &str, location_id: &str, principal_access_boundary_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_principal_access_boundary_policy()
     ///         .set_principal_access_boundary_policy(
-    ///             PrincipalAccessBoundaryPolicy::new().set_name(name)/* set fields */
+    ///             PrincipalAccessBoundaryPolicy::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -563,10 +569,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, organization_id: &str, location_id: &str, principal_access_boundary_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_principal_access_boundary_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -588,10 +594,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, parent: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_principal_access_boundary_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

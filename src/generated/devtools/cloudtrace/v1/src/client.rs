@@ -22,7 +22,8 @@
 /// ```
 /// # use google_cloud_trace_v1::client::TraceService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TraceService::builder().build().await?;
 ///     let mut list = client.list_traces()
 ///         /* set fields */
@@ -30,7 +31,8 @@
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

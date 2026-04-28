@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = IdentityAwareProxyAdminService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tunnel_dest_groups()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -312,10 +314,10 @@ impl IdentityAwareProxyAdminService {
     /// use google_cloud_iap_v1::model::TunnelDestGroup;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, parent: &str
+    ///    client: &IdentityAwareProxyAdminService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tunnel_dest_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/iap_tunnel/locations/{location_id}"))
     ///         .set_tunnel_dest_group(
     ///             TunnelDestGroup::new()/* set fields */
     ///         )
@@ -339,10 +341,10 @@ impl IdentityAwareProxyAdminService {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, name: &str
+    ///    client: &IdentityAwareProxyAdminService, project_id: &str, location_id: &str, dest_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tunnel_dest_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -363,10 +365,10 @@ impl IdentityAwareProxyAdminService {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, name: &str
+    ///    client: &IdentityAwareProxyAdminService, project_id: &str, location_id: &str, dest_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tunnel_dest_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -389,11 +391,11 @@ impl IdentityAwareProxyAdminService {
     /// use google_cloud_iap_v1::model::TunnelDestGroup;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, name: &str
+    ///    client: &IdentityAwareProxyAdminService, project_id: &str, location_id: &str, dest_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tunnel_dest_group()
     ///         .set_tunnel_dest_group(
-    ///             TunnelDestGroup::new().set_name(name)/* set fields */
+    ///             TunnelDestGroup::new().set_name(format!("projects/{project_id}/iap_tunnel/locations/{location_id}/destGroups/{dest_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -415,13 +417,15 @@ impl IdentityAwareProxyAdminService {
 /// # Example
 /// ```
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = IdentityAwareProxyOAuthService::builder().build().await?;
 ///     let response = client.list_brands()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

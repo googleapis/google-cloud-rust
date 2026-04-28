@@ -22,7 +22,8 @@
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::AssistantService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AssistantService::builder().build().await?;
 ///     let mut list = client.list_operations()
 ///         /* set fields */
@@ -30,7 +31,8 @@
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -200,14 +202,17 @@ impl AssistantService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CmekConfigService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_cmek_config()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -325,11 +330,11 @@ impl CmekConfigService {
     /// use google_cloud_discoveryengine_v1::model::CmekConfig;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &CmekConfigService, name: &str
+    ///    client: &CmekConfigService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cmek_config()
     ///         .set_config(
-    ///             CmekConfig::new().set_name(name)/* set fields */
+    ///             CmekConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -349,10 +354,10 @@ impl CmekConfigService {
     /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &CmekConfigService, name: &str
+    ///    client: &CmekConfigService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cmek_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -403,10 +408,10 @@ impl CmekConfigService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &CmekConfigService, name: &str
+    ///    client: &CmekConfigService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cmek_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cmekConfig"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -490,13 +495,15 @@ impl CmekConfigService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = CompletionService::builder().build().await?;
 ///     let response = client.import_completion_suggestions()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -835,16 +842,20 @@ impl CompletionService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ControlService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_controls()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -957,10 +968,10 @@ impl ControlService {
     /// use google_cloud_discoveryengine_v1::model::Control;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, parent: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
@@ -986,10 +997,10 @@ impl ControlService {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, data_store_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     client.delete_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1014,11 +1025,11 @@ impl ControlService {
     /// use google_cloud_discoveryengine_v1::model::Control;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, data_store_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_control()
     ///         .set_control(
-    ///             Control::new().set_name(name)/* set fields */
+    ///             Control::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1037,10 +1048,10 @@ impl ControlService {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, data_store_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/controls/{control_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1061,10 +1072,10 @@ impl ControlService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, parent: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_controls()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1151,16 +1162,20 @@ impl ControlService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConversationalSearchService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1292,10 +1307,10 @@ impl ConversationalSearchService {
     /// use google_cloud_discoveryengine_v1::model::Conversation;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, parent: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
     ///         )
@@ -1322,10 +1337,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1353,11 +1368,11 @@ impl ConversationalSearchService {
     /// use google_cloud_discoveryengine_v1::model::Conversation;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_conversation()
     ///         .set_conversation(
-    ///             Conversation::new().set_name(name)/* set fields */
+    ///             Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1378,10 +1393,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1404,10 +1419,10 @@ impl ConversationalSearchService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, parent: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1448,10 +1463,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str, answer_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_answer()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}/answers/{answer_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1474,10 +1489,10 @@ impl ConversationalSearchService {
     /// use google_cloud_discoveryengine_v1::model::Session;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, parent: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -1502,10 +1517,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1530,11 +1545,11 @@ impl ConversationalSearchService {
     /// use google_cloud_discoveryengine_v1::model::Session;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session()
     ///         .set_session(
-    ///             Session::new().set_name(name)/* set fields */
+    ///             Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1553,10 +1568,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, name: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1577,10 +1592,10 @@ impl ConversationalSearchService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, parent: &str
+    ///    client: &ConversationalSearchService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sessions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1669,16 +1684,18 @@ impl ConversationalSearchService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataStoreService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_stores()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1831,10 +1848,10 @@ impl DataStoreService {
     /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, name: &str
+    ///    client: &DataStoreService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1890,10 +1907,10 @@ impl DataStoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, name: &str
+    ///    client: &DataStoreService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1914,11 +1931,11 @@ impl DataStoreService {
     /// use google_cloud_discoveryengine_v1::model::DataStore;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, name: &str
+    ///    client: &DataStoreService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_store()
     ///         .set_data_store(
-    ///             DataStore::new().set_name(name)/* set fields */
+    ///             DataStore::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2005,16 +2022,18 @@ impl DataStoreService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DocumentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_documents()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2121,10 +2140,10 @@ impl DocumentService {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentService, name: &str
+    ///    client: &DocumentService, project_id: &str, location_id: &str, data_store_id: &str, branch_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_document()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2198,11 +2217,11 @@ impl DocumentService {
     /// use google_cloud_discoveryengine_v1::model::Document;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentService, name: &str
+    ///    client: &DocumentService, project_id: &str, location_id: &str, data_store_id: &str, branch_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_document()
     ///         .set_document(
-    ///             Document::new().set_name(name)/* set fields */
+    ///             Document::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2223,10 +2242,10 @@ impl DocumentService {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentService, name: &str
+    ///    client: &DocumentService, project_id: &str, location_id: &str, data_store_id: &str, branch_id: &str, document_id: &str
     /// ) -> Result<()> {
     ///     client.delete_document()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/branches/{branch_id}/documents/{document_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2426,16 +2445,18 @@ impl DocumentService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EngineService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_engines()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2591,10 +2612,10 @@ impl EngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, name: &str
+    ///    client: &EngineService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str
     /// ) -> Result<()> {
     ///     client.delete_engine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2615,11 +2636,11 @@ impl EngineService {
     /// use google_cloud_discoveryengine_v1::model::Engine;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, name: &str
+    ///    client: &EngineService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_engine()
     ///         .set_engine(
-    ///             Engine::new().set_name(name)/* set fields */
+    ///             Engine::new().set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2640,10 +2661,10 @@ impl EngineService {
     /// # use google_cloud_discoveryengine_v1::client::EngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, name: &str
+    ///    client: &EngineService, project_id: &str, location_id: &str, collection_id: &str, engine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/collections/{collection_id}/engines/{engine_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2753,13 +2774,15 @@ impl EngineService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GroundedGenerationService::builder().build().await?;
 ///     let response = client.generate_grounded_content()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2975,16 +2998,18 @@ impl GroundedGenerationService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = IdentityMappingStoreService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_identity_mapping_stores()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3116,10 +3141,10 @@ impl IdentityMappingStoreService {
     /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityMappingStoreService, name: &str
+    ///    client: &IdentityMappingStoreService, project_id: &str, location_id: &str, identity_mapping_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_identity_mapping_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3151,10 +3176,10 @@ impl IdentityMappingStoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityMappingStoreService, name: &str
+    ///    client: &IdentityMappingStoreService, project_id: &str, location_id: &str, identity_mapping_store_id: &str
     /// ) -> Result<()> {
     ///     client.delete_identity_mapping_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/identityMappingStores/{identity_mapping_store_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3370,13 +3395,15 @@ impl IdentityMappingStoreService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ProjectService::builder().build().await?;
 ///     let response = client.provision_project()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3584,13 +3611,15 @@ impl ProjectService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::RankService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RankService::builder().build().await?;
 ///     let response = client.rank()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3779,13 +3808,15 @@ impl RankService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RecommendationService::builder().build().await?;
 ///     let response = client.recommend()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3976,16 +4007,20 @@ impl RecommendationService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SchemaService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_schemas()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4091,10 +4126,10 @@ impl SchemaService {
     /// # use google_cloud_discoveryengine_v1::client::SchemaService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, location_id: &str, data_store_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4114,10 +4149,10 @@ impl SchemaService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, parent: &str
+    ///    client: &SchemaService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_schemas()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4150,10 +4185,10 @@ impl SchemaService {
     /// use google_cloud_discoveryengine_v1::model::Schema;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, parent: &str
+    ///    client: &SchemaService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
@@ -4188,11 +4223,11 @@ impl SchemaService {
     /// use google_cloud_discoveryengine_v1::model::Schema;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, location_id: &str, data_store_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_schema()
     ///         .set_schema(
-    ///             Schema::new().set_name(name)/* set fields */
+    ///             Schema::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -4223,10 +4258,10 @@ impl SchemaService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, name: &str
+    ///    client: &SchemaService, project_id: &str, location_id: &str, data_store_id: &str, schema_id: &str
     /// ) -> Result<()> {
     ///     client.delete_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/schemas/{schema_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4310,7 +4345,8 @@ impl SchemaService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SearchService::builder().build().await?;
 ///     let mut list = client.search()
 ///         /* set fields */
@@ -4318,7 +4354,8 @@ impl SchemaService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4548,13 +4585,15 @@ impl SearchService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SearchTuningService::builder().build().await?;
 ///     let response = client.train_custom_model()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4778,17 +4817,22 @@ impl SearchTuningService {
 /// # extern crate wkt as google_cloud_wkt;
 /// use google_cloud_wkt::FieldMask;
 /// use google_cloud_discoveryengine_v1::model::ServingConfig;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+///    serving_config_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ServingConfigService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.update_serving_config()
 ///         .set_serving_config(
-///             ServingConfig::new().set_name(name)/* set fields */
+///             ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"))/* set fields */
 ///         )
 ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4899,11 +4943,11 @@ impl ServingConfigService {
     /// use google_cloud_discoveryengine_v1::model::ServingConfig;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, name: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, data_store_id: &str, serving_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_serving_config()
     ///         .set_serving_config(
-    ///             ServingConfig::new().set_name(name)/* set fields */
+    ///             ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/servingConfigs/{serving_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -4992,16 +5036,20 @@ impl ServingConfigService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::SessionService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_sessions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5109,10 +5157,10 @@ impl SessionService {
     /// use google_cloud_discoveryengine_v1::model::Session;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, parent: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -5137,10 +5185,10 @@ impl SessionService {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5165,11 +5213,11 @@ impl SessionService {
     /// use google_cloud_discoveryengine_v1::model::Session;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session()
     ///         .set_session(
-    ///             Session::new().set_name(name)/* set fields */
+    ///             Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5188,10 +5236,10 @@ impl SessionService {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, data_store_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5212,10 +5260,10 @@ impl SessionService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, parent: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sessions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5302,16 +5350,20 @@ impl SessionService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    data_store_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SiteSearchEngineService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_target_sites()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5417,10 +5469,10 @@ impl SiteSearchEngineService {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, name: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_site_search_engine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5453,10 +5505,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_discoveryengine_v1::model::TargetSite;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, parent: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_target_site()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"))
     ///         .set_target_site(
     ///             TargetSite::new()/* set fields */
     ///         )
@@ -5516,10 +5568,10 @@ impl SiteSearchEngineService {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, name: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str, target_site_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target_site()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5550,11 +5602,11 @@ impl SiteSearchEngineService {
     /// use google_cloud_discoveryengine_v1::model::TargetSite;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, name: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str, target_site_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_target_site()
     ///         .set_target_site(
-    ///             TargetSite::new().set_name(name)/* set fields */
+    ///             TargetSite::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -5587,10 +5639,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, name: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str, target_site_id: &str
     /// ) -> Result<()> {
     ///     client.delete_target_site()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/targetSites/{target_site_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5611,10 +5663,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, parent: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_target_sites()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5647,10 +5699,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_discoveryengine_v1::model::Sitemap;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, parent: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_sitemap()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine"))
     ///         .set_sitemap(
     ///             Sitemap::new()/* set fields */
     ///         )
@@ -5683,10 +5735,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, name: &str
+    ///    client: &SiteSearchEngineService, project_id: &str, location_id: &str, data_store_id: &str, sitemap_id: &str
     /// ) -> Result<()> {
     ///     client.delete_sitemap()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataStores/{data_store_id}/siteSearchEngine/sitemaps/{sitemap_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5958,13 +6010,15 @@ impl SiteSearchEngineService {
 /// # Example
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = UserEventService::builder().build().await?;
 ///     let response = client.write_user_event()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6250,7 +6304,8 @@ impl UserEventService {
 /// ```
 /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = UserLicenseService::builder().build().await?;
 ///     let mut list = client.list_user_licenses()
 ///         /* set fields */
@@ -6258,7 +6313,8 @@ impl UserEventService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

@@ -22,10 +22,12 @@
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::AcceleratorTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AcceleratorTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -146,10 +148,12 @@ impl AcceleratorTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Addresses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Addresses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -301,10 +305,12 @@ impl Addresses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Advice;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Advice::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -413,10 +419,12 @@ impl Advice {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Autoscalers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Autoscalers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -571,10 +579,12 @@ impl Autoscalers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::BackendBuckets;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = BackendBuckets::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -766,10 +776,12 @@ impl BackendBuckets {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::BackendServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = BackendServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -990,10 +1002,12 @@ impl BackendServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = CrossSiteNetworks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1129,10 +1143,12 @@ impl CrossSiteNetworks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::DiskTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DiskTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1252,10 +1268,12 @@ impl DiskTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Disks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Disks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1489,10 +1507,12 @@ impl Disks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ExternalVpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1636,10 +1656,12 @@ impl ExternalVpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::FirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1841,10 +1863,12 @@ impl FirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Firewalls;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Firewalls::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1993,10 +2017,12 @@ impl Firewalls {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ForwardingRules;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ForwardingRules::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2154,10 +2180,12 @@ impl ForwardingRules {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::FutureReservations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FutureReservations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2303,10 +2331,12 @@ impl FutureReservations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalAddresses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalAddresses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2449,10 +2479,12 @@ impl GlobalAddresses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalForwardingRules::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2604,10 +2636,12 @@ impl GlobalForwardingRules {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalNetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2776,10 +2810,12 @@ impl GlobalNetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2927,10 +2963,12 @@ impl GlobalOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalOrganizationOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3050,10 +3088,12 @@ impl GlobalOrganizationOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3190,10 +3230,12 @@ impl GlobalPublicDelegatedPrefixes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::HealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3349,10 +3391,12 @@ impl HealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::HttpHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HttpHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3500,10 +3544,12 @@ impl HttpHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = HttpsHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3651,10 +3697,12 @@ impl HttpsHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ImageFamilyViews;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ImageFamilyViews::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3762,10 +3810,12 @@ impl ImageFamilyViews {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Images;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Images::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3942,10 +3992,12 @@ impl Images {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagerResizeRequests::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4091,10 +4143,12 @@ impl InstanceGroupManagerResizeRequests {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroupManagers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4533,10 +4587,12 @@ impl InstanceGroupManagers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4721,10 +4777,12 @@ impl InstanceGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4841,10 +4899,12 @@ impl InstanceSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstanceTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5004,10 +5064,12 @@ impl InstanceTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Instances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5460,10 +5522,12 @@ impl Instances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstantSnapshotGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshotGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5610,10 +5674,12 @@ impl InstantSnapshotGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InstantSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InstantSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5780,10 +5846,12 @@ impl InstantSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachmentGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5950,10 +6018,12 @@ impl InterconnectAttachmentGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6105,10 +6175,12 @@ impl InterconnectAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6275,10 +6347,12 @@ impl InterconnectGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectLocations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectLocations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6392,10 +6466,12 @@ impl InterconnectLocations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = InterconnectRemoteLocations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6510,10 +6586,12 @@ impl InterconnectRemoteLocations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Interconnects;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Interconnects::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6676,10 +6754,12 @@ impl Interconnects {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::LicenseCodes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = LicenseCodes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6797,10 +6877,12 @@ impl LicenseCodes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Licenses;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Licenses::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6977,10 +7059,12 @@ impl Licenses {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::MachineImages;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MachineImages::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7135,10 +7219,12 @@ impl MachineImages {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::MachineTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MachineTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7258,10 +7344,12 @@ impl MachineTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7423,10 +7511,12 @@ impl NetworkAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkEdgeSecurityServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7566,10 +7656,12 @@ impl NetworkEdgeSecurityServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7749,10 +7841,12 @@ impl NetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkFirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7986,10 +8080,12 @@ impl NetworkFirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NetworkProfiles;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkProfiles::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8101,10 +8197,12 @@ impl NetworkProfiles {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Networks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Networks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8275,10 +8373,12 @@ impl Networks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8472,10 +8572,12 @@ impl NodeGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8628,10 +8730,12 @@ impl NodeTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::NodeTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = NodeTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8751,10 +8855,12 @@ impl NodeTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = OrganizationSecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9029,10 +9135,12 @@ impl OrganizationSecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PacketMirrorings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PacketMirrorings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9182,10 +9290,12 @@ impl PacketMirrorings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PreviewFeatures;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PreviewFeatures::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9307,10 +9417,12 @@ impl PreviewFeatures {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Projects;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Projects::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9530,10 +9642,12 @@ impl Projects {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PublicAdvertisedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9680,10 +9794,12 @@ impl PublicAdvertisedPrefixes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PublicDelegatedPrefixes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9838,10 +9954,12 @@ impl PublicDelegatedPrefixes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionAutoscalers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionAutoscalers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9989,10 +10107,12 @@ impl RegionAutoscalers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionBackendBuckets;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendBuckets::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10154,10 +10274,12 @@ impl RegionBackendBuckets {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionBackendServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionBackendServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10344,10 +10466,12 @@ impl RegionBackendServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionCommitments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionCommitments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10486,10 +10610,12 @@ impl RegionCommitments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionCompositeHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionCompositeHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10650,10 +10776,12 @@ impl RegionCompositeHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionDiskTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionDiskTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10764,10 +10892,12 @@ impl RegionDiskTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionDisks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionDisks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10983,10 +11113,12 @@ impl RegionDisks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthAggregationPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthAggregationPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11147,10 +11279,12 @@ impl RegionHealthAggregationPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthCheckServices::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11304,10 +11438,12 @@ impl RegionHealthCheckServices {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthChecks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthChecks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11455,10 +11591,12 @@ impl RegionHealthChecks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionHealthSources;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionHealthSources::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11616,10 +11754,12 @@ impl RegionHealthSources {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagerResizeRequests;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagerResizeRequests::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11777,10 +11917,12 @@ impl RegionInstanceGroupManagerResizeRequests {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroupManagers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12218,10 +12360,12 @@ impl RegionInstanceGroupManagers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12359,10 +12503,12 @@ impl RegionInstanceGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstanceTemplates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12492,10 +12638,12 @@ impl RegionInstanceTemplates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12607,10 +12755,12 @@ impl RegionInstances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshotGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshotGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12759,10 +12909,12 @@ impl RegionInstantSnapshotGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionInstantSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12923,10 +13075,12 @@ impl RegionInstantSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkEndpointGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13095,10 +13249,12 @@ impl RegionNetworkEndpointGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNetworkFirewallPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13308,10 +13464,12 @@ impl RegionNetworkFirewallPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionNotificationEndpoints::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13453,10 +13611,12 @@ impl RegionNotificationEndpoints {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13596,10 +13756,12 @@ impl RegionOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13765,10 +13927,12 @@ impl RegionSecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSnapshotSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshotSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13885,10 +14049,12 @@ impl RegionSnapshotSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSnapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSnapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14053,10 +14219,12 @@ impl RegionSnapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSslCertificates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSslCertificates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14187,10 +14355,12 @@ impl RegionSslCertificates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionSslPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionSslPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14334,10 +14504,12 @@ impl RegionSslPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14471,10 +14643,12 @@ impl RegionTargetHttpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetHttpsProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14624,10 +14798,12 @@ impl RegionTargetHttpsProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionTargetTcpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14756,10 +14932,12 @@ impl RegionTargetTcpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionUrlMaps;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionUrlMaps::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14908,10 +15086,12 @@ impl RegionUrlMaps {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::RegionZones;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = RegionZones::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15018,10 +15198,12 @@ impl RegionZones {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Regions;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Regions::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15167,10 +15349,12 @@ impl Regions {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationBlocks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationBlocks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15309,10 +15493,12 @@ impl ReservationBlocks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationSlots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationSlots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15439,10 +15625,12 @@ impl ReservationSlots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationSubBlocks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15595,10 +15783,12 @@ impl ReservationSubBlocks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Reservations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Reservations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15768,10 +15958,12 @@ impl Reservations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ResourcePolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ResourcePolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15929,10 +16121,12 @@ impl ResourcePolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Routers;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Routers::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16135,10 +16329,12 @@ impl Routers {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Routes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Routes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16270,10 +16466,12 @@ impl Routes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SecurityPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SecurityPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16455,10 +16653,12 @@ impl SecurityPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ServiceAttachments;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceAttachments::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16620,10 +16820,12 @@ impl ServiceAttachments {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SnapshotSettings;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SnapshotSettings::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16740,10 +16942,12 @@ impl SnapshotSettings {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Snapshots;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Snapshots::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16910,10 +17114,12 @@ impl Snapshots {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SslCertificates;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SslCertificates::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17050,10 +17256,12 @@ impl SslCertificates {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::SslPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SslPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17202,10 +17410,12 @@ impl SslPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::StoragePoolTypes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = StoragePoolTypes::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17326,10 +17536,12 @@ impl StoragePoolTypes {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::StoragePools;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = StoragePools::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17501,10 +17713,12 @@ impl StoragePools {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Subnetworks;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Subnetworks::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17684,10 +17898,12 @@ impl Subnetworks {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetGrpcProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17823,10 +18039,12 @@ impl TargetGrpcProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetHttpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17977,10 +18195,12 @@ impl TargetHttpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetHttpsProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18154,10 +18374,12 @@ impl TargetHttpsProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetInstances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetInstances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18305,10 +18527,12 @@ impl TargetInstances {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetPools;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetPools::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18487,10 +18711,12 @@ impl TargetPools {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetSslProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetSslProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18652,10 +18878,12 @@ impl TargetSslProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetTcpProxies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetTcpProxies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18808,10 +19036,12 @@ impl TargetTcpProxies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::TargetVpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TargetVpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -18954,10 +19184,12 @@ impl TargetVpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::UrlMaps;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = UrlMaps::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19129,10 +19361,12 @@ impl UrlMaps {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::VpnGateways;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VpnGateways::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19284,10 +19518,12 @@ impl VpnGateways {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::VpnTunnels;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VpnTunnels::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19429,10 +19665,12 @@ impl VpnTunnels {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::WireGroups;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = WireGroups::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19567,10 +19805,12 @@ impl WireGroups {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ZoneOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ZoneOperations::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19708,10 +19948,12 @@ impl ZoneOperations {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::ZoneVmExtensionPolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ZoneVmExtensionPolicies::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19843,10 +20085,12 @@ impl ZoneVmExtensionPolicies {
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Zones;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Zones::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

@@ -24,17 +24,20 @@
 /// # extern crate wkt as google_cloud_wkt;
 /// use google_cloud_wkt::FieldMask;
 /// use google_cloud_storagetransfer_v1::model::AgentPool;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    agent_pool_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = StorageTransferService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.update_agent_pool()
 ///         .set_agent_pool(
-///             AgentPool::new().set_name(name)/* set fields */
+///             AgentPool::new().set_name(format!("projects/{project_id}/agentPools/{agent_pool_id}"))/* set fields */
 ///         )
 ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -386,11 +389,11 @@ impl StorageTransferService {
     /// use google_cloud_storagetransfer_v1::model::AgentPool;
     /// use google_cloud_storagetransfer_v1::Result;
     /// async fn sample(
-    ///    client: &StorageTransferService, name: &str
+    ///    client: &StorageTransferService, project_id: &str, agent_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_agent_pool()
     ///         .set_agent_pool(
-    ///             AgentPool::new().set_name(name)/* set fields */
+    ///             AgentPool::new().set_name(format!("projects/{project_id}/agentPools/{agent_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

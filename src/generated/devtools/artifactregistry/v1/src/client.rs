@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ArtifactRegistry::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_docker_images()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -166,10 +168,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, docker_image_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_docker_image()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/dockerImages/{docker_image_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -187,10 +189,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_maven_artifacts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -209,10 +211,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, maven_artifact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_maven_artifact()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/mavenArtifacts/{maven_artifact_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -230,10 +232,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_npm_packages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -252,10 +254,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, npm_package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_npm_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/npmPackages/{npm_package_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -273,10 +275,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_python_packages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -295,10 +297,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, python_package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_python_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pythonPackages/{python_package_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -384,10 +386,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_repositories()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -406,10 +408,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -439,10 +441,10 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Repository;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
@@ -466,11 +468,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Repository;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_repository()
     ///         .set_repository(
-    ///             Repository::new().set_name(name)/* set fields */
+    ///             Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -502,10 +504,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -522,10 +524,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_packages()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -544,10 +546,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -576,10 +578,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, package_id: &str
     /// ) -> Result<()> {
     ///     client.delete_package()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -703,11 +705,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Version;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, package_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_version()
     ///         .set_version(
-    ///             Version::new().set_name(name)/* set fields */
+    ///             Version::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/versions/{version_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -727,10 +729,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_files()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -749,10 +751,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -782,10 +784,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     client.delete_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -804,11 +806,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::File;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_file()
     ///         .set_file(
-    ///             File::new().set_name(name)/* set fields */
+    ///             File::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/files/{file_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -898,11 +900,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Tag;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, package_id: &str, tag_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tag()
     ///         .set_tag(
-    ///             Tag::new().set_name(name)/* set fields */
+    ///             Tag::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}/tags/{tag_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -941,10 +943,10 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Rule;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_rule_id("rule_id_value")
     ///         .set_rule(
     ///             Rule::new()/* set fields */
@@ -966,10 +968,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -988,10 +990,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1011,11 +1013,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Rule;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_rule()
     ///         .set_rule(
-    ///             Rule::new().set_name(name)/* set fields */
+    ///             Rule::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1034,10 +1036,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/rules/{rule_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1113,10 +1115,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/projectSettings"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1136,11 +1138,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::ProjectSettings;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_project_settings()
     ///         .set_project_settings(
-    ///             ProjectSettings::new().set_name(name)/* set fields */
+    ///             ProjectSettings::new().set_name(format!("projects/{project_id}/projectSettings"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1161,10 +1163,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpcsc_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vpcscConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1184,11 +1186,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::VPCSCConfig;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_vpcsc_config()
     ///         .set_vpcsc_config(
-    ///             VPCSCConfig::new().set_name(name)/* set fields */
+    ///             VPCSCConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/vpcscConfig"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1210,11 +1212,11 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Package;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, package_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_package()
     ///         .set_package(
-    ///             Package::new().set_name(name)/* set fields */
+    ///             Package::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/packages/{package_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1234,10 +1236,10 @@ impl ArtifactRegistry {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_attachments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1256,10 +1258,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, attachment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/attachments/{attachment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1289,10 +1291,10 @@ impl ArtifactRegistry {
     /// use google_cloud_artifactregistry_v1::model::Attachment;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, parent: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attachment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_attachment_id("attachment_id_value")
     ///         .set_attachment(
     ///             Attachment::new()/* set fields */
@@ -1326,10 +1328,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, name: &str
+    ///    client: &ArtifactRegistry, project_id: &str, location_id: &str, repository_id: &str, attachment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/attachments/{attachment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

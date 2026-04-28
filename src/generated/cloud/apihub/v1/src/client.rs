@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHub;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHub::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_apis()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Api;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_api()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_api_id("api_id_value")
     ///         .set_api(
     ///             Api::new()/* set fields */
@@ -156,10 +159,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -177,10 +180,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_apis()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -234,11 +237,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Api;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_api()
     ///         .set_api(
-    ///             Api::new().set_name(name)/* set fields */
+    ///             Api::new().set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -258,10 +261,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     client.delete_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -278,10 +281,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Version;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}"))
     ///         .set_version_id("version_id_value")
     ///         .set_version(
     ///             Version::new()/* set fields */
@@ -304,10 +307,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -325,10 +328,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -375,11 +378,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Version;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_version()
     ///         .set_version(
-    ///             Version::new().set_name(name)/* set fields */
+    ///             Version::new().set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -399,10 +402,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -443,10 +446,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Spec;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_spec()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .set_spec_id("spec_id_value")
     ///         .set_spec(
     ///             Spec::new()/* set fields */
@@ -472,10 +475,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, spec_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_spec()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/specs/{spec_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -513,10 +516,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_specs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -569,11 +572,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Spec;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, spec_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_spec()
     ///         .set_spec(
-    ///             Spec::new().set_name(name)/* set fields */
+    ///             Spec::new().set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/specs/{spec_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -594,10 +597,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, spec_id: &str
     /// ) -> Result<()> {
     ///     client.delete_spec()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/specs/{spec_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -616,10 +619,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::ApiOperation;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_api_operation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .set_api_operation(
     ///             ApiOperation::new()/* set fields */
     ///         )
@@ -639,10 +642,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, operation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_operation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/operations/{operation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -660,10 +663,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_api_operations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -708,11 +711,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::ApiOperation;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, operation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_api_operation()
     ///         .set_api_operation(
-    ///             ApiOperation::new().set_name(name)/* set fields */
+    ///             ApiOperation::new().set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/operations/{operation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -733,10 +736,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, operation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_api_operation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/operations/{operation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -752,10 +755,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, api_id: &str, version_id: &str, definition_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_definition()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apis/{api_id}/versions/{version_id}/definitions/{definition_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -775,10 +778,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Deployment;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
@@ -799,10 +802,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -820,10 +823,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -879,11 +882,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Deployment;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment()
     ///         .set_deployment(
-    ///             Deployment::new().set_name(name)/* set fields */
+    ///             Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -902,10 +905,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -931,10 +934,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Attribute;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attribute()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_attribute_id("attribute_id_value")
     ///         .set_attribute(
     ///             Attribute::new()/* set fields */
@@ -955,10 +958,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, attribute_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attribute()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/attributes/{attribute_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1007,11 +1010,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::Attribute;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, attribute_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_attribute()
     ///         .set_attribute(
-    ///             Attribute::new().set_name(name)/* set fields */
+    ///             Attribute::new().set_name(format!("projects/{project_id}/locations/{location_id}/attributes/{attribute_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1034,10 +1037,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, attribute_id: &str
     /// ) -> Result<()> {
     ///     client.delete_attribute()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/attributes/{attribute_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1054,10 +1057,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_attributes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1100,10 +1103,10 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::ExternalApi;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_external_api()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_external_api(
     ///             ExternalApi::new()/* set fields */
     ///         )
@@ -1123,10 +1126,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, external_api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/externalApis/{external_api_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1164,11 +1167,11 @@ impl ApiHub {
     /// use google_cloud_apihub_v1::model::ExternalApi;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, external_api_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_external_api()
     ///         .set_external_api(
-    ///             ExternalApi::new().set_name(name)/* set fields */
+    ///             ExternalApi::new().set_name(format!("projects/{project_id}/locations/{location_id}/externalApis/{external_api_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1187,10 +1190,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, name: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str, external_api_id: &str
     /// ) -> Result<()> {
     ///     client.delete_external_api()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/externalApis/{external_api_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1207,10 +1210,10 @@ impl ApiHub {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, parent: &str
+    ///    client: &ApiHub, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_external_apis()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1361,16 +1364,19 @@ impl ApiHub {
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHubDependencies::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_dependencies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1474,10 +1480,10 @@ impl ApiHubDependencies {
     /// use google_cloud_apihub_v1::model::Dependency;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, parent: &str
+    ///    client: &ApiHubDependencies, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dependency()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_dependency_id("dependency_id_value")
     ///         .set_dependency(
     ///             Dependency::new()/* set fields */
@@ -1498,10 +1504,10 @@ impl ApiHubDependencies {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, name: &str
+    ///    client: &ApiHubDependencies, project_id: &str, location_id: &str, dependency_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dependency()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dependencies/{dependency_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1532,11 +1538,11 @@ impl ApiHubDependencies {
     /// use google_cloud_apihub_v1::model::Dependency;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, name: &str
+    ///    client: &ApiHubDependencies, project_id: &str, location_id: &str, dependency_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dependency()
     ///         .set_dependency(
-    ///             Dependency::new().set_name(name)/* set fields */
+    ///             Dependency::new().set_name(format!("projects/{project_id}/locations/{location_id}/dependencies/{dependency_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1555,10 +1561,10 @@ impl ApiHubDependencies {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, name: &str
+    ///    client: &ApiHubDependencies, project_id: &str, location_id: &str, dependency_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dependency()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dependencies/{dependency_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1575,10 +1581,10 @@ impl ApiHubDependencies {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, parent: &str
+    ///    client: &ApiHubDependencies, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dependencies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1729,13 +1735,15 @@ impl ApiHubDependencies {
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHubCollect;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHubCollect::builder().build().await?;
 ///     let response = client.collect_api_data()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1999,16 +2007,19 @@ impl ApiHubCollect {
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHubCurate;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHubCurate::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_curations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2110,10 +2121,10 @@ impl ApiHubCurate {
     /// use google_cloud_apihub_v1::model::Curation;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, parent: &str
+    ///    client: &ApiHubCurate, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_curation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_curation_id("curation_id_value")
     ///         .set_curation(
     ///             Curation::new()/* set fields */
@@ -2134,10 +2145,10 @@ impl ApiHubCurate {
     /// # use google_cloud_apihub_v1::client::ApiHubCurate;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, name: &str
+    ///    client: &ApiHubCurate, project_id: &str, location_id: &str, curation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_curation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/curations/{curation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2155,10 +2166,10 @@ impl ApiHubCurate {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, parent: &str
+    ///    client: &ApiHubCurate, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_curations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2193,11 +2204,11 @@ impl ApiHubCurate {
     /// use google_cloud_apihub_v1::model::Curation;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, name: &str
+    ///    client: &ApiHubCurate, project_id: &str, location_id: &str, curation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_curation()
     ///         .set_curation(
-    ///             Curation::new().set_name(name)/* set fields */
+    ///             Curation::new().set_name(format!("projects/{project_id}/locations/{location_id}/curations/{curation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2217,10 +2228,10 @@ impl ApiHubCurate {
     /// # use google_cloud_apihub_v1::client::ApiHubCurate;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, name: &str
+    ///    client: &ApiHubCurate, project_id: &str, location_id: &str, curation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_curation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/curations/{curation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2368,16 +2379,19 @@ impl ApiHubCurate {
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHubDiscovery::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_discovered_api_observations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2478,10 +2492,10 @@ impl ApiHubDiscovery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, parent: &str
+    ///    client: &ApiHubDiscovery, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_discovered_api_observations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2503,10 +2517,10 @@ impl ApiHubDiscovery {
     /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, name: &str
+    ///    client: &ApiHubDiscovery, project_id: &str, location_id: &str, discovered_api_observation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_api_observation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveredApiObservations/{discovered_api_observation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2527,10 +2541,10 @@ impl ApiHubDiscovery {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, parent: &str
+    ///    client: &ApiHubDiscovery, project_id: &str, location_id: &str, discovered_api_observation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_discovered_api_operations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/discoveredApiObservations/{discovered_api_observation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2552,10 +2566,10 @@ impl ApiHubDiscovery {
     /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, name: &str
+    ///    client: &ApiHubDiscovery, project_id: &str, location_id: &str, discovered_api_observation_id: &str, discovered_api_operation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_api_operation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveredApiObservations/{discovered_api_observation_id}/discoveredApiOperations/{discovered_api_operation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2706,16 +2720,19 @@ impl ApiHubDiscovery {
 /// ```
 /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = HostProjectRegistrationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_host_project_registrations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2823,10 +2840,10 @@ impl HostProjectRegistrationService {
     /// use google_cloud_apihub_v1::model::HostProjectRegistration;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &HostProjectRegistrationService, parent: &str
+    ///    client: &HostProjectRegistrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_host_project_registration()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_host_project_registration(
     ///             HostProjectRegistration::new()/* set fields */
     ///         )
@@ -2850,10 +2867,10 @@ impl HostProjectRegistrationService {
     /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &HostProjectRegistrationService, name: &str
+    ///    client: &HostProjectRegistrationService, project_id: &str, location_id: &str, host_project_registration_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_host_project_registration()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/hostProjectRegistrations/{host_project_registration_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2875,10 +2892,10 @@ impl HostProjectRegistrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &HostProjectRegistrationService, parent: &str
+    ///    client: &HostProjectRegistrationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_host_project_registrations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3040,14 +3057,18 @@ impl HostProjectRegistrationService {
 /// # Example
 /// ```
 /// # use google_cloud_apihub_v1::client::LintingService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    plugin_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = LintingService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_style_guide()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/styleGuide"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3146,10 +3167,10 @@ impl LintingService {
     /// # use google_cloud_apihub_v1::client::LintingService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &LintingService, name: &str
+    ///    client: &LintingService, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_style_guide()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/styleGuide"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3169,11 +3190,11 @@ impl LintingService {
     /// use google_cloud_apihub_v1::model::StyleGuide;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &LintingService, name: &str
+    ///    client: &LintingService, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_style_guide()
     ///         .set_style_guide(
-    ///             StyleGuide::new().set_name(name)/* set fields */
+    ///             StyleGuide::new().set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/styleGuide"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3367,16 +3388,19 @@ impl LintingService {
 /// ```
 /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ApiHubPlugin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_plugins()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3475,10 +3499,10 @@ impl ApiHubPlugin {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, name: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_plugin()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3539,10 +3563,10 @@ impl ApiHubPlugin {
     /// use google_cloud_apihub_v1::model::Plugin;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, parent: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_plugin()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_plugin_id("plugin_id_value")
     ///         .set_plugin(
     ///             Plugin::new()/* set fields */
@@ -3564,10 +3588,10 @@ impl ApiHubPlugin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, parent: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_plugins()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3598,10 +3622,10 @@ impl ApiHubPlugin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, name: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     client.delete_plugin()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3629,10 +3653,10 @@ impl ApiHubPlugin {
     /// use google_cloud_apihub_v1::model::PluginInstance;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, parent: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_plugin_instance()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}"))
     ///         .set_plugin_instance(
     ///             PluginInstance::new()/* set fields */
     ///         )
@@ -3685,10 +3709,10 @@ impl ApiHubPlugin {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, name: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_plugin_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3707,10 +3731,10 @@ impl ApiHubPlugin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, parent: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_plugin_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3821,11 +3845,11 @@ impl ApiHubPlugin {
     /// use google_cloud_apihub_v1::model::PluginInstance;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, name: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_plugin_instance()
     ///         .set_plugin_instance(
-    ///             PluginInstance::new().set_name(name)/* set fields */
+    ///             PluginInstance::new().set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3855,10 +3879,10 @@ impl ApiHubPlugin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, name: &str
+    ///    client: &ApiHubPlugin, project_id: &str, location_id: &str, plugin_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_plugin_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/plugins/{plugin_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4005,14 +4029,18 @@ impl ApiHubPlugin {
 /// # Example
 /// ```
 /// # use google_cloud_apihub_v1::client::Provisioning;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    api_hub_instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Provisioning::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_api_hub_instance()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/apiHubInstances/{api_hub_instance_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4157,10 +4185,10 @@ impl Provisioning {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &Provisioning, name: &str
+    ///    client: &Provisioning, project_id: &str, location_id: &str, api_hub_instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_api_hub_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apiHubInstances/{api_hub_instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4176,10 +4204,10 @@ impl Provisioning {
     /// # use google_cloud_apihub_v1::client::Provisioning;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &Provisioning, name: &str
+    ///    client: &Provisioning, project_id: &str, location_id: &str, api_hub_instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_hub_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apiHubInstances/{api_hub_instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4349,16 +4377,19 @@ impl Provisioning {
 /// ```
 /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RuntimeProjectAttachmentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_runtime_project_attachments()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4462,10 +4493,10 @@ impl RuntimeProjectAttachmentService {
     /// use google_cloud_apihub_v1::model::RuntimeProjectAttachment;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, parent: &str
+    ///    client: &RuntimeProjectAttachmentService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_runtime_project_attachment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_runtime_project_attachment(
     ///             RuntimeProjectAttachment::new()/* set fields */
     ///         )
@@ -4489,10 +4520,10 @@ impl RuntimeProjectAttachmentService {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, name: &str
+    ///    client: &RuntimeProjectAttachmentService, project_id: &str, location_id: &str, runtime_project_attachment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_runtime_project_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/runtimeProjectAttachments/{runtime_project_attachment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4514,10 +4545,10 @@ impl RuntimeProjectAttachmentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, parent: &str
+    ///    client: &RuntimeProjectAttachmentService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_runtime_project_attachments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4541,10 +4572,10 @@ impl RuntimeProjectAttachmentService {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, name: &str
+    ///    client: &RuntimeProjectAttachmentService, project_id: &str, location_id: &str, runtime_project_attachment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_runtime_project_attachment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/runtimeProjectAttachments/{runtime_project_attachment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

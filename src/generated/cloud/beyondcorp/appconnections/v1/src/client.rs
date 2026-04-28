@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AppConnectionsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_app_connections()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -145,10 +148,10 @@ impl AppConnectionsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, parent: &str
+    ///    client: &AppConnectionsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_app_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -169,10 +172,10 @@ impl AppConnectionsService {
     /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, name: &str
+    ///    client: &AppConnectionsService, project_id: &str, location_id: &str, app_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -201,10 +204,10 @@ impl AppConnectionsService {
     /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, parent: &str
+    ///    client: &AppConnectionsService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_app_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_app_connection(
     ///             AppConnection::new()/* set fields */
     ///         )
@@ -240,11 +243,11 @@ impl AppConnectionsService {
     /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, name: &str
+    ///    client: &AppConnectionsService, project_id: &str, location_id: &str, app_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_app_connection()
     ///         .set_app_connection(
-    ///             AppConnection::new().set_name(name)/* set fields */
+    ///             AppConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -276,10 +279,10 @@ impl AppConnectionsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, name: &str
+    ///    client: &AppConnectionsService, project_id: &str, location_id: &str, app_connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_app_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/appConnections/{app_connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

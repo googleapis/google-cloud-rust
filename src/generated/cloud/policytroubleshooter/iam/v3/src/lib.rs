@@ -55,13 +55,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PolicyTroubleshooter::builder().build().await?;
 ///     let response = client.troubleshoot_iam_policy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

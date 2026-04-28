@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_tpu_v2::client::Tpu;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Tpu::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_nodes()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -133,10 +136,10 @@ impl Tpu {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, parent: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_nodes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -155,10 +158,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, node_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -222,10 +225,10 @@ impl Tpu {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, node_id: &str
     /// ) -> Result<()> {
     ///     client.delete_node()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -317,11 +320,11 @@ impl Tpu {
     /// use google_cloud_tpu_v2::model::Node;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, node_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_node()
     ///         .set_node(
-    ///             Node::new().set_name(name)/* set fields */
+    ///             Node::new().set_name(format!("projects/{project_id}/locations/{location_id}/nodes/{node_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -341,10 +344,10 @@ impl Tpu {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, parent: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_queued_resources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -363,10 +366,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, queued_resource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_queued_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -429,10 +432,10 @@ impl Tpu {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, queued_resource_id: &str
     /// ) -> Result<()> {
     ///     client.delete_queued_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/queuedResources/{queued_resource_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -500,10 +503,10 @@ impl Tpu {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, parent: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_accelerator_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -522,10 +525,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, accelerator_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_accelerator_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/acceleratorTypes/{accelerator_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -543,10 +546,10 @@ impl Tpu {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, parent: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_runtime_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -565,10 +568,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, name: &str
+    ///    client: &Tpu, project_id: &str, location_id: &str, runtime_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_runtime_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/runtimeVersions/{runtime_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

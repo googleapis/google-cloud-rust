@@ -21,12 +21,14 @@
 /// # Example
 /// ```
 /// # use google_cloud_trace_v2::client::TraceService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TraceService::builder().build().await?;
 ///     client.batch_write_spans()
 ///         /* set fields */
 ///         .send().await?;
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

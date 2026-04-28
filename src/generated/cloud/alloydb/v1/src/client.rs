@@ -22,13 +22,15 @@
 /// ```
 /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AlloyDBCSQLAdmin::builder().build().await?;
 ///     let response = client.restore_from_cloud_sql()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -293,16 +295,19 @@ impl AlloyDBCSQLAdmin {
 /// ```
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AlloyDBAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -402,10 +407,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -424,10 +429,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -456,10 +461,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Cluster;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -494,11 +499,11 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Cluster;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cluster()
     ///         .set_cluster(
-    ///             Cluster::new().set_name(name)/* set fields */
+    ///             Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -624,10 +629,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -778,10 +783,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -800,10 +805,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -832,10 +837,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Instance;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
@@ -943,11 +948,11 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Instance;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -977,10 +982,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1114,10 +1119,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1136,10 +1141,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1168,10 +1173,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Backup;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
@@ -1206,11 +1211,11 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::Backup;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1240,10 +1245,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1260,10 +1265,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_supported_database_flags()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1331,10 +1336,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_users()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1353,10 +1358,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, user_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1374,10 +1379,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::User;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_user()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_user_id("user_id_value")
     ///         .set_user(
     ///             User::new()/* set fields */
@@ -1401,11 +1406,11 @@ impl AlloyDBAdmin {
     /// use google_cloud_alloydb_v1::model::User;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, user_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_user()
     ///         .set_user(
-    ///             User::new().set_name(name)/* set fields */
+    ///             User::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1424,10 +1429,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, name: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str, user_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/users/{user_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1444,10 +1449,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, parent: &str
+    ///    client: &AlloyDBAdmin, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_databases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

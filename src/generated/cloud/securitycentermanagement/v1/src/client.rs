@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SecurityCenterManagement::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_effective_security_health_analytics_custom_modules()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -139,10 +142,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_effective_security_health_analytics_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -167,10 +170,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, effective_security_health_analytics_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_effective_security_health_analytics_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveSecurityHealthAnalyticsCustomModules/{effective_security_health_analytics_custom_module_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -197,10 +200,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_security_health_analytics_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -229,10 +232,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_descendant_security_health_analytics_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -255,10 +258,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, security_health_analytics_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_security_health_analytics_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -287,10 +290,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_securitycentermanagement_v1::model::SecurityHealthAnalyticsCustomModule;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_security_health_analytics_custom_module()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_security_health_analytics_custom_module(
     ///             SecurityHealthAnalyticsCustomModule::new()/* set fields */
     ///         )
@@ -325,11 +328,11 @@ impl SecurityCenterManagement {
     /// use google_cloud_securitycentermanagement_v1::model::SecurityHealthAnalyticsCustomModule;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, security_health_analytics_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_health_analytics_custom_module()
     ///         .set_security_health_analytics_custom_module(
-    ///             SecurityHealthAnalyticsCustomModule::new().set_name(name)/* set fields */
+    ///             SecurityHealthAnalyticsCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -357,10 +360,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, security_health_analytics_custom_module_id: &str
     /// ) -> Result<()> {
     ///     client.delete_security_health_analytics_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/securityHealthAnalyticsCustomModules/{security_health_analytics_custom_module_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -412,10 +415,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_effective_event_threat_detection_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -451,10 +454,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, effective_event_threat_detection_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_effective_event_threat_detection_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/effectiveEventThreatDetectionCustomModules/{effective_event_threat_detection_custom_module_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -477,10 +480,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_event_threat_detection_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -505,10 +508,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_descendant_event_threat_detection_custom_modules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -530,10 +533,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, event_threat_detection_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event_threat_detection_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -558,10 +561,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_securitycentermanagement_v1::model::EventThreatDetectionCustomModule;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_event_threat_detection_custom_module()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_event_threat_detection_custom_module(
     ///             EventThreatDetectionCustomModule::new()/* set fields */
     ///         )
@@ -593,11 +596,11 @@ impl SecurityCenterManagement {
     /// use google_cloud_securitycentermanagement_v1::model::EventThreatDetectionCustomModule;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, event_threat_detection_custom_module_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_event_threat_detection_custom_module()
     ///         .set_event_threat_detection_custom_module(
-    ///             EventThreatDetectionCustomModule::new().set_name(name)/* set fields */
+    ///             EventThreatDetectionCustomModule::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -622,10 +625,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, organization_id: &str, location_id: &str, event_threat_detection_custom_module_id: &str
     /// ) -> Result<()> {
     ///     client.delete_event_threat_detection_custom_module()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/eventThreatDetectionCustomModules/{event_threat_detection_custom_module_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -669,10 +672,10 @@ impl SecurityCenterManagement {
     /// # use google_cloud_securitycentermanagement_v1::client::SecurityCenterManagement;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_security_center_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/securityCenterServices/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -695,10 +698,10 @@ impl SecurityCenterManagement {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, parent: &str
+    ///    client: &SecurityCenterManagement, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_security_center_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -724,11 +727,11 @@ impl SecurityCenterManagement {
     /// use google_cloud_securitycentermanagement_v1::model::SecurityCenterService;
     /// use google_cloud_securitycentermanagement_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityCenterManagement, name: &str
+    ///    client: &SecurityCenterManagement, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_security_center_service()
     ///         .set_security_center_service(
-    ///             SecurityCenterService::new().set_name(name)/* set fields */
+    ///             SecurityCenterService::new().set_name(format!("projects/{project_id}/locations/{location_id}/securityCenterServices/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

@@ -58,7 +58,8 @@ pub mod stub;
 /// ```
 /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceManager::builder().build().await?;
 ///     let mut list = client.list_services()
 ///         /* set fields */
@@ -66,7 +67,8 @@ pub mod stub;
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

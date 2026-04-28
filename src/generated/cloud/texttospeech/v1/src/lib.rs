@@ -65,13 +65,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = TextToSpeech::builder().build().await?;
 ///     let response = client.list_voices()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

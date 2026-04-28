@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CloudFilestoreManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -175,10 +177,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -248,11 +250,11 @@ impl CloudFilestoreManager {
     /// use google_cloud_filestore_v1::model::Instance;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -348,10 +350,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -369,10 +371,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, parent: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_snapshots()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -391,10 +393,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -423,10 +425,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_filestore_v1::model::Snapshot;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, parent: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snapshot()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_snapshot_id("snapshot_id_value")
     ///         .set_snapshot(
     ///             Snapshot::new()/* set fields */
@@ -458,10 +460,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/snapshots/{snapshot_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -491,11 +493,11 @@ impl CloudFilestoreManager {
     /// use google_cloud_filestore_v1::model::Snapshot;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, instance_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_snapshot()
     ///         .set_snapshot(
-    ///             Snapshot::new().set_name(name)/* set fields */
+    ///             Snapshot::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}/snapshots/{snapshot_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -538,10 +540,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -605,10 +607,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -638,11 +640,11 @@ impl CloudFilestoreManager {
     /// use google_cloud_filestore_v1::model::Backup;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, name: &str
+    ///    client: &CloudFilestoreManager, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;

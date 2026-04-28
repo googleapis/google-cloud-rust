@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_modelarmor_v1::client::ModelArmor;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelArmor::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_templates()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl ModelArmor {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, parent: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, name: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -174,10 +177,10 @@ impl ModelArmor {
     /// use google_cloud_modelarmor_v1::model::Template;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, parent: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_template()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_template_id("template_id_value")
     ///         .set_template(
     ///             Template::new()/* set fields */
@@ -201,11 +204,11 @@ impl ModelArmor {
     /// use google_cloud_modelarmor_v1::model::Template;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, name: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_template()
     ///         .set_template(
-    ///             Template::new().set_name(name)/* set fields */
+    ///             Template::new().set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -224,10 +227,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, name: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str, template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/templates/{template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -243,10 +246,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, name: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_floor_setting()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/floorSetting"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -266,11 +269,11 @@ impl ModelArmor {
     /// use google_cloud_modelarmor_v1::model::FloorSetting;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, name: &str
+    ///    client: &ModelArmor, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_floor_setting()
     ///         .set_floor_setting(
-    ///             FloorSetting::new().set_name(name)/* set fields */
+    ///             FloorSetting::new().set_name(format!("projects/{project_id}/locations/{location_id}/floorSetting"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
