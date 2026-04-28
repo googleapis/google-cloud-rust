@@ -1002,6 +1002,21 @@ pub(crate) mod tests {
         }
     }
 
+    // Used by tests in other modules.
+    mockall::mock! {
+        #[derive(Debug)]
+        pub Credentials {}
+
+        impl crate::credentials::CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: http::Extensions) -> std::result::Result<crate::credentials::CacheableResource<http::HeaderMap>, crate::errors::CredentialsError>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl crate::credentials::AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> std::result::Result<crate::credentials::AccessToken, crate::errors::CredentialsError>;
+        }
+    }
+
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {

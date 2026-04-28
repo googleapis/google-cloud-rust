@@ -637,8 +637,10 @@ pub(crate) fn external_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
-    use crate::credentials::{AccessToken, EntityTag};
+    use crate::credentials::EntityTag;
+    use crate::credentials::tests::{
+        MockCredentials, get_access_boundary_from_headers, get_token_from_headers,
+    };
     use crate::errors::CredentialsError;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use http::header::{AUTHORIZATION, HeaderValue};
@@ -649,21 +651,6 @@ pub(crate) mod tests {
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
-
-    // Used by tests in other modules.
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-
-        impl AccessTokenCredentialsProvider for Credentials {
-            async fn access_token(&self) -> Result<AccessToken>;
-        }
-    }
 
     // Used by tests in other modules.
     mockall::mock! {
