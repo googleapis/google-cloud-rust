@@ -16,6 +16,7 @@
 
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
+#![allow(missing_docs)]
 
 mod debug;
 mod deserialize;

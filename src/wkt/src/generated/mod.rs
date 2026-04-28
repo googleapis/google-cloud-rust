@@ -16,6 +16,7 @@
 
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
+#![allow(missing_docs)]
 use crate as wkt;
 
 mod debug;
