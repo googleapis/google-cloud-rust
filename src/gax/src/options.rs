@@ -186,15 +186,6 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     /// Set the user agent header.
     fn with_user_agent<V: Into<String>>(self, v: V) -> Self;
 
-    /// Sets the user project for the request.
-    ///
-    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
-    /// `x-goog-user-project` header carrying this value and drop any
-    /// `x-goog-user-project` header the credentials provider would have
-    /// emitted from its configured `quota_project_id`, so the wire
-    /// carries exactly one `x-goog-user-project`.
-    fn with_user_project<V: Into<String>>(self, v: V) -> Self;
-
     /// Sets the per-attempt timeout.
     ///
     /// When using a retry loop, this affects the timeout for each attempt. The
@@ -215,6 +206,23 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
+
+    // Methods with a default implementation.
+    // See https://github.com/googleapis/google-cloud-rust/pull/5490 for context.
+
+    /// Sets the user project for the request.
+    ///
+    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
+    /// `x-goog-user-project` header carrying this value and drop any
+    /// `x-goog-user-project` header the credentials provider would have
+    /// emitted from its configured `quota_project_id`, so the wire
+    /// carries exactly one `x-goog-user-project`.
+    fn with_user_project<V: Into<String>>(self, _v: V) -> Self
+    where
+        Self: Sized,
+    {
+        unimplemented!();
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
