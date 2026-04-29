@@ -2621,4 +2621,19 @@ mod tests {
         };
         assert_eq!(impersonation_url.client_email().unwrap(), expected);
     }
+
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal default endpoint")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal custom endpoint")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "https://iam.example.com/v1/user@example.com:generateAccessToken" ; "exact url")]
+    fn access_token_url(impersonation_url: ImpersonationUrl, expected: &str) {
+        assert_eq!(impersonation_url.access_token_url(), expected);
+    }
+
+    #[cfg(feature = "idtoken")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal default endpoint id token")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal custom endpoint id token")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "https://iam.example.com/v1/user@example.com:generateIdToken" ; "exact url id token")]
+    fn id_token_url(impersonation_url: ImpersonationUrl, expected: &str) {
+        assert_eq!(impersonation_url.id_token_url(), expected);
+    }
 }
