@@ -4832,6 +4832,260 @@ impl<'de> serde::de::Deserialize<'de> for super::OperationMetadata {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Control {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __display_name,
+            __description,
+            __family,
+            __control_family,
+            __responsibility_type,
+            __google_responsibility_description,
+            __google_responsibility_implementation,
+            __customer_responsibility_description,
+            __customer_responsibility_implementation,
+            __shared_responsibility_description,
+            __additional_content_uri,
+            __related_frameworks,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Control")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "description" => Ok(__FieldTag::__description),
+                            "family" => Ok(__FieldTag::__family),
+                            "controlFamily" => Ok(__FieldTag::__control_family),
+                            "control_family" => Ok(__FieldTag::__control_family),
+                            "responsibilityType" => Ok(__FieldTag::__responsibility_type),
+                            "responsibility_type" => Ok(__FieldTag::__responsibility_type),
+                            "googleResponsibilityDescription" => {
+                                Ok(__FieldTag::__google_responsibility_description)
+                            }
+                            "google_responsibility_description" => {
+                                Ok(__FieldTag::__google_responsibility_description)
+                            }
+                            "googleResponsibilityImplementation" => {
+                                Ok(__FieldTag::__google_responsibility_implementation)
+                            }
+                            "google_responsibility_implementation" => {
+                                Ok(__FieldTag::__google_responsibility_implementation)
+                            }
+                            "customerResponsibilityDescription" => {
+                                Ok(__FieldTag::__customer_responsibility_description)
+                            }
+                            "customer_responsibility_description" => {
+                                Ok(__FieldTag::__customer_responsibility_description)
+                            }
+                            "customerResponsibilityImplementation" => {
+                                Ok(__FieldTag::__customer_responsibility_implementation)
+                            }
+                            "customer_responsibility_implementation" => {
+                                Ok(__FieldTag::__customer_responsibility_implementation)
+                            }
+                            "sharedResponsibilityDescription" => {
+                                Ok(__FieldTag::__shared_responsibility_description)
+                            }
+                            "shared_responsibility_description" => {
+                                Ok(__FieldTag::__shared_responsibility_description)
+                            }
+                            "additionalContentUri" => Ok(__FieldTag::__additional_content_uri),
+                            "additional_content_uri" => Ok(__FieldTag::__additional_content_uri),
+                            "relatedFrameworks" => Ok(__FieldTag::__related_frameworks),
+                            "related_frameworks" => Ok(__FieldTag::__related_frameworks),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Control;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Control")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__family => {
+                            if !fields.insert(__FieldTag::__family) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for family",
+                                ));
+                            }
+                            result.family = map
+                                .next_value::<std::option::Option<crate::model::control::Family>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__control_family => {
+                            if !fields.insert(__FieldTag::__control_family) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for control_family",
+                                ));
+                            }
+                            result.control_family = map
+                                .next_value::<std::option::Option<crate::model::ControlFamily>>()?;
+                        }
+                        __FieldTag::__responsibility_type => {
+                            if !fields.insert(__FieldTag::__responsibility_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for responsibility_type",
+                                ));
+                            }
+                            result.responsibility_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::RegulatoryControlResponsibilityType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__google_responsibility_description => {
+                            if !fields.insert(__FieldTag::__google_responsibility_description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_responsibility_description",
+                                ));
+                            }
+                            result.google_responsibility_description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__google_responsibility_implementation => {
+                            if !fields.insert(__FieldTag::__google_responsibility_implementation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for google_responsibility_implementation",
+                                ));
+                            }
+                            result.google_responsibility_implementation = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__customer_responsibility_description => {
+                            if !fields.insert(__FieldTag::__customer_responsibility_description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for customer_responsibility_description",
+                                ));
+                            }
+                            result.customer_responsibility_description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__customer_responsibility_implementation => {
+                            if !fields.insert(__FieldTag::__customer_responsibility_implementation)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for customer_responsibility_implementation",
+                                ));
+                            }
+                            result.customer_responsibility_implementation = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shared_responsibility_description => {
+                            if !fields.insert(__FieldTag::__shared_responsibility_description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shared_responsibility_description",
+                                ));
+                            }
+                            result.shared_responsibility_description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__additional_content_uri => {
+                            if !fields.insert(__FieldTag::__additional_content_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additional_content_uri",
+                                ));
+                            }
+                            result.additional_content_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__related_frameworks => {
+                            if !fields.insert(__FieldTag::__related_frameworks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for related_frameworks",
+                                ));
+                            }
+                            result.related_frameworks = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::ControlFamily {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -8129,6 +8383,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListFrameworkComplianceSummarie
             __page_size,
             __page_token,
             __filter,
+            __view,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8156,6 +8411,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ListFrameworkComplianceSummarie
                             "pageToken" => Ok(__FieldTag::__page_token),
                             "page_token" => Ok(__FieldTag::__page_token),
                             "filter" => Ok(__FieldTag::__filter),
+                            "view" => Ok(__FieldTag::__view),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8228,6 +8484,18 @@ impl<'de> serde::de::Deserialize<'de> for super::ListFrameworkComplianceSummarie
                             }
                             result.filter = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__view => {
+                            if !fields.insert(__FieldTag::__view) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for view",
+                                ));
+                            }
+                            result.view =
+                                map.next_value::<std::option::Option<
+                                    crate::model::FrameworkComplianceSummaryView,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -8604,6 +8872,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FetchFrameworkComplianceReportR
         enum __FieldTag {
             __name,
             __end_time,
+            __filter,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8628,6 +8897,7 @@ impl<'de> serde::de::Deserialize<'de> for super::FetchFrameworkComplianceReportR
                             "name" => Ok(__FieldTag::__name),
                             "endTime" => Ok(__FieldTag::__end_time),
                             "end_time" => Ok(__FieldTag::__end_time),
+                            "filter" => Ok(__FieldTag::__filter),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8671,6 +8941,16 @@ impl<'de> serde::de::Deserialize<'de> for super::FetchFrameworkComplianceReportR
                             }
                             result.end_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9538,6 +9818,8 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkComplianceSummary {
             __major_revision_id,
             __minor_revision_id,
             __target_resource_details,
+            __finding_count,
+            __controls_passing_trend,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -9584,6 +9866,10 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkComplianceSummary {
                             "minor_revision_id" => Ok(__FieldTag::__minor_revision_id),
                             "targetResourceDetails" => Ok(__FieldTag::__target_resource_details),
                             "target_resource_details" => Ok(__FieldTag::__target_resource_details),
+                            "findingCount" => Ok(__FieldTag::__finding_count),
+                            "finding_count" => Ok(__FieldTag::__finding_count),
+                            "controlsPassingTrend" => Ok(__FieldTag::__controls_passing_trend),
+                            "controls_passing_trend" => Ok(__FieldTag::__controls_passing_trend),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -9727,6 +10013,35 @@ impl<'de> serde::de::Deserialize<'de> for super::FrameworkComplianceSummary {
                                     std::vec::Vec<crate::model::TargetResourceDetails>,
                                 >>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__finding_count => {
+                            if !fields.insert(__FieldTag::__finding_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for finding_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.finding_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__controls_passing_trend => {
+                            if !fields.insert(__FieldTag::__controls_passing_trend) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for controls_passing_trend",
+                                ));
+                            }
+                            result.controls_passing_trend =
+                                map.next_value::<std::option::Option<crate::model::Trend>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -11006,6 +11321,108 @@ impl<'de> serde::de::Deserialize<'de> for super::TargetResourceDetails {
                                 }
                             }
                             result.minor_revision_id =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Trend {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __duration,
+            __value_percent,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Trend")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "duration" => Ok(__FieldTag::__duration),
+                            "valuePercent" => Ok(__FieldTag::__value_percent),
+                            "value_percent" => Ok(__FieldTag::__value_percent),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Trend;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Trend")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__duration => {
+                            if !fields.insert(__FieldTag::__duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration",
+                                ));
+                            }
+                            result.duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__value_percent => {
+                            if !fields.insert(__FieldTag::__value_percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.value_percent =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

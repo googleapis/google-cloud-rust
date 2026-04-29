@@ -381,6 +381,18 @@ impl std::fmt::Debug for super::Counters {
         debug_struct.field("succeeded_object_count", &self.succeeded_object_count);
         debug_struct.field("failed_object_count", &self.failed_object_count);
         debug_struct.field("total_bytes_found", &self.total_bytes_found);
+        debug_struct.field(
+            "object_custom_contexts_created",
+            &self.object_custom_contexts_created,
+        );
+        debug_struct.field(
+            "object_custom_contexts_deleted",
+            &self.object_custom_contexts_deleted,
+        );
+        debug_struct.field(
+            "object_custom_contexts_updated",
+            &self.object_custom_contexts_updated,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

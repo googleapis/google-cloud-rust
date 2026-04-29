@@ -653,6 +653,21 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -662,6 +677,16 @@ impl super::stub::Audit for Audit {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "name",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }
@@ -714,6 +739,23 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -728,6 +770,21 @@ impl super::stub::Audit for Audit {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -785,6 +842,28 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -799,6 +878,21 @@ impl super::stub::Audit for Audit {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -853,6 +947,25 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -869,6 +982,23 @@ impl super::stub::Audit for Audit {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -923,6 +1053,25 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -939,6 +1088,23 @@ impl super::stub::Audit for Audit {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -999,6 +1165,25 @@ impl super::stub::Audit for Audit {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1015,6 +1200,23 @@ impl super::stub::Audit for Audit {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1447,6 +1649,21 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1456,6 +1673,16 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "name",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1508,6 +1735,23 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1522,6 +1766,21 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1579,6 +1838,28 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1593,6 +1874,21 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1647,6 +1943,25 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1663,6 +1978,23 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1717,6 +2049,25 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1733,6 +2084,23 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1793,6 +2161,25 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1809,6 +2196,23 @@ impl super::stub::CmEnrollmentService for CmEnrollmentService {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1900,6 +2304,27 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/frameworks", var_parent,);
+                let path_template = "/v1/{parent}/frameworks";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1914,6 +2339,21 @@ impl super::stub::Config for Config {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1972,6 +2412,28 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/frameworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("majorRevisionId", &req.major_revision_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1988,6 +2450,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/frameworks/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/frameworks/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/frameworks/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2044,6 +2523,26 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/frameworks", var_parent,);
+                let path_template = "/v1/{parent}/frameworks";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("frameworkId", &req.framework_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2058,6 +2557,21 @@ impl super::stub::Config for Config {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2131,6 +2645,41 @@ impl super::stub::Config for Config {
                 })();
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
+            .or_else(|| {
+                let var_framework_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.framework.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/frameworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_framework_name,);
+                let path_template = "/v1/{framework.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    let builder = builder.query(&[("majorRevisionId", &req.major_revision_id)]);
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2150,6 +2699,26 @@ impl super::stub::Config for Config {
                         ],
                         "framework.name",
                         "organizations/*/locations/*/frameworks/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.framework.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/frameworks/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "framework.name",
+                        "projects/*/locations/*/frameworks/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2208,6 +2777,27 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/frameworks/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2224,6 +2814,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/frameworks/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/frameworks/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/frameworks/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2289,6 +2896,27 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudControls", var_parent,);
+                let path_template = "/v1/{parent}/cloudControls";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2303,6 +2931,21 @@ impl super::stub::Config for Config {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2363,6 +3006,28 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudControls/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("majorRevisionId", &req.major_revision_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2379,6 +3044,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/cloudControls/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudControls/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/cloudControls/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2437,6 +3119,26 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudControls", var_parent,);
+                let path_template = "/v1/{parent}/cloudControls";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = builder.query(&[("cloudControlId", &req.cloud_control_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2451,6 +3153,21 @@ impl super::stub::Config for Config {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2523,6 +3240,40 @@ impl super::stub::Config for Config {
                 })();
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
+            .or_else(|| {
+                let var_cloud_control_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.cloud_control.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudControls/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_cloud_control_name,);
+                let path_template = "/v1/{cloud_control.name}";
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2542,6 +3293,26 @@ impl super::stub::Config for Config {
                         ],
                         "cloud_control.name",
                         "organizations/*/locations/*/cloudControls/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.cloud_control.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudControls/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "cloud_control.name",
+                        "projects/*/locations/*/cloudControls/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2600,6 +3371,27 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudControls/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2616,6 +3408,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/cloudControls/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudControls/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/cloudControls/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2675,6 +3484,21 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2684,6 +3508,16 @@ impl super::stub::Config for Config {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "name",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2736,6 +3570,23 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2750,6 +3601,21 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2807,6 +3673,28 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2821,6 +3709,21 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2875,6 +3778,25 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2891,6 +3813,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2945,6 +3884,25 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -2961,6 +3919,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3021,6 +3996,25 @@ impl super::stub::Config for Config {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3037,6 +4031,23 @@ impl super::stub::Config for Config {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3128,6 +4139,27 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/frameworkDeployments", var_parent,);
+                let path_template = "/v1/{parent}/frameworkDeployments";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::POST, path);
+                let builder =
+                    builder.query(&[("frameworkDeploymentId", &req.framework_deployment_id)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3142,6 +4174,21 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3200,6 +4247,28 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/frameworkDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = builder.query(&[("etag", &req.etag)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3216,6 +4285,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/frameworkDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/frameworkDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/frameworkDeployments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3273,6 +4359,27 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/frameworkDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3289,6 +4396,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/frameworkDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/frameworkDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/frameworkDeployments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3350,6 +4474,29 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/frameworkDeployments", var_parent,);
+                let path_template = "/v1/{parent}/frameworkDeployments";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3364,6 +4511,21 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3421,6 +4583,27 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cloudControlDeployments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_name,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3437,6 +4620,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/cloudControlDeployments/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/cloudControlDeployments/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/cloudControlDeployments/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3496,6 +4696,29 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
+            .or_else(|| {
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/cloudControlDeployments", var_parent,);
+                let path_template = "/v1/{parent}/cloudControlDeployments";
+
+                let resource_name =
+                    format!("//cloudsecuritycompliance.googleapis.com/{}", var_parent,);
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("orderBy", &req.order_by)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3510,6 +4733,21 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "parent",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "parent",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3561,6 +4799,21 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3570,6 +4823,16 @@ impl super::stub::Deployment for Deployment {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "name",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3622,6 +4885,23 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3636,6 +4916,21 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3693,6 +4988,28 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3707,6 +5024,21 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3761,6 +5093,25 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3777,6 +5128,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3831,6 +5199,25 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3847,6 +5234,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3907,6 +5311,25 @@ impl super::stub::Deployment for Deployment {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -3923,6 +5346,23 @@ impl super::stub::Deployment for Deployment {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -4026,6 +5466,7 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4048,6 +5489,7 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4070,6 +5512,7 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("view", &req.view)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
             })
@@ -4366,6 +5809,7 @@ impl super::stub::Monitoring for Monitoring {
                             use gaxi::query_parameter::QueryParameter;
                             v.add(builder, "endTime")
                         });
+                    let builder = builder.query(&[("filter", &req.filter)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -4399,6 +5843,7 @@ impl super::stub::Monitoring for Monitoring {
                             use gaxi::query_parameter::QueryParameter;
                             v.add(builder, "endTime")
                         });
+                    let builder = builder.query(&[("filter", &req.filter)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -4432,6 +5877,7 @@ impl super::stub::Monitoring for Monitoring {
                             use gaxi::query_parameter::QueryParameter;
                             v.add(builder, "endTime")
                         });
+                    let builder = builder.query(&[("filter", &req.filter)]);
                     Ok(builder)
                 })();
                 Some(builder.map(|b| (b, Method::GET, path_template, resource_name)))
@@ -4919,6 +6365,21 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/locations", var_name,);
+                let path_template = "/v1/{name}/locations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -4928,6 +6389,16 @@ impl super::stub::Monitoring for Monitoring {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "name",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "name",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }
@@ -4980,6 +6451,23 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -4994,6 +6482,21 @@ impl super::stub::Monitoring for Monitoring {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5051,6 +6554,28 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/operations", var_name,);
+                let path_template = "/v1/{name}/operations";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder =
+                    builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -5065,6 +6590,21 @@ impl super::stub::Monitoring for Monitoring {
                         ],
                         "name",
                         "organizations/*/locations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5119,6 +6659,25 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -5135,6 +6694,23 @@ impl super::stub::Monitoring for Monitoring {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5189,6 +6765,25 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
+                let path_template = "/v1/{name}";
+
+                let builder = self.inner.builder(Method::DELETE, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::DELETE, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -5205,6 +6800,23 @@ impl super::stub::Monitoring for Monitoring {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -5265,6 +6877,25 @@ impl super::stub::Monitoring for Monitoring {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
+            .or_else(|| {
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:cancel", var_name,);
+                let path_template = "/v1/{name}:cancel";
+
+                let builder = self.inner.builder(Method::POST, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::POST, path_template)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -5281,6 +6912,23 @@ impl super::stub::Monitoring for Monitoring {
                         ],
                         "name",
                         "organizations/*/locations/*/operations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/operations/"),
+                            Segment::SingleWildcard,
+                        ],
+                        "name",
+                        "projects/*/locations/*/operations/*",
                     );
                     paths.push(builder.build());
                 }
