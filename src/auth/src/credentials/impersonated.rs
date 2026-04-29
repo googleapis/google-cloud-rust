@@ -981,6 +981,7 @@ struct GenerateAccessTokenResponse {
 mod tests {
     use super::*;
     use crate::credentials::service_account::ServiceAccountKey;
+    use crate::credentials::tests::MockCredentials;
     use crate::credentials::tests::PKCS8_PK;
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
@@ -1485,22 +1486,10 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_impersonated_service_account_source_fail() -> TestResult {
-        #[derive(Debug)]
-        struct MockSourceCredentialsFail;
-
-        #[async_trait]
-        impl CredentialsProvider for MockSourceCredentialsFail {
-            async fn headers(
-                &self,
-                _extensions: Extensions,
-            ) -> Result<CacheableResource<HeaderMap>> {
-                Err(errors::non_retryable_from_str("source failed"))
-            }
-        }
-
-        let source_credentials = Credentials {
-            inner: Arc::new(MockSourceCredentialsFail),
-        };
+        let mut mock = MockCredentials::new();
+        mock.expect_headers()
+            .returning(|_| Err(errors::non_retryable_from_str("source failed")));
+        let source_credentials = Credentials::from(mock);
 
         let token_provider = ImpersonatedTokenProvider {
             source_credentials,
@@ -2633,35 +2622,6 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_impersonated_access_token_custom_universe_domain() -> TestResult {
-        use crate::credentials::CredentialsProvider;
-
-        #[derive(Debug)]
-        struct MockSourceCredentials {
-            universe_domain: Option<String>,
-            token: String,
-        }
-
-        impl CredentialsProvider for MockSourceCredentials {
-            async fn headers(
-                &self,
-                _extensions: Extensions,
-            ) -> Result<CacheableResource<HeaderMap>> {
-                let mut headers = HeaderMap::new();
-                headers.insert(
-                    "authorization",
-                    format!("Bearer {}", self.token).parse().unwrap(),
-                );
-                Ok(CacheableResource::New {
-                    entity_tag: Default::default(),
-                    data: headers,
-                })
-            }
-
-            async fn universe_domain(&self) -> Option<String> {
-                self.universe_domain.clone()
-            }
-        }
-
         let server = Server::run();
         let universe_domain = "my-custom-universe.com".to_string();
         let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
@@ -2685,10 +2645,22 @@ mod tests {
             }))),
         );
 
-        let source_credentials = Credentials::from(MockSourceCredentials {
-            universe_domain: Some(universe_domain.clone()),
-            token: "test-user-account-token".to_string(),
+        let universe_domain_clone = universe_domain.clone();
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(move || Some(universe_domain_clone.clone()));
+        mock.expect_headers().returning(move |_| {
+            let mut headers = HeaderMap::new();
+            headers.insert(
+                "authorization",
+                "Bearer test-user-account-token".parse().unwrap(),
+            );
+            Ok(CacheableResource::New {
+                entity_tag: Default::default(),
+                data: headers,
+            })
         });
+        let source_credentials = Credentials::from(mock);
 
         let builder = Builder::from_source_credentials(source_credentials.clone())
             .with_target_principal("test-principal");

@@ -463,6 +463,7 @@ struct GenerateIdTokenResponse {
 mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
+    use crate::credentials::tests::MockCredentials;
     use crate::credentials::tests::{
         get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
     };
@@ -800,35 +801,6 @@ mod tests {
 
     #[tokio::test]
     async fn test_impersonated_id_token_custom_universe_domain() -> TestResult {
-        use crate::credentials::CredentialsProvider;
-
-        #[derive(Debug)]
-        struct MockSourceCredentials {
-            universe_domain: Option<String>,
-            token: String,
-        }
-
-        impl CredentialsProvider for MockSourceCredentials {
-            async fn headers(
-                &self,
-                _extensions: Extensions,
-            ) -> Result<CacheableResource<HeaderMap>> {
-                let mut headers = HeaderMap::new();
-                headers.insert(
-                    "authorization",
-                    format!("Bearer {}", self.token).parse().unwrap(),
-                );
-                Ok(CacheableResource::New {
-                    entity_tag: Default::default(),
-                    data: headers,
-                })
-            }
-
-            async fn universe_domain(&self) -> Option<String> {
-                self.universe_domain.clone()
-            }
-        }
-
         let audience = "test-audience";
         let token_string = generate_test_id_token(audience);
         let server = Server::run();
@@ -853,10 +825,22 @@ mod tests {
             }))),
         );
 
-        let source_credentials = Credentials::from(MockSourceCredentials {
-            universe_domain: Some(universe_domain.clone()),
-            token: "test-user-account-token".to_string(),
+        let universe_domain_clone = universe_domain.clone();
+        let mut mock = MockCredentials::new();
+        mock.expect_universe_domain()
+            .returning(move || Some(universe_domain_clone.clone()));
+        mock.expect_headers().returning(move |_| {
+            let mut headers = HeaderMap::new();
+            headers.insert(
+                "authorization",
+                "Bearer test-user-account-token".parse().unwrap(),
+            );
+            Ok(CacheableResource::New {
+                entity_tag: Default::default(),
+                data: headers,
+            })
         });
+        let source_credentials = Credentials::from(mock);
 
         let builder = Builder::from_source_credentials(
             audience,
