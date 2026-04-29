@@ -205,6 +205,7 @@ mod tests {
     use google_cloud_gax::retry_result::RetryResult;
     use google_cloud_gax::retry_state::RetryState;
     use google_cloud_gax::retry_throttler::CircuitBreaker;
+    use google_cloud_gax::throttle_result::ThrottleResult;
     use google_cloud_rpc::model::ErrorInfo;
     use mockall::Sequence;
     use std::time::Duration;
@@ -223,6 +224,20 @@ mod tests {
         pub Rpc {
             async fn call(&self, ids: Vec<String>) -> crate::Result<()>;
         }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+        impl RetryPolicy for RetryPolicy {
+            fn on_error(&self, state: &RetryState, error: Error) -> RetryResult;
+            fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, state: &RetryState) -> Option<Duration>;
+        }
+    }
+
+    fn to_retry_policy(m: MockRetryPolicy) -> Arc<dyn RetryPolicy> {
+        Arc::new(m)
     }
 
     fn test_retry_throttler() -> SharedRetryThrottler {
@@ -713,6 +728,64 @@ mod tests {
         let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
             .into_iter()
             .collect();
+        assert_eq!(confirmed_acks, expected);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn exactly_once_retry_loop_exhausted() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+
+        let mut mock = MockRpc::new();
+        mock.expect_call()
+            .once()
+            .withf(|ids| sorted(ids) == test_ids(1..3))
+            .returning(|_| {
+                let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
+                response_with_error_info(vec![info]).map(|_| ())
+            });
+
+        let mock = Arc::new(tokio::sync::Mutex::new(mock));
+        let inner = async move |ids| mock.lock().await.call(ids).await;
+
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy.expect_remaining_time().return_const(None);
+        retry_policy
+            .expect_on_error()
+            .once()
+            .returning(|_, e| RetryResult::Exhausted(e));
+
+        exactly_once_retry_loop(
+            test_ids(1..3),
+            inner,
+            confirmed_tx,
+            test_retry_throttler(),
+            to_retry_policy(retry_policy),
+            Arc::new(ExponentialBackoff::default()),
+        )
+        .await;
+
+        // test id 2 should be confirmed as success
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+        let expected = [(test_id(2), Ok(()))].into_iter().collect();
+        assert_eq!(confirmed_acks, expected);
+
+        // test id 1 should be confirmed as error because retry was exhausted
+        let confirmed_acks = confirmed_rx
+            .recv()
+            .await
+            .expect("exhausted retry error were not sent");
+
+        let err = AckError::Rpc {
+            source: Arc::new(
+                response_with_error_info(vec![
+                    ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]),
+                ])
+                .unwrap_err(),
+            ),
+        };
+        let expected = [(test_id(1), Err(err))].into_iter().collect();
         assert_eq!(confirmed_acks, expected);
 
         Ok(())
