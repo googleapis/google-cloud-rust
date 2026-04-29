@@ -16,8 +16,8 @@
 set -ev
 
 echo "==== Install protoc ===="
-curl -fsSL --retry 5 --retry-delay 15 -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v31.0/protoc-31.0-linux-x86_64.zip
-sha256sum -c <(echo 24e2ed32060b7c990d5eb00d642fde04869d7f77c6d443f609353f097799dd42 /tmp/protoc.zip)
+curl -fsSL --retry 5 --retry-delay 15 -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v33.2/protoc-33.2-linux-x86_64.zip
+sha256sum -c <(echo b24b53f87c151bfd48b112fe4c3a6e6574e5198874f38036aff41df3456b8caf /tmp/protoc.zip)
 env -C /usr/local unzip -x /tmp/protoc.zip
 protoc --version
 
