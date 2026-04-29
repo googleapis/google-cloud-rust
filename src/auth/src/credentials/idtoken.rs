@@ -287,6 +287,10 @@ fn build_id_token_credentials_internal(
                     // never gonna be supported for id tokens
                     Err(BuilderError::not_supported(cred_type))
                 }
+                "gdch_service_account" => {
+                    // TODO: Implement idtoken support for gdch_service_account
+                    Err(BuilderError::not_supported(cred_type))
+                }
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
