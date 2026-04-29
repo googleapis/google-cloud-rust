@@ -17,7 +17,6 @@ use super::handler::AckResult;
 use super::retry_policy::{StreamRetryPolicy, exactly_once_options, rpc_options};
 use super::stub::Stub;
 use crate::RequestOptions;
-use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
@@ -190,27 +189,29 @@ where
     }
 
     async fn confirmed_nack(&self, ack_ids: Vec<String>) {
-        let req = ModifyAckDeadlineRequest::new()
-            .set_subscription(self.subscription.clone())
-            .set_ack_ids(ack_ids.clone())
-            .set_ack_deadline_seconds(0);
-        let response = self
-            .inner
-            .modify_ack_deadline(req, self.options.clone())
-            .await;
-        let shared_result = response.map(|_| ()).map_err(Arc::new);
-        let confirmed_acks = ack_ids
-            .into_iter()
-            .map(|id| {
-                (
-                    id,
-                    shared_result
-                        .clone()
-                        .map_err(|source| AckError::Rpc { source }),
-                )
-            })
-            .collect();
-        let _ = self.confirmed_tx.send(confirmed_acks);
+        let leaser = self.clone();
+        let options = self.options.clone();
+        let inner = async move |ids: Vec<String>| {
+            let req = ModifyAckDeadlineRequest::new()
+                .set_subscription(leaser.subscription.clone())
+                .set_ack_ids(ids)
+                .set_ack_deadline_seconds(0);
+            leaser
+                .inner
+                .modify_ack_deadline(req, options.clone())
+                .await
+                .map(|_| ())
+        };
+        // TODO(#4804): update retry policy time limit to max lease extension.
+        exactly_once_retry_loop(
+            ack_ids,
+            inner,
+            self.confirmed_tx.clone(),
+            retry_throttler(&self.exactly_once_options),
+            retry_policy(&self.exactly_once_options),
+            self.backoff.clone(),
+        )
+        .await;
     }
 }
 
@@ -455,6 +456,48 @@ pub(super) mod tests {
 
         // Verify all acks were successful.
         for (ack_id, result) in &confirmed_acks {
+            assert!(
+                result.is_ok(),
+                "Expected success for {ack_id}, got {result:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_nack() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        mock.expect_modify_ack_deadline()
+            .times(1)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_deadline_seconds, 0);
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Ok(Response::from(()))
+            });
+
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_nack(test_ids(0..10)).await;
+
+        let confirmed_nacks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ids have a result.
+        let ack_ids: Vec<_> = confirmed_nacks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all nacks were successful.
+        for (ack_id, result) in &confirmed_nacks {
             assert!(
                 result.is_ok(),
                 "Expected success for {ack_id}, got {result:?}"
