@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::exactly_once_retry::process_attempt_error;
+use super::exactly_once_retry::exactly_once_retry_loop;
 use super::handler::AckResult;
-use super::retry_policy::StreamRetryPolicy;
-use super::retry_policy::{exactly_once_options, rpc_options};
+use super::retry_policy::{StreamRetryPolicy, exactly_once_options, rpc_options};
 use super::stub::Stub;
 use crate::RequestOptions;
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoff;
-use google_cloud_gax::retry_loop_internal::retry_loop;
 use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_throttler::{CircuitBreaker, SharedRetryThrottler};
 use std::collections::HashMap;
@@ -167,97 +165,28 @@ where
         }
     }
 
-    /// The exactly-once ack retry loop.
-    ///
-    /// The request has N ack IDs. The server can tell us the result of
-    /// individual acks in the response metadata.
-    ///
-    /// If the result for an ack ID is a success or permanent error, we can
-    /// report it, and remove that ack ID from subsequent attempts of the RPC.
-    ///
-    /// Results are reported via the channel, as they are known. This lets us
-    /// keep the retry logic in the leaser, while allowing for partial results
-    /// to be reported before the entire operation completes.
     async fn confirmed_ack(&self, ack_ids: Vec<String>) {
-        // TODO(#5408): Investigate solutions that avoid using Arc/Mutex.
-        let remaining_ids = Arc::new(Mutex::new(ack_ids));
-        let last_error = Arc::new(Mutex::new(None));
-
-        let attempt = {
-            let remaining_ids = remaining_ids.clone();
-            let last_error = last_error.clone();
-            let leaser = self.clone();
-            let options = self.options.clone();
-            async move |_| {
-                let ids = {
-                    let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
-                    std::mem::take(&mut *ids_guard)
-                };
-
-                let req = AcknowledgeRequest::new()
-                    .set_subscription(leaser.subscription.clone())
-                    .set_ack_ids(ids.clone());
-                let response = leaser.inner.acknowledge(req, options.clone()).await;
-
-                let (to_confirm, remaining) = match response {
-                    Ok(_) => (ids.into_iter().map(|id| (id, Ok(()))).collect(), Vec::new()),
-                    Err(e) => {
-                        let shared_err = Arc::new(e);
-                        let (to_confirm, remaining) =
-                            process_attempt_error(ids, shared_err.clone());
-
-                        if !remaining.is_empty() {
-                            let mut err_guard =
-                                last_error.lock().expect("mutex should not be poisoned");
-                            *err_guard = Some(shared_err);
-                        }
-
-                        (to_confirm, remaining)
-                    }
-                };
-                let _ = leaser.confirmed_tx.send(to_confirm);
-                if remaining.is_empty() {
-                    Ok(())
-                } else {
-                    let mut ids_guard = remaining_ids.lock().expect("mutex should not be poisoned");
-                    *ids_guard = remaining;
-                    // Return a synthetic error to indicate that we should retry.
-                    Err(crate::Error::transport(http::HeaderMap::new(), "retry me"))
-                }
-            }
+        let leaser = self.clone();
+        let options = self.options.clone();
+        let inner = async move |ids: Vec<String>| {
+            let req = AcknowledgeRequest::new()
+                .set_subscription(leaser.subscription.clone())
+                .set_ack_ids(ids);
+            leaser
+                .inner
+                .acknowledge(req, options.clone())
+                .await
+                .map(|_| ())
         };
-
-        let sleep = async |d| tokio::time::sleep(d).await;
-        let _ = retry_loop(
-            attempt,
-            sleep,
-            true,
+        exactly_once_retry_loop(
+            ack_ids,
+            inner,
+            self.confirmed_tx.clone(),
             retry_throttler(&self.exactly_once_options),
             retry_policy(&self.exactly_once_options),
             self.backoff.clone(),
         )
         .await;
-
-        let final_remaining =
-            std::mem::take(&mut *remaining_ids.lock().expect("mutex should not be poisoned"));
-        if !final_remaining.is_empty() {
-            let err =
-                std::mem::take(&mut *last_error.lock().expect("mutex should not be poisoned"));
-            if let Some(shared_err) = err {
-                let confirmed_acks = final_remaining
-                    .into_iter()
-                    .map(|id| {
-                        (
-                            id,
-                            Err(AckError::Rpc {
-                                source: shared_err.clone(),
-                            }),
-                        )
-                    })
-                    .collect();
-                let _ = self.confirmed_tx.send(confirmed_acks);
-            }
-        }
     }
 
     async fn confirmed_nack(&self, ack_ids: Vec<String>) {
@@ -310,17 +239,12 @@ fn retry_throttler(options: &RequestOptions) -> SharedRetryThrottler {
 
 #[cfg(test)]
 pub(super) mod tests {
-    use super::super::lease_state::tests::{sorted, test_id, test_ids};
+    use super::super::lease_state::tests::{sorted, test_ids};
     use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
-    use crate::{Error, Response, Result};
-    use google_cloud_gax::error::rpc::StatusDetails;
+    use crate::{Error, Response};
     use google_cloud_gax::error::rpc::{Code, Status};
-    use google_cloud_gax::retry_state::RetryState;
-    use google_cloud_rpc::model::ErrorInfo;
-    use mockall::Sequence;
-    use std::time::Duration;
     use tokio::sync::Mutex;
     use tokio::sync::mpsc::unbounded_channel;
 
@@ -373,23 +297,6 @@ pub(super) mod tests {
         async fn confirmed_nack(&self, ack_ids: Vec<String>) {
             self.lock().await.confirmed_nack(ack_ids).await
         }
-    }
-
-    mockall::mock! {
-        #[derive(Debug)]
-        pub(in super::super) BackoffPolicy {}
-        impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, state: &RetryState) -> Duration;
-        }
-    }
-
-    fn response_with_error_info(infos: Vec<ErrorInfo>) -> Result<Response<()>> {
-        Err(Error::service(
-            Status::default()
-                .set_code(Code::FailedPrecondition)
-                .set_message("fail")
-                .set_details(infos.into_iter().map(StatusDetails::ErrorInfo)),
-        ))
     }
 
     #[test]
@@ -518,7 +425,7 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
-    async fn confirmed_ack_success() -> anyhow::Result<()> {
+    async fn confirmed_ack() -> anyhow::Result<()> {
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -553,206 +460,6 @@ pub(super) mod tests {
                 "Expected success for {ack_id}, got {result:?}"
             );
         }
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn confirmed_ack_failure() -> anyhow::Result<()> {
-        let mut mock = MockStub::new();
-        mock.expect_acknowledge().times(1).return_once(|r, o| {
-            assert_eq!(
-                r.subscription,
-                "projects/my-project/subscriptions/my-subscription"
-            );
-            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
-            verify_policies(o, 16);
-            Err(Error::service(
-                Status::default()
-                    .set_code(Code::FailedPrecondition)
-                    .set_message("fail"),
-            ))
-        });
-
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            16_usize,
-        );
-        leaser.confirmed_ack(test_ids(0..10)).await;
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-
-        // Verify all ack IDs have a result
-        let ack_ids: Vec<_> = confirmed_acks.keys().cloned().collect();
-        assert_eq!(sorted(&ack_ids), test_ids(0..10));
-
-        // Verify all values match the specific error
-        for (ack_id, result) in &confirmed_acks {
-            match result {
-                Err(AckError::Rpc { source, .. }) => {
-                    let status = source.status().expect("RPC source should have a status");
-                    assert_eq!(status.code, Code::FailedPrecondition);
-                    assert_eq!(status.message, "fail");
-                }
-                _ => panic!("Expected RPC error for {ack_id}, got {result:?}"),
-            }
-        }
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn confirmed_ack_partial_transient_failure_retry_failure() -> anyhow::Result<()> {
-        let mut mock = MockStub::new();
-        let mut seq = Sequence::new();
-
-        let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
-        let err = response_with_error_info(vec![info.clone()]).unwrap_err();
-
-        mock.expect_acknowledge()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |r, _o| {
-                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
-                Err(err)
-            });
-
-        mock.expect_acknowledge()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |r, _o| {
-                assert_eq!(r.ack_ids, vec![test_id(1)]);
-                Err(crate::Error::service(
-                    Status::default()
-                        .set_code(Code::FailedPrecondition)
-                        .set_message("non-retryable failure"),
-                ))
-            });
-
-        let mut mock_backoff = MockBackoffPolicy::new();
-        mock_backoff
-            .expect_on_failure()
-            .times(1)
-            .return_const(std::time::Duration::ZERO);
-
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let leaser = DefaultLeaser::new_with_backoff(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            16_usize,
-            Arc::new(mock_backoff),
-        );
-        leaser.confirmed_ack(test_ids(1..3)).await;
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        let expected = [(test_id(2), Ok(()))].into_iter().collect();
-        assert_eq!(confirmed_acks, expected);
-
-        let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
-        let err = AckError::Rpc {
-            source: Arc::new(crate::Error::service(
-                Status::default()
-                    .set_code(Code::FailedPrecondition)
-                    .set_message("non-retryable failure"),
-            )),
-        };
-        let expected_final = [(test_id(1), Err(err))].into_iter().collect();
-        assert_eq!(confirmed_acks_final, expected_final);
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn confirmed_ack_partial_transient_failure_retry_success() -> anyhow::Result<()> {
-        let mut mock = MockStub::new();
-        let mut seq = Sequence::new();
-
-        let info = ErrorInfo::new().set_metadata([(test_id(1), "TRANSIENT_FAILURE_OTHER")]);
-        let err = response_with_error_info(vec![info]).unwrap_err();
-
-        mock.expect_acknowledge()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |r, _o| {
-                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
-                Err(err)
-            });
-
-        mock.expect_acknowledge()
-            .times(1)
-            .in_sequence(&mut seq)
-            .return_once(move |r, _o| {
-                assert_eq!(r.ack_ids, vec![test_id(1)]);
-                Ok(Response::from(()))
-            });
-
-        let mut mock_backoff = MockBackoffPolicy::new();
-        mock_backoff
-            .expect_on_failure()
-            .times(1)
-            .return_const(Duration::ZERO);
-
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let leaser = DefaultLeaser::new_with_backoff(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            16_usize,
-            Arc::new(mock_backoff),
-        );
-        leaser.confirmed_ack(test_ids(1..3)).await;
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-        let expected = [(test_id(2), Ok(()))].into_iter().collect();
-        assert_eq!(confirmed_acks, expected);
-
-        let confirmed_acks_final = confirmed_rx.recv().await.expect("results were not sent");
-        let expected_final = [(test_id(1), Ok(()))].into_iter().collect();
-        assert_eq!(confirmed_acks_final, expected_final);
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn confirmed_ack_partial_permanent_failure() -> anyhow::Result<()> {
-        let mut mock = MockStub::new();
-
-        let info =
-            ErrorInfo::new().set_metadata([(test_id(1), "PERMANENT_FAILURE_INVALID_ACK_ID")]);
-        let err = response_with_error_info(vec![info.clone()]).unwrap_err();
-
-        mock.expect_acknowledge()
-            .times(1)
-            .return_once(move |r, _o| {
-                assert_eq!(sorted(&r.ack_ids), test_ids(1..3));
-                Err(err)
-            });
-
-        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
-        let leaser = DefaultLeaser::new(
-            Arc::new(mock),
-            confirmed_tx,
-            "projects/my-project/subscriptions/my-subscription".to_string(),
-            10,
-            16_usize,
-        );
-        leaser.confirmed_ack(test_ids(1..3)).await;
-
-        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
-
-        let err = AckError::Rpc {
-            source: Arc::new(response_with_error_info(vec![info]).unwrap_err()),
-        };
-        let expected = [(test_id(1), Err(err)), (test_id(2), Ok(()))]
-            .into_iter()
-            .collect();
-        assert_eq!(confirmed_acks, expected);
-
         Ok(())
     }
 }
