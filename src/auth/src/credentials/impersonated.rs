@@ -205,9 +205,9 @@ impl ImpersonationUrl {
                 self.impersonation_url_for_method(creds, principal, "generateIdToken")
                     .await
             }
-            ImpersonationUrlKind::Exact(url) => url
-                .replace("generateAccessToken", "generateIdToken")
-                .clone(),
+            ImpersonationUrlKind::Exact(url) => {
+                url.replace("generateAccessToken", "generateIdToken")
+            }
         }
     }
 
@@ -2703,9 +2703,9 @@ mod tests {
         assert_eq!(impersonation_url.client_email().unwrap(), expected);
     }
 
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal default universe")]
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal custom universe")]
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()).with_endpoint("https://custom.endpoint"), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "googleapis.com", "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateAccessToken" ; "target principal custom endpoint override")]
     #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateAccessToken" ; "exact url")]
     #[tokio::test]
     async fn impersonation_url_access_token_url(
@@ -2726,9 +2726,9 @@ mod tests {
     }
 
     #[cfg(feature = "idtoken")]
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal default universe")]
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal custom universe")]
-    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()).with_endpoint("https://custom.endpoint"), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("user@example.com".to_string()).with_endpoint("https://iam.example.com"), "googleapis.com", "https://iam.example.com/v1/projects/-/serviceAccounts/user@example.com:generateIdToken" ; "target principal custom endpoint override")]
     #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateIdToken" ; "exact url id token")]
     #[tokio::test]
     async fn impersonation_url_id_token_url(
