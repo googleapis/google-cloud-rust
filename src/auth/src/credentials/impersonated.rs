@@ -194,7 +194,7 @@ impl ImpersonationUrl {
                 self.impersonation_url_for_method(creds, principal, "generateAccessToken")
                     .await
             }
-            ImpersonationUrlKind::Exact(url) => self.replace_endpoint(url),
+            ImpersonationUrlKind::Exact(url) => url.clone(),
         }
     }
 
@@ -206,8 +206,7 @@ impl ImpersonationUrl {
                     .await
             }
             ImpersonationUrlKind::Exact(url) => {
-                let url = self.replace_endpoint(url);
-                url.replace("generateAccessToken", "generateIdToken")
+                url.replace("generateAccessToken", "generateIdToken").clone()
             }
         }
     }
@@ -233,14 +232,6 @@ impl ImpersonationUrl {
         match self.kind {
             ImpersonationUrlKind::TargetPrincipal(client_email) => Ok(client_email),
             ImpersonationUrlKind::Exact(url) => extract_client_email(&url),
-        }
-    }
-
-    pub(crate) fn replace_endpoint(&self, url: &str) -> String {
-        if let Some(endpoint) = &self.endpoint {
-            url.replace("https://iamcredentials.", endpoint)
-        } else {
-            url.to_string()
         }
     }
 }
@@ -2725,17 +2716,6 @@ mod tests {
         assert_eq!(token.token, "test-impersonated-token");
 
         Ok(())
-    }
-
-    #[test_case(None, "https://iamcredentials.googleapis.com", "https://iamcredentials.googleapis.com" ; "no override")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com", "https://custom.endpointgoogleapis.com" ; "with override")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "https://iamcredentials.googleapis.com/v1/foo", "https://custom.endpointgoogleapis.com/v1/foo" ; "with override and path")]
-    fn impersonation_url_replace_endpoint(endpoint: Option<String>, url: &str, expected: &str) {
-        let impersonation_url = ImpersonationUrl {
-            endpoint,
-            kind: ImpersonationUrlKind::TargetPrincipal("dummy".to_string()),
-        };
-        assert_eq!(impersonation_url.replace_endpoint(url), expected);
     }
 
     #[test_case(ImpersonationUrlKind::TargetPrincipal("test@example.com".to_string()), "test@example.com" ; "target principal")]
