@@ -81,6 +81,7 @@ pub struct Api {
 }
 
 impl Api {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -258,6 +259,7 @@ pub struct Method {
 }
 
 impl Method {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -476,6 +478,7 @@ pub struct Mixin {
 }
 
 impl Mixin {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -516,12 +519,14 @@ impl wkt::message::Message for Mixin {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorSet {
+    #[allow(missing_docs)]
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FileDescriptorSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -559,8 +564,10 @@ impl wkt::message::Message for FileDescriptorSet {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub package: std::string::String,
 
     /// Names of files imported by this file.
@@ -576,12 +583,16 @@ pub struct FileDescriptorProto {
     /// All top-level definitions in this file.
     pub message_type: std::vec::Vec<crate::DescriptorProto>,
 
+    #[allow(missing_docs)]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub service: std::vec::Vec<crate::ServiceDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::FileOptions>,
 
     /// This field contains optional information about the original source code.
@@ -603,6 +614,7 @@ pub struct FileDescriptorProto {
 }
 
 impl FileDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -874,22 +886,31 @@ impl wkt::message::Message for FileDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub field: std::vec::Vec<crate::FieldDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub nested_type: std::vec::Vec<crate::DescriptorProto>,
 
+    #[allow(missing_docs)]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub extension_range: std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
 
+    #[allow(missing_docs)]
     pub oneof_decl: std::vec::Vec<crate::OneofDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::MessageOptions>,
 
+    #[allow(missing_docs)]
     pub reserved_range: std::vec::Vec<crate::descriptor_proto::ReservedRange>,
 
     /// Reserved field names, which may not be used by fields in the same message.
@@ -900,6 +921,7 @@ pub struct DescriptorProto {
 }
 
 impl DescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1131,19 +1153,24 @@ pub mod descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExtensionRange {
+        #[allow(missing_docs)]
         pub start: i32,
 
+        #[allow(missing_docs)]
         pub end: i32,
 
+        #[allow(missing_docs)]
         pub options: std::option::Option<crate::ExtensionRangeOptions>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ExtensionRange {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1218,14 +1245,17 @@ pub mod descriptor_proto {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReservedRange {
+        #[allow(missing_docs)]
         pub start: i32,
 
+        #[allow(missing_docs)]
         pub end: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ReservedRange {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1262,6 +1292,7 @@ pub mod descriptor_proto {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtensionRangeOptions {
@@ -1285,6 +1316,7 @@ pub struct ExtensionRangeOptions {
 }
 
 impl ExtensionRangeOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1396,6 +1428,7 @@ pub mod extension_range_options {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
@@ -1424,6 +1457,7 @@ pub mod extension_range_options {
     }
 
     impl Declaration {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1515,6 +1549,7 @@ pub mod extension_range_options {
     pub enum VerificationState {
         /// All the extensions of the range must be declared.
         Declaration,
+        #[allow(missing_docs)]
         Unverified,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -1624,10 +1659,13 @@ pub mod extension_range_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub number: i32,
 
+    #[allow(missing_docs)]
     pub label: crate::field_descriptor_proto::Label,
 
     /// If type_name is set, this need not be set.  If both this and type_name
@@ -1661,6 +1699,7 @@ pub struct FieldDescriptorProto {
     /// it to camelCase.
     pub json_name: std::string::String,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::FieldOptions>,
 
     /// If true, this is a proto3 "optional". When a proto3 field is optional, it
@@ -1690,6 +1729,7 @@ pub struct FieldDescriptorProto {
 }
 
 impl FieldDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1871,6 +1911,7 @@ pub mod field_descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [Type].
     ///
     /// # Working with unknown values
     ///
@@ -1891,17 +1932,23 @@ pub mod field_descriptor_proto {
         /// 0 is reserved for errors.
         /// Order is weird for historical reasons.
         Double,
+        #[allow(missing_docs)]
         Float,
         /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
         /// negative values are likely.
         Int64,
+        #[allow(missing_docs)]
         Uint64,
         /// Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
         /// negative values are likely.
         Int32,
+        #[allow(missing_docs)]
         Fixed64,
+        #[allow(missing_docs)]
         Fixed32,
+        #[allow(missing_docs)]
         Bool,
+        #[allow(missing_docs)]
         String,
         /// Tag-delimited aggregate.
         /// Group type is deprecated and not supported after google.protobuf. However, Proto3
@@ -1909,14 +1956,21 @@ pub mod field_descriptor_proto {
         /// treat group fields as unknown fields.  In Editions, the group wire format
         /// can be enabled via the `message_encoding` feature.
         Group,
+        #[allow(missing_docs)]
         Message,
         /// New in version 2.
         Bytes,
+        #[allow(missing_docs)]
         Uint32,
+        #[allow(missing_docs)]
         Enum,
+        #[allow(missing_docs)]
         Sfixed32,
+        #[allow(missing_docs)]
         Sfixed64,
+        #[allow(missing_docs)]
         Sint32,
+        #[allow(missing_docs)]
         Sint64,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -2101,6 +2155,7 @@ pub mod field_descriptor_proto {
         }
     }
 
+    /// Enum for [Label].
     ///
     /// # Working with unknown values
     ///
@@ -2120,6 +2175,7 @@ pub mod field_descriptor_proto {
     pub enum Label {
         /// 0 is reserved for errors
         Optional,
+        #[allow(missing_docs)]
         Repeated,
         /// The required label is only allowed in google.protobuf.  In proto3 and Editions
         /// it's explicitly prohibited.  In Editions, the `field_presence` feature
@@ -2238,14 +2294,17 @@ pub mod field_descriptor_proto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::OneofOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl OneofDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2306,10 +2365,13 @@ impl wkt::message::Message for OneofDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub value: std::vec::Vec<crate::EnumValueDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::EnumOptions>,
 
     /// Range of reserved numeric values. Reserved numeric values may not be used
@@ -2325,6 +2387,7 @@ pub struct EnumDescriptorProto {
 }
 
 impl EnumDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2456,14 +2519,17 @@ pub mod enum_descriptor_proto {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumReservedRange {
+        #[allow(missing_docs)]
         pub start: i32,
 
+        #[allow(missing_docs)]
         pub end: i32,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EnumReservedRange {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2504,16 +2570,20 @@ pub mod enum_descriptor_proto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub number: i32,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::EnumValueOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnumValueDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2586,16 +2656,20 @@ impl wkt::message::Message for EnumValueDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub method: std::vec::Vec<crate::MethodDescriptorProto>,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::ServiceOptions>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServiceDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2678,14 +2752,17 @@ impl wkt::message::Message for ServiceDescriptorProto {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodDescriptorProto {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// Input and output type names.  These are resolved in the same way as
     /// FieldDescriptorProto.type_name, but must refer to a message type.
     pub input_type: std::string::String,
 
+    #[allow(missing_docs)]
     pub output_type: std::string::String,
 
+    #[allow(missing_docs)]
     pub options: std::option::Option<crate::MethodOptions>,
 
     /// Identifies if client streams multiple client messages
@@ -2698,6 +2775,7 @@ pub struct MethodDescriptorProto {
 }
 
 impl MethodDescriptorProto {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2802,6 +2880,7 @@ impl wkt::message::Message for MethodDescriptorProto {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileOptions {
@@ -2842,6 +2921,7 @@ pub struct FileOptions {
     /// checks.
     pub java_string_check_utf8: bool,
 
+    #[allow(missing_docs)]
     pub optimize_for: crate::file_options::OptimizeMode,
 
     /// Sets the Go package where structs generated from this .proto will be
@@ -2864,8 +2944,10 @@ pub struct FileOptions {
     /// explicitly set them to true.
     pub cc_generic_services: bool,
 
+    #[allow(missing_docs)]
     pub java_generic_services: bool,
 
+    #[allow(missing_docs)]
     pub py_generic_services: bool,
 
     /// Is this file deprecated?
@@ -2921,6 +3003,7 @@ pub struct FileOptions {
 }
 
 impl FileOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3260,9 +3343,11 @@ pub mod file_options {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OptimizeMode {
+        #[allow(missing_docs)]
         Speed,
         /// etc.
         CodeSize,
+        #[allow(missing_docs)]
         LiteRuntime,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -3373,6 +3458,7 @@ pub mod file_options {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageOptions {
@@ -3453,6 +3539,7 @@ pub struct MessageOptions {
 }
 
 impl MessageOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3586,6 +3673,7 @@ impl wkt::message::Message for MessageOptions {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOptions {
@@ -3662,15 +3750,19 @@ pub struct FieldOptions {
     /// formats, e.g. when the field contains sensitive credentials.
     pub debug_redact: bool,
 
+    #[allow(missing_docs)]
     pub retention: crate::field_options::OptionRetention,
 
+    #[allow(missing_docs)]
     pub targets: std::vec::Vec<crate::field_options::OptionTargetType>,
 
+    #[allow(missing_docs)]
     pub edition_defaults: std::vec::Vec<crate::field_options::EditionDefault>,
 
     /// Any features defined in the specific edition.
     pub features: std::option::Option<crate::FeatureSet>,
 
+    #[allow(missing_docs)]
     pub feature_support: std::option::Option<crate::field_options::FeatureSupport>,
 
     /// The parser stores options it doesn't recognize here. See above.
@@ -3680,6 +3772,7 @@ pub struct FieldOptions {
 }
 
 impl FieldOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3945,17 +4038,21 @@ pub mod field_options {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EditionDefault {
+        #[allow(missing_docs)]
         pub edition: crate::Edition,
 
+        #[allow(missing_docs)]
         pub value: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EditionDefault {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4020,6 +4117,7 @@ pub mod field_options {
     }
 
     impl FeatureSupport {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4097,6 +4195,7 @@ pub mod field_options {
         }
     }
 
+    /// Enum for [CType].
     ///
     /// # Working with unknown values
     ///
@@ -4123,6 +4222,7 @@ pub mod field_options {
         /// Cord, or when parsing with aliasing enabled, as the parsed Cord may then
         /// alias the original buffer.
         Cord,
+        #[allow(missing_docs)]
         StringPiece,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4232,6 +4332,7 @@ pub mod field_options {
         }
     }
 
+    /// Enum for [JSType].
     ///
     /// # Working with unknown values
     ///
@@ -4381,8 +4482,11 @@ pub mod field_options {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OptionRetention {
+        #[allow(missing_docs)]
         RetentionUnknown,
+        #[allow(missing_docs)]
         RetentionRuntime,
+        #[allow(missing_docs)]
         RetentionSource,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4512,15 +4616,25 @@ pub mod field_options {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OptionTargetType {
+        #[allow(missing_docs)]
         TargetTypeUnknown,
+        #[allow(missing_docs)]
         TargetTypeFile,
+        #[allow(missing_docs)]
         TargetTypeExtensionRange,
+        #[allow(missing_docs)]
         TargetTypeMessage,
+        #[allow(missing_docs)]
         TargetTypeField,
+        #[allow(missing_docs)]
         TargetTypeOneof,
+        #[allow(missing_docs)]
         TargetTypeEnum,
+        #[allow(missing_docs)]
         TargetTypeEnumEntry,
+        #[allow(missing_docs)]
         TargetTypeService,
+        #[allow(missing_docs)]
         TargetTypeMethod,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -4668,6 +4782,7 @@ pub mod field_options {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofOptions {
@@ -4681,6 +4796,7 @@ pub struct OneofOptions {
 }
 
 impl OneofOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4747,6 +4863,7 @@ impl wkt::message::Message for OneofOptions {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOptions {
@@ -4779,6 +4896,7 @@ pub struct EnumOptions {
 }
 
 impl EnumOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4885,6 +5003,7 @@ impl wkt::message::Message for EnumOptions {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueOptions {
@@ -4912,6 +5031,7 @@ pub struct EnumValueOptions {
 }
 
 impl EnumValueOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5035,6 +5155,7 @@ impl wkt::message::Message for EnumValueOptions {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceOptions {
@@ -5054,6 +5175,7 @@ pub struct ServiceOptions {
 }
 
 impl ServiceOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5132,6 +5254,7 @@ impl wkt::message::Message for ServiceOptions {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodOptions {
@@ -5141,6 +5264,7 @@ pub struct MethodOptions {
     /// this is a formalization for deprecating methods.
     pub deprecated: bool,
 
+    #[allow(missing_docs)]
     pub idempotency_level: crate::method_options::IdempotencyLevel,
 
     /// Any features defined in the specific edition.
@@ -5153,6 +5277,7 @@ pub struct MethodOptions {
 }
 
 impl MethodOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5273,8 +5398,11 @@ pub mod method_options {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum IdempotencyLevel {
+        #[allow(missing_docs)]
         IdempotencyUnknown,
+        #[allow(missing_docs)]
         NoSideEffects,
+        #[allow(missing_docs)]
         Idempotent,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -5394,26 +5522,33 @@ pub mod method_options {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninterpretedOption {
+    #[allow(missing_docs)]
     pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
 
     /// The value of the uninterpreted option, in whatever type the tokenizer
     /// identified it as during parsing. Exactly one of these should be set.
     pub identifier_value: std::string::String,
 
+    #[allow(missing_docs)]
     pub positive_int_value: u64,
 
+    #[allow(missing_docs)]
     pub negative_int_value: i64,
 
+    #[allow(missing_docs)]
     pub double_value: f64,
 
+    #[allow(missing_docs)]
     pub string_value: ::bytes::Bytes,
 
+    #[allow(missing_docs)]
     pub aggregate_value: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl UninterpretedOption {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5535,14 +5670,17 @@ pub mod uninterpreted_option {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NamePart {
+        #[allow(missing_docs)]
         pub name_part: std::string::String,
 
+        #[allow(missing_docs)]
         pub is_extension: bool,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl NamePart {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5588,22 +5726,29 @@ pub mod uninterpreted_option {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSet {
+    #[allow(missing_docs)]
     pub field_presence: crate::feature_set::FieldPresence,
 
+    #[allow(missing_docs)]
     pub enum_type: crate::feature_set::EnumType,
 
+    #[allow(missing_docs)]
     pub repeated_field_encoding: crate::feature_set::RepeatedFieldEncoding,
 
+    #[allow(missing_docs)]
     pub utf8_validation: crate::feature_set::Utf8Validation,
 
+    #[allow(missing_docs)]
     pub message_encoding: crate::feature_set::MessageEncoding,
 
+    #[allow(missing_docs)]
     pub json_format: crate::feature_set::JsonFormat,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl FeatureSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5725,6 +5870,7 @@ pub mod feature_set {
     #[allow(unused_imports)]
     use super::*;
 
+    /// Enum for [FieldPresence].
     ///
     /// # Working with unknown values
     ///
@@ -5742,9 +5888,13 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum FieldPresence {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         Explicit,
+        #[allow(missing_docs)]
         Implicit,
+        #[allow(missing_docs)]
         LegacyRequired,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -5859,6 +6009,7 @@ pub mod feature_set {
         }
     }
 
+    /// Enum for [EnumType].
     ///
     /// # Working with unknown values
     ///
@@ -5876,8 +6027,11 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum EnumType {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         Open,
+        #[allow(missing_docs)]
         Closed,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -5987,6 +6141,7 @@ pub mod feature_set {
         }
     }
 
+    /// Enum for [RepeatedFieldEncoding].
     ///
     /// # Working with unknown values
     ///
@@ -6004,8 +6159,11 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RepeatedFieldEncoding {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         Packed,
+        #[allow(missing_docs)]
         Expanded,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -6115,6 +6273,7 @@ pub mod feature_set {
         }
     }
 
+    /// Enum for [Utf8Validation].
     ///
     /// # Working with unknown values
     ///
@@ -6132,8 +6291,11 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Utf8Validation {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         Verify,
+        #[allow(missing_docs)]
         None,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -6243,6 +6405,7 @@ pub mod feature_set {
         }
     }
 
+    /// Enum for [MessageEncoding].
     ///
     /// # Working with unknown values
     ///
@@ -6260,8 +6423,11 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MessageEncoding {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         LengthPrefixed,
+        #[allow(missing_docs)]
         Delimited,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -6371,6 +6537,7 @@ pub mod feature_set {
         }
     }
 
+    /// Enum for [JsonFormat].
     ///
     /// # Working with unknown values
     ///
@@ -6388,8 +6555,11 @@ pub mod feature_set {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum JsonFormat {
+        #[allow(missing_docs)]
         Unknown,
+        #[allow(missing_docs)]
         Allow,
+        #[allow(missing_docs)]
         LegacyBestEffort,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -6507,6 +6677,7 @@ pub mod feature_set {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSetDefaults {
+    #[allow(missing_docs)]
     pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
 
     /// The minimum supported edition (inclusive) when this was constructed.
@@ -6521,6 +6692,7 @@ pub struct FeatureSetDefaults {
 }
 
 impl FeatureSetDefaults {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6596,6 +6768,7 @@ pub mod feature_set_defaults {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
+        #[allow(missing_docs)]
         pub edition: crate::Edition,
 
         /// Defaults of features that can be overridden in this edition.
@@ -6608,6 +6781,7 @@ pub mod feature_set_defaults {
     }
 
     impl FeatureSetEditionDefault {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6756,6 +6930,7 @@ pub struct SourceCodeInfo {
 }
 
 impl SourceCodeInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6794,6 +6969,7 @@ pub mod source_code_info {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Location {
@@ -6879,14 +7055,17 @@ pub mod source_code_info {
         /// // ignored detached comments.
         pub leading_comments: std::string::String,
 
+        #[allow(missing_docs)]
         pub trailing_comments: std::string::String,
 
+        #[allow(missing_docs)]
         pub leading_detached_comments: std::vec::Vec<std::string::String>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Location {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6994,6 +7173,7 @@ pub struct GeneratedCodeInfo {
 }
 
 impl GeneratedCodeInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7032,6 +7212,7 @@ pub mod generated_code_info {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Annotation {
@@ -7051,12 +7232,14 @@ pub mod generated_code_info {
         /// the last relevant byte (so the length of the text = end - begin).
         pub end: i32,
 
+        #[allow(missing_docs)]
         pub semantic: crate::generated_code_info::annotation::Semantic,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl Annotation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7296,6 +7479,7 @@ pub struct SourceContext {
 }
 
 impl SourceContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7348,6 +7532,7 @@ pub struct Type {
 }
 
 impl Type {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7531,6 +7716,7 @@ pub struct Field {
 }
 
 impl Field {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8096,6 +8282,7 @@ pub struct Enum {
 }
 
 impl Enum {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8239,6 +8426,7 @@ pub struct EnumValue {
 }
 
 impl EnumValue {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8317,6 +8505,7 @@ pub struct Option {
 }
 
 impl Option {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8401,18 +8590,24 @@ pub enum Edition {
     /// files, but feature definitions must supply proto2/proto3 defaults for
     /// backwards compatibility.
     Proto2,
+    #[allow(missing_docs)]
     Proto3,
     /// Editions that have been released.  The specific values are arbitrary and
     /// should not be depended on, but they will always be time-ordered for easy
     /// comparison.
     Edition2023,
+    #[allow(missing_docs)]
     Edition2024,
     /// Placeholder editions for testing feature resolution.  These should not be
     /// used or relied on outside of tests.
     Edition1TestOnly,
+    #[allow(missing_docs)]
     Edition2TestOnly,
+    #[allow(missing_docs)]
     Edition99997TestOnly,
+    #[allow(missing_docs)]
     Edition99998TestOnly,
+    #[allow(missing_docs)]
     Edition99999TestOnly,
     /// Placeholder for specifying unbounded edition support.  This should only
     /// ever be used by plugins that can expect to never require any changes to

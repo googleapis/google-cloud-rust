@@ -39,6 +39,7 @@ pub struct AddOnWidgetSet {
 }
 
 impl AddOnWidgetSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -269,6 +270,7 @@ pub struct MenuItemExtensionPoint {
 }
 
 impl MenuItemExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -336,6 +338,7 @@ pub struct HomepageExtensionPoint {
 }
 
 impl HomepageExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -409,6 +412,7 @@ pub struct UniversalActionExtensionPoint {
 }
 
 impl UniversalActionExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -583,6 +587,7 @@ pub struct CommonAddOnManifest {
 }
 
 impl CommonAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -804,6 +809,7 @@ pub struct LayoutProperties {
 }
 
 impl LayoutProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -850,6 +856,7 @@ pub struct HttpOptions {
 }
 
 impl HttpOptions {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

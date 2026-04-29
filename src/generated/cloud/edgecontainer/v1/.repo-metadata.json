@@ -1,4 +1,5 @@
 {
+    "api_description": "Google Distributed Cloud Edge is a fully managed product that brings Google Cloud infrastructure and services closer to where data is being generated and consumed.",
     "api_id": "edgecontainer.googleapis.com",
     "api_shortname": "edgecontainer",
     "client_documentation": "https://docs.rs/google-cloud-edgecontainer-v1/latest",

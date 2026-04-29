@@ -250,14 +250,24 @@ mod tests {
     use super::*;
     use crate::model::CreateSessionRequest;
     use crate::result_set::tests::adapt;
-    use gaxi::grpc::tonic::{Response, Status};
+    use gaxi::grpc::tonic::{Code as GrpcCode, Response, Status};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::error::rpc::Code;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::google::spanner::v1::Session;
     use spanner_grpc_mock::{MockSpanner, start};
     use static_assertions::{assert_impl_all, assert_not_impl_any};
+    use std::time::Duration;
+
+    mockall::mock! {
+        #[derive(Debug)]
+        BackoffPolicy {}
+        impl google_cloud_gax::backoff_policy::BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &google_cloud_gax::retry_state::RetryState) -> std::time::Duration;
+        }
+    }
 
     #[test]
     fn auto_traits() {
@@ -834,6 +844,247 @@ mod tests {
         assert!(result.is_err(), "Expected error, got {:?}", result);
         let err = result.unwrap_err();
         assert_eq!(err.status().map(|s| s.code), Some(Code::Unavailable));
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn timeout_respected() -> anyhow::Result<()> {
+        use crate::batch_dml::BatchDml;
+        use std::time::Duration;
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(mock_v1::Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for query"
+            );
+
+            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::new(rx))
+        });
+
+        mock.expect_streaming_read().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for read"
+            );
+
+            let (_tx, rx) = tokio::sync::mpsc::channel(1);
+            Ok(Response::new(rx))
+        });
+
+        mock.expect_execute_sql().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for single DML"
+            );
+
+            Ok(Response::new(mock_v1::ResultSet {
+                stats: Some(mock_v1::ResultSetStats {
+                    row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                    ..Default::default()
+                }),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_execute_batch_dml().once().returning(|req| {
+            let metadata = req.metadata();
+            let timeout = metadata.get("grpc-timeout");
+            assert!(
+                timeout.is_some(),
+                "grpc-timeout header should be present for batch dml"
+            );
+
+            Ok(Response::new(mock_v1::ExecuteBatchDmlResponse {
+                result_sets: vec![mock_v1::ResultSet {
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }],
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+        let runner = db.read_write_transaction().build().await?;
+
+        // 4. Run transaction
+        runner
+            .run(async |tx| {
+                // Query
+                let stmt = Statement::builder("SELECT 1")
+                    .with_attempt_timeout(Duration::from_secs(10))
+                    .build();
+                let _ = tx.execute_query(stmt).await?;
+
+                // Read
+                let req = ReadRequest::builder("Table", vec!["Col"])
+                    .with_keys(crate::key::KeySet::all())
+                    .with_attempt_timeout(Duration::from_secs(5))
+                    .build();
+                let _ = tx.execute_read(req).await?;
+
+                // Single DML
+                let dml = Statement::builder("UPDATE t SET c = 1")
+                    .with_attempt_timeout(Duration::from_secs(7))
+                    .build();
+                let _ = tx.execute_update(dml).await?;
+
+                // Batch DML
+                let batch = BatchDml::builder()
+                    .add_statement("UPDATE t SET c = 2")
+                    .with_attempt_timeout(Duration::from_secs(8))
+                    .build();
+                let _ = tx.execute_batch_update(batch).await?;
+
+                Ok(())
+            })
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn retry_policy_respected() -> anyhow::Result<()> {
+        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+
+        // Extend the default retry policy to also retry on ResourceExhausted.
+        let retry_policy = Aip194Strict.continue_on_too_many_requests();
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+
+        mock.expect_create_session().returning(|_| {
+            Ok(Response::new(Session {
+                name: "projects/p/instances/i/databases/d/sessions/123".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().returning(|_| {
+            Ok(Response::new(mock_v1::Transaction {
+                id: vec![42],
+                ..Default::default()
+            }))
+        });
+
+        // Mock ExecuteSql to first return RESOURCE_EXHAUSTED and then succeed.
+        let mut seq = mockall::Sequence::new();
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(Status::new(GrpcCode::ResourceExhausted, "quota exceeded")));
+
+        mock.expect_execute_sql()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Ok(Response::new(mock_v1::ResultSet {
+                    stats: Some(mock_v1::ResultSetStats {
+                        row_count: Some(mock_v1::result_set_stats::RowCount::RowCountExact(1)),
+                        ..Default::default()
+                    }),
+                    ..Default::default()
+                }))
+            });
+
+        mock.expect_commit().returning(|_| {
+            Ok(Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 1234,
+                    nanos: 0,
+                }),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock).await?;
+
+        // 3. Configure Client
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+
+        let db = client
+            .database_client("projects/p/instances/i/databases/d")
+            .build()
+            .await?;
+        let runner = db.read_write_transaction().build().await?;
+
+        // 4. Call execute_update with custom retry and backoff
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .returning(|_| Duration::from_nanos(1));
+
+        let stmt = Statement::builder("UPDATE t SET c = 1")
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(mock_backoff)
+            .build();
+
+        let result = runner
+            .run(async |tx| {
+                let count = tx.execute_update(stmt.clone()).await?;
+                Ok(count)
+            })
+            .await?;
+
+        // 5. Verify success after retry
+        assert_eq!(result, 1);
 
         Ok(())
     }

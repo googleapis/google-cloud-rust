@@ -205,9 +205,9 @@ impl ImpersonationUrl {
                 self.impersonation_url_for_method(creds, principal, "generateIdToken")
                     .await
             }
-            ImpersonationUrlKind::Exact(url) => {
-                url.replace("generateAccessToken", "generateIdToken").clone()
-            }
+            ImpersonationUrlKind::Exact(url) => url
+                .replace("generateAccessToken", "generateIdToken")
+                .clone(),
         }
     }
 
@@ -1890,6 +1890,7 @@ mod tests {
             .service_account_impersonation_url
             .access_token_url(&source_credentials)
             .await;
+
         assert_eq!(
             url,
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken"
@@ -1954,7 +1955,7 @@ mod tests {
         let creds = builder.build()?;
         let universe_domain = creds.universe_domain().await;
 
-        assert!(is_default_universe_domain(universe_domain.clone()));
+        assert!(is_default_universe_domain(universe_domain.as_deref()));
 
         Ok(())
     }
@@ -2425,9 +2426,9 @@ mod tests {
                 "signedBlob": BASE64_STANDARD.encode("signed_blob"),
             }))),
         );
-        let impersonation_url = server
-            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
-            .to_string();
+
+        let endpoint = server.url("/").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
 
         // Test builder from source credentials
         let user_credential = json!({
@@ -2439,11 +2440,14 @@ mod tests {
         });
         let source_credential =
             crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
-        let mut builder_from_source = Builder::from_source_credentials(source_credential)
-            .with_target_principal("test-principal");
-        builder_from_source.service_account_impersonation_url =
-            Some(ImpersonationUrl::exact(impersonation_url.clone()));
 
+        let builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal")
+            .with_impersonation_endpoint(endpoint);
+
+        let impersonation_url = server
+            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+            .to_string();
         // Test builder from JSON
         let impersonated_credential = json!({
             "type": "impersonated_service_account",
@@ -2578,9 +2582,8 @@ mod tests {
                 "encodedLocations": "0x1234"
             }))),
         );
-        let impersonation_url = server
-            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
-            .to_string();
+        let endpoint = server.url("/").to_string();
+        let endpoint = endpoint.trim_end_matches('/');
 
         // Test builder from source credentials
         let user_credential = json!({
@@ -2592,9 +2595,9 @@ mod tests {
         });
         let source_credential =
             crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
-        let mut builder_from_source = Builder::from_source_credentials(source_credential)
-            .with_target_principal("test-principal");
-        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
+        let builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal")
+            .with_impersonation_endpoint(endpoint);
 
         // Test builder from JSON
         let impersonated_credential = json!({
@@ -2728,13 +2731,13 @@ mod tests {
         assert_eq!(impersonation_url.client_email().unwrap(), expected);
     }
 
-    #[test_case(None, "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "default universe")]
-    #[test_case(None, "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "custom universe")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "custom endpoint override")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()).with_endpoint("https://custom.endpoint"), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateAccessToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateAccessToken" ; "exact url")]
     #[tokio::test]
-    #[parallel]
     async fn impersonation_url_access_token_url(
-        endpoint: Option<String>,
+        impersonation_url: ImpersonationUrl,
         universe: &str,
         expected_url: &str,
     ) -> TestResult {
@@ -2742,13 +2745,6 @@ mod tests {
         let source_credentials = crate::credentials::service_account::Builder::new(source_creds)
             .build()
             .expect("Failed to build service account credentials");
-
-        let impersonation_url = ImpersonationUrl {
-            endpoint,
-            kind: ImpersonationUrlKind::TargetPrincipal(
-                "test-principal@example.iam.gserviceaccount.com".to_string(),
-            ),
-        };
 
         let url = impersonation_url
             .access_token_url(&source_credentials)
@@ -2757,14 +2753,14 @@ mod tests {
         Ok(())
     }
 
-    #[test_case(None, "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "default universe")]
-    #[test_case(None, "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "custom universe")]
-    #[test_case(Some("https://custom.endpoint".to_string()), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "custom endpoint override")]
-    #[tokio::test]
-    #[parallel]
     #[cfg(feature = "idtoken")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "googleapis.com", "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal default universe")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()), "my-custom-universe.com", "https://iamcredentials.my-custom-universe.com/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal custom universe")]
+    #[test_case(ImpersonationUrl::target_principal("test-principal@example.iam.gserviceaccount.com".to_string()).with_endpoint("https://custom.endpoint"), "googleapis.com", "https://custom.endpoint/v1/projects/-/serviceAccounts/test-principal@example.iam.gserviceaccount.com:generateIdToken" ; "target principal custom endpoint override")]
+    #[test_case(ImpersonationUrl::exact("https://iam.example.com/v1/user@example.com:generateAccessToken".to_string()), "googleapis.com", "https://iam.example.com/v1/user@example.com:generateIdToken" ; "exact url id token")]
+    #[tokio::test]
     async fn impersonation_url_id_token_url(
-        endpoint: Option<String>,
+        impersonation_url: ImpersonationUrl,
         universe: &str,
         expected_url: &str,
     ) -> TestResult {
@@ -2772,13 +2768,6 @@ mod tests {
         let source_credentials = crate::credentials::service_account::Builder::new(source_creds)
             .build()
             .expect("Failed to build service account credentials");
-
-        let impersonation_url = ImpersonationUrl {
-            endpoint,
-            kind: ImpersonationUrlKind::TargetPrincipal(
-                "test-principal@example.iam.gserviceaccount.com".to_string(),
-            ),
-        };
 
         let url = impersonation_url.id_token_url(&source_credentials).await;
         assert_eq!(url, expected_url);

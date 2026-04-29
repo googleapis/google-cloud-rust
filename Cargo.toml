@@ -401,7 +401,7 @@ serde_with            = { default-features = false, version = "3", features = ["
 sha2                  = { default-features = false, version = "0.11.0" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
-tokio                 = { default-features = false, version = "1.48.0" }
+tokio                 = { default-features = false, version = "1.52.1" }
 tokio-metrics         = { default-features = false, version = "0.5.0" }
 tokio-util            = { default-features = false, version = "0.7.18" }
 toml_edit             = { default-features = false, version = "0.25" }
@@ -421,7 +421,7 @@ prost       = { default-features = false, version = "0.14", features = ["std"] }
 prost-build = { default-features = false, version = "0.14" }
 prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
-reqwest = { default-features = false, version = "0.13.2" }
+reqwest = { default-features = false, version = "0.13.3" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
 tonic             = { default-features = false, version = "0.14.5", features = ["tls-native-roots"] }
 tonic-prost       = { default-features = false, version = "0.14.5" }
@@ -435,7 +435,7 @@ tracing-serde = { default-features = false, version = "0.2" }
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
-aws-lc-rs = { default-features = false, version = "1.16.2" }
+aws-lc-rs = { default-features = false, version = "1.16.3" }
 
 # sharded-slab fails to declare the minimum dependency for `lazy_static`
 #     https://github.com/hawkw/sharded-slab/pull/81
@@ -452,7 +452,7 @@ mockall           = { default-features = false, version = "0.14" }
 multer            = { default-features = false, version = "3" }
 mutants           = { default-features = false, version = "0.0.4" }
 once_cell         = { default-features = false, version = "1.19.0" }
-pastey            = { default-features = false, version = "0.2.1" }
+pastey            = { default-features = false, version = "0.2.2" }
 pretty_assertions = { default-features = false, version = "1.4.1", features = ["alloc"] }
 proc-macro2       = { default-features = false, version = "1.0.106" }
 quote             = { default-features = false, version = "1.0.35" }

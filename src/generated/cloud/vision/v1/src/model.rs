@@ -51,6 +51,7 @@ pub struct Vertex {
 }
 
 impl Vertex {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -102,6 +103,7 @@ pub struct NormalizedVertex {
 }
 
 impl NormalizedVertex {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -151,6 +153,7 @@ pub struct BoundingPoly {
 }
 
 impl BoundingPoly {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -225,6 +228,7 @@ pub struct Position {
 }
 
 impl Position {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -295,6 +299,7 @@ pub struct Feature {
 }
 
 impl Feature {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -594,6 +599,7 @@ pub struct ImageSource {
 }
 
 impl ImageSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -650,6 +656,7 @@ pub struct Image {
 }
 
 impl Image {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -775,6 +782,7 @@ pub struct FaceAnnotation {
 }
 
 impl FaceAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1079,6 +1087,7 @@ pub mod face_annotation {
     }
 
     impl Landmark {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1549,6 +1558,7 @@ pub struct LocationInfo {
 }
 
 impl LocationInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1610,6 +1620,7 @@ pub struct Property {
 }
 
 impl Property {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1710,6 +1721,7 @@ pub struct EntityAnnotation {
 }
 
 impl EntityAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1896,6 +1908,7 @@ pub struct LocalizedObjectAnnotation {
 }
 
 impl LocalizedObjectAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2022,6 +2035,7 @@ pub struct SafeSearchAnnotation {
 }
 
 impl SafeSearchAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2122,6 +2136,7 @@ pub struct LatLongRect {
 }
 
 impl LatLongRect {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2218,6 +2233,7 @@ pub struct ColorInfo {
 }
 
 impl ColorInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2297,6 +2313,7 @@ pub struct DominantColorsAnnotation {
 }
 
 impl DominantColorsAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2341,6 +2358,7 @@ pub struct ImageProperties {
 }
 
 impl ImageProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2404,6 +2422,7 @@ pub struct CropHint {
 }
 
 impl CropHint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2483,6 +2502,7 @@ pub struct CropHintsAnnotation {
 }
 
 impl CropHintsAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2532,6 +2552,7 @@ pub struct CropHintsParams {
 }
 
 impl CropHintsParams {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2572,6 +2593,7 @@ pub struct WebDetectionParams {
 }
 
 impl WebDetectionParams {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2619,6 +2641,7 @@ pub struct TextDetectionParams {
 }
 
 impl TextDetectionParams {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2695,6 +2718,7 @@ pub struct ImageContext {
 }
 
 impl ImageContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2906,6 +2930,7 @@ pub struct AnnotateImageRequest {
 }
 
 impl AnnotateImageRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3021,6 +3046,7 @@ pub struct ImageAnnotationContext {
 }
 
 impl ImageAnnotationContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3113,6 +3139,7 @@ pub struct AnnotateImageResponse {
 }
 
 impl AnnotateImageResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3553,6 +3580,7 @@ pub struct BatchAnnotateImagesRequest {
 }
 
 impl BatchAnnotateImagesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3630,6 +3658,7 @@ pub struct BatchAnnotateImagesResponse {
 }
 
 impl BatchAnnotateImagesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3696,6 +3725,7 @@ pub struct AnnotateFileRequest {
 }
 
 impl AnnotateFileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3835,6 +3865,7 @@ pub struct AnnotateFileResponse {
 }
 
 impl AnnotateFileResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3980,6 +4011,7 @@ pub struct BatchAnnotateFilesRequest {
 }
 
 impl BatchAnnotateFilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4058,6 +4090,7 @@ pub struct BatchAnnotateFilesResponse {
 }
 
 impl BatchAnnotateFilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4111,6 +4144,7 @@ pub struct AsyncAnnotateFileRequest {
 }
 
 impl AsyncAnnotateFileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4254,6 +4288,7 @@ pub struct AsyncAnnotateFileResponse {
 }
 
 impl AsyncAnnotateFileResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4334,6 +4369,7 @@ pub struct AsyncBatchAnnotateImagesRequest {
 }
 
 impl AsyncBatchAnnotateImagesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4444,6 +4480,7 @@ pub struct AsyncBatchAnnotateImagesResponse {
 }
 
 impl AsyncBatchAnnotateImagesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4522,6 +4559,7 @@ pub struct AsyncBatchAnnotateFilesRequest {
 }
 
 impl AsyncBatchAnnotateFilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4600,6 +4638,7 @@ pub struct AsyncBatchAnnotateFilesResponse {
 }
 
 impl AsyncBatchAnnotateFilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4656,6 +4695,7 @@ pub struct InputConfig {
 }
 
 impl InputConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4748,6 +4788,7 @@ pub struct OutputConfig {
 }
 
 impl OutputConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4816,6 +4857,7 @@ pub struct GcsSource {
 }
 
 impl GcsSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4872,6 +4914,7 @@ pub struct GcsDestination {
 }
 
 impl GcsDestination {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4912,6 +4955,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5199,6 +5243,7 @@ pub struct ProductSearchParams {
 }
 
 impl ProductSearchParams {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5306,6 +5351,7 @@ pub struct ProductSearchResults {
 }
 
 impl ProductSearchResults {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5418,6 +5464,7 @@ pub mod product_search_results {
     }
 
     impl Result {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5508,6 +5555,7 @@ pub mod product_search_results {
     }
 
     impl ObjectAnnotation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5589,6 +5637,7 @@ pub mod product_search_results {
     }
 
     impl GroupedResult {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5724,6 +5773,7 @@ pub struct Product {
 }
 
 impl Product {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5829,6 +5879,7 @@ pub mod product {
     }
 
     impl KeyValue {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5901,6 +5952,7 @@ pub struct ProductSet {
 }
 
 impl ProductSet {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6034,6 +6086,7 @@ pub struct ReferenceImage {
 }
 
 impl ReferenceImage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6114,6 +6167,7 @@ pub struct CreateProductRequest {
 }
 
 impl CreateProductRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6202,6 +6256,7 @@ pub struct ListProductsRequest {
 }
 
 impl ListProductsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6264,6 +6319,7 @@ pub struct ListProductsResponse {
 }
 
 impl ListProductsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6337,6 +6393,7 @@ pub struct GetProductRequest {
 }
 
 impl GetProductRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6381,6 +6438,7 @@ pub struct UpdateProductRequest {
 }
 
 impl UpdateProductRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6472,6 +6530,7 @@ pub struct DeleteProductRequest {
 }
 
 impl DeleteProductRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6517,6 +6576,7 @@ pub struct CreateProductSetRequest {
 }
 
 impl CreateProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6604,6 +6664,7 @@ pub struct ListProductSetsRequest {
 }
 
 impl ListProductSetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6666,6 +6727,7 @@ pub struct ListProductSetsResponse {
 }
 
 impl ListProductSetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6739,6 +6801,7 @@ pub struct GetProductSetRequest {
 }
 
 impl GetProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6781,6 +6844,7 @@ pub struct UpdateProductSetRequest {
 }
 
 impl UpdateProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6872,6 +6936,7 @@ pub struct DeleteProductSetRequest {
 }
 
 impl DeleteProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6920,6 +6985,7 @@ pub struct CreateReferenceImageRequest {
 }
 
 impl CreateReferenceImageRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7014,6 +7080,7 @@ pub struct ListReferenceImagesRequest {
 }
 
 impl ListReferenceImagesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7078,6 +7145,7 @@ pub struct ListReferenceImagesResponse {
 }
 
 impl ListReferenceImagesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7163,6 +7231,7 @@ pub struct GetReferenceImageRequest {
 }
 
 impl GetReferenceImageRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7200,6 +7269,7 @@ pub struct DeleteReferenceImageRequest {
 }
 
 impl DeleteReferenceImageRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7243,6 +7313,7 @@ pub struct AddProductToProductSetRequest {
 }
 
 impl AddProductToProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7299,6 +7370,7 @@ pub struct RemoveProductFromProductSetRequest {
 }
 
 impl RemoveProductFromProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7354,6 +7426,7 @@ pub struct ListProductsInProductSetRequest {
 }
 
 impl ListProductsInProductSetRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7416,6 +7489,7 @@ pub struct ListProductsInProductSetResponse {
 }
 
 impl ListProductsInProductSetResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7555,6 +7629,7 @@ pub struct ImportProductSetsGcsSource {
 }
 
 impl ImportProductSetsGcsSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7589,6 +7664,7 @@ pub struct ImportProductSetsInputConfig {
 }
 
 impl ImportProductSetsInputConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7695,6 +7771,7 @@ pub struct ImportProductSetsRequest {
 }
 
 impl ImportProductSetsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7778,6 +7855,7 @@ pub struct ImportProductSetsResponse {
 }
 
 impl ImportProductSetsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7857,6 +7935,7 @@ pub struct BatchOperationMetadata {
 }
 
 impl BatchOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8120,6 +8199,7 @@ pub struct ProductSetPurgeConfig {
 }
 
 impl ProductSetPurgeConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8163,6 +8243,7 @@ pub struct PurgeProductsRequest {
 }
 
 impl PurgeProductsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8333,6 +8414,7 @@ pub struct TextAnnotation {
 }
 
 impl TextAnnotation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8399,6 +8481,7 @@ pub mod text_annotation {
     }
 
     impl DetectedLanguage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8451,6 +8534,7 @@ pub mod text_annotation {
     }
 
     impl DetectedBreak {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8671,6 +8755,7 @@ pub mod text_annotation {
     }
 
     impl TextProperty {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8763,6 +8848,7 @@ pub struct Page {
 }
 
 impl Page {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8912,6 +8998,7 @@ pub struct Block {
 }
 
 impl Block {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9235,6 +9322,7 @@ pub struct Paragraph {
 }
 
 impl Paragraph {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9382,6 +9470,7 @@ pub struct Word {
 }
 
 impl Word {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9528,6 +9617,7 @@ pub struct Symbol {
 }
 
 impl Symbol {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9659,6 +9749,7 @@ pub struct WebDetection {
 }
 
 impl WebDetection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9825,6 +9916,7 @@ pub mod web_detection {
     }
 
     impl WebEntity {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9886,6 +9978,7 @@ pub mod web_detection {
     }
 
     impl WebImage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -9948,6 +10041,7 @@ pub mod web_detection {
     }
 
     impl WebPage {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10055,6 +10149,7 @@ pub mod web_detection {
     }
 
     impl WebLabel {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

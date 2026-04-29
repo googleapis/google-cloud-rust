@@ -1,4 +1,5 @@
 {
+    "api_description": "App Hub acts as the foundational data model and central registry for your applications on Google Cloud.",
     "api_id": "apphub.googleapis.com",
     "api_shortname": "apphub",
     "client_documentation": "https://docs.rs/google-cloud-apphub-v1/latest",
