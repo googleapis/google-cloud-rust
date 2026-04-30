@@ -24,7 +24,7 @@ mod tests {
 
     const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
     const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
-    const USER_PROJECT_NAME: &str = "project_lazy_dog";
+    const USER_QUOTA_PROJECT: &str = "project_lazy_dog";
 
     #[tokio::test]
     async fn user_project_emits_header() -> anyhow::Result<()> {
@@ -36,14 +36,14 @@ mod tests {
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let mut options = RequestOptions::default();
-        options.set_user_project(USER_PROJECT_NAME);
+        options.set_quota_project(USER_QUOTA_PROJECT);
         let response: serde_json::Value = client
             .execute(builder, Some(json!({})), options)
             .await?
             .into_body();
         assert_eq!(
             get_header_value(&response, X_GOOG_USER_PROJECT).as_deref(),
-            Some(USER_PROJECT_NAME),
+            Some(USER_QUOTA_PROJECT),
             "{response:?}"
         );
         Ok(())
@@ -98,7 +98,7 @@ mod tests {
 
         let builder = client.builder(reqwest::Method::GET, "/echo".into());
         let mut options = RequestOptions::default();
-        options.set_user_project(USER_PROJECT_NAME);
+        options.set_quota_project(USER_QUOTA_PROJECT);
         let response: serde_json::Value = client
             .execute(builder, Some(json!({})), options)
             .await?
@@ -106,7 +106,7 @@ mod tests {
 
         assert_eq!(
             get_header_value(&response, X_GOOG_USER_PROJECT).as_deref(),
-            Some(USER_PROJECT_NAME),
+            Some(USER_QUOTA_PROJECT),
             "{response:?}"
         );
         let headers = response.get("headers").and_then(|h| h.as_object());

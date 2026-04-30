@@ -43,7 +43,7 @@ use std::sync::Arc;
 pub struct RequestOptions {
     idempotent: Option<bool>,
     user_agent: Option<String>,
-    user_project: Option<String>,
+    quota_project: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -93,20 +93,19 @@ impl RequestOptions {
         &self.user_agent
     }
 
-    /// Sets the user project for the request.
+    /// Sets the [quota project] for the request.
     ///
-    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
-    /// `x-goog-user-project` header carrying this value and drop any
-    /// `x-goog-user-project` header the credentials provider would have
-    /// emitted from its configured `quota_project_id`, so the wire
-    /// carries exactly one `x-goog-user-project`.
-    pub fn set_user_project<T: Into<String>>(&mut self, v: T) {
-        self.user_project = Some(v.into());
+    /// This adds the `x-goog-user-project` header to the request. Note that
+    /// setting this option overrides a credentials' quota project.
+    ///
+    /// [quota project]: https://docs.cloud.google.com/docs/quotas/quota-project
+    pub fn set_quota_project<T: Into<String>>(&mut self, v: T) {
+        self.quota_project = Some(v.into());
     }
 
-    /// Gets the current user project.
-    pub fn user_project(&self) -> &Option<String> {
-        &self.user_project
+    /// Gets the current quota project.
+    pub fn quota_project(&self) -> &Option<String> {
+        &self.quota_project
     }
 
     /// Sets the per-attempt timeout.
@@ -210,14 +209,13 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     // Methods with a default implementation.
     // See https://github.com/googleapis/google-cloud-rust/pull/5490 for context.
 
-    /// Sets the user project for the request.
+    /// Sets the [quota project] for the request.
     ///
-    /// When present, `gax-internal`'s gRPC and HTTP transports emit an
-    /// `x-goog-user-project` header carrying this value and drop any
-    /// `x-goog-user-project` header the credentials provider would have
-    /// emitted from its configured `quota_project_id`, so the wire
-    /// carries exactly one `x-goog-user-project`.
-    fn with_user_project<V: Into<String>>(self, _v: V) -> Self
+    /// This adds the `x-goog-user-project` header to the request. Note that
+    /// setting this option overrides a credentials' quota project.
+    ///
+    /// [quota project]: https://docs.cloud.google.com/docs/quotas/quota-project
+    fn with_quota_project<V: Into<String>>(self, _v: V) -> Self
     where
         Self: Sized,
     {
@@ -330,8 +328,8 @@ where
         self
     }
 
-    fn with_user_project<V: Into<String>>(mut self, v: V) -> Self {
-        self.request_options().set_user_project(v);
+    fn with_quota_project<V: Into<String>>(mut self, v: V) -> Self {
+        self.request_options().set_quota_project(v);
         self
     }
 
@@ -411,8 +409,8 @@ mod tests {
         assert_eq!(opts.user_agent().as_deref(), Some(USER_AGENT));
         assert_eq!(opts.attempt_timeout(), &None);
 
-        opts.set_user_project(USER_PROJECT);
-        assert_eq!(opts.user_project().as_deref(), Some(USER_PROJECT));
+        opts.set_quota_project(USER_PROJECT);
+        assert_eq!(opts.quota_project().as_deref(), Some(USER_PROJECT));
 
         let d = Duration::from_secs(123);
         opts.set_attempt_timeout(d);
@@ -475,7 +473,7 @@ mod tests {
 
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
-        assert_eq!(builder.request_options().user_project(), &None);
+        assert_eq!(builder.request_options().quota_project(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
 
         let mut builder = TestBuilder::default().with_idempotency(true);
@@ -490,9 +488,9 @@ mod tests {
         );
         assert_eq!(builder.request_options().attempt_timeout(), &None);
 
-        let mut builder = TestBuilder::default().with_user_project(USER_PROJECT);
+        let mut builder = TestBuilder::default().with_quota_project(USER_PROJECT);
         assert_eq!(
-            builder.request_options().user_project().as_deref(),
+            builder.request_options().quota_project().as_deref(),
             Some(USER_PROJECT)
         );
 

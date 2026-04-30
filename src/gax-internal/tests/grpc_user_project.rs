@@ -26,7 +26,7 @@ mod tests {
 
     const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
     const CRED_QUOTA_PROJECT: &str = "cred_quota_project";
-    const USER_PROJECT_NAME: &str = "project_lazy_dog";
+    const USER_QUOTA_PROJECT: &str = "project_lazy_dog";
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn user_project_emits_header() -> anyhow::Result<()> {
@@ -37,14 +37,14 @@ mod tests {
             .await?;
 
         let mut options = RequestOptions::default();
-        options.set_user_project(USER_PROJECT_NAME);
+        options.set_quota_project(USER_QUOTA_PROJECT);
         let response = send_request(client, options).await?;
         assert_eq!(
             response
                 .metadata
                 .get(X_GOOG_USER_PROJECT)
                 .map(String::as_str),
-            Some(USER_PROJECT_NAME)
+            Some(USER_QUOTA_PROJECT)
         );
         Ok(())
     }
@@ -94,7 +94,7 @@ mod tests {
             .await?;
 
         let mut options = RequestOptions::default();
-        options.set_user_project(USER_PROJECT_NAME);
+        options.set_quota_project(USER_QUOTA_PROJECT);
         let response = send_request(client, options).await?;
 
         assert_eq!(
@@ -102,7 +102,7 @@ mod tests {
                 .metadata
                 .get(X_GOOG_USER_PROJECT)
                 .map(String::as_str),
-            Some(USER_PROJECT_NAME)
+            Some(USER_QUOTA_PROJECT)
         );
         assert!(
             !response.metadata.values().any(|v| v == CRED_QUOTA_PROJECT),

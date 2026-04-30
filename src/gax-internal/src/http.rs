@@ -405,10 +405,10 @@ impl ReqwestClient {
             );
         }
 
-        if let Some(user_project) = options.user_project() {
+        if let Some(quota_project) = options.quota_project() {
             headers.insert(
                 http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
-                http::header::HeaderValue::from_str(user_project).map_err(Error::ser)?,
+                http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
             );
         }
 
