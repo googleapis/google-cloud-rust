@@ -14,7 +14,7 @@
 
 use super::exactly_once_retry::exactly_once_retry_loop;
 use super::handler::AckResult;
-use super::retry_policy::{StreamRetryPolicy, exactly_once_options, rpc_options};
+use super::retry_policy::{StreamRetryPolicy, eo_ack_options, eo_modack_options, rpc_options};
 use super::stub::Stub;
 use crate::RequestOptions;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
@@ -24,6 +24,7 @@ use google_cloud_gax::retry_policy::RetryPolicy;
 use google_cloud_gax::retry_throttler::{CircuitBreaker, SharedRetryThrottler};
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
@@ -57,7 +58,8 @@ where
     inner: Arc<T>,
     confirmed_tx: UnboundedSender<ConfirmedAcks>,
     options: RequestOptions,
-    exactly_once_options: RequestOptions,
+    eo_ack_options: RequestOptions,
+    eo_modack_options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
     backoff: Arc<dyn BackoffPolicy>,
@@ -72,7 +74,8 @@ where
             inner: self.inner.clone(),
             confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
-            exactly_once_options: self.exactly_once_options.clone(),
+            eo_ack_options: self.eo_ack_options.clone(),
+            eo_modack_options: self.eo_modack_options.clone(),
             subscription: self.subscription.clone(),
             ack_deadline_seconds: self.ack_deadline_seconds,
             backoff: self.backoff.clone(),
@@ -91,8 +94,8 @@ where
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
     ) -> Self {
-        let eo_options = exactly_once_options();
-        let backoff = backoff_policy(&eo_options);
+        let eo_ack_options = eo_ack_options();
+        let backoff = backoff_policy(&eo_ack_options);
         Self::new_with_backoff(
             inner,
             confirmed_tx,
@@ -117,7 +120,8 @@ where
             inner,
             confirmed_tx,
             options: rpc_options(grpc_subchannel_count),
-            exactly_once_options: exactly_once_options(),
+            eo_ack_options: eo_ack_options(),
+            eo_modack_options: eo_modack_options(Duration::from_secs(ack_deadline_seconds as u64)),
             subscription,
             ack_deadline_seconds,
             backoff,
@@ -181,8 +185,8 @@ where
             ack_ids,
             inner,
             self.confirmed_tx.clone(),
-            retry_throttler(&self.exactly_once_options),
-            retry_policy(&self.exactly_once_options),
+            retry_throttler(&self.eo_ack_options),
+            retry_policy(&self.eo_ack_options),
             self.backoff.clone(),
         )
         .await;
@@ -202,13 +206,12 @@ where
                 .await
                 .map(|_| ())
         };
-        // TODO(#4804): update retry policy time limit to max lease extension.
         exactly_once_retry_loop(
             ack_ids,
             inner,
             self.confirmed_tx.clone(),
-            retry_throttler(&self.exactly_once_options),
-            retry_policy(&self.exactly_once_options),
+            retry_throttler(&self.eo_modack_options),
+            retry_policy(&self.eo_modack_options),
             self.backoff.clone(),
         )
         .await;
@@ -642,6 +645,63 @@ pub(super) mod tests {
                 result.is_ok(),
                 "Expected success for {ack_id}, got {result:?}"
             );
+        }
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn confirmed_nack_retry_time_limit() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        mock.expect_modify_ack_deadline().returning(|r, o| {
+            assert_eq!(
+                r.subscription,
+                "projects/my-project/subscriptions/my-subscription"
+            );
+            assert_eq!(r.ack_deadline_seconds, 0);
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+            verify_policies(o, 16);
+            Err(Error::service(
+                Status::default().set_code(Code::Unavailable),
+            ))
+        });
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .return_const(Duration::from_secs(5));
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new_with_backoff(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+            Arc::new(mock_backoff),
+        );
+
+        let start = tokio::time::Instant::now();
+
+        leaser.confirmed_nack(test_ids(0..10)).await;
+
+        // Since mock_backoff is exactly 5 secs, we expect 2 retries to take exactly 10
+        // secs to cross the time limit threshold.
+        assert_eq!(start.elapsed(), Duration::from_secs(10));
+
+        let confirmed_nacks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ids have a result.
+        let ack_ids: Vec<_> = confirmed_nacks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all nacks failed with the error.
+        for (ack_id, result) in &confirmed_nacks {
+            match result {
+                Err(crate::error::AckError::Rpc { source, .. }) => {
+                    let status = source.status().expect("RPC source should have a status");
+                    assert_eq!(status.code, Code::Unavailable);
+                }
+                _ => panic!("Expected RPC error for {ack_id}, got {result:?}"),
+            }
         }
         Ok(())
     }
