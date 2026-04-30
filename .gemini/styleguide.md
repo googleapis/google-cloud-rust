@@ -21,7 +21,7 @@ When reviewing or generating code, apply rigorous scrutiny:
 ## Safety & Error Handling
 
 - **Unsafe Code:** Avoid `unsafe` unless absolutely necessary. Any `unsafe` block must have a `// SAFETY:` comment explaining why it is safe.
-- **Panics:** No `unwrap()` or `expect()` in production code (use `?` or handle errors). No `panic!` macro calls in library code. `unwrap()` is acceptable in tests and examples.
+- **Panics:** No `unwrap()` or `expect()` in production code or examples (use `?` or handle errors). No `panic!` macro calls in library code. `unwrap()` is acceptable in tests.
 - **Error Handling:** Public functions should return `Result<T, Error>`. Use the `?` operator for propagation. Custom error types should imply meaningful distinctions for the user.
 
 ## Async & Concurrency
