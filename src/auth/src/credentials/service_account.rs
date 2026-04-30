@@ -269,10 +269,27 @@ impl Builder {
 
     /// Sets the Google Cloud universe domain for these credentials.
     ///
-    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.      
-    // TODO(#3646): Make this public and let example run when universe domain support is done.
-    #[allow(dead_code)]
-    pub(crate) fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
+    /// The universe domain is the default service domain for a given Cloud universe.
+    /// Any value provided here overrides a `universe_domain` value from the input service account JSON.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use serde_json::json;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # let config = json!({
+    /// #     "type": "service_account",
+    /// #     "client_email": "foo@bar.com",
+    /// #     "private_key": "---BEGIN---"
+    /// # });
+    /// let credentials = Builder::new(config)
+    ///     .with_universe_domain("googleapis.com")
+    ///     .build()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [universe domain]: https://cloud.google.com/docs/authentication/universe-domain
+    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = Some(universe_domain.into());
         self
     }
