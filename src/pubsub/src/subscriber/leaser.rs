@@ -262,6 +262,14 @@ pub(super) mod tests {
         }
     }
 
+    mockall::mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(&self, state: &google_cloud_gax::retry_state::RetryState) -> std::time::Duration;
+        }
+    }
+
     #[async_trait::async_trait]
     impl Leaser for Arc<MockLeaser> {
         async fn ack(&self, ack_ids: Vec<String>) {
@@ -465,6 +473,70 @@ pub(super) mod tests {
     }
 
     #[tokio::test]
+    async fn confirmed_ack_retry() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_acknowledge()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Err(Error::service(
+                    Status::default().set_code(Code::Unavailable),
+                ))
+            });
+        mock.expect_acknowledge()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Ok(Response::from(()))
+            });
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .return_const(std::time::Duration::ZERO);
+
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new_with_backoff(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+            Arc::new(mock_backoff),
+        );
+        leaser.confirmed_ack(test_ids(0..10)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ack IDs have a result.
+        let ack_ids: Vec<_> = confirmed_acks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all acks were successful.
+        for (ack_id, result) in &confirmed_acks {
+            assert!(
+                result.is_ok(),
+                "Expected success for {ack_id}, got {result:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn confirmed_nack() -> anyhow::Result<()> {
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
@@ -487,6 +559,72 @@ pub(super) mod tests {
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
+        );
+        leaser.confirmed_nack(test_ids(0..10)).await;
+
+        let confirmed_nacks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ids have a result.
+        let ack_ids: Vec<_> = confirmed_nacks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all nacks were successful.
+        for (ack_id, result) in &confirmed_nacks {
+            assert!(
+                result.is_ok(),
+                "Expected success for {ack_id}, got {result:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_nack_retry() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_modify_ack_deadline()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_deadline_seconds, 0);
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Err(Error::service(
+                    Status::default().set_code(Code::Unavailable),
+                ))
+            });
+        mock.expect_modify_ack_deadline()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_deadline_seconds, 0);
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Ok(Response::from(()))
+            });
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .return_const(std::time::Duration::ZERO);
+
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new_with_backoff(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+            Arc::new(mock_backoff),
         );
         leaser.confirmed_nack(test_ids(0..10)).await;
 

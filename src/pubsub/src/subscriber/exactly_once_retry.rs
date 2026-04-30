@@ -157,7 +157,9 @@ pub(super) async fn exactly_once_retry_loop<F>(
                     (to_confirm, remaining)
                 }
             };
-            let _ = confirmed_tx.send(to_confirm);
+            if !to_confirm.is_empty() {
+                let _ = confirmed_tx.send(to_confirm);
+            }
             if remaining.is_empty() {
                 Ok(())
             } else {
