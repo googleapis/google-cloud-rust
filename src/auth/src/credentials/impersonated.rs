@@ -396,7 +396,7 @@ impl Builder {
         self
     }
 
-    /// Sets the [universe domain] for this credentials.
+    /// Sets the Google Cloud universe domain for these credentials.
     ///
     /// The universe domain is the default service domain for a given Cloud universe.
     ///
