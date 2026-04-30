@@ -246,6 +246,8 @@ pub(super) mod tests {
     use super::*;
     use crate::{Error, Response};
     use google_cloud_gax::error::rpc::{Code, Status};
+    use google_cloud_gax::retry_state::RetryState;
+    use std::time::Duration;
     use tokio::sync::Mutex;
     use tokio::sync::mpsc::unbounded_channel;
 
@@ -266,7 +268,7 @@ pub(super) mod tests {
         #[derive(Debug)]
         pub BackoffPolicy {}
         impl BackoffPolicy for BackoffPolicy {
-            fn on_failure(&self, state: &google_cloud_gax::retry_state::RetryState) -> std::time::Duration;
+            fn on_failure(&self, state: &RetryState) -> Duration;
         }
     }
 
