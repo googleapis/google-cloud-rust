@@ -27,8 +27,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-hypercomputecluster-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-hypercomputecluster-v1/1.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[HypercomputeCluster]: https://docs.rs/google-cloud-hypercomputecluster-v1/1.0.0/google_cloud_hypercomputecluster_v1/client/struct.HypercomputeCluster.html
+[HypercomputeCluster]: https://docs.rs/google-cloud-hypercomputecluster-v1/1.1.0/google_cloud_hypercomputecluster_v1/client/struct.HypercomputeCluster.html

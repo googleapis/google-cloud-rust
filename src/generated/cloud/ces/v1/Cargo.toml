@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-ces-v1"
-version                = "1.0.0"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Gemini Enterprise for Customer Experience API"
 edition.workspace      = true
 authors.workspace      = true

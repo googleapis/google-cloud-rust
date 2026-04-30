@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-visionai-v1"
-version                = "1.0.0"
+version                = "1.1.0"
 description            = "Google Cloud Client Libraries for Rust - Vision AI API"
 edition.workspace      = true
 authors.workspace      = true
