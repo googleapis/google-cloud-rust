@@ -1,4 +1,5 @@
 {
+    "api_description": "Assured Workloads lets you secure your workloads and accelerate your path to running compliant workloads on Google Cloud.",
     "api_id": "assuredworkloads.googleapis.com",
     "api_shortname": "assuredworkloads",
     "client_documentation": "https://docs.rs/google-cloud-assuredworkloads-v1/latest",

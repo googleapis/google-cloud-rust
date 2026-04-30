@@ -319,7 +319,9 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(Credentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -356,8 +358,22 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(AccessTokenCredentials {
+            inner: Arc::new(self.build_credentials()?),
+        })
+    }
+
+    fn build_credentials(self) -> BuildResult<UserCredentials<TokenCache>> {
         let authorized_user = serde_json::from_value::<AuthorizedUser>(self.authorized_user)
             .map_err(BuilderError::parsing)?;
+
+        let universe_domain = authorized_user.universe_domain.as_deref();
+        if !crate::universe_domain::is_default_universe_domain(universe_domain) {
+            return Err(BuilderError::not_supported(
+                "User Account Credentials are not supported in universes other than googleapis.com",
+            ));
+        }
+
         let endpoint = self
             .token_uri
             .or(authorized_user.token_uri)
@@ -375,11 +391,9 @@ impl Builder {
 
         let token_provider = TokenCache::new(self.retry_builder.build(token_provider));
 
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(UserCredentials {
-                token_provider,
-                quota_project_id,
-            }),
+        Ok(UserCredentials {
+            token_provider,
+            quota_project_id,
         })
     }
 }
@@ -536,6 +550,8 @@ pub(crate) struct AuthorizedUser {
     token_uri: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     quota_project_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    universe_domain: Option<String>,
 }
 
 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -718,6 +734,7 @@ mod tests {
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: Some("test-project".to_string()),
             token_uri: Some("test-token-uri".to_string()),
+            universe_domain: Some("googleapis.com".to_string()),
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -739,6 +756,7 @@ mod tests {
             refresh_token: "test-refresh-token".to_string(),
             quota_project_id: None,
             token_uri: None,
+            universe_domain: None,
         };
         let actual = serde_json::from_value::<AuthorizedUser>(json).unwrap();
         assert_eq!(actual, expected);
@@ -773,6 +791,20 @@ mod tests {
             quota_project_id: None,
         };
         assert_eq!(uc.universe_domain().await.unwrap(), DEFAULT_UNIVERSE_DOMAIN);
+    }
+
+    #[test]
+    fn builder_rejects_non_default_universe() {
+        let json = serde_json::json!({
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user",
+            "universe_domain": "non-default-universe.com",
+        });
+
+        let err = Builder::new(json).build().unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
     }
 
     #[tokio::test]

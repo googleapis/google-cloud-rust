@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod concurrency_control;
+pub mod dead_letter_delivery_attempt;
 pub mod error_listener;
 pub mod exactly_once;
 pub mod flow_settings;

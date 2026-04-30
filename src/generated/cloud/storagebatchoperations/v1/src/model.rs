@@ -59,6 +59,7 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -147,6 +148,7 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -235,6 +237,7 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -285,6 +288,7 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -384,6 +388,7 @@ pub struct CancelJobRequest {
 }
 
 impl CancelJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -444,6 +449,7 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -499,6 +505,7 @@ pub struct CancelJobResponse {
 }
 
 impl CancelJobResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -533,6 +540,7 @@ pub struct ListBucketOperationsRequest {
 }
 
 impl ListBucketOperationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -621,6 +629,7 @@ pub struct ListBucketOperationsResponse {
 }
 
 impl ListBucketOperationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -710,6 +719,7 @@ pub struct GetBucketOperationRequest {
 }
 
 impl GetBucketOperationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -770,6 +780,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -971,6 +982,7 @@ pub struct Job {
 }
 
 impl Job {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1734,6 +1746,7 @@ pub struct BucketOperation {
 }
 
 impl BucketOperation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2475,6 +2488,7 @@ pub struct BucketList {
 }
 
 impl BucketList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2529,6 +2543,7 @@ pub mod bucket_list {
     }
 
     impl Bucket {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2689,6 +2704,7 @@ pub struct Manifest {
 }
 
 impl Manifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2731,6 +2747,7 @@ pub struct PrefixList {
 }
 
 impl PrefixList {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2776,6 +2793,7 @@ pub struct PutObjectHold {
 }
 
 impl PutObjectHold {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2980,6 +2998,7 @@ pub struct DeleteObject {
 }
 
 impl DeleteObject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3025,6 +3044,7 @@ pub struct RewriteObject {
 }
 
 impl RewriteObject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3083,6 +3103,7 @@ pub struct ObjectRetention {
 }
 
 impl ObjectRetention {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3355,6 +3376,7 @@ pub struct PutMetadata {
 }
 
 impl PutMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3620,6 +3642,7 @@ pub struct ObjectCustomContextPayload {
 }
 
 impl ObjectCustomContextPayload {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3679,6 +3702,7 @@ pub struct CustomContextUpdates {
 }
 
 impl CustomContextUpdates {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3740,6 +3764,7 @@ pub struct UpdateObjectCustomContext {
 }
 
 impl UpdateObjectCustomContext {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3882,6 +3907,7 @@ pub struct ErrorSummary {
 }
 
 impl ErrorSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3960,6 +3986,7 @@ pub struct ErrorLogEntry {
 }
 
 impl ErrorLogEntry {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4010,17 +4037,33 @@ pub struct Counters {
     /// Output only. Number of objects completed.
     pub succeeded_object_count: i64,
 
-    /// Output only. Number of objects failed.
+    /// Output only. The number of objects that failed due to user errors or
+    /// service errors.
     pub failed_object_count: i64,
 
     /// Output only. Number of bytes found from source. This field is only
     /// populated for jobs with a prefix list object configuration.
     pub total_bytes_found: std::option::Option<i64>,
 
+    /// Output only. Number of object custom contexts created. This field is only
+    /// populated for jobs with the UpdateObjectCustomContext transformation.
+    pub object_custom_contexts_created: std::option::Option<i64>,
+
+    /// Output only. Number of object custom contexts deleted. This field is only
+    /// populated for jobs with the UpdateObjectCustomContext transformation.
+    pub object_custom_contexts_deleted: std::option::Option<i64>,
+
+    /// Output only. Number of object custom contexts updated. This counter tracks
+    /// custom contexts where the key already existed, but the payload was
+    /// modified. This field is only populated for jobs with the
+    /// UpdateObjectCustomContext transformation.
+    pub object_custom_contexts_updated: std::option::Option<i64>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Counters {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4091,6 +4134,108 @@ impl Counters {
         self.total_bytes_found = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [object_custom_contexts_created][crate::model::Counters::object_custom_contexts_created].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_object_custom_contexts_created(42);
+    /// ```
+    pub fn set_object_custom_contexts_created<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_created = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_custom_contexts_created][crate::model::Counters::object_custom_contexts_created].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_created(Some(42));
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_created(None::<i32>);
+    /// ```
+    pub fn set_or_clear_object_custom_contexts_created<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_created = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [object_custom_contexts_deleted][crate::model::Counters::object_custom_contexts_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_object_custom_contexts_deleted(42);
+    /// ```
+    pub fn set_object_custom_contexts_deleted<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_deleted = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_custom_contexts_deleted][crate::model::Counters::object_custom_contexts_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_deleted(Some(42));
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_deleted(None::<i32>);
+    /// ```
+    pub fn set_or_clear_object_custom_contexts_deleted<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_deleted = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [object_custom_contexts_updated][crate::model::Counters::object_custom_contexts_updated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_object_custom_contexts_updated(42);
+    /// ```
+    pub fn set_object_custom_contexts_updated<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_updated = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_custom_contexts_updated][crate::model::Counters::object_custom_contexts_updated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_updated(Some(42));
+    /// let x = Counters::new().set_or_clear_object_custom_contexts_updated(None::<i32>);
+    /// ```
+    pub fn set_or_clear_object_custom_contexts_updated<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.object_custom_contexts_updated = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Counters {
@@ -4114,6 +4259,7 @@ pub struct LoggingConfig {
 }
 
 impl LoggingConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

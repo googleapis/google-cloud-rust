@@ -1,4 +1,5 @@
 {
+    "api_description": "Google Cloud Managed Lustre delivers a high-performance, fully managed parallel file system optimized for AI and HPC applications.",
     "api_id": "lustre.googleapis.com",
     "api_shortname": "lustre",
     "client_documentation": "https://docs.rs/google-cloud-lustre-v1/latest",

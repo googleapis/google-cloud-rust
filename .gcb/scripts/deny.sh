@@ -22,7 +22,7 @@ time cargo install --locked cargo-deny@0.19.0
 set +v
 
 echo "==== cargo deny ===="
-cargo deny check
+cargo deny check licenses bans sources
 
 echo "==== DONE ===="
 /workspace/.bin/sccache --show-stats

@@ -22,6 +22,15 @@ use GitHub pull requests for this purpose. Consult
 [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more
 information on using pull requests.
 
+## Contributor Guides
+
+For detailed information on specific topics, see the following guides:
+
+- [Set up Development Environment](doc/contributor/howto-guide-set-up-development-environment.md)
+- [Forks and Pull Requests](doc/contributor/howto-guide-forks-and-pull-requests.md)
+- [Generated Code Maintenance](doc/contributor/howto-guide-generated-code-maintenance.md)
+- [Documentation Standards](doc/contributor/howto-guide-documentation-standards.md)
+
 ## Commit Messages
 
 Commit messages for `google-cloud-rust` follow the conventions below. Note that

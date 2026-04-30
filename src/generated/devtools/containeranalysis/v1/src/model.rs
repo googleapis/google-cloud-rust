@@ -50,6 +50,7 @@ pub struct ExportSBOMRequest {
 }
 
 impl ExportSBOMRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -153,6 +154,7 @@ pub mod export_sbom_request {
     }
 
     impl CloudStorageLocation {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -189,6 +191,7 @@ pub struct ExportSBOMResponse {
 }
 
 impl ExportSBOMResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -230,6 +233,7 @@ pub struct GetVulnerabilityOccurrencesSummaryRequest {
 }
 
 impl GetVulnerabilityOccurrencesSummaryRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -278,6 +282,7 @@ pub struct VulnerabilityOccurrencesSummary {
 }
 
 impl VulnerabilityOccurrencesSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -339,6 +344,7 @@ pub mod vulnerability_occurrences_summary {
     }
 
     impl FixableTotalByDigest {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }

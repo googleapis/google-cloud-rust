@@ -1152,6 +1152,10 @@ pub struct CommitResponse {
     pub snapshot_timestamp: ::core::option::Option<::prost_types::Timestamp>,
     #[prost(message, optional, tag = "6")]
     pub cache_update: ::core::option::Option<CacheUpdate>,
+    #[prost(enumeration = "transaction_options::IsolationLevel", tag = "7")]
+    pub isolation_level: i32,
+    #[prost(enumeration = "transaction_options::read_write::ReadLockMode", tag = "8")]
+    pub read_lock_mode: i32,
     #[prost(oneof = "commit_response::MultiplexedSessionRetry", tags = "4")]
     pub multiplexed_session_retry: ::core::option::Option<
         commit_response::MultiplexedSessionRetry,

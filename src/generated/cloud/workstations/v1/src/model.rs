@@ -115,6 +115,7 @@ pub struct WorkstationCluster {
 }
 
 impl WorkstationCluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -468,6 +469,7 @@ pub mod workstation_cluster {
     }
 
     impl PrivateClusterConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -689,6 +691,7 @@ pub struct WorkstationConfig {
 }
 
 impl WorkstationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1177,6 +1180,7 @@ pub mod workstation_config {
     }
 
     impl Host {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1381,6 +1385,7 @@ pub mod workstation_config {
         }
 
         impl GceInstance {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1606,6 +1611,7 @@ pub mod workstation_config {
             }
 
             impl GceShieldedInstanceConfig {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -1667,6 +1673,7 @@ pub mod workstation_config {
             }
 
             impl GceConfidentialInstanceConfig {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -1719,6 +1726,7 @@ pub mod workstation_config {
     }
 
     impl PersistentDirectory {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1879,6 +1887,7 @@ pub mod workstation_config {
         }
 
         impl GceRegionalPersistentDisk {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2150,6 +2159,7 @@ pub mod workstation_config {
     }
 
     impl Container {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2279,6 +2289,7 @@ pub mod workstation_config {
     }
 
     impl CustomerEncryptionKey {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2331,6 +2342,7 @@ pub mod workstation_config {
     }
 
     impl ReadinessCheck {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2425,6 +2437,7 @@ pub struct Workstation {
 }
 
 impl Workstation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2865,6 +2878,7 @@ pub struct GetWorkstationClusterRequest {
 }
 
 impl GetWorkstationClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2906,6 +2920,7 @@ pub struct ListWorkstationClustersRequest {
 }
 
 impl ListWorkstationClustersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2971,6 +2986,7 @@ pub struct ListWorkstationClustersResponse {
 }
 
 impl ListWorkstationClustersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3068,6 +3084,7 @@ pub struct CreateWorkstationClusterRequest {
 }
 
 impl CreateWorkstationClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3175,6 +3192,7 @@ pub struct UpdateWorkstationClusterRequest {
 }
 
 impl UpdateWorkstationClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3300,6 +3318,7 @@ pub struct DeleteWorkstationClusterRequest {
 }
 
 impl DeleteWorkstationClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3370,6 +3389,7 @@ pub struct GetWorkstationConfigRequest {
 }
 
 impl GetWorkstationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3411,6 +3431,7 @@ pub struct ListWorkstationConfigsRequest {
 }
 
 impl ListWorkstationConfigsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3476,6 +3497,7 @@ pub struct ListWorkstationConfigsResponse {
 }
 
 impl ListWorkstationConfigsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3570,6 +3592,7 @@ pub struct ListUsableWorkstationConfigsRequest {
 }
 
 impl ListUsableWorkstationConfigsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3635,6 +3658,7 @@ pub struct ListUsableWorkstationConfigsResponse {
 }
 
 impl ListUsableWorkstationConfigsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3734,6 +3758,7 @@ pub struct CreateWorkstationConfigRequest {
 }
 
 impl CreateWorkstationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3841,6 +3866,7 @@ pub struct UpdateWorkstationConfigRequest {
 }
 
 impl UpdateWorkstationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3966,6 +3992,7 @@ pub struct DeleteWorkstationConfigRequest {
 }
 
 impl DeleteWorkstationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4036,6 +4063,7 @@ pub struct GetWorkstationRequest {
 }
 
 impl GetWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4077,6 +4105,7 @@ pub struct ListWorkstationsRequest {
 }
 
 impl ListWorkstationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4142,6 +4171,7 @@ pub struct ListWorkstationsResponse {
 }
 
 impl ListWorkstationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4236,6 +4266,7 @@ pub struct ListUsableWorkstationsRequest {
 }
 
 impl ListUsableWorkstationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4301,6 +4332,7 @@ pub struct ListUsableWorkstationsResponse {
 }
 
 impl ListUsableWorkstationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4398,6 +4430,7 @@ pub struct CreateWorkstationRequest {
 }
 
 impl CreateWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4502,6 +4535,7 @@ pub struct UpdateWorkstationRequest {
 }
 
 impl UpdateWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4622,6 +4656,7 @@ pub struct DeleteWorkstationRequest {
 }
 
 impl DeleteWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4688,6 +4723,7 @@ pub struct StartWorkstationRequest {
 }
 
 impl StartWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4754,6 +4790,7 @@ pub struct StopWorkstationRequest {
 }
 
 impl StopWorkstationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4816,6 +4853,7 @@ pub struct GenerateAccessTokenRequest {
 }
 
 impl GenerateAccessTokenRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4972,6 +5010,7 @@ pub struct GenerateAccessTokenResponse {
 }
 
 impl GenerateAccessTokenResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5058,6 +5097,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

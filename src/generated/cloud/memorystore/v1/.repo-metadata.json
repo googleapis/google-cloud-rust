@@ -1,4 +1,5 @@
 {
+    "api_description": "Memorystore for Valkey is a fully managed Valkey service for Google Cloud which supports both Cluster Mode Enabled and Cluster Mode Disabled instances.",
     "api_id": "memorystore.googleapis.com",
     "api_shortname": "memorystore",
     "client_documentation": "https://docs.rs/google-cloud-memorystore-v1/latest",

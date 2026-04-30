@@ -42,6 +42,7 @@ pub struct FeatureSpec {
 }
 
 impl FeatureSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -79,6 +80,7 @@ pub struct FeatureState {
 }
 
 impl FeatureState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

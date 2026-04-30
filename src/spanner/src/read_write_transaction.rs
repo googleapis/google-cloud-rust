@@ -164,8 +164,9 @@ impl ReadWriteTransaction {
     /// Executes an update using this transaction.
     pub async fn execute_update<T: Into<Statement>>(&self, statement: T) -> crate::Result<i64> {
         let seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
+        let statement = statement.into();
+        let gax_options = statement.gax_options().clone();
         let mut request = statement
-            .into()
             .into_request()
             .set_session(self.context.session_name.clone())
             .set_transaction(self.context.transaction_selector.selector())
@@ -176,7 +177,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_sql(request, RequestOptions::default())
+            .execute_sql(request, gax_options)
             .await?;
         self.context
             .precommit_token_tracker
@@ -280,7 +281,7 @@ impl ReadWriteTransaction {
             .context
             .client
             .spanner
-            .execute_batch_dml(request, RequestOptions::default())
+            .execute_batch_dml(request, batch.gax_options)
             .await;
 
         match response_result {

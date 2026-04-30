@@ -57,6 +57,7 @@ pub struct MembershipState {
 }
 
 impl MembershipState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -278,6 +279,7 @@ pub struct MembershipSpec {
 }
 
 impl MembershipSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -607,6 +609,7 @@ pub struct ConfigSync {
 }
 
 impl ConfigSync {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -790,6 +793,7 @@ pub struct GitConfig {
 }
 
 impl GitConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -926,6 +930,7 @@ pub struct OciConfig {
 }
 
 impl OciConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1031,6 +1036,7 @@ pub struct PolicyController {
 }
 
 impl PolicyController {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1174,6 +1180,7 @@ pub struct HierarchyControllerConfig {
 }
 
 impl HierarchyControllerConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1238,6 +1245,7 @@ pub struct HierarchyControllerDeploymentState {
 }
 
 impl HierarchyControllerDeploymentState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1296,6 +1304,7 @@ pub struct HierarchyControllerVersion {
 }
 
 impl HierarchyControllerVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1345,6 +1354,7 @@ pub struct HierarchyControllerState {
 }
 
 impl HierarchyControllerState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1439,6 +1449,7 @@ pub struct OperatorState {
 }
 
 impl OperatorState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1513,6 +1524,7 @@ pub struct InstallError {
 }
 
 impl InstallError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1567,6 +1579,7 @@ pub struct ConfigSyncState {
 }
 
 impl ConfigSyncState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1904,6 +1917,7 @@ pub mod config_sync_state {
         }
     }
 
+    /// Enum for [State].
     ///
     /// # Working with unknown values
     ///
@@ -2063,6 +2077,7 @@ pub struct ConfigSyncError {
 }
 
 impl ConfigSyncError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2115,6 +2130,7 @@ pub struct ConfigSyncVersion {
 }
 
 impl ConfigSyncVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2245,6 +2261,7 @@ pub struct ConfigSyncDeploymentState {
 }
 
 impl ConfigSyncDeploymentState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2416,6 +2433,7 @@ pub struct SyncState {
 }
 
 impl SyncState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2739,6 +2757,7 @@ pub struct SyncError {
 }
 
 impl SyncError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2816,6 +2835,7 @@ pub struct ErrorResource {
 }
 
 impl ErrorResource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2916,6 +2936,7 @@ pub struct GroupVersionKind {
 }
 
 impl GroupVersionKind {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2977,6 +2998,7 @@ pub struct PolicyControllerState {
 }
 
 impl PolicyControllerState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3066,6 +3088,7 @@ pub struct PolicyControllerVersion {
 }
 
 impl PolicyControllerVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3103,6 +3126,7 @@ pub struct GatekeeperDeploymentState {
 }
 
 impl GatekeeperDeploymentState {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

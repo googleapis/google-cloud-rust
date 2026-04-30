@@ -86,6 +86,7 @@ pub struct SubmitBuildRequest {
 }
 
 impl SubmitBuildRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -385,6 +386,7 @@ pub mod submit_build_request {
     }
 
     impl DockerBuild {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -436,6 +438,7 @@ pub mod submit_build_request {
     }
 
     impl BuildpacksBuild {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -587,6 +590,7 @@ pub struct SubmitBuildResponse {
 }
 
 impl SubmitBuildResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -681,6 +685,7 @@ pub struct StorageSource {
 }
 
 impl StorageSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -761,6 +766,7 @@ pub struct Condition {
 }
 
 impl Condition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1964,6 +1970,7 @@ pub struct ContainerStatus {
 }
 
 impl ContainerStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2013,6 +2020,7 @@ pub struct GetExecutionRequest {
 }
 
 impl GetExecutionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2060,6 +2068,7 @@ pub struct ListExecutionsRequest {
 }
 
 impl ListExecutionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2134,6 +2143,7 @@ pub struct ListExecutionsResponse {
 }
 
 impl ListExecutionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2215,6 +2225,7 @@ pub struct DeleteExecutionRequest {
 }
 
 impl DeleteExecutionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2284,6 +2295,7 @@ pub struct CancelExecutionRequest {
 }
 
 impl CancelExecutionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2466,6 +2478,7 @@ pub struct Execution {
 }
 
 impl Execution {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3034,6 +3047,7 @@ pub struct ExecutionTemplate {
 }
 
 impl ExecutionTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3144,11 +3158,14 @@ impl wkt::message::Message for ExecutionTemplate {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateInstanceRequest {
+    #[allow(missing_docs)]
     pub parent: std::string::String,
 
+    #[allow(missing_docs)]
     pub instance: std::option::Option<crate::model::Instance>,
 
     /// Required. The unique identifier for the Instance. It must begin with
@@ -3164,6 +3181,7 @@ pub struct CreateInstanceRequest {
 }
 
 impl CreateInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3244,15 +3262,18 @@ impl wkt::message::Message for CreateInstanceRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetInstanceRequest {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl GetInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3276,9 +3297,11 @@ impl wkt::message::Message for GetInstanceRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteInstanceRequest {
+    #[allow(missing_docs)]
     pub name: std::string::String,
 
     /// Optional. Indicates that the request should be validated without actually
@@ -3293,6 +3316,7 @@ pub struct DeleteInstanceRequest {
 }
 
 impl DeleteInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3364,6 +3388,7 @@ pub struct ListInstancesRequest {
 }
 
 impl ListInstancesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3438,6 +3463,7 @@ pub struct ListInstancesResponse {
 }
 
 impl ListInstancesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3519,6 +3545,7 @@ pub struct StopInstanceRequest {
 }
 
 impl StopInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3588,6 +3615,7 @@ pub struct StartInstanceRequest {
 }
 
 impl StartInstanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3663,8 +3691,10 @@ pub struct Instance {
     /// APIs, its JSON representation will be a `string` instead of an `integer`.
     pub generation: i64,
 
+    #[allow(missing_docs)]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    #[allow(missing_docs)]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The creation time.
@@ -3709,6 +3739,7 @@ pub struct Instance {
     /// <https://cloud.google.com/run/docs/configuring/connecting-vpc>.
     pub vpc_access: std::option::Option<crate::model::VpcAccess>,
 
+    #[allow(missing_docs)]
     pub service_account: std::string::String,
 
     /// Required. Holds the single container that defines the unit of execution for
@@ -3803,6 +3834,7 @@ pub struct Instance {
 }
 
 impl Instance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4574,6 +4606,7 @@ pub struct InstanceSplit {
 }
 
 impl InstanceSplit {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4643,6 +4676,7 @@ pub struct InstanceSplitStatus {
 }
 
 impl InstanceSplitStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4719,6 +4753,7 @@ pub struct CreateJobRequest {
 }
 
 impl CreateJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4812,6 +4847,7 @@ pub struct GetJobRequest {
 }
 
 impl GetJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4855,6 +4891,7 @@ pub struct UpdateJobRequest {
 }
 
 impl UpdateJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4946,6 +4983,7 @@ pub struct ListJobsRequest {
 }
 
 impl ListJobsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5020,6 +5058,7 @@ pub struct ListJobsResponse {
 }
 
 impl ListJobsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5100,6 +5139,7 @@ pub struct DeleteJobRequest {
 }
 
 impl DeleteJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5172,6 +5212,7 @@ pub struct RunJobRequest {
 }
 
 impl RunJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5278,6 +5319,7 @@ pub mod run_job_request {
     }
 
     impl Overrides {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5383,6 +5425,7 @@ pub mod run_job_request {
         }
 
         impl ContainerOverride {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5588,12 +5631,14 @@ pub struct Job {
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
+    #[allow(missing_docs)]
     pub create_execution: std::option::Option<crate::model::job::CreateExecution>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Job {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6193,6 +6238,7 @@ pub mod job {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CreateExecution {
@@ -6232,6 +6278,7 @@ pub struct ExecutionReference {
 }
 
 impl ExecutionReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6609,6 +6656,7 @@ pub struct Container {
 }
 
 impl Container {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7004,6 +7052,7 @@ pub struct ResourceRequirements {
 }
 
 impl ResourceRequirements {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7068,12 +7117,14 @@ pub struct EnvVar {
     /// characters.
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub values: std::option::Option<crate::model::env_var::Values>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl EnvVar {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7186,6 +7237,7 @@ pub mod env_var {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Values {
@@ -7209,6 +7261,7 @@ pub struct EnvVarSource {
 }
 
 impl EnvVarSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7272,6 +7325,7 @@ pub struct SecretKeySelector {
 }
 
 impl SecretKeySelector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7323,6 +7377,7 @@ pub struct ContainerPort {
 }
 
 impl ContainerPort {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7380,6 +7435,7 @@ pub struct VolumeMount {
 }
 
 impl VolumeMount {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7434,12 +7490,14 @@ pub struct Volume {
     /// Required. Volume's name.
     pub name: std::string::String,
 
+    #[allow(missing_docs)]
     pub volume_type: std::option::Option<crate::model::volume::VolumeType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Volume {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7685,6 +7743,7 @@ pub mod volume {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum VolumeType {
@@ -7745,6 +7804,7 @@ pub struct SecretVolumeSource {
 }
 
 impl SecretVolumeSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7835,6 +7895,7 @@ pub struct VersionToPath {
 }
 
 impl VersionToPath {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7900,6 +7961,7 @@ pub struct CloudSqlInstance {
 }
 
 impl CloudSqlInstance {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7954,6 +8016,7 @@ pub struct EmptyDirVolumeSource {
 }
 
 impl EmptyDirVolumeSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8142,6 +8205,7 @@ pub struct NFSVolumeSource {
 }
 
 impl NFSVolumeSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8208,6 +8272,7 @@ pub struct GCSVolumeSource {
 }
 
 impl GCSVolumeSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8285,12 +8350,14 @@ pub struct Probe {
     /// failed after having succeeded. Defaults to 3. Minimum value is 1.
     pub failure_threshold: i32,
 
+    #[allow(missing_docs)]
     pub probe_type: std::option::Option<crate::model::probe::ProbeType>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Probe {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8483,6 +8550,7 @@ pub mod probe {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ProbeType {
@@ -8518,6 +8586,7 @@ pub struct HTTPGetAction {
 }
 
 impl HTTPGetAction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8589,6 +8658,7 @@ pub struct HTTPHeader {
 }
 
 impl HTTPHeader {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8637,6 +8707,7 @@ pub struct TCPSocketAction {
 }
 
 impl TCPSocketAction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8679,6 +8750,7 @@ pub struct GRPCAction {
 }
 
 impl GRPCAction {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8729,6 +8801,7 @@ pub struct BuildInfo {
 }
 
 impl BuildInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8775,6 +8848,7 @@ pub struct SourceCode {
 }
 
 impl SourceCode {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8870,6 +8944,7 @@ pub mod source_code {
     }
 
     impl CloudStorageSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8939,6 +9014,7 @@ pub struct GetRevisionRequest {
 }
 
 impl GetRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8986,6 +9062,7 @@ pub struct ListRevisionsRequest {
 }
 
 impl ListRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9060,6 +9137,7 @@ pub struct ListRevisionsResponse {
 }
 
 impl ListRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9142,6 +9220,7 @@ pub struct DeleteRevisionRequest {
 }
 
 impl DeleteRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9338,6 +9417,7 @@ pub struct Revision {
 }
 
 impl Revision {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10167,6 +10247,7 @@ pub struct RevisionTemplate {
 }
 
 impl RevisionTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10635,6 +10716,7 @@ pub struct CreateServiceRequest {
 }
 
 impl CreateServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10738,6 +10820,7 @@ pub struct UpdateServiceRequest {
 }
 
 impl UpdateServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10863,6 +10946,7 @@ pub struct ListServicesRequest {
 }
 
 impl ListServicesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10941,6 +11025,7 @@ pub struct ListServicesResponse {
 }
 
 impl ListServicesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11030,6 +11115,7 @@ pub struct GetServiceRequest {
 }
 
 impl GetServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11074,6 +11160,7 @@ pub struct DeleteServiceRequest {
 }
 
 impl DeleteServiceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11325,6 +11412,7 @@ pub struct Service {
 }
 
 impl Service {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12097,6 +12185,7 @@ pub mod service {
     }
 
     impl MultiRegionSettings {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12152,6 +12241,7 @@ pub struct RevisionScalingStatus {
 }
 
 impl RevisionScalingStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12188,6 +12278,7 @@ pub struct GetTaskRequest {
 }
 
 impl GetTaskRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12235,6 +12326,7 @@ pub struct ListTasksRequest {
 }
 
 impl ListTasksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12309,6 +12401,7 @@ pub struct ListTasksResponse {
 }
 
 impl ListTasksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12514,6 +12607,7 @@ pub struct Task {
 }
 
 impl Task {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13253,6 +13347,7 @@ pub struct TaskAttemptResult {
 }
 
 impl TaskAttemptResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13364,12 +13459,14 @@ pub struct TaskTemplate {
     /// Optional. True if GPU zonal redundancy is disabled on this task template.
     pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
+    #[allow(missing_docs)]
     pub retries: std::option::Option<crate::model::task_template::Retries>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl TaskTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13654,6 +13751,7 @@ pub mod task_template {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Retries {
@@ -13687,6 +13785,7 @@ pub struct TrafficTarget {
 }
 
 impl TrafficTarget {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13774,6 +13873,7 @@ pub struct TrafficTargetStatus {
 }
 
 impl TrafficTargetStatus {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13874,6 +13974,7 @@ pub struct VpcAccess {
 }
 
 impl VpcAccess {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13966,6 +14067,7 @@ pub mod vpc_access {
     }
 
     impl NetworkInterface {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14161,12 +14263,14 @@ pub struct BinaryAuthorization {
     /// <https://cloud.google.com/binary-authorization/docs/using-breakglass>
     pub breakglass_justification: std::string::String,
 
+    #[allow(missing_docs)]
     pub binauthz_method: std::option::Option<crate::model::binary_authorization::BinauthzMethod>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BinaryAuthorization {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14285,6 +14389,7 @@ pub mod binary_authorization {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum BinauthzMethod {
@@ -14315,6 +14420,7 @@ pub struct RevisionScaling {
 }
 
 impl RevisionScaling {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14364,6 +14470,7 @@ pub struct ServiceMesh {
 }
 
 impl ServiceMesh {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14414,6 +14521,7 @@ pub struct ServiceScaling {
 }
 
 impl ServiceScaling {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14647,6 +14755,7 @@ pub struct WorkerPoolScaling {
 }
 
 impl WorkerPoolScaling {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14700,6 +14809,7 @@ pub struct NodeSelector {
 }
 
 impl NodeSelector {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14771,6 +14881,7 @@ pub struct BuildConfig {
 }
 
 impl BuildConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14926,6 +15037,7 @@ pub struct CreateWorkerPoolRequest {
 }
 
 impl CreateWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15039,6 +15151,7 @@ pub struct UpdateWorkerPoolRequest {
 }
 
 impl UpdateWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15176,6 +15289,7 @@ pub struct ListWorkerPoolsRequest {
 }
 
 impl ListWorkerPoolsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15250,6 +15364,7 @@ pub struct ListWorkerPoolsResponse {
 }
 
 impl ListWorkerPoolsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15323,6 +15438,7 @@ pub struct GetWorkerPoolRequest {
 }
 
 impl GetWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15368,6 +15484,7 @@ pub struct DeleteWorkerPoolRequest {
 }
 
 impl DeleteWorkerPoolRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15599,6 +15716,7 @@ pub struct WorkerPool {
 }
 
 impl WorkerPool {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16282,6 +16400,7 @@ pub struct WorkerPoolRevisionTemplate {
 }
 
 impl WorkerPoolRevisionTemplate {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

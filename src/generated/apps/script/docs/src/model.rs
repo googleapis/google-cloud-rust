@@ -46,6 +46,7 @@ pub struct DocsAddOnManifest {
 }
 
 impl DocsAddOnManifest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,6 +138,7 @@ pub struct DocsExtensionPoint {
 }
 
 impl DocsExtensionPoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

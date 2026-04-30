@@ -181,10 +181,10 @@ impl Builder {
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
                 .map_err(BuilderError::parsing)?;
 
-        let universe_domain = service_account_key.universe_domain.clone();
+        let universe_domain = service_account_key.universe_domain.as_deref();
         if !crate::universe_domain::is_default_universe_domain(universe_domain) {
             return Err(BuilderError::not_supported(
-                "Service Account Credentials does not support getting an ID token in universes other than googleapis.com",
+                "Service Account Credentials do not support getting an ID token in universes other than googleapis.com",
             ));
         }
 
@@ -317,6 +317,21 @@ mod tests {
 
         let id_token = creds.id_token().await?;
         assert_eq!(id_token, token);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn idtoken_builder_fails_for_non_gdu() -> TestResult {
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["universe_domain"] = Value::from("non-gdu.com");
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+
+        let result = Builder::new("test-audience", service_account_key).build();
+
+        assert!(result.is_err(), "{result:?}");
+        let err = result.unwrap_err();
+        assert!(err.is_not_supported(), "{err:?}");
 
         Ok(())
     }

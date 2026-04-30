@@ -1,4 +1,5 @@
 {
+    "api_description": "Add-ons are customized applications that extend Google Workspace applications.",
     "api_id": "gsuiteaddons.googleapis.com",
     "api_shortname": "gsuiteaddons",
     "client_documentation": "https://docs.rs/google-cloud-gsuiteaddons-v1/latest",

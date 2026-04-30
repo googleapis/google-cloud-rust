@@ -65,6 +65,7 @@ pub struct CreateClusterRequest {
 }
 
 impl CreateClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -173,6 +174,7 @@ pub struct ListClustersRequest {
 }
 
 impl ListClustersRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -248,6 +250,7 @@ pub struct ListClustersResponse {
 }
 
 impl ListClustersResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -349,6 +352,7 @@ pub struct UpdateClusterRequest {
 }
 
 impl UpdateClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -451,6 +455,7 @@ pub struct GetClusterRequest {
 }
 
 impl GetClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -490,6 +495,7 @@ pub struct DeleteClusterRequest {
 }
 
 impl DeleteClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -539,6 +545,7 @@ pub struct GetClusterCertificateAuthorityRequest {
 }
 
 impl GetClusterCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -591,6 +598,7 @@ pub struct ListBackupCollectionsRequest {
 }
 
 impl ListBackupCollectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -665,6 +673,7 @@ pub struct ListBackupCollectionsResponse {
 }
 
 impl ListBackupCollectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -754,6 +763,7 @@ pub struct GetBackupCollectionRequest {
 }
 
 impl GetBackupCollectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -804,6 +814,7 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -869,6 +880,7 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -957,6 +969,7 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -995,6 +1008,7 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1045,6 +1059,7 @@ pub struct ExportBackupRequest {
 }
 
 impl ExportBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1156,6 +1171,7 @@ pub struct BackupClusterRequest {
 }
 
 impl BackupClusterRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1366,6 +1382,7 @@ pub struct Cluster {
 }
 
 impl Cluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2324,12 +2341,14 @@ pub mod cluster {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct StateInfo {
+        #[allow(missing_docs)]
         pub info: std::option::Option<crate::model::cluster::state_info::Info>,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl StateInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2423,6 +2442,7 @@ pub mod cluster {
         }
 
         impl UpdateInfo {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2496,6 +2516,7 @@ pub mod cluster {
             }
         }
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Info {
@@ -2517,6 +2538,7 @@ pub mod cluster {
     }
 
     impl GcsBackupSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2561,6 +2583,7 @@ pub mod cluster {
     }
 
     impl ManagedBackupSource {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2764,6 +2787,7 @@ pub struct AutomatedBackupConfig {
 }
 
 impl AutomatedBackupConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2911,6 +2935,7 @@ pub mod automated_backup_config {
     }
 
     impl FixedFrequencySchedule {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3124,6 +3149,7 @@ pub struct BackupCollection {
 }
 
 impl BackupCollection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3251,6 +3277,7 @@ pub struct Backup {
 }
 
 impl Backup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3828,6 +3855,7 @@ pub struct BackupFile {
 }
 
 impl BackupFile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3912,6 +3940,7 @@ pub struct PscServiceAttachment {
 }
 
 impl PscServiceAttachment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3995,6 +4024,7 @@ pub struct CrossClusterReplicationConfig {
 }
 
 impl CrossClusterReplicationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4168,6 +4198,7 @@ pub mod cross_cluster_replication_config {
     }
 
     impl RemoteCluster {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4222,6 +4253,7 @@ pub mod cross_cluster_replication_config {
     }
 
     impl Membership {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4453,6 +4485,7 @@ pub struct ClusterMaintenancePolicy {
 }
 
 impl ClusterMaintenancePolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4566,6 +4599,7 @@ pub struct ClusterWeeklyMaintenanceWindow {
 }
 
 impl ClusterWeeklyMaintenanceWindow {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4644,6 +4678,7 @@ pub struct ClusterMaintenanceSchedule {
 }
 
 impl ClusterMaintenanceSchedule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4721,6 +4756,7 @@ impl wkt::message::Message for ClusterMaintenanceSchedule {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PscConfig {
@@ -4733,6 +4769,7 @@ pub struct PscConfig {
 }
 
 impl PscConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4775,6 +4812,7 @@ pub struct DiscoveryEndpoint {
 }
 
 impl DiscoveryEndpoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4886,6 +4924,7 @@ pub struct PscConnection {
 }
 
 impl PscConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5024,6 +5063,7 @@ pub struct ClusterEndpoint {
 }
 
 impl ClusterEndpoint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5071,6 +5111,7 @@ pub struct ConnectionDetail {
 }
 
 impl ConnectionDetail {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5250,6 +5291,7 @@ pub struct PscAutoConnection {
 }
 
 impl PscAutoConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5391,6 +5433,7 @@ pub struct SharedRegionalCertificateAuthority {
 }
 
 impl SharedRegionalCertificateAuthority {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5491,6 +5534,7 @@ pub mod shared_regional_certificate_authority {
     }
 
     impl RegionalManagedCertificateAuthority {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5540,6 +5584,7 @@ pub mod shared_regional_certificate_authority {
         }
 
         impl RegionalCertChain {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5592,6 +5637,7 @@ pub struct GetSharedRegionalCertificateAuthorityRequest {
 }
 
 impl GetSharedRegionalCertificateAuthorityRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5650,6 +5696,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5803,6 +5850,7 @@ pub struct CertificateAuthority {
 }
 
 impl CertificateAuthority {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5897,6 +5945,7 @@ pub mod certificate_authority {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ManagedCertificateAuthority {
@@ -5910,6 +5959,7 @@ pub mod certificate_authority {
     }
 
     impl ManagedCertificateAuthority {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5950,6 +6000,7 @@ pub mod certificate_authority {
         #[allow(unused_imports)]
         use super::*;
 
+        #[allow(missing_docs)]
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct CertChain {
@@ -5960,6 +6011,7 @@ pub mod certificate_authority {
         }
 
         impl CertChain {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -5993,6 +6045,7 @@ pub mod certificate_authority {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ServerCa {
+        #[allow(missing_docs)]
         ManagedServerCa(
             std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
         ),
@@ -6016,6 +6069,7 @@ pub struct ClusterPersistenceConfig {
 }
 
 impl ClusterPersistenceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6135,6 +6189,7 @@ pub mod cluster_persistence_config {
     }
 
     impl RDBConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6366,6 +6421,7 @@ pub mod cluster_persistence_config {
     }
 
     impl AOFConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6705,6 +6761,7 @@ pub struct ZoneDistributionConfig {
 }
 
 impl ZoneDistributionConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6911,6 +6968,7 @@ pub struct RescheduleClusterMaintenanceRequest {
 }
 
 impl RescheduleClusterMaintenanceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7146,6 +7204,7 @@ pub struct EncryptionInfo {
 }
 
 impl EncryptionInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7857,6 +7916,12 @@ pub enum NodeType {
     RedisHighmemXlarge,
     /// Redis standard small node_type.
     RedisStandardSmall,
+    /// Redis highcpu medium node_type.
+    RedisHighcpuMedium,
+    /// Redis standard large node_type.
+    RedisStandardLarge,
+    /// Redis highmem 2xlarge node_type.
+    RedisHighmem2Xlarge,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [NodeType::value] or
@@ -7884,6 +7949,9 @@ impl NodeType {
             Self::RedisHighmemMedium => std::option::Option::Some(2),
             Self::RedisHighmemXlarge => std::option::Option::Some(3),
             Self::RedisStandardSmall => std::option::Option::Some(4),
+            Self::RedisHighcpuMedium => std::option::Option::Some(7),
+            Self::RedisStandardLarge => std::option::Option::Some(8),
+            Self::RedisHighmem2Xlarge => std::option::Option::Some(9),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -7899,6 +7967,9 @@ impl NodeType {
             Self::RedisHighmemMedium => std::option::Option::Some("REDIS_HIGHMEM_MEDIUM"),
             Self::RedisHighmemXlarge => std::option::Option::Some("REDIS_HIGHMEM_XLARGE"),
             Self::RedisStandardSmall => std::option::Option::Some("REDIS_STANDARD_SMALL"),
+            Self::RedisHighcpuMedium => std::option::Option::Some("REDIS_HIGHCPU_MEDIUM"),
+            Self::RedisStandardLarge => std::option::Option::Some("REDIS_STANDARD_LARGE"),
+            Self::RedisHighmem2Xlarge => std::option::Option::Some("REDIS_HIGHMEM_2XLARGE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -7925,6 +7996,9 @@ impl std::convert::From<i32> for NodeType {
             2 => Self::RedisHighmemMedium,
             3 => Self::RedisHighmemXlarge,
             4 => Self::RedisStandardSmall,
+            7 => Self::RedisHighcpuMedium,
+            8 => Self::RedisStandardLarge,
+            9 => Self::RedisHighmem2Xlarge,
             _ => Self::UnknownValue(node_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -7941,6 +8015,9 @@ impl std::convert::From<&str> for NodeType {
             "REDIS_HIGHMEM_MEDIUM" => Self::RedisHighmemMedium,
             "REDIS_HIGHMEM_XLARGE" => Self::RedisHighmemXlarge,
             "REDIS_STANDARD_SMALL" => Self::RedisStandardSmall,
+            "REDIS_HIGHCPU_MEDIUM" => Self::RedisHighcpuMedium,
+            "REDIS_STANDARD_LARGE" => Self::RedisStandardLarge,
+            "REDIS_HIGHMEM_2XLARGE" => Self::RedisHighmem2Xlarge,
             _ => Self::UnknownValue(node_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -7959,6 +8036,9 @@ impl serde::ser::Serialize for NodeType {
             Self::RedisHighmemMedium => serializer.serialize_i32(2),
             Self::RedisHighmemXlarge => serializer.serialize_i32(3),
             Self::RedisStandardSmall => serializer.serialize_i32(4),
+            Self::RedisHighcpuMedium => serializer.serialize_i32(7),
+            Self::RedisStandardLarge => serializer.serialize_i32(8),
+            Self::RedisHighmem2Xlarge => serializer.serialize_i32(9),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

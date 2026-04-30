@@ -154,6 +154,7 @@ pub struct Deployment {
 }
 
 impl Deployment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1274,6 +1275,7 @@ pub struct TerraformBlueprint {
 }
 
 impl TerraformBlueprint {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1448,6 +1450,7 @@ pub struct TerraformVariable {
 }
 
 impl TerraformVariable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1503,6 +1506,7 @@ pub struct ExternalValueSource {
 }
 
 impl ExternalValueSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1608,6 +1612,7 @@ pub struct DeploymentSource {
 }
 
 impl DeploymentSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1662,6 +1667,7 @@ pub struct ApplyResults {
 }
 
 impl ApplyResults {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1734,6 +1740,7 @@ pub struct TerraformOutput {
 }
 
 impl TerraformOutput {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1790,6 +1797,7 @@ impl wkt::message::Message for TerraformOutput {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsRequest {
@@ -1839,6 +1847,7 @@ pub struct ListDeploymentsRequest {
 }
 
 impl ListDeploymentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1910,6 +1919,7 @@ impl wkt::message::Message for ListDeploymentsRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListDeploymentsResponse {
@@ -1929,6 +1939,7 @@ pub struct ListDeploymentsResponse {
 }
 
 impl ListDeploymentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2005,6 +2016,7 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListDeployments
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetDeploymentRequest {
@@ -2016,6 +2028,7 @@ pub struct GetDeploymentRequest {
 }
 
 impl GetDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2089,6 +2102,7 @@ pub struct ListRevisionsRequest {
 }
 
 impl ListRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2181,6 +2195,7 @@ pub struct ListRevisionsResponse {
 }
 
 impl ListRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2269,6 +2284,7 @@ pub struct GetRevisionRequest {
 }
 
 impl GetRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2292,6 +2308,7 @@ impl wkt::message::Message for GetRevisionRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateDeploymentRequest {
@@ -2327,6 +2344,7 @@ pub struct CreateDeploymentRequest {
 }
 
 impl CreateDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2440,6 +2458,7 @@ pub struct CreateDeploymentGroupRequest {
 }
 
 impl CreateDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2564,6 +2583,7 @@ pub struct UpdateDeploymentGroupRequest {
 }
 
 impl UpdateDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2693,6 +2713,7 @@ pub struct DeleteDeploymentGroupRequest {
 }
 
 impl DeleteDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2922,6 +2943,7 @@ pub mod delete_deployment_group_request {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateDeploymentRequest {
@@ -2961,6 +2983,7 @@ pub struct UpdateDeploymentRequest {
 }
 
 impl UpdateDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3050,6 +3073,7 @@ impl wkt::message::Message for UpdateDeploymentRequest {
     }
 }
 
+#[allow(missing_docs)]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteDeploymentRequest {
@@ -3086,6 +3110,7 @@ pub struct DeleteDeploymentRequest {
 }
 
 impl DeleteDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3330,6 +3355,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3737,6 +3763,7 @@ pub struct Revision {
 }
 
 impl Revision {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4647,6 +4674,7 @@ pub struct TerraformError {
 }
 
 impl TerraformError {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4752,6 +4780,7 @@ pub struct GitSource {
 }
 
 impl GitSource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4877,6 +4906,7 @@ pub struct DeploymentOperationMetadata {
 }
 
 impl DeploymentOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5207,6 +5237,7 @@ pub struct Resource {
 }
 
 impl Resource {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5641,6 +5672,7 @@ pub struct ResourceTerraformInfo {
 }
 
 impl ResourceTerraformInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5700,6 +5732,7 @@ pub struct ResourceCAIInfo {
 }
 
 impl ResourceCAIInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5738,6 +5771,7 @@ pub struct GetResourceRequest {
 }
 
 impl GetResourceRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5802,6 +5836,7 @@ pub struct ListResourcesRequest {
 }
 
 impl ListResourcesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5894,6 +5929,7 @@ pub struct ListResourcesResponse {
 }
 
 impl ListResourcesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5982,6 +6018,7 @@ pub struct Statefile {
 }
 
 impl Statefile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6024,6 +6061,7 @@ pub struct ExportDeploymentStatefileRequest {
 }
 
 impl ExportDeploymentStatefileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6073,6 +6111,7 @@ pub struct ExportRevisionStatefileRequest {
 }
 
 impl ExportRevisionStatefileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6116,6 +6155,7 @@ pub struct ImportStatefileRequest {
 }
 
 impl ImportStatefileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6179,6 +6219,7 @@ pub struct DeleteStatefileRequest {
 }
 
 impl DeleteStatefileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6226,6 +6267,7 @@ pub struct LockDeploymentRequest {
 }
 
 impl LockDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6264,6 +6306,7 @@ pub struct UnlockDeploymentRequest {
 }
 
 impl UnlockDeploymentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6311,6 +6354,7 @@ pub struct ExportLockInfoRequest {
 }
 
 impl ExportLockInfoRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6360,6 +6404,7 @@ pub struct LockInfo {
 }
 
 impl LockInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6567,6 +6612,7 @@ pub struct Preview {
 }
 
 impl Preview {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7575,6 +7621,7 @@ pub struct PreviewOperationMetadata {
 }
 
 impl PreviewOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7876,6 +7923,7 @@ pub struct PreviewArtifacts {
 }
 
 impl PreviewArtifacts {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7946,6 +7994,7 @@ pub struct CreatePreviewRequest {
 }
 
 impl CreatePreviewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8038,6 +8087,7 @@ pub struct GetPreviewRequest {
 }
 
 impl GetPreviewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8111,6 +8161,7 @@ pub struct ListPreviewsRequest {
 }
 
 impl ListPreviewsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8202,6 +8253,7 @@ pub struct ListPreviewsResponse {
 }
 
 impl ListPreviewsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8305,6 +8357,7 @@ pub struct DeletePreviewRequest {
 }
 
 impl DeletePreviewRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8353,6 +8406,7 @@ pub struct ExportPreviewResultRequest {
 }
 
 impl ExportPreviewResultRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8387,6 +8441,7 @@ pub struct ExportPreviewResultResponse {
 }
 
 impl ExportPreviewResultResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8445,6 +8500,7 @@ pub struct PreviewResult {
 }
 
 impl PreviewResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8495,6 +8551,7 @@ pub struct GetTerraformVersionRequest {
 }
 
 impl GetTerraformVersionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8554,6 +8611,7 @@ pub struct ListTerraformVersionsRequest {
 }
 
 impl ListTerraformVersionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8645,6 +8703,7 @@ pub struct ListTerraformVersionsResponse {
 }
 
 impl ListTerraformVersionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8746,6 +8805,7 @@ pub struct TerraformVersion {
 }
 
 impl TerraformVersion {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9054,6 +9114,7 @@ pub struct ResourceChangeTerraformInfo {
 }
 
 impl ResourceChangeTerraformInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9152,6 +9213,7 @@ pub struct ResourceChange {
 }
 
 impl ResourceChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9432,6 +9494,7 @@ pub struct PropertyChange {
 }
 
 impl PropertyChange {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9598,6 +9661,7 @@ pub struct ListResourceChangesRequest {
 }
 
 impl ListResourceChangesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9689,6 +9753,7 @@ pub struct ListResourceChangesResponse {
 }
 
 impl ListResourceChangesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9778,6 +9843,7 @@ pub struct GetResourceChangeRequest {
 }
 
 impl GetResourceChangeRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9821,6 +9887,7 @@ pub struct ResourceDriftTerraformInfo {
 }
 
 impl ResourceDriftTerraformInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9899,6 +9966,7 @@ pub struct ResourceDrift {
 }
 
 impl ResourceDrift {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10002,6 +10070,7 @@ pub struct PropertyDrift {
 }
 
 impl PropertyDrift {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10168,6 +10237,7 @@ pub struct ListResourceDriftsRequest {
 }
 
 impl ListResourceDriftsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10258,6 +10328,7 @@ pub struct ListResourceDriftsResponse {
 }
 
 impl ListResourceDriftsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10347,6 +10418,7 @@ pub struct GetResourceDriftRequest {
 }
 
 impl GetResourceDriftRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10381,6 +10453,7 @@ pub struct ProviderConfig {
 }
 
 impl ProviderConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10569,6 +10642,7 @@ pub struct GetAutoMigrationConfigRequest {
 }
 
 impl GetAutoMigrationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10611,6 +10685,7 @@ pub struct AutoMigrationConfig {
 }
 
 impl AutoMigrationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10696,6 +10771,7 @@ pub struct UpdateAutoMigrationConfigRequest {
 }
 
 impl UpdateAutoMigrationConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10826,6 +10902,7 @@ pub struct DeploymentGroup {
 }
 
 impl DeploymentGroup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11437,6 +11514,7 @@ pub struct DeploymentUnit {
 }
 
 impl DeploymentUnit {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11523,6 +11601,7 @@ pub struct DeploymentSpec {
 }
 
 impl DeploymentSpec {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11592,6 +11671,7 @@ pub struct GetDeploymentGroupRequest {
 }
 
 impl GetDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11666,6 +11746,7 @@ pub struct ListDeploymentGroupsRequest {
 }
 
 impl ListDeploymentGroupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11755,6 +11836,7 @@ pub struct ListDeploymentGroupsResponse {
 }
 
 impl ListDeploymentGroupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11854,6 +11936,7 @@ pub struct ProvisionDeploymentGroupRequest {
 }
 
 impl ProvisionDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11923,6 +12006,7 @@ pub struct DeprovisionDeploymentGroupRequest {
 }
 
 impl DeprovisionDeploymentGroupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12003,6 +12087,7 @@ pub struct DeploymentOperationSummary {
 }
 
 impl DeploymentOperationSummary {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12113,6 +12198,7 @@ pub struct DeploymentUnitProgress {
 }
 
 impl DeploymentUnitProgress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12624,6 +12710,7 @@ pub struct ProvisionDeploymentGroupOperationMetadata {
 }
 
 impl ProvisionDeploymentGroupOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12887,6 +12974,7 @@ pub struct DeploymentGroupRevision {
 }
 
 impl DeploymentGroupRevision {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13006,6 +13094,7 @@ pub struct GetDeploymentGroupRevisionRequest {
 }
 
 impl GetDeploymentGroupRevisionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13055,6 +13144,7 @@ pub struct ListDeploymentGroupRevisionsRequest {
 }
 
 impl ListDeploymentGroupRevisionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13120,6 +13210,7 @@ pub struct ListDeploymentGroupRevisionsResponse {
 }
 
 impl ListDeploymentGroupRevisionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

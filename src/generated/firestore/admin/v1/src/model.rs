@@ -45,6 +45,11 @@ pub struct Backup {
     /// Output only. The unique resource name of the Backup.
     ///
     /// Format is `projects/{project}/locations/{location}/backups/{backup}`.
+    ///
+    /// The location in the name will be the Standard Managed Multi-Region (SMMR)
+    /// location (e.g. `us`) if the backup was created with an SMMR location, or
+    /// the Google Managed Multi-Region (GMMR) location (e.g. `nam5`) if the backup
+    /// was created with a GMMR location.
     pub name: std::string::String,
 
     /// Output only. Name of the Firestore database that the backup is from.
@@ -76,6 +81,7 @@ pub struct Backup {
 }
 
 impl Backup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -260,6 +266,7 @@ pub mod backup {
     }
 
     impl Stats {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -585,6 +592,7 @@ pub struct Database {
 }
 
 impl Database {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1151,6 +1159,7 @@ pub mod database {
     }
 
     impl CmekConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1210,6 +1219,7 @@ pub mod database {
     }
 
     impl SourceInfo {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1314,6 +1324,7 @@ pub mod database {
         }
 
         impl BackupSource {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1366,6 +1377,7 @@ pub mod database {
     }
 
     impl EncryptionConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1564,6 +1576,7 @@ pub mod database {
         }
 
         impl GoogleDefaultEncryptionOptions {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1584,6 +1597,7 @@ pub mod database {
         }
 
         impl SourceEncryptionOptions {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -1616,6 +1630,7 @@ pub mod database {
         }
 
         impl CustomerManagedEncryptionOptions {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -2699,6 +2714,7 @@ pub struct Field {
 }
 
 impl Field {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2822,6 +2838,7 @@ pub mod field {
     }
 
     impl IndexConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -2927,6 +2944,7 @@ pub mod field {
     }
 
     impl TtlConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -3160,6 +3178,7 @@ pub struct ListDatabasesRequest {
 }
 
 impl ListDatabasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3223,6 +3242,7 @@ pub struct CreateDatabaseRequest {
 }
 
 impl CreateDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3299,6 +3319,7 @@ pub struct CreateDatabaseMetadata {
 }
 
 impl CreateDatabaseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3332,6 +3353,7 @@ pub struct ListDatabasesResponse {
 }
 
 impl ListDatabasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3397,6 +3419,7 @@ pub struct GetDatabaseRequest {
 }
 
 impl GetDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3437,6 +3460,7 @@ pub struct UpdateDatabaseRequest {
 }
 
 impl UpdateDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3522,6 +3546,7 @@ pub struct UpdateDatabaseMetadata {
 }
 
 impl UpdateDatabaseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3553,6 +3578,7 @@ pub struct DeleteDatabaseRequest {
 }
 
 impl DeleteDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3596,6 +3622,7 @@ pub struct DeleteDatabaseMetadata {
 }
 
 impl DeleteDatabaseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3633,6 +3660,7 @@ pub struct CreateUserCredsRequest {
 }
 
 impl CreateUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3716,6 +3744,7 @@ pub struct GetUserCredsRequest {
 }
 
 impl GetUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3754,6 +3783,7 @@ pub struct ListUserCredsRequest {
 }
 
 impl ListUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3791,6 +3821,7 @@ pub struct ListUserCredsResponse {
 }
 
 impl ListUserCredsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3839,6 +3870,7 @@ pub struct EnableUserCredsRequest {
 }
 
 impl EnableUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3877,6 +3909,7 @@ pub struct DisableUserCredsRequest {
 }
 
 impl DisableUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3915,6 +3948,7 @@ pub struct ResetUserPasswordRequest {
 }
 
 impl ResetUserPasswordRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3953,6 +3987,7 @@ pub struct DeleteUserCredsRequest {
 }
 
 impl DeleteUserCredsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3995,6 +4030,7 @@ pub struct CreateBackupScheduleRequest {
 }
 
 impl CreateBackupScheduleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4068,6 +4104,7 @@ pub struct GetBackupScheduleRequest {
 }
 
 impl GetBackupScheduleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4108,6 +4145,7 @@ pub struct UpdateBackupScheduleRequest {
 }
 
 impl UpdateBackupScheduleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4201,6 +4239,7 @@ pub struct ListBackupSchedulesRequest {
 }
 
 impl ListBackupSchedulesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4238,6 +4277,7 @@ pub struct ListBackupSchedulesResponse {
 }
 
 impl ListBackupSchedulesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4285,6 +4325,7 @@ pub struct DeleteBackupScheduleRequest {
 }
 
 impl DeleteBackupScheduleRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4326,6 +4367,7 @@ pub struct CreateIndexRequest {
 }
 
 impl CreateIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4410,6 +4452,7 @@ pub struct ListIndexesRequest {
 }
 
 impl ListIndexesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4487,6 +4530,7 @@ pub struct ListIndexesResponse {
 }
 
 impl ListIndexesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4561,6 +4605,7 @@ pub struct GetIndexRequest {
 }
 
 impl GetIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4599,6 +4644,7 @@ pub struct DeleteIndexRequest {
 }
 
 impl DeleteIndexRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4640,6 +4686,7 @@ pub struct UpdateFieldRequest {
 }
 
 impl UpdateFieldRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4732,6 +4779,7 @@ pub struct GetFieldRequest {
 }
 
 impl GetFieldRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4791,6 +4839,7 @@ pub struct ListFieldsRequest {
 }
 
 impl ListFieldsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4868,6 +4917,7 @@ pub struct ListFieldsResponse {
 }
 
 impl ListFieldsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4975,6 +5025,7 @@ pub struct ExportDocumentsRequest {
 }
 
 impl ExportDocumentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5117,6 +5168,7 @@ pub struct ImportDocumentsRequest {
 }
 
 impl ImportDocumentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5231,6 +5283,7 @@ pub struct BulkDeleteDocumentsRequest {
 }
 
 impl BulkDeleteDocumentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5299,6 +5352,7 @@ pub struct BulkDeleteDocumentsResponse {
 }
 
 impl BulkDeleteDocumentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5326,6 +5380,7 @@ pub struct GetBackupRequest {
 }
 
 impl GetBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5384,6 +5439,7 @@ pub struct ListBackupsRequest {
 }
 
 impl ListBackupsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5441,6 +5497,7 @@ pub struct ListBackupsResponse {
 }
 
 impl ListBackupsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5507,6 +5564,7 @@ pub struct DeleteBackupRequest {
 }
 
 impl DeleteBackupRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5580,6 +5638,7 @@ pub struct RestoreDatabaseRequest {
 }
 
 impl RestoreDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5729,6 +5788,7 @@ pub struct CloneDatabaseRequest {
 }
 
 impl CloneDatabaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5910,10 +5970,16 @@ pub struct Index {
     /// for the indexed field(s) are unique across documents.
     pub unique: bool,
 
+    /// Optional. Options for search indexes that are at the index definition
+    /// level. This field is only currently supported for indexes with
+    /// MONGODB_COMPATIBLE_API ApiScope.
+    pub search_index_options: std::option::Option<crate::model::index::SearchIndexOptions>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Index {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6055,6 +6121,39 @@ impl Index {
         self.unique = v.into();
         self
     }
+
+    /// Sets the value of [search_index_options][crate::model::Index::search_index_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::SearchIndexOptions;
+    /// let x = Index::new().set_search_index_options(SearchIndexOptions::default()/* use setters */);
+    /// ```
+    pub fn set_search_index_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::index::SearchIndexOptions>,
+    {
+        self.search_index_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [search_index_options][crate::model::Index::search_index_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::model::index::SearchIndexOptions;
+    /// let x = Index::new().set_or_clear_search_index_options(Some(SearchIndexOptions::default()/* use setters */));
+    /// let x = Index::new().set_or_clear_search_index_options(None::<SearchIndexOptions>);
+    /// ```
+    pub fn set_or_clear_search_index_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::index::SearchIndexOptions>,
+    {
+        self.search_index_options = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Index {
@@ -6086,6 +6185,7 @@ pub mod index {
     }
 
     impl IndexField {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6154,9 +6254,11 @@ pub mod index {
         /// assert!(x0.order().is_some());
         /// assert!(x0.array_config().is_none());
         /// assert!(x0.vector_config().is_none());
+        /// assert!(x0.search_config().is_none());
         /// assert!(x1.order().is_some());
         /// assert!(x1.array_config().is_none());
         /// assert!(x1.vector_config().is_none());
+        /// assert!(x1.search_config().is_none());
         /// ```
         pub fn set_order<T: std::convert::Into<crate::model::index::index_field::Order>>(
             mut self,
@@ -6197,6 +6299,7 @@ pub mod index {
         /// assert!(x0.array_config().is_some());
         /// assert!(x0.order().is_none());
         /// assert!(x0.vector_config().is_none());
+        /// assert!(x0.search_config().is_none());
         /// ```
         pub fn set_array_config<
             T: std::convert::Into<crate::model::index::index_field::ArrayConfig>,
@@ -6240,6 +6343,7 @@ pub mod index {
         /// assert!(x.vector_config().is_some());
         /// assert!(x.order().is_none());
         /// assert!(x.array_config().is_none());
+        /// assert!(x.search_config().is_none());
         /// ```
         pub fn set_vector_config<
             T: std::convert::Into<std::boxed::Box<crate::model::index::index_field::VectorConfig>>,
@@ -6249,6 +6353,50 @@ pub mod index {
         ) -> Self {
             self.value_mode = std::option::Option::Some(
                 crate::model::index::index_field::ValueMode::VectorConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [value_mode][crate::model::index::IndexField::value_mode]
+        /// if it holds a `SearchConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn search_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::index::index_field::SearchConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.value_mode.as_ref().and_then(|v| match v {
+                crate::model::index::index_field::ValueMode::SearchConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [value_mode][crate::model::index::IndexField::value_mode]
+        /// to hold a `SearchConfig`.
+        ///
+        /// Note that all the setters affecting `value_mode` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::index::IndexField;
+        /// use google_cloud_firestore_admin_v1::model::index::index_field::SearchConfig;
+        /// let x = IndexField::new().set_search_config(SearchConfig::default()/* use setters */);
+        /// assert!(x.search_config().is_some());
+        /// assert!(x.order().is_none());
+        /// assert!(x.array_config().is_none());
+        /// assert!(x.vector_config().is_none());
+        /// ```
+        pub fn set_search_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::index::index_field::SearchConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.value_mode = std::option::Option::Some(
+                crate::model::index::index_field::ValueMode::SearchConfig(v.into()),
             );
             self
         }
@@ -6282,6 +6430,7 @@ pub mod index {
         }
 
         impl VectorConfig {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -6387,6 +6536,7 @@ pub mod index {
             }
 
             impl FlatIndex {
+                /// Creates a new default instance.
                 pub fn new() -> Self {
                     std::default::Default::default()
                 }
@@ -6404,6 +6554,536 @@ pub mod index {
             pub enum Type {
                 /// Indicates the vector index is a flat index.
                 Flat(std::boxed::Box<crate::model::index::index_field::vector_config::FlatIndex>),
+            }
+        }
+
+        /// The configuration for how to index a field for search.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SearchConfig {
+            /// Optional. The specification for building a text search index for a
+            /// field.
+            pub text_spec: std::option::Option<
+                crate::model::index::index_field::search_config::SearchTextSpec,
+            >,
+
+            /// Optional. The specification for building a geo search index for a
+            /// field.
+            pub geo_spec:
+                std::option::Option<crate::model::index::index_field::search_config::SearchGeoSpec>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl SearchConfig {
+            /// Creates a new default instance.
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [text_spec][crate::model::index::index_field::SearchConfig::text_spec].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::SearchConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextSpec;
+            /// let x = SearchConfig::new().set_text_spec(SearchTextSpec::default()/* use setters */);
+            /// ```
+            pub fn set_text_spec<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::index::index_field::search_config::SearchTextSpec,
+                    >,
+            {
+                self.text_spec = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [text_spec][crate::model::index::index_field::SearchConfig::text_spec].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::SearchConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextSpec;
+            /// let x = SearchConfig::new().set_or_clear_text_spec(Some(SearchTextSpec::default()/* use setters */));
+            /// let x = SearchConfig::new().set_or_clear_text_spec(None::<SearchTextSpec>);
+            /// ```
+            pub fn set_or_clear_text_spec<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::index::index_field::search_config::SearchTextSpec,
+                    >,
+            {
+                self.text_spec = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [geo_spec][crate::model::index::index_field::SearchConfig::geo_spec].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::SearchConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchGeoSpec;
+            /// let x = SearchConfig::new().set_geo_spec(SearchGeoSpec::default()/* use setters */);
+            /// ```
+            pub fn set_geo_spec<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::index::index_field::search_config::SearchGeoSpec,
+                    >,
+            {
+                self.geo_spec = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [geo_spec][crate::model::index::index_field::SearchConfig::geo_spec].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore_admin_v1::model::index::index_field::SearchConfig;
+            /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchGeoSpec;
+            /// let x = SearchConfig::new().set_or_clear_geo_spec(Some(SearchGeoSpec::default()/* use setters */));
+            /// let x = SearchConfig::new().set_or_clear_geo_spec(None::<SearchGeoSpec>);
+            /// ```
+            pub fn set_or_clear_geo_spec<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::index::index_field::search_config::SearchGeoSpec,
+                    >,
+            {
+                self.geo_spec = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for SearchConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.firestore.admin.v1.Index.IndexField.SearchConfig"
+            }
+        }
+
+        /// Defines additional types related to [SearchConfig].
+        pub mod search_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Specification of how the field should be indexed for search text
+            /// indexes.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct SearchTextIndexSpec {
+                /// Required. How to index the text field value.
+                pub index_type: crate::model::index::index_field::search_config::TextIndexType,
+
+                /// Required. How to match the text field value.
+                pub match_type: crate::model::index::index_field::search_config::TextMatchType,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl SearchTextIndexSpec {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [index_type][crate::model::index::index_field::search_config::SearchTextIndexSpec::index_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextIndexSpec;
+                /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::TextIndexType;
+                /// let x0 = SearchTextIndexSpec::new().set_index_type(TextIndexType::Tokenized);
+                /// ```
+                pub fn set_index_type<
+                    T: std::convert::Into<
+                            crate::model::index::index_field::search_config::TextIndexType,
+                        >,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.index_type = v.into();
+                    self
+                }
+
+                /// Sets the value of [match_type][crate::model::index::index_field::search_config::SearchTextIndexSpec::match_type].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextIndexSpec;
+                /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::TextMatchType;
+                /// let x0 = SearchTextIndexSpec::new().set_match_type(TextMatchType::MatchGlobally);
+                /// ```
+                pub fn set_match_type<
+                    T: std::convert::Into<
+                            crate::model::index::index_field::search_config::TextMatchType,
+                        >,
+                >(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.match_type = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for SearchTextIndexSpec {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.firestore.admin.v1.Index.IndexField.SearchConfig.SearchTextIndexSpec"
+                }
+            }
+
+            /// The specification for how to build a text search index for a field.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct SearchTextSpec {
+                /// Required. Specifications for how the field should be indexed.
+                /// Repeated so that the field can be indexed in multiple ways.
+                pub index_specs: std::vec::Vec<
+                    crate::model::index::index_field::search_config::SearchTextIndexSpec,
+                >,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl SearchTextSpec {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [index_specs][crate::model::index::index_field::search_config::SearchTextSpec::index_specs].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextSpec;
+                /// use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchTextIndexSpec;
+                /// let x = SearchTextSpec::new()
+                ///     .set_index_specs([
+                ///         SearchTextIndexSpec::default()/* use setters */,
+                ///         SearchTextIndexSpec::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_index_specs<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<
+                            crate::model::index::index_field::search_config::SearchTextIndexSpec,
+                        >,
+                {
+                    use std::iter::Iterator;
+                    self.index_specs = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for SearchTextSpec {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.firestore.admin.v1.Index.IndexField.SearchConfig.SearchTextSpec"
+                }
+            }
+
+            /// The specification for how to build a geo search index for a field.
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct SearchGeoSpec {
+                /// Optional. Disables geoJSON indexing for the field. By default,
+                /// geoJSON points are indexed.
+                pub geo_json_indexing_disabled: bool,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            impl SearchGeoSpec {
+                /// Creates a new default instance.
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [geo_json_indexing_disabled][crate::model::index::index_field::search_config::SearchGeoSpec::geo_json_indexing_disabled].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_firestore_admin_v1::model::index::index_field::search_config::SearchGeoSpec;
+                /// let x = SearchGeoSpec::new().set_geo_json_indexing_disabled(true);
+                /// ```
+                pub fn set_geo_json_indexing_disabled<T: std::convert::Into<bool>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.geo_json_indexing_disabled = v.into();
+                    self
+                }
+            }
+
+            impl wkt::message::Message for SearchGeoSpec {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.firestore.admin.v1.Index.IndexField.SearchConfig.SearchGeoSpec"
+                }
+            }
+
+            /// Ways to index the text field value.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum TextIndexType {
+                /// The index type is unspecified. Not a valid option.
+                Unspecified,
+                /// Field values are tokenized. This is the only way currently supported
+                /// for MONGODB_COMPATIBLE_API.
+                Tokenized,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [TextIndexType::value] or
+                /// [TextIndexType::name].
+                UnknownValue(text_index_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod text_index_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl TextIndexType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::Tokenized => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("TEXT_INDEX_TYPE_UNSPECIFIED")
+                        }
+                        Self::Tokenized => std::option::Option::Some("TOKENIZED"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for TextIndexType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for TextIndexType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for TextIndexType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::Tokenized,
+                        _ => Self::UnknownValue(text_index_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for TextIndexType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TEXT_INDEX_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "TOKENIZED" => Self::Tokenized,
+                        _ => Self::UnknownValue(text_index_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for TextIndexType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::Tokenized => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for TextIndexType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<TextIndexType>::new(
+                        ".google.firestore.admin.v1.Index.IndexField.SearchConfig.TextIndexType",
+                    ))
+                }
+            }
+
+            /// Types of text matches that are supported for the
+            /// field.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://googleapis.github.io/google-cloud-rust/working_with_enums.html
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum TextMatchType {
+                /// The match type is unspecified. Not a valid option.
+                Unspecified,
+                /// Match on any indexed field. This is the only way currently supported
+                /// for MONGODB_COMPATIBLE_API.
+                MatchGlobally,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [TextMatchType::value] or
+                /// [TextMatchType::name].
+                UnknownValue(text_match_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            pub mod text_match_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            impl TextMatchType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::MatchGlobally => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("TEXT_MATCH_TYPE_UNSPECIFIED")
+                        }
+                        Self::MatchGlobally => std::option::Option::Some("MATCH_GLOBALLY"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            impl std::default::Default for TextMatchType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            impl std::fmt::Display for TextMatchType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            impl std::convert::From<i32> for TextMatchType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::MatchGlobally,
+                        _ => Self::UnknownValue(text_match_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            impl std::convert::From<&str> for TextMatchType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "TEXT_MATCH_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "MATCH_GLOBALLY" => Self::MatchGlobally,
+                        _ => Self::UnknownValue(text_match_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            impl serde::ser::Serialize for TextMatchType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::MatchGlobally => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            impl<'de> serde::de::Deserialize<'de> for TextMatchType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<TextMatchType>::new(
+                        ".google.firestore.admin.v1.Index.IndexField.SearchConfig.TextMatchType",
+                    ))
+                }
             }
         }
 
@@ -6682,6 +7362,76 @@ pub mod index {
             /// Indicates that this field supports nearest neighbor and distance
             /// operations on vector.
             VectorConfig(std::boxed::Box<crate::model::index::index_field::VectorConfig>),
+            /// Indicates that this field supports search operations. This field
+            /// is only currently supported for indexes with MONGODB_COMPATIBLE_API
+            /// ApiScope.
+            SearchConfig(std::boxed::Box<crate::model::index::index_field::SearchConfig>),
+        }
+    }
+
+    /// Options for search indexes at the definition level.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SearchIndexOptions {
+        /// Optional. The language to use for text search indexes. Used as the
+        /// default language if not overridden at the document level by specifying
+        /// the `text_language_override_field`. The language is specified as a BCP 47
+        /// language code.
+        /// For indexes with MONGODB_COMPATIBLE_API ApiScope: If unspecified, the
+        /// default language is English.
+        /// For indexes with `ANY_API` ApiScope: If unspecified, the default behavior
+        /// is autodetect.
+        pub text_language: std::string::String,
+
+        /// Optional. The field in the document that specifies which language to use
+        /// for that specific document. For indexes with MONGODB_COMPATIBLE_API
+        /// ApiScope: if unspecified, the language is taken from the "language" field
+        /// if it exists or from `text_language` if it does not.
+        pub text_language_override_field_path: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SearchIndexOptions {
+        /// Creates a new default instance.
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [text_language][crate::model::index::SearchIndexOptions::text_language].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::index::SearchIndexOptions;
+        /// let x = SearchIndexOptions::new().set_text_language("example");
+        /// ```
+        pub fn set_text_language<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.text_language = v.into();
+            self
+        }
+
+        /// Sets the value of [text_language_override_field_path][crate::model::index::SearchIndexOptions::text_language_override_field_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore_admin_v1::model::index::SearchIndexOptions;
+        /// let x = SearchIndexOptions::new().set_text_language_override_field_path("example");
+        /// ```
+        pub fn set_text_language_override_field_path<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.text_language_override_field_path = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for SearchIndexOptions {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.firestore.admin.v1.Index.SearchIndexOptions"
         }
     }
 
@@ -7322,6 +8072,7 @@ pub struct LocationMetadata {
 }
 
 impl LocationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7366,6 +8117,7 @@ pub struct IndexOperationMetadata {
 }
 
 impl IndexOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7581,6 +8333,7 @@ pub struct FieldOperationMetadata {
 }
 
 impl FieldOperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7825,6 +8578,7 @@ pub mod field_operation_metadata {
     }
 
     impl IndexConfigDelta {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8046,6 +8800,7 @@ pub mod field_operation_metadata {
     }
 
     impl TtlConfigDelta {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8296,6 +9051,7 @@ pub struct ExportDocumentsMetadata {
 }
 
 impl ExportDocumentsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8577,6 +9333,7 @@ pub struct ImportDocumentsMetadata {
 }
 
 impl ImportDocumentsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8828,6 +9585,7 @@ pub struct BulkDeleteDocumentsMetadata {
 }
 
 impl BulkDeleteDocumentsMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9072,6 +9830,7 @@ pub struct ExportDocumentsResponse {
 }
 
 impl ExportDocumentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9127,6 +9886,7 @@ pub struct RestoreDatabaseMetadata {
 }
 
 impl RestoreDatabaseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9308,6 +10068,7 @@ pub struct CloneDatabaseMetadata {
 }
 
 impl CloneDatabaseMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9499,6 +10260,7 @@ pub struct Progress {
 }
 
 impl Progress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9574,6 +10336,7 @@ pub struct BackupSchedule {
 }
 
 impl BackupSchedule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9826,6 +10589,7 @@ pub struct DailyRecurrence {
 }
 
 impl DailyRecurrence {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9852,6 +10616,7 @@ pub struct WeeklyRecurrence {
 }
 
 impl WeeklyRecurrence {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9903,6 +10668,7 @@ pub struct PitrSnapshot {
 }
 
 impl PitrSnapshot {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10001,6 +10767,7 @@ pub struct UserCreds {
 }
 
 impl UserCreds {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10198,6 +10965,7 @@ pub mod user_creds {
     }
 
     impl ResourceIdentity {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
