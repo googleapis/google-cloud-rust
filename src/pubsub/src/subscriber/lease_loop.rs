@@ -119,9 +119,11 @@ impl LeaseLoop {
                                 // TODO(#4804): Emit a log when there is an error.
                                 let extended: Vec<String> = r
                                     .into_iter()
-                                    .filter_map(|(id, res)| if res.is_ok() { Some(id) } else { None })
+                                    .filter_map(|(id, res)| res.ok().map(|_| id))
                                     .collect();
-                                state.update_last_extension_eo(extended);
+                                if !extended.is_empty() {
+                                    state.update_last_extension_eo(extended);
+                                }
                             }
                         }
                     },
