@@ -58,8 +58,8 @@ When reviewing or generating code, apply rigorous scrutiny:
 
 - **Return Early:** Avoid unnecessary `else` blocks to reduce indentation and
   keep the main logic flow linear.
-- **Documentation:** Document all public items with `///`. Doctests describing
-  usage are highly encouraged.
+- **Documentation:** Document all public items in crates that we publish with
+  `///`. Doctests describing usage are highly encouraged.
 
 ## Google Cloud SDK Specifics
 
