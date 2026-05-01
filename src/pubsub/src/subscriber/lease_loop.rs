@@ -809,7 +809,7 @@ mod tests {
         tokio::task::yield_now().await;
         mock.lock().await.checkpoint();
 
-        tokio::task::yield_now().await; // Let the loop process it the extend result.
+        tokio::task::yield_now().await; // Let the loop process the extend result.
 
         // Since the lease has been successfully extended, it should not be extended again.
         mock.lock().await.expect_eo_extend().times(0);
