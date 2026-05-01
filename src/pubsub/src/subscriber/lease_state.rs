@@ -337,6 +337,7 @@ where
             .retain(self.max_lease, self.max_lease_extension);
         for ack_ids in batches {
             let leaser = self.leaser.clone();
+            // TODO(#4804): When leaser.eo_extend is merged, use leaser.eo_extend instead.
             self.eo_pending_extends
                 .spawn(async move { leaser.extend(ack_ids).await });
         }

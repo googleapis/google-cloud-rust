@@ -46,6 +46,9 @@ pub(super) trait Leaser {
     async fn confirmed_ack(&self, ack_ids: Vec<String>);
     /// Negatively acknowledge a batch of messages and confirm the result.
     async fn confirmed_nack(&self, ack_ids: Vec<String>);
+    /// Extend lease deadlines for a batch of messages with exactly-once semantics.
+    #[allow(dead_code)]
+    async fn eo_extend(&self, ack_ids: Vec<String>);
 }
 
 /// A map of exactly-once ack IDs to their final result.
@@ -63,6 +66,7 @@ where
     subscription: String,
     ack_deadline_seconds: i32,
     backoff: Arc<dyn BackoffPolicy>,
+    eo_extend_tx: UnboundedSender<ConfirmedAcks>,
 }
 
 impl<T> Clone for DefaultLeaser<T>
@@ -79,6 +83,7 @@ where
             subscription: self.subscription.clone(),
             ack_deadline_seconds: self.ack_deadline_seconds,
             backoff: self.backoff.clone(),
+            eo_extend_tx: self.eo_extend_tx.clone(),
         }
     }
 }
@@ -90,6 +95,7 @@ where
     pub(super) fn new(
         inner: Arc<T>,
         confirmed_tx: UnboundedSender<ConfirmedAcks>,
+        eo_extend_tx: UnboundedSender<ConfirmedAcks>,
         subscription: String,
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
@@ -99,6 +105,7 @@ where
         Self::new_with_backoff(
             inner,
             confirmed_tx,
+            eo_extend_tx,
             subscription,
             ack_deadline_seconds,
             grpc_subchannel_count,
@@ -109,6 +116,7 @@ where
     pub(super) fn new_with_backoff(
         inner: Arc<T>,
         confirmed_tx: UnboundedSender<ConfirmedAcks>,
+        eo_extend_tx: UnboundedSender<ConfirmedAcks>,
         subscription: String,
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
@@ -125,6 +133,7 @@ where
             subscription,
             ack_deadline_seconds,
             backoff,
+            eo_extend_tx,
         }
     }
 }
@@ -216,6 +225,33 @@ where
         )
         .await;
     }
+
+    #[allow(dead_code)]
+    async fn eo_extend(&self, ack_ids: Vec<String>) {
+        let leaser = self.clone();
+        let options = self.options.clone();
+        // TODO(#4804): Limit the number of attempts to at most 3.
+        let inner = async move |ids: Vec<String>| {
+            let req = ModifyAckDeadlineRequest::new()
+                .set_subscription(leaser.subscription.clone())
+                .set_ack_ids(ids)
+                .set_ack_deadline_seconds(leaser.ack_deadline_seconds);
+            leaser
+                .inner
+                .modify_ack_deadline(req, options.clone())
+                .await
+                .map(|_| ())
+        };
+        exactly_once_retry_loop(
+            ack_ids,
+            inner,
+            self.eo_extend_tx.clone(),
+            retry_throttler(&self.eo_modack_options),
+            retry_policy(&self.eo_modack_options),
+            self.backoff.clone(),
+        )
+        .await;
+    }
 }
 
 fn retry_policy(options: &RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -264,6 +300,7 @@ pub(super) mod tests {
             async fn extend(&self, ack_ids: Vec<String>) -> Vec<String>;
             async fn confirmed_ack(&self, ack_ids: Vec<String>);
             async fn confirmed_nack(&self, ack_ids: Vec<String>);
+            async fn eo_extend(&self, ack_ids: Vec<String>);
         }
     }
 
@@ -292,6 +329,9 @@ pub(super) mod tests {
         async fn confirmed_nack(&self, ack_ids: Vec<String>) {
             MockLeaser::confirmed_nack(self, ack_ids).await
         }
+        async fn eo_extend(&self, ack_ids: Vec<String>) {
+            MockLeaser::eo_extend(self, ack_ids).await
+        }
     }
 
     #[async_trait::async_trait]
@@ -311,14 +351,19 @@ pub(super) mod tests {
         async fn confirmed_nack(&self, ack_ids: Vec<String>) {
             self.lock().await.confirmed_nack(ack_ids).await
         }
+        async fn eo_extend(&self, ack_ids: Vec<String>) {
+            self.lock().await.eo_extend(ack_ids).await
+        }
     }
 
     #[test]
     fn clone() {
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(MockStub::new()),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             1_usize,
@@ -345,9 +390,11 @@ pub(super) mod tests {
         });
 
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -372,9 +419,11 @@ pub(super) mod tests {
             });
 
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -399,9 +448,11 @@ pub(super) mod tests {
             });
 
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -427,9 +478,11 @@ pub(super) mod tests {
             });
 
         let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -452,9 +505,11 @@ pub(super) mod tests {
         });
 
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -515,9 +570,11 @@ pub(super) mod tests {
             .return_const(std::time::Duration::ZERO);
 
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -558,9 +615,11 @@ pub(super) mod tests {
             });
 
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -623,9 +682,11 @@ pub(super) mod tests {
             .return_const(std::time::Duration::ZERO);
 
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -670,9 +731,11 @@ pub(super) mod tests {
             .expect_on_failure()
             .return_const(Duration::from_secs(5));
         let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, _eo_extend_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new_with_backoff(
             Arc::new(mock),
             confirmed_tx,
+            eo_extend_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -695,6 +758,133 @@ pub(super) mod tests {
 
         // Verify all nacks failed with the error.
         for (ack_id, result) in &confirmed_nacks {
+            match result {
+                Err(crate::error::AckError::Rpc { source, .. }) => {
+                    let status = source.status().expect("RPC source should have a status");
+                    assert_eq!(status.code, Code::Unavailable);
+                }
+                _ => panic!("Expected RPC error for {ack_id}, got {result:?}"),
+            }
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn eo_extend_retry() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_modify_ack_deadline()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_deadline_seconds, 10);
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Err(Error::service(
+                    Status::default().set_code(Code::Unavailable),
+                ))
+            });
+        mock.expect_modify_ack_deadline()
+            .once()
+            .in_sequence(&mut seq)
+            .return_once(|r, o| {
+                assert_eq!(
+                    r.subscription,
+                    "projects/my-project/subscriptions/my-subscription"
+                );
+                assert_eq!(r.ack_deadline_seconds, 10);
+                assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+                verify_policies(o, 16);
+                Ok(Response::from(()))
+            });
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .once()
+            .return_const(std::time::Duration::ZERO);
+
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, mut eo_extend_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new_with_backoff(
+            Arc::new(mock),
+            confirmed_tx,
+            eo_extend_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+            Arc::new(mock_backoff),
+        );
+        leaser.eo_extend(test_ids(0..10)).await;
+
+        let confirmed_extends = eo_extend_rx.recv().await.expect("results were not sent");
+
+        // Verify all ids have a result.
+        let ack_ids: Vec<_> = confirmed_extends.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all extends were successful.
+        for (ack_id, result) in &confirmed_extends {
+            assert!(
+                result.is_ok(),
+                "Expected success for {ack_id}, got {result:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn eo_extend_retry_time_limit() -> anyhow::Result<()> {
+        let mut mock = MockStub::new();
+        mock.expect_modify_ack_deadline().returning(|r, o| {
+            assert_eq!(
+                r.subscription,
+                "projects/my-project/subscriptions/my-subscription"
+            );
+            assert_eq!(r.ack_deadline_seconds, 10);
+            assert_eq!(sorted(&r.ack_ids), test_ids(0..10));
+            verify_policies(o, 16);
+            Err(Error::service(
+                Status::default().set_code(Code::Unavailable),
+            ))
+        });
+
+        let mut mock_backoff = MockBackoffPolicy::new();
+        mock_backoff
+            .expect_on_failure()
+            .return_const(Duration::from_secs(5));
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
+        let (eo_extend_tx, mut eo_extend_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new_with_backoff(
+            Arc::new(mock),
+            confirmed_tx,
+            eo_extend_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+            Arc::new(mock_backoff),
+        );
+
+        let start = tokio::time::Instant::now();
+
+        leaser.eo_extend(test_ids(0..10)).await;
+
+        // Since mock_backoff is exactly 5 secs, we expect 2 retries to take exactly 10
+        // secs to cross the time limit threshold.
+        assert_eq!(start.elapsed(), Duration::from_secs(10));
+
+        let confirmed_extends = eo_extend_rx.recv().await.expect("results were not sent");
+
+        // Verify all ids have a result.
+        let ack_ids: Vec<_> = confirmed_extends.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all extends failed with the error.
+        for (ack_id, result) in &confirmed_extends {
             match result {
                 Err(crate::error::AckError::Rpc { source, .. }) => {
                     let status = source.status().expect("RPC source should have a status");
