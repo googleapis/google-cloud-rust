@@ -12,8 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod create_avro_schema;
-pub mod delete_schema;
-pub mod get_schema;
-pub mod list_schema_revisions;
-pub mod list_schemas;
+// [START pubsub_get_schema]
+use google_cloud_pubsub::client::SchemaService;
+
+pub async fn sample(client: &SchemaService, project: &str, schema_id: &str) -> anyhow::Result<()> {
+    let schema = client
+        .get_schema()
+        .set_name(format!("projects/{project}/schemas/{schema_id}"))
+        .send()
+        .await?;
+
+    println!("successfully retrieved schema {schema:?}");
+    Ok(())
+}
+// [END pubsub_get_schema]
