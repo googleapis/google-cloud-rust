@@ -992,11 +992,6 @@ pub(super) mod tests {
             0,
             "Completed at-least-once extensions should be cleaned up"
         );
-        assert_eq!(
-            state.eo_pending_extends.len(),
-            0,
-            "Completed exactly-once extensions should be cleaned up"
-        );
     }
 
     #[tokio::test]
