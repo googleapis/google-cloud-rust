@@ -121,9 +121,7 @@ impl LeaseLoop {
                                     .into_iter()
                                     .filter_map(|(id, res)| res.ok().map(|_| id))
                                     .collect();
-                                if !extended.is_empty() {
-                                    state.update_last_extension_eo(extended);
-                                }
+                                state.update_last_extension_eo(extended);
                             }
                         }
                     },
