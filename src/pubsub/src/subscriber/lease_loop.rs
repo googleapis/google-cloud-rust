@@ -784,7 +784,7 @@ mod tests {
         eo_extend_tx.send(results)?;
         tokio::task::yield_now().await; // Let the loop process it the extend result.
 
-        // Since the lease has been sucessfully extended, it should not be extended again.
+        // Since the lease has been successfully extended, it should not be extended again.
         mock.lock().await.expect_eo_extend().times(0);
 
         tokio::time::advance(EXTEND_PERIOD).await;
