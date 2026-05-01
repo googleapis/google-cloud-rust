@@ -833,7 +833,7 @@ libraries:
     copyright_year: "2025"
     output: src/gax
   - name: google-cloud-gax-internal
-    version: 0.7.12
+    version: 0.7.13
     copyright_year: "2025"
     output: src/gax-internal
     rust:
@@ -955,7 +955,7 @@ libraries:
     version: 1.9.0
     copyright_year: "2025"
   - name: google-cloud-identity-accesscontextmanager-type
-    version: 1.4.0
+    version: 1.5.0
     apis:
       - path: google/identity/accesscontextmanager/type
     copyright_year: "2025"

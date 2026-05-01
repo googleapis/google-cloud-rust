@@ -2949,7 +2949,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.12"
+version = "0.7.13"
 dependencies = [
  "anyhow",
  "bytes",
@@ -3294,7 +3294,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-identity-accesscontextmanager-type"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "anyhow",
  "bytes",
