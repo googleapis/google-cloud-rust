@@ -116,6 +116,7 @@ impl LeaseLoop {
                         match extend_results {
                             None => break,
                             Some(r) => {
+                                // TODO(#4804): Emit a log when there is an error.
                                 let extended: Vec<String> = r
                                     .into_iter()
                                     .filter_map(|(id, res)| if res.is_ok() { Some(id) } else { None })
@@ -404,7 +405,7 @@ mod tests {
         let mock = Arc::new(Mutex::new(MockLeaser::new()));
 
         let (_confirmed_tx, confirmed_rx) = unbounded_channel();
-        let (_eo_extend_tx, eo_extend_rx) = unbounded_channel();
+        let (eo_extend_tx, eo_extend_rx) = unbounded_channel();
         let options = LeaseOptions {
             // effectively disable ack/nack flushes to simplify this test.
             flush_start: Duration::from_secs(900),
@@ -449,7 +450,16 @@ mod tests {
                 .expect_eo_extend()
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(30..60))
-                .returning(move |_| ());
+                .return_once({
+                    let tx = eo_extend_tx.clone();
+                    move |ack_ids| {
+                        let mut results = HashMap::new();
+                        for id in ack_ids {
+                            results.insert(id, Ok(()));
+                        }
+                        let _ = tx.send(results);
+                    }
+                });
 
             tokio::time::advance(EXTEND_START).await;
 
@@ -487,7 +497,16 @@ mod tests {
                 .expect_eo_extend()
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(30..60))
-                .returning(|_| ());
+                .return_once({
+                    let tx = eo_extend_tx.clone();
+                    move |ack_ids| {
+                        let mut results = HashMap::new();
+                        for id in ack_ids {
+                            results.insert(id, Ok(()));
+                        }
+                        let _ = tx.send(results);
+                    }
+                });
 
             tokio::time::advance(EXTEND_PERIOD).await;
 
@@ -773,15 +792,21 @@ mod tests {
             .expect_eo_extend()
             .times(1)
             .withf(|v| *v == vec![test_id(0)])
-            .returning(|_| ());
+            .return_once({
+                let tx = eo_extend_tx.clone();
+                move |ack_ids| {
+                    let mut results = HashMap::new();
+                    for id in ack_ids {
+                        results.insert(id, Ok(()));
+                    }
+                    let _ = tx.send(results);
+                }
+            });
 
         tokio::time::advance(EXTEND_START).await;
         tokio::task::yield_now().await;
         mock.lock().await.checkpoint();
 
-        let mut results = HashMap::new();
-        results.insert(test_id(0), Ok(()));
-        eo_extend_tx.send(results)?;
         tokio::task::yield_now().await; // Let the loop process it the extend result.
 
         // Since the lease has been successfully extended, it should not be extended again.
