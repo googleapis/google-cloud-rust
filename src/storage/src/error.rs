@@ -272,13 +272,13 @@ pub enum WriteError {
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-/// Signed URL creation errors.
+/// Signed URL and signed POST policy creation errors.
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
 pub struct SigningError(SigningErrorKind);
 
 impl SigningError {
-    /// Returns true if the error was due to a problem signing the URL.
+    /// Returns true if the error was due to a problem signing the request.
     pub fn is_signing(&self) -> bool {
         matches!(self.0, SigningErrorKind::Signing(_))
     }
@@ -288,7 +288,7 @@ impl SigningError {
         matches!(self.0, SigningErrorKind::InvalidParameter(_, _))
     }
 
-    /// A problem to sign the URL.
+    /// A problem to sign the request.
     pub(crate) fn signing<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -296,7 +296,7 @@ impl SigningError {
         SigningError(SigningErrorKind::Signing(source.into()))
     }
 
-    /// A problem to sign the URL due to invalid input.
+    /// A problem to sign the request due to invalid input.
     pub(crate) fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -315,7 +315,7 @@ enum SigningErrorKind {
     #[error("signing failed: {0}")]
     Signing(#[source] BoxError),
 
-    /// An invalid input was provided to generate a signed URL.
+    /// An invalid input was provided to generate a signed URL or signed POST policy.
     #[error("invalid `{0}` parameter: {1}")]
     InvalidParameter(String, #[source] BoxError),
 }
