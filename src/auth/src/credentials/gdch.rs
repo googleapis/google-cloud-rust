@@ -281,27 +281,13 @@ pub(crate) mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
-    use std::sync::LazyLock;
-
-    pub static TEST_PRIVATE_KEY: LazyLock<String> = LazyLock::new(|| {
-        let secret_key_bytes = [
-            0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
-            0xac, 0x3d, 0x82, 0x82, 0x0e, 0x6c, 0x3d, 0x76, 0x61, 0x4d, 0x06, 0x4e, 0xdb, 0x05,
-            0x26, 0x6c, 0x75, 0xdf,
-        ];
-        let key = p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap();
-        key.to_sec1_pem(rsa::pkcs8::LineEnding::LF)
-            .unwrap()
-            .to_string()
-    });
-
     fn get_mock_key() -> GdchServiceAccountKey {
         GdchServiceAccountKey {
             cred_type: "gdch_service_account".to_string(),
             format_version: "1".to_string(),
             project: "test-project".to_string(),
             private_key_id: "test-key-id".to_string(),
-            private_key: (*TEST_PRIVATE_KEY).clone(),
+            private_key: (*crate::credentials::tests::ES256_PEM).clone(),
             name: "test-name".to_string(),
             ca_cert_path: None,
             token_uri: "http://localhost/token".to_string(),
@@ -316,7 +302,7 @@ pub(crate) mod tests {
         assert!(fmt.contains("test-name"));
         assert!(fmt.contains("test-key-id"));
         assert!(fmt.contains("[censored]"));
-        assert!(!fmt.contains(TEST_PRIVATE_KEY.as_str()));
+        assert!(!fmt.contains(crate::credentials::tests::ES256_PEM.as_str()));
     }
 
     #[test]
@@ -326,7 +312,7 @@ pub(crate) mod tests {
             "format_version": "1",
             "project": "test-project",
             "private_key_id": "test-key-id",
-            "private_key": TEST_PRIVATE_KEY.as_str(),
+            "private_key": crate::credentials::tests::ES256_PEM.as_str(),
             "name": "test-name",
             "token_uri": "http://localhost/token"
         });
@@ -408,7 +394,7 @@ pub(crate) mod tests {
             "format_version": "2", // Invalid
             "project": "test-project",
             "private_key_id": "test-key-id",
-            "private_key": TEST_PRIVATE_KEY.as_str(),
+            "private_key": crate::credentials::tests::ES256_PEM.as_str(),
             "name": "test-name",
             "token_uri": "http://localhost/token"
         });

@@ -1125,7 +1125,6 @@ pub(crate) mod tests {
             .expect("Failed to create RsaPrivateKey from primes")
     });
 
-    #[cfg(feature = "idtoken")]
     pub static ES256_PRIVATE_KEY: LazyLock<p256::SecretKey> = LazyLock::new(|| {
         let secret_key_bytes = [
             0x4c, 0x0c, 0x11, 0x6e, 0x6e, 0xb0, 0x07, 0xbd, 0x48, 0x0c, 0xc0, 0x48, 0xc0, 0x1f,
@@ -1133,6 +1132,13 @@ pub(crate) mod tests {
             0x26, 0x6c, 0x75, 0xdf,
         ];
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
+    });
+
+    pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {
+        (*ES256_PRIVATE_KEY)
+            .to_sec1_pem(LineEnding::LF)
+            .expect("Failed to encode EC key to PEM")
+            .to_string()
     });
 
     pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
