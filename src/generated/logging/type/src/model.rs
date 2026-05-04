@@ -101,6 +101,7 @@ pub struct HttpRequest {
 }
 
 impl HttpRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

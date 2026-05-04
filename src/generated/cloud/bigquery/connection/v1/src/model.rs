@@ -54,6 +54,7 @@ pub struct CreateConnectionRequest {
 }
 
 impl CreateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -137,6 +138,7 @@ pub struct GetConnectionRequest {
 }
 
 impl GetConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -181,6 +183,7 @@ pub struct ListConnectionsRequest {
 }
 
 impl ListConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -245,6 +248,7 @@ pub struct ListConnectionsResponse {
 }
 
 impl ListConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -325,6 +329,7 @@ pub struct UpdateConnectionRequest {
 }
 
 impl UpdateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -426,6 +431,7 @@ pub struct DeleteConnectionRequest {
 }
 
 impl DeleteConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -480,6 +486,7 @@ pub struct Connection {
 }
 
 impl Connection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -934,6 +941,7 @@ pub struct CloudSqlProperties {
 }
 
 impl CloudSqlProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1186,6 +1194,7 @@ pub struct CloudSqlCredential {
 }
 
 impl CloudSqlCredential {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1270,6 +1279,7 @@ pub struct CloudSpannerProperties {
 }
 
 impl CloudSpannerProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1365,6 +1375,7 @@ pub struct AwsProperties {
 }
 
 impl AwsProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1522,6 +1533,7 @@ pub struct AwsCrossAccountRole {
 }
 
 impl AwsCrossAccountRole {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1586,6 +1598,7 @@ pub struct AwsAccessRole {
 }
 
 impl AwsAccessRole {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1654,6 +1667,7 @@ pub struct AzureProperties {
 }
 
 impl AzureProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1777,6 +1791,7 @@ pub struct CloudResourceProperties {
 }
 
 impl CloudResourceProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1818,6 +1833,7 @@ pub struct MetastoreServiceConfig {
 }
 
 impl MetastoreServiceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1860,6 +1876,7 @@ pub struct SparkHistoryServerConfig {
 }
 
 impl SparkHistoryServerConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1914,6 +1931,7 @@ pub struct SparkProperties {
 }
 
 impl SparkProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2025,6 +2043,7 @@ pub struct SalesforceDataCloudProperties {
 }
 
 impl SalesforceDataCloudProperties {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

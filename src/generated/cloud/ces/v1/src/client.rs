@@ -22,16 +22,20 @@
 /// ```
 /// # use google_cloud_ces_v1::client::AgentService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    app_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AgentService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_agents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +136,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_apps()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +158,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +190,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::App;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_app()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_app_id("app_id_value")
     ///         .set_app(
     ///             App::new()/* set fields */
@@ -213,11 +217,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::App;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_app()
     ///         .set_app(
-    ///             App::new().set_name(name)/* set fields */
+    ///             App::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -247,10 +251,10 @@ impl AgentService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     client.delete_app()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -329,10 +333,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_agents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -351,10 +355,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_agent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -372,10 +376,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Agent;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_agent()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_agent_id("agent_id_value")
     ///         .set_agent(
     ///             Agent::new()/* set fields */
@@ -399,11 +403,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Agent;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_agent()
     ///         .set_agent(
-    ///             Agent::new().set_name(name)/* set fields */
+    ///             Agent::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -422,10 +426,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, agent_id: &str
     /// ) -> Result<()> {
     ///     client.delete_agent()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/agents/{agent_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -442,10 +446,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_examples()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -464,10 +468,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_example()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -485,10 +489,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Example;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_example()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_example_id("example_id_value")
     ///         .set_example(
     ///             Example::new()/* set fields */
@@ -512,11 +516,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Example;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_example()
     ///         .set_example(
-    ///             Example::new().set_name(name)/* set fields */
+    ///             Example::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -535,10 +539,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, example_id: &str
     /// ) -> Result<()> {
     ///     client.delete_example()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/examples/{example_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -555,10 +559,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -577,10 +581,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -598,10 +602,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_conversations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -620,10 +624,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -640,10 +644,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -693,10 +697,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Tool;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_tool_id("tool_id_value")
     ///         .set_tool(
     ///             Tool::new()/* set fields */
@@ -720,11 +724,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Tool;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tool()
     ///         .set_tool(
-    ///             Tool::new().set_name(name)/* set fields */
+    ///             Tool::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -743,10 +747,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, tool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/tools/{tool_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -763,10 +767,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_guardrails()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -785,10 +789,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, guardrail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_guardrail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -806,10 +810,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Guardrail;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_guardrail()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_guardrail_id("guardrail_id_value")
     ///         .set_guardrail(
     ///             Guardrail::new()/* set fields */
@@ -833,11 +837,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Guardrail;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, guardrail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_guardrail()
     ///         .set_guardrail(
-    ///             Guardrail::new().set_name(name)/* set fields */
+    ///             Guardrail::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -856,10 +860,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, guardrail_id: &str
     /// ) -> Result<()> {
     ///     client.delete_guardrail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/guardrails/{guardrail_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -876,10 +880,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -898,10 +902,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -919,10 +923,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Deployment;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
@@ -946,11 +950,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Deployment;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment()
     ///         .set_deployment(
-    ///             Deployment::new().set_name(name)/* set fields */
+    ///             Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -969,10 +973,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -989,10 +993,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_toolsets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1011,10 +1015,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, toolset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_toolset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1032,10 +1036,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Toolset;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_toolset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_toolset_id("toolset_id_value")
     ///         .set_toolset(
     ///             Toolset::new()/* set fields */
@@ -1059,11 +1063,11 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::Toolset;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, toolset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_toolset()
     ///         .set_toolset(
-    ///             Toolset::new().set_name(name)/* set fields */
+    ///             Toolset::new().set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1082,10 +1086,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, toolset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_toolset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/toolsets/{toolset_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1102,10 +1106,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_app_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1124,10 +1128,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1145,10 +1149,10 @@ impl AgentService {
     /// use google_cloud_ces_v1::model::AppVersion;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_app_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .set_app_version(
     ///             AppVersion::new()/* set fields */
     ///         )
@@ -1168,10 +1172,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_app_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/versions/{version_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1221,10 +1225,10 @@ impl AgentService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, parent: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_changelogs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1243,10 +1247,10 @@ impl AgentService {
     /// # use google_cloud_ces_v1::client::AgentService;
     /// use google_cloud_ces_v1::Result;
     /// async fn sample(
-    ///    client: &AgentService, name: &str
+    ///    client: &AgentService, project_id: &str, location_id: &str, app_id: &str, changelog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_changelog()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/apps/{app_id}/changelogs/{changelog_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1410,13 +1414,15 @@ impl AgentService {
 /// # Example
 /// ```
 /// # use google_cloud_ces_v1::client::SessionService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionService::builder().build().await?;
 ///     let response = client.run_session()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1682,13 +1688,15 @@ impl SessionService {
 /// # Example
 /// ```
 /// # use google_cloud_ces_v1::client::ToolService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ToolService::builder().build().await?;
 ///     let response = client.execute_tool()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1995,13 +2003,15 @@ impl ToolService {
 /// # Example
 /// ```
 /// # use google_cloud_ces_v1::client::WidgetService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = WidgetService::builder().build().await?;
 ///     let response = client.generate_chat_token()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

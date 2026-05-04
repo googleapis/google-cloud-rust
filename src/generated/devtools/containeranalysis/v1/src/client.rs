@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ContainerAnalysis::builder().build().await?;
 ///     let response = client.set_iam_policy()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

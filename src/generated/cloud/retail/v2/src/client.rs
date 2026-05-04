@@ -22,13 +22,15 @@
 /// ```
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AnalyticsService::builder().build().await?;
 ///     let response = client.export_analytics_metrics()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -212,16 +214,18 @@ impl AnalyticsService {
 /// ```
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CatalogService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_catalogs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -351,11 +355,11 @@ impl CatalogService {
     /// use google_cloud_retail_v2::model::Catalog;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_catalog()
     ///         .set_catalog(
-    ///             Catalog::new().set_name(name)/* set fields */
+    ///             Catalog::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -457,10 +461,10 @@ impl CatalogService {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_completion_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/completionConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -482,11 +486,11 @@ impl CatalogService {
     /// use google_cloud_retail_v2::model::CompletionConfig;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_completion_config()
     ///         .set_completion_config(
-    ///             CompletionConfig::new().set_name(name)/* set fields */
+    ///             CompletionConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/completionConfig"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -509,10 +513,10 @@ impl CatalogService {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attributes_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -541,11 +545,11 @@ impl CatalogService {
     /// use google_cloud_retail_v2::model::AttributesConfig;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, name: &str
+    ///    client: &CatalogService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_attributes_config()
     ///         .set_attributes_config(
-    ///             AttributesConfig::new().set_name(name)/* set fields */
+    ///             AttributesConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/attributesConfig"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -704,13 +708,15 @@ impl CatalogService {
 /// ```
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = CompletionService::builder().build().await?;
 ///     let response = client.import_completion_data()
 ///         /* set fields */
 ///         .poller().until_done().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -924,16 +930,20 @@ impl CompletionService {
 /// ```
 /// # use google_cloud_retail_v2::client::ControlService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    catalog_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ControlService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_controls()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1038,10 +1048,10 @@ impl ControlService {
     /// use google_cloud_retail_v2::model::Control;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, parent: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
@@ -1067,10 +1077,10 @@ impl ControlService {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, catalog_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     client.delete_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1096,11 +1106,11 @@ impl ControlService {
     /// use google_cloud_retail_v2::model::Control;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, catalog_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_control()
     ///         .set_control(
-    ///             Control::new().set_name(name)/* set fields */
+    ///             Control::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1119,10 +1129,10 @@ impl ControlService {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, name: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, catalog_id: &str, control_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_control()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/controls/{control_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1143,10 +1153,10 @@ impl ControlService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, parent: &str
+    ///    client: &ControlService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_controls()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1212,7 +1222,8 @@ impl ControlService {
 /// ```
 /// # use google_cloud_retail_v2::client::ConversationalSearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ConversationalSearchService::builder().build().await?;
 ///     let mut list = client.list_operations()
 ///         /* set fields */
@@ -1220,7 +1231,8 @@ impl ControlService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1371,13 +1383,15 @@ impl ConversationalSearchService {
 /// # Example
 /// ```
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = GenerativeQuestionService::builder().build().await?;
 ///     let response = client.update_generative_questions_feature_config()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1647,16 +1661,20 @@ impl GenerativeQuestionService {
 /// ```
 /// # use google_cloud_retail_v2::client::ModelService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    catalog_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_models()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1778,10 +1796,10 @@ impl ModelService {
     /// use google_cloud_retail_v2::model::Model;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, parent: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_model()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .set_model(
     ///             Model::new()/* set fields */
     ///         )
@@ -1801,10 +1819,10 @@ impl ModelService {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, catalog_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1861,10 +1879,10 @@ impl ModelService {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, catalog_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1881,10 +1899,10 @@ impl ModelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, parent: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_models()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1909,11 +1927,11 @@ impl ModelService {
     /// use google_cloud_retail_v2::model::Model;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, catalog_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_model()
     ///         .set_model(
-    ///             Model::new().set_name(name)/* set fields */
+    ///             Model::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/models/{model_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2009,13 +2027,15 @@ impl ModelService {
 /// # Example
 /// ```
 /// # use google_cloud_retail_v2::client::PredictionService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PredictionService::builder().build().await?;
 ///     let response = client.predict()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2182,16 +2202,18 @@ impl PredictionService {
 /// ```
 /// # use google_cloud_retail_v2::client::ProductService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ProductService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_products()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2322,10 +2344,10 @@ impl ProductService {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ProductService, name: &str
+    ///    client: &ProductService, project_id: &str, location_id: &str, catalog_id: &str, branch_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2372,11 +2394,11 @@ impl ProductService {
     /// use google_cloud_retail_v2::model::Product;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ProductService, name: &str
+    ///    client: &ProductService, project_id: &str, location_id: &str, catalog_id: &str, branch_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_product()
     ///         .set_product(
-    ///             Product::new().set_name(name)/* set fields */
+    ///             Product::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2397,10 +2419,10 @@ impl ProductService {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ProductService, name: &str
+    ///    client: &ProductService, project_id: &str, location_id: &str, catalog_id: &str, branch_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     client.delete_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/branches/{branch_id}/products/{product_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2918,7 +2940,8 @@ impl ProductService {
 /// ```
 /// # use google_cloud_retail_v2::client::SearchService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SearchService::builder().build().await?;
 ///     let mut list = client.search()
 ///         /* set fields */
@@ -2926,7 +2949,8 @@ impl ProductService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3101,16 +3125,20 @@ impl SearchService {
 /// ```
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    catalog_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ServingConfigService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_serving_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3218,10 +3246,10 @@ impl ServingConfigService {
     /// use google_cloud_retail_v2::model::ServingConfig;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, parent: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_serving_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .set_serving_config(
     ///             ServingConfig::new()/* set fields */
     ///         )
@@ -3245,10 +3273,10 @@ impl ServingConfigService {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, name: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, catalog_id: &str, serving_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_serving_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3269,11 +3297,11 @@ impl ServingConfigService {
     /// use google_cloud_retail_v2::model::ServingConfig;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, name: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, catalog_id: &str, serving_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_serving_config()
     ///         .set_serving_config(
-    ///             ServingConfig::new().set_name(name)/* set fields */
+    ///             ServingConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -3296,10 +3324,10 @@ impl ServingConfigService {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, name: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, catalog_id: &str, serving_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_serving_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}/servingConfigs/{serving_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3317,10 +3345,10 @@ impl ServingConfigService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, parent: &str
+    ///    client: &ServingConfigService, project_id: &str, location_id: &str, catalog_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_serving_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/catalogs/{catalog_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3436,13 +3464,15 @@ impl ServingConfigService {
 /// # Example
 /// ```
 /// # use google_cloud_retail_v2::client::UserEventService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = UserEventService::builder().build().await?;
 ///     let response = client.write_user_event()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

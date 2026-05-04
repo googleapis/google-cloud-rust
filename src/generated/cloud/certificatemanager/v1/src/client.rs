@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CertificateManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_certificates()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -180,10 +182,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -250,11 +252,11 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::Certificate;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate()
     ///         .set_certificate(
-    ///             Certificate::new().set_name(name)/* set fields */
+    ///             Certificate::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -284,10 +286,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_id: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificates/{certificate_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -328,10 +330,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -399,11 +401,11 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::CertificateMap;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate_map()
     ///         .set_certificate_map(
-    ///             CertificateMap::new().set_name(name)/* set fields */
+    ///             CertificateMap::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -437,10 +439,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -459,10 +461,10 @@ impl CertificateManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, parent: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_certificate_map_entries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -483,10 +485,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str, certificate_map_entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_map_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -517,10 +519,10 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, parent: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_certificate_map_entry()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}"))
     ///         .set_certificate_map_entry(
     ///             CertificateMapEntry::new()/* set fields */
     ///         )
@@ -556,11 +558,11 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str, certificate_map_entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_certificate_map_entry()
     ///         .set_certificate_map_entry(
-    ///             CertificateMapEntry::new().set_name(name)/* set fields */
+    ///             CertificateMapEntry::new().set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -592,10 +594,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_map_id: &str, certificate_map_entry_id: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_map_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateMaps/{certificate_map_id}/certificateMapEntries/{certificate_map_entry_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -638,10 +640,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, dns_authorization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_authorization()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -711,11 +713,11 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, dns_authorization_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dns_authorization()
     ///         .set_dns_authorization(
-    ///             DnsAuthorization::new().set_name(name)/* set fields */
+    ///             DnsAuthorization::new().set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -747,10 +749,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, dns_authorization_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dns_authorization()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dnsAuthorizations/{dns_authorization_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -793,10 +795,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_issuance_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_issuance_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -865,10 +867,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, certificate_issuance_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_issuance_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/certificateIssuanceConfigs/{certificate_issuance_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -911,10 +913,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, trust_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_trust_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -980,11 +982,11 @@ impl CertificateManager {
     /// use google_cloud_certificatemanager_v1::model::TrustConfig;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, trust_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_trust_config()
     ///         .set_trust_config(
-    ///             TrustConfig::new().set_name(name)/* set fields */
+    ///             TrustConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1014,10 +1016,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, name: &str
+    ///    client: &CertificateManager, project_id: &str, location_id: &str, trust_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_trust_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/trustConfigs/{trust_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ManagedKafka::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl ManagedKafka {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Cluster;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -224,11 +227,11 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Cluster;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cluster()
     ///         .set_cluster(
-    ///             Cluster::new().set_name(name)/* set fields */
+    ///             Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +261,10 @@ impl ManagedKafka {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -278,10 +281,10 @@ impl ManagedKafka {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_topics()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -300,10 +303,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_topic()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -321,10 +324,10 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Topic;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_topic()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_topic_id("topic_id_value")
     ///         .set_topic(
     ///             Topic::new()/* set fields */
@@ -348,11 +351,11 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Topic;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_topic()
     ///         .set_topic(
-    ///             Topic::new().set_name(name)/* set fields */
+    ///             Topic::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -371,10 +374,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, topic_id: &str
     /// ) -> Result<()> {
     ///     client.delete_topic()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/topics/{topic_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -391,10 +394,10 @@ impl ManagedKafka {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_consumer_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -413,10 +416,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, consumer_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_consumer_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -436,11 +439,11 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::ConsumerGroup;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, consumer_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_consumer_group()
     ///         .set_consumer_group(
-    ///             ConsumerGroup::new().set_name(name)/* set fields */
+    ///             ConsumerGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -459,10 +462,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, consumer_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_consumer_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/consumerGroups/{consumer_group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -479,10 +482,10 @@ impl ManagedKafka {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_acls()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -501,10 +504,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, acl_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_acl()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -522,10 +525,10 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Acl;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, parent: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_acl()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}"))
     ///         .set_acl_id("acl_id_value")
     ///         .set_acl(
     ///             Acl::new()/* set fields */
@@ -549,11 +552,11 @@ impl ManagedKafka {
     /// use google_cloud_managedkafka_v1::model::Acl;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, acl_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_acl()
     ///         .set_acl(
-    ///             Acl::new().set_name(name)/* set fields */
+    ///             Acl::new().set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -572,10 +575,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, name: &str
+    ///    client: &ManagedKafka, project_id: &str, location_id: &str, cluster_id: &str, acl_id: &str
     /// ) -> Result<()> {
     ///     client.delete_acl()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clusters/{cluster_id}/acls/{acl_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -766,16 +769,19 @@ impl ManagedKafka {
 /// ```
 /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ManagedKafkaConnect::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connect_clusters()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -877,10 +883,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, parent: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connect_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -901,10 +907,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connect_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -933,10 +939,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_managedkafka_v1::model::ConnectCluster;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, parent: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connect_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connect_cluster(
     ///             ConnectCluster::new()/* set fields */
     ///         )
@@ -972,11 +978,11 @@ impl ManagedKafkaConnect {
     /// use google_cloud_managedkafka_v1::model::ConnectCluster;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connect_cluster()
     ///         .set_connect_cluster(
-    ///             ConnectCluster::new().set_name(name)/* set fields */
+    ///             ConnectCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1008,10 +1014,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connect_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1030,10 +1036,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, parent: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connectors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1052,10 +1058,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str, connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1073,10 +1079,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_managedkafka_v1::model::Connector;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, parent: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connector()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}"))
     ///         .set_connector_id("connector_id_value")
     ///         .set_connector(
     ///             Connector::new()/* set fields */
@@ -1100,11 +1106,11 @@ impl ManagedKafkaConnect {
     /// use google_cloud_managedkafka_v1::model::Connector;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str, connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connector()
     ///         .set_connector(
-    ///             Connector::new().set_name(name)/* set fields */
+    ///             Connector::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1123,10 +1129,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, name: &str
+    ///    client: &ManagedKafkaConnect, project_id: &str, location_id: &str, connect_cluster_id: &str, connector_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectClusters/{connect_cluster_id}/connectors/{connector_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

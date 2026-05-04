@@ -30,7 +30,7 @@ pub use crate::empty::*;
 mod field_mask;
 pub use crate::field_mask::*;
 // The generated code contains (and uses) deprecated code.
-#[allow(deprecated, missing_docs)]
+#[allow(deprecated)]
 mod generated;
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 #[allow(missing_docs)]

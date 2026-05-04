@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlBackupRunsService::builder().build().await?;
 ///     let response = client.delete()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -212,16 +214,18 @@ impl SqlBackupRunsService {
 /// ```
 /// # use google_cloud_sql_v1::client::SqlBackupsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlBackupsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_backups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -341,10 +345,10 @@ impl SqlBackupsService {
     /// # use google_cloud_sql_v1::client::SqlBackupsService;
     /// use google_cloud_sql_v1::Result;
     /// async fn sample(
-    ///    client: &SqlBackupsService, name: &str
+    ///    client: &SqlBackupsService, project_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -362,10 +366,10 @@ impl SqlBackupsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_sql_v1::Result;
     /// async fn sample(
-    ///    client: &SqlBackupsService, parent: &str
+    ///    client: &SqlBackupsService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -405,10 +409,10 @@ impl SqlBackupsService {
     /// # use google_cloud_sql_v1::client::SqlBackupsService;
     /// use google_cloud_sql_v1::Result;
     /// async fn sample(
-    ///    client: &SqlBackupsService, name: &str
+    ///    client: &SqlBackupsService, project_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -424,13 +428,15 @@ impl SqlBackupsService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlConnectService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlConnectService::builder().build().await?;
 ///     let response = client.get_connect_settings()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -574,13 +580,15 @@ impl SqlConnectService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlDatabasesService::builder().build().await?;
 ///     let response = client.delete()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -805,13 +813,15 @@ impl SqlDatabasesService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlFlagsService::builder().build().await?;
 ///     let response = client.list()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -929,13 +939,15 @@ impl SqlFlagsService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlInstancesService::builder().build().await?;
 ///     let response = client.add_server_ca()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1977,13 +1989,15 @@ impl SqlInstancesService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlOperationsService::builder().build().await?;
 ///     let response = client.get()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2145,13 +2159,15 @@ impl SqlOperationsService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlSslCertsService::builder().build().await?;
 ///     let response = client.delete()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2335,13 +2351,15 @@ impl SqlSslCertsService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlTiersService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlTiersService::builder().build().await?;
 ///     let response = client.list()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2461,13 +2479,15 @@ impl SqlTiersService {
 /// # Example
 /// ```
 /// # use google_cloud_sql_v1::client::SqlUsersService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = SqlUsersService::builder().build().await?;
 ///     let response = client.delete()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

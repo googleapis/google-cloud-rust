@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_servicedirectory_v1::client::LookupService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = LookupService::builder().build().await?;
 ///     let response = client.resolve_service()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -193,16 +195,18 @@ impl LookupService {
 /// ```
 /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RegistrationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_namespaces()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -369,10 +373,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -392,11 +396,11 @@ impl RegistrationService {
     /// use google_cloud_servicedirectory_v1::model::Namespace;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_namespace()
     ///         .set_namespace(
-    ///             Namespace::new().set_name(name)/* set fields */
+    ///             Namespace::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -416,10 +420,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     client.delete_namespace()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -436,10 +440,10 @@ impl RegistrationService {
     /// use google_cloud_servicedirectory_v1::model::Service;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, parent: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"))
     ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
@@ -461,10 +465,10 @@ impl RegistrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, parent: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -483,10 +487,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -506,11 +510,11 @@ impl RegistrationService {
     /// use google_cloud_servicedirectory_v1::model::Service;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service()
     ///         .set_service(
-    ///             Service::new().set_name(name)/* set fields */
+    ///             Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -530,10 +534,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -550,10 +554,10 @@ impl RegistrationService {
     /// use google_cloud_servicedirectory_v1::model::Endpoint;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, parent: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"))
     ///         .set_endpoint_id("endpoint_id_value")
     ///         .set_endpoint(
     ///             Endpoint::new()/* set fields */
@@ -575,10 +579,10 @@ impl RegistrationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, parent: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_endpoints()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -597,10 +601,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -620,11 +624,11 @@ impl RegistrationService {
     /// use google_cloud_servicedirectory_v1::model::Endpoint;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_endpoint()
     ///         .set_endpoint(
-    ///             Endpoint::new().set_name(name)/* set fields */
+    ///             Endpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -643,10 +647,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, name: &str
+    ///    client: &RegistrationService, project_id: &str, location_id: &str, namespace_id: &str, service_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/namespaces/{namespace_id}/services/{service_id}/endpoints/{endpoint_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

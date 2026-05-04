@@ -422,6 +422,12 @@ impl serde::ser::Serialize for super::CommitResponse {
         if self.cache_update.is_some() {
             state.serialize_entry("cacheUpdate", &self.cache_update)?;
         }
+        if !wkt::internal::is_default(&self.isolation_level) {
+            state.serialize_entry("isolationLevel", &self.isolation_level)?;
+        }
+        if !wkt::internal::is_default(&self.read_lock_mode) {
+            state.serialize_entry("readLockMode", &self.read_lock_mode)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VpcAccessService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connectors()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -170,10 +172,10 @@ impl VpcAccessService {
     /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
     /// use google_cloud_vpcaccess_v1::Result;
     /// async fn sample(
-    ///    client: &VpcAccessService, name: &str
+    ///    client: &VpcAccessService, project_id: &str, location_id: &str, connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -225,10 +227,10 @@ impl VpcAccessService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vpcaccess_v1::Result;
     /// async fn sample(
-    ///    client: &VpcAccessService, name: &str
+    ///    client: &VpcAccessService, project_id: &str, location_id: &str, connector_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectors/{connector_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

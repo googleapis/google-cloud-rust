@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VmwareEngine::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_vmware_engine_networks()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -153,10 +155,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_cloud()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -235,11 +237,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::PrivateCloud;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_private_cloud()
     ///         .set_private_cloud(
-    ///             PrivateCloud::new().set_name(name)/* set fields */
+    ///             PrivateCloud::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -283,10 +285,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_private_cloud()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -317,10 +319,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_private_cloud()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -338,10 +340,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -360,10 +362,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -395,10 +397,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::Cluster;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -439,11 +441,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::Cluster;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cluster()
     ///         .set_cluster(
-    ///             Cluster::new().set_name(name)/* set fields */
+    ///             Cluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -476,10 +478,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -496,10 +498,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_nodes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -518,10 +520,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, cluster_id: &str, node_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/clusters/{cluster_id}/nodes/{node_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -540,10 +542,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_external_addresses()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -588,10 +590,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, external_address_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_address()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -622,10 +624,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_external_address()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .set_external_address(
     ///             ExternalAddress::new()/* set fields */
     ///         )
@@ -665,11 +667,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ExternalAddress;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, external_address_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_external_address()
     ///         .set_external_address(
-    ///             ExternalAddress::new().set_name(name)/* set fields */
+    ///             ExternalAddress::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -701,10 +703,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, external_address_id: &str
     /// ) -> Result<()> {
     ///     client.delete_external_address()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/externalAddresses/{external_address_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -721,10 +723,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_subnets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -743,10 +745,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, subnet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subnet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/subnets/{subnet_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -782,11 +784,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::Subnet;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, subnet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_subnet()
     ///         .set_subnet(
-    ///             Subnet::new().set_name(name)/* set fields */
+    ///             Subnet::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/subnets/{subnet_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -806,10 +808,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_external_access_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -830,10 +832,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str, external_access_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_access_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -862,10 +864,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_external_access_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"))
     ///         .set_external_access_rule(
     ///             ExternalAccessRule::new()/* set fields */
     ///         )
@@ -902,11 +904,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ExternalAccessRule;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str, external_access_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_external_access_rule()
     ///         .set_external_access_rule(
-    ///             ExternalAccessRule::new().set_name(name)/* set fields */
+    ///             ExternalAccessRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -938,10 +940,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str, external_access_rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_external_access_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}/externalAccessRules/{external_access_rule_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -961,10 +963,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_logging_servers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -983,10 +985,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, logging_server_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_logging_server()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1015,10 +1017,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::LoggingServer;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_logging_server()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .set_logging_server(
     ///             LoggingServer::new()/* set fields */
     ///         )
@@ -1053,11 +1055,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::LoggingServer;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, logging_server_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_logging_server()
     ///         .set_logging_server(
-    ///             LoggingServer::new().set_name(name)/* set fields */
+    ///             LoggingServer::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1087,10 +1089,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, logging_server_id: &str
     /// ) -> Result<()> {
     ///     client.delete_logging_server()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/loggingServers/{logging_server_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1129,10 +1131,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, node_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nodeTypes/{node_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1255,10 +1257,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_forwarding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/dnsForwarding"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1290,11 +1292,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::DnsForwarding;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dns_forwarding()
     ///         .set_dns_forwarding(
-    ///             DnsForwarding::new().set_name(name)/* set fields */
+    ///             DnsForwarding::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/dnsForwarding"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1316,10 +1318,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_peering_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network_peering()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1338,10 +1340,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_network_peerings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1411,10 +1413,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_peering_id: &str
     /// ) -> Result<()> {
     ///     client.delete_network_peering()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1446,11 +1448,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::NetworkPeering;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_peering_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_network_peering()
     ///         .set_network_peering(
-    ///             NetworkPeering::new().set_name(name)/* set fields */
+    ///             NetworkPeering::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPeerings/{network_peering_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1505,10 +1507,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::HcxActivationKey;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_hcx_activation_key()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .set_hcx_activation_key(
     ///             HcxActivationKey::new()/* set fields */
     ///         )
@@ -1531,10 +1533,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_hcx_activation_keys()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1553,10 +1555,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, hcx_activation_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hcx_activation_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/hcxActivationKeys/{hcx_activation_key_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1573,10 +1575,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1594,10 +1596,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_network_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1630,10 +1632,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_network_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_network_policy(
     ///             NetworkPolicy::new()/* set fields */
     ///         )
@@ -1678,11 +1680,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::NetworkPolicy;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_network_policy()
     ///         .set_network_policy(
-    ///             NetworkPolicy::new().set_name(name)/* set fields */
+    ///             NetworkPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1714,10 +1716,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, network_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_network_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networkPolicies/{network_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1734,10 +1736,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_management_dns_zone_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1758,10 +1760,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, management_dns_zone_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_management_dns_zone_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1798,10 +1800,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_management_dns_zone_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}"))
     ///         .set_management_dns_zone_binding(
     ///             ManagementDnsZoneBinding::new()/* set fields */
     ///         )
@@ -1838,11 +1840,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::ManagementDnsZoneBinding;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, management_dns_zone_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_management_dns_zone_binding()
     ///         .set_management_dns_zone_binding(
-    ///             ManagementDnsZoneBinding::new().set_name(name)/* set fields */
+    ///             ManagementDnsZoneBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1876,10 +1878,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_cloud_id: &str, management_dns_zone_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_management_dns_zone_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateClouds/{private_cloud_id}/managementDnsZoneBindings/{management_dns_zone_binding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1943,10 +1945,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_vmware_engine_network()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_vmware_engine_network(
     ///             VmwareEngineNetwork::new()/* set fields */
     ///         )
@@ -1984,11 +1986,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::VmwareEngineNetwork;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, vmware_engine_network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_vmware_engine_network()
     ///         .set_vmware_engine_network(
-    ///             VmwareEngineNetwork::new().set_name(name)/* set fields */
+    ///             VmwareEngineNetwork::new().set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2023,10 +2025,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, vmware_engine_network_id: &str
     /// ) -> Result<()> {
     ///     client.delete_vmware_engine_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2047,10 +2049,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, vmware_engine_network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vmware_engine_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/vmwareEngineNetworks/{vmware_engine_network_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2107,10 +2109,10 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_private_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_private_connection(
     ///             PrivateConnection::new()/* set fields */
     ///         )
@@ -2134,10 +2136,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2155,10 +2157,10 @@ impl VmwareEngine {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, parent: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_private_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2195,11 +2197,11 @@ impl VmwareEngine {
     /// use google_cloud_vmwareengine_v1::model::PrivateConnection;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_private_connection()
     ///         .set_private_connection(
-    ///             PrivateConnection::new().set_name(name)/* set fields */
+    ///             PrivateConnection::new().set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2233,10 +2235,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2317,10 +2319,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, name: &str
+    ///    client: &VmwareEngine, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_bind_permission()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dnsBindPermission"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

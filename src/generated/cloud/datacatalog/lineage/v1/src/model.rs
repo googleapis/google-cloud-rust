@@ -64,6 +64,7 @@ pub struct Process {
 }
 
 impl Process {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -190,6 +191,7 @@ pub struct Run {
 }
 
 impl Run {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -511,6 +513,7 @@ pub struct LineageEvent {
 }
 
 impl LineageEvent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -636,6 +639,7 @@ pub struct EventLink {
 }
 
 impl EventLink {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -726,6 +730,7 @@ pub struct EntityReference {
 }
 
 impl EntityReference {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -781,6 +786,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1223,6 +1229,7 @@ pub struct ProcessOpenLineageRunEventRequest {
 }
 
 impl ProcessOpenLineageRunEventRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1314,6 +1321,7 @@ pub struct ProcessOpenLineageRunEventResponse {
 }
 
 impl ProcessOpenLineageRunEventResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1387,6 +1395,7 @@ pub struct CreateProcessRequest {
 }
 
 impl CreateProcessRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1476,6 +1485,7 @@ pub struct UpdateProcessRequest {
 }
 
 impl UpdateProcessRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1577,6 +1587,7 @@ pub struct GetProcessRequest {
 }
 
 impl GetProcessRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1626,6 +1637,7 @@ pub struct ListProcessesRequest {
 }
 
 impl ListProcessesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1689,6 +1701,7 @@ pub struct ListProcessesResponse {
 }
 
 impl ListProcessesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1764,6 +1777,7 @@ pub struct DeleteProcessRequest {
 }
 
 impl DeleteProcessRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1819,6 +1833,7 @@ pub struct CreateRunRequest {
 }
 
 impl CreateRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1911,6 +1926,7 @@ pub struct UpdateRunRequest {
 }
 
 impl UpdateRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2012,6 +2028,7 @@ pub struct GetRunRequest {
 }
 
 impl GetRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2060,6 +2077,7 @@ pub struct ListRunsRequest {
 }
 
 impl ListRunsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2123,6 +2141,7 @@ pub struct ListRunsResponse {
 }
 
 impl ListRunsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2198,6 +2217,7 @@ pub struct DeleteRunRequest {
 }
 
 impl DeleteRunRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2253,6 +2273,7 @@ pub struct CreateLineageEventRequest {
 }
 
 impl CreateLineageEventRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2333,6 +2354,7 @@ pub struct GetLineageEventRequest {
 }
 
 impl GetLineageEventRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2383,6 +2405,7 @@ pub struct ListLineageEventsRequest {
 }
 
 impl ListLineageEventsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2446,6 +2469,7 @@ pub struct ListLineageEventsResponse {
 }
 
 impl ListLineageEventsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2521,6 +2545,7 @@ pub struct DeleteLineageEventRequest {
 }
 
 impl DeleteLineageEventRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2588,6 +2613,7 @@ pub struct SearchLinksRequest {
 }
 
 impl SearchLinksRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2764,6 +2790,7 @@ pub struct SearchLinksResponse {
 }
 
 impl SearchLinksResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2851,6 +2878,7 @@ pub struct Link {
 }
 
 impl Link {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3041,6 +3069,7 @@ pub struct BatchSearchLinkProcessesRequest {
 }
 
 impl BatchSearchLinkProcessesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3123,6 +3152,7 @@ pub struct BatchSearchLinkProcessesResponse {
 }
 
 impl BatchSearchLinkProcessesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3202,6 +3232,7 @@ pub struct ProcessLinks {
 }
 
 impl ProcessLinks {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3265,6 +3296,7 @@ pub struct ProcessLinkInfo {
 }
 
 impl ProcessLinkInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3380,6 +3412,7 @@ pub struct Origin {
 }
 
 impl Origin {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_accessapproval_v1::client::AccessApproval;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AccessApproval::builder().build().await?;
 ///     let response = client.get_access_approval_settings()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

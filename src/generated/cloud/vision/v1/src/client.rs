@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ImageAnnotator::builder().build().await?;
 ///     let response = client.batch_annotate_images()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -275,16 +277,18 @@ impl ImageAnnotator {
 /// ```
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ProductSearch::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_product_sets()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -464,10 +468,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_set_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product_set()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -494,11 +498,11 @@ impl ProductSearch {
     /// use google_cloud_vision_v1::model::ProductSet;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_set_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_product_set()
     ///         .set_product_set(
-    ///             ProductSet::new().set_name(name)/* set fields */
+    ///             ProductSet::new().set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -520,10 +524,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_set_id: &str
     /// ) -> Result<()> {
     ///     client.delete_product_set()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/productSets/{product_set_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -602,10 +606,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -639,11 +643,11 @@ impl ProductSearch {
     /// use google_cloud_vision_v1::model::Product;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_product()
     ///         .set_product(
-    ///             Product::new().set_name(name)/* set fields */
+    ///             Product::new().set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -666,10 +670,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     client.delete_product()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -704,10 +708,10 @@ impl ProductSearch {
     /// use google_cloud_vision_v1::model::ReferenceImage;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, parent: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_reference_image()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))
     ///         .set_reference_image(
     ///             ReferenceImage::new()/* set fields */
     ///         )
@@ -733,10 +737,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str, reference_image_id: &str
     /// ) -> Result<()> {
     ///     client.delete_reference_image()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}/referenceImages/{reference_image_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -759,10 +763,10 @@ impl ProductSearch {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, parent: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_reference_images()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/products/{product_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -785,10 +789,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, name: &str
+    ///    client: &ProductSearch, project_id: &str, location_id: &str, product_id: &str, reference_image_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reference_image()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/products/{product_id}/referenceImages/{reference_image_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

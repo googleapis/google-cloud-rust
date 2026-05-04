@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DataPolicyService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_data_policies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -133,10 +136,10 @@ impl DataPolicyService {
     /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, parent: &str
+    ///    client: &DataPolicyService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_data_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_data_policy(
     ///             DataPolicy::new()/* set fields */
     ///         )
@@ -160,11 +163,11 @@ impl DataPolicyService {
     /// use google_cloud_bigquery_datapolicies_v1::model::DataPolicy;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, name: &str
+    ///    client: &DataPolicyService, project_id: &str, location_id: &str, data_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_policy()
     ///         .set_data_policy(
-    ///             DataPolicy::new().set_name(name)/* set fields */
+    ///             DataPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -203,10 +206,10 @@ impl DataPolicyService {
     /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, name: &str
+    ///    client: &DataPolicyService, project_id: &str, location_id: &str, data_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -222,10 +225,10 @@ impl DataPolicyService {
     /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, name: &str
+    ///    client: &DataPolicyService, project_id: &str, location_id: &str, data_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataPolicies/{data_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -243,10 +246,10 @@ impl DataPolicyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, parent: &str
+    ///    client: &DataPolicyService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

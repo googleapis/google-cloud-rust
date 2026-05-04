@@ -83,6 +83,7 @@ pub struct Insight {
 }
 
 impl Insight {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -366,6 +367,7 @@ pub mod insight {
     }
 
     impl RecommendationReference {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -713,6 +715,7 @@ pub struct InsightStateInfo {
 }
 
 impl InsightStateInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -958,6 +961,7 @@ pub struct InsightTypeConfig {
 }
 
 impl InsightTypeConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1121,6 +1125,7 @@ pub struct InsightTypeGenerationConfig {
 }
 
 impl InsightTypeGenerationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1227,6 +1232,7 @@ pub struct Recommendation {
 }
 
 impl Recommendation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1512,6 +1518,7 @@ pub mod recommendation {
     }
 
     impl InsightReference {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -1698,6 +1705,7 @@ pub struct RecommendationContent {
 }
 
 impl RecommendationContent {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1776,6 +1784,7 @@ pub struct OperationGroup {
 }
 
 impl OperationGroup {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1903,6 +1912,7 @@ pub struct Operation {
 }
 
 impl Operation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2143,12 +2153,14 @@ pub mod operation {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ValueMatcher {
+    #[allow(missing_docs)]
     pub match_variant: std::option::Option<crate::model::value_matcher::MatchVariant>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ValueMatcher {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2218,6 +2230,7 @@ pub mod value_matcher {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchVariant {
@@ -2250,6 +2263,7 @@ pub struct CostProjection {
 }
 
 impl CostProjection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2371,6 +2385,7 @@ pub struct SecurityProjection {
 }
 
 impl SecurityProjection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2431,6 +2446,7 @@ pub struct SustainabilityProjection {
 }
 
 impl SustainabilityProjection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2501,6 +2517,7 @@ pub struct ReliabilityProjection {
 }
 
 impl ReliabilityProjection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2727,6 +2744,7 @@ pub struct Impact {
 }
 
 impl Impact {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3139,6 +3157,7 @@ pub struct RecommendationStateInfo {
 }
 
 impl RecommendationStateInfo {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3407,6 +3426,7 @@ pub struct RecommenderConfig {
 }
 
 impl RecommenderConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3570,6 +3590,7 @@ pub struct RecommenderGenerationConfig {
 }
 
 impl RecommenderGenerationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3685,6 +3706,7 @@ pub struct ListInsightsRequest {
 }
 
 impl ListInsightsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3759,6 +3781,7 @@ pub struct ListInsightsResponse {
 }
 
 impl ListInsightsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3829,6 +3852,7 @@ pub struct GetInsightRequest {
 }
 
 impl GetInsightRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3870,6 +3894,7 @@ pub struct MarkInsightAcceptedRequest {
 }
 
 impl MarkInsightAcceptedRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3997,6 +4022,7 @@ pub struct ListRecommendationsRequest {
 }
 
 impl ListRecommendationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4071,6 +4097,7 @@ pub struct ListRecommendationsResponse {
 }
 
 impl ListRecommendationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4141,6 +4168,7 @@ pub struct GetRecommendationRequest {
 }
 
 impl GetRecommendationRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4178,6 +4206,7 @@ pub struct MarkRecommendationDismissedRequest {
 }
 
 impl MarkRecommendationDismissedRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4233,6 +4262,7 @@ pub struct MarkRecommendationClaimedRequest {
 }
 
 impl MarkRecommendationClaimedRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4309,6 +4339,7 @@ pub struct MarkRecommendationSucceededRequest {
 }
 
 impl MarkRecommendationSucceededRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4385,6 +4416,7 @@ pub struct MarkRecommendationFailedRequest {
 }
 
 impl MarkRecommendationFailedRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4463,6 +4495,7 @@ pub struct GetRecommenderConfigRequest {
 }
 
 impl GetRecommenderConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4504,6 +4537,7 @@ pub struct UpdateRecommenderConfigRequest {
 }
 
 impl UpdateRecommenderConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4615,6 +4649,7 @@ pub struct GetInsightTypeConfigRequest {
 }
 
 impl GetInsightTypeConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4656,6 +4691,7 @@ pub struct UpdateInsightTypeConfigRequest {
 }
 
 impl UpdateInsightTypeConfigRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

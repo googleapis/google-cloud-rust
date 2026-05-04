@@ -1551,6 +1551,9 @@ impl serde::ser::Serialize for super::Index {
         if !wkt::internal::is_default(&self.unique) {
             state.serialize_entry("unique", &self.unique)?;
         }
+        if self.search_index_options.is_some() {
+            state.serialize_entry("searchIndexOptions", &self.search_index_options)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1581,6 +1584,9 @@ impl serde::ser::Serialize for super::index::IndexField {
         }
         if let Some(value) = self.vector_config() {
             state.serialize_entry("vectorConfig", value)?;
+        }
+        if let Some(value) = self.search_config() {
+            state.serialize_entry("searchConfig", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1635,6 +1641,128 @@ impl serde::ser::Serialize for super::index::index_field::vector_config::FlatInd
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::index::index_field::SearchConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.text_spec.is_some() {
+            state.serialize_entry("textSpec", &self.text_spec)?;
+        }
+        if self.geo_spec.is_some() {
+            state.serialize_entry("geoSpec", &self.geo_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::index::index_field::search_config::SearchTextIndexSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.index_type) {
+            state.serialize_entry("indexType", &self.index_type)?;
+        }
+        if !wkt::internal::is_default(&self.match_type) {
+            state.serialize_entry("matchType", &self.match_type)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::index::index_field::search_config::SearchTextSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.index_specs.is_empty() {
+            state.serialize_entry("indexSpecs", &self.index_specs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::index::index_field::search_config::SearchGeoSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.geo_json_indexing_disabled) {
+            state.serialize_entry("geoJsonIndexingDisabled", &self.geo_json_indexing_disabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::index::SearchIndexOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.text_language.is_empty() {
+            state.serialize_entry("textLanguage", &self.text_language)?;
+        }
+        if !self.text_language_override_field_path.is_empty() {
+            state.serialize_entry(
+                "textLanguageOverrideFieldPath",
+                &self.text_language_override_field_path,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -55,13 +55,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ServiceController::builder().build().await?;
 ///     let response = client.check()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

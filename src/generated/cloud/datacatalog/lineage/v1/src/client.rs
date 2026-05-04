@@ -22,16 +22,21 @@
 /// ```
 /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    process_id: &str,
+///    run_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Lineage::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_lineage_events()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -161,10 +166,10 @@ impl Lineage {
     /// use google_cloud_datacatalog_lineage_v1::model::Process;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_process()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_process(
     ///             Process::new()/* set fields */
     ///         )
@@ -187,11 +192,11 @@ impl Lineage {
     /// use google_cloud_datacatalog_lineage_v1::model::Process;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_process()
     ///         .set_process(
-    ///             Process::new().set_name(name)/* set fields */
+    ///             Process::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -210,10 +215,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_process()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -232,10 +237,10 @@ impl Lineage {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -265,10 +270,10 @@ impl Lineage {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     client.delete_process()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -285,10 +290,10 @@ impl Lineage {
     /// use google_cloud_datacatalog_lineage_v1::model::Run;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_run()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"))
     ///         .set_run(
     ///             Run::new()/* set fields */
     ///         )
@@ -311,11 +316,11 @@ impl Lineage {
     /// use google_cloud_datacatalog_lineage_v1::model::Run;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_run()
     ///         .set_run(
-    ///             Run::new().set_name(name)/* set fields */
+    ///             Run::new().set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -334,10 +339,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -356,10 +361,10 @@ impl Lineage {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_runs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -389,10 +394,10 @@ impl Lineage {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     client.delete_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -409,10 +414,10 @@ impl Lineage {
     /// use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lineage_event()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))
     ///         .set_lineage_event(
     ///             LineageEvent::new()/* set fields */
     ///         )
@@ -432,10 +437,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str, lineage_event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lineage_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}/lineageEvents/{lineage_event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -454,10 +459,10 @@ impl Lineage {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, parent: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_lineage_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -476,10 +481,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, name: &str
+    ///    client: &Lineage, project_id: &str, location_id: &str, process_id: &str, run_id: &str, lineage_event_id: &str
     /// ) -> Result<()> {
     ///     client.delete_lineage_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processes/{process_id}/runs/{run_id}/lineageEvents/{lineage_event_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

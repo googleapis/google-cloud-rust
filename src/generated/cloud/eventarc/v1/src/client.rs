@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_eventarc_v1::client::Eventarc;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Eventarc::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_triggers()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, trigger_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_trigger()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -152,10 +155,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_triggers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -186,10 +189,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Trigger;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_trigger()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_trigger_id("trigger_id_value")
     ///         .set_trigger(
     ///             Trigger::new()/* set fields */
@@ -224,11 +227,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Trigger;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, trigger_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_trigger()
     ///         .set_trigger(
-    ///             Trigger::new().set_name(name)/* set fields */
+    ///             Trigger::new().set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +261,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, trigger_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_trigger()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/triggers/{trigger_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -278,10 +281,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -299,10 +302,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_channels()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -333,10 +336,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Channel;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_channel()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_channel_id("channel_id_value")
     ///         .set_channel(
     ///             Channel::new()/* set fields */
@@ -371,11 +374,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Channel;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_channel()
     ///         .set_channel(
-    ///             Channel::new().set_name(name)/* set fields */
+    ///             Channel::new().set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -405,10 +408,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, channel_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_channel()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channels/{channel_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -425,10 +428,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, provider_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_provider()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/providers/{provider_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -446,10 +449,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_providers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -468,10 +471,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, channel_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channelConnections/{channel_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -489,10 +492,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_channel_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -523,10 +526,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::ChannelConnection;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_channel_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_channel_connection(
     ///             ChannelConnection::new()/* set fields */
     ///         )
@@ -557,10 +560,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, channel_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_channel_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/channelConnections/{channel_connection_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -579,10 +582,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_google_channel_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/googleChannelConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -602,11 +605,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::GoogleChannelConfig;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_google_channel_config()
     ///         .set_google_channel_config(
-    ///             GoogleChannelConfig::new().set_name(name)/* set fields */
+    ///             GoogleChannelConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleChannelConfig"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -627,10 +630,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, message_bus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_message_bus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -648,10 +651,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_message_buses()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -704,10 +707,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::MessageBus;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_message_bus()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_message_bus(
     ///             MessageBus::new()/* set fields */
     ///         )
@@ -741,11 +744,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::MessageBus;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, message_bus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_message_bus()
     ///         .set_message_bus(
-    ///             MessageBus::new().set_name(name)/* set fields */
+    ///             MessageBus::new().set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -775,10 +778,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, message_bus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_message_bus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/messageBuses/{message_bus_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -795,10 +798,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, enrollment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_enrollment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -816,10 +819,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_enrollments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -850,10 +853,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Enrollment;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_enrollment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_enrollment_id("enrollment_id_value")
     ///         .set_enrollment(
     ///             Enrollment::new()/* set fields */
@@ -888,11 +891,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Enrollment;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, enrollment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_enrollment()
     ///         .set_enrollment(
-    ///             Enrollment::new().set_name(name)/* set fields */
+    ///             Enrollment::new().set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -922,10 +925,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, enrollment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_enrollment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/enrollments/{enrollment_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -942,10 +945,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -963,10 +966,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_pipelines()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -997,10 +1000,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Pipeline;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_pipeline()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_pipeline_id("pipeline_id_value")
     ///         .set_pipeline(
     ///             Pipeline::new()/* set fields */
@@ -1035,11 +1038,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::Pipeline;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_pipeline()
     ///         .set_pipeline(
-    ///             Pipeline::new().set_name(name)/* set fields */
+    ///             Pipeline::new().set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1069,10 +1072,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pipelines/{pipeline_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1089,10 +1092,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, google_api_source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_google_api_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1110,10 +1113,10 @@ impl Eventarc {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_google_api_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1144,10 +1147,10 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::GoogleApiSource;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, parent: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_google_api_source()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_google_api_source(
     ///             GoogleApiSource::new()/* set fields */
     ///         )
@@ -1181,11 +1184,11 @@ impl Eventarc {
     /// use google_cloud_eventarc_v1::model::GoogleApiSource;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, google_api_source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_google_api_source()
     ///         .set_google_api_source(
-    ///             GoogleApiSource::new().set_name(name)/* set fields */
+    ///             GoogleApiSource::new().set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1215,10 +1218,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, name: &str
+    ///    client: &Eventarc, project_id: &str, location_id: &str, google_api_source_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_google_api_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/googleApiSources/{google_api_source_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

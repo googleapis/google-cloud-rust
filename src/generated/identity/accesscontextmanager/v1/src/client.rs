@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AccessContextManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_access_policies()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -169,10 +171,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_access_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -245,11 +247,11 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::AccessPolicy;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_access_policy()
     ///         .set_policy(
-    ///             AccessPolicy::new().set_name(name)/* set fields */
+    ///             AccessPolicy::new().set_name(format!("accessPolicies/{access_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -285,10 +287,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_access_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -309,10 +311,10 @@ impl AccessContextManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, parent: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_access_levels()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("accessPolicies/{access_policy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -333,10 +335,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, access_level_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_access_level()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -371,10 +373,10 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, parent: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_access_level()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("accessPolicies/{access_policy_id}"))
     ///         .set_access_level(
     ///             AccessLevel::new()/* set fields */
     ///         )
@@ -415,11 +417,11 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::AccessLevel;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, access_level_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_access_level()
     ///         .set_access_level(
-    ///             AccessLevel::new().set_name(name)/* set fields */
+    ///             AccessLevel::new().set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -454,10 +456,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, access_level_id: &str
     /// ) -> Result<()> {
     ///     client.delete_access_level()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}/accessLevels/{access_level_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -525,10 +527,10 @@ impl AccessContextManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, parent: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_service_perimeters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("accessPolicies/{access_policy_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -551,10 +553,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, service_perimeter_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_perimeter()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -592,10 +594,10 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, parent: &str
+    ///    client: &AccessContextManager, access_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_perimeter()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("accessPolicies/{access_policy_id}"))
     ///         .set_service_perimeter(
     ///             ServicePerimeter::new()/* set fields */
     ///         )
@@ -638,11 +640,11 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::ServicePerimeter;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, service_perimeter_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_perimeter()
     ///         .set_service_perimeter(
-    ///             ServicePerimeter::new().set_name(name)/* set fields */
+    ///             ServicePerimeter::new().set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -679,10 +681,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, access_policy_id: &str, service_perimeter_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_perimeter()
-    ///         .set_name(name)
+    ///         .set_name(format!("accessPolicies/{access_policy_id}/servicePerimeters/{service_perimeter_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -823,10 +825,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, organization_id: &str, gcp_user_access_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gcp_user_access_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -909,11 +911,11 @@ impl AccessContextManager {
     /// use google_cloud_identity_accesscontextmanager_v1::model::GcpUserAccessBinding;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, organization_id: &str, gcp_user_access_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_gcp_user_access_binding()
     ///         .set_gcp_user_access_binding(
-    ///             GcpUserAccessBinding::new().set_name(name)/* set fields */
+    ///             GcpUserAccessBinding::new().set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -949,10 +951,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, name: &str
+    ///    client: &AccessContextManager, organization_id: &str, gcp_user_access_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_gcp_user_access_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/gcpUserAccessBindings/{gcp_user_access_binding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

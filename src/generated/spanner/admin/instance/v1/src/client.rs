@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = InstanceAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instance_configs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -176,10 +178,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -361,10 +363,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instanceConfigs/{instance_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -439,10 +441,10 @@ impl InstanceAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, parent: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instance_partitions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -463,10 +465,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -610,11 +612,11 @@ impl InstanceAdmin {
     /// use google_cloud_spanner_admin_instance_v1::model::Instance;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -642,10 +644,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -738,10 +740,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str, instance_partition_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance_partition()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/instancePartitions/{instance_partition_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -838,10 +840,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, name: &str
+    ///    client: &InstanceAdmin, project_id: &str, instance_id: &str, instance_partition_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance_partition()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/instancePartitions/{instance_partition_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

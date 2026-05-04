@@ -124,7 +124,6 @@ pub mod stub {
 }
 
 #[allow(dead_code)]
-#[allow(missing_docs)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]

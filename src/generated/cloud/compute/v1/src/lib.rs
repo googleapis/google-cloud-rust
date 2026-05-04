@@ -183,10 +183,12 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_compute_v1::client::Instances;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
 ///     // use `client` to make requests to the Google Compute Engine API.
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
@@ -474,6 +476,8 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
+#[allow(missing_docs)]
 pub mod errors;
 
+#[allow(missing_docs)]
 pub mod operation;

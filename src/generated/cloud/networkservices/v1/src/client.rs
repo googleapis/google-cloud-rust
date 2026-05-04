@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_networkservices_v1::client::DepService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DepService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_lb_traffic_extensions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl DepService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_lb_traffic_extensions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -155,10 +158,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_traffic_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_traffic_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -188,10 +191,10 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lb_traffic_extension()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_lb_traffic_extension(
     ///             LbTrafficExtension::new()/* set fields */
     ///         )
@@ -227,11 +230,11 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbTrafficExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_traffic_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_lb_traffic_extension()
     ///         .set_lb_traffic_extension(
-    ///             LbTrafficExtension::new().set_name(name)/* set fields */
+    ///             LbTrafficExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -263,10 +266,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_traffic_extension_id: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_traffic_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbTrafficExtensions/{lb_traffic_extension_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -285,10 +288,10 @@ impl DepService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_lb_route_extensions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -307,10 +310,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_route_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_route_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -339,10 +342,10 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbRouteExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lb_route_extension()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_lb_route_extension(
     ///             LbRouteExtension::new()/* set fields */
     ///         )
@@ -376,11 +379,11 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbRouteExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_route_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_lb_route_extension()
     ///         .set_lb_route_extension(
-    ///             LbRouteExtension::new().set_name(name)/* set fields */
+    ///             LbRouteExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -410,10 +413,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_route_extension_id: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_route_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbRouteExtensions/{lb_route_extension_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -430,10 +433,10 @@ impl DepService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_lb_edge_extensions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -452,10 +455,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_edge_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_edge_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -484,10 +487,10 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lb_edge_extension()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_lb_edge_extension(
     ///             LbEdgeExtension::new()/* set fields */
     ///         )
@@ -521,11 +524,11 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::LbEdgeExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_edge_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_lb_edge_extension()
     ///         .set_lb_edge_extension(
-    ///             LbEdgeExtension::new().set_name(name)/* set fields */
+    ///             LbEdgeExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -555,10 +558,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, lb_edge_extension_id: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_edge_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/lbEdgeExtensions/{lb_edge_extension_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -575,10 +578,10 @@ impl DepService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_authz_extensions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -597,10 +600,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, authz_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authz_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -630,10 +633,10 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::AuthzExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, parent: &str
+    ///    client: &DepService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_authz_extension()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_authz_extension(
     ///             AuthzExtension::new()/* set fields */
     ///         )
@@ -668,11 +671,11 @@ impl DepService {
     /// use google_cloud_networkservices_v1::model::AuthzExtension;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, authz_extension_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_authz_extension()
     ///         .set_authz_extension(
-    ///             AuthzExtension::new().set_name(name)/* set fields */
+    ///             AuthzExtension::new().set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -702,10 +705,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, name: &str
+    ///    client: &DepService, project_id: &str, location_id: &str, authz_extension_id: &str
     /// ) -> Result<()> {
     ///     client.delete_authz_extension()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/authzExtensions/{authz_extension_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -924,16 +927,19 @@ impl DepService {
 /// ```
 /// # use google_cloud_networkservices_v1::client::NetworkServices;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NetworkServices::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_endpoint_policies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1033,10 +1039,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_endpoint_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1055,10 +1061,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, endpoint_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1087,10 +1093,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::EndpointPolicy;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_endpoint_policy(
     ///             EndpointPolicy::new()/* set fields */
     ///         )
@@ -1124,11 +1130,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::EndpointPolicy;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, endpoint_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_endpoint_policy()
     ///         .set_endpoint_policy(
-    ///             EndpointPolicy::new().set_name(name)/* set fields */
+    ///             EndpointPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1158,10 +1164,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, endpoint_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpointPolicies/{endpoint_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1179,10 +1185,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_wasm_plugin_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1203,10 +1209,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str, wasm_plugin_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_wasm_plugin_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}/versions/{wasm_plugin_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1238,10 +1244,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::WasmPluginVersion;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_wasm_plugin_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"))
     ///         .set_wasm_plugin_version(
     ///             WasmPluginVersion::new()/* set fields */
     ///         )
@@ -1274,10 +1280,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str, wasm_plugin_version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_wasm_plugin_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}/versions/{wasm_plugin_version_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1297,10 +1303,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_wasm_plugins()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1319,10 +1325,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_wasm_plugin()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1352,10 +1358,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::WasmPlugin;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_wasm_plugin()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_wasm_plugin(
     ///             WasmPlugin::new()/* set fields */
     ///         )
@@ -1389,11 +1395,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::WasmPlugin;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_wasm_plugin()
     ///         .set_wasm_plugin(
-    ///             WasmPlugin::new().set_name(name)/* set fields */
+    ///             WasmPlugin::new().set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1423,10 +1429,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, wasm_plugin_id: &str
     /// ) -> Result<()> {
     ///     client.delete_wasm_plugin()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/wasmPlugins/{wasm_plugin_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1443,10 +1449,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_gateways()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1465,10 +1471,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1497,10 +1503,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::Gateway;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_gateway()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_gateway_id("gateway_id_value")
     ///         .set_gateway(
     ///             Gateway::new()/* set fields */
@@ -1535,11 +1541,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::Gateway;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_gateway()
     ///         .set_gateway(
-    ///             Gateway::new().set_name(name)/* set fields */
+    ///             Gateway::new().set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1569,10 +1575,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1589,10 +1595,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_grpc_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1611,10 +1617,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, grpc_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_grpc_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1643,10 +1649,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::GrpcRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_grpc_route()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_grpc_route(
     ///             GrpcRoute::new()/* set fields */
     ///         )
@@ -1680,11 +1686,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::GrpcRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, grpc_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_grpc_route()
     ///         .set_grpc_route(
-    ///             GrpcRoute::new().set_name(name)/* set fields */
+    ///             GrpcRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1714,10 +1720,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, grpc_route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_grpc_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/grpcRoutes/{grpc_route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1734,10 +1740,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_http_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1756,10 +1762,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, http_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_http_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1788,10 +1794,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::HttpRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_http_route()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_http_route(
     ///             HttpRoute::new()/* set fields */
     ///         )
@@ -1825,11 +1831,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::HttpRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, http_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_http_route()
     ///         .set_http_route(
-    ///             HttpRoute::new().set_name(name)/* set fields */
+    ///             HttpRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1859,10 +1865,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, http_route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_http_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/httpRoutes/{http_route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1879,10 +1885,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tcp_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1901,10 +1907,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tcp_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tcp_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1933,10 +1939,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::TcpRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tcp_route()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_tcp_route(
     ///             TcpRoute::new()/* set fields */
     ///         )
@@ -1970,11 +1976,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::TcpRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tcp_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tcp_route()
     ///         .set_tcp_route(
-    ///             TcpRoute::new().set_name(name)/* set fields */
+    ///             TcpRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2004,10 +2010,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tcp_route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tcp_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tcpRoutes/{tcp_route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2024,10 +2030,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tls_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2046,10 +2052,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tls_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tls_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2078,10 +2084,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::TlsRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tls_route()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_tls_route(
     ///             TlsRoute::new()/* set fields */
     ///         )
@@ -2115,11 +2121,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::TlsRoute;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tls_route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tls_route()
     ///         .set_tls_route(
-    ///             TlsRoute::new().set_name(name)/* set fields */
+    ///             TlsRoute::new().set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2149,10 +2155,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, tls_route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tls_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tlsRoutes/{tls_route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2169,10 +2175,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_service_bindings()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2191,10 +2197,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2223,10 +2229,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::ServiceBinding;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_binding()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_binding(
     ///             ServiceBinding::new()/* set fields */
     ///         )
@@ -2260,11 +2266,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::ServiceBinding;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_binding_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_binding()
     ///         .set_service_binding(
-    ///             ServiceBinding::new().set_name(name)/* set fields */
+    ///             ServiceBinding::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2294,10 +2300,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_binding_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_binding()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceBindings/{service_binding_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2314,10 +2320,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_meshes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2336,10 +2342,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, mesh_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mesh()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2368,10 +2374,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::Mesh;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mesh()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_mesh_id("mesh_id_value")
     ///         .set_mesh(
     ///             Mesh::new()/* set fields */
@@ -2406,11 +2412,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::Mesh;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, mesh_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_mesh()
     ///         .set_mesh(
-    ///             Mesh::new().set_name(name)/* set fields */
+    ///             Mesh::new().set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2440,10 +2446,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, mesh_id: &str
     /// ) -> Result<()> {
     ///     client.delete_mesh()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2460,10 +2466,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_service_lb_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2484,10 +2490,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_lb_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_lb_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2516,10 +2522,10 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service_lb_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_lb_policy(
     ///             ServiceLbPolicy::new()/* set fields */
     ///         )
@@ -2555,11 +2561,11 @@ impl NetworkServices {
     /// use google_cloud_networkservices_v1::model::ServiceLbPolicy;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_lb_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service_lb_policy()
     ///         .set_service_lb_policy(
-    ///             ServiceLbPolicy::new().set_name(name)/* set fields */
+    ///             ServiceLbPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2591,10 +2597,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, service_lb_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_service_lb_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/serviceLbPolicies/{service_lb_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2612,10 +2618,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, gateway_id: &str, route_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway_route_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}/routeViews/{route_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2632,10 +2638,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, name: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, mesh_id: &str, route_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mesh_route_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}/routeViews/{route_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2653,10 +2659,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, gateway_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_gateway_route_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/gateways/{gateway_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2678,10 +2684,10 @@ impl NetworkServices {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, parent: &str
+    ///    client: &NetworkServices, project_id: &str, location_id: &str, mesh_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_mesh_route_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/meshes/{mesh_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

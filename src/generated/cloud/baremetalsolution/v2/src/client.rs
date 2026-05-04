@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BareMetalSolution::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -161,10 +163,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -195,11 +197,11 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::Instance;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -481,10 +483,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, ssh_key_id: &str
     /// ) -> Result<()> {
     ///     client.delete_ssh_key()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/sshKeys/{ssh_key_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -523,10 +525,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -557,11 +559,11 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::Volume;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_volume()
     ///         .set_volume(
-    ///             Volume::new().set_name(name)/* set fields */
+    ///             Volume::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -707,10 +709,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -741,11 +743,11 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::Network;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_network()
     ///         .set_network(
-    ///             Network::new().set_name(name)/* set fields */
+    ///             Network::new().set_name(format!("projects/{project_id}/locations/{location_id}/networks/{network_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -766,10 +768,10 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, parent: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_volume_snapshot()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .set_volume_snapshot(
     ///             VolumeSnapshot::new()/* set fields */
     ///         )
@@ -826,10 +828,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     client.delete_volume_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -848,10 +850,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -871,10 +873,10 @@ impl BareMetalSolution {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, parent: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_volume_snapshots()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -895,10 +897,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str, lun_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lun()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/luns/{lun_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -916,10 +918,10 @@ impl BareMetalSolution {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, parent: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_luns()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -969,10 +971,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, nfs_share_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_nfs_share()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1026,11 +1028,11 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::NfsShare;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, nfs_share_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_nfs_share()
     ///         .set_nfs_share(
-    ///             NfsShare::new().set_name(name)/* set fields */
+    ///             NfsShare::new().set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1116,10 +1118,10 @@ impl BareMetalSolution {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, nfs_share_id: &str
     /// ) -> Result<()> {
     ///     client.delete_nfs_share()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nfsShares/{nfs_share_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1182,10 +1184,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, provisioning_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_provisioning_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/provisioningConfigs/{provisioning_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1233,11 +1235,11 @@ impl BareMetalSolution {
     /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, name: &str
+    ///    client: &BareMetalSolution, project_id: &str, location_id: &str, provisioning_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_provisioning_config()
     ///         .set_provisioning_config(
-    ///             ProvisioningConfig::new().set_name(name)/* set fields */
+    ///             ProvisioningConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/provisioningConfigs/{provisioning_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

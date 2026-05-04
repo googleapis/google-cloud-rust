@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_grafeas_v1::client::Grafeas;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Grafeas::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_occurrences()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -143,10 +145,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, occurrence_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_occurrence()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -188,10 +190,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, occurrence_id: &str
     /// ) -> Result<()> {
     ///     client.delete_occurrence()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -254,11 +256,11 @@ impl Grafeas {
     /// use google_cloud_grafeas_v1::model::Occurrence;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, occurrence_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_occurrence()
     ///         .set_occurrence(
-    ///             Occurrence::new().set_name(name)/* set fields */
+    ///             Occurrence::new().set_name(format!("projects/{project_id}/occurrences/{occurrence_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -298,10 +300,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, note_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_note()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/notes/{note_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -341,10 +343,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, note_id: &str
     /// ) -> Result<()> {
     ///     client.delete_note()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/notes/{note_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -408,11 +410,11 @@ impl Grafeas {
     /// use google_cloud_grafeas_v1::model::Note;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, name: &str
+    ///    client: &Grafeas, project_id: &str, note_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_note()
     ///         .set_note(
-    ///             Note::new().set_name(name)/* set fields */
+    ///             Note::new().set_name(format!("projects/{project_id}/notes/{note_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

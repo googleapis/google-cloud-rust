@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TranscoderService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_jobs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -183,10 +185,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, name: &str
+    ///    client: &TranscoderService, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -203,10 +205,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, name: &str
+    ///    client: &TranscoderService, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -269,10 +271,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, name: &str
+    ///    client: &TranscoderService, project_id: &str, location_id: &str, job_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobTemplates/{job_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -289,10 +291,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, name: &str
+    ///    client: &TranscoderService, project_id: &str, location_id: &str, job_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobTemplates/{job_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

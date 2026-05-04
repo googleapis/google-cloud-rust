@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_privacy_dlp_v2::client::DlpService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DlpService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_dlp_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -319,10 +321,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, inspect_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_inspect_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -343,10 +345,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_inspect_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -368,10 +370,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, inspect_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_inspect_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/inspectTemplates/{inspect_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -441,10 +443,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, deidentify_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deidentify_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -465,10 +467,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deidentify_templates()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -492,10 +494,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, deidentify_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deidentify_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/deidentifyTemplates/{deidentify_template_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -587,10 +589,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, job_trigger_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_trigger()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -611,10 +613,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_job_triggers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -636,10 +638,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, job_trigger_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job_trigger()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/jobTriggers/{job_trigger_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -716,10 +718,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str, discovery_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovery_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -737,10 +739,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_discovery_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -759,10 +761,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str, discovery_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_discovery_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/discoveryConfigs/{discovery_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -813,10 +815,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dlp_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -840,10 +842,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, dlp_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dlp_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -867,10 +869,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, dlp_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dlp_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/dlpJobs/{dlp_job_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -962,10 +964,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, stored_info_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stored_info_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -986,10 +988,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_stored_info_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1011,10 +1013,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, stored_info_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_stored_info_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/storedInfoTypes/{stored_info_type_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1031,10 +1033,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_project_data_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1056,10 +1058,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_table_data_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1079,10 +1081,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_column_data_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1101,10 +1103,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str, project_data_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project_data_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/projectDataProfiles/{project_data_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1122,10 +1124,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_file_store_data_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1169,10 +1171,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str, file_store_data_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_file_store_data_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/fileStoreDataProfiles/{file_store_data_profile_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1190,10 +1192,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str, table_data_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_table_data_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/tableDataProfiles/{table_data_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1210,10 +1212,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str, column_data_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_column_data_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/columnDataProfiles/{column_data_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1231,10 +1233,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, organization_id: &str, location_id: &str, table_data_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_table_data_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/tableDataProfiles/{table_data_profile_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1293,10 +1295,10 @@ impl DlpService {
     /// use google_cloud_privacy_dlp_v2::model::Connection;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )
@@ -1316,10 +1318,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1338,10 +1340,10 @@ impl DlpService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, parent: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1383,10 +1385,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1405,11 +1407,11 @@ impl DlpService {
     /// use google_cloud_privacy_dlp_v2::model::Connection;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, name: &str
+    ///    client: &DlpService, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connection()
     ///         .set_connection(
-    ///             Connection::new().set_name(name)/* set fields */
+    ///             Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

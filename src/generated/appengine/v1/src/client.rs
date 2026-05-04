@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_appengine_v1::client::Applications;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Applications::builder().build().await?;
 ///     let response = client.get_application()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -306,7 +308,8 @@ impl Applications {
 /// ```
 /// # use google_cloud_appengine_v1::client::Services;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Services::builder().build().await?;
 ///     let mut list = client.list_services()
 ///         /* set fields */
@@ -314,7 +317,8 @@ impl Applications {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -564,7 +568,8 @@ impl Services {
 /// ```
 /// # use google_cloud_appengine_v1::client::Versions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Versions::builder().build().await?;
 ///     let mut list = client.list_versions()
 ///         /* set fields */
@@ -572,7 +577,8 @@ impl Services {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -890,16 +896,18 @@ impl Versions {
 /// ```
 /// # use google_cloud_appengine_v1::client::Instances;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1170,7 +1178,8 @@ impl Instances {
 /// ```
 /// # use google_cloud_appengine_v1::client::Firewall;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Firewall::builder().build().await?;
 ///     let mut list = client.list_ingress_rules()
 ///         /* set fields */
@@ -1178,7 +1187,8 @@ impl Instances {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1459,7 +1469,8 @@ impl Firewall {
 /// ```
 /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AuthorizedDomains::builder().build().await?;
 ///     let mut list = client.list_authorized_domains()
 ///         /* set fields */
@@ -1467,7 +1478,8 @@ impl Firewall {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1641,7 +1653,8 @@ impl AuthorizedDomains {
 /// ```
 /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = AuthorizedCertificates::builder().build().await?;
 ///     let mut list = client.list_authorized_certificates()
 ///         /* set fields */
@@ -1649,7 +1662,8 @@ impl AuthorizedDomains {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1919,7 +1933,8 @@ impl AuthorizedCertificates {
 /// ```
 /// # use google_cloud_appengine_v1::client::DomainMappings;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DomainMappings::builder().build().await?;
 ///     let mut list = client.list_domain_mappings()
 ///         /* set fields */
@@ -1927,7 +1942,8 @@ impl AuthorizedCertificates {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

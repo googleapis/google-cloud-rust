@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_financialservices_v1::client::Aml;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Aml::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -154,10 +156,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,11 +226,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::Instance;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +260,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -346,10 +348,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_datasets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -368,10 +370,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -400,10 +402,10 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::Dataset;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dataset()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_dataset_id("dataset_id_value")
     ///         .set_dataset(
     ///             Dataset::new()/* set fields */
@@ -438,11 +440,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::Dataset;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dataset()
     ///         .set_dataset(
-    ///             Dataset::new().set_name(name)/* set fields */
+    ///             Dataset::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -472,10 +474,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/datasets/{dataset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -492,10 +494,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_models()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -514,10 +516,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -546,10 +548,10 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::Model;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_model()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_model_id("model_id_value")
     ///         .set_model(
     ///             Model::new()/* set fields */
@@ -584,11 +586,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::Model;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_model()
     ///         .set_model(
-    ///             Model::new().set_name(name)/* set fields */
+    ///             Model::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -652,10 +654,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/models/{model_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -672,10 +674,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_engine_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -694,10 +696,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, engine_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -726,10 +728,10 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::EngineConfig;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_engine_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_engine_config(
     ///             EngineConfig::new()/* set fields */
     ///         )
@@ -763,11 +765,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::EngineConfig;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, engine_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_engine_config()
     ///         .set_engine_config(
-    ///             EngineConfig::new().set_name(name)/* set fields */
+    ///             EngineConfig::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -831,10 +833,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, engine_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_engine_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineConfigs/{engine_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -850,10 +852,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, engine_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/engineVersions/{engine_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -871,10 +873,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_engine_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -894,10 +896,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_prediction_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -916,10 +918,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, prediction_result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_prediction_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -948,10 +950,10 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::PredictionResult;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_prediction_result()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_prediction_result(
     ///             PredictionResult::new()/* set fields */
     ///         )
@@ -985,11 +987,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::PredictionResult;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, prediction_result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_prediction_result()
     ///         .set_prediction_result(
-    ///             PredictionResult::new().set_name(name)/* set fields */
+    ///             PredictionResult::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1055,10 +1057,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, prediction_result_id: &str
     /// ) -> Result<()> {
     ///     client.delete_prediction_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/predictionResults/{prediction_result_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1075,10 +1077,10 @@ impl Aml {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backtest_results()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1097,10 +1099,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, backtest_result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backtest_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1129,10 +1131,10 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::BacktestResult;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, parent: &str
+    ///    client: &Aml, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backtest_result()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .set_backtest_result(
     ///             BacktestResult::new()/* set fields */
     ///         )
@@ -1166,11 +1168,11 @@ impl Aml {
     /// use google_cloud_financialservices_v1::model::BacktestResult;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, backtest_result_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backtest_result()
     ///         .set_backtest_result(
-    ///             BacktestResult::new().set_name(name)/* set fields */
+    ///             BacktestResult::new().set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1236,10 +1238,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, name: &str
+    ///    client: &Aml, project_num_id: &str, location_id: &str, instance_id: &str, backtest_result_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backtest_result()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_num_id}/locations/{location_id}/instances/{instance_id}/backtestResults/{backtest_result_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

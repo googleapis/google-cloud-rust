@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_build_v2::client::RepositoryManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = RepositoryManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connections()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -143,10 +146,10 @@ impl RepositoryManager {
     /// use google_cloud_build_v2::model::Connection;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, parent: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
@@ -167,10 +170,10 @@ impl RepositoryManager {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, name: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -188,10 +191,10 @@ impl RepositoryManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, parent: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -224,11 +227,11 @@ impl RepositoryManager {
     /// use google_cloud_build_v2::model::Connection;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, name: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connection()
     ///         .set_connection(
-    ///             Connection::new().set_name(name)/* set fields */
+    ///             Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +261,10 @@ impl RepositoryManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, name: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -289,10 +292,10 @@ impl RepositoryManager {
     /// use google_cloud_build_v2::model::Repository;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, parent: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
@@ -346,10 +349,10 @@ impl RepositoryManager {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, name: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/repositories/{repository_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -367,10 +370,10 @@ impl RepositoryManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, parent: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_repositories()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -400,10 +403,10 @@ impl RepositoryManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, name: &str
+    ///    client: &RepositoryManager, project_id: &str, location_id: &str, connection_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/repositories/{repository_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

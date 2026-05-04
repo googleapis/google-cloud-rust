@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DirectAccessService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_device_sessions()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -193,10 +195,10 @@ impl DirectAccessService {
     /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
     /// use google_cloud_devicestreaming_v1::Result;
     /// async fn sample(
-    ///    client: &DirectAccessService, name: &str
+    ///    client: &DirectAccessService, project_id: &str, device_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_device_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/deviceSessions/{device_session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -242,11 +244,11 @@ impl DirectAccessService {
     /// use google_cloud_devicestreaming_v1::model::DeviceSession;
     /// use google_cloud_devicestreaming_v1::Result;
     /// async fn sample(
-    ///    client: &DirectAccessService, name: &str
+    ///    client: &DirectAccessService, project_id: &str, device_session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_device_session()
     ///         .set_device_session(
-    ///             DeviceSession::new().set_name(name)/* set fields */
+    ///             DeviceSession::new().set_name(format!("projects/{project_id}/deviceSessions/{device_session_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

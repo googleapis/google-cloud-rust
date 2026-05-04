@@ -63,13 +63,15 @@ pub mod stub;
 /// # Example
 /// ```
 /// # use google_cloud_bigquery_v2::client::DatasetService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DatasetService::builder().build().await?;
 ///     let response = client.get_dataset()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 /// Concrete implementations of this client library traits.
 pub mod client;

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_backupdr_v1::client::BackupDR;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BackupDR::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_management_servers()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_management_servers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, managementserver_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_management_server()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/managementServers/{managementserver_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -185,10 +188,10 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::ManagementServer;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_management_server()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_management_server(
     ///             ManagementServer::new()/* set fields */
     ///         )
@@ -219,10 +222,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, managementserver_id: &str
     /// ) -> Result<()> {
     ///     client.delete_management_server()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/managementServers/{managementserver_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -250,10 +253,10 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupVault;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_vault()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_vault(
     ///             BackupVault::new()/* set fields */
     ///         )
@@ -274,10 +277,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_vaults()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -321,10 +324,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -355,11 +358,11 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupVault;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_vault()
     ///         .set_backup_vault(
-    ///             BackupVault::new().set_name(name)/* set fields */
+    ///             BackupVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -389,10 +392,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -409,10 +412,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_sources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -431,10 +434,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -465,11 +468,11 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::DataSource;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_data_source()
     ///         .set_data_source(
-    ///             DataSource::new().set_name(name)/* set fields */
+    ///             DataSource::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -489,10 +492,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -536,10 +539,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -570,11 +573,11 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::Backup;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -604,10 +607,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backupvault_id: &str, datasource_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backupvault_id}/dataSources/{datasource_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -667,10 +670,10 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupPlan;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_plan()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_plan(
     ///             BackupPlan::new()/* set fields */
     ///         )
@@ -704,11 +707,11 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupPlan;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_plan()
     ///         .set_backup_plan(
-    ///             BackupPlan::new().set_name(name)/* set fields */
+    ///             BackupPlan::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -727,10 +730,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -748,10 +751,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_plans()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -781,10 +784,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -800,10 +803,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -821,10 +824,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_plan_revisions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupPlans/{backup_plan_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -855,10 +858,10 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_plan_association()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_plan_association(
     ///             BackupPlanAssociation::new()/* set fields */
     ///         )
@@ -894,11 +897,11 @@ impl BackupDR {
     /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_plan_association()
     ///         .set_backup_plan_association(
-    ///             BackupPlanAssociation::new().set_name(name)/* set fields */
+    ///             BackupPlanAssociation::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -919,10 +922,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_association_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -942,10 +945,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_plan_associations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1004,10 +1007,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, backup_plan_association_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan_association()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPlanAssociations/{backup_plan_association_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1056,10 +1059,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, name: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str, data_source_reference_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source_reference()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataSourceReferences/{data_source_reference_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1077,10 +1080,10 @@ impl BackupDR {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, parent: &str
+    ///    client: &BackupDR, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_source_references()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1360,16 +1363,18 @@ impl BackupDR {
 /// ```
 /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BackupDrProtectionSummary::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_resource_backup_configs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

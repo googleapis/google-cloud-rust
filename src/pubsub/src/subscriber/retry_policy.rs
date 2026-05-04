@@ -104,10 +104,9 @@ pub(super) fn rpc_options(grpc_subchannel_count: usize) -> RequestOptions {
     o
 }
 
-/// The policies for retrying RPCs in exactly-once delivery.
-pub(super) fn exactly_once_options() -> RequestOptions {
+fn exactly_once_options(time_limit: Duration) -> RequestOptions {
     let mut o = RequestOptions::default();
-    o.set_retry_policy(OnlyTransportErrors.with_time_limit(Duration::from_secs(600)));
+    o.set_retry_policy(OnlyTransportErrors.with_time_limit(time_limit));
     o.set_backoff_policy(
         ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
@@ -116,6 +115,16 @@ pub(super) fn exactly_once_options() -> RequestOptions {
             .clamp(),
     );
     o
+}
+
+/// The policies for retrying ack RPCs in exactly-once delivery.
+pub(super) fn eo_ack_options() -> RequestOptions {
+    exactly_once_options(Duration::from_secs(600))
+}
+
+/// The policies for retrying modack RPCs in exactly-once delivery.
+pub(super) fn eo_modack_options(time_limit: Duration) -> RequestOptions {
+    exactly_once_options(time_limit)
 }
 
 #[cfg(test)]
@@ -338,8 +347,18 @@ pub(super) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn exactly_once_options() {
-        let o = super::exactly_once_options();
+    async fn eo_ack_options() {
+        verify_exactly_once_options(super::eo_ack_options(), Duration::from_secs(600));
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn eo_modack_options() {
+        let time_limit = Duration::from_secs(20);
+        verify_exactly_once_options(super::eo_modack_options(time_limit), time_limit);
+    }
+
+    #[track_caller]
+    fn verify_exactly_once_options(o: RequestOptions, time_limit: Duration) {
         let retry = o.retry_policy().clone().unwrap();
         let backoff = o.backoff_policy().clone().unwrap();
 
@@ -396,10 +415,9 @@ pub(super) mod tests {
         let state = RetryState::default().set_start(tokio::time::Instant::now());
         let r = retry.remaining_time(&state).unwrap();
         assert_eq!(
-            r,
-            Duration::from_secs(600),
-            "Expected time limit of exactly 600s, got {:?}",
-            r
+            time_limit, r,
+            "Expected time limit of exactly {:?}, got {:?}",
+            time_limit, r
         );
 
         // Verify backoff behavior

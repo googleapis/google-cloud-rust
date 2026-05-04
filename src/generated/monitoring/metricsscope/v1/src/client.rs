@@ -21,14 +21,16 @@
 /// # Example
 /// ```
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    metrics_scope_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MetricsScopes::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_metrics_scope()
-///         .set_name(name)
+///         .set_name(format!("locations/global/metricsScope/{metrics_scope_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -128,10 +130,10 @@ impl MetricsScopes {
     /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
     /// use google_cloud_monitoring_metricsscope_v1::Result;
     /// async fn sample(
-    ///    client: &MetricsScopes, name: &str
+    ///    client: &MetricsScopes, metrics_scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metrics_scope()
-    ///         .set_name(name)
+    ///         .set_name(format!("locations/global/metricsScope/{metrics_scope_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -185,10 +187,10 @@ impl MetricsScopes {
     /// use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
     /// use google_cloud_monitoring_metricsscope_v1::Result;
     /// async fn sample(
-    ///    client: &MetricsScopes, parent: &str
+    ///    client: &MetricsScopes, metrics_scope_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_monitored_project()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("locations/global/metricsScope/{metrics_scope_id}"))
     ///         .set_monitored_project(
     ///             MonitoredProject::new()/* set fields */
     ///         )
@@ -221,10 +223,10 @@ impl MetricsScopes {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_monitoring_metricsscope_v1::Result;
     /// async fn sample(
-    ///    client: &MetricsScopes, name: &str
+    ///    client: &MetricsScopes, metrics_scope_id: &str, project_id: &str
     /// ) -> Result<()> {
     ///     client.delete_monitored_project()
-    ///         .set_name(name)
+    ///         .set_name(format!("locations/global/metricsScopes/{metrics_scope_id}/projects/{project_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

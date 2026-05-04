@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_parallelstore_v1::client::Parallelstore;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Parallelstore::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -147,10 +150,10 @@ impl Parallelstore {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, parent: &str
+    ///    client: &Parallelstore, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -169,10 +172,10 @@ impl Parallelstore {
     /// # use google_cloud_parallelstore_v1::client::Parallelstore;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, name: &str
+    ///    client: &Parallelstore, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -201,10 +204,10 @@ impl Parallelstore {
     /// use google_cloud_parallelstore_v1::model::Instance;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, parent: &str
+    ///    client: &Parallelstore, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
@@ -239,11 +242,11 @@ impl Parallelstore {
     /// use google_cloud_parallelstore_v1::model::Instance;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, name: &str
+    ///    client: &Parallelstore, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_instance()
     ///         .set_instance(
-    ///             Instance::new().set_name(name)/* set fields */
+    ///             Instance::new().set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -273,10 +276,10 @@ impl Parallelstore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, name: &str
+    ///    client: &Parallelstore, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

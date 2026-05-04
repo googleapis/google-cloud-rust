@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DatabaseAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_databases()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -204,10 +206,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -281,11 +283,11 @@ impl DatabaseAdmin {
     /// use google_cloud_spanner_admin_database_v1::model::Database;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_database()
     ///         .set_database(
-    ///             Database::new().set_name(name)/* set fields */
+    ///             Database::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -583,10 +585,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -609,11 +611,11 @@ impl DatabaseAdmin {
     /// use google_cloud_spanner_admin_database_v1::model::Backup;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -635,10 +637,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -803,10 +805,10 @@ impl DatabaseAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, parent: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_database_roles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -846,10 +848,10 @@ impl DatabaseAdmin {
     /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, parent: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_schedule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"))
     ///         .set_backup_schedule(
     ///             BackupSchedule::new()/* set fields */
     ///         )
@@ -869,10 +871,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -892,11 +894,11 @@ impl DatabaseAdmin {
     /// use google_cloud_spanner_admin_database_v1::model::BackupSchedule;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_schedule()
     ///         .set_backup_schedule(
-    ///             BackupSchedule::new().set_name(name)/* set fields */
+    ///             BackupSchedule::new().set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -915,10 +917,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, name: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}/backupSchedules/{schedule_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -935,10 +937,10 @@ impl DatabaseAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, parent: &str
+    ///    client: &DatabaseAdmin, project_id: &str, instance_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_schedules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/databases/{database_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

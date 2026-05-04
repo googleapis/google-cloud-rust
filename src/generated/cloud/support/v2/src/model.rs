@@ -67,6 +67,7 @@ pub struct Actor {
 }
 
 impl Actor {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -161,6 +162,7 @@ pub struct Attachment {
 }
 
 impl Attachment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -311,6 +313,7 @@ pub struct ListAttachmentsRequest {
 }
 
 impl ListAttachmentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -374,6 +377,7 @@ pub struct ListAttachmentsResponse {
 }
 
 impl ListAttachmentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -527,6 +531,7 @@ pub struct Case {
 }
 
 impl Case {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1163,6 +1168,7 @@ pub struct CaseClassification {
 }
 
 impl CaseClassification {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1209,6 +1215,7 @@ pub struct GetCaseRequest {
 }
 
 impl GetCaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1246,6 +1253,7 @@ pub struct CreateCaseRequest {
 }
 
 impl CreateCaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1341,6 +1349,7 @@ pub struct ListCasesRequest {
 }
 
 impl ListCasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1417,6 +1426,7 @@ pub struct ListCasesResponse {
 }
 
 impl ListCasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1529,6 +1539,7 @@ pub struct SearchCasesRequest {
 }
 
 impl SearchCasesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1605,6 +1616,7 @@ pub struct SearchCasesResponse {
 }
 
 impl SearchCasesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1678,6 +1690,7 @@ pub struct EscalateCaseRequest {
 }
 
 impl EscalateCaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1755,6 +1768,7 @@ pub struct UpdateCaseRequest {
 }
 
 impl UpdateCaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1843,6 +1857,7 @@ pub struct CloseCaseRequest {
 }
 
 impl CloseCaseRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1887,6 +1902,7 @@ pub struct SearchCaseClassificationsRequest {
 }
 
 impl SearchCaseClassificationsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1950,6 +1966,7 @@ pub struct SearchCaseClassificationsResponse {
 }
 
 impl SearchCaseClassificationsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2043,6 +2060,7 @@ pub struct Comment {
 }
 
 impl Comment {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2175,6 +2193,7 @@ pub struct ListCommentsRequest {
 }
 
 impl ListCommentsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2238,6 +2257,7 @@ pub struct ListCommentsResponse {
 }
 
 impl ListCommentsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2311,6 +2331,7 @@ pub struct CreateCommentRequest {
 }
 
 impl CreateCommentRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2382,6 +2403,7 @@ pub struct Escalation {
 }
 
 impl Escalation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

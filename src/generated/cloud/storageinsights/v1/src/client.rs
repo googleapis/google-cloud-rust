@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_storageinsights_v1::client::StorageInsights;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = StorageInsights::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_report_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl StorageInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, parent: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_report_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -153,10 +156,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -174,10 +177,10 @@ impl StorageInsights {
     /// use google_cloud_storageinsights_v1::model::ReportConfig;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, parent: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_report_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_report_config(
     ///             ReportConfig::new()/* set fields */
     ///         )
@@ -200,11 +203,11 @@ impl StorageInsights {
     /// use google_cloud_storageinsights_v1::model::ReportConfig;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_report_config()
     ///         .set_report_config(
-    ///             ReportConfig::new().set_name(name)/* set fields */
+    ///             ReportConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -223,10 +226,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_report_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -243,10 +246,10 @@ impl StorageInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, parent: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, report_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_report_details()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -265,10 +268,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, report_config_id: &str, report_detail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_detail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reportConfigs/{report_config_id}/reportDetails/{report_detail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -286,10 +289,10 @@ impl StorageInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, parent: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dataset_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -308,10 +311,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, dataset_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -340,10 +343,10 @@ impl StorageInsights {
     /// use google_cloud_storageinsights_v1::model::DatasetConfig;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, parent: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dataset_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_dataset_config(
     ///             DatasetConfig::new()/* set fields */
     ///         )
@@ -377,11 +380,11 @@ impl StorageInsights {
     /// use google_cloud_storageinsights_v1::model::DatasetConfig;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, dataset_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dataset_config()
     ///         .set_dataset_config(
-    ///             DatasetConfig::new().set_name(name)/* set fields */
+    ///             DatasetConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -411,10 +414,10 @@ impl StorageInsights {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, name: &str
+    ///    client: &StorageInsights, project_id: &str, location_id: &str, dataset_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasetConfigs/{dataset_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

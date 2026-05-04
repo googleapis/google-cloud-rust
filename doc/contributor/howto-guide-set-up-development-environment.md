@@ -260,7 +260,7 @@ We use `yamlfmt` to format hand-crafted YAML files (mostly GitHub Actions).
 Install and use with:
 
 ```bash
-go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
+go install github.com/google/yamlfmt/cmd/yamlfmt@v0.21.0
 ```
 
 use with:

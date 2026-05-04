@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BinauthzManagementServiceV1::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_attestors()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -150,10 +152,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, name: &str
+    ///    client: &BinauthzManagementServiceV1, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/policy"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -177,11 +179,11 @@ impl BinauthzManagementServiceV1 {
     /// use google_cloud_binaryauthorization_v1::model::Policy;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, name: &str
+    ///    client: &BinauthzManagementServiceV1, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_policy()
     ///         .set_policy(
-    ///             Policy::new().set_name(name)/* set fields */
+    ///             Policy::new().set_name(format!("projects/{project_id}/policy"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -234,10 +236,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, name: &str
+    ///    client: &BinauthzManagementServiceV1, project_id: &str, attestor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attestor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/attestors/{attestor_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -258,11 +260,11 @@ impl BinauthzManagementServiceV1 {
     /// use google_cloud_binaryauthorization_v1::model::Attestor;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, name: &str
+    ///    client: &BinauthzManagementServiceV1, project_id: &str, attestor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_attestor()
     ///         .set_attestor(
-    ///             Attestor::new().set_name(name)/* set fields */
+    ///             Attestor::new().set_name(format!("projects/{project_id}/attestors/{attestor_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -311,10 +313,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, name: &str
+    ///    client: &BinauthzManagementServiceV1, project_id: &str, attestor_id: &str
     /// ) -> Result<()> {
     ///     client.delete_attestor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/attestors/{attestor_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -331,14 +333,16 @@ impl BinauthzManagementServiceV1 {
 /// # Example
 /// ```
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SystemPolicyV1::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_system_policy()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/policy"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -437,10 +441,10 @@ impl SystemPolicyV1 {
     /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &SystemPolicyV1, name: &str
+    ///    client: &SystemPolicyV1, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_system_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/policy"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -456,13 +460,15 @@ impl SystemPolicyV1 {
 /// # Example
 /// ```
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ValidationHelperV1::builder().build().await?;
 ///     let response = client.validate_attestation_occurrence()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

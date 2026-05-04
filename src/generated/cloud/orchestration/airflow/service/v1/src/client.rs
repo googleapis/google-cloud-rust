@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Environments::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_environments()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -222,11 +224,11 @@ impl Environments {
     /// use google_cloud_orchestration_airflow_service_v1::model::Environment;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_environment()
     ///         .set_environment(
-    ///             Environment::new().set_name(name)/* set fields */
+    ///             Environment::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -399,10 +401,10 @@ impl Environments {
     /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_user_workloads_secret()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"))
     ///         .set_user_workloads_secret(
     ///             UserWorkloadsSecret::new()/* set fields */
     ///         )
@@ -428,10 +430,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_secret_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_workloads_secret()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -454,10 +456,10 @@ impl Environments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_user_workloads_secrets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -482,11 +484,11 @@ impl Environments {
     /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsSecret;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_secret_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_user_workloads_secret()
     ///         .set_user_workloads_secret(
-    ///             UserWorkloadsSecret::new().set_name(name)/* set fields */
+    ///             UserWorkloadsSecret::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -509,10 +511,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_secret_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user_workloads_secret()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsSecrets/{user_workloads_secret_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -534,10 +536,10 @@ impl Environments {
     /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_user_workloads_config_map()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"))
     ///         .set_user_workloads_config_map(
     ///             UserWorkloadsConfigMap::new()/* set fields */
     ///         )
@@ -562,10 +564,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_config_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_workloads_config_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -588,10 +590,10 @@ impl Environments {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, parent: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_user_workloads_config_maps()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -616,11 +618,11 @@ impl Environments {
     /// use google_cloud_orchestration_airflow_service_v1::model::UserWorkloadsConfigMap;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_config_map_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_user_workloads_config_map()
     ///         .set_user_workloads_config_map(
-    ///             UserWorkloadsConfigMap::new().set_name(name)/* set fields */
+    ///             UserWorkloadsConfigMap::new().set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -643,10 +645,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, name: &str
+    ///    client: &Environments, project_id: &str, location_id: &str, environment_id: &str, user_workloads_config_map_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user_workloads_config_map()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/environments/{environment_id}/userWorkloadsConfigMaps/{user_workloads_config_map_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -853,7 +855,8 @@ impl Environments {
 /// ```
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ImageVersions::builder().build().await?;
 ///     let mut list = client.list_image_versions()
 ///         /* set fields */
@@ -861,7 +864,8 @@ impl Environments {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
