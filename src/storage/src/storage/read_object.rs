@@ -474,15 +474,15 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_user_project("my-billing-project")
+    ///     .with_quota_project("my-billing-project")
     ///     .send()
     ///     .await?;
     /// # Ok(()) }
     /// ```
     ///
     /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
-        self.options.with_user_project(project);
+    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
+        self.options.set_quota_project(project);
         self
     }
 
@@ -800,7 +800,7 @@ mod tests {
         while let Some(b) = reader.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+        assert_eq!(got, b"hello world");
 
         Ok(())
     }
@@ -953,7 +953,7 @@ mod tests {
                 Err(e) => err = Some(e),
             };
         }
-        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        assert_eq!(partial, b"hello world");
         let err = err.expect("expect error on incorrect crc32c");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
@@ -1080,7 +1080,7 @@ mod tests {
             got.extend_from_slice(&b);
         }
 
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+        assert_eq!(got, b"hello world");
         Ok(())
     }
 
@@ -1123,7 +1123,7 @@ mod tests {
                 Err(e) => err = Some(e),
             };
         }
-        assert_eq!(bytes::Bytes::from_owner(partial), "hello world");
+        assert_eq!(partial, b"hello world");
         let err = err.expect("expect error on incorrect md5");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
@@ -1171,13 +1171,13 @@ mod tests {
         while let Some(b) = reader.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+        assert_eq!(got, b"hello world");
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn read_object_with_user_project() -> Result {
+    async fn read_object_with_quota_project() -> Result {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let server = Server::run();
         server.expect(
@@ -1199,14 +1199,14 @@ mod tests {
             .await?;
         let mut reader = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .send()
             .await?;
         let mut got = Vec::new();
         while let Some(b) = reader.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+        assert_eq!(got, b"hello world");
 
         Ok(())
     }
@@ -1255,20 +1255,20 @@ mod tests {
             .await?;
         let mut reader = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .send()
             .await?;
         let mut got = Vec::new();
         while let Some(b) = reader.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
+        assert_eq!(got, b"hello world");
 
         Ok(())
     }
 
     #[tokio::test]
-    async fn read_object_retry_preserves_user_project() -> Result {
+    async fn read_object_retry_preserves_quota_project() -> Result {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let server = Server::run();
         server.expect(
@@ -1292,14 +1292,14 @@ mod tests {
             .await?;
         let mut reader = client
             .read_object("projects/_/buckets/test-bucket", "test-object")
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .send()
             .await?;
         let mut got = Vec::new();
         while let Some(b) = reader.next().await.transpose()? {
             got.extend_from_slice(&b);
         }
-        assert_eq!(bytes::Bytes::from_owner(got), "hello");
+        assert_eq!(got, b"hello");
 
         Ok(())
     }

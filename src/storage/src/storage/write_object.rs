@@ -836,15 +836,15 @@ where
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello")
-    ///     .with_user_project("my-billing-project")
+    ///     .with_quota_project("my-billing-project")
     ///     .send_buffered()
     ///     .await?;
     /// # Ok(()) }
     /// ```
     ///
     /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
-        self.options.with_user_project(project);
+    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
+        self.options.set_quota_project(project);
         self
     }
 
@@ -1674,7 +1674,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn write_object_with_user_project() -> Result {
+    async fn write_object_with_quota_project() -> Result {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let server = Server::run();
         let session = server.url("/upload/session/test-only-001");
@@ -1714,7 +1714,7 @@ mod tests {
                 "test-object",
                 "hello world",
             )
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .with_resumable_upload_threshold(0_usize)
             .send_unbuffered()
             .await?;

@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod tests {
     use gaxi::grpc::tonic::Response;
-    use gcs::builder_ext::UserProjectExt;
+    use gcs::builder_ext::QuotaProjectExt;
     use gcs::client::StorageControl;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_storage as gcs;
@@ -24,7 +24,7 @@ mod tests {
     const PROJECT_NAME: &str = "project_lazy_dog";
 
     #[tokio::test]
-    async fn get_bucket_with_user_project() -> anyhow::Result<()> {
+    async fn get_bucket_with_quota_project() -> anyhow::Result<()> {
         let mut mock = MockStorage::new();
         mock.expect_get_bucket()
             .withf(|req| {
@@ -47,7 +47,7 @@ mod tests {
         let _ = client
             .get_bucket()
             .set_name("projects/_/buckets/my-bucket")
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .send()
             .await?;
 

@@ -15,8 +15,6 @@
 //! Extends [builder][crate::builder] with types that improve type safety and/or
 //! ergonomics.
 
-use google_cloud_gax::options::internal::{RequestOptionsExt, UserProject};
-
 /// An extension trait for `RewriteObject` to provide a convenient way
 /// to poll a rewrite operation until it is complete.
 #[async_trait::async_trait]
@@ -73,7 +71,7 @@ impl RewriteObjectExt for crate::builder::storage_control::RewriteObject {
     }
 }
 
-/// Adds `.with_user_project(...)` to every [StorageControl] request
+/// Adds `.with_quota_project(...)` to every [StorageControl] request
 /// builder.
 ///
 /// Required for [Requester Pays] buckets. The value overrides any
@@ -83,12 +81,12 @@ impl RewriteObjectExt for crate::builder::storage_control::RewriteObject {
 /// # Example
 /// ```
 /// # use google_cloud_storage::client::StorageControl;
-/// # use google_cloud_storage::builder_ext::UserProjectExt;
+/// # use google_cloud_storage::builder_ext::QuotaProjectExt;
 /// # async fn sample(client: &StorageControl) -> anyhow::Result<()> {
 /// let bucket = client
 ///     .get_bucket()
 ///     .set_name("projects/_/buckets/my-bucket")
-///     .with_user_project("my-billing-project")
+///     .with_quota_project("my-billing-project")
 ///     .send()
 ///     .await?;
 /// # Ok(()) }
@@ -96,18 +94,17 @@ impl RewriteObjectExt for crate::builder::storage_control::RewriteObject {
 ///
 /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
 /// [StorageControl]: crate::client::StorageControl
-pub trait UserProjectExt: Sized {
+pub trait QuotaProjectExt: Sized {
     /// Sets the project that will be billed for this request.
-    fn with_user_project(self, project: impl Into<String>) -> Self;
+    fn with_quota_project(self, project: impl Into<String>) -> Self;
 }
 
-impl<T> UserProjectExt for T
+impl<T> QuotaProjectExt for T
 where
     T: google_cloud_gax::options::internal::RequestBuilder,
 {
-    fn with_user_project(mut self, project: impl Into<String>) -> Self {
-        self.request_options()
-            .insert_extension_mut(UserProject::new(project));
+    fn with_quota_project(mut self, project: impl Into<String>) -> Self {
+        self.request_options().set_quota_project(project);
         self
     }
 }
@@ -131,24 +128,14 @@ mod tests {
     }
 
     #[test]
-    fn with_user_project_sets_extensions() {
+    fn with_quota_project_sets_extensions() {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let client = StorageControl::from_stub(MockStorageControl::new());
         let mut builder = client.get_bucket();
-        builder = builder.with_user_project(PROJECT_NAME);
+        builder = builder.with_quota_project(PROJECT_NAME);
 
         let opts = builder.request_options();
-        assert_eq!(
-            opts.get_extension::<UserProject>(),
-            Some(&UserProject::new(PROJECT_NAME))
-        );
-    }
-
-    #[test]
-    #[should_panic(expected = "invalid project id")]
-    fn with_user_project_panic() {
-        let client = StorageControl::from_stub(MockStorageControl::new());
-        let _ = client.get_bucket().with_user_project("invalid\nproject");
+        assert_eq!(opts.quota_project().as_deref(), Some(PROJECT_NAME));
     }
 
     #[tokio::test]

@@ -429,15 +429,15 @@ impl<S> OpenObject<S> {
     /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
     /// let response = client
     ///     .open_object("projects/_/buckets/my-bucket", "my-object")
-    ///     .with_user_project("my-billing-project")
+    ///     .with_quota_project("my-billing-project")
     ///     .send()
     ///     .await?;
     /// # Ok(()) }
     /// ```
     ///
     /// [Requester Pays]: https://cloud.google.com/storage/docs/requester-pays
-    pub fn with_user_project(mut self, project: impl Into<String>) -> Self {
-        self.options.with_user_project(project);
+    pub fn with_quota_project(mut self, project: impl Into<String>) -> Self {
+        self.options.set_quota_project(project);
         self
     }
 }
@@ -801,7 +801,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn user_project() -> anyhow::Result<()> {
+    async fn quota_project() -> anyhow::Result<()> {
         const PROJECT_NAME: &str = "project_lazy_dog";
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let initial = BidiReadObjectResponse {
@@ -835,7 +835,7 @@ mod tests {
 
         let _descriptor = client
             .open_object(BUCKET_NAME, OBJECT_NAME)
-            .with_user_project(PROJECT_NAME)
+            .with_quota_project(PROJECT_NAME)
             .send()
             .await?;
         Ok(())
