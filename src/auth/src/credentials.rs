@@ -1136,7 +1136,7 @@ pub(crate) mod tests {
         p256::SecretKey::from_bytes((&secret_key_bytes).into()).unwrap()
     });
 
-    pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {        
+    pub static ES256_PEM: LazyLock<String> = LazyLock::new(|| {
         (*ES256_PRIVATE_KEY)
             .to_sec1_pem(LineEnding::LF)
             .expect("Failed to encode EC key to PEM")

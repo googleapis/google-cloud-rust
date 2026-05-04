@@ -16,13 +16,13 @@
 
 use crate::Result;
 use crate::credentials::errors::CredentialsError;
+use crate::credentials::service_account::jws::{JwsClaims, JwsHeader};
 use base64::prelude::{BASE64_URL_SAFE_NO_PAD, Engine as _};
 use rustls::crypto::CryptoProvider;
 use rustls::sign::Signer;
 use rustls_pki_types::PrivateKeyDer;
 use rustls_pki_types::pem::PemObject;
 use serde::Deserialize;
-use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Represents a Google Distributed Cloud service account key.
 #[derive(Deserialize, Clone)]
@@ -117,32 +117,31 @@ impl GdchServiceAccountTokenProvider {
 
     #[allow(dead_code)]
     fn generate_subject_token(&self) -> Result<String> {
-        let now = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .map_err(|e| CredentialsError::from_source(false, e))?
-            .as_secs();
-        let exp = now + 3600; // 1 hour
+        let current_time = time::OffsetDateTime::now_utc();
 
-        let header = serde_json::json!({
-            "alg": "ES256",
-            "typ": "JWT",
-            "kid": self.key.private_key_id,
-        });
+        let header = JwsHeader {
+            alg: "ES256",
+            typ: "JWT",
+            kid: Some(self.key.private_key_id.clone()),
+        };
 
         let iss = format!(
             "system:serviceaccount:{}:{}",
             self.key.project, self.key.name
         );
-        let claims = serde_json::json!({
-            "iss": iss,
-            "sub": iss,
-            "aud": self.key.token_uri,
-            "iat": now,
-            "exp": exp,
-        });
+        let claims = JwsClaims {
+            iss: iss.clone(),
+            sub: Some(iss),
+            aud: Some(self.key.token_uri.clone()),
+            iat: current_time,
+            exp: current_time + std::time::Duration::from_secs(3600),
+            scope: None,
+            typ: None,
+            target_audience: None,
+        };
 
-        let encoded_header = BASE64_URL_SAFE_NO_PAD.encode(serde_json::to_string(&header).unwrap());
-        let encoded_claims = BASE64_URL_SAFE_NO_PAD.encode(serde_json::to_string(&claims).unwrap());
+        let encoded_header = header.encode()?;
+        let encoded_claims = claims.encode()?;
 
         let to_sign = format!("{}.{}", encoded_header, encoded_claims);
 
