@@ -51,6 +51,7 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 url.workspace         = true
+p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 jsonwebtoken          = { workspace = true, optional = true }
 # We do not use this directly, but without it the minimal-versions build breaks.
 # See: https://github.com/Keats/jsonwebtoken/pull/481
@@ -64,7 +65,6 @@ httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
-p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
