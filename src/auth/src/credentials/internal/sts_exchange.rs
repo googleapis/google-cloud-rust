@@ -26,15 +26,26 @@ type Result<T> = std::result::Result<T, CredentialsError>;
 /// Reference: https://datatracker.ietf.org/doc/html/rfc8693
 #[derive(Debug, Default)]
 pub struct STSHandler {
-    use_json: bool,
+    body_encoding: BodyEncoding,
     ca_cert_path: Option<String>,
 }
 
-impl STSHandler {
-    /// Configures the handler to use JSON encoding instead of Form URL encoding.
+/// Defines the type of body serialization to use for requests to the STS endpoint.
+#[derive(Debug, Default)]
+pub(crate) enum BodyEncoding {
+    /// Default: Form URL encoding (application/x-www-form-urlencoded).
+    #[default]
+    UrlEncoded,
+    /// JSON encoding (application/json).
     #[allow(dead_code)]
-    pub(crate) fn with_json_body(mut self) -> Self {
-        self.use_json = true;
+    Json,
+}
+
+impl STSHandler {
+    /// Configures the handler to use the specified request type for token exchange.
+    #[allow(dead_code)]
+    pub(crate) fn with_body_encoding(mut self, body_encoding: BodyEncoding) -> Self {
+        self.body_encoding = body_encoding;
         self
     }
 
@@ -107,10 +118,9 @@ impl STSHandler {
         client_auth.inject_auth(&mut headers)?;
 
         let builder = client.post(url).headers(headers);
-        let builder = if self.use_json {
-            builder.json(&params)
-        } else {
-            builder.form(&params)
+        let builder = match self.body_encoding {
+            BodyEncoding::Json => builder.json(&params),
+            BodyEncoding::UrlEncoded => builder.form(&params),
         };
         let res = builder
             .send()
@@ -135,17 +145,14 @@ async fn add_root_cert(
     path: String,
 ) -> Result<reqwest::ClientBuilder> {
     let cert_bytes = tokio::fs::read(&path).await.map_err(|e| {
-        CredentialsError::from_msg(
+        CredentialsError::new(
             false,
-            format!("failed to read custom CA certificate from {}: {}", path, e),
+            format!("failed to read custom CA certificate from {}", path),
+            e,
         )
     })?;
-    let cert = reqwest::Certificate::from_pem(&cert_bytes).map_err(|e| {
-        CredentialsError::from_msg(
-            false,
-            format!("failed to parse custom CA certificate: {}", e),
-        )
-    })?;
+    let cert = reqwest::Certificate::from_pem(&cert_bytes)
+        .map_err(|e| CredentialsError::new(false, "failed to parse custom CA certificate", e))?;
     Ok(builder.add_root_certificate(cert))
 }
 
@@ -419,7 +426,7 @@ mod tests {
             ..ExchangeTokenRequest::default()
         };
         let resp = STSHandler::default()
-            .with_json_body()
+            .with_body_encoding(BodyEncoding::Json)
             .exchange_token(token_req)
             .await?;
 
