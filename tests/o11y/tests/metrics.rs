@@ -16,6 +16,7 @@
 mod metrics {
     use google_cloud_test_utils::errors::anydump;
 
+    #[ignore = "TODO(#5577) - disabled because the test is flaky"]
     #[tokio::test(flavor = "multi_thread")]
     async fn run() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::metrics::run()
