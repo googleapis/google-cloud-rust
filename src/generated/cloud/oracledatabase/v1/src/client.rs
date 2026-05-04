@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = OracleDatabase::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_cloud_exadata_infrastructures()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cloud_exadata_infrastructures()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -155,10 +158,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_exadata_infrastructure_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_exadata_infrastructure()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -189,10 +192,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cloud_exadata_infrastructure()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cloud_exadata_infrastructure(
     ///             CloudExadataInfrastructure::new()/* set fields */
     ///         )
@@ -225,10 +228,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_exadata_infrastructure_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_exadata_infrastructure()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -247,10 +250,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cloud_vm_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -269,10 +272,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_vm_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -301,10 +304,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cloud_vm_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cloud_vm_cluster(
     ///             CloudVmCluster::new()/* set fields */
     ///         )
@@ -335,10 +338,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_vm_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -355,10 +358,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entitlements()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -378,10 +381,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_exadata_infrastructure_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_servers()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/cloudExadataInfrastructures/{cloud_exadata_infrastructure_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -401,10 +404,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, cloud_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_nodes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/cloudVmClusters/{cloud_vm_cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -425,10 +428,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_gi_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -449,10 +452,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, gi_version_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_minor_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/giVersions/{gi_version_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -472,10 +475,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_system_shapes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -495,10 +498,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_autonomous_databases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -519,10 +522,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, autonomous_database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_autonomous_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -553,10 +556,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_autonomous_database()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_autonomous_database(
     ///             AutonomousDatabase::new()/* set fields */
     ///         )
@@ -592,11 +595,11 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, autonomous_database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_autonomous_database()
     ///         .set_autonomous_database(
-    ///             AutonomousDatabase::new().set_name(name)/* set fields */
+    ///             AutonomousDatabase::new().set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -628,10 +631,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, autonomous_database_id: &str
     /// ) -> Result<()> {
     ///     client.delete_autonomous_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autonomousDatabases/{autonomous_database_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -706,10 +709,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_autonomous_db_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -731,10 +734,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_autonomous_database_character_sets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -758,10 +761,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_autonomous_database_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -950,10 +953,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_odb_networks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -972,10 +975,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_odb_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1004,10 +1007,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_odb_network()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_odb_network(
     ///             OdbNetwork::new()/* set fields */
     ///         )
@@ -1038,10 +1041,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
     /// ) -> Result<()> {
     ///     client.delete_odb_network()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1058,10 +1061,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_odb_subnets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1080,10 +1083,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str, odb_subnet_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_odb_subnet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1112,10 +1115,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_odb_subnet()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}"))
     ///         .set_odb_subnet(
     ///             OdbSubnet::new()/* set fields */
     ///         )
@@ -1146,10 +1149,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, odb_network_id: &str, odb_subnet_id: &str
     /// ) -> Result<()> {
     ///     client.delete_odb_subnet()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/odbNetworks/{odb_network_id}/odbSubnets/{odb_subnet_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1167,10 +1170,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_exadb_vm_clusters()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1189,10 +1192,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exadb_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_exadb_vm_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1221,10 +1224,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_exadb_vm_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_exadb_vm_cluster(
     ///             ExadbVmCluster::new()/* set fields */
     ///         )
@@ -1255,10 +1258,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exadb_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_exadb_vm_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1289,11 +1292,11 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exadb_vm_cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_exadb_vm_cluster()
     ///         .set_exadb_vm_cluster(
-    ///             ExadbVmCluster::new().set_name(name)/* set fields */
+    ///             ExadbVmCluster::new().set_name(format!("projects/{project_id}/locations/{location_id}/exadbVmClusters/{exadb_vm_cluster_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1347,10 +1350,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_exascale_db_storage_vaults()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1371,10 +1374,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exascale_db_storage_vault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_exascale_db_storage_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1405,10 +1408,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_exascale_db_storage_vault()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_exascale_db_storage_vault(
     ///             ExascaleDbStorageVault::new()/* set fields */
     ///         )
@@ -1441,10 +1444,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, exascale_db_storage_vault_id: &str
     /// ) -> Result<()> {
     ///     client.delete_exascale_db_storage_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/exascaleDbStorageVaults/{exascale_db_storage_vault_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1464,10 +1467,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_system_initial_storage_sizes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1489,10 +1492,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_databases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1511,10 +1514,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/databases/{database_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1533,10 +1536,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_pluggable_databases()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1557,10 +1560,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, pluggable_database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pluggable_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pluggableDatabases/{pluggable_database_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1578,10 +1581,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_systems()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1600,10 +1603,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, db_system_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_db_system()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1632,10 +1635,10 @@ impl OracleDatabase {
     /// use google_cloud_oracledatabase_v1::model::DbSystem;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_db_system()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_db_system(
     ///             DbSystem::new()/* set fields */
     ///         )
@@ -1666,10 +1669,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, name: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str, db_system_id: &str
     /// ) -> Result<()> {
     ///     client.delete_db_system()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dbSystems/{db_system_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1686,10 +1689,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_db_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1709,10 +1712,10 @@ impl OracleDatabase {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, parent: &str
+    ///    client: &OracleDatabase, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_database_character_sets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

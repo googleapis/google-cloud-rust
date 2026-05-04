@@ -1,4 +1,5 @@
 {
+    "api_description": "Compliance Manager uses software-defined controls that let you assess support for multiple compliance programs and security requirements within a Google Cloud organization.",
     "api_id": "cloudsecuritycompliance.googleapis.com",
     "api_shortname": "cloudsecuritycompliance",
     "client_documentation": "https://docs.rs/google-cloud-cloudsecuritycompliance-v1/latest",

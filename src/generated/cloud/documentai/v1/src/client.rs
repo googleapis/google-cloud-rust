@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DocumentProcessorService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_processor_types()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -216,10 +219,10 @@ impl DocumentProcessorService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, parent: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processor_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -240,10 +243,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processorTypes/{processor_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -263,10 +266,10 @@ impl DocumentProcessorService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, parent: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -285,10 +288,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -342,10 +345,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str, processor_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -365,10 +368,10 @@ impl DocumentProcessorService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, parent: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_processor_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -401,10 +404,10 @@ impl DocumentProcessorService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str, processor_version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_processor_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -499,10 +502,10 @@ impl DocumentProcessorService {
     /// use google_cloud_documentai_v1::model::Processor;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, parent: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_processor()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_processor(
     ///             Processor::new()/* set fields */
     ///         )
@@ -534,10 +537,10 @@ impl DocumentProcessorService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str
     /// ) -> Result<()> {
     ///     client.delete_processor()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -728,10 +731,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, name: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str, processor_version_id: &str, evaluation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_evaluation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}/evaluations/{evaluation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -749,10 +752,10 @@ impl DocumentProcessorService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, parent: &str
+    ///    client: &DocumentProcessorService, project_id: &str, location_id: &str, processor_id: &str, processor_version_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_evaluations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/processors/{processor_id}/processorVersions/{processor_version_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

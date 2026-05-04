@@ -58,6 +58,7 @@ pub struct DiscoverConnectionProfileRequest {
 }
 
 impl DiscoverConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -617,6 +618,7 @@ pub struct DiscoverConnectionProfileResponse {
 }
 
 impl DiscoverConnectionProfileResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -963,6 +965,7 @@ pub struct FetchStaticIpsRequest {
 }
 
 impl FetchStaticIpsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1025,6 +1028,7 @@ pub struct FetchStaticIpsResponse {
 }
 
 impl FetchStaticIpsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1094,6 +1098,7 @@ pub struct ListConnectionProfilesRequest {
 }
 
 impl ListConnectionProfilesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1183,6 +1188,7 @@ pub struct ListConnectionProfilesResponse {
 }
 
 impl ListConnectionProfilesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1270,6 +1276,7 @@ pub struct GetConnectionProfileRequest {
 }
 
 impl GetConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1332,6 +1339,7 @@ pub struct CreateConnectionProfileRequest {
 }
 
 impl CreateConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1479,6 +1487,7 @@ pub struct UpdateConnectionProfileRequest {
 }
 
 impl UpdateConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1618,6 +1627,7 @@ pub struct DeleteConnectionProfileRequest {
 }
 
 impl DeleteConnectionProfileRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1682,6 +1692,7 @@ pub struct ListStreamsRequest {
 }
 
 impl ListStreamsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1771,6 +1782,7 @@ pub struct ListStreamsResponse {
 }
 
 impl ListStreamsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1858,6 +1870,7 @@ pub struct GetStreamRequest {
 }
 
 impl GetStreamRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1920,6 +1933,7 @@ pub struct CreateStreamRequest {
 }
 
 impl CreateStreamRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2064,6 +2078,7 @@ pub struct UpdateStreamRequest {
 }
 
 impl UpdateStreamRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2203,6 +2218,7 @@ pub struct DeleteStreamRequest {
 }
 
 impl DeleteStreamRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2257,6 +2273,7 @@ pub struct RunStreamRequest {
 }
 
 impl RunStreamRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2336,6 +2353,7 @@ pub struct GetStreamObjectRequest {
 }
 
 impl GetStreamObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2374,6 +2392,7 @@ pub struct LookupStreamObjectRequest {
 }
 
 impl LookupStreamObjectRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2442,6 +2461,7 @@ pub struct StartBackfillJobRequest {
 }
 
 impl StartBackfillJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2476,6 +2496,7 @@ pub struct StartBackfillJobResponse {
 }
 
 impl StartBackfillJobResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2533,6 +2554,7 @@ pub struct StopBackfillJobRequest {
 }
 
 impl StopBackfillJobRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2567,6 +2589,7 @@ pub struct StopBackfillJobResponse {
 }
 
 impl StopBackfillJobResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2634,6 +2657,7 @@ pub struct ListStreamObjectsRequest {
 }
 
 impl ListStreamObjectsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2695,6 +2719,7 @@ pub struct ListStreamObjectsResponse {
 }
 
 impl ListStreamObjectsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2794,6 +2819,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3004,6 +3030,7 @@ pub struct CreatePrivateConnectionRequest {
 }
 
 impl CreatePrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3143,6 +3170,7 @@ pub struct ListPrivateConnectionsRequest {
 }
 
 impl ListPrivateConnectionsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3232,6 +3260,7 @@ pub struct ListPrivateConnectionsResponse {
 }
 
 impl ListPrivateConnectionsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3338,6 +3367,7 @@ pub struct DeletePrivateConnectionRequest {
 }
 
 impl DeletePrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3396,6 +3426,7 @@ pub struct GetPrivateConnectionRequest {
 }
 
 impl GetPrivateConnectionRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3451,6 +3482,7 @@ pub struct CreateRouteRequest {
 }
 
 impl CreateRouteRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3562,6 +3594,7 @@ pub struct ListRoutesRequest {
 }
 
 impl ListRoutesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3651,6 +3684,7 @@ pub struct ListRoutesResponse {
 }
 
 impl ListRoutesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3753,6 +3787,7 @@ pub struct DeleteRouteRequest {
 }
 
 impl DeleteRouteRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3799,6 +3834,7 @@ pub struct GetRouteRequest {
 }
 
 impl GetRouteRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -3859,6 +3895,7 @@ pub struct OracleProfile {
 }
 
 impl OracleProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4069,6 +4106,7 @@ pub struct OracleAsmConfig {
 }
 
 impl OracleAsmConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4237,6 +4275,7 @@ pub struct MysqlProfile {
 }
 
 impl MysqlProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4379,6 +4418,7 @@ pub struct PostgresqlProfile {
 }
 
 impl PostgresqlProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4527,6 +4567,7 @@ pub struct SqlServerProfile {
 }
 
 impl SqlServerProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4627,6 +4668,7 @@ pub struct SalesforceProfile {
 }
 
 impl SalesforceProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -4793,6 +4835,7 @@ pub mod salesforce_profile {
     }
 
     impl UserCredentials {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -4895,6 +4938,7 @@ pub mod salesforce_profile {
     }
 
     impl Oauth2ClientCredentials {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -5002,6 +5046,7 @@ pub struct MongodbProfile {
 }
 
 impl MongodbProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5259,6 +5304,7 @@ pub struct HostAddress {
 }
 
 impl HostAddress {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5302,6 +5348,7 @@ pub struct SrvConnectionFormat {
 }
 
 impl SrvConnectionFormat {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5325,6 +5372,7 @@ pub struct StandardConnectionFormat {
 }
 
 impl StandardConnectionFormat {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5362,6 +5410,7 @@ pub struct GcsProfile {
 }
 
 impl GcsProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5405,6 +5454,7 @@ pub struct BigQueryProfile {
 }
 
 impl BigQueryProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5426,6 +5476,7 @@ pub struct StaticServiceIpConnectivity {
 }
 
 impl StaticServiceIpConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5450,6 +5501,7 @@ pub struct ForwardSshTunnelConnectivity {
     /// Port for the SSH tunnel, default value is 22.
     pub port: i32,
 
+    #[allow(missing_docs)]
     pub authentication_method:
         std::option::Option<crate::model::forward_ssh_tunnel_connectivity::AuthenticationMethod>,
 
@@ -5457,6 +5509,7 @@ pub struct ForwardSshTunnelConnectivity {
 }
 
 impl ForwardSshTunnelConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5602,6 +5655,7 @@ pub mod forward_ssh_tunnel_connectivity {
     #[allow(unused_imports)]
     use super::*;
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AuthenticationMethod {
@@ -5628,6 +5682,7 @@ pub struct VpcPeeringConfig {
 }
 
 impl VpcPeeringConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5677,6 +5732,7 @@ pub struct PscInterfaceConfig {
 }
 
 impl PscInterfaceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -5746,6 +5802,7 @@ pub struct PrivateConnection {
 }
 
 impl PrivateConnection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6218,6 +6275,7 @@ pub struct PrivateConnectivity {
 }
 
 impl PrivateConnectivity {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6274,6 +6332,7 @@ pub struct Route {
 }
 
 impl Route {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6461,6 +6520,7 @@ pub struct MongodbSslConfig {
 }
 
 impl MongodbSslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6594,6 +6654,7 @@ pub struct MysqlSslConfig {
 }
 
 impl MysqlSslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6703,6 +6764,7 @@ pub struct OracleSslConfig {
 }
 
 impl OracleSslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6768,6 +6830,7 @@ pub struct PostgresqlSslConfig {
 }
 
 impl PostgresqlSslConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -6918,6 +6981,7 @@ pub mod postgresql_ssl_config {
     }
 
     impl ServerVerification {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -6992,6 +7056,7 @@ pub mod postgresql_ssl_config {
     }
 
     impl ServerAndClientVerification {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -7117,6 +7182,7 @@ pub struct ConnectionProfile {
 }
 
 impl ConnectionProfile {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -7916,6 +7982,7 @@ pub struct OracleColumn {
 }
 
 impl OracleColumn {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8051,6 +8118,7 @@ pub struct OracleTable {
 }
 
 impl OracleTable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8110,6 +8178,7 @@ pub struct OracleSchema {
 }
 
 impl OracleSchema {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8166,6 +8235,7 @@ pub struct OracleRdbms {
 }
 
 impl OracleRdbms {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8228,6 +8298,7 @@ pub struct OracleSourceConfig {
 }
 
 impl OracleSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -8555,6 +8626,7 @@ pub mod oracle_source_config {
     }
 
     impl DropLargeObjects {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8574,6 +8646,7 @@ pub mod oracle_source_config {
     }
 
     impl StreamLargeObjects {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8593,6 +8666,7 @@ pub mod oracle_source_config {
     }
 
     impl LogMiner {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8617,6 +8691,7 @@ pub mod oracle_source_config {
     }
 
     impl BinaryLogParser {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -8756,6 +8831,7 @@ pub mod oracle_source_config {
         }
 
         impl OracleAsmLogFileAccess {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8781,6 +8857,7 @@ pub mod oracle_source_config {
         }
 
         impl LogFileDirectories {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -8894,6 +8971,7 @@ pub struct PostgresqlColumn {
 }
 
 impl PostgresqlColumn {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9017,6 +9095,7 @@ pub struct PostgresqlTable {
 }
 
 impl PostgresqlTable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9076,6 +9155,7 @@ pub struct PostgresqlSchema {
 }
 
 impl PostgresqlSchema {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9132,6 +9212,7 @@ pub struct PostgresqlRdbms {
 }
 
 impl PostgresqlRdbms {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9192,6 +9273,7 @@ pub struct PostgresqlSourceConfig {
 }
 
 impl PostgresqlSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9340,6 +9422,7 @@ pub struct SqlServerColumn {
 }
 
 impl SqlServerColumn {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9463,6 +9546,7 @@ pub struct SqlServerTable {
 }
 
 impl SqlServerTable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9522,6 +9606,7 @@ pub struct SqlServerSchema {
 }
 
 impl SqlServerSchema {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9578,6 +9663,7 @@ pub struct SqlServerRdbms {
 }
 
 impl SqlServerRdbms {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9634,6 +9720,7 @@ pub struct SqlServerSourceConfig {
 }
 
 impl SqlServerSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9863,6 +9950,7 @@ pub struct SqlServerTransactionLogs {
 }
 
 impl SqlServerTransactionLogs {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9882,6 +9970,7 @@ pub struct SqlServerChangeTables {
 }
 
 impl SqlServerChangeTables {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -9929,6 +10018,7 @@ pub struct MysqlColumn {
 }
 
 impl MysqlColumn {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10064,6 +10154,7 @@ pub struct MysqlTable {
 }
 
 impl MysqlTable {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10123,6 +10214,7 @@ pub struct MysqlDatabase {
 }
 
 impl MysqlDatabase {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10179,6 +10271,7 @@ pub struct MysqlRdbms {
 }
 
 impl MysqlRdbms {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10238,6 +10331,7 @@ pub struct MysqlSourceConfig {
 }
 
 impl MysqlSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10454,6 +10548,7 @@ pub mod mysql_source_config {
     }
 
     impl BinaryLogPosition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10473,6 +10568,7 @@ pub mod mysql_source_config {
     }
 
     impl Gtid {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -10514,6 +10610,7 @@ pub struct SalesforceSourceConfig {
 }
 
 impl SalesforceSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10635,6 +10732,7 @@ pub struct SalesforceOrg {
 }
 
 impl SalesforceOrg {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10685,6 +10783,7 @@ pub struct SalesforceObject {
 }
 
 impl SalesforceObject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10747,6 +10846,7 @@ pub struct SalesforceField {
 }
 
 impl SalesforceField {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10813,6 +10913,7 @@ pub struct MongodbSourceConfig {
 }
 
 impl MongodbSourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10913,6 +11014,7 @@ pub struct MongodbCluster {
 }
 
 impl MongodbCluster {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -10960,6 +11062,7 @@ pub struct MongodbDatabase {
 }
 
 impl MongodbDatabase {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11019,6 +11122,7 @@ pub struct MongodbCollection {
 }
 
 impl MongodbCollection {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11075,6 +11179,7 @@ pub struct MongodbField {
 }
 
 impl MongodbField {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11113,6 +11218,7 @@ pub struct SourceConfig {
 }
 
 impl SourceConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11463,6 +11569,7 @@ pub struct AvroFileFormat {
 }
 
 impl AvroFileFormat {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11488,6 +11595,7 @@ pub struct JsonFileFormat {
 }
 
 impl JsonFileFormat {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -11829,6 +11937,7 @@ pub struct GcsDestinationConfig {
 }
 
 impl GcsDestinationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12034,12 +12143,14 @@ pub struct BigQueryDestinationConfig {
     pub dataset_config:
         std::option::Option<crate::model::big_query_destination_config::DatasetConfig>,
 
+    #[allow(missing_docs)]
     pub write_mode: std::option::Option<crate::model::big_query_destination_config::WriteMode>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BigQueryDestinationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -12363,6 +12474,7 @@ pub mod big_query_destination_config {
     }
 
     impl SingleTargetDataset {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12404,6 +12516,7 @@ pub mod big_query_destination_config {
     }
 
     impl SourceHierarchyDatasets {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12509,6 +12622,7 @@ pub mod big_query_destination_config {
         }
 
         impl DatasetTemplate {
+            /// Creates a new default instance.
             pub fn new() -> Self {
                 std::default::Default::default()
             }
@@ -12590,6 +12704,7 @@ pub mod big_query_destination_config {
     }
 
     impl BlmtConfig {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12949,6 +13064,7 @@ pub mod big_query_destination_config {
     }
 
     impl AppendOnly {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12969,6 +13085,7 @@ pub mod big_query_destination_config {
     }
 
     impl Merge {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -12994,6 +13111,7 @@ pub mod big_query_destination_config {
         ),
     }
 
+    #[allow(missing_docs)]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum WriteMode {
@@ -13020,6 +13138,7 @@ pub struct DestinationConfig {
 }
 
 impl DestinationConfig {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13226,6 +13345,7 @@ pub struct Stream {
 }
 
 impl Stream {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -13698,6 +13818,7 @@ pub mod stream {
     }
 
     impl BackfillAllStrategy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14037,6 +14158,7 @@ pub mod stream {
     }
 
     impl BackfillNoneStrategy {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14267,6 +14389,7 @@ pub struct StreamObject {
 }
 
 impl StreamObject {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14468,6 +14591,7 @@ pub struct SourceObjectIdentifier {
 }
 
 impl SourceObjectIdentifier {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -14820,6 +14944,7 @@ pub mod source_object_identifier {
     }
 
     impl OracleObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14869,6 +14994,7 @@ pub mod source_object_identifier {
     }
 
     impl PostgresqlObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14918,6 +15044,7 @@ pub mod source_object_identifier {
     }
 
     impl MysqlObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -14967,6 +15094,7 @@ pub mod source_object_identifier {
     }
 
     impl SqlServerObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15013,6 +15141,7 @@ pub mod source_object_identifier {
     }
 
     impl SalesforceObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15050,6 +15179,7 @@ pub mod source_object_identifier {
     }
 
     impl MongodbObjectIdentifier {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -15139,6 +15269,7 @@ pub struct BackfillJob {
 }
 
 impl BackfillJob {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15606,6 +15737,7 @@ pub struct Error {
 }
 
 impl Error {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15719,6 +15851,7 @@ pub struct ValidationResult {
 }
 
 impl ValidationResult {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -15772,6 +15905,7 @@ pub struct Validation {
 }
 
 impl Validation {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16019,6 +16153,7 @@ pub struct ValidationMessage {
 }
 
 impl ValidationMessage {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16243,6 +16378,7 @@ pub struct CdcStrategy {
 }
 
 impl CdcStrategy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16419,6 +16555,7 @@ pub mod cdc_strategy {
     }
 
     impl MostRecentStartPosition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16439,6 +16576,7 @@ pub mod cdc_strategy {
     }
 
     impl NextAvailableStartPosition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16454,6 +16592,7 @@ pub mod cdc_strategy {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct SpecificStartPosition {
+        #[allow(missing_docs)]
         pub position:
             std::option::Option<crate::model::cdc_strategy::specific_start_position::Position>,
 
@@ -16461,6 +16600,7 @@ pub mod cdc_strategy {
     }
 
     impl SpecificStartPosition {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -16677,6 +16817,7 @@ pub mod cdc_strategy {
         #[allow(unused_imports)]
         use super::*;
 
+        #[allow(missing_docs)]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Position {
@@ -16722,6 +16863,7 @@ pub struct SqlServerLsnPosition {
 }
 
 impl SqlServerLsnPosition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16756,6 +16898,7 @@ pub struct OracleScnPosition {
 }
 
 impl OracleScnPosition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16793,6 +16936,7 @@ pub struct MysqlLogPosition {
 }
 
 impl MysqlLogPosition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -16858,6 +17002,7 @@ pub struct MysqlGtidPosition {
 }
 
 impl MysqlGtidPosition {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

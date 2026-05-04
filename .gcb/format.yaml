@@ -98,9 +98,9 @@ steps:
       #!/usr/bin/env bash
       set -euv
       # Make three attempts to avoid download flakes.
-      go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
-        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0 || \
-        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
+      go install github.com/google/yamlfmt/cmd/yamlfmt@v0.21.0 || \
+        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.21.0 || \
+        go install github.com/google/yamlfmt/cmd/yamlfmt@v0.21.0
       git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' ':!:librarian.yaml' | \
         xargs -0 yamlfmt
       V=$(sed -n 's/^version: *//p' librarian.yaml)

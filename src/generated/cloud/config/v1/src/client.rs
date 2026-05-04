@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_config_v1::client::Config;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Config::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_deployments()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -159,10 +161,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -233,11 +235,11 @@ impl Config {
     /// use google_cloud_config_v1::model::Deployment;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment()
     ///         .set_deployment(
-    ///             Deployment::new().set_name(name)/* set fields */
+    ///             Deployment::new().set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -269,10 +271,10 @@ impl Config {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -292,10 +294,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_revisions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -316,10 +318,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -339,10 +341,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str, revision_id: &str, resource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}/resources/{resource_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -362,10 +364,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_resources()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}/revisions/{revision_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -445,10 +447,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_statefile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -586,10 +588,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_preview()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -645,10 +647,10 @@ impl Config {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_preview()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -716,10 +718,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, terraform_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_terraform_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/terraformVersions/{terraform_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -737,10 +739,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_resource_changes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -759,10 +761,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str, resource_change_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_change()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceChanges/{resource_change_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -780,10 +782,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_resource_drifts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -802,10 +804,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, preview_id: &str, resource_drift_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_drift()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/previews/{preview_id}/resourceDrifts/{resource_drift_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -822,10 +824,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_auto_migration_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/autoMigrationConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -856,11 +858,11 @@ impl Config {
     /// use google_cloud_config_v1::model::AutoMigrationConfig;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_auto_migration_config()
     ///         .set_auto_migration_config(
-    ///             AutoMigrationConfig::new().set_name(name)/* set fields */
+    ///             AutoMigrationConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/autoMigrationConfig"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -881,10 +883,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -956,11 +958,11 @@ impl Config {
     /// use google_cloud_config_v1::model::DeploymentGroup;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment_group()
     ///         .set_deployment_group(
-    ///             DeploymentGroup::new().set_name(name)/* set fields */
+    ///             DeploymentGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -992,10 +994,10 @@ impl Config {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_deployment_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1126,10 +1128,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, name: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_group_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment_group_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1154,10 +1156,10 @@ impl Config {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, parent: &str
+    ///    client: &Config, project_id: &str, location_id: &str, deployment_group_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployment_group_revisions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/deploymentGroups/{deployment_group_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

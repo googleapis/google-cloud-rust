@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GSuiteAddOns::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_deployments()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -157,10 +159,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, name: &str
+    ///    client: &GSuiteAddOns, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorization()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/authorization"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -222,10 +224,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, name: &str
+    ///    client: &GSuiteAddOns, project_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -265,10 +267,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, name: &str
+    ///    client: &GSuiteAddOns, project_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/deployments/{deployment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -326,10 +328,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, name: &str
+    ///    client: &GSuiteAddOns, project_id: &str, deployment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_install_status()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/deployments/{deployment_id}/installStatus"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

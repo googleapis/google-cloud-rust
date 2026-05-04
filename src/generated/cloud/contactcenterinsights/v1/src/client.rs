@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ContactCenterInsights::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_conversations()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -198,11 +200,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::Conversation;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_conversation()
     ///         .set_conversation(
-    ///             Conversation::new().set_name(name)/* set fields */
+    ///             Conversation::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -223,10 +225,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -266,10 +268,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -300,10 +302,10 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::Analysis;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_analysis()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .set_analysis(
     ///             Analysis::new()/* set fields */
     ///         )
@@ -323,10 +325,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str, analysis_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_analysis()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/analyses/{analysis_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -344,10 +346,10 @@ impl ContactCenterInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_analyses()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -366,10 +368,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str, analysis_id: &str
     /// ) -> Result<()> {
     ///     client.delete_analysis()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/analyses/{analysis_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -556,11 +558,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_issue_model()
     ///         .set_issue_model(
-    ///             IssueModel::new().set_name(name)/* set fields */
+    ///             IssueModel::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -579,10 +581,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -630,10 +632,10 @@ impl ContactCenterInsights {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_issue_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -777,10 +779,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -820,11 +822,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::Issue;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_issue()
     ///         .set_issue(
-    ///             Issue::new().set_name(name)/* set fields */
+    ///             Issue::new().set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -843,10 +845,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, issue_model_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     client.delete_issue()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/issueModels/{issue_model_id}/issues/{issue_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -910,10 +912,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, phrase_matcher_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_phrase_matcher()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -955,10 +957,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, phrase_matcher_id: &str
     /// ) -> Result<()> {
     ///     client.delete_phrase_matcher()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -979,11 +981,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, phrase_matcher_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_phrase_matcher()
     ///         .set_phrase_matcher(
-    ///             PhraseMatcher::new().set_name(name)/* set fields */
+    ///             PhraseMatcher::new().set_name(format!("projects/{project_id}/locations/{location_id}/phraseMatchers/{phrase_matcher_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1024,10 +1026,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/settings"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1047,11 +1049,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::Settings;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_settings()
     ///         .set_settings(
-    ///             Settings::new().set_name(name)/* set fields */
+    ///             Settings::new().set_name(format!("projects/{project_id}/locations/{location_id}/settings"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1096,10 +1098,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, analysis_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_analysis_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1144,11 +1146,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, analysis_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_analysis_rule()
     ///         .set_analysis_rule(
-    ///             AnalysisRule::new().set_name(name)/* set fields */
+    ///             AnalysisRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1169,10 +1171,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, analysis_rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_analysis_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/analysisRules/{analysis_rule_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1190,10 +1192,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_spec()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/encryptionSpec"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1273,10 +1275,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1319,11 +1321,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::View;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_view()
     ///         .set_view(
-    ///             View::new().set_name(name)/* set fields */
+    ///             View::new().set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1342,10 +1344,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, view_id: &str
     /// ) -> Result<()> {
     ///     client.delete_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/views/{view_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1393,10 +1395,10 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_qa_question()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"))
     ///         .set_qa_question(
     ///             QaQuestion::new()/* set fields */
     ///         )
@@ -1416,10 +1418,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str, qa_question_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_question()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1439,11 +1441,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str, qa_question_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_qa_question()
     ///         .set_qa_question(
-    ///             QaQuestion::new().set_name(name)/* set fields */
+    ///             QaQuestion::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1462,10 +1464,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str, qa_question_id: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_question()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}/qaQuestions/{qa_question_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1482,10 +1484,10 @@ impl ContactCenterInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_qa_questions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1530,10 +1532,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_scorecard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1553,11 +1555,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_qa_scorecard()
     ///         .set_qa_scorecard(
-    ///             QaScorecard::new().set_name(name)/* set fields */
+    ///             QaScorecard::new().set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1578,10 +1580,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_scorecard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1623,10 +1625,10 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_qa_scorecard_revision()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"))
     ///         .set_qa_scorecard_revision(
     ///             QaScorecardRevision::new()/* set fields */
     ///         )
@@ -1648,10 +1650,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_scorecard_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1749,10 +1751,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_scorecard_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1771,10 +1773,10 @@ impl ContactCenterInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, qa_scorecard_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_qa_scorecard_revisions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/qaScorecards/{qa_scorecard_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1796,10 +1798,10 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feedback_label()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .set_feedback_label(
     ///             FeedbackLabel::new()/* set fields */
     ///         )
@@ -1822,10 +1824,10 @@ impl ContactCenterInsights {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, parent: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_feedback_labels()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1846,10 +1848,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str, feedback_label_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feedback_label()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1869,11 +1871,11 @@ impl ContactCenterInsights {
     /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str, feedback_label_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feedback_label()
     ///         .set_feedback_label(
-    ///             FeedbackLabel::new().set_name(name)/* set fields */
+    ///             FeedbackLabel::new().set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1894,10 +1896,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, name: &str
+    ///    client: &ContactCenterInsights, project_id: &str, location_id: &str, conversation_id: &str, feedback_label_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feedback_label()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/conversations/{conversation_id}/feedbackLabels/{feedback_label_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

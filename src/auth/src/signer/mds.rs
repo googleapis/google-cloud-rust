@@ -84,12 +84,12 @@ impl MDSSigner {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
-    use crate::errors::CredentialsError;
+    use crate::credentials::tests::MockCredentials;
+    use crate::credentials::{CacheableResource, Credentials, EntityTag};
     use crate::mds::MDS_DEFAULT_URI;
     use base64::{Engine, prelude::BASE64_STANDARD};
+    use http::HeaderMap;
     use http::header::{HeaderName, HeaderValue};
-    use http::{Extensions, HeaderMap};
     use httptest::matchers::{all_of, contains, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
@@ -97,16 +97,6 @@ mod tests {
     use serial_test::serial;
 
     type TestResult = anyhow::Result<()>;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> std::result::Result<CacheableResource<HeaderMap>, CredentialsError>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
 
     #[ignore = "TODO(#5249) - disabled because it was flaky"]
     #[tokio::test]

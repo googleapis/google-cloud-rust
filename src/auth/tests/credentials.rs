@@ -825,7 +825,7 @@ mod tests {
             "private_key_id": "test-private-key-id",
             "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
             "client_email": "test-client-email",
-            "universe_domain": "test-universe-domain"
+            "universe_domain": "googleapis.com"
         }"#;
         let path = write_cred_json(contents);
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
@@ -834,6 +834,30 @@ mod tests {
             google_cloud_auth::credentials::idtoken::Builder::new("test-audience").build()?;
         let fmt = format!("{id_token_creds:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
+
+        Ok(())
+    }
+
+    #[cfg(all(test, feature = "idtoken"))]
+    #[tokio::test]
+    #[serial]
+    async fn create_id_token_credentials_adc_service_account_non_gdu_fails() -> TestResult {
+        let contents = r#"{
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "non-gdu.com"
+        }"#;
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = google_cloud_auth::credentials::idtoken::Builder::new("test-audience")
+            .build()
+            .unwrap_err();
+
+        assert!(err.is_not_supported(), "{err:?}");
 
         Ok(())
     }

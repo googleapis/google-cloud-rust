@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ReservationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_reservations()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -146,10 +149,10 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::Reservation;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_reservation()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_reservation_id("reservation_id_value")
     ///         .set_reservation(
     ///             Reservation::new()/* set fields */
@@ -171,10 +174,10 @@ impl ReservationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_reservations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -193,10 +196,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reservation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -215,10 +218,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str
     /// ) -> Result<()> {
     ///     client.delete_reservation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -237,11 +240,11 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::Reservation;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_reservation()
     ///         .set_reservation(
-    ///             Reservation::new().set_name(name)/* set fields */
+    ///             Reservation::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -285,10 +288,10 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_capacity_commitment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_capacity_commitment(
     ///             CapacityCommitment::new()/* set fields */
     ///         )
@@ -311,10 +314,10 @@ impl ReservationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_capacity_commitments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -335,10 +338,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, capacity_commitment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_capacity_commitment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -359,10 +362,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, capacity_commitment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_capacity_commitment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -389,11 +392,11 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, capacity_commitment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_capacity_commitment()
     ///         .set_capacity_commitment(
-    ///             CapacityCommitment::new().set_name(name)/* set fields */
+    ///             CapacityCommitment::new().set_name(format!("projects/{project_id}/locations/{location_id}/capacityCommitments/{capacity_commitment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -506,10 +509,10 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::Assignment;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_assignment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"))
     ///         .set_assignment_id("assignment_id_value")
     ///         .set_assignment(
     ///             Assignment::new()/* set fields */
@@ -551,10 +554,10 @@ impl ReservationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_assignments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -587,10 +590,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str, assignment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_assignment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}/assignments/{assignment_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -725,11 +728,11 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::Assignment;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_id: &str, assignment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_assignment()
     ///         .set_assignment(
-    ///             Assignment::new().set_name(name)/* set fields */
+    ///             Assignment::new().set_name(format!("projects/{project_id}/locations/{location_id}/reservations/{reservation_id}/assignments/{assignment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -748,10 +751,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bi_reservation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/biReservation"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -778,11 +781,11 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::BiReservation;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_bi_reservation()
     ///         .set_bi_reservation(
-    ///             BiReservation::new().set_name(name)/* set fields */
+    ///             BiReservation::new().set_name(format!("projects/{project_id}/locations/{location_id}/biReservation"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -896,10 +899,10 @@ impl ReservationService {
     /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_reservation_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_reservation_group(
     ///             ReservationGroup::new()/* set fields */
     ///         )
@@ -921,10 +924,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reservation_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -945,10 +948,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, name: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str, reservation_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_reservation_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reservationGroups/{reservation_group_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -967,10 +970,10 @@ impl ReservationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, parent: &str
+    ///    client: &ReservationService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_reservation_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

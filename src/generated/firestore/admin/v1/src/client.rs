@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = FirestoreAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_indexes()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -222,10 +224,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, collection_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -242,10 +244,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, collection_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/indexes/{index_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -261,10 +263,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, collection_id: &str, field_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_field()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -314,11 +316,11 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::Field;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, collection_id: &str, field_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_field()
     ///         .set_field(
-    ///             Field::new().set_name(name)/* set fields */
+    ///             Field::new().set_name(format!("projects/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/fields/{field_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -495,10 +497,10 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::Database;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, parent: &str
+    ///    client: &FirestoreAdmin, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_database()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_database_id("database_id_value")
     ///         .set_database(
     ///             Database::new()/* set fields */
@@ -519,10 +521,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -573,11 +575,11 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::Database;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_database()
     ///         .set_database(
-    ///             Database::new().set_name(name)/* set fields */
+    ///             Database::new().set_name(format!("projects/{project_id}/databases/{database_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -607,10 +609,10 @@ impl FirestoreAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_database()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -628,10 +630,10 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::UserCreds;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, parent: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_user_creds()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/databases/{database_id}"))
     ///         .set_user_creds(
     ///             UserCreds::new()/* set fields */
     ///         )
@@ -652,10 +654,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, user_creds_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_creds()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -753,10 +755,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, user_creds_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user_creds()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/userCreds/{user_creds_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -772,10 +774,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -812,10 +814,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, location_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -888,10 +890,10 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, parent: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_schedule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/databases/{database_id}"))
     ///         .set_backup_schedule(
     ///             BackupSchedule::new()/* set fields */
     ///         )
@@ -911,10 +913,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, backup_schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -954,11 +956,11 @@ impl FirestoreAdmin {
     /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, backup_schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_schedule()
     ///         .set_backup_schedule(
-    ///             BackupSchedule::new().set_name(name)/* set fields */
+    ///             BackupSchedule::new().set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -977,10 +979,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, name: &str
+    ///    client: &FirestoreAdmin, project_id: &str, database_id: &str, backup_schedule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/databases/{database_id}/backupSchedules/{backup_schedule_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

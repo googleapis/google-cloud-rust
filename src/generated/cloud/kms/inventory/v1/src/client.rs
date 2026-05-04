@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = KeyDashboardService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_crypto_keys()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -155,14 +157,19 @@ impl KeyDashboardService {
 /// # Example
 /// ```
 /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    key_ring_id: &str,
+///    crypto_key_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = KeyTrackingService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_protected_resources_summary()
-///         .set_name(name)
+///         .set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/protectedResourcesSummary"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -276,10 +283,10 @@ impl KeyTrackingService {
     /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
     /// use google_cloud_kms_inventory_v1::Result;
     /// async fn sample(
-    ///    client: &KeyTrackingService, name: &str
+    ///    client: &KeyTrackingService, project_id: &str, location_id: &str, key_ring_id: &str, crypto_key_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_protected_resources_summary()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}/protectedResourcesSummary"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

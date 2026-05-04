@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = StorageBatchOperations::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -135,10 +138,10 @@ impl StorageBatchOperations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, parent: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -157,10 +160,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, name: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -189,10 +192,10 @@ impl StorageBatchOperations {
     /// use google_cloud_storagebatchoperations_v1::model::Job;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, parent: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
@@ -213,10 +216,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, name: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -253,10 +256,10 @@ impl StorageBatchOperations {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, parent: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_bucket_operations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -277,10 +280,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, name: &str
+    ///    client: &StorageBatchOperations, project_id: &str, location_id: &str, job_id: &str, bucket_operation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bucket_operation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/bucketOperations/{bucket_operation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

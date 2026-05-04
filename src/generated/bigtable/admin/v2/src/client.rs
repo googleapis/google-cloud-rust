@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BigtableInstanceAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_app_profiles()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -175,10 +178,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -271,10 +274,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -308,10 +311,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::Cluster;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
@@ -332,10 +335,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -451,10 +454,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -471,10 +474,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::AppProfile;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_app_profile()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .set_app_profile(
     ///             AppProfile::new()/* set fields */
     ///         )
@@ -494,10 +497,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, app_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -515,10 +518,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_app_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -551,11 +554,11 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::AppProfile;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, app_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_app_profile()
     ///         .set_app_profile(
-    ///             AppProfile::new().set_name(name)/* set fields */
+    ///             AppProfile::new().set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -574,10 +577,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, app_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_app_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/appProfiles/{app_profile_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -659,10 +662,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_hot_tablets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -693,10 +696,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::LogicalView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_logical_view()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .set_logical_view(
     ///             LogicalView::new()/* set fields */
     ///         )
@@ -718,10 +721,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, logical_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_logical_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -739,10 +742,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_logical_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -775,11 +778,11 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::LogicalView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, logical_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_logical_view()
     ///         .set_logical_view(
-    ///             LogicalView::new().set_name(name)/* set fields */
+    ///             LogicalView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -800,10 +803,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, logical_view_id: &str
     /// ) -> Result<()> {
     ///     client.delete_logical_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/logicalViews/{logical_view_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -833,10 +836,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_materialized_view()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .set_materialized_view(
     ///             MaterializedView::new()/* set fields */
     ///         )
@@ -858,10 +861,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, materialized_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_materialized_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -881,10 +884,10 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, parent: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_materialized_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -919,11 +922,11 @@ impl BigtableInstanceAdmin {
     /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, materialized_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_materialized_view()
     ///         .set_materialized_view(
-    ///             MaterializedView::new().set_name(name)/* set fields */
+    ///             MaterializedView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -944,10 +947,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, name: &str
+    ///    client: &BigtableInstanceAdmin, project_id: &str, instance_id: &str, materialized_view_id: &str
     /// ) -> Result<()> {
     ///     client.delete_materialized_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/materializedViews/{materialized_view_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1054,16 +1057,19 @@ impl BigtableInstanceAdmin {
 /// ```
 /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    instance_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = BigtableTableAdmin::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tables()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1169,10 +1175,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::Table;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_table()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .set_table_id("table_id_value")
     ///         .set_table(
     ///             Table::new()/* set fields */
@@ -1234,10 +1240,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tables()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1256,10 +1262,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1290,11 +1296,11 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::Table;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_table()
     ///         .set_table(
-    ///             Table::new().set_name(name)/* set fields */
+    ///             Table::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1313,10 +1319,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     client.delete_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1343,10 +1349,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_table()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1375,10 +1381,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_authorized_view()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .set_authorized_view(
     ///             AuthorizedView::new()/* set fields */
     ///         )
@@ -1401,10 +1407,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_authorized_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1425,10 +1431,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, authorized_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorized_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1459,11 +1465,11 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, authorized_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_authorized_view()
     ///         .set_authorized_view(
-    ///             AuthorizedView::new().set_name(name)/* set fields */
+    ///             AuthorizedView::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1484,10 +1490,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, authorized_view_id: &str
     /// ) -> Result<()> {
     ///     client.delete_authorized_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/authorizedViews/{authorized_view_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1642,10 +1648,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1669,10 +1675,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_snapshots()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1697,10 +1703,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1741,10 +1747,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::Backup;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
@@ -1765,10 +1771,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1788,11 +1794,11 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::Backup;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1811,10 +1817,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1832,10 +1838,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, cluster_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/clusters/{cluster_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2005,10 +2011,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema_bundle()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .set_schema_bundle(
     ///             SchemaBundle::new()/* set fields */
     ///         )
@@ -2042,11 +2048,11 @@ impl BigtableTableAdmin {
     /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, schema_bundle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_schema_bundle()
     ///         .set_schema_bundle(
-    ///             SchemaBundle::new().set_name(name)/* set fields */
+    ///             SchemaBundle::new().set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2065,10 +2071,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, schema_bundle_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema_bundle()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2086,10 +2092,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, parent: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_schema_bundles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2108,10 +2114,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, name: &str
+    ///    client: &BigtableTableAdmin, project_id: &str, instance_id: &str, table_id: &str, schema_bundle_id: &str
     /// ) -> Result<()> {
     ///     client.delete_schema_bundle()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/instances/{instance_id}/tables/{table_id}/schemaBundles/{schema_bundle_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -22,13 +22,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = DataFoundryService::builder().build().await?;
 ///     let response = client.generate_synthetic_data()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -378,16 +380,18 @@ impl DataFoundryService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DatasetService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_datasets()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -524,10 +528,10 @@ impl DatasetService {
     /// # use google_cloud_aiplatform_v1::client::DatasetService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -547,11 +551,11 @@ impl DatasetService {
     /// use google_cloud_aiplatform_v1::model::Dataset;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dataset()
     ///         .set_dataset(
-    ///             Dataset::new().set_name(name)/* set fields */
+    ///             Dataset::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -604,10 +608,10 @@ impl DatasetService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -697,10 +701,10 @@ impl DatasetService {
     /// use google_cloud_aiplatform_v1::model::DatasetVersion;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, parent: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dataset_version()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .set_dataset_version(
     ///             DatasetVersion::new()/* set fields */
     ///         )
@@ -723,11 +727,11 @@ impl DatasetService {
     /// use google_cloud_aiplatform_v1::model::DatasetVersion;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, dataset_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_dataset_version()
     ///         .set_dataset_version(
-    ///             DatasetVersion::new().set_name(name)/* set fields */
+    ///             DatasetVersion::new().set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/datasetVersions/{dataset_version_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -757,10 +761,10 @@ impl DatasetService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, dataset_version_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/datasetVersions/{dataset_version_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -776,10 +780,10 @@ impl DatasetService {
     /// # use google_cloud_aiplatform_v1::client::DatasetService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, dataset_version_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/datasetVersions/{dataset_version_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -797,10 +801,10 @@ impl DatasetService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, parent: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_dataset_versions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -853,10 +857,10 @@ impl DatasetService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, parent: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_data_items()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -899,10 +903,10 @@ impl DatasetService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, parent: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_saved_queries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -932,10 +936,10 @@ impl DatasetService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, saved_query_id: &str
     /// ) -> Result<()> {
     ///     client.delete_saved_query()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/savedQueries/{saved_query_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -951,10 +955,10 @@ impl DatasetService {
     /// # use google_cloud_aiplatform_v1::client::DatasetService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, name: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, annotation_spec_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_annotation_spec()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/annotationSpecs/{annotation_spec_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -972,10 +976,10 @@ impl DatasetService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DatasetService, parent: &str
+    ///    client: &DatasetService, project_id: &str, location_id: &str, dataset_id: &str, data_item_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_annotations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}/dataItems/{data_item_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1219,16 +1223,18 @@ impl DatasetService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DeploymentResourcePoolService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_deployment_resource_pools()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1367,10 +1373,10 @@ impl DeploymentResourcePoolService {
     /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DeploymentResourcePoolService, name: &str
+    ///    client: &DeploymentResourcePoolService, project_id: &str, location_id: &str, deployment_resource_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment_resource_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deploymentResourcePools/{deployment_resource_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1432,11 +1438,11 @@ impl DeploymentResourcePoolService {
     /// use google_cloud_aiplatform_v1::model::DeploymentResourcePool;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DeploymentResourcePoolService, name: &str
+    ///    client: &DeploymentResourcePoolService, project_id: &str, location_id: &str, deployment_resource_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_deployment_resource_pool()
     ///         .set_deployment_resource_pool(
-    ///             DeploymentResourcePool::new().set_name(name)/* set fields */
+    ///             DeploymentResourcePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/deploymentResourcePools/{deployment_resource_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1470,10 +1476,10 @@ impl DeploymentResourcePoolService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &DeploymentResourcePoolService, name: &str
+    ///    client: &DeploymentResourcePoolService, project_id: &str, location_id: &str, deployment_resource_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment_resource_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/deploymentResourcePools/{deployment_resource_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1759,16 +1765,18 @@ impl DeploymentResourcePoolService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::EndpointService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = EndpointService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_endpoints()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1906,10 +1914,10 @@ impl EndpointService {
     /// # use google_cloud_aiplatform_v1::client::EndpointService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &EndpointService, name: &str
+    ///    client: &EndpointService, project_id: &str, location_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1952,11 +1960,11 @@ impl EndpointService {
     /// use google_cloud_aiplatform_v1::model::Endpoint;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &EndpointService, name: &str
+    ///    client: &EndpointService, project_id: &str, location_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_endpoint()
     ///         .set_endpoint(
-    ///             Endpoint::new().set_name(name)/* set fields */
+    ///             Endpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -2019,10 +2027,10 @@ impl EndpointService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &EndpointService, name: &str
+    ///    client: &EndpointService, project_id: &str, location_id: &str, endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/endpoints/{endpoint_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2359,13 +2367,15 @@ impl EndpointService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::EvaluationService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = EvaluationService::builder().build().await?;
 ///     let response = client.evaluate_instances()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2713,16 +2723,19 @@ impl EvaluationService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = FeatureOnlineStoreAdminService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_feature_online_stores()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2841,10 +2854,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_aiplatform_v1::model::FeatureOnlineStore;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature_online_store()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_feature_online_store(
     ///             FeatureOnlineStore::new()/* set fields */
     ///         )
@@ -2868,10 +2881,10 @@ impl FeatureOnlineStoreAdminService {
     /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature_online_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2893,10 +2906,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_feature_online_stores()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2933,11 +2946,11 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_aiplatform_v1::model::FeatureOnlineStore;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature_online_store()
     ///         .set_feature_online_store(
-    ///             FeatureOnlineStore::new().set_name(name)/* set fields */
+    ///             FeatureOnlineStore::new().set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2972,10 +2985,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature_online_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3007,10 +3020,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_aiplatform_v1::model::FeatureView;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature_view()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}"))
     ///         .set_feature_view(
     ///             FeatureView::new()/* set fields */
     ///         )
@@ -3034,10 +3047,10 @@ impl FeatureOnlineStoreAdminService {
     /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str, feature_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}/featureViews/{feature_view_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3057,10 +3070,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_feature_views()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3097,11 +3110,11 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_aiplatform_v1::model::FeatureView;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str, feature_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature_view()
     ///         .set_feature_view(
-    ///             FeatureView::new().set_name(name)/* set fields */
+    ///             FeatureView::new().set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}/featureViews/{feature_view_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -3135,10 +3148,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str, feature_view_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature_view()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}/featureViews/{feature_view_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3180,10 +3193,10 @@ impl FeatureOnlineStoreAdminService {
     /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str, feature_view_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature_view_sync()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}/featureViews/{feature_view_id}/featureViewSyncs/feature_view_sync"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3205,10 +3218,10 @@ impl FeatureOnlineStoreAdminService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    ///    client: &FeatureOnlineStoreAdminService, project_id: &str, location_id: &str, feature_online_store_id: &str, feature_view_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_feature_view_syncs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featureOnlineStores/{feature_online_store_id}/featureViews/{feature_view_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -3475,13 +3488,15 @@ impl FeatureOnlineStoreAdminService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FeatureOnlineStoreService::builder().build().await?;
 ///     let response = client.fetch_feature_values()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -3887,16 +3902,19 @@ impl FeatureOnlineStoreService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = FeatureRegistryService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_feature_groups()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4012,10 +4030,10 @@ impl FeatureRegistryService {
     /// use google_cloud_aiplatform_v1::model::FeatureGroup;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, parent: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_feature_group(
     ///             FeatureGroup::new()/* set fields */
     ///         )
@@ -4037,10 +4055,10 @@ impl FeatureRegistryService {
     /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, feature_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureGroups/{feature_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4058,10 +4076,10 @@ impl FeatureRegistryService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, parent: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_feature_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4096,11 +4114,11 @@ impl FeatureRegistryService {
     /// use google_cloud_aiplatform_v1::model::FeatureGroup;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, feature_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature_group()
     ///         .set_feature_group(
-    ///             FeatureGroup::new().set_name(name)/* set fields */
+    ///             FeatureGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/featureGroups/{feature_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4132,10 +4150,10 @@ impl FeatureRegistryService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, feature_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featureGroups/{feature_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4165,10 +4183,10 @@ impl FeatureRegistryService {
     /// use google_cloud_aiplatform_v1::model::Feature;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, parent: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .set_feature_id("feature_id_value")
     ///         .set_feature(
     ///             Feature::new()/* set fields */
@@ -4222,10 +4240,10 @@ impl FeatureRegistryService {
     /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4243,10 +4261,10 @@ impl FeatureRegistryService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, parent: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_features()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -4279,11 +4297,11 @@ impl FeatureRegistryService {
     /// use google_cloud_aiplatform_v1::model::Feature;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature()
     ///         .set_feature(
-    ///             Feature::new().set_name(name)/* set fields */
+    ///             Feature::new().set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -4313,10 +4331,10 @@ impl FeatureRegistryService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeatureRegistryService, name: &str
+    ///    client: &FeatureRegistryService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4558,13 +4576,15 @@ impl FeatureRegistryService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = FeaturestoreOnlineServingService::builder().build().await?;
 ///     let response = client.read_feature_values()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -4973,16 +4993,19 @@ impl FeaturestoreOnlineServingService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = FeaturestoreService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_featurestores()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -5097,10 +5120,10 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::Featurestore;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_featurestore()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_featurestore_id("featurestore_id_value")
     ///         .set_featurestore(
     ///             Featurestore::new()/* set fields */
@@ -5121,10 +5144,10 @@ impl FeaturestoreService {
     /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_featurestore()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5142,10 +5165,10 @@ impl FeaturestoreService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_featurestores()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5178,11 +5201,11 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::Featurestore;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_featurestore()
     ///         .set_featurestore(
-    ///             Featurestore::new().set_name(name)/* set fields */
+    ///             Featurestore::new().set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -5213,10 +5236,10 @@ impl FeaturestoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str
     /// ) -> Result<()> {
     ///     client.delete_featurestore()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5244,10 +5267,10 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::EntityType;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entity_type()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}"))
     ///         .set_entity_type(
     ///             EntityType::new()/* set fields */
     ///         )
@@ -5267,10 +5290,10 @@ impl FeaturestoreService {
     /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5288,10 +5311,10 @@ impl FeaturestoreService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_entity_types()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5313,11 +5336,11 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::EntityType;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_entity_type()
     ///         .set_entity_type(
-    ///             EntityType::new().set_name(name)/* set fields */
+    ///             EntityType::new().set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5348,10 +5371,10 @@ impl FeaturestoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     client.delete_entity_type()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5379,10 +5402,10 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::Feature;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .set_feature_id("feature_id_value")
     ///         .set_feature(
     ///             Feature::new()/* set fields */
@@ -5436,10 +5459,10 @@ impl FeaturestoreService {
     /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5457,10 +5480,10 @@ impl FeaturestoreService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, parent: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_features()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -5482,11 +5505,11 @@ impl FeaturestoreService {
     /// use google_cloud_aiplatform_v1::model::Feature;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_feature()
     ///         .set_feature(
-    ///             Feature::new().set_name(name)/* set fields */
+    ///             Feature::new().set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -5516,10 +5539,10 @@ impl FeaturestoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &FeaturestoreService, name: &str
+    ///    client: &FeaturestoreService, project_id: &str, location_id: &str, featurestore_id: &str, entity_type_id: &str, feature_id: &str
     /// ) -> Result<()> {
     ///     client.delete_feature()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/featurestores/{featurestore_id}/entityTypes/{entity_type_id}/features/{feature_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5948,16 +5971,19 @@ impl FeaturestoreService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GenAiCacheService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_cached_contents()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6062,10 +6088,10 @@ impl GenAiCacheService {
     /// use google_cloud_aiplatform_v1::model::CachedContent;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiCacheService, parent: &str
+    ///    client: &GenAiCacheService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cached_content()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_cached_content(
     ///             CachedContent::new()/* set fields */
     ///         )
@@ -6087,10 +6113,10 @@ impl GenAiCacheService {
     /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiCacheService, name: &str
+    ///    client: &GenAiCacheService, project_id: &str, location_id: &str, cached_content_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cached_content()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cachedContents/{cached_content_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6110,11 +6136,11 @@ impl GenAiCacheService {
     /// use google_cloud_aiplatform_v1::model::CachedContent;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiCacheService, name: &str
+    ///    client: &GenAiCacheService, project_id: &str, location_id: &str, cached_content_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_cached_content()
     ///         .set_cached_content(
-    ///             CachedContent::new().set_name(name)/* set fields */
+    ///             CachedContent::new().set_name(format!("projects/{project_id}/locations/{location_id}/cachedContents/{cached_content_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -6135,10 +6161,10 @@ impl GenAiCacheService {
     /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiCacheService, name: &str
+    ///    client: &GenAiCacheService, project_id: &str, location_id: &str, cached_content_id: &str
     /// ) -> Result<()> {
     ///     client.delete_cached_content()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/cachedContents/{cached_content_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6157,10 +6183,10 @@ impl GenAiCacheService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiCacheService, parent: &str
+    ///    client: &GenAiCacheService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_cached_contents()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -6404,16 +6430,18 @@ impl GenAiCacheService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = GenAiTuningService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tuning_jobs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -6541,10 +6569,10 @@ impl GenAiTuningService {
     /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &GenAiTuningService, name: &str
+    ///    client: &GenAiTuningService, project_id: &str, location_id: &str, tuning_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tuning_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tuningJobs/{tuning_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6877,16 +6905,18 @@ impl GenAiTuningService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = IndexEndpointService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_index_endpoints()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7026,10 +7056,10 @@ impl IndexEndpointService {
     /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexEndpointService, name: &str
+    ///    client: &IndexEndpointService, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7074,11 +7104,11 @@ impl IndexEndpointService {
     /// use google_cloud_aiplatform_v1::model::IndexEndpoint;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexEndpointService, name: &str
+    ///    client: &IndexEndpointService, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_index_endpoint()
     ///         .set_index_endpoint(
-    ///             IndexEndpoint::new().set_name(name)/* set fields */
+    ///             IndexEndpoint::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -7110,10 +7140,10 @@ impl IndexEndpointService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexEndpointService, name: &str
+    ///    client: &IndexEndpointService, project_id: &str, location_id: &str, index_endpoint_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index_endpoint()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexEndpoints/{index_endpoint_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -7456,16 +7486,18 @@ impl IndexEndpointService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::IndexService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = IndexService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_indexes()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -7602,10 +7634,10 @@ impl IndexService {
     /// # use google_cloud_aiplatform_v1::client::IndexService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexService, name: &str
+    ///    client: &IndexService, project_id: &str, location_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexes/{index_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7659,11 +7691,11 @@ impl IndexService {
     /// use google_cloud_aiplatform_v1::model::Index;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexService, name: &str
+    ///    client: &IndexService, project_id: &str, location_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_index()
     ///         .set_index(
-    ///             Index::new().set_name(name)/* set fields */
+    ///             Index::new().set_name(format!("projects/{project_id}/locations/{location_id}/indexes/{index_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -7698,10 +7730,10 @@ impl IndexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &IndexService, name: &str
+    ///    client: &IndexService, project_id: &str, location_id: &str, index_id: &str
     /// ) -> Result<()> {
     ///     client.delete_index()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/indexes/{index_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -7982,16 +8014,18 @@ impl IndexService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::JobService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = JobService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_custom_jobs()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -8118,10 +8152,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, custom_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/customJobs/{custom_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8172,10 +8206,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, custom_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_custom_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/customJobs/{custom_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -8251,10 +8285,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, data_labeling_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_labeling_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataLabelingJobs/{data_labeling_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8305,10 +8339,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, data_labeling_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_data_labeling_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/dataLabelingJobs/{data_labeling_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -8369,10 +8403,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, hyperparameter_tuning_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hyperparameter_tuning_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/hyperparameterTuningJobs/{hyperparameter_tuning_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8427,10 +8461,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, hyperparameter_tuning_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_hyperparameter_tuning_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/hyperparameterTuningJobs/{hyperparameter_tuning_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -8511,10 +8545,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, nas_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_nas_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nasJobs/{nas_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8565,10 +8599,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, nas_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_nas_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nasJobs/{nas_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -8620,10 +8654,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, nas_job_id: &str, nas_trial_detail_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_nas_trial_detail()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/nasJobs/{nas_job_id}/nasTrialDetails/{nas_trial_detail_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8641,10 +8675,10 @@ impl JobService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, parent: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, nas_job_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_nas_trial_details()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/nasJobs/{nas_job_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -8690,10 +8724,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, batch_prediction_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_batch_prediction_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/batchPredictionJobs/{batch_prediction_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8747,10 +8781,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, batch_prediction_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_batch_prediction_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/batchPredictionJobs/{batch_prediction_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -8857,10 +8891,10 @@ impl JobService {
     /// # use google_cloud_aiplatform_v1::client::JobService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, model_deployment_monitoring_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model_deployment_monitoring_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/modelDeploymentMonitoringJobs/{model_deployment_monitoring_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8918,11 +8952,11 @@ impl JobService {
     /// use google_cloud_aiplatform_v1::model::ModelDeploymentMonitoringJob;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, model_deployment_monitoring_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_model_deployment_monitoring_job()
     ///         .set_model_deployment_monitoring_job(
-    ///             ModelDeploymentMonitoringJob::new().set_name(name)/* set fields */
+    ///             ModelDeploymentMonitoringJob::new().set_name(format!("projects/{project_id}/locations/{location_id}/modelDeploymentMonitoringJobs/{model_deployment_monitoring_job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -8954,10 +8988,10 @@ impl JobService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, location_id: &str, model_deployment_monitoring_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model_deployment_monitoring_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/modelDeploymentMonitoringJobs/{model_deployment_monitoring_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -9248,13 +9282,15 @@ impl JobService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = LlmUtilityService::builder().build().await?;
 ///     let response = client.count_tokens()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9621,13 +9657,15 @@ impl LlmUtilityService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::MatchService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MatchService::builder().build().await?;
 ///     let response = client.find_neighbors()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -9996,16 +10034,18 @@ impl MatchService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::MetadataService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = MetadataService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_metadata_stores()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -10142,10 +10182,10 @@ impl MetadataService {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -10197,10 +10237,10 @@ impl MetadataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     client.delete_metadata_store()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -10217,10 +10257,10 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Artifact;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_artifact()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .set_artifact_id("artifact_id_value")
     ///         .set_artifact(
     ///             Artifact::new()/* set fields */
@@ -10241,10 +10281,10 @@ impl MetadataService {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, artifact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_artifact()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/artifacts/{artifact_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -10262,10 +10302,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_artifacts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -10287,11 +10327,11 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Artifact;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, artifact_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_artifact()
     ///         .set_artifact(
-    ///             Artifact::new().set_name(name)/* set fields */
+    ///             Artifact::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/artifacts/{artifact_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -10321,10 +10361,10 @@ impl MetadataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, artifact_id: &str
     /// ) -> Result<()> {
     ///     client.delete_artifact()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/artifacts/{artifact_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -10372,10 +10412,10 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Context;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_context()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .set_context_id("context_id_value")
     ///         .set_context(
     ///             Context::new()/* set fields */
@@ -10396,10 +10436,10 @@ impl MetadataService {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_context()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/contexts/{context_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -10417,10 +10457,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_contexts()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -10442,11 +10482,11 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Context;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_context()
     ///         .set_context(
-    ///             Context::new().set_name(name)/* set fields */
+    ///             Context::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/contexts/{context_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -10476,10 +10516,10 @@ impl MetadataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, context_id: &str
     /// ) -> Result<()> {
     ///     client.delete_context()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/contexts/{context_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -10622,10 +10662,10 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Execution;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_execution()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .set_execution_id("execution_id_value")
     ///         .set_execution(
     ///             Execution::new()/* set fields */
@@ -10646,10 +10686,10 @@ impl MetadataService {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_execution()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/executions/{execution_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -10667,10 +10707,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_executions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -10692,11 +10732,11 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::Execution;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_execution()
     ///         .set_execution(
-    ///             Execution::new().set_name(name)/* set fields */
+    ///             Execution::new().set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/executions/{execution_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -10726,10 +10766,10 @@ impl MetadataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     client.delete_execution()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/executions/{execution_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -10824,10 +10864,10 @@ impl MetadataService {
     /// use google_cloud_aiplatform_v1::model::MetadataSchema;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_metadata_schema()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .set_metadata_schema(
     ///             MetadataSchema::new()/* set fields */
     ///         )
@@ -10847,10 +10887,10 @@ impl MetadataService {
     /// # use google_cloud_aiplatform_v1::client::MetadataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, name: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str, metadata_schema_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_schema()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}/metadataSchemas/{metadata_schema_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -10868,10 +10908,10 @@ impl MetadataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, parent: &str
+    ///    client: &MetadataService, project_id: &str, location_id: &str, metadata_store_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_metadata_schemas()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/metadataStores/{metadata_store_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -11138,7 +11178,8 @@ impl MetadataService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::MigrationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = MigrationService::builder().build().await?;
 ///     let mut list = client.search_migratable_resources()
 ///         /* set fields */
@@ -11146,7 +11187,8 @@ impl MetadataService {
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11535,14 +11577,17 @@ impl MigrationService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    publisher_id: &str,
+///    model_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelGardenService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.get_publisher_model()
-///         .set_name(name)
+///         .set_name(format!("publishers/{publisher_id}/models/{model_id}"))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -11645,10 +11690,10 @@ impl ModelGardenService {
     /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelGardenService, name: &str
+    ///    client: &ModelGardenService, publisher_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_publisher_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("publishers/{publisher_id}/models/{model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -11921,16 +11966,18 @@ impl ModelGardenService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::ModelService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ModelService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_models()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12063,10 +12110,10 @@ impl ModelService {
     /// # use google_cloud_aiplatform_v1::client::ModelService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -12157,11 +12204,11 @@ impl ModelService {
     /// use google_cloud_aiplatform_v1::model::Model;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_model()
     ///         .set_model(
-    ///             Model::new().set_name(name)/* set fields */
+    ///             Model::new().set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -12235,10 +12282,10 @@ impl ModelService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -12274,10 +12321,10 @@ impl ModelService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model_version()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -12451,10 +12498,10 @@ impl ModelService {
     /// # use google_cloud_aiplatform_v1::client::ModelService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str, evaluation_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model_evaluation()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}/evaluations/{evaluation_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -12472,10 +12519,10 @@ impl ModelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, parent: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_model_evaluations()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -12494,10 +12541,10 @@ impl ModelService {
     /// # use google_cloud_aiplatform_v1::client::ModelService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, name: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str, evaluation_id: &str, slice_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model_evaluation_slice()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}/evaluations/{evaluation_id}/slices/{slice_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -12517,10 +12564,10 @@ impl ModelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ModelService, parent: &str
+    ///    client: &ModelService, project_id: &str, location_id: &str, model_id: &str, evaluation_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_model_evaluation_slices()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/models/{model_id}/evaluations/{evaluation_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -12766,16 +12813,18 @@ impl ModelService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::NotebookService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NotebookService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_notebook_runtime_templates()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -12914,10 +12963,10 @@ impl NotebookService {
     /// # use google_cloud_aiplatform_v1::client::NotebookService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_runtime_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notebook_runtime_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookRuntimeTemplates/{notebook_runtime_template_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -12972,10 +13021,10 @@ impl NotebookService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_runtime_template_id: &str
     /// ) -> Result<()> {
     ///     client.delete_notebook_runtime_template()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookRuntimeTemplates/{notebook_runtime_template_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -12996,11 +13045,11 @@ impl NotebookService {
     /// use google_cloud_aiplatform_v1::model::NotebookRuntimeTemplate;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_runtime_template_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_notebook_runtime_template()
     ///         .set_notebook_runtime_template(
-    ///             NotebookRuntimeTemplate::new().set_name(name)/* set fields */
+    ///             NotebookRuntimeTemplate::new().set_name(format!("projects/{project_id}/locations/{location_id}/notebookRuntimeTemplates/{notebook_runtime_template_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -13055,10 +13104,10 @@ impl NotebookService {
     /// # use google_cloud_aiplatform_v1::client::NotebookService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_runtime_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notebook_runtime()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookRuntimes/{notebook_runtime_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -13109,10 +13158,10 @@ impl NotebookService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_runtime_id: &str
     /// ) -> Result<()> {
     ///     client.delete_notebook_runtime()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookRuntimes/{notebook_runtime_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -13262,10 +13311,10 @@ impl NotebookService {
     /// # use google_cloud_aiplatform_v1::client::NotebookService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_execution_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notebook_execution_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookExecutionJobs/{notebook_execution_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -13320,10 +13369,10 @@ impl NotebookService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &NotebookService, name: &str
+    ///    client: &NotebookService, project_id: &str, location_id: &str, notebook_execution_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_notebook_execution_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/notebookExecutionJobs/{notebook_execution_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -13566,16 +13615,18 @@ impl NotebookService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PersistentResourceService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_persistent_resources()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -13718,10 +13769,10 @@ impl PersistentResourceService {
     /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PersistentResourceService, name: &str
+    ///    client: &PersistentResourceService, project_id: &str, location_id: &str, persistent_resource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_persistent_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/persistentResources/{persistent_resource_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -13778,10 +13829,10 @@ impl PersistentResourceService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PersistentResourceService, name: &str
+    ///    client: &PersistentResourceService, project_id: &str, location_id: &str, persistent_resource_id: &str
     /// ) -> Result<()> {
     ///     client.delete_persistent_resource()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/persistentResources/{persistent_resource_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -13815,11 +13866,11 @@ impl PersistentResourceService {
     /// use google_cloud_aiplatform_v1::model::PersistentResource;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PersistentResourceService, name: &str
+    ///    client: &PersistentResourceService, project_id: &str, location_id: &str, persistent_resource_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_persistent_resource()
     ///         .set_persistent_resource(
-    ///             PersistentResource::new().set_name(name)/* set fields */
+    ///             PersistentResource::new().set_name(format!("projects/{project_id}/locations/{location_id}/persistentResources/{persistent_resource_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -14104,16 +14155,18 @@ impl PersistentResourceService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::PipelineService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = PipelineService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_training_pipelines()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -14244,10 +14297,10 @@ impl PipelineService {
     /// # use google_cloud_aiplatform_v1::client::PipelineService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PipelineService, name: &str
+    ///    client: &PipelineService, project_id: &str, location_id: &str, training_pipeline_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_training_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/trainingPipelines/{training_pipeline_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -14300,10 +14353,10 @@ impl PipelineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PipelineService, name: &str
+    ///    client: &PipelineService, project_id: &str, location_id: &str, training_pipeline_id: &str
     /// ) -> Result<()> {
     ///     client.delete_training_pipeline()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/trainingPipelines/{training_pipeline_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -14384,10 +14437,10 @@ impl PipelineService {
     /// # use google_cloud_aiplatform_v1::client::PipelineService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PipelineService, name: &str
+    ///    client: &PipelineService, project_id: &str, location_id: &str, pipeline_job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pipeline_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pipelineJobs/{pipeline_job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -14438,10 +14491,10 @@ impl PipelineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &PipelineService, name: &str
+    ///    client: &PipelineService, project_id: &str, location_id: &str, pipeline_job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_pipeline_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/pipelineJobs/{pipeline_job_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -14791,13 +14844,15 @@ impl PipelineService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::PredictionService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = PredictionService::builder().build().await?;
 ///     let response = client.predict()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15293,13 +15348,15 @@ impl PredictionService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = ReasoningEngineExecutionService::builder().build().await?;
 ///     let response = client.query_reasoning_engine()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15709,16 +15766,18 @@ impl ReasoningEngineExecutionService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ReasoningEngineService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_reasoning_engines()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -15858,10 +15917,10 @@ impl ReasoningEngineService {
     /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ReasoningEngineService, name: &str
+    ///    client: &ReasoningEngineService, project_id: &str, location_id: &str, reasoning_engine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reasoning_engine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -15919,11 +15978,11 @@ impl ReasoningEngineService {
     /// use google_cloud_aiplatform_v1::model::ReasoningEngine;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ReasoningEngineService, name: &str
+    ///    client: &ReasoningEngineService, project_id: &str, location_id: &str, reasoning_engine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_reasoning_engine()
     ///         .set_reasoning_engine(
-    ///             ReasoningEngine::new().set_name(name)/* set fields */
+    ///             ReasoningEngine::new().set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -15955,10 +16014,10 @@ impl ReasoningEngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ReasoningEngineService, name: &str
+    ///    client: &ReasoningEngineService, project_id: &str, location_id: &str, reasoning_engine_id: &str
     /// ) -> Result<()> {
     ///     client.delete_reasoning_engine()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -16203,16 +16262,18 @@ impl ReasoningEngineService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::ScheduleService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ScheduleService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_schedules()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16350,10 +16411,10 @@ impl ScheduleService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ScheduleService, name: &str
+    ///    client: &ScheduleService, project_id: &str, location_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schedules/{schedule_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -16369,10 +16430,10 @@ impl ScheduleService {
     /// # use google_cloud_aiplatform_v1::client::ScheduleService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ScheduleService, name: &str
+    ///    client: &ScheduleService, project_id: &str, location_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schedule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/schedules/{schedule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -16475,11 +16536,11 @@ impl ScheduleService {
     /// use google_cloud_aiplatform_v1::model::Schedule;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &ScheduleService, name: &str
+    ///    client: &ScheduleService, project_id: &str, location_id: &str, schedule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_schedule()
     ///         .set_schedule(
-    ///             Schedule::new().set_name(name)/* set fields */
+    ///             Schedule::new().set_name(format!("projects/{project_id}/locations/{location_id}/schedules/{schedule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -16723,16 +16784,20 @@ impl ScheduleService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::SessionService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    reasoning_engine_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SessionService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_sessions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -16848,10 +16913,10 @@ impl SessionService {
     /// use google_cloud_aiplatform_v1::model::Session;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, parent: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))
     ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
@@ -16874,10 +16939,10 @@ impl SessionService {
     /// # use google_cloud_aiplatform_v1::client::SessionService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}/sessions/{session_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -16898,10 +16963,10 @@ impl SessionService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, parent: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_sessions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -16925,11 +16990,11 @@ impl SessionService {
     /// use google_cloud_aiplatform_v1::model::Session;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_session()
     ///         .set_session(
-    ///             Session::new().set_name(name)/* set fields */
+    ///             Session::new().set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}/sessions/{session_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -16962,10 +17027,10 @@ impl SessionService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, name: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}/sessions/{session_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -16984,10 +17049,10 @@ impl SessionService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, parent: &str
+    ///    client: &SessionService, project_id: &str, location_id: &str, reasoning_engine_id: &str, session_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/reasoningEngines/{reasoning_engine_id}/sessions/{session_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -17251,16 +17316,18 @@ impl SessionService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SpecialistPoolService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_specialist_pools()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17405,10 +17472,10 @@ impl SpecialistPoolService {
     /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SpecialistPoolService, name: &str
+    ///    client: &SpecialistPoolService, project_id: &str, location_id: &str, specialist_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_specialist_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/specialistPools/{specialist_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -17463,10 +17530,10 @@ impl SpecialistPoolService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SpecialistPoolService, name: &str
+    ///    client: &SpecialistPoolService, project_id: &str, location_id: &str, specialist_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_specialist_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/specialistPools/{specialist_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -17498,11 +17565,11 @@ impl SpecialistPoolService {
     /// use google_cloud_aiplatform_v1::model::SpecialistPool;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &SpecialistPoolService, name: &str
+    ///    client: &SpecialistPoolService, project_id: &str, location_id: &str, specialist_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_specialist_pool()
     ///         .set_specialist_pool(
-    ///             SpecialistPool::new().set_name(name)/* set fields */
+    ///             SpecialistPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/specialistPools/{specialist_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -17750,16 +17817,19 @@ impl SpecialistPoolService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::TensorboardService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TensorboardService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tensorboards()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -17874,10 +17944,10 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::Tensorboard;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tensorboard()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}"))
     ///         .set_tensorboard(
     ///             Tensorboard::new()/* set fields */
     ///         )
@@ -17897,10 +17967,10 @@ impl TensorboardService {
     /// # use google_cloud_aiplatform_v1::client::TensorboardService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tensorboard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -17931,11 +18001,11 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::Tensorboard;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tensorboard()
     ///         .set_tensorboard(
-    ///             Tensorboard::new().set_name(name)/* set fields */
+    ///             Tensorboard::new().set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -17955,10 +18025,10 @@ impl TensorboardService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tensorboards()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -17988,10 +18058,10 @@ impl TensorboardService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tensorboard()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -18052,10 +18122,10 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardExperiment;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tensorboard_experiment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}"))
     ///         .set_tensorboard_experiment(
     ///             TensorboardExperiment::new()/* set fields */
     ///         )
@@ -18077,10 +18147,10 @@ impl TensorboardService {
     /// # use google_cloud_aiplatform_v1::client::TensorboardService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tensorboard_experiment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -18102,11 +18172,11 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardExperiment;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tensorboard_experiment()
     ///         .set_tensorboard_experiment(
-    ///             TensorboardExperiment::new().set_name(name)/* set fields */
+    ///             TensorboardExperiment::new().set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -18128,10 +18198,10 @@ impl TensorboardService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tensorboard_experiments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -18163,10 +18233,10 @@ impl TensorboardService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tensorboard_experiment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -18185,10 +18255,10 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardRun;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tensorboard_run()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}"))
     ///         .set_tensorboard_run(
     ///             TensorboardRun::new()/* set fields */
     ///         )
@@ -18232,10 +18302,10 @@ impl TensorboardService {
     /// # use google_cloud_aiplatform_v1::client::TensorboardService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tensorboard_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -18255,11 +18325,11 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardRun;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tensorboard_run()
     ///         .set_tensorboard_run(
-    ///             TensorboardRun::new().set_name(name)/* set fields */
+    ///             TensorboardRun::new().set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -18281,10 +18351,10 @@ impl TensorboardService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tensorboard_runs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -18316,10 +18386,10 @@ impl TensorboardService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tensorboard_run()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -18362,10 +18432,10 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardTimeSeries;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str, time_series_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tensorboard_time_series()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}/timeSeries/{time_series_id}"))
     ///         .set_tensorboard_time_series(
     ///             TensorboardTimeSeries::new()/* set fields */
     ///         )
@@ -18387,10 +18457,10 @@ impl TensorboardService {
     /// # use google_cloud_aiplatform_v1::client::TensorboardService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str, time_series_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tensorboard_time_series()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}/timeSeries/{time_series_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -18412,11 +18482,11 @@ impl TensorboardService {
     /// use google_cloud_aiplatform_v1::model::TensorboardTimeSeries;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str, time_series_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tensorboard_time_series()
     ///         .set_tensorboard_time_series(
-    ///             TensorboardTimeSeries::new().set_name(name)/* set fields */
+    ///             TensorboardTimeSeries::new().set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}/timeSeries/{time_series_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -18438,10 +18508,10 @@ impl TensorboardService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, parent: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tensorboard_time_series()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -18473,10 +18543,10 @@ impl TensorboardService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &TensorboardService, name: &str
+    ///    client: &TensorboardService, project_id: &str, location_id: &str, tensorboard_id: &str, experiment_id: &str, run_id: &str, time_series_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tensorboard_time_series()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/tensorboards/{tensorboard_id}/experiments/{experiment_id}/runs/{run_id}/timeSeries/{time_series_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -18847,16 +18917,18 @@ impl TensorboardService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VertexRagDataService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_rag_corpora()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19006,11 +19078,11 @@ impl VertexRagDataService {
     /// use google_cloud_aiplatform_v1::model::RagCorpus;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_rag_corpus()
     ///         .set_rag_corpus(
-    ///             RagCorpus::new().set_name(name)/* set fields */
+    ///             RagCorpus::new().set_name(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -19028,10 +19100,10 @@ impl VertexRagDataService {
     /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rag_corpus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -19082,10 +19154,10 @@ impl VertexRagDataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str
     /// ) -> Result<()> {
     ///     client.delete_rag_corpus()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -19152,10 +19224,10 @@ impl VertexRagDataService {
     /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str, rag_file_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rag_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}/ragFiles/{rag_file_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -19173,10 +19245,10 @@ impl VertexRagDataService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, parent: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_rag_files()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -19206,10 +19278,10 @@ impl VertexRagDataService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str, rag_corpus_id: &str, rag_file_id: &str
     /// ) -> Result<()> {
     ///     client.delete_rag_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/ragCorpora/{rag_corpus_id}/ragFiles/{rag_file_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -19237,11 +19309,11 @@ impl VertexRagDataService {
     /// use google_cloud_aiplatform_v1::model::RagEngineConfig;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_rag_engine_config()
     ///         .set_rag_engine_config(
-    ///             RagEngineConfig::new().set_name(name)/* set fields */
+    ///             RagEngineConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/ragEngineConfig"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -19261,10 +19333,10 @@ impl VertexRagDataService {
     /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VertexRagDataService, name: &str
+    ///    client: &VertexRagDataService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rag_engine_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/ragEngineConfig"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -19509,13 +19581,15 @@ impl VertexRagDataService {
 /// # Example
 /// ```
 /// # use google_cloud_aiplatform_v1::client::VertexRagService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = VertexRagService::builder().build().await?;
 ///     let response = client.retrieve_contexts()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -19959,16 +20033,18 @@ impl VertexRagService {
 /// ```
 /// # use google_cloud_aiplatform_v1::client::VizierService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = VizierService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_studies()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -20099,10 +20175,10 @@ impl VizierService {
     /// # use google_cloud_aiplatform_v1::client::VizierService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, name: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_study()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -20142,10 +20218,10 @@ impl VizierService {
     /// # use google_cloud_aiplatform_v1::client::VizierService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, name: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str
     /// ) -> Result<()> {
     ///     client.delete_study()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -20221,10 +20297,10 @@ impl VizierService {
     /// use google_cloud_aiplatform_v1::model::Trial;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, parent: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_trial()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}"))
     ///         .set_trial(
     ///             Trial::new()/* set fields */
     ///         )
@@ -20244,10 +20320,10 @@ impl VizierService {
     /// # use google_cloud_aiplatform_v1::client::VizierService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, name: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str, trial_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_trial()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}/trials/{trial_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -20265,10 +20341,10 @@ impl VizierService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, parent: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_trials()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -20328,10 +20404,10 @@ impl VizierService {
     /// # use google_cloud_aiplatform_v1::client::VizierService;
     /// use google_cloud_aiplatform_v1::Result;
     /// async fn sample(
-    ///    client: &VizierService, name: &str
+    ///    client: &VizierService, project_id: &str, location_id: &str, study_id: &str, trial_id: &str
     /// ) -> Result<()> {
     ///     client.delete_trial()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/studies/{study_id}/trials/{trial_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ClientGatewaysService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_client_gateways()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -142,10 +145,10 @@ impl ClientGatewaysService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_beyondcorp_clientgateways_v1::Result;
     /// async fn sample(
-    ///    client: &ClientGatewaysService, parent: &str
+    ///    client: &ClientGatewaysService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_client_gateways()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -166,10 +169,10 @@ impl ClientGatewaysService {
     /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
     /// use google_cloud_beyondcorp_clientgateways_v1::Result;
     /// async fn sample(
-    ///    client: &ClientGatewaysService, name: &str
+    ///    client: &ClientGatewaysService, project_id: &str, location_id: &str, client_gateway_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_client_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clientGateways/{client_gateway_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -198,10 +201,10 @@ impl ClientGatewaysService {
     /// use google_cloud_beyondcorp_clientgateways_v1::model::ClientGateway;
     /// use google_cloud_beyondcorp_clientgateways_v1::Result;
     /// async fn sample(
-    ///    client: &ClientGatewaysService, parent: &str
+    ///    client: &ClientGatewaysService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_client_gateway()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_client_gateway(
     ///             ClientGateway::new()/* set fields */
     ///         )
@@ -234,10 +237,10 @@ impl ClientGatewaysService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_clientgateways_v1::Result;
     /// async fn sample(
-    ///    client: &ClientGatewaysService, name: &str
+    ///    client: &ClientGatewaysService, project_id: &str, location_id: &str, client_gateway_id: &str
     /// ) -> Result<()> {
     ///     client.delete_client_gateway()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/clientGateways/{client_gateway_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -21,13 +21,15 @@
 /// # Example
 /// ```
 /// # use google_cloud_run_v2::client::Builds;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Builds::builder().build().await?;
 ///     let response = client.submit_build()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -236,16 +238,20 @@ impl Builds {
 /// ```
 /// # use google_cloud_run_v2::client::Executions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    job_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Executions::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_executions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -344,10 +350,10 @@ impl Executions {
     /// # use google_cloud_run_v2::client::Executions;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Executions, name: &str
+    ///    client: &Executions, project_id: &str, location_id: &str, job_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_execution()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -366,10 +372,10 @@ impl Executions {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Executions, parent: &str
+    ///    client: &Executions, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_executions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -399,10 +405,10 @@ impl Executions {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Executions, name: &str
+    ///    client: &Executions, project_id: &str, location_id: &str, job_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_execution()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -540,16 +546,19 @@ impl Executions {
 /// ```
 /// # use google_cloud_run_v2::client::Instances;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Instances::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -660,10 +669,10 @@ impl Instances {
     /// use google_cloud_run_v2::model::Instance;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, parent: &str
+    ///    client: &Instances, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
@@ -695,10 +704,10 @@ impl Instances {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, name: &str
+    ///    client: &Instances, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -715,10 +724,10 @@ impl Instances {
     /// # use google_cloud_run_v2::client::Instances;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, name: &str
+    ///    client: &Instances, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -736,10 +745,10 @@ impl Instances {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, parent: &str
+    ///    client: &Instances, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -910,16 +919,19 @@ impl Instances {
 /// ```
 /// # use google_cloud_run_v2::client::Jobs;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Jobs::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1030,10 +1042,10 @@ impl Jobs {
     /// use google_cloud_run_v2::model::Job;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, parent: &str
+    ///    client: &Jobs, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
@@ -1054,10 +1066,10 @@ impl Jobs {
     /// # use google_cloud_run_v2::client::Jobs;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, name: &str
+    ///    client: &Jobs, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1075,10 +1087,10 @@ impl Jobs {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, parent: &str
+    ///    client: &Jobs, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1109,11 +1121,11 @@ impl Jobs {
     /// use google_cloud_run_v2::model::Job;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, name: &str
+    ///    client: &Jobs, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_job()
     ///         .set_job(
-    ///             Job::new().set_name(name)/* set fields */
+    ///             Job::new().set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -1142,10 +1154,10 @@ impl Jobs {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, name: &str
+    ///    client: &Jobs, project_id: &str, location_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1347,16 +1359,20 @@ impl Jobs {
 /// ```
 /// # use google_cloud_run_v2::client::Revisions;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    service_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Revisions::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_revisions()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1455,10 +1471,10 @@ impl Revisions {
     /// # use google_cloud_run_v2::client::Revisions;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Revisions, name: &str
+    ///    client: &Revisions, project_id: &str, location_id: &str, service_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1477,10 +1493,10 @@ impl Revisions {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Revisions, parent: &str
+    ///    client: &Revisions, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_revisions()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1510,10 +1526,10 @@ impl Revisions {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Revisions, name: &str
+    ///    client: &Revisions, project_id: &str, location_id: &str, service_id: &str, revision_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_revision()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}/revisions/{revision_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1620,16 +1636,19 @@ impl Revisions {
 /// ```
 /// # use google_cloud_run_v2::client::Services;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Services::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_services()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1740,10 +1759,10 @@ impl Services {
     /// use google_cloud_run_v2::model::Service;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, parent: &str
+    ///    client: &Services, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
@@ -1764,10 +1783,10 @@ impl Services {
     /// # use google_cloud_run_v2::client::Services;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, name: &str
+    ///    client: &Services, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1785,10 +1804,10 @@ impl Services {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, parent: &str
+    ///    client: &Services, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_services()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1821,11 +1840,11 @@ impl Services {
     /// use google_cloud_run_v2::model::Service;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, name: &str
+    ///    client: &Services, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_service()
     ///         .set_service(
-    ///             Service::new().set_name(name)/* set fields */
+    ///             Service::new().set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1857,10 +1876,10 @@ impl Services {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, name: &str
+    ///    client: &Services, project_id: &str, location_id: &str, service_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_service()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/services/{service_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2031,16 +2050,21 @@ impl Services {
 /// ```
 /// # use google_cloud_run_v2::client::Tasks;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+///    job_id: &str,
+///    execution_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Tasks::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tasks()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2139,10 +2163,10 @@ impl Tasks {
     /// # use google_cloud_run_v2::client::Tasks;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Tasks, name: &str
+    ///    client: &Tasks, project_id: &str, location_id: &str, job_id: &str, execution_id: &str, task_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_task()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}/tasks/{task_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2160,10 +2184,10 @@ impl Tasks {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Tasks, parent: &str
+    ///    client: &Tasks, project_id: &str, location_id: &str, job_id: &str, execution_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_tasks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/jobs/{job_id}/executions/{execution_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2272,16 +2296,19 @@ impl Tasks {
 /// ```
 /// # use google_cloud_run_v2::client::WorkerPools;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = WorkerPools::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_worker_pools()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -2392,10 +2419,10 @@ impl WorkerPools {
     /// use google_cloud_run_v2::model::WorkerPool;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, parent: &str
+    ///    client: &WorkerPools, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_worker_pool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_worker_pool(
     ///             WorkerPool::new()/* set fields */
     ///         )
@@ -2415,10 +2442,10 @@ impl WorkerPools {
     /// # use google_cloud_run_v2::client::WorkerPools;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, name: &str
+    ///    client: &WorkerPools, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_worker_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2436,10 +2463,10 @@ impl WorkerPools {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, parent: &str
+    ///    client: &WorkerPools, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_worker_pools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -2472,11 +2499,11 @@ impl WorkerPools {
     /// use google_cloud_run_v2::model::WorkerPool;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, name: &str
+    ///    client: &WorkerPools, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_worker_pool()
     ///         .set_worker_pool(
-    ///             WorkerPool::new().set_name(name)/* set fields */
+    ///             WorkerPool::new().set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2506,10 +2533,10 @@ impl WorkerPools {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, name: &str
+    ///    client: &WorkerPools, project_id: &str, location_id: &str, worker_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_worker_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/workerPools/{worker_pool_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

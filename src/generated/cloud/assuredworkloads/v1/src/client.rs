@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    organization_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = AssuredWorkloadsService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_workloads()
-///         .set_parent(parent)
+///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -143,10 +146,10 @@ impl AssuredWorkloadsService {
     /// use google_cloud_assuredworkloads_v1::model::Workload;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, parent: &str
+    ///    client: &AssuredWorkloadsService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workload()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .set_workload(
     ///             Workload::new()/* set fields */
     ///         )
@@ -172,11 +175,11 @@ impl AssuredWorkloadsService {
     /// use google_cloud_assuredworkloads_v1::model::Workload;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, name: &str
+    ///    client: &AssuredWorkloadsService, organization_id: &str, location_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_workload()
     ///         .set_workload(
-    ///             Workload::new().set_name(name)/* set fields */
+    ///             Workload::new().set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -224,10 +227,10 @@ impl AssuredWorkloadsService {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, name: &str
+    ///    client: &AssuredWorkloadsService, organization_id: &str, location_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     client.delete_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -243,10 +246,10 @@ impl AssuredWorkloadsService {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, name: &str
+    ///    client: &AssuredWorkloadsService, organization_id: &str, location_id: &str, workload_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(name)
+    ///         .set_name(format!("organizations/{organization_id}/locations/{location_id}/workloads/{workload_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -264,10 +267,10 @@ impl AssuredWorkloadsService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, parent: &str
+    ///    client: &AssuredWorkloadsService, organization_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_workloads()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("organizations/{organization_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

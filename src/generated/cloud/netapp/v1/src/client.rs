@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_netapp_v1::client::NetApp;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = NetApp::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_storage_pools()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_storage_pools()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -165,10 +168,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::StoragePool;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_storage_pool()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_storage_pool(
     ///             StoragePool::new()/* set fields */
     ///         )
@@ -188,10 +191,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, storage_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_storage_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -222,11 +225,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::StoragePool;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, storage_pool_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_storage_pool()
     ///         .set_storage_pool(
-    ///             StoragePool::new().set_name(name)/* set fields */
+    ///             StoragePool::new().set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -256,10 +259,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, storage_pool_id: &str
     /// ) -> Result<()> {
     ///     client.delete_storage_pool()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/storagePools/{storage_pool_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -339,10 +342,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_volumes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -361,10 +364,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -393,10 +396,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Volume;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_volume()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_volume_id("volume_id_value")
     ///         .set_volume(
     ///             Volume::new()/* set fields */
@@ -431,11 +434,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Volume;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_volume()
     ///         .set_volume(
-    ///             Volume::new().set_name(name)/* set fields */
+    ///             Volume::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -465,10 +468,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     client.delete_volume()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -550,10 +553,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_snapshots()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -572,10 +575,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -604,10 +607,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Snapshot;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snapshot()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .set_snapshot_id("snapshot_id_value")
     ///         .set_snapshot(
     ///             Snapshot::new()/* set fields */
@@ -639,10 +642,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -672,11 +675,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Snapshot;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, snapshot_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_snapshot()
     ///         .set_snapshot(
-    ///             Snapshot::new().set_name(name)/* set fields */
+    ///             Snapshot::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -696,10 +699,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_active_directories()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -718,10 +721,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, active_directory_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_active_directory()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -751,10 +754,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::ActiveDirectory;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_active_directory()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_active_directory(
     ///             ActiveDirectory::new()/* set fields */
     ///         )
@@ -788,11 +791,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::ActiveDirectory;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, active_directory_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_active_directory()
     ///         .set_active_directory(
-    ///             ActiveDirectory::new().set_name(name)/* set fields */
+    ///             ActiveDirectory::new().set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -822,10 +825,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, active_directory_id: &str
     /// ) -> Result<()> {
     ///     client.delete_active_directory()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/activeDirectories/{active_directory_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -842,10 +845,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_kms_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -876,10 +879,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::KmsConfig;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_kms_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_kms_config(
     ///             KmsConfig::new()/* set fields */
     ///         )
@@ -899,10 +902,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, kms_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_kms_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -933,11 +936,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::KmsConfig;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, kms_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_kms_config()
     ///         .set_kms_config(
-    ///             KmsConfig::new().set_name(name)/* set fields */
+    ///             KmsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1019,10 +1022,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, kms_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_kms_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/kmsConfigs/{kms_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1039,10 +1042,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_replications()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1061,10 +1064,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, replication_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replication()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1093,10 +1096,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Replication;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_replication()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .set_replication_id("replication_id_value")
     ///         .set_replication(
     ///             Replication::new()/* set fields */
@@ -1128,10 +1131,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, replication_id: &str
     /// ) -> Result<()> {
     ///     client.delete_replication()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1161,11 +1164,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Replication;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, replication_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_replication()
     ///         .set_replication(
-    ///             Replication::new().set_name(name)/* set fields */
+    ///             Replication::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/replications/{replication_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1355,10 +1358,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::BackupVault;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_vault()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_vault(
     ///             BackupVault::new()/* set fields */
     ///         )
@@ -1378,10 +1381,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1399,10 +1402,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_vaults()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1435,11 +1438,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::BackupVault;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_vault()
     ///         .set_backup_vault(
-    ///             BackupVault::new().set_name(name)/* set fields */
+    ///             BackupVault::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1469,10 +1472,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_vault()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1503,10 +1506,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Backup;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"))
     ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
@@ -1527,10 +1530,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1548,10 +1551,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1581,10 +1584,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1614,11 +1617,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::Backup;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_vault_id: &str, backup_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup()
     ///         .set_backup(
-    ///             Backup::new().set_name(name)/* set fields */
+    ///             Backup::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupVaults/{backup_vault_id}/backups/{backup_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1649,10 +1652,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::BackupPolicy;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup_policy()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_backup_policy(
     ///             BackupPolicy::new()/* set fields */
     ///         )
@@ -1672,10 +1675,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1693,10 +1696,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_backup_policies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1729,11 +1732,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::BackupPolicy;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_policy_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_backup_policy()
     ///         .set_backup_policy(
-    ///             BackupPolicy::new().set_name(name)/* set fields */
+    ///             BackupPolicy::new().set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1763,10 +1766,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, backup_policy_id: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_policy()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/backupPolicies/{backup_policy_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1783,10 +1786,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_quota_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1805,10 +1808,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, quota_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1837,10 +1840,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::QuotaRule;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_quota_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}"))
     ///         .set_quota_rule(
     ///             QuotaRule::new()/* set fields */
     ///         )
@@ -1874,11 +1877,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::QuotaRule;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, quota_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_quota_rule()
     ///         .set_quota_rule(
-    ///             QuotaRule::new().set_name(name)/* set fields */
+    ///             QuotaRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1908,10 +1911,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, volume_id: &str, quota_rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_quota_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/volumes/{volume_id}/quotaRules/{quota_rule_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1960,10 +1963,10 @@ impl NetApp {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_host_groups()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1982,10 +1985,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, host_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_host_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2014,10 +2017,10 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::HostGroup;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, parent: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_host_group()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_host_group(
     ///             HostGroup::new()/* set fields */
     ///         )
@@ -2051,11 +2054,11 @@ impl NetApp {
     /// use google_cloud_netapp_v1::model::HostGroup;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, host_group_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_host_group()
     ///         .set_host_group(
-    ///             HostGroup::new().set_name(name)/* set fields */
+    ///             HostGroup::new().set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -2085,10 +2088,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, name: &str
+    ///    client: &NetApp, project_id: &str, location_id: &str, host_group_id: &str
     /// ) -> Result<()> {
     ///     client.delete_host_group()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/hostGroups/{host_group_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

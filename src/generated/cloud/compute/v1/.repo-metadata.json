@@ -1,4 +1,5 @@
 {
+    "api_description": "Compute Engine is an infrastructure as a service (IaaS) product that offers self-managed virtual machine (VM) instances and bare metal instances.",
     "api_id": "compute.googleapis.com",
     "api_shortname": "compute",
     "client_documentation": "https://docs.rs/google-cloud-compute-v1/latest",

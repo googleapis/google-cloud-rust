@@ -22,16 +22,18 @@
 /// ```
 /// # use google_cloud_translation_v3::client::TranslationService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TranslationService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_glossaries()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -360,11 +362,11 @@ impl TranslationService {
     /// use google_cloud_translation_v3::model::Glossary;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_glossary()
     ///         .set_glossary(
-    ///             Glossary::new().set_name(name)/* set fields */
+    ///             Glossary::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -408,10 +410,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -441,10 +443,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_glossary()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -461,10 +463,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str, glossary_entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -482,10 +484,10 @@ impl TranslationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, parent: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_glossary_entries()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -507,10 +509,10 @@ impl TranslationService {
     /// use google_cloud_translation_v3::model::GlossaryEntry;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, parent: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_glossary_entry()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}"))
     ///         .set_glossary_entry(
     ///             GlossaryEntry::new()/* set fields */
     ///         )
@@ -533,11 +535,11 @@ impl TranslationService {
     /// use google_cloud_translation_v3::model::GlossaryEntry;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str, glossary_entry_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_glossary_entry()
     ///         .set_glossary_entry(
-    ///             GlossaryEntry::new().set_name(name)/* set fields */
+    ///             GlossaryEntry::new().set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"))/* set fields */
     ///         )
     ///         .send().await?;
     ///     println!("response {:?}", response);
@@ -557,10 +559,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, glossary_id: &str, glossary_entry_id: &str
     /// ) -> Result<()> {
     ///     client.delete_glossary_entry()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/glossaries/{glossary_id}/glossaryEntries/{glossary_entry_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -613,10 +615,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -667,10 +669,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -713,10 +715,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     client.delete_adaptive_mt_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -734,10 +736,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_adaptive_mt_dataset()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -803,10 +805,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_adaptive_mt_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -823,10 +825,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     client.delete_adaptive_mt_file()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -868,10 +870,10 @@ impl TranslationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, parent: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_adaptive_mt_files()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -893,10 +895,10 @@ impl TranslationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, parent: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str, file_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_adaptive_mt_sentences()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}/adaptiveMtFiles/{file_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -978,10 +980,10 @@ impl TranslationService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, parent: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, dataset_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_examples()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/datasets/{dataset_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1058,10 +1060,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1089,10 +1091,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, name: &str
+    ///    client: &TranslationService, project_id: &str, location_id: &str, model_id: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/models/{model_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

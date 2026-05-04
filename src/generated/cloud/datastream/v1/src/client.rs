@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_datastream_v1::client::Datastream;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = Datastream::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connection_profiles()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl Datastream {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connection_profiles()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::ConnectionProfile;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection_profile()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connection_profile(
     ///             ConnectionProfile::new()/* set fields */
     ///         )
@@ -223,11 +226,11 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::ConnectionProfile;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connection_profile()
     ///         .set_connection_profile(
-    ///             ConnectionProfile::new().set_name(name)/* set fields */
+    ///             ConnectionProfile::new().set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -257,10 +260,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, connection_profile_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connection_profile()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connectionProfiles/{connection_profile_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -302,10 +305,10 @@ impl Datastream {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_streams()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -324,10 +327,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stream()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -356,10 +359,10 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::Stream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_stream()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_stream_id("stream_id_value")
     ///         .set_stream(
     ///             Stream::new()/* set fields */
@@ -394,11 +397,11 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::Stream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_stream()
     ///         .set_stream(
-    ///             Stream::new().set_name(name)/* set fields */
+    ///             Stream::new().set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -428,10 +431,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     client.delete_stream()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -479,10 +482,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, stream_id: &str, object_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stream_object()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}/objects/{object_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -520,10 +523,10 @@ impl Datastream {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, stream_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_stream_objects()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/streams/{stream_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -615,10 +618,10 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::PrivateConnection;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_private_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_private_connection(
     ///             PrivateConnection::new()/* set fields */
     ///         )
@@ -638,10 +641,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -660,10 +663,10 @@ impl Datastream {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_private_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -693,10 +696,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -725,10 +728,10 @@ impl Datastream {
     /// use google_cloud_datastream_v1::model::Route;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_route()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .set_route_id("route_id_value")
     ///         .set_route(
     ///             Route::new()/* set fields */
@@ -749,10 +752,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str, route_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}/routes/{route_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -771,10 +774,10 @@ impl Datastream {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, parent: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_routes()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -804,10 +807,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, name: &str
+    ///    client: &Datastream, project_id: &str, location_id: &str, private_connection_id: &str, route_id: &str
     /// ) -> Result<()> {
     ///     client.delete_route()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/privateConnections/{private_connection_id}/routes/{route_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

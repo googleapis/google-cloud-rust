@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = DeveloperConnect::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_connections()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -132,10 +135,10 @@ impl DeveloperConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_connections()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -154,10 +157,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,10 +189,10 @@ impl DeveloperConnect {
     /// use google_cloud_developerconnect_v1::model::Connection;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
@@ -224,11 +227,11 @@ impl DeveloperConnect {
     /// use google_cloud_developerconnect_v1::model::Connection;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_connection()
     ///         .set_connection(
-    ///             Connection::new().set_name(name)/* set fields */
+    ///             Connection::new().set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -258,10 +261,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -294,10 +297,10 @@ impl DeveloperConnect {
     /// use google_cloud_developerconnect_v1::model::GitRepositoryLink;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_git_repository_link()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .set_git_repository_link(
     ///             GitRepositoryLink::new()/* set fields */
     ///         )
@@ -330,10 +333,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str, git_repository_link_id: &str
     /// ) -> Result<()> {
     ///     client.delete_git_repository_link()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -352,10 +355,10 @@ impl DeveloperConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_git_repository_links()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -376,10 +379,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, connection_id: &str, git_repository_link_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_git_repository_link()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/connections/{connection_id}/gitRepositoryLinks/{git_repository_link_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -510,10 +513,10 @@ impl DeveloperConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_account_connectors()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -534,10 +537,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, account_connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_account_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -566,10 +569,10 @@ impl DeveloperConnect {
     /// use google_cloud_developerconnect_v1::model::AccountConnector;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_account_connector()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_account_connector(
     ///             AccountConnector::new()/* set fields */
     ///         )
@@ -605,11 +608,11 @@ impl DeveloperConnect {
     /// use google_cloud_developerconnect_v1::model::AccountConnector;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, account_connector_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_account_connector()
     ///         .set_account_connector(
-    ///             AccountConnector::new().set_name(name)/* set fields */
+    ///             AccountConnector::new().set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -641,10 +644,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, account_connector_id: &str
     /// ) -> Result<()> {
     ///     client.delete_account_connector()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -683,10 +686,10 @@ impl DeveloperConnect {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, parent: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, account_connector_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_users()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -716,10 +719,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, name: &str
+    ///    client: &DeveloperConnect, project_id: &str, location_id: &str, account_connector_id: &str, user_id: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/accountConnectors/{account_connector_id}/users/{user_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -964,16 +967,19 @@ impl DeveloperConnect {
 /// ```
 /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = InsightsConfigService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_insights_configs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1082,10 +1088,10 @@ impl InsightsConfigService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, parent: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_insights_configs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1118,10 +1124,10 @@ impl InsightsConfigService {
     /// use google_cloud_developerconnect_v1::model::InsightsConfig;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, parent: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_insights_config()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_insights_config(
     ///             InsightsConfig::new()/* set fields */
     ///         )
@@ -1143,10 +1149,10 @@ impl InsightsConfigService {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, name: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str, insights_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_insights_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1177,11 +1183,11 @@ impl InsightsConfigService {
     /// use google_cloud_developerconnect_v1::model::InsightsConfig;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, name: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str, insights_config_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_insights_config()
     ///         .set_insights_config(
-    ///             InsightsConfig::new().set_name(name)/* set fields */
+    ///             InsightsConfig::new().set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"))/* set fields */
     ///         )
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
@@ -1212,10 +1218,10 @@ impl InsightsConfigService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, name: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str, insights_config_id: &str
     /// ) -> Result<()> {
     ///     client.delete_insights_config()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1233,10 +1239,10 @@ impl InsightsConfigService {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, name: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str, insights_config_id: &str, deployment_event_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment_event()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}/deploymentEvents/{deployment_event_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1256,10 +1262,10 @@ impl InsightsConfigService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, parent: &str
+    ///    client: &InsightsConfigService, project_id: &str, location_id: &str, insights_config_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_deployment_events()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/insightsConfigs/{insights_config_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);

@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    location_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = SecureSourceManager::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_instances()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -134,10 +137,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_instances()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -156,10 +159,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -188,10 +191,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Instance;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
@@ -223,10 +226,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, instance_id: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/instances/{instance_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -246,10 +249,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_repositories()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -268,10 +271,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -303,10 +306,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Repository;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
     ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
@@ -341,11 +344,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Repository;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_repository()
     ///         .set_repository(
-    ///             Repository::new().set_name(name)/* set fields */
+    ///             Repository::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -375,10 +378,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -395,10 +398,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_hooks()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -417,10 +420,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, hook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -449,10 +452,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Hook;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_hook()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_hook_id("hook_id_value")
     ///         .set_hook(
     ///             Hook::new()/* set fields */
@@ -487,11 +490,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Hook;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, hook_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_hook()
     ///         .set_hook(
-    ///             Hook::new().set_name(name)/* set fields */
+    ///             Hook::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -521,10 +524,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, hook_id: &str
     /// ) -> Result<()> {
     ///     client.delete_hook()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/hooks/{hook_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -615,10 +618,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::BranchRule;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_branch_rule()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_branch_rule(
     ///             BranchRule::new()/* set fields */
     ///         )
@@ -639,10 +642,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_branch_rules()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -661,10 +664,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, branch_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_branch_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -695,11 +698,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::BranchRule;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, branch_rule_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_branch_rule()
     ///         .set_branch_rule(
-    ///             BranchRule::new().set_name(name)/* set fields */
+    ///             BranchRule::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -729,10 +732,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, branch_rule_id: &str
     /// ) -> Result<()> {
     ///     client.delete_branch_rule()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/branchRules/{branch_rule_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -760,10 +763,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::PullRequest;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_pull_request()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_pull_request(
     ///             PullRequest::new()/* set fields */
     ///         )
@@ -783,10 +786,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pull_request()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -804,10 +807,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_pull_requests()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -840,11 +843,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::PullRequest;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_pull_request()
     ///         .set_pull_request(
-    ///             PullRequest::new().set_name(name)/* set fields */
+    ///             PullRequest::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1036,10 +1039,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Issue;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_issue()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .set_issue(
     ///             Issue::new()/* set fields */
     ///         )
@@ -1059,10 +1062,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1080,10 +1083,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_issues()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1116,11 +1119,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::Issue;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_issue()
     ///         .set_issue(
-    ///             Issue::new().set_name(name)/* set fields */
+    ///             Issue::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1150,10 +1153,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     client.delete_issue()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1231,10 +1234,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pull_request_comment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1254,10 +1257,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_pull_request_comments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1294,10 +1297,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_pull_request_comment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}"))
     ///         .set_pull_request_comment(
     ///             PullRequestComment::new()/* set fields */
     ///         )
@@ -1333,11 +1336,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_pull_request_comment()
     ///         .set_pull_request_comment(
-    ///             PullRequestComment::new().set_name(name)/* set fields */
+    ///             PullRequestComment::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1369,10 +1372,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, pull_request_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_pull_request_comment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/pullRequests/{pull_request_id}/pullRequestComments/{comment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1513,10 +1516,10 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::IssueComment;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_issue_comment()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"))
     ///         .set_issue_comment(
     ///             IssueComment::new()/* set fields */
     ///         )
@@ -1538,10 +1541,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue_comment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1559,10 +1562,10 @@ impl SecureSourceManager {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, parent: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_issue_comments()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1595,11 +1598,11 @@ impl SecureSourceManager {
     /// use google_cloud_securesourcemanager_v1::model::IssueComment;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_issue_comment()
     ///         .set_issue_comment(
-    ///             IssueComment::new().set_name(name)/* set fields */
+    ///             IssueComment::new().set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .poller().until_done().await?;
@@ -1631,10 +1634,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, name: &str
+    ///    client: &SecureSourceManager, project_id: &str, location_id: &str, repository_id: &str, issue_id: &str, comment_id: &str
     /// ) -> Result<()> {
     ///     client.delete_issue_comment()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/locations/{location_id}/repositories/{repository_id}/issues/{issue_id}/issueComments/{comment_id}"))
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

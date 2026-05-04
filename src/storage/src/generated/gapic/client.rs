@@ -94,10 +94,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     client.delete_bucket()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -123,10 +123,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bucket()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/buckets/{bucket_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -154,10 +154,10 @@ impl StorageControl {
     /// use google_cloud_storage::model::Bucket;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_bucket()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .set_bucket_id("bucket_id_value")
     ///         .set_bucket(
     ///             Bucket::new()/* set fields */
@@ -189,10 +189,10 @@ impl StorageControl {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, parent: &str
+    ///    client: &StorageControl, project_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_buckets()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -266,11 +266,11 @@ impl StorageControl {
     /// use google_cloud_storage::model::Bucket;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, name: &str
+    ///    client: &StorageControl, project_id: &str, bucket_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_bucket()
     ///         .set_bucket(
-    ///             Bucket::new().set_name(name)/* set fields */
+    ///             Bucket::new().set_name(format!("projects/{project_id}/buckets/{bucket_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;

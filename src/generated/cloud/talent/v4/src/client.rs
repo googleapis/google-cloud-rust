@@ -22,16 +22,19 @@
 /// ```
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    tenant_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = CompanyService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_companies()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -131,10 +134,10 @@ impl CompanyService {
     /// use google_cloud_talent_v4::model::Company;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, parent: &str
+    ///    client: &CompanyService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_company()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .set_company(
     ///             Company::new()/* set fields */
     ///         )
@@ -154,10 +157,10 @@ impl CompanyService {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, name: &str
+    ///    client: &CompanyService, project_id: &str, tenant_id: &str, company_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_company()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -177,11 +180,11 @@ impl CompanyService {
     /// use google_cloud_talent_v4::model::Company;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, name: &str
+    ///    client: &CompanyService, project_id: &str, tenant_id: &str, company_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_company()
     ///         .set_company(
-    ///             Company::new().set_name(name)/* set fields */
+    ///             Company::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -201,10 +204,10 @@ impl CompanyService {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, name: &str
+    ///    client: &CompanyService, project_id: &str, tenant_id: &str, company_id: &str
     /// ) -> Result<()> {
     ///     client.delete_company()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}/companies/{company_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -221,10 +224,10 @@ impl CompanyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, parent: &str
+    ///    client: &CompanyService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_companies()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -264,13 +267,15 @@ impl CompanyService {
 /// # Example
 /// ```
 /// # use google_cloud_talent_v4::client::Completion;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = Completion::builder().build().await?;
 ///     let response = client.complete_query()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -411,13 +416,15 @@ impl Completion {
 /// # Example
 /// ```
 /// # use google_cloud_talent_v4::client::EventService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+/// ) -> anyhow::Result<()> {
 ///     let client = EventService::builder().build().await?;
 ///     let response = client.create_client_event()
 ///         /* set fields */
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -564,16 +571,19 @@ impl EventService {
 /// ```
 /// # use google_cloud_talent_v4::client::JobService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    project_id: &str,
+///    tenant_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = JobService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_jobs()
-///         .set_parent(parent)
+///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -676,10 +686,10 @@ impl JobService {
     /// use google_cloud_talent_v4::model::Job;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, parent: &str
+    ///    client: &JobService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )
@@ -731,10 +741,10 @@ impl JobService {
     /// # use google_cloud_talent_v4::client::JobService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, tenant_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -757,11 +767,11 @@ impl JobService {
     /// use google_cloud_talent_v4::model::Job;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, tenant_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_job()
     ///         .set_job(
-    ///             Job::new().set_name(name)/* set fields */
+    ///             Job::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -814,10 +824,10 @@ impl JobService {
     /// # use google_cloud_talent_v4::client::JobService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, name: &str
+    ///    client: &JobService, project_id: &str, tenant_id: &str, job_id: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}/jobs/{job_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -865,10 +875,10 @@ impl JobService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, parent: &str
+    ///    client: &JobService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_jobs()
-    ///         .set_parent(parent)
+    ///         .set_parent(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -972,16 +982,18 @@ impl JobService {
 /// ```
 /// # use google_cloud_talent_v4::client::TenantService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = TenantService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_tenants()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -1104,10 +1116,10 @@ impl TenantService {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &TenantService, name: &str
+    ///    client: &TenantService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tenant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1127,11 +1139,11 @@ impl TenantService {
     /// use google_cloud_talent_v4::model::Tenant;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &TenantService, name: &str
+    ///    client: &TenantService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_tenant()
     ///         .set_tenant(
-    ///             Tenant::new().set_name(name)/* set fields */
+    ///             Tenant::new().set_name(format!("projects/{project_id}/tenants/{tenant_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -1150,10 +1162,10 @@ impl TenantService {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &TenantService, name: &str
+    ///    client: &TenantService, project_id: &str, tenant_id: &str
     /// ) -> Result<()> {
     ///     client.delete_tenant()
-    ///         .set_name(name)
+    ///         .set_name(format!("projects/{project_id}/tenants/{tenant_id}"))
     ///         .send().await?;
     ///     Ok(())
     /// }

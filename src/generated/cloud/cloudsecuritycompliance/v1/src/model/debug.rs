@@ -581,6 +581,44 @@ impl std::fmt::Debug for super::OperationMetadata {
     }
 }
 
+impl std::fmt::Debug for super::Control {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Control");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("family", &self.family);
+        debug_struct.field("control_family", &self.control_family);
+        debug_struct.field("responsibility_type", &self.responsibility_type);
+        debug_struct.field(
+            "google_responsibility_description",
+            &self.google_responsibility_description,
+        );
+        debug_struct.field(
+            "google_responsibility_implementation",
+            &self.google_responsibility_implementation,
+        );
+        debug_struct.field(
+            "customer_responsibility_description",
+            &self.customer_responsibility_description,
+        );
+        debug_struct.field(
+            "customer_responsibility_implementation",
+            &self.customer_responsibility_implementation,
+        );
+        debug_struct.field(
+            "shared_responsibility_description",
+            &self.shared_responsibility_description,
+        );
+        debug_struct.field("additional_content_uri", &self.additional_content_uri);
+        debug_struct.field("related_frameworks", &self.related_frameworks);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ControlFamily {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ControlFamily");
@@ -990,6 +1028,7 @@ impl std::fmt::Debug for super::ListFrameworkComplianceSummariesRequest {
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("filter", &self.filter);
+        debug_struct.field("view", &self.view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1042,6 +1081,7 @@ impl std::fmt::Debug for super::FetchFrameworkComplianceReportRequest {
         let mut debug_struct = f.debug_struct("FetchFrameworkComplianceReportRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("end_time", &self.end_time);
+        debug_struct.field("filter", &self.filter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1163,6 +1203,8 @@ impl std::fmt::Debug for super::FrameworkComplianceSummary {
         debug_struct.field("major_revision_id", &self.major_revision_id);
         debug_struct.field("minor_revision_id", &self.minor_revision_id);
         debug_struct.field("target_resource_details", &self.target_resource_details);
+        debug_struct.field("finding_count", &self.finding_count);
+        debug_struct.field("controls_passing_trend", &self.controls_passing_trend);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1305,6 +1347,18 @@ impl std::fmt::Debug for super::TargetResourceDetails {
         debug_struct.field("update_time", &self.update_time);
         debug_struct.field("major_revision_id", &self.major_revision_id);
         debug_struct.field("minor_revision_id", &self.minor_revision_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Trend {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Trend");
+        debug_struct.field("duration", &self.duration);
+        debug_struct.field("value_percent", &self.value_percent);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -51,6 +51,7 @@ use std::time::Duration;
 
 // A tonic::transport::Channel always has a Buffer layer.
 const DEFAULT_REQUEST_BUFFER_CAPACITY: usize = 1024;
+const X_GOOG_USER_PROJECT: &str = "x-goog-user-project";
 
 pub type GrpcService = Channel;
 
@@ -529,19 +530,20 @@ impl Client {
             .map_err(BuilderError::cred)
     }
 
-    async fn add_auth_headers(&self, mut headers: http::HeaderMap) -> Result<http::HeaderMap> {
+    async fn add_auth_headers(&self, headers: http::HeaderMap) -> Result<http::HeaderMap> {
         let h = self
             .credentials
             .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
 
-        let CacheableResource::New { data, .. } = h else {
+        let CacheableResource::New { mut data, .. } = h else {
             unreachable!("headers are not cached");
         };
 
-        headers.extend(data);
-        Ok(headers)
+        // Note that client headers override credential headers (e.g. for `x-goog-user-project`).
+        data.extend(headers);
+        Ok(data)
     }
 
     async fn make_headers(
@@ -551,9 +553,15 @@ impl Client {
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
         if let Some(user_agent) = options.user_agent() {
-            headers.append(
+            headers.insert(
                 http::header::USER_AGENT,
                 http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            );
+        }
+        if let Some(quota_project) = options.quota_project() {
+            headers.insert(
+                http::header::HeaderName::from_static(X_GOOG_USER_PROJECT),
+                http::header::HeaderValue::from_str(quota_project).map_err(Error::ser)?,
             );
         }
         headers.append(

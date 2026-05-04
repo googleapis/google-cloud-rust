@@ -24,17 +24,20 @@
 /// # extern crate wkt as google_cloud_wkt;
 /// use google_cloud_wkt::FieldMask;
 /// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    billing_account_id: &str,
+///    order_id: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = LicenseManagementService::builder().build().await?;
-///     let name = "name_value";
 ///     let response = client.update_license_pool()
 ///         .set_license_pool(
-///             LicensePool::new().set_name(name)/* set fields */
+///             LicensePool::new().set_name(format!("billingAccounts/{billing_account_id}/orders/{order_id}/licensePool"))/* set fields */
 ///         )
 ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -158,11 +161,11 @@ impl LicenseManagementService {
     /// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
     /// use google_cloud_commerce_consumer_procurement_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManagementService, name: &str
+    ///    client: &LicenseManagementService, billing_account_id: &str, order_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_license_pool()
     ///         .set_license_pool(
-    ///             LicensePool::new().set_name(name)/* set fields */
+    ///             LicensePool::new().set_name(format!("billingAccounts/{billing_account_id}/orders/{order_id}/licensePool"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -270,16 +273,18 @@ impl LicenseManagementService {
 /// ```
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ConsumerProcurementService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_orders()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

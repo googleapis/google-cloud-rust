@@ -1,4 +1,5 @@
 {
+    "api_description": "Backup and DR Service is a managed service that provides backup and recovery of workloads running in Google Cloud.",
     "api_id": "backupdr.googleapis.com",
     "api_shortname": "backupdr",
     "client_documentation": "https://docs.rs/google-cloud-backupdr-v1/latest",

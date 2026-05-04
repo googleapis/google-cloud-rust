@@ -22,9 +22,10 @@
 /// ```
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// use google_cloud_profiler_v2::model::Profile;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ProfilerService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let response = client.create_offline_profile()
 ///         .set_parent(parent)
 ///         .set_profile(
@@ -32,7 +33,8 @@
 ///         )
 ///         .send().await?;
 ///     println!("response {:?}", response);
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description
@@ -214,11 +216,11 @@ impl ProfilerService {
     /// use google_cloud_profiler_v2::model::Profile;
     /// use google_cloud_profiler_v2::Result;
     /// async fn sample(
-    ///    client: &ProfilerService, name: &str
+    ///    client: &ProfilerService, project_id: &str, profile_id: &str
     /// ) -> Result<()> {
     ///     let response = client.update_profile()
     ///         .set_profile(
-    ///             Profile::new().set_name(name)/* set fields */
+    ///             Profile::new().set_name(format!("projects/{project_id}/profiles/{profile_id}"))/* set fields */
     ///         )
     ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
     ///         .send().await?;
@@ -237,16 +239,18 @@ impl ProfilerService {
 /// ```
 /// # use google_cloud_profiler_v2::client::ExportService;
 /// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// async fn sample(
+///    parent: &str,
+/// ) -> anyhow::Result<()> {
 ///     let client = ExportService::builder().build().await?;
-///     let parent = "parent_value";
 ///     let mut list = client.list_profiles()
 ///         .set_parent(parent)
 ///         .by_item();
 ///     while let Some(item) = list.next().await.transpose()? {
 ///         println!("{:?}", item);
 ///     }
-/// # Ok(()) }
+///     Ok(())
+/// }
 /// ```
 ///
 /// # Service Description

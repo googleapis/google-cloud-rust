@@ -183,6 +183,8 @@ impl std::fmt::Debug for super::CommitResponse {
         debug_struct.field("commit_stats", &self.commit_stats);
         debug_struct.field("snapshot_timestamp", &self.snapshot_timestamp);
         debug_struct.field("cache_update", &self.cache_update);
+        debug_struct.field("isolation_level", &self.isolation_level);
+        debug_struct.field("read_lock_mode", &self.read_lock_mode);
         debug_struct.field("multiplexed_session_retry", &self.multiplexed_session_retry);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

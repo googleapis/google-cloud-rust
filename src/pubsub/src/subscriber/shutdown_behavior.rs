@@ -14,6 +14,7 @@
 
 /// The behavior on shutdown.
 #[derive(Clone, Copy, Debug, PartialEq)]
+#[non_exhaustive]
 pub enum ShutdownBehavior {
     /// The subscriber stops reading from the underlying gRPC stream.
     ///

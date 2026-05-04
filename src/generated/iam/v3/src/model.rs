@@ -70,6 +70,7 @@ pub struct OperationMetadata {
 }
 
 impl OperationMetadata {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -307,6 +308,7 @@ pub struct PolicyBinding {
 }
 
 impl PolicyBinding {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -576,6 +578,7 @@ pub mod policy_binding {
     }
 
     impl Target {
+        /// Creates a new default instance.
         pub fn new() -> Self {
             std::default::Default::default()
         }
@@ -842,6 +845,7 @@ pub struct CreatePolicyBindingRequest {
 }
 
 impl CreatePolicyBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -943,6 +947,7 @@ pub struct GetPolicyBindingRequest {
 }
 
 impl GetPolicyBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -987,6 +992,7 @@ pub struct UpdatePolicyBindingRequest {
 }
 
 impl UpdatePolicyBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1102,6 +1108,7 @@ pub struct DeletePolicyBindingRequest {
 }
 
 impl DeletePolicyBindingRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1195,6 +1202,7 @@ pub struct ListPolicyBindingsRequest {
 }
 
 impl ListPolicyBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1269,6 +1277,7 @@ pub struct ListPolicyBindingsResponse {
 }
 
 impl ListPolicyBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1376,6 +1385,7 @@ pub struct SearchTargetPolicyBindingsRequest {
 }
 
 impl SearchTargetPolicyBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1450,6 +1460,7 @@ pub struct SearchTargetPolicyBindingsResponse {
 }
 
 impl SearchTargetPolicyBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1543,6 +1554,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
 }
 
 impl CreatePrincipalAccessBoundaryPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1643,6 +1655,7 @@ pub struct GetPrincipalAccessBoundaryPolicyRequest {
 }
 
 impl GetPrincipalAccessBoundaryPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1688,6 +1701,7 @@ pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
 }
 
 impl UpdatePrincipalAccessBoundaryPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1806,6 +1820,7 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
 }
 
 impl DeletePrincipalAccessBoundaryPolicyRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1897,6 +1912,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
 }
 
 impl ListPrincipalAccessBoundaryPoliciesRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -1960,6 +1976,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesResponse {
 }
 
 impl ListPrincipalAccessBoundaryPoliciesResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2050,6 +2067,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
 }
 
 impl SearchPrincipalAccessBoundaryPolicyBindingsRequest {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2112,6 +2130,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsResponse {
 }
 
 impl SearchPrincipalAccessBoundaryPolicyBindingsResponse {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2215,6 +2234,7 @@ pub struct PrincipalAccessBoundaryPolicy {
 }
 
 impl PrincipalAccessBoundaryPolicy {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2413,6 +2433,7 @@ pub struct PrincipalAccessBoundaryPolicyDetails {
 }
 
 impl PrincipalAccessBoundaryPolicyDetails {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }
@@ -2491,6 +2512,7 @@ pub struct PrincipalAccessBoundaryPolicyRule {
 }
 
 impl PrincipalAccessBoundaryPolicyRule {
+    /// Creates a new default instance.
     pub fn new() -> Self {
         std::default::Default::default()
     }

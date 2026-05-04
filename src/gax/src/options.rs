@@ -43,6 +43,7 @@ use std::sync::Arc;
 pub struct RequestOptions {
     idempotent: Option<bool>,
     user_agent: Option<String>,
+    quota_project: Option<String>,
     attempt_timeout: Option<std::time::Duration>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
@@ -90,6 +91,21 @@ impl RequestOptions {
     /// Gets the current user-agent prefix
     pub fn user_agent(&self) -> &Option<String> {
         &self.user_agent
+    }
+
+    /// Sets the [quota project] for the request.
+    ///
+    /// This adds the `x-goog-user-project` header to the request. Note that
+    /// setting this option overrides a credentials' quota project.
+    ///
+    /// [quota project]: https://docs.cloud.google.com/docs/quotas/quota-project
+    pub fn set_quota_project<T: Into<String>>(&mut self, v: T) {
+        self.quota_project = Some(v.into());
+    }
+
+    /// Gets the current quota project.
+    pub fn quota_project(&self) -> &Option<String> {
+        &self.quota_project
     }
 
     /// Sets the per-attempt timeout.
@@ -189,6 +205,22 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
 
     /// Sets the polling backoff policy configuration.
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
+
+    // Methods with a default implementation.
+    // See https://github.com/googleapis/google-cloud-rust/pull/5490 for context.
+
+    /// Sets the [quota project] for the request.
+    ///
+    /// This adds the `x-goog-user-project` header to the request. Note that
+    /// setting this option overrides a credentials' quota project.
+    ///
+    /// [quota project]: https://docs.cloud.google.com/docs/quotas/quota-project
+    fn with_quota_project<V: Into<String>>(self, _v: V) -> Self
+    where
+        Self: Sized,
+    {
+        unimplemented!();
+    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -296,6 +328,11 @@ where
         self
     }
 
+    fn with_quota_project<V: Into<String>>(mut self, v: V) -> Self {
+        self.request_options().set_quota_project(v);
+        self
+    }
+
     fn with_attempt_timeout<V: Into<std::time::Duration>>(mut self, v: V) -> Self {
         self.request_options().set_attempt_timeout(v);
         self
@@ -357,6 +394,9 @@ mod tests {
 
     #[test]
     fn request_options() {
+        const USER_AGENT: &str = "test-only";
+        const USER_PROJECT: &str = "test-project";
+
         let mut opts = RequestOptions::default();
 
         assert_eq!(opts.idempotent, None);
@@ -365,13 +405,16 @@ mod tests {
         opts.set_idempotency(false);
         assert_eq!(opts.idempotent(), Some(false));
 
-        opts.set_user_agent("test-only");
-        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        opts.set_user_agent(USER_AGENT);
+        assert_eq!(opts.user_agent().as_deref(), Some(USER_AGENT));
         assert_eq!(opts.attempt_timeout(), &None);
+
+        opts.set_quota_project(USER_PROJECT);
+        assert_eq!(opts.quota_project().as_deref(), Some(USER_PROJECT));
 
         let d = Duration::from_secs(123);
         opts.set_attempt_timeout(d);
-        assert_eq!(opts.user_agent().as_deref(), Some("test-only"));
+        assert_eq!(opts.user_agent().as_deref(), Some(USER_AGENT));
         assert_eq!(opts.attempt_timeout(), &Some(d));
 
         opts.set_retry_policy(LimitedAttemptCount::new(3));
@@ -425,8 +468,12 @@ mod tests {
 
     #[test]
     fn request_options_builder() -> anyhow::Result<()> {
+        const USER_AGENT: &str = "test-only";
+        const USER_PROJECT: &str = "test-project";
+
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
+        assert_eq!(builder.request_options().quota_project(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
 
         let mut builder = TestBuilder::default().with_idempotency(true);
@@ -434,12 +481,18 @@ mod tests {
         let mut builder = TestBuilder::default().with_idempotency(false);
         assert_eq!(builder.request_options().idempotent(), Some(false));
 
-        let mut builder = TestBuilder::default().with_user_agent("test-only");
+        let mut builder = TestBuilder::default().with_user_agent(USER_AGENT);
         assert_eq!(
             builder.request_options().user_agent().as_deref(),
-            Some("test-only")
+            Some(USER_AGENT)
         );
         assert_eq!(builder.request_options().attempt_timeout(), &None);
+
+        let mut builder = TestBuilder::default().with_quota_project(USER_PROJECT);
+        assert_eq!(
+            builder.request_options().quota_project().as_deref(),
+            Some(USER_PROJECT)
+        );
 
         let d = Duration::from_secs(123);
         let mut builder = TestBuilder::default().with_attempt_timeout(d);
