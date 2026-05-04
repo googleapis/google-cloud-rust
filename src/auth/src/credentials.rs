@@ -781,11 +781,9 @@ fn build_credentials(
                     universe_domain.clone(),
                     |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
                 ),
-                "gdch_service_account" => {
-                    Err(BuilderError::not_supported(format!(
-                        "{cred_type}, use gdch::Builder directly."
-                    )))
-                }
+                "gdch_service_account" => Err(BuilderError::not_supported(format!(
+                    "{cred_type}, use gdch::Builder directly."
+                ))),
                 _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }

@@ -49,6 +49,7 @@
 use super::internal::sts_exchange::{ExchangeTokenRequest, STSHandler};
 use crate::Result;
 use crate::access_boundary::CredentialsWithAccessBoundary;
+use crate::constants::{GDCH_SERVICEACCOUNT_TOKEN_TYPE, TOKEN_EXCHANGE_TOKEN_TYPE};
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::errors::CredentialsError;
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
@@ -168,12 +169,17 @@ impl TokenProvider for GdchServiceAccountTokenProvider {
         let req = ExchangeTokenRequest {
             url: self.key.token_uri.clone(),
             subject_token: jwt,
-            subject_token_type: "urn:ietf:params:oauth:token-type:jwt".to_string(),
+            subject_token_type: GDCH_SERVICEACCOUNT_TOKEN_TYPE.to_string(),
             audience: Some(self.audience.clone()),
+            grant_type: Some(TOKEN_EXCHANGE_TOKEN_TYPE.to_string()),
             ..ExchangeTokenRequest::default()
         };
 
-        let resp = STSHandler::exchange_token(req).await?;
+        let resp = STSHandler::default()
+            .with_json_body()
+            .with_ca_cert_path(self.key.ca_cert_path.clone())
+            .exchange_token(req)
+            .await?;
 
         let expires_at = Instant::now() + tokio::time::Duration::from_secs(resp.expires_in);
 
@@ -230,7 +236,10 @@ impl Builder {
         }
 
         let creds = GdchServiceAccountCredentials {
-            token_provider: TokenCache::new(GdchServiceAccountTokenProvider::new(key, self.audience)),
+            token_provider: TokenCache::new(GdchServiceAccountTokenProvider::new(
+                key,
+                self.audience,
+            )),
             quota_project_id: self.quota_project_id,
         };
 
@@ -377,15 +386,11 @@ pub(crate) mod tests {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("POST", "/token"),
-                request::body(url_decoded(contains((
-                    "grant_type",
-                    "urn:ietf:params:oauth:grant-type:token-exchange"
-                )))),
-                request::body(url_decoded(contains((
-                    "subject_token_type",
-                    "urn:ietf:params:oauth:token-type:jwt"
-                )))),
-                request::body(url_decoded(contains(("audience", "test-audience")))),
+                request::body(json_decoded(|body: &serde_json::Value| {
+                    body["grant_type"] == TOKEN_EXCHANGE_TOKEN_TYPE
+                        && body["subject_token_type"] == GDCH_SERVICEACCOUNT_TOKEN_TYPE
+                        && body["audience"] == "test-audience"
+                })),
             ])
             .respond_with(status_code(200).body(response_body)),
         );
