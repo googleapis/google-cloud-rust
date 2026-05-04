@@ -127,11 +127,7 @@ pub async fn try_get_metric(
         ))
         .send()
         .await?;
-    if response.time_series.is_empty() {
-        Ok(None)
-    } else {
-        Ok(Some(response))
-    }
+    Ok(Some(response).filter(|r| !r.time_series.is_empty()))
 }
 
 pub async fn set_up_providers(
